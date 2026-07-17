@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clover Terrace Weather Station</title>
 <style>
-  /* ---------- Easy customization: edit these variables ---------- */
+  /* ---------- edit these variables ---------- */
   :root {
     --bg-color: #0f1724;
     --card-color: #182338;
     --accent-color: #4fb0ff;
     --text-color: #eef2f7;
     --muted-color: #93a1b5;
-    --font-family: Georgia, VERDANA, system-ui, -apple-system, sans-serif;
+    --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   }
 
   * { box-sizing: border-box; }
@@ -167,7 +167,7 @@
 </head>
 <body>
 
-  <h1><span id="weather-icon">🍀</span>Clover Terrace Weather Station</h1>
+  <h1><span id="weather-icon">🍀</span> Clover Terrace Weather Station</h1>
   <div id="subtitle">Loading...</div>
 
   <div id="error-banner"></div>
@@ -188,7 +188,28 @@
     </div>
   </div>
 
-  <div id="status"></div>
+  <div class="chart-card">
+    <h2>Wind Speed &amp; Gusts — Last 7 Days</h2>
+    <div class="chart-wrap">
+      <canvas id="windChart"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <h2>Wind Direction — Last 7 Days</h2>
+    <div class="chart-wrap">
+      <canvas id="windRoseChart"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <h2>Barometric Pressure — Last 7 Days</h2>
+    <div class="chart-wrap">
+      <canvas id="pressureChart"></canvas>
+    </div>
+  </div>
+
+ <div id="status"></div> 
 
   <div id="visitor-counter">
     <span>🌪️ Visitors:</span>
@@ -228,6 +249,9 @@
   const errorBanner = document.getElementById('error-banner');
 
   let historyChart = null;
+  let windChart = null;
+  let windRoseChart = null;
+  let pressureChart = null;
 
   function renderChart(history) {
     const labels = history.map(entry => entry.time);
@@ -310,138 +334,185 @@
       const history = await res.json();
       if (Array.isArray(history) && history.length > 0) {
         renderChart(history);
+        renderWindChart(history);
+        renderWindRose(history);
+        renderPressureChart(history);
       }
     } catch (err) {
       // Don't block the rest of the page if history fails to load —
-      // just leave the chart card empty.
+      // just leave the chart cards empty.
       console.warn('Could not load history data:', err.message);
     }
   }
 
-  // ---------- Weather-based color/icon themes ----------
-  // NOTE: The Weather Underground API only gives raw sensor readings
-  // (temp, precip rate, solar radiation, etc.) — not an actual "condition"
-  // label. So this is a heuristic guess at current conditions based on
-  // those numbers, not a real forecast/condition read.
-  // Tune these thresholds (mph / in-hr / °F) to match your climate.
-  const WINDY_WIND_MPH = 20;           // sustained wind or gust above this = windy theme
-  const THUNDERSTORM_WIND_MPH = 25;    // wind above this...
-  const THUNDERSTORM_PRECIP_INHR = 0.1; // ...combined with precip rate above this = thunderstorm theme
-  const EXTREME_HEAT_TEMP_F = 95;      // temp (or heat index, if higher) at/above this = extreme heat theme
+  function renderWindChart(history) {
+    const labels = history.map(entry => entry.time);
+    const speedData = history.map(entry => entry.windSpeed);
+    const gustData = history.map(entry => entry.windGust);
 
-  const THEMES = {
-    sunny:        { bg: '#3a2f14', card: '#4a3d1c', accent: '#ffcc4d', icon: '☀️' },
-    extremeHeat:  { bg: '#4a1907', card: '#5c2712', accent: '#ff6b35', icon: '🥵' },
-    cloudy:       { bg: '#232b36', card: '#2f3947', accent: '#9fb3c8', icon: '☁️' },
-    rainy:        { bg: '#101820', card: '#182430', accent: '#4fb0ff', icon: '🌧️' },
-    snowy:        { bg: '#1b2430', card: '#25313f', accent: '#dff3ff', icon: '❄️' },
-    night:        { bg: '#0a0f1e', card: '#131b2e', accent: '#7d9dff', icon: '🌙' },
-    windy:        { bg: '#1c2b28', card: '#25372f', accent: '#7fe0c0', icon: '💨' },
-    thunderstorm: { bg: '#181022', card: '#241a33', accent: '#c79bff', icon: '⛈️' },
-  };
+    const ctx = document.getElementById('windChart').getContext('2d');
 
-  function classifyWeather(data) {
-    const hour = new Date(data.obsTimeLocal).getHours();
-    const isNight = hour < 6 || hour >= 20;
-    const precip = data.precipRate || 0;
-    const wind = Math.max(data.windSpeed || 0, data.windGust || 0);
-    const feelsLike = Math.max(data.temp || 0, data.heatIndex || 0);
+    if (windChart) {
+      windChart.data.labels = labels;
+      windChart.data.datasets[0].data = speedData;
+      windChart.data.datasets[1].data = gustData;
+      windChart.update();
+      return;
+    }
 
-    // Checked first/most specific to least, so a severe combo (storm) wins
-    // over a single-factor read (just rainy, or just windy).
-    if (precip >= THUNDERSTORM_PRECIP_INHR && wind >= THUNDERSTORM_WIND_MPH) return 'thunderstorm';
-    if (precip > 0.01 && data.temp <= 32) return 'snowy';
-    if (precip > 0.01) return 'rainy';
-    if (wind >= WINDY_WIND_MPH) return 'windy';
-    if (feelsLike >= EXTREME_HEAT_TEMP_F) return 'extremeHeat';
-    if (isNight) return 'night';
-    if ((data.solarRadiation || 0) > 400) return 'sunny';
-    return 'cloudy';
-  }
-
-  function applyTheme(themeKey) {
-    const theme = THEMES[themeKey] || THEMES.cloudy;
-    const root = document.documentElement.style;
-    root.setProperty('--bg-color', theme.bg);
-    root.setProperty('--card-color', theme.card);
-    root.setProperty('--accent-color', theme.accent);
-    document.getElementById('weather-icon').textContent = theme.icon;
-  }
-
-  function renderCards(data) {
-    grid.innerHTML = '';
-    FIELDS.forEach(field => {
-      const value = data[field.key];
-      if (value === undefined || value === null) return;
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <div class="label">${field.label}</div>
-        <div class="value">${value}<span class="unit">${field.unit}</span></div>
-      `;
-      grid.appendChild(card);
+    windChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Sustained (mph)',
+            data: speedData,
+            borderColor: '#7fe0c0',
+            backgroundColor: 'rgba(127, 224, 192, 0.1)',
+            tension: 0.25,
+            pointRadius: 0,
+            borderWidth: 2,
+          },
+          {
+            label: 'Gust (mph)',
+            data: gustData,
+            borderColor: '#ff8f6b',
+            backgroundColor: 'rgba(255, 143, 107, 0.08)',
+            tension: 0.25,
+            pointRadius: 0,
+            borderWidth: 2,
+            borderDash: [4, 3],
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+          x: {
+            ticks: { color: '#93a1b5', maxTicksLimit: 10, autoSkip: true },
+            grid: { color: 'rgba(255,255,255,0.05)' },
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { color: '#93a1b5' },
+            grid: { color: 'rgba(255,255,255,0.05)' },
+            title: { display: true, text: 'mph', color: '#93a1b5' },
+          },
+        },
+        plugins: {
+          legend: { labels: { color: '#eef2f7' } },
+        },
+      },
     });
   }
 
-  async function loadData() {
-    try {
-      const res = await fetch(DATA_URL, { cache: 'no-store' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
+  // Buckets history readings into 8 compass directions and averages wind
+  // speed for each — a simple "wind rose" showing prevailing direction.
+  const COMPASS_LABELS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
 
-      renderCards(data);
-      applyTheme(classifyWeather(data));
-      subtitle.textContent = data.neighborhood
-        ? `Station ${data.stationID} — ${data.neighborhood}`
-        : `Station ${data.stationID}`;
+  function computeWindRose(history) {
+    const sums = new Array(8).fill(0);
+    const counts = new Array(8).fill(0);
 
-      errorBanner.style.display = 'none';
-      status.textContent = `Last observation: ${data.obsTimeLocal || 'unknown'} · Page checked: ${new Date().toLocaleTimeString()}`;
+    history.forEach(entry => {
+      if (entry.winddir === undefined || entry.winddir === null) return;
+      const idx = Math.round((entry.winddir % 360) / 45) % 8;
+      sums[idx] += entry.windSpeed || 0;
+      counts[idx] += 1;
+    });
 
-      // Cache-bust the camera image so the browser re-fetches the file
-      // instead of showing a stale cached copy of the same filename.
-      const cameraImg = document.getElementById('camera-img');
-      cameraImg.src = `data/camera.jpg?t=${Date.now()}`;
-    } catch (err) {
-      errorBanner.textContent = `Couldn't load weather data: ${err.message}`;
-      errorBanner.style.display = 'block';
-      status.textContent = `Last check attempt: ${new Date().toLocaleTimeString()}`;
-    }
+    return sums.map((sum, i) => (counts[i] ? Math.round((sum / counts[i]) * 10) / 10 : 0));
   }
 
-  loadData();
-  loadHistory();
-  setInterval(loadData, REFRESH_INTERVAL_MS);
-  // Refresh the chart less often than the current-conditions cards,
-  // since new history entries only land every ~10 minutes anyway.
-  setInterval(loadHistory, 5 * 60 * 1000);
+  function renderWindRose(history) {
+    const data = computeWindRose(history);
+    const ctx = document.getElementById('windRoseChart').getContext('2d');
 
-  // ---------- Visitor counter (CounterAPI, free, no signup) ----------
-  // IMPORTANT: change COUNTER_NAMESPACE/COUNTER_NAME to something unique
-  // to you (e.g. your GitHub username + repo name). CounterAPI's free tier
-  // is public, so a generic name could be shared/incremented by other sites.
-  const COUNTER_NAMESPACE = 'CloverTerraceWXStation';
-  const COUNTER_NAME = 'weather-station-visits';
-
-  async function initVisitorCounter() {
-    const el = document.getElementById('visitor-count');
-    try {
-      const res = await fetch(
-        `https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/${COUNTER_NAME}/up`
-      );
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      el.textContent = data.value;
-    } catch (err) {
-      el.textContent = '—';
-      console.warn('Visitor counter unavailable:', err.message);
+    if (windRoseChart) {
+      windRoseChart.data.datasets[0].data = data;
+      windRoseChart.update();
+      return;
     }
+
+    windRoseChart = new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: COMPASS_LABELS,
+        datasets: [
+          {
+            label: 'Avg wind speed (mph)',
+            data: data,
+            borderColor: '#7fe0c0',
+            backgroundColor: 'rgba(127, 224, 192, 0.2)',
+            pointBackgroundColor: '#7fe0c0',
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          r: {
+            beginAtZero: true,
+            ticks: { color: '#93a1b5', backdropColor: 'transparent' },
+            grid: { color: 'rgba(255,255,255,0.08)' },
+            angleLines: { color: 'rgba(255,255,255,0.08)' },
+            pointLabels: { color: '#eef2f7' },
+          },
+        },
+        plugins: {
+          legend: { labels: { color: '#eef2f7' } },
+        },
+      },
+    });
   }
 
-  // Runs once per page load — intentionally NOT tied to the refresh
-  // intervals above, so revisits/auto-refreshes don't inflate the count.
-  initVisitorCounter();
-</script>
+  function renderPressureChart(history) {
+    const labels = history.map(entry => entry.time);
+    const pressureData = history.map(entry => entry.pressure);
 
-</body>
-</html>
+    const ctx = document.getElementById('pressureChart').getContext('2d');
+
+    if (pressureChart) {
+      pressureChart.data.labels = labels;
+      pressureChart.data.datasets[0].data = pressureData;
+      pressureChart.update();
+      return;
+    }
+
+    pressureChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Pressure (inHg)',
+            data: pressureData,
+            borderColor: '#c79bff',
+            backgroundColor: 'rgba(199, 155, 255, 0.1)',
+            tension: 0.25,
+            pointRadius: 0,
+            borderWidth: 2,
+            fill: true,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+          x: {
+            ticks: { color: '#93a1b5', maxTicksLimit: 10, autoSkip: true },
+            grid: { color: 'rgba(255,255,255,0.05)' },
+          },
+          y: {
+            ticks: { color: '#93a1b5' },
+            grid: { color: 'rgba(255,255,255,0.05)' },
+            title: { display: true, text: 'inHg', color: '#93a1b5' },
+          },
+        },
+        plugins: {
