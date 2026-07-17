@@ -700,9 +700,33 @@
   // support it.
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js').catch((err) => {
+      navigator.serviceWorker.register('sw.js').then((reg) => {
+        // Request background sync when the service worker is registered
+        if ('sync' in reg) {
+          reg.sync.register('sync-weather-data').catch((err) => {
+            console.warn('Background sync registration failed (may not be supported):', err);
+          });
+        }
+        // Listen for messages from the service worker
+        navigator.serviceWorker.addEventListener('message', (event) => {
+          if (event.data && event.data.type === 'background-sync-complete') {
+            console.log('Background sync completed at', event.data.timestamp);
+            // Optionally refresh data if needed
+            if (event.data.weatherAvailable) {
+              loadData(true);
+            }
+          }
+        });
+      }).catch((err) => {
         console.warn('Service worker registration failed:', err);
       });
+    });
+
+    // Also request background sync when the page becomes visible
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({ type: 'SCHEDULE_SYNC' });
+      }
     });
   }
 </script>
