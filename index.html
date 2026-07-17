@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home Weather Station</title>
+<title>Clover Terrace Weather</title>
 <style>
   /* ---------- Easy customization: edit these variables ---------- */
   :root {
@@ -337,7 +337,7 @@
     const el = document.getElementById('visitor-count');
     try {
       const res = await fetch(
-        `https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/${COUNTER_NAME}/up`
+        `https://api.counterapi.dev/v1/${CloverTerraceWX}/${WeatherWatchers}/up`
       );
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
