@@ -27,10 +27,18 @@ jobs:
           WU_API_KEY: ${{ secrets.WU_API_KEY }}
         run: python scripts/fetch_weather.py
 
+      - name: Fetch latest camera snapshot
+        continue-on-error: true   # don't let a camera hiccup block weather data updates
+        env:
+          ECOWITT_APP_KEY: ${{ secrets.ECOWITT_APP_KEY }}
+          ECOWITT_API_KEY: ${{ secrets.ECOWITT_API_KEY }}
+          ECOWITT_MAC: ${{ secrets.ECOWITT_MAC }}
+        run: python scripts/fetch_camera.py
+
       - name: Commit and push if data changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/weather.json data/history.json
+          git add data/weather.json data/history.json data/camera.jpg
           git diff --cached --quiet || git commit -m "Update weather data [skip ci]"
           git push
