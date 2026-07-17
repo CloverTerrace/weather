@@ -27,7 +27,7 @@ paid hosting.
 
 3. **Find your Station ID.** This is the ID you already use when uploading
    data from your Ecowitt console/gateway to Weather Underground (looks
-   like `KPASOMEW3`).
+   like `KPAPLACE44`).
 
 4. **Add two repository secrets:**
    Go to your repo → Settings → Secrets and variables → Actions → New
@@ -47,6 +47,73 @@ paid hosting.
    `https://yourusername.github.io/your-repo-name/`) and you should see
    your live conditions.
 
+## Historical graph
+
+Every time the workflow runs, `fetch_weather.py` now also appends the
+current reading to `data/history.json` (temperature, humidity, wind
+speed, pressure), then trims that file to the most recent
+`MAX_HISTORY_ENTRIES` readings (1008 by default — 7 days' worth at a
+10-minute fetch interval). `index.html` loads this file with Chart.js
+(pulled from a CDN, no build step) and renders a temperature/humidity
+line chart.
+
+If you change how often the workflow runs (the cron schedule), you may
+want to adjust `MAX_HISTORY_ENTRIES` in `fetch_weather.py` to keep the
+same number of days of history — e.g. if you switch to fetching every 5
+minutes, double it to keep 7 days' worth.
+
+## Visitor counter
+
+The footer counter uses [CounterAPI](https://counterapi.dev)'s free v1
+endpoint, which needs no signup or API key and works directly from
+browser JavaScript. **Before deploying**, open `index.html` and change:
+
+```js
+const COUNTER_NAMESPACE = 'change-me-yourusername';
+const COUNTER_NAME = 'weather-station-visits';
+```
+
+to something unique to you (e.g. your GitHub username and repo name).
+CounterAPI's v1 counters are public — anyone who knows the
+namespace/name combo can increment or read it — so a generic name risks
+colliding with someone else's site.
+
+A couple of caveats worth knowing:
+- It counts **page loads**, not unique visitors — reloading the page
+  increments it again.
+- The counter only increments once per page load (it's deliberately not
+  tied to the auto-refresh timers), so leaving the tab open won't
+  inflate the number.
+
+## Camera snapshot
+
+If your station has a camera accessory, `scripts/fetch_camera.py` pulls
+the latest snapshot from **Ecowitt's own cloud API** (this is separate
+from Weather Underground/Findu — the camera image isn't part of that
+data feed) and saves it as `data/camera.jpg`, which the page displays
+with cache-busting so it always shows the freshest image rather than a
+browser-cached one.
+
+**Setup:**
+1. Log into https://www.ecowitt.net with the account tied to your
+   console/camera, and create an **Application Key** and **API Key**
+   under the Member Center / API section.
+2. Find your station's **MAC address or IMEI** in the device list on
+   ecowitt.net.
+3. Add three more repository secrets (same place as the WU ones):
+   - `ECOWITT_APP_KEY`
+   - `ECOWITT_API_KEY`
+   - `ECOWITT_MAC`
+
+Ecowitt's response structure can vary slightly by device/firmware, so
+the script searches the response for an image URL rather than assuming
+one exact key path. If it can't find one on your first run, check the
+"Fetch latest camera snapshot" step's log in the Actions tab — the
+script prints the full raw API response there so you (or I) can see
+the actual key path and adjust `find_image_url()` if needed. This step
+is also set to not block the weather-data commit if it fails, so a
+camera hiccup won't stop your temperature/humidity updates.
+
 ## Customizing
 
 - **Which fields show up, and their order/labels:** edit the `FIELDS`
@@ -60,11 +127,3 @@ paid hosting.
 - **Metric units:** change `units=e` to `units=m` in
   `scripts/fetch_weather.py`'s URL, and update the unit labels in
   `index.html` accordingly (°C, km/h, mm, hPa).
-
-## Notes on Findu.com as an alternative source
-
-Findu.com doesn't offer a clean, stable JSON API the way Weather
-Underground does — it's built around APRS packet data and mostly returns
-HTML or loosely-structured text/XML, which is more brittle to parse and
-more likely to break silently. Since your station already reports to WU,
-that's the more reliable pull source for this setup.
