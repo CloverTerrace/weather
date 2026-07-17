@@ -5,7 +5,7 @@
 // fresh so the app shows live conditions, not a stale cached snapshot.
 // It only caches the app "shell" (the page itself, styles, icons) so the
 // app opens instantly and still loads its frame if the network is briefly
-// unavailable.
+// unavailable. Version 2.
 
 const CACHE_NAME = 'weather-app-shell-v1';
 const SHELL_FILES = [
