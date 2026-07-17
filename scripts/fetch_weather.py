@@ -89,14 +89,14 @@ def main():
             history = []
 
     history.append({
-        "time": output["obsTimeLocal"],
-        "temp": output["temp"],
-        "humidity": output["humidity"],
-        "windSpeed": output["windSpeed"],
-        "windGust": output["windGust"],
-        "winddir": output["winddir"],
-        "pressure": output["pressure"],
-    })
+    "time": output["obsTimeLocal"],
+    "temp": output["temp"],
+    "humidity": output["humidity"],
+    "windSpeed": output["windSpeed"] or 0,      # ← Add fallback
+    "windGust": output["windGust"] or 0,        # ← Add fallback
+    "winddir": output["winddir"] or 0,          # ← Add fallback
+    "pressure": output["pressure"],
+})
 
     # Keep only the most recent MAX_HISTORY_ENTRIES readings.
     history = history[-MAX_HISTORY_ENTRIES:]
