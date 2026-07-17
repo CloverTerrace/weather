@@ -1,12 +1,18 @@
 {
-  "background_color": "#ffffff",
-  "dir": "ltr",
+  "name": "Clover Terrace Weather Station",
+  "short_name": "Weather",
+  "description": "Live conditions, camera, and history from Clober Terrace weather station.",
+
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "name": "Clover Terrace WX",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "CloverWX",
-  "start_url": "/",
-  "theme_color": "#a396bd",
-  "description": "Clover Terrace Weather Viewer"
+  "orientation": "portrait",
+
+  "background_color": "#0f1724",
+  "theme_color": "#0f1724",
+
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
 }
