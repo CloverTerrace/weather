@@ -330,14 +330,14 @@
   // IMPORTANT: change COUNTER_NAMESPACE/COUNTER_NAME to something unique
   // to you (e.g. your GitHub username + repo name). CounterAPI's free tier
   // is public, so a generic name could be shared/incremented by other sites.
-  const COUNTER_NAMESPACE = 'change-me-yourusername';
+  const COUNTER_NAMESPACE = 'Clover-Terrace-WX';
   const COUNTER_NAME = 'weather-station-visits';
 
   async function initVisitorCounter() {
     const el = document.getElementById('visitor-count');
     try {
       const res = await fetch(
-        `https://api.counterapi.dev/v1/${CloverTerraceWX}/${WeatherWatchers}/up`
+        `https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/${COUNTER_NAME}/up`
       );
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
