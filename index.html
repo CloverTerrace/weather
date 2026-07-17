@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clover Terrace Weather Station</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1724">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <style>
   /* ---------- Easy customization: edit these variables ---------- */
   :root {
@@ -648,6 +652,17 @@
   // Runs once per page load — intentionally NOT tied to the refresh
   // intervals above, so revisits/auto-refreshes don't inflate the count.
   initVisitorCounter();
+
+  // Register the service worker (enables installability + the app shell
+  // caching described in sw.js). Safe to no-op in browsers that don't
+  // support it.
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch((err) => {
+        console.warn('Service worker registration failed:', err);
+      });
+    });
+  }
 </script>
 
 </body>
