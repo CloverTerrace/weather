@@ -118,6 +118,45 @@
     letter-spacing: 0.05em;
   }
 
+.charts-dropdown {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 1.5rem;
+  }
+
+  .charts-dropdown summary {
+    background: var(--card-color);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--muted-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.9rem;
+    list-style: none;
+  }
+
+  .charts-dropdown summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .charts-dropdown summary::before {
+    content: '▶';
+    display: inline-block;
+    margin-right: 0.6rem;
+    transition: transform 0.2s ease;
+    font-size: 0.7rem;
+  }
+
+  .charts-dropdown[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  .charts-dropdown .chart-card {
+    margin-top: 1rem;
+  }
+  
   .chart-wrap {
     position: relative;
     height: 300px;
@@ -270,33 +309,37 @@
     <div class="outlook-note">Live image from NOAA's Storm Prediction Center — updates automatically as SPC issues new outlooks.</div>
   </div>
   
-  <div class="chart-card">
-    <h2>Temperature &amp; Humidity — Last 7 Days</h2>
-    <div class="chart-wrap">
-      <canvas id="historyChart"></canvas>
-    </div>
-  </div>
+<details class="charts-dropdown">
+    <summary>📊 Historical Data</summary>
 
-  <div class="chart-card">
-    <h2>Wind Speed &amp; Gusts — Last 7 Days</h2>
-    <div class="chart-wrap">
-      <canvas id="windChart"></canvas>
+    <div class="chart-card">
+      <h2>Temperature &amp; Humidity — Last 7 Days</h2>
+      <div class="chart-wrap">
+        <canvas id="historyChart"></canvas>
+      </div>
     </div>
-  </div>
 
-  <div class="chart-card">
-    <h2>Wind Direction — Last 7 Days</h2>
-    <div class="chart-wrap">
-      <canvas id="windRoseChart"></canvas>
+    <div class="chart-card">
+      <h2>Wind Speed &amp; Gusts — Last 7 Days</h2>
+      <div class="chart-wrap">
+        <canvas id="windChart"></canvas>
+      </div>
     </div>
-  </div>
 
-  <div class="chart-card">
-    <h2>Barometric Pressure — Last 7 Days</h2>
-    <div class="chart-wrap">
-      <canvas id="pressureChart"></canvas>
+    <div class="chart-card">
+      <h2>Wind Direction — Last 7 Days</h2>
+      <div class="chart-wrap">
+        <canvas id="windRoseChart"></canvas>
+      </div>
     </div>
-  </div>
+
+    <div class="chart-card">
+      <h2>Barometric Pressure — Last 7 Days</h2>
+      <div class="chart-wrap">
+        <canvas id="pressureChart"></canvas>
+      </div>
+    </div>
+  </details>
 
   <div id="status"></div>
 
@@ -778,6 +821,19 @@ const THEMES = {
       `https://www.spc.noaa.gov/products/outlook/day1otlk.gif?t=${Date.now()}`;
   }, 30 * 60 * 1000);
 
+// Chart.js sizes canvases based on the container's dimensions at creation
+  // time — since these charts start out inside a collapsed <details>, they
+  // need an explicit resize() once the dropdown actually opens.
+  const chartsDropdown = document.querySelector('.charts-dropdown');
+  chartsDropdown.addEventListener('toggle', () => {
+    if (chartsDropdown.open) {
+      historyChart?.resize();
+      windChart?.resize();
+      windRoseChart?.resize();
+      pressureChart?.resize();
+    }
+  });
+  
   // Attach click handler to refresh button
   refreshBtn.addEventListener('click', handleRefreshClick);
 
