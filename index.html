@@ -167,6 +167,54 @@
     margin: 0 auto;
   }
 
+.forecast-periods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .forecast-period {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .forecast-period .period-name {
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-bottom: 0.4rem;
+  }
+
+  .forecast-period .period-temp {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .forecast-period .period-short {
+    color: var(--text-color);
+    margin-bottom: 0.3rem;
+  }
+
+  .forecast-period .period-wind {
+    color: var(--muted-color);
+    font-size: 0.85rem;
+  }
+
+  .outlook-card img {
+    max-width: 100%;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .outlook-card .outlook-note {
+    color: var(--muted-color);
+    font-size: 0.8rem;
+    margin-top: 0.75rem;
+  }
+  
   #refresh-btn {
     background: var(--accent-color);
     color: var(--bg-color);
