@@ -40,8 +40,10 @@ self.addEventListener('fetch', (event) => {
 
   // Never intercept the live data files or the Chart.js CDN/API calls —
   // let those always go straight to the network.
+ 
   if (
     url.pathname.includes('/data/') ||
+    url.hostname.includes('spc.noaa.gov') ||
     url.hostname.includes('cdnjs.cloudflare.com') ||
     url.hostname.includes('counterapi.dev')
   ) {
