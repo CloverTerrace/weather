@@ -116,6 +116,7 @@ camera hiccup won't stop your temperature/humidity updates.
 - **Metric units:** change `units=e` to `units=m` in
   `scripts/fetch_weather.py`'s URL, and update the unit labels in
   `index.html` accordingly (°C, km/h, mm, hPa).
+  **visitor counter settings are near the bottom of the script block, you can customize them there!
 
 ## compatibility with other personal weather stations ☔
 I haven't tested it, but I'm sure this page template will work with just about any PWS (personal weather station) that is capable of sending data to websites like weatherunderground, Findu, CWOP, etc. You really just need to be able to generate API keys. Remember, if you're pulling data directly from a different brand of personal weather station you may need to change the parts of code that are pulling data from the Ecowitt API.
