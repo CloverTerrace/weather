@@ -62,26 +62,7 @@ minutes, double it to keep 7 days' worth.
 
 ## visitor counter ⛅
 
-The footer counter uses [CounterAPI](https://counterapi.dev)'s free v1
-endpoint, which needs no signup or API key and works directly from
-browser JavaScript. **Before deploying**, open `index.html` and change:
-
-```js
-const COUNTER_NAMESPACE = 'change-me-yourusername';
-const COUNTER_NAME = 'weather-station-visits';
-```
-
-to something unique to you (e.g. your GitHub username and repo name).
-CounterAPI's v1 counters are public — anyone who knows the
-namespace/name combo can increment or read it — so a generic name risks
-colliding with someone else's site.
-
-A couple of caveats worth knowing:
-- It counts **page loads**, not unique visitors — reloading the page
-  increments it again.
-- The counter only increments once per page load (it's deliberately not
-  tied to the auto-refresh timers), so leaving the tab open won't
-  inflate the number. I may change this in the future to a more reliable type of counter.
+The footer counter uses [HitsCounter](https://hitscounter.dev/) to count page visits via a unique URL. You need to adjust 'HITS_COUNTER_URL' to match your oage URL exactly in ordr for this to work properly. 
 
 ## camera snapshot 🌤️
 
