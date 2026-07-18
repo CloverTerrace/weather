@@ -16,6 +16,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install dependencies
+        run: pip install pillow
       - name: Fetch latest weather data
         env:
           WU_STATION_ID: ${{ secrets.WU_STATION_ID }}
@@ -31,10 +33,13 @@ jobs:
       - name: Fetch local forecast
         continue-on-error: true   # don't let a forecast hiccup block weather data updates
         run: python scripts/fetch_forecast.py
+        - name: Fetch current SPC outlook
+        continue-on-error: true   # don't let an outlook hiccup block weather data updates
+        run: python scripts/fetch_outlook.py
       - name: Commit and push if data changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/weather.json data/history.json data/camera.jpg data/forecast.json
+          git add data/weather.json data/history.json data/camera.jpg data/forecast.json data/outlook.png
           git diff --cached --quiet || git commit -m "Update weather data [skip ci]"
           git push
