@@ -35,10 +35,14 @@ jobs:
           ECOWITT_MAC: ${{ secrets.ECOWITT_MAC }}
         run: python scripts/fetch_camera.py
 
+        - name: Fetch local forecast
+        continue-on-error: true   # don't let a forecast hiccup block weather data updates
+        run: python scripts/fetch_forecast.py
+
       - name: Commit and push if data changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/weather.json data/history.json data/camera.jpg
+          git add data/weather.json data/history.json data/camera.jpg data/forecast.json
           git diff --cached --quiet || git commit -m "Update weather data [skip ci]"
           git push
