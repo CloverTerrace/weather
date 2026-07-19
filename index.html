@@ -142,7 +142,7 @@
   }
 
   .charts-dropdown summary::before {
-    content: '▶';
+    content: 'â–¶';
     display: inline-block;
     margin-right: 0.6rem;
     transition: transform 0.2s ease;
@@ -291,14 +291,14 @@
   @media (max-width: 480px) {
     .range-buttons {
       gap: 0.35rem;
-   }
+    }
 
     .range-btn {
       padding: 0.35rem 0.6rem;
       font-size: 0.72rem;
     }
   }
-  
+
   .outlook-scroll {
     display: flex;
     overflow-x: auto;
@@ -356,7 +356,7 @@
 </head>
 <body>
 
-  <h1><span id="weather-icon">🍀</span> Clover Terrace Weather Station</h1>
+  <h1><span id="weather-icon">ðŸ€</span> Clover Terrace Weather Station</h1>
   <div id="subtitle">Loading...</div>
 
   <div id="error-banner"></div>
@@ -418,35 +418,35 @@
     </div>
 
     <div class="chart-card">
-      <h2 id="historyChart-title">Temperature &amp; Humidity — Last 7 Days</h2>
+      <h2 id="historyChart-title">Temperature &amp; Humidity â€” Last 7 Days</h2>
       <div class="chart-wrap">
         <canvas id="historyChart"></canvas>
       </div>
     </div>
 
     <div class="chart-card">
-      <h2 id="windChart-title">Wind Speed &amp; Gusts — Last 7 Days</h2>
+      <h2 id="windChart-title">Wind Speed &amp; Gusts â€” Last 7 Days</h2>
       <div class="chart-wrap">
         <canvas id="windChart"></canvas>
       </div>
     </div>
 
     <div class="chart-card">
-      <h2 id="windRoseChart-title">Wind Direction — Last 7 Days</h2>
+      <h2 id="windRoseChart-title">Wind Direction â€” Last 7 Days</h2>
       <div class="chart-wrap">
         <canvas id="windRoseChart"></canvas>
       </div>
     </div>
 
     <div class="chart-card">
-      <h2 id="pressureChart-title">Barometric Pressure — Last 7 Days</h2>
+      <h2 id="pressureChart-title">Barometric Pressure â€” Last 7 Days</h2>
       <div class="chart-wrap">
         <canvas id="pressureChart"></canvas>
       </div>
     </div>
 
     <div class="chart-card">
-      <h2 id="solarChart-title">Solar Illumination — Last 7 Days</h2>
+      <h2 id="solarChart-title">Solar Illumination â€” Last 7 Days</h2>
       <div class="chart-wrap">
         <canvas id="solarChart"></canvas>
       </div>
@@ -455,7 +455,7 @@
 
   <div id="status"></div>
 
-  <button id="refresh-btn">🌪️ Refresh Now</button>
+  <button id="refresh-btn">ðŸŒªï¸ Refresh Now</button>
 
   <div id="visitor-counter">
   <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fcloverterrace.github.io%2Fweather%2F&label=Visitors&icon=cloud-fill&color=%234fb0ff" alt="Visitor count">
@@ -470,18 +470,18 @@
   // Define which fields to show, in order, and how to label/format them.
   // Add, remove, or reorder entries here to customize the dashboard.
   const FIELDS = [
-    { key: 'temp',           label: 'Temperature',   unit: '°F' },
-    { key: 'heatIndex',      label: 'Heat Index',    unit: '°F' , showIf: data => data.temp >= 80 && data.heatIndex > data.temp },
-    { key: 'windChill',      label: 'Wind Chill',    unit: '°F' , showIf: data => data.temp <= 50 && data.windSpeed >= 3 && data.windChill < data.temp },
-    { key: 'dewpt',          label: 'Dew Point',     unit: '°F' },
+    { key: 'temp',           label: 'Temperature',   unit: 'Â°F' },
+    { key: 'heatIndex',      label: 'Heat Index',    unit: 'Â°F' , showIf: data => data.temp >= 80 && data.heatIndex > data.temp },
+    { key: 'windChill',      label: 'Wind Chill',    unit: 'Â°F' , showIf: data => data.temp <= 50 && data.windSpeed >= 3 && data.windChill < data.temp },
+    { key: 'dewpt',          label: 'Dew Point',     unit: 'Â°F' },
     { key: 'humidity',       label: 'Humidity',      unit: '%'  },
     { key: 'windSpeed',      label: 'Wind Speed',    unit: 'mph' },
     { key: 'windGust',       label: 'Wind Gust',     unit: 'mph' },
-    { key: 'winddir',        label: 'Wind Dir',      unit: '°'  },
+    { key: 'winddir',        label: 'Wind Dir',      unit: 'Â°'  },
     { key: 'pressure',       label: 'Pressure',      unit: 'inHg' },
     { key: 'precipRate',     label: 'Precip Rate',   unit: 'in/hr' },
     { key: 'precipTotal',    label: 'Precip Today',  unit: 'in' },
-    { key: 'solarRadiation', label: 'Solar Rad.',    unit: 'W/m²' },
+    { key: 'solarRadiation', label: 'Solar Rad.',    unit: 'W/mÂ²' },
     { key: 'uv',             label: 'UV Index',      unit: ''   },
   ];
 
@@ -523,7 +523,7 @@
         labels: labels,
         datasets: [
           {
-            label: 'Temperature (°F)',
+            label: 'Temperature (Â°F)',
             data: tempData,
             borderColor: '#4fb0ff',
             backgroundColor: 'rgba(79, 176, 255, 0.1)',
@@ -557,7 +557,7 @@
             position: 'left',
             ticks: { color: '#4fb0ff' },
             grid: { color: 'rgba(255,255,255,0.05)' },
-            title: { display: true, text: '°F', color: '#4fb0ff' },
+            title: { display: true, text: 'Â°F', color: '#4fb0ff' },
           },
           yHumidity: {
             position: 'right',
@@ -603,7 +603,7 @@
     };
     ids.forEach(id => {
       const el = document.getElementById(id);
-      if (el) el.textContent = `${baseNames[id]} — Last ${rangeLabel}`;
+      if (el) el.textContent = `${baseNames[id]} â€” Last ${rangeLabel}`;
     });
   }
 
@@ -711,7 +711,7 @@
   }
 
   // Buckets history readings into 8 compass directions and averages wind
-  // speed for each — a simple "wind rose" showing prevailing direction.
+  // speed for each â€” a simple "wind rose" showing prevailing direction.
   const COMPASS_LABELS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
 
   function computeWindRose(history) {
@@ -842,7 +842,7 @@
         labels: labels,
         datasets: [
           {
-            label: 'Solar Radiation (W/m²)',
+            label: 'Solar Radiation (W/mÂ²)',
             data: solarData,
             borderColor: '#ffcc4d',
             backgroundColor: 'rgba(255, 204, 77, 0.15)',
@@ -866,7 +866,7 @@
             beginAtZero: true,
             ticks: { color: '#93a1b5' },
             grid: { color: 'rgba(255,255,255,0.05)' },
-            title: { display: true, text: 'W/m²', color: '#93a1b5' },
+            title: { display: true, text: 'W/mÂ²', color: '#93a1b5' },
           },
         },
         plugins: {
@@ -890,7 +890,7 @@
         card.className = 'forecast-period';
         card.innerHTML = `
           <div class="period-name">${period.name}</div>
-          <div class="period-temp">${period.temperature}°${period.temperatureUnit}</div>
+          <div class="period-temp">${period.temperature}Â°${period.temperatureUnit}</div>
           <div class="period-short">${period.shortForecast}</div>
           <div class="period-wind">${period.windSpeed} ${period.windDirection}</div>
         `;
@@ -930,30 +930,30 @@ function refreshOutlookImages() {
   
   // ---------- Weather-based color/icon themes ----------
   // NOTE: The Weather Underground API only gives raw sensor readings
-  // (temp, precip rate, wind speed, solar radiation, etc.) — not an actual
+  // (temp, precip rate, wind speed, solar radiation, etc.) â€” not an actual
   // "condition" label. So this is a heuristic guess at current conditions
   // based on those numbers, not a real forecast/condition read.
 
-  // Tune these thresholds (mph / in-hr / °F) to match your climate.
+  // Tune these thresholds (mph / in-hr / Â°F) to match your climate.
   const WINDY_WIND_MPH = 11;           // sustained wind or gust above this = windy theme
   const THUNDERSTORM_WIND_MPH = 15;    // wind above this...
   const THUNDERSTORM_PRECIP_INHR = 0.1; // ...combined with precip rate above this = thunderstorm theme
   const EXTREME_HEAT_TEMP_F = 90;      // temp (or heat index, if higher) at/above this = extreme heat theme
 
 const THEMES = {
-    sunny:            { bg: '#8090a6', card: '#f2fdff', accent: '#ffcc4d', muted: '#000000', icon: '☀️' },
-    extremeHeat:      { bg: '#4a1907', card: '#5c2712', accent: '#ff6b35', muted: '#000000', icon: '🔥☀️' },
-    extremeHeatNight: { bg: '#2e1005', card: '#3d1a0c', accent: '#ff8659', muted: '#ffcc4d', icon: '🔥🌙' },
-    cloudy:           { bg: '#b4cad4', card: '#b4c7d4', accent: '#9fb3c8', muted: '#dcf0f7', icon: '⛅️' },
-    rainy:            { bg: '#101820', card: '#182430', accent: '#4fb0ff', muted: '#dcf0f7', icon: '🌧️' },
-    rainyNight:       { bg: '#0a1015', card: '#101c26', accent: '#3d8bcf', muted: '#dcf0f7', icon: '🌧️🌙' },
-    snowy:            { bg: '#1b2430', card: '#25313f', accent: '#dff3ff', muted: '#dcf0f7', icon: '❄️' },
-    snowyNight:       { bg: '#0f151c', card: '#182530', accent: '#a8d8f0', muted: '#dcf0f7', icon: '❄️🌙' },
-    night:            { bg: '#0a0f1e', card: '#131b2e', accent: '#7d9dff', muted: '#ffffff', icon: '🌙' },
-    windy:            { bg: '#1c2b28', card: '#25372f', accent: '#7fe0c0', muted: '#dcf0f7', icon: '🌬️' },
-    windyNight:       { bg: '#111d1a', card: '#1a2c26', accent: '#5fc7a3', muted: '#dcf0f7', icon: '🌬️🌙' },
-    thunderstorm:     { bg: '#181022', card: '#241a33', accent: '#c79bff', muted: '#ffcc4d', icon: '⛈️' },
-    thunderstormNight: { bg: '#0d0a17', card: '#191228', accent: '#9b7dff', muted: '#ffcc4d', icon: '⛈️🌙' },
+    sunny:            { bg: '#8090a6', card: '#f2fdff', accent: '#ffcc4d', muted: '#000000', icon: 'â˜€ï¸' },
+    extremeHeat:      { bg: '#4a1907', card: '#5c2712', accent: '#ff6b35', muted: '#000000', icon: 'ðŸ”¥â˜€ï¸' },
+    extremeHeatNight: { bg: '#2e1005', card: '#3d1a0c', accent: '#ff8659', muted: '#ffcc4d', icon: 'ðŸ”¥ðŸŒ™' },
+    cloudy:           { bg: '#b4cad4', card: '#b4c7d4', accent: '#9fb3c8', muted: '#dcf0f7', icon: 'â›…ï¸' },
+    rainy:            { bg: '#101820', card: '#182430', accent: '#4fb0ff', muted: '#dcf0f7', icon: 'ðŸŒ§ï¸' },
+    rainyNight:       { bg: '#0a1015', card: '#101c26', accent: '#3d8bcf', muted: '#dcf0f7', icon: 'ðŸŒ§ï¸ðŸŒ™' },
+    snowy:            { bg: '#1b2430', card: '#25313f', accent: '#dff3ff', muted: '#dcf0f7', icon: 'â„ï¸' },
+    snowyNight:       { bg: '#0f151c', card: '#182530', accent: '#a8d8f0', muted: '#dcf0f7', icon: 'â„ï¸ðŸŒ™' },
+    night:            { bg: '#0a0f1e', card: '#131b2e', accent: '#7d9dff', muted: '#ffffff', icon: 'ðŸŒ™' },
+    windy:            { bg: '#1c2b28', card: '#25372f', accent: '#7fe0c0', muted: '#dcf0f7', icon: 'ðŸŒ¬ï¸' },
+    windyNight:       { bg: '#111d1a', card: '#1a2c26', accent: '#5fc7a3', muted: '#dcf0f7', icon: 'ðŸŒ¬ï¸ðŸŒ™' },
+    thunderstorm:     { bg: '#181022', card: '#241a33', accent: '#c79bff', muted: '#ffcc4d', icon: 'â›ˆï¸' },
+    thunderstormNight: { bg: '#0d0a17', card: '#191228', accent: '#9b7dff', muted: '#ffcc4d', icon: 'â›ˆï¸ðŸŒ™' },
   };
 
   function classifyWeather(data) {
@@ -963,7 +963,7 @@ const THEMES = {
     const wind = Math.max(data.windSpeed || 0, data.windGust || 0);
     const feelsLike = Math.max(data.temp || 0, data.heatIndex || 0);
 
-    // First figure out the "base" condition, independent of day/night —
+    // First figure out the "base" condition, independent of day/night â€”
     // then combine it with isNight below. This way every condition gets
     // an automatic night counterpart without repeating the thresholds.
     let condition = null;
@@ -977,7 +977,7 @@ const THEMES = {
       return isNight ? `${condition}Night` : condition;
     }
 
-    // No active condition — fall back to plain night/sunny/cloudy.
+    // No active condition â€” fall back to plain night/sunny/cloudy.
     if (isNight) return 'night';
     if ((data.solarRadiation || 0) > 650) return 'sunny';
     return 'cloudy';
@@ -998,7 +998,7 @@ const THEMES = {
   FIELDS.forEach(field => {
     const value = data[field.key];
     if (value === undefined || value === null) return;
-    if (field.showIf && !field.showIf(data)) return;   // ← new line
+    if (field.showIf && !field.showIf(data)) return;   // â† new line
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
@@ -1019,11 +1019,11 @@ const THEMES = {
       renderCards(data);
       applyTheme(classifyWeather(data));
       subtitle.textContent = data.neighborhood
-        ? `Station ${data.stationID} — ${data.neighborhood}`
+        ? `Station ${data.stationID} â€” ${data.neighborhood}`
         : `Station ${data.stationID}`;
 
       errorBanner.style.display = 'none';
-      status.textContent = `Last observation: ${data.obsTimeLocal || 'unknown'} · Page checked: ${new Date().toLocaleTimeString()}`;
+      status.textContent = `Last observation: ${data.obsTimeLocal || 'unknown'} Â· Page checked: ${new Date().toLocaleTimeString()}`;
 
       // Cache-bust the camera image so the browser re-fetches the file
       // instead of showing a stale cached copy of the same filename.
@@ -1063,7 +1063,7 @@ const THEMES = {
   initRangeButtons();
 
 // Chart.js sizes canvases based on the container's dimensions at creation
-  // time — since these charts start out inside a collapsed <details>, they
+  // time â€” since these charts start out inside a collapsed <details>, they
   // need an explicit resize() once the dropdown actually opens.
   const chartsDropdown = document.querySelector('.charts-dropdown');
   chartsDropdown.addEventListener('toggle', () => {
