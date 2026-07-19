@@ -884,8 +884,7 @@ const THEMES = {
     await loadData(true);
     await loadHistory(true);
     await loadForecast(true);
-    document.getElementById('outlook-img').src =
-      `data/outlook.png?t=${Date.now()}`;
+    refreshOutlookImages();
   }
 
   loadData();
@@ -897,10 +896,8 @@ const THEMES = {
   setInterval(loadHistory, 5 * 60 * 1000);
   // The forecast and outlook only change a few times a day.
   setInterval(loadForecast, 30 * 60 * 1000);
-  setInterval(() => {
-    document.getElementById('outlook-img').src =
-      `data/outlook.png?t=${Date.now()}`;
-  }, 30 * 60 * 1000);
+  setInterval(refreshOutlookImages, 30 * 60 * 1000);
+  initOutlookCarousel();
 
 // Chart.js sizes canvases based on the container's dimensions at creation
   // time — since these charts start out inside a collapsed <details>, they
