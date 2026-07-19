@@ -982,11 +982,22 @@ const THEMES = {
     document.getElementById('weather-icon').textContent = theme.icon;
   }
 
+function shouldShowField(field, data) {
+    if (field.key === 'heatIndex') {
+      return data.temp >= 80; // heat index isn't meaningful below this
+    }
+    if (field.key === 'windChill') {
+      return data.temp <= 50 && (data.windSpeed || 0) >= 3; // wind chill isn't meaningful otherwise
+    }
+    return true; // every other field always shows
+  }
+  
   function renderCards(data) {
     grid.innerHTML = '';
     FIELDS.forEach(field => {
       const value = data[field.key];
       if (value === undefined || value === null) return;
+      if (!shouldShowField(field, data)) return;
       const card = document.createElement('div');
       card.className = 'card';
       card.innerHTML = `
