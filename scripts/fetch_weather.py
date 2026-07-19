@@ -20,7 +20,7 @@ API_KEY = os.environ.get("WU_API_KEY")
 # How many history entries to keep. At a 10-minute fetch interval,
 # 1008 entries = 7 days of history. Lower this if you want a smaller
 # repo/file size, or raise it if you fetch less often and want more days.
-MAX_HISTORY_ENTRIES = 1008
+MAX_HISTORY_ENTRIES = 1440  # 10 days' worth at a 10-minute fetch interval
 
 if not STATION_ID or not API_KEY:
     print("ERROR: WU_STATION_ID and WU_API_KEY must be set as environment variables.", file=sys.stderr)
