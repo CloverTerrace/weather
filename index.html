@@ -565,24 +565,25 @@
     });
   }
 
-  async function loadHistory(forceRefresh = false) {
-    try {
-      const url = forceRefresh ? `${HISTORY_URL}?t=${Date.now()}` : HISTORY_URL;
-      const res = await fetch(url, { cache: 'no-store' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const history = await res.json();
-      if (Array.isArray(history) && history.length > 0) {
-        renderChart(history);
-        renderWindChart(history);
-        renderWindRose(history);
-        renderPressureChart(history);
-      }
-    } catch (err) {
-      // Don't block the rest of the page if history fails to load —
-      // just leave the chart cards empty.
-      console.warn('Could not load history data:', err.message);
-    }
+  // Time range options for the historical charts, in hours.
+  const RANGE_OPTIONS = [
+    { hours: 24, label: '24 Hours' },
+    { hours: 48, label: '2 Days' },
+    { hours: 96, label: '4 Days' },
+    { hours: 168, label: '7 Days' },
+    { hours: 240, label: '10 Days' },
+  ];
+
+  let fullHistory = [];       // the complete fetched dataset, unfiltered
+  let currentRangeHours = 168; // default: 7 days, matches your existing default
+
+  function filterHistoryByRange(history, hours) {
+    const cutoff = Date.now() - hours * 60 * 60 * 1000;
+    return history.filter(entry => new Date(entry.time).getTime() >= cutoff);
   }
+
+  function updateChartTitles(rangeLabel) {
+    const ids =
 
   function renderWindChart(history) {
     const labels = history.map(entry => entry.time);
