@@ -983,19 +983,20 @@ const THEMES = {
   }
 
   function renderCards(data) {
-    grid.innerHTML = '';
-    FIELDS.forEach(field => {
-      const value = data[field.key];
-      if (value === undefined || value === null) return;
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <div class="label">${field.label}</div>
-        <div class="value">${value}<span class="unit">${field.unit}</span></div>
-      `;
-      grid.appendChild(card);
-    });
-  }
+  grid.innerHTML = '';
+  FIELDS.forEach(field => {
+    const value = data[field.key];
+    if (value === undefined || value === null) return;
+    if (field.showIf && !field.showIf(data)) return;   // ← new line
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="label">${field.label}</div>
+      <div class="value">${value}<span class="unit">${field.unit}</span></div>
+    `;
+    grid.appendChild(card);
+  });
+}
 
   async function loadData(forceRefresh = false) {
     try {
