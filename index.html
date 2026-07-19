@@ -741,7 +741,32 @@
     }
   }
 
+function refreshOutlookImages() {
+    const t = Date.now();
+    document.getElementById('outlook-img-day1').src = `data/outlook-day1.png?t=${t}`;
+    document.getElementById('outlook-img-day2').src = `data/outlook-day2.png?t=${t}`;
+    document.getElementById('outlook-img-day3').src = `data/outlook-day3.png?t=${t}`;
+  }
 
+  function initOutlookCarousel() {
+    const scroller = document.getElementById('outlook-scroll');
+    const tabs = document.querySelectorAll('.outlook-tab');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = document.getElementById(tab.dataset.target);
+        target.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+      });
+    });
+
+    // Keep the active tab in sync when the user swipes/scrolls manually.
+    scroller.addEventListener('scroll', () => {
+      const index = Math.round(scroller.scrollLeft / scroller.clientWidth);
+      tabs.forEach((tab, i) => tab.classList.toggle('active', i === index));
+    });
+  }
+
+  
   // ---------- Weather-based color/icon themes ----------
   // NOTE: The Weather Underground API only gives raw sensor readings
   // (temp, precip rate, wind speed, solar radiation, etc.) — not an actual
@@ -752,7 +777,7 @@
   const WINDY_WIND_MPH = 11;           // sustained wind or gust above this = windy theme
   const THUNDERSTORM_WIND_MPH = 15;    // wind above this...
   const THUNDERSTORM_PRECIP_INHR = 0.1; // ...combined with precip rate above this = thunderstorm theme
-  const EXTREME_HEAT_TEMP_F = 95;      // temp (or heat index, if higher) at/above this = extreme heat theme
+  const EXTREME_HEAT_TEMP_F = 90;      // temp (or heat index, if higher) at/above this = extreme heat theme
 
 const THEMES = {
     sunny:            { bg: '#a4ebfc', card: '#f2fdff', accent: '#ffcc4d', muted: '#000000', icon: '☀️' },
