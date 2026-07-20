@@ -7,12 +7,13 @@
 // app opens instantly and still loads its frame if the network is briefly
 // unavailable. Version 3: Added background sync support.
 
-const CACHE_NAME = 'weather-app-shell-v1';
+const CACHE_NAME = 'weather-app-shell-v2';
 const SHELL_FILES = [
   './index.html',
   './manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
+  './chart.umd.min.js',
 ];
 
 self.addEventListener('install', (event) => {
