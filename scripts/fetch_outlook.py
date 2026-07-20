@@ -6,20 +6,15 @@ Day 3 Convective Outlook images and saves them to:
   data/outlook-day2.png
   data/outlook-day3.png
 
-Each SPC outlook is issued at a handful of known times daily, and each
-issuance's image lives at a filename tied to that time slot (e.g.
-day1otlk_1630.png). These get overwritten in place at the same time the
-next day — there's no single permanently-current URL — so this tries
-the known candidate times directly, most recent first, and uses
-whichever one actually loads successfully.
+Each outlook is fetched from SPC's permanently-current URL for that day
+(e.g. day2otlk.gif), which NOAA overwrites in place at each new issuance.
+No time-slot guessing needed.
 """
-
 import io
-import os
 import sys
+import os
 import urllib.request
 import urllib.error
-from datetime import datetime, timezone
 
 try:
     from PIL import Image
@@ -31,27 +26,18 @@ BASE_URL = "https://www.spc.noaa.gov/products/outlook/"
 USER_AGENT = "(home-weather-station-dashboard, https://cloverterrace.github.io/Weather/)"
 EXTENSIONS = ["png", "gif"]
 
-# Each day's known SPC issuance times (UTC, HHMM as int), most recent
-# first within a day. Day 2's early issuance is listed as both 0600 and
-# 0700 to cover the CST/CDT ambiguity in SPC's published schedule.
 OUTLOOKS = [
-    {"key": "day1", "prefix": "day1otlk", "times": [2000, 1630, 1300, 600, 100]},
-    {"key": "day2", "prefix": "day2otlk", "times": [1730, 700, 600]},
-    {"key": "day3", "prefix": "day3otlk", "times": [1930, 730]},
+    {"key": "day1", "prefix": "day1otlk"},
+    {"key": "day2", "prefix": "day2otlk"},
+    {"key": "day3", "prefix": "day3otlk"},
 ]
 
 
-def candidate_urls(prefix, times):
-    utc_now = datetime.now(timezone.utc)
-    current_hhmm = utc_now.hour * 100 + utc_now.minute
-
-    ordered_times = [t for t in times if current_hhmm >= t]
-    # Fallback to yesterday's times too, in case today's hasn't posted yet.
-    ordered_times += times
-
-    for t in ordered_times:
-        for ext in EXTENSIONS:
-            yield f"{BASE_URL}{prefix}_{t:04d}.{ext}"
+def candidate_urls(prefix):
+    # SPC's always-current outlook image — overwritten in place at each
+    # new issuance, so there's no time slot to guess.
+    for ext in EXTENSIONS:
+        yield f"{BASE_URL}{prefix}.{ext}"
 
 
 def try_fetch(url):
@@ -68,8 +54,8 @@ def try_fetch(url):
     return None
 
 
-def fetch_one(key, prefix, times):
-    for url in candidate_urls(prefix, times):
+def fetch_one(key, prefix):
+    for url in candidate_urls(prefix):
         print(f"[{key}] Trying {url} ...")
         image_bytes = try_fetch(url)
         if image_bytes:
@@ -78,13 +64,11 @@ def fetch_one(key, prefix, times):
             except Exception as e:
                 print(f"[{key}] Downloaded but couldn't decode, trying next: {e}", file=sys.stderr)
                 continue
-
             os.makedirs("data", exist_ok=True)
             out_path = f"data/outlook-{key}.png"
             img.save(out_path)
             print(f"[{key}] Saved {out_path} (from {url})")
             return True
-
     print(f"[{key}] ERROR: no candidate URL loaded successfully.", file=sys.stderr)
     return False
 
@@ -92,10 +76,9 @@ def fetch_one(key, prefix, times):
 def main():
     any_failed = False
     for outlook in OUTLOOKS:
-        success = fetch_one(outlook["key"], outlook["prefix"], outlook["times"])
+        success = fetch_one(outlook["key"], outlook["prefix"])
         if not success:
             any_failed = True
-
     if any_failed:
         sys.exit(1)
 
