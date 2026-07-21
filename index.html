@@ -328,6 +328,70 @@
     font-size: 0.8rem;
     margin-top: 0.75rem;
   }
+
+#weather-fx {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 9999;
+  }
+
+  .fx-rain, .fx-clouds {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  body.fx-active-rain .fx-rain {
+    opacity: 1;
+  }
+
+  body.fx-active-cloudy .fx-clouds {
+    opacity: 1;
+  }
+
+  .raindrop {
+    position: absolute;
+    top: -10vh;
+    width: 2px;
+    height: 18px;
+    background: linear-gradient(to bottom, rgba(180, 220, 255, 0), rgba(180, 220, 255, 0.6));
+    transform: rotate(12deg);
+    animation: fx-fall linear infinite;
+  }
+
+  @keyframes fx-fall {
+    from { transform: translateY(0) rotate(12deg); }
+    to { transform: translateY(120vh) rotate(12deg); }
+  }
+
+  .cloud-shape {
+    position: absolute;
+    top: 5%;
+    width: 160px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 50px;
+    filter: blur(6px);
+    animation: fx-drift linear infinite;
+  }
+
+  @keyframes fx-drift {
+    from { transform: translateX(-20vw); }
+    to { transform: translateX(120vw); }
+  }
+
+  /* Respects visitors who've asked their device to reduce motion. */
+  @media (prefers-reduced-motion: reduce) {
+    .raindrop, .cloud-shape {
+      animation: none !important;
+    }
+    #weather-fx {
+      display: none !important;
+    }
+  }
   
   #refresh-btn {
     background: var(--accent-color);
@@ -354,6 +418,11 @@
 <script src="chart.umd.min.js"></script>
 </head>
 <body>
+
+  <div id="weather-fx" aria-hidden="true">
+    <div class="fx-rain" id="fx-rain"></div>
+    <div class="fx-clouds" id="fx-clouds"></div>
+  </div>
 
   <h1><span id="weather-icon">🍀</span> Clover Terrace Weather Station</h1>
   <div id="subtitle">Loading...</div>
