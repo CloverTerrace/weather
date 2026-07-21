@@ -341,6 +341,66 @@
     position: relative;
     z-index: 1;
   }
+
+  .fx-rain, .fx-clouds {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  body.fx-active-rain .fx-rain {
+    opacity: 1;
+  }
+
+  body.fx-active-cloudy .fx-clouds {
+    opacity: 1;
+  }
+
+  .raindrop {
+    position: absolute;
+    top: -10vh;
+    width: 2px;
+    height: 18px;
+    background: linear-gradient(to bottom, rgba(180, 220, 255, 0), rgba(180, 220, 255, 0.6));
+    transform: rotate(12deg);
+    animation: fx-fall linear infinite;
+  }
+
+  @keyframes fx-fall {
+    from { transform: translateY(0) rotate(12deg); }
+    to { transform: translateY(120vh) rotate(12deg); }
+  }
+
+  .cloud-shape {
+    position: absolute;
+    top: 5%;
+    width: 200px;
+    height: 70px;
+    animation: fx-drift linear infinite;
+  }
+
+  .cloud-puff {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    filter: blur(4px);
+  }
+
+  @keyframes fx-drift {
+    from { transform: translateX(-20vw); }
+    to { transform: translateX(120vw); }
+  }
+
+  /* Respects visitors who've asked their device to reduce motion. */
+  @media (prefers-reduced-motion: reduce) {
+    .raindrop, .cloud-shape {
+      animation: none !important;
+    }
+    #weather-fx {
+      display: none !important;
+    }
+  }
   
   #refresh-btn {
     background: #e4e8eb;
