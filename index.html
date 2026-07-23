@@ -549,8 +549,15 @@ body.fx-active-smoke .fx-smoke {
     <h2>Station Camera</h2>
     <img id="camera-img" src="data/camera.jpg" alt="Latest snapshot from the weather station camera">
   </div>
+    
+  <div class="camera-card">
+    <h2>Today's Forecast</h2>
+    <div class="forecast-periods" id="forecast-periods">
+      <!-- Forecast period cards are injected by JS below -->
+    </div>
+  </div>
 
-<div class="camera-card">
+  <div class="camera-card">
     <h2>Sun &amp; Moon</h2>
     <div class="sky-box" id="sky-box">
       <div class="sky-body" id="sun-body">☀️</div>
@@ -558,14 +565,7 @@ body.fx-active-smoke .fx-smoke {
       <div class="horizon-line"></div>
     </div>
     <div class="sunmoon-details" id="sunmoon-details"></div>
-  </div>
-    
-<div class="camera-card">
-    <h2>Today's Forecast</h2>
-    <div class="forecast-periods" id="forecast-periods">
-      <!-- Forecast period cards are injected by JS below -->
-    </div>
-  </div>
+ </div>    
 
   <div class="camera-card outlook-card">
     <h2>SPC Convective Outlook</h2>
