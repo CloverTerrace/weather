@@ -55,7 +55,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in data/weather.json data/history.json data/camera.jpg data/forecast.json data/outlook-day1.png data/outlook-day2.png data/outlook-day3.png; do
+          for f in data/weather.json data/history.json data/camera.jpg data/forecast.json data/outlook-day1.png data/outlook-day2.png data/outlook-day3.png data/aqi.json; do
             [ -f "$f" ] && git add "$f"
           done
           git diff --cached --quiet || git commit -m "Update weather data [skip ci]"
