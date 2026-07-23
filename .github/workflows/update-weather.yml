@@ -2,8 +2,7 @@ name: Update Weather Data
 
 on:
   schedule:
-    # Runs every 3,13, 23, 33, 43, 53 minutes. GitHub may delay this slightly during high load.
-    - cron: '3,13,23,33,43,53 * * * *'
+    - cron: '3-59/5 * * * *'
   workflow_dispatch: {}   # lets you trigger it manually from the Actions tab
 
 permissions:
