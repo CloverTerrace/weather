@@ -1337,8 +1337,6 @@ function shouldShowField(field, data) {
 
     if (aqRes && aqRes.ok) {
   const aqData = await aqRes.json();
-  // Ensure aqiDisplay is populated regardless of whether the JSON key is 'aqi' or 'aqiDisplay'
-  data.aqiDisplay = aqData.aqiDisplay ?? aqData.aqi ?? aqData.AQI;
   Object.assign(data, aqData);
 }
 
