@@ -519,7 +519,7 @@ body.fx-active-smoke .fx-smoke {
   }
 
   .sunmoon-details strong {
-    color: var(--muted-color);
+    color: var(--accent-color);
   }
   
   #refresh-btn {
@@ -1344,19 +1344,19 @@ function getAqiColor(aqi) {
 }
 
 const THEMES = {
-    sunny:            { bg: '#fcce42', card: '#FFFFFF', accent: '#FF8A2C', muted: '#FFAA4D', icon: '☀️' },
-    extremeHeat:      { bg: '#4a1907', card: '#5c2712', accent: '#ff6b35', muted: '#000000', icon: '🔥☀️' },
-    extremeHeatNight: { bg: '#2e1005', card: '#3d1a0c', accent: '#ff8659', muted: '#ffcc4d', icon: '🔥🌙' },
-    cloudy:           { bg: '#b4c9d9', card: '#EEF3F6', accent: '#b4c9d9', muted: '#749BB9', icon: '⛅️' },
-    rainy:            { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', icon: '🌧️' },
-    rainyNight:       { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', icon: '🌧️🌙' },
-    snowy:            { bg: '#1b2430', card: '#25313f', accent: '#dff3ff', muted: '#d5d4e6', icon: '❄️' },
-    snowyNight:       { bg: '#0f151c', card: '#182530', accent: '#a8d8f0', muted: '#dcf0f7', icon: '❄️🌙' },
-    night:            { bg: '#14112F', card: '#41406a', accent: '#9F86C0', muted: '#f0eff6', icon: '🌙' },
-    windy:            { bg: '#1c2b28', card: '#25372f', accent: '#7fe0c0', muted: '#dcf0f7', icon: '🌬️' },
-    windyNight:       { bg: '#111d1a', card: '#1a2c26', accent: '#5fc7a3', muted: '#dcf0f7', icon: '🌬️🌙' },
-    thunderstorm:     { bg: '#181022', card: '#241a33', accent: '#c79bff', muted: '#ffcc4d', icon: '⛈️' },
-    thunderstormNight: { bg: '#0d0a17', card: '#191228', accent: '#9b7dff', muted: '#ffcc4d', icon: '⛈️🌙' },
+    sunny:            { bg: '#fcce42', card: '#FFFFFF', accent: '#FF8A2C', muted: '#FFAA4D', text: #ffffff, icon: '☀️' },
+    extremeHeat:      { bg: '#4a1907', card: '#5c2712', accent: '#ff6b35', muted: '#000000', text: #ffffff, icon: '🔥☀️' },
+    extremeHeatNight: { bg: '#2e1005', card: '#3d1a0c', accent: '#ff8659', muted: '#ffcc4d', text: #ffffff, icon: '🔥🌙' },
+    cloudy:           { bg: '#b4c9d9', card: '#EEF3F6', accent: '#b4c9d9', muted: '#749BB9', text: #ffffff, icon: '⛅️' },
+    rainy:            { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', text: #ffffff, icon: '🌧️' },
+    rainyNight:       { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', text: #ffffff, icon: '🌧️🌙' },
+    snowy:            { bg: '#1b2430', card: '#25313f', accent: '#dff3ff', muted: '#d5d4e6', text: #ffffff, icon: '❄️' },
+    snowyNight:       { bg: '#0f151c', card: '#182530', accent: '#a8d8f0', muted: '#dcf0f7', text: #ffffff, icon: '❄️🌙' },
+    night:            { bg: '#14112F', card: '#41406a', accent: '#9F86C0', muted: '#f0eff6', text: #ffffff, icon: '🌙' },
+    windy:            { bg: '#1c2b28', card: '#25372f', accent: '#7fe0c0', muted: '#dcf0f7', text: #ffffff, icon: '🌬️' },
+    windyNight:       { bg: '#111d1a', card: '#1a2c26', accent: '#5fc7a3', muted: '#dcf0f7', text: #ffffff, icon: '🌬️🌙' },
+    thunderstorm:     { bg: '#181022', card: '#241a33', accent: '#c79bff', muted: '#ffcc4d', text: #ffffff, icon: '⛈️' },
+    thunderstormNight: { bg: '#0d0a17', card: '#191228', accent: '#9b7dff', muted: '#ffcc4d', text: #ffffff, icon: '⛈️🌙' },
   };
 
   function classifyWeather(data) {
