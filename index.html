@@ -203,6 +203,45 @@
     margin: 0 auto;
   }
 
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .dashboard-grid > * {
+    margin-top: 0 !important; /* the grid's own gap replaces each card's individual margin-top */
+  }
+
+  @media (min-width: 900px) {
+    #page-content {
+      max-width: 1400px;
+    }
+
+    .grid, .charts-dropdown {
+      max-width: 1400px;
+    }
+
+    .dashboard-grid {
+      max-width: 1400px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Wide/full-content sections still span the full grid width rather
+       than being squeezed into one column. */
+    .outlook-card, .weather-map-card {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
 .forecast-periods {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -567,7 +606,7 @@ body.fx-active-smoke .fx-smoke {
   <div class="grid" id="grid">
     </div>
 
-  
+ <div class="dashboard-grid">
 
   <div class="camera-card">
     <h2>Station Camera</h2>
@@ -615,11 +654,13 @@ body.fx-active-smoke .fx-smoke {
     <div class="outlook-note">Updated hourly or when a new outlook is issued by NOAA's Storm Prediction Center.</div>
   </div>
 
-<div class="chart-card">
+<div class="chart-card weather-map-card">
   <h2>Weather Map</h2>
   <iframe src="https://www.meteoblue.com/en/weather/maps/widget/40.616N-80.274E339_America%2FNew_York?windAnimation=1&gust=1&satellite=1&cloudsAndPrecipitation=1&temperature=1&sunshine=1&extremeForecastIndex=1&geoloc=fixed&tempunit=F&lengthunit=imperial&windunit=mph&zoom=6&autowidth=auto&user_key=8134bd0af0541cef&embed_key=d66f82d141afbc64&sig=6603f082f9b0195f2a320cd4d879ab45b1976f9a06721ed0592e3de0900955bb" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox" style="width: 100%;height: 444px;border: 0;overflow: hidden;"></iframe>
   <div><a href="https://www.meteoblue.com/en/weather/week/index" target="_blank" rel="noopener">meteoblue</a></div>
 </div>
+
+ </div>
   
 <details class="charts-dropdown">
     <summary>Historical Data</summary>
