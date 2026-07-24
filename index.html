@@ -226,7 +226,7 @@
   }
 
   .dashboard-grid > * {
-    margin-top: 0 !important; /* the grid's own gap replaces each card's individual margin-top */
+    margin-top: 0 !important; 
   }
 
   @media (min-width: 900px) {
@@ -243,8 +243,6 @@
       grid-template-columns: repeat(2, 1fr);
     }
 
-    /* Wide/full-content sections still span the full grid width rather
-       than being squeezed into one column. */
     .outlook-card, .weather-map-card {
       grid-column: 1 / -1;
     }
