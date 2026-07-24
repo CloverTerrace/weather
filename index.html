@@ -476,6 +476,30 @@ body.fx-active-smoke .fx-smoke {
     transition: left 1s linear, top 1s linear, opacity 0.5s ease;
   }
 
+  .moon-body-img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+  }
+
+  .moon-body-newmoon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.15);
+  }
+
+  .sun-body-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(255, 200, 50, 0.6);
+  }
+
   .horizon-line {
     position: absolute;
     left: 0;
@@ -560,8 +584,10 @@ body.fx-active-smoke .fx-smoke {
   <div class="camera-card">
     <h2>Sun &amp; Moon</h2>
     <div class="sky-box" id="sky-box">
-      <div class="sky-body" id="sun-body">☀️</div>
-      <div class="sky-body" id="moon-body">🌙</div>
+      <div class="sky-body" id="sun-body">
+        <img class="sun-body-img" src="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_512_HMII.jpg" alt="Current sun" onerror="this.replaceWith(document.createTextNode('☀️'));">
+      </div>
+      <div class="sky-body" id="moon-body"></div>
       <div class="horizon-line"></div>
     </div>
     <div class="sunmoon-details" id="sunmoon-details"></div>
@@ -1205,9 +1231,29 @@ for (let i = 0; i < STAR_COUNT; i++) {
   const SUNMOON_LAT = 40.604;
   const SUNMOON_LON = -80.286;
 
-  function getMoonPhaseEmoji(phase) {
-    const phases = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
-    return phases[Math.round(phase * 8) % 8];
+  // Real NASA lunar imagery (LRO/LROC), one representative image per
+  // named phase — from NASA SVS #4310, "Moon Phases Loop".
+  const MOON_PHASE_IMAGES = [
+    null, // New Moon — no distinct NASA image for this one; shown as a plain dark disc instead
+    'https://svs.gsfc.nasa.gov/vis/a000000/a004300/a004310/ph1_waxing_crescent_2k_print.jpg',
+    'https://svs.gsfc.nasa.gov/vis/a000000/a004300/a004310/ph2_first_quarter_2k_print.jpg',
+    'https://svs.gsfc.nasa.gov/vis/a000000/a004300/a004310/ph3_waxing_gibbous_2k_print.jpg',
+    'https://svs.gsfc.nasa.gov/vis/a000000/a004300/a004310/ph4_full_moon_2k_print.jpg',
+    'https://svs.gsfc.nasa.gov/vis/a000000/a004300/a004310/ph5_waning_gibbous_2k_print.jpg',
+    'https://svs.gsfc.nasa.gov/vis/a000000/a004300/a004310/ph6_third_quarter_2k_print.jpg',
+    'https://svs.gsfc.nasa.gov/vis/a000000/a004300/a004310/ph7_waning_crescent_2k_print.jpg',
+  ];
+
+  function renderMoonPhaseImage(el, phase) {
+    const index = Math.round(phase * 8) % 8;
+    const imageUrl = MOON_PHASE_IMAGES[index];
+
+    if (imageUrl) {
+      el.innerHTML = `<img class="moon-body-img" src="${imageUrl}" alt="Moon phase">`;
+    } else {
+      el.innerHTML = `<div class="moon-body-newmoon"></div>`;
+    }
+  }
   }
 
   function getMoonPhaseName(phase) {
@@ -1242,7 +1288,7 @@ for (let i = 0; i < STAR_COUNT; i++) {
 
     positionSkyBody(document.getElementById('sun-body'), sunPos.altitude, sunPos.azimuth);
     positionSkyBody(document.getElementById('moon-body'), moonPos.altitude, moonPos.azimuth);
-    document.getElementById('moon-body').textContent = getMoonPhaseEmoji(moonIllum.phase);
+    renderMoonPhaseImage(document.getElementById('moon-body'), moonIllum.phase);
 
     const fmt = (d) => d ? d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : '—';
 
