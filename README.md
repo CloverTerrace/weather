@@ -8,50 +8,67 @@ Includes live data from an Ecowitt station using the Weather Underground API. Up
 ## how it works 🌪️
 
 1. **python scripts to pull data:**
-    `scripts/fetch_weather.py` - calls the Weather Underground PWS "current conditions" API for your    station and saves the result to `data/weather.json`. this was the easiest option for ecowitt, but other weather stations may have their own API system that works just as well. worth looking into if you don't want to upload your data to WU. 
-   `scripts/fetch_air_quality.py` - calls the latest PM2.5 reading from PurpleAir via their free API. a how-to on swapping out this sensor with yours or one of your choosing, see ##purpleair config
-   `scripts/fetch_camera.py` - calls the latest camera snapshot from the Ecowitt camera. (or whatever camera you're using, so long as it has API/APP, a MAC address and a stable url) and saves it to `data/camera.jpg`
-   `scripts/fetch_forecast.py` -  calls the local forecast directly from the National Weather Service API for the zip code of your choosing. No API key needed because the NWS is free and public. Adjust by swapping in your own coordinates.
-   `scripts/fetch_outlook.py` - calls the current SPC day 1, day 2, and day 3 convective outlook images and saves them to `data/outlook-day1.png`, `data/outlook-day2.png`, `data/outlook-day3.png`
+    `scripts/fetch_weather.py` - calls the Weather Underground PWS "current conditions" API for your    station and saves the result to `data/weather.json`. this was the easiest option for ecowitt, but other weather stations may have their own API system that works just as well. worth looking into if you don't want to upload your data to WU.
    
-2. **workflow to update data on page**
+   `scripts/fetch_air_quality.py` - calls the latest PM2.5 reading from PurpleAir via their free API. a how-to on swapping out this sensor with yours or one of your choosing, see ##purpleair config
+   
+   `scripts/fetch_camera.py` - calls the latest camera snapshot from the Ecowitt camera. (or whatever camera you're using, so long as it has API/APP, a MAC address and a stable url) and saves it to `data/camera.jpg`
+   
+   `scripts/fetch_forecast.py` -  calls the local forecast directly from the National Weather Service API for the zip code of your choosing. No API key needed because the NWS is free and public. Adjust by swapping in your own coordinates.
+   
+   `scripts/fetch_outlook.py` - calls the current SPC day 1, day 2, and day 3 convective outlook images and saves them to `data/outlook-day1.png`, `data/outlook-day2.png`, `data/outlook-day3.png`
+
+   
+3. **workflow to update data on page**
   `.github/workflows/update-weather.yml` runs that script every 5 minutes, commits the updated file directly to the page. can be run manually, on demand, as often as you'd like.
 *(time slots are offset to every 3rd, 8th, 13th, 18th, 23rd, etc minute for more reliable automatic updates, due to the standard 5/10/15/20 timeslots typically being inundated with the heaviest server traffic)*
+
    
-3. **where it all comes together**
-   `index.html` fetches `data/weather.json` directly — since it's served
-   from the same GitHub Pages domain, there's no CORS problem, and it's
-   nearly instant to load.
+4. **where it all comes together**
+   `index.html` fetches
+     1. `data/weather.json` to populate weather station data cards
+     2. `data/air_quality.json` to populate updated AQI card
+     3. `data/camera.jpg` to load the latest camera image
+     4. `data/forecast.json` to load the local forecast
+     5. `data/history.json` to feed stored data to the historical graphs
+     6. `data/outlook-day1, day2.json, day3.png` to populate outlook images
+and puts it all together to create a cozy little weather dashboard for you and your family/neighborhood to use for at-a-glance weather information.
 
-## how to re-create this page, using your own PWS data ⛈️
+   
 
-1. **Create the repo.** Push these files to a new GitHub repository
-   (public or private both work, but Pages on a free plan requires public
-   unless you have GitHub Pro/Team/Enterprise).
+## setting it up ⛈️
 
-2. **Get a Weather Underground API key** (free) at
+1. **create the repo**
+download the files, and the add them to a new GitHub repository with pages enabled. name it whatever you want, but it's case sensitive!
+
+*important settings*
+-under general settings, make sure your default branch is set to main
+-under build and deployment, source should say "deploy from a branch", branches should be "main" and "/(root)"
+-it's never a bad idea to enforce HTTPS
+
+3. **get a weather underground API key** (free) at
    https://www.wunderground.com/member/api-keys — log in with the account
    linked to your station.
 
-3. **Find your Station ID.** This is the ID you already use when uploading
+4. **Find your Station ID.** This is the ID you already use when uploading
    data from your Ecowitt console/gateway to Weather Underground (looks
    like `KPAPLACE44`).
 
-4. **Add two repository secrets:**
+5. **Add two repository secrets:**
    Go to your repo → Settings → Secrets and variables → Actions → New
    repository secret, and add:
    - `WU_STATION_ID` — your station ID
    - `WU_API_KEY` — your API key
 
-5. **Enable GitHub Pages:**
+6. **Enable GitHub Pages:**
    Settings → Pages → Source: "Deploy from a branch" → select `main` and
    `/ (root)`.
 
-6. **Run the workflow once manually** to generate the first
+7. **Run the workflow once manually** to generate the first
    `data/weather.json`: go to the Actions tab → "Update Weather Data" →
    "Run workflow". After that it'll run automatically every 10 minutes.
 
-7. Visit your Pages URL (something like
+8. Visit your Pages URL (something like
    `https://yourusername.github.io/your-repo-name/`) and you should see
    your live conditions.
 
