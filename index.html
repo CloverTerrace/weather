@@ -121,6 +121,11 @@
     letter-spacing: 0.05em;
   }
 
+  .aqi-category {
+    font-size: 0.55em;
+    display: block;
+  }
+
 .charts-dropdown {
     width: 100%;
     max-width: 900px;
@@ -478,9 +483,6 @@ body.fx-active-smoke .fx-smoke {
 .alert-banner.alert-moderate { background: #d9822b; } /* watch/advisory orange */
 .alert-banner.alert-minor { background: #6b7280; }    /* statement/minor grey */
 
-/* Extra raindrops, pre-built at page load but invisible until a severe
-   alert turns them on — costs nothing extra at runtime since nothing new
-   is created, just an opacity toggle on elements that already exist. */
 .raindrop-extra {
   opacity: 0;
 }
@@ -489,9 +491,6 @@ body.fx-alert-heavy-rain .raindrop-extra {
   opacity: 1;
 }
 
-/* A single, brief, occasional flash — capped well under the 3-flashes-
-   per-second threshold that can trigger photosensitive seizures. See the
-   JS scheduler for the actual timing (8-20s between flashes). */
 .fx-lightning {
   position: absolute;
   inset: 0;
@@ -535,9 +534,6 @@ body.fx-active-snow .fx-snow {
   100% { transform: translate(-10px, 120vh); }
 }
 
-/* Slow, gentle pulsing vignette for tornado warnings — a ~6 second cycle
-   (about 0.17Hz), nowhere close to flash-risk territory, reads as an
-   ominous glow rather than a strobe. */
 .fx-tornado-vignette {
   position: absolute;
   inset: 0;
@@ -1565,10 +1561,10 @@ const THEMES = {
     return hour < 6 || hour >= 20;
   }
 
-  // Maps active NWS alert events to a theme override. Checked before the
-  // normal sensor-based classifyWeather() — an official warning always
-  // wins over our own heuristic guess at conditions. Ordered most-to-least
-  // severe, since a location can have multiple alerts active at once.
+  // maps active NWS alert events to a theme override. 
+  // an official warning always wins over our own heuristic guess at conditions. 
+  // ordered most-to-least severe if there are multiple alerts active at once.
+  
   function getAlertOverride(alerts, isNight) {
     if (!alerts || alerts.length === 0) return null;
     const events = alerts.map(a => (a.event || '').toLowerCase());
@@ -1594,12 +1590,15 @@ const THEMES = {
     return null;
   }
 
-  // ---------- Lightning flash scheduler ----------
-  // Deliberately slow and irregular (one flash every 8-20s) — nowhere
+  // lightning fx //
+  
+  //  slow and irregular (one flash every 8-20s) — nowhere
   // close to the 3-flashes-per-second threshold the WCAG flags as a
-  // photosensitive seizure risk. Also fully skipped if the visitor has
-  // requested reduced motion, on top of the CSS-level safeguard that
-  // already hides #weather-fx entirely in that case.
+  // photosensitive seizure risk.
+  
+  // fully skipped if the visitor has requested reduced motion, on top of the CSS-level 
+  // safeguard that already hides #weather-fx entirely in that case.
+  
   let lightningActive = false;
   let lightningTimer = null;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1761,8 +1760,8 @@ function shouldShowField(field, data) {
       errorBanner.style.display = 'none';
       status.textContent = `Last observation: ${data.obsTimeLocal || 'unknown'} · Page checked: ${new Date().toLocaleTimeString()}`;
 
-      // To prevent the camera image from becoming stale due to an old image
-      // of the same filename being cached.
+      // prevents the camera image from becoming stale due to an old image //
+      // of the same filename being cached.                                //
       const cameraImg = document.getElementById('camera-img');
       cameraImg.src = `data/camera.jpg?t=${Date.now()}`;
     } catch (err) {
@@ -1772,9 +1771,7 @@ function shouldShowField(field, data) {
     }
   }
 
-  // ---------- Manual "Refresh Now" trigger with a 10-minute cooldown ----------
-// Tries each trigger endpoint in order.. if one is blocked or down,
-// the next one is tried.
+  // refresh button //
 const TRIGGER_ENDPOINTS = [
   'https://weather-refresh-trigger.cloverwx4.workers.dev/',
   'https://weather-refresh-trigger.cloverwx.deno.net/',
@@ -1827,8 +1824,8 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
     refreshBtn.disabled = true;
     refreshBtn.textContent = '🌪️ Triggering update...';
 
-    // Refresh whatever's already in the data files right now (cache-busted),
-    // regardless of whether triggering a brand-new run succeeds below.
+    // refresh whatever's already in the data files right now (cache-busted), //
+    // regardless of whether triggering a brand-new run succeeds below.       //
     await loadData(true);
     await loadHistory(true);
     await loadForecast(true);
@@ -1841,15 +1838,13 @@ if (triggered) {
   status.textContent = "🌩️ Couldn't reach the update trigger — showing latest available data instead.";
 }
 
-    // Start the cooldown regardless of success/failure, so repeated quick
-    // retries can't hammer the trigger endpoint.
+    // prevents people from spamming the button //
     localStorage.setItem(COOLDOWN_STORAGE_KEY, (Date.now() + REFRESH_COOLDOWN_MS).toString());
     isRefreshing = false;
     startCooldownCountdown();
   }
 
-  // If a cooldown from a previous click is still active on page load
-  // (e.g. after a refresh), reflect that immediately in the button.
+  
   if (getRemainingCooldownMs() > 0) {
     startCooldownCountdown();
   }
@@ -1858,10 +1853,7 @@ if (triggered) {
   loadHistory();
   loadForecast();
   setInterval(loadData, REFRESH_INTERVAL_MS);
-  // Refresh the chart less often than the current-conditions cards,
-  // since new history entries only land every ~10 minutes anyway.
   setInterval(loadHistory, 5 * 60 * 1000);
-  // The forecast and outlook only change a few times a day.
   setInterval(loadForecast, 30 * 60 * 1000);
   setInterval(refreshOutlookImages, 30 * 60 * 1000);
   initOutlookCarousel();
@@ -1871,16 +1863,11 @@ if (triggered) {
   
 
   
-// Chart.js sizes canvases based on the container's dimensions at creation
-  // time — since these charts start out inside a collapsed <details>, they
-  // need an explicit resize() once the dropdown actually opens.
+
   const chartsDropdown = document.querySelector('.charts-dropdown');
   chartsDropdown.addEventListener('toggle', () => {
     if (chartsDropdown.open) {
-      // Chart.js can't correctly size a canvas that was created while its
-      // container was hidden (a closed <details> behaves like display:none).
-      // Rather than just resizing the already-broken charts, destroy and
-      // recreate them now that the container is actually visible.
+      
       [historyChart, windChart, windRoseChart, pressureChart, solarChart].forEach(c => c?.destroy());
       historyChart = windChart = windRoseChart = pressureChart = solarChart = null;
       renderAllCharts();
@@ -1890,23 +1877,22 @@ if (triggered) {
   
   refreshBtn.addEventListener('click', handleRefreshClick);
 
-  // Register the service worker (enables installability + the app shell
-  // caching described in sw.js). Safe to no-op in browsers that don't
-  // support it.
+  // service worker for refresh button //
+  
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('sw.js').then((reg) => {
-        // Request background sync when the service worker is registered
+       
         if ('sync' in reg) {
           reg.sync.register('sync-weather-data').catch((err) => {
             console.warn('Background sync registration failed (may not be supported):', err);
           });
         }
-        // Listen for messages from the service worker
+        
         navigator.serviceWorker.addEventListener('message', (event) => {
           if (event.data && event.data.type === 'background-sync-complete') {
             console.log('Background sync completed at', event.data.timestamp);
-            // Optionally refresh data if needed
+            
             if (event.data.weatherAvailable) {
               loadData(true);
             }
@@ -1917,7 +1903,8 @@ if (triggered) {
       });
     });
 
-    // Also request background sync when the page becomes visible
+    // above here //
+    
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible' && navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage({ type: 'SCHEDULE_SYNC' });
