@@ -1694,9 +1694,13 @@ function shouldShowField(field, data) {
         <div class="label">${field.label}</div>
         <div class="value">${value}<span class="unit">${field.unit}</span></div>
       `;
+      
       if (field.key === 'aqiDisplay') {
+        const valueEl = card.querySelector('.value');
+        
+        valueEl.innerHTML = valueEl.innerHTML.replace(/(\([^)]*\))/, '<span class="aqi-category">$1</span>');
         const aqiColor = getAqiColor(data.aqi);
-        if (aqiColor) card.querySelector('.value').style.color = aqiColor;
+        if (aqiColor) valueEl.style.color = aqiColor;
       }
       grid.appendChild(card);
     });
