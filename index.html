@@ -47,14 +47,24 @@
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 160px);
+    grid-template-columns: repeat(2, 160px);
     justify-content: center;
     gap: 1rem;
     width: 100%;
-    max-width: 1400px;
   }
 
-  
+  @media (min-width: 900px) {
+    .grid {
+      grid-template-columns: repeat(4, 160px);
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .grid {
+      grid-template-columns: repeat(6, 160px);
+    }
+  }
+
 
   .card {
     background: var(--card-color);
@@ -62,6 +72,10 @@
     padding: 1.25rem;
     text-align: center;
     box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .card .label {
@@ -212,7 +226,7 @@
     margin: 0 auto;
   }
 
-  .dashboard-grid {
+.dashboard-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -221,7 +235,7 @@
     margin-top: 1.5rem;
   }
 
-  .dashboard-grid > * {
+    .dashboard-grid > * {
     margin-top: 0 !important; 
   }
 
@@ -233,22 +247,6 @@
     .grid, {
       max-width: 1400px;
     }
-
-    .dashboard-grid {
-      max-width: 1400px;
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .outlook-card, .weather-map-card {
-      grid-column: 1 / -1;
-    }
-  }
-
-  @media (min-width: 1400px) {
-    .dashboard-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
 
   @media (min-width: 1800px) {
     #page-content {
