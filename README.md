@@ -42,9 +42,9 @@ and puts it all together to create a cozy little weather dashboard for you and y
 download the files, and the add them to a new GitHub repository with pages enabled. name it whatever you want, but it's case sensitive!
 
 *important settings*
--under general settings, make sure your default branch is set to main
--under build and deployment, source should say "deploy from a branch", branches should be "main" and "/(root)"
--it's never a bad idea to enforce HTTPS
+- under general settings, make sure your default branch is set to main
+- under build and deployment, source should say "deploy from a branch", branches should be "main" and "/(root)"
+- it's never a bad idea to enforce HTTPS
 
 3. **get a weather underground API key** (free) at
    https://www.wunderground.com/member/api-keys — log in with the account
