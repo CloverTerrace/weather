@@ -1,15 +1,25 @@
-# Clover Terrace Weather Dashboard 
+# Clover Terrace Weather Dashboard **readme under construction**
 
-A live weather page for Clover Terrace, a small, higher elevation micro-climate within Aliquippa, a historic city along the Ohio River. Frequently updated throughout the day to provide current conditions from an Ecowitt station via the Weather Underground API.
+A live weather page for Clover Terrace, my nickname for a small, hilltop micro-climate within Aliquippa (a historic city along the Ohio River).
+
+Includes live data from an Ecowitt station using the Weather Underground API. Updated frequently throughout the day, especially during severe weather events. If GitHub servers are inundated, data may not be fetched automatically as scheduled. In these cases, updates are able to be pushed manually via actions > the update weather workflow. If you are using this guide to create your own version of this website, you can update your data manually as well this way.. I have included the "trigger refresh" button for now, although it seemingly isn't working at the moment. Hopefully I will be able to sort this out in future updates. 
+
 
 ## how it works 🌪️
 
-1. `scripts/fetch_weather.py` calls the Weather Underground PWS "current
-   conditions" API for your station and saves the result to
-   `data/weather.json`.
-2. `.github/workflows/update-weather.yml` runs that script every 10 minutes
-   (and on demand) and commits the updated file back to the repo.
-3. `index.html` fetches `data/weather.json` directly — since it's served
+1. **python scripts to pull data:**
+    `scripts/fetch_weather.py` - calls the Weather Underground PWS "current conditions" API for your    station and saves the result to `data/weather.json`. this was the easiest option for ecowitt, but other weather stations may have their own API system that works just as well. worth looking into if you don't want to upload your data to WU. 
+   `scripts/fetch_air_quality.py` - calls the latest PM2.5 reading from PurpleAir via their free API. a how-to on swapping out this sensor with yours or one of your choosing, see ##purpleair config
+   `scripts/fetch_camera.py` - calls the latest camera snapshot from the Ecowitt camera. (or whatever camera you're using, so long as it has API/APP, a MAC address and a stable url) and saves it to `data/camera.jpg`
+   `scripts/fetch_forecast.py` -  calls the local forecast directly from the National Weather Service API for the zip code of your choosing. No API key needed because the NWS is free and public. Adjust by swapping in your own coordinates.
+   `scripts/fetch_outlook.py` - calls the current SPC day 1, day 2, and day 3 convective outlook images and saves them to `data/outlook-day1.png`, `data/outlook-day2.png`, `data/outlook-day3.png`
+   
+2. **workflow to update data on page**
+  `.github/workflows/update-weather.yml` runs that script every 5 minutes, commits the updated file directly to the page. can be run manually, on demand, as often as you'd like.
+*(time slots are offset to every 3rd, 8th, 13th, 18th, 23rd, etc minute for more reliable automatic updates, due to the standard 5/10/15/20 timeslots typically being inundated with the heaviest server traffic)*
+   
+3. **where it all comes together**
+   `index.html` fetches `data/weather.json` directly — since it's served
    from the same GitHub Pages domain, there's no CORS problem, and it's
    nearly instant to load.
 
@@ -45,6 +55,28 @@ A live weather page for Clover Terrace, a small, higher elevation micro-climate 
    `https://yourusername.github.io/your-repo-name/`) and you should see
    your live conditions.
 
+## camera setup 🌤️
+
+I created this for my personal Ecowitt camera, but the same setup steps would apply to almost any other camera that has API functionality and a stable image url. Ecowitt's response structure can vary slightly by device/firmware, so the script searches the response for an image URL rather than assuming
+one exact key path. If it can't find one on the first run, check the
+"Fetch latest camera snapshot" step's log in the Actions tab — the
+script prints the full raw API response there so you can see
+the actual key path and adjust `find_image_url()` if needed. This
+is also set to not block the weather-data commit if it fails, so a
+camera hiccup won't stop your other updates.
+
+1. Log into https://www.ecowitt.net with the account tied to your
+   console/camera, and create an **Application Key** and **API Key**
+   under the Member Center / API section.
+2. Find your station's **MAC address or IMEI** in the device list on
+   ecowitt.net.
+3. Add three repository secrets, making sure to paste the numbers into the secret text box EXACTLY as you see them. trailing spaces before or after will cause this part to error out and not show data, but it shouldn't stop your other data from loading.
+   - `ECOWITT_APP_KEY`
+   - `ECOWITT_API_KEY`
+   - `ECOWITT_MAC`
+
+
+
 ## historical graph 🌦️
 
 Every time the workflow runs, `fetch_weather.py` now also appends the
@@ -74,52 +106,22 @@ You can also customize the counter's appearance by editing the `label`,
 `icon`, and `color` params in the fetch URL inside `initVisitorCounter()`
 — see https://hitscounter.dev/ for the full icon picker and color list. 
 
-## camera snapshot 🌤️
-
-If your station has a camera accessory, `scripts/fetch_camera.py` pulls
-the latest snapshot from **Ecowitt's own cloud API** (this is separate
-from Weather Underground/Findu — the camera image isn't part of that
-data feed) and saves it as `data/camera.jpg`, which the page displays
-with cache-busting so it always shows the freshest image rather than a
-browser-cached one. If your weather camera is not the HP10 Ecowitt camera used for testimg this setup, this is not guaranteed to work. In theory, plugging in a usable API key and replacing the Ecowitt coding with coding relevent to fetching data from your weathercam brand of choic should be the only requirements, feel free to tweak it as needed or remove the camera sections of code altogether if you don't have a weather camera.
-
-**setup:**
-1. Log into https://www.ecowitt.net with the account tied to your
-   console/camera, and create an **Application Key** and **API Key**
-   under the Member Center / API section.
-2. Find your station's **MAC address or IMEI** in the device list on
-   ecowitt.net.
-3. Add three more repository secrets (same place as the WU ones):
-   - `ECOWITT_APP_KEY`
-   - `ECOWITT_API_KEY`
-   - `ECOWITT_MAC`
-
-Ecowitt's response structure can vary slightly by device/firmware, so
-the script searches the response for an image URL rather than assuming
-one exact key path. If it can't find one on your first run, check the
-"Fetch latest camera snapshot" step's log in the Actions tab — the
-script prints the full raw API response there so you (or I) can see
-the actual key path and adjust `find_image_url()` if needed. This step
-is also set to not block the weather-data commit if it fails, so a
-camera hiccup won't stop your temperature/humidity updates.
 
 ## customizing 🌈
 
-- **Which fields show up, and their order/labels:** edit the `FIELDS`
+- **which fields show up, and their order/labels:** edit the `FIELDS`
   array near the top of the `<script>` block in `index.html`.
-- **Colors/fonts:** edit the CSS variables at the top of `index.html`
+- **color/fonts:** edit the CSS variables at the top of `index.html`
   (`--bg-color`, `--accent-color`, etc.).
-- **Update frequency:** change the cron schedule in
+- **update frequency:** change the cron schedule in
   `.github/workflows/update-weather.yml` (GitHub's minimum practical
   interval is about 5 minutes; note that scheduled workflows can be
   delayed further during periods of high GitHub Actions load).
-- **Metric units:** change `units=e` to `units=m` in
+- **metric units:** change `units=e` to `units=m` in
   `scripts/fetch_weather.py`'s URL, and update the unit labels in
   `index.html` accordingly (°C, km/h, mm, hPa).
-- **Weather-based themes:** You can edit the themes yourself, choosing whatever hex color codes you'd like to create a unique theme triggered hy that weather condition being recorded by your PWS.
-- **Visitor counter settings:** Located near the bottom of the script block, you can customize them there.
+- **weather-based themes:** You can edit the themes yourself, choosing whatever hex color codes you'd like to create a unique theme triggered hy that weather condition being recorded by your PWS.
 
+## note on compatibility with other personal weather stations ☔
 
-
-## compatibility with other personal weather stations ☔
-I haven't tested it, but I'm sure this page template will work with just about any PWS (personal weather station) that is capable of sending data to websites like weatherunderground, Findu, CWOP, etc. You really just need to be able to generate API keys. Remember, if you're pulling data directly from a different brand of personal weather station you may need to change the parts of code that are pulling data from the Ecowitt API.
+I haven't tested it, this page template should work with just about any PWS (personal weather station) that is capable of sending data to websites like weatherunderground. as I mentioned earlier, some PWS brands may even have a more direct API functionality if you'd rather. ot upload data to WU.  
