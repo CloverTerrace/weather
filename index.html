@@ -46,24 +46,14 @@
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, 160px);
+    justify-content: center;
     gap: 1rem;
     width: 100%;
-    max-width: 900px;
+    max-width: 1400px;
   }
 
-  @media (min-width: 900px) {
-    .grid {
-      grid-template-columns: repeat(3, 1fr);
-      max-width: 1400px;
-    }
-  }
-
-  @media (min-width: 1400px) {
-    .grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
+  
 
   .card {
     background: var(--card-color);
