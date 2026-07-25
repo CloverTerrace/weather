@@ -9,6 +9,7 @@
   <link rel="icon" href="/icons/icon-192.png" sizes="any">
  <link rel="apple-touch-icon" href="/icons/icon-192.png">
 <style>
+
   
   :root {
     --bg-color: #000000;
@@ -700,11 +701,16 @@ body.fx-alert-tornado .fx-tornado-vignette {
     opacity: 0.5;
     cursor: not-allowed;
   }
+
 </style>
+
 <script src="chart.umd.min.js"></script>
 <script src="suncalc.js"></script>
   
 </head>
+
+  // ------------------//
+  
 <body>
 
     <div id="weather-fx" aria-hidden="true">
@@ -1509,11 +1515,10 @@ for (let i = 0; i < STAR_COUNT; i++) {
 
       
   
-  // ---------- Weather-based color/icon themes ----------
-  // NOTE: the Weather Underground API only gives raw sensor readings
-  // (temp, precip rate, wind speed, solar radiation, etc.) — not an actual
-  // "condition" label. soo, this is a heuristic guess at current conditions
-  // based on those numbers, not a real forecast/condition read! manage your expectations.
+  // ---------- weather-based color/icon themes ----------
+  // a heuristic guess at current conditions based on PWS data
+  // not a real forecast/condition read! manage your expectations.
+  // warning themes always take priority
 
   const WINDY_WIND_MPH = 11;           // sustained wind or gust above this = windy theme
   const THUNDERSTORM_WIND_MPH = 15;    // wind above this...
@@ -1562,7 +1567,7 @@ const THEMES = {
   }
 
   // maps active NWS alert events to a theme override. 
-  // an official warning always wins over our own heuristic guess at conditions. 
+  // an official warning always wins over the heuristic guess at conditions. 
   // ordered most-to-least severe if there are multiple alerts active at once.
   
   function getAlertOverride(alerts, isNight) {
@@ -1764,8 +1769,8 @@ function shouldShowField(field, data) {
       errorBanner.style.display = 'none';
       status.textContent = `Last observation: ${data.obsTimeLocal || 'unknown'} · Page checked: ${new Date().toLocaleTimeString()}`;
 
-      // prevents the camera image from becoming stale due to an old image //
-      // of the same filename being cached.                                //
+      // prevents the camera image from becoming stale due to an  //
+      // old image of the same filename being cached.             //
       const cameraImg = document.getElementById('camera-img');
       cameraImg.src = `data/camera.jpg?t=${Date.now()}`;
     } catch (err) {
