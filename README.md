@@ -36,46 +36,41 @@ and puts it all together to create a cozy little weather dashboard for you and y
 
    
 
-## setting it up ⛈️
+## getting started ⛈️
 
 1. **create the repo**
 download the files, and the add them to a new GitHub repository with pages enabled. name it whatever you want, but it's case sensitive!
 
-*important settings*
-- under general settings, make sure your default branch is set to main
-- under build and deployment, source should say "deploy from a branch", branches should be "main" and "/(root)"
-- it's never a bad idea to enforce HTTPS
-
-3. **get a weather underground API key** (free) at
+2. **get a weather underground API key** (free) at
    https://www.wunderground.com/member/api-keys — log in with the account
-   linked to your station.
+   linked to your station.  
+   *because ecowitt doesn't have a native eay to do this, I used Leo Herzog's Weather   Underground Forwarder (https://github.com/leoherzog/WundergroundStationForwarder)*
 
-4. **Find your Station ID.** This is the ID you already use when uploading
+3.  **get your station ID.** this is the ID you already use when uploading
    data from your Ecowitt console/gateway to Weather Underground (looks
    like `KPAPLACE44`).
 
-5. **Add two repository secrets:**
-   Go to your repo → Settings → Secrets and variables → Actions → New
+6. **add two repository secrets:**
+   go to your repo → Settings → Secrets and variables → Actions → New
    repository secret, and add:
    - `WU_STATION_ID` — your station ID
    - `WU_API_KEY` — your API key
 
-6. **Enable GitHub Pages:**
-   Settings → Pages → Source: "Deploy from a branch" → select `main` and
+7. **enable GitHub page:**
+   setting → pages → source: "deploy from a branch" → select `main` and
    `/ (root)`.
 
-7. **Run the workflow once manually** to generate the first
-   `data/weather.json`: go to the Actions tab → "Update Weather Data" →
-   "Run workflow". After that it'll run automatically every 10 minutes.
+8. **run the workflow once manually** to generate the first
+   `data/weather.json`: go to the actions tab → "Update Weather Data" →
+   "run workflow". after that it'll run automatically every 5 minutes, or as frequently as the git gods allow.
 
-8. Visit your Pages URL (something like
+9. visit your page URL (something like
    `https://yourusername.github.io/your-repo-name/`) and you should see
    your live conditions.
 
 ## camera setup 🌤️
 
-I created this for my personal Ecowitt camera, but the same setup steps would apply to almost any other camera that has API functionality and a stable image url. Ecowitt's response structure can vary slightly by device/firmware, so the script searches the response for an image URL rather than assuming
-one exact key path. If it can't find one on the first run, check the
+I created this for my personal ecowitt camera, but the same setup steps should apply to almost any other camera that has API functionality and a stable image url. ecowitt response structure can vary slightly by device/firmware, so the script searches the response for an image URL rather than assuming one exact key path. if it can't find one on the first run, check the
 "Fetch latest camera snapshot" step's log in the Actions tab — the
 script prints the full raw API response there so you can see
 the actual key path and adjust `find_image_url()` if needed. This
