@@ -47,22 +47,11 @@
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(2, 160px);
+    grid-template-columns: repeat(auto-fill, 160px);
     justify-content: center;
     gap: 1rem;
     width: 100%;
-  }
-
-  @media (min-width: 900px) {
-    .grid {
-      grid-template-columns: repeat(4, 160px);
-    }
-  }
-
-  @media (min-width: 1400px) {
-    .grid {
-      grid-template-columns: repeat(6, 160px);
-    }
+    max-width: 1400px;
   }
 
 
