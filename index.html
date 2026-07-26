@@ -19,10 +19,16 @@
     --text-color: #ffffff;
     --muted-color: #ffffff;
     --font-family: Georgia, Verdana, system-ui, -apple-system, sans-serif;
-  }
+  
 
+  --font-page-title: var(--font-family);    /* "Clover Terrace Weather Station" */
+  --font-card-heading: var(--font-family);  /* every card's section header */
+  --font-body: var(--font-family);          /* general text within cards */
+  --font-grid-label: var(--font-family);    /* dashboard tile labels — "TEMPERATURE" */
+  --font-grid-value: var(--font-family);    /* dashboard tile big numbers — "68°F" */
   * { box-sizing: border-box; }
-
+  }
+  
   body {
     margin: 0;
     padding: 2rem 1rem;
