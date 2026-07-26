@@ -1794,7 +1794,7 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
       const minutes = Math.floor(remaining / 60000);
       const seconds = Math.floor((remaining % 60000) / 1000);
       refreshBtn.disabled = true;
-      refreshBtn.textContent = `⏳ Wait ${minutes}:${seconds.toString().padStart(2, '0')}`;
+      refreshBtn.textContent = `🌙 Wait ${minutes}:${seconds.toString().padStart(2, '0')}`;
       setTimeout(tick, 1000);
     }
     tick();
