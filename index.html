@@ -2150,7 +2150,7 @@ const THEMES = {
     sunny:            { bg: '#ebd48a', card: '#FFFFFF', accent: '#f5b73b', muted: '#f59e3b', text: '#ffffff', icon: '☀️', iconImg: 'icons/themes/sunny.png' },
     extremeHeat:      { bg: '#4a1907', card: '#5c2712', accent: '#ff6b35', muted: '#000000', text: '#ffffff', icon: '🔥☀️', iconImg: 'icons/themes/extremeHeat.png' },
     extremeHeatNight: { bg: '#2e1005', card: '#3d1a0c', accent: '#ff8659', muted: '#ffcc4d', text: '#ffffff', icon: '🔥🌙', iconImg: 'icons/themes/extremeHeatNight.png' },
-    cloudy:           { bg: '#b4c9d9', card: '#EEF3F6', accent: '#b4c9d9', muted: '#749BB9', text: '#ffffff', icon: '⛅️', iconImg: 'icons/themes/cloudy.png' },
+    cloudy:           { bg: '#b4c9d9', card: '#EEF3F6', accent: '#b4c9d9', muted: '#749BB9', text: '#ffffff', icon: '⛅️', iconImg: 'icons/themes/cloudy.png', titleFont: "Eagle Lake, Tahoma, Papyrus" },
     rainy:            { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', icon: '🌧️', iconImg: 'icons/themes/rainy.png' },
     rainyNight:       { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', icon: '🌧️🌙', iconImg: 'icons/themes/rainyNight.png', titleFont: "Lavishly Yours, cursive" },
     snowy:            { bg: '#1b2430', card: '#25313f', accent: '#dff3ff', muted: '#d5d4e6', text: '#ffffff', icon: '❄️', iconImg: 'icons/themes/snowy.png', titleFont: "Figtree, sans-serif" },
@@ -2202,9 +2202,7 @@ const THEMES = {
     return null;
   }
 
-  // Kp7+ triggers the aurora theme + overlay — but only at night (it isn't
-  // visible during the day) and only when no NWS alert override is already
-  // active, since an active warning should always take visual priority.
+  // Kp7+ triggers the aurora theme + overlay
   function getAuroraOverride(isNight) {
     if (!isNight) return null;
     if (!currentAurora || currentAurora.kp === undefined || currentAurora.kp === null) return null;
@@ -2296,8 +2294,7 @@ const THEMES = {
         el.appendChild(img);
         return;
       }
-      // New moon has no real photo (it'd just be a near-black square at
-      // this tiny size) — fall through to the theme's regular icon.
+    
     }
 
     if (theme.iconImg) {
