@@ -598,6 +598,84 @@
     font-family: var(--font-body);
   }
 
+/* ---------- FOUC loading overlay ----------
+   Only ever shown when there's no cached theme yet (first visit, or a
+   cleared cache) — the early inline script in <head> decides this
+   synchronously, before first paint, by adding .show-loading-overlay to
+   <html>. Returning visitors with a valid cache never see this at all;
+   their real colors are applied before anything paints. */
+#loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.75rem;
+  opacity: 1;
+  transition: opacity 0.7s ease;
+  overflow: hidden;
+}
+
+html.show-loading-overlay #loading-overlay {
+  display: flex;
+}
+
+#loading-overlay.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+html.loading-day #loading-overlay {
+  background: linear-gradient(180deg, #eef4fa 0%, #dce8f3 55%, #cfe0ee 100%);
+  color: #3a5068;
+}
+
+html.loading-night #loading-overlay {
+  background: linear-gradient(180deg, #0b0e1c 0%, #14112f 55%, #1c1846 100%);
+  color: #f0eff6;
+}
+
+.loading-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+html.loading-day .loading-cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  filter: blur(3px);
+  animation: fx-drift 50s linear infinite;
+}
+
+html.loading-night .loading-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #fff;
+  border-radius: 50%;
+  animation: fx-twinkle 3s ease-in-out infinite;
+}
+
+.loading-icon {
+  font-size: 2.75rem;
+  animation: fx-loading-pulse 2s ease-in-out infinite;
+}
+
+@keyframes fx-loading-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50%      { transform: scale(1.08); opacity: 1; }
+}
+
+.loading-text {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
 #weather-fx {
     position: fixed;
     inset: 0;
@@ -889,7 +967,7 @@ body.fx-alert-tornado .fx-tornado-vignette {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .raindrop, .cloud-shape, .star, .snowflake, .aurora-band, .aurora-glow {
+    .raindrop, .cloud-shape, .star, .snowflake, .aurora-band, .aurora-glow, .loading-cloud, .loading-star, .loading-icon {
       animation: none !important;
     }
     #weather-fx {
@@ -1019,6 +1097,42 @@ body.fx-alert-tornado .fx-tornado-vignette {
 
 </style>
 
+<script>
+  // ---------- FOUC prevention — runs synchronously, before <body> paints ----------
+  // If a cached theme exists, apply its CSS variables to the root right
+  // now, before the browser renders anything — so a returning visitor's
+  // very first paint is already correct, no flash, no overlay shown at
+  // all. If there's no cache (first visit, or a cleared one), show the
+  // branded loading overlay instead, in the right day/night flavor based
+  // on the visitor's local clock (checked synchronously too — no need to
+  // wait on anything for that part).
+  (function () {
+    var CACHE_KEY = 'cloverWeatherThemeCache';
+    var cached = null;
+    try {
+      cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+    } catch (e) {
+      cached = null;
+    }
+
+    if (cached && cached.vars) {
+      var root = document.documentElement.style;
+      for (var key in cached.vars) {
+        if (Object.prototype.hasOwnProperty.call(cached.vars, key)) {
+          root.setProperty(key, cached.vars[key]);
+        }
+      }
+    } else {
+      var hour = new Date().getHours();
+      var isNight = hour < 6 || hour >= 20;
+      document.documentElement.classList.add(
+        'show-loading-overlay',
+        isNight ? 'loading-night' : 'loading-day'
+      );
+    }
+  })();
+</script>
+
 <script src="chart.umd.min.js"></script>
 <script src="suncalc.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -1028,6 +1142,21 @@ body.fx-alert-tornado .fx-tornado-vignette {
   
   
 <body>
+
+  <div id="loading-overlay">
+    <div class="loading-decor" aria-hidden="true">
+      <div class="loading-cloud" style="width:130px;height:44px;top:22%;left:8%;"></div>
+      <div class="loading-cloud" style="width:90px;height:32px;top:60%;left:68%;"></div>
+      <div class="loading-cloud" style="width:70px;height:26px;top:38%;left:55%;"></div>
+      <div class="loading-star" style="top:14%;left:22%;"></div>
+      <div class="loading-star" style="top:26%;left:78%; animation-delay:-1s;"></div>
+      <div class="loading-star" style="top:68%;left:14%; animation-delay:-2s;"></div>
+      <div class="loading-star" style="top:48%;left:62%; animation-delay:-0.6s;"></div>
+      <div class="loading-star" style="top:80%;left:48%; animation-delay:-1.6s;"></div>
+    </div>
+    <div class="loading-icon">🍀</div>
+    <div class="loading-text">Loading Clover Terrace weather…</div>
+  </div>
 
     <div id="weather-fx" aria-hidden="true">
     <div class="fx-rain" id="fx-rain"></div>
@@ -2370,7 +2499,8 @@ const THEMES = {
     root.setProperty('--accent-color', theme.accent);
     root.setProperty('--muted-color', theme.muted);
     root.setProperty('--text-color', theme.text);
-    root.setProperty('--font-page-title', theme.titleFont || DEFAULT_TITLE_FONT);
+    const titleFont = theme.titleFont || DEFAULT_TITLE_FONT;
+    root.setProperty('--font-page-title', titleFont);
     setThemeIcon(theme, themeKey);
 
     // toggle the CSS rain/cloud effects based on the active theme.
@@ -2387,6 +2517,38 @@ const THEMES = {
     document.body.classList.toggle('fx-active-snow', !!(alertFx && alertFx.snow));
     document.body.classList.toggle('fx-alert-tornado', !!(alertFx && alertFx.tornadoVignette));
     setLightningActive(!!(alertFx && alertFx.lightning));
+
+    // Cache this theme's CSS variables so next visit can apply them
+    // synchronously before first paint — see the inline script in <head>.
+    try {
+      localStorage.setItem('cloverWeatherThemeCache', JSON.stringify({
+        vars: {
+          '--bg-color': theme.bg,
+          '--card-color': theme.card,
+          '--accent-color': theme.accent,
+          '--muted-color': theme.muted,
+          '--text-color': theme.text,
+          '--font-page-title': titleFont,
+        },
+        savedAt: Date.now(),
+      }));
+    } catch (e) {
+      // localStorage unavailable (private browsing, storage full, etc.) —
+      // the page still works fine, just without the FOUC-prevention cache.
+    }
+
+    // We now have a real, correctly-computed theme applied — hide the
+    // loading overlay if it's showing. A no-op for returning visitors,
+    // since it was never shown for them in the first place.
+    hideLoadingOverlay();
+  }
+
+  function hideLoadingOverlay() {
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay && !overlay.classList.contains('hide')) {
+      overlay.classList.add('hide');
+      setTimeout(() => overlay.remove(), 800);
+    }
   }
 
 function shouldShowField(field, data) {
