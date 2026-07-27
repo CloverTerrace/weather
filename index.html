@@ -2322,7 +2322,14 @@ function getAqiColor(aqi) {
   return '#7e0023';                  // hazardous
 }
 
-const DEFAULT_TITLE_FONT = "Aladin, Georgia, serif";
+// falls back to these whenever a theme doesn't specify its own font
+const FONT_ROLES = {
+  title:       { cssVar: '--font-page-title',  fallback: "Macondo, Palatino, serif" },
+  cardHeading: { cssVar: '--font-card-heading', fallback: "Figtree, Tahoma, serif" },
+  body:        { cssVar: '--font-body',         fallback: "Figtree, Tahoma, sans-serif" },
+  gridLabel:   { cssVar: '--font-grid-label',   fallback: "Figtree, Yahoma, sans-serif" },
+  gridValue:   { cssVar: '--font-grid-value',   fallback: "var(--font-family)" },
+};
   
   // 🌈 customize the theme colors, icons and font styles right here 🌪️ //
   
@@ -2499,8 +2506,12 @@ const THEMES = {
     root.setProperty('--accent-color', theme.accent);
     root.setProperty('--muted-color', theme.muted);
     root.setProperty('--text-color', theme.text);
-    const titleFont = theme.titleFont || DEFAULT_TITLE_FONT;
-    root.setProperty('--font-page-title', titleFont);
+    const appliedFonts = {};
+    Object.entries(FONT_ROLES).forEach(([role, { cssVar, fallback }]) => {
+      const value = (theme.fonts && theme.fonts[role]) || fallback;
+      root.setProperty(cssVar, value);
+      appliedFonts[cssVar] = value;
+    });
     setThemeIcon(theme, themeKey);
 
     // toggle the CSS rain/cloud effects based on the active theme.
