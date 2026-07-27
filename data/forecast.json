@@ -1,6 +1,16 @@
 [
   {
-    "name": "Today",
+    "name": "Overnight",
+    "temperature": 65,
+    "temperatureUnit": "F",
+    "windSpeed": "0 mph",
+    "windDirection": "",
+    "shortForecast": "Areas Of Fog",
+    "detailedForecast": "Areas of fog. Partly cloudy, with a low around 65. Wind around 0 mph.",
+    "isDaytime": false
+  },
+  {
+    "name": "Monday",
     "temperature": 87,
     "temperatureUnit": "F",
     "windSpeed": "0 to 6 mph",
@@ -10,7 +20,7 @@
     "isDaytime": true
   },
   {
-    "name": "Tonight",
+    "name": "Monday Night",
     "temperature": 68,
     "temperatureUnit": "F",
     "windSpeed": "3 to 9 mph",
@@ -28,15 +38,5 @@
     "shortForecast": "Showers And Thunderstorms Likely then Chance Showers And Thunderstorms",
     "detailedForecast": "Showers and thunderstorms likely before 8am, then a chance of showers and thunderstorms between 8am and 2pm, then showers and thunderstorms likely between 2pm and 3pm, then a chance of showers and thunderstorms. Mostly cloudy, with a high near 80. West wind 9 to 14 mph, with gusts as high as 25 mph. Chance of precipitation is 60%. New rainfall amounts between a quarter and half of an inch possible.",
     "isDaytime": true
-  },
-  {
-    "name": "Tuesday Night",
-    "temperature": 64,
-    "temperatureUnit": "F",
-    "windSpeed": "8 to 14 mph",
-    "windDirection": "NW",
-    "shortForecast": "Chance Showers And Thunderstorms",
-    "detailedForecast": "A chance of showers and thunderstorms before 2am. Mostly cloudy, with a low around 64. Northwest wind 8 to 14 mph, with gusts as high as 25 mph. Chance of precipitation is 40%.",
-    "isDaytime": false
   }
 ]
