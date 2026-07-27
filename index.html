@@ -599,10 +599,10 @@
   }
 
 /* ---------- FOUC loading overlay ----------
-   Only ever shown when there's no cached theme yet (first visit, or a
+   only ever shown when there's no cached theme yet (first visit, or a
    cleared cache) — the early inline script in <head> decides this
    synchronously, before first paint, by adding .show-loading-overlay to
-   <html>. Returning visitors with a valid cache never see this at all;
+   <html>. returning visitors with a valid cache never see this at all;
    their real colors are applied before anything paints. */
 #loading-overlay {
   position: fixed;
@@ -1154,7 +1154,8 @@ body.fx-alert-tornado .fx-tornado-vignette {
       <div class="loading-star" style="top:80%;left:48%; animation-delay:-1.6s;"></div>
     </div>
     <div class="loading-icon">🍀</div>
-    <div class="loading-text">Loading Clover Terrace weather…</div>
+    <div class="loading-text">loading the weather at 
+      Clover Terrace…</div>
   </div>
 
     <div id="weather-fx" aria-hidden="true">
