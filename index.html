@@ -4,6 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clover Terrace Weather</title>
+<meta name="description" content="Live weather conditions, forecast, radar, air quality, and severe weather alerts for Clover Terrace, a higher-elevation micro-climate in Aliquippa, PA.">
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Clover Terrace Weather Station">
+<meta property="og:description" content="Live weather conditions, forecast, radar, air quality, and severe weather alerts for Clover Terrace, Aliquippa, PA.">
+<meta property="og:url" content="https://cloverterrace.github.io/weather/">
+<meta property="og:image" content="https://cloverterrace.github.io/weather/icons/icon-512.png">
+
+<!-- Twitter/X card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Clover Terrace Weather Station">
+<meta name="twitter:description" content="Live weather conditions, forecast, radar, air quality, and severe weather alerts for Clover Terrace, Aliquippa, PA.">
+<meta name="twitter:image" content="https://cloverterrace.github.io/weather/icons/icon-512.png">
+
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f1724">
   <link rel="icon" href="/icons/icon-192.png" sizes="any">
@@ -219,6 +234,31 @@
     font-size: 0.85rem;
     text-align: center;
     font-family: var(--font-body);
+  }
+
+  #last-updated-relative {
+    margin-top: 0.25rem;
+    color: var(--muted-color);
+    font-size: 0.8rem;
+    text-align: center;
+    font-family: var(--font-body);
+    opacity: 0.75;
+  }
+
+  #credits-footer {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+    color: var(--muted-color);
+    font-size: 0.75rem;
+    text-align: center;
+    font-family: var(--font-body);
+    opacity: 0.6;
+    max-width: 600px;
+  }
+
+  #credits-footer a {
+    color: inherit;
   }
 
   #error-banner {
@@ -1095,6 +1135,24 @@ body.fx-alert-tornado .fx-tornado-vignette {
     cursor: not-allowed;
   }
 
+  #share-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    margin-top: 1rem;
+    margin-left: 0.6rem;
+  }
+
+  #share-btn:hover {
+    opacity: 0.85;
+  }
+
 </style>
 
 <script>
@@ -1175,9 +1233,9 @@ body.fx-alert-tornado .fx-tornado-vignette {
   <h1><span id="weather-icon">🍀</span> Clover Terrace Weather</h1>
   <div id="subtitle">Loading...</div>
 
-  <div id="alert-banners"></div>
+  <div id="alert-banners" role="alert" aria-live="assertive"></div>
 
-  <div id="error-banner"></div>
+  <div id="error-banner" role="alert" aria-live="assertive"></div>
 
   <div class="grid" id="grid">
     </div>
@@ -1246,12 +1304,12 @@ body.fx-alert-tornado .fx-tornado-vignette {
   </div>
 
   <div class="map-panel" id="map-panel-lightning">
-    <iframe src="https://map.blitzortung.org/#3.7/40.616/-80.274" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
+    <iframe data-src="https://map.blitzortung.org/#3.7/40.616/-80.274" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
     <div class="map-attribution"><a href="https://www.blitzortung.org/" target="_blank" rel="noopener">Blitzortung.org</a></div>
   </div>
 
   <div class="map-panel" id="map-panel-forecast">
-    <iframe src="https://www.meteoblue.com/en/weather/maps/widget/40.616N-80.274E339_America%2FNew_York?windAnimation=1&gust=1&satellite=1&cloudsAndPrecipitation=1&temperature=1&sunshine=1&extremeForecastIndex=1&geoloc=fixed&tempunit=F&lengthunit=imperial&windunit=mph&zoom=6&autowidth=auto&user_key=8134bd0af0541cef&embed_key=d66f82d141afbc64&sig=6603f082f9b0195f2a320cd4d879ab45b1976f9a06721ed0592e3de0900955bb" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
+    <iframe data-src="https://www.meteoblue.com/en/weather/maps/widget/40.616N-80.274E339_America%2FNew_York?windAnimation=1&gust=1&satellite=1&cloudsAndPrecipitation=1&temperature=1&sunshine=1&extremeForecastIndex=1&geoloc=fixed&tempunit=F&lengthunit=imperial&windunit=mph&zoom=6&autowidth=auto&user_key=8134bd0af0541cef&embed_key=d66f82d141afbc64&sig=6603f082f9b0195f2a320cd4d879ab45b1976f9a06721ed0592e3de0900955bb" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
     <div class="map-attribution"><a href="https://www.meteoblue.com/en/weather/week/index" target="_blank" rel="noopener">meteoblue</a></div>
   </div>
 </div>
@@ -1306,13 +1364,27 @@ body.fx-alert-tornado .fx-tornado-vignette {
   </div>
   </details>
 
-  <div id="status"></div>
+  <div id="status" aria-live="polite"></div>
+  <div id="last-updated-relative" aria-live="off"></div>
 
   <button id="refresh-btn">🌪️ Refresh Now</button>
+  <button id="share-btn" style="display:none;">📤 Share</button>
 
   <div id="visitor-counter">
   <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fcloverterrace.github.io%2Fweather%2F&label=Visitors&icon=cloud-lightning-rain-fill&color=%23e9ecef&message=&style=flat&tz=UTC" alt="Visitor Count">
 </div>
+
+  <footer id="credits-footer">
+    Data &amp; imagery courtesy of
+    <a href="https://www.weather.gov/" target="_blank" rel="noopener">NWS</a>,
+    <a href="https://www.spc.noaa.gov/" target="_blank" rel="noopener">NOAA SPC</a>,
+    <a href="https://www.nasa.gov/" target="_blank" rel="noopener">NASA</a>,
+    <a href="https://www2.purpleair.com/" target="_blank" rel="noopener">PurpleAir</a>,
+    <a href="https://www.rainviewer.com/" target="_blank" rel="noopener">RainViewer</a>,
+    <a href="https://www.blitzortung.org/" target="_blank" rel="noopener">Blitzortung.org</a>,
+    <a href="https://www.meteoblue.com/" target="_blank" rel="noopener">meteoblue</a>,
+    and <a href="https://www.ecowitt.com/" target="_blank" rel="noopener">Ecowitt</a>.
+  </footer>
 
   </div>
     
@@ -1352,6 +1424,26 @@ body.fx-alert-tornado .fx-tornado-vignette {
   const USGS_REFRESH_INTERVAL_MS = 15 * 60 * 1000;
   let currentUsgs = null;
   let lastWeatherData = null;
+  let lastSuccessfulLoadTime = null;
+
+  function formatRelativeTime(timestamp) {
+    if (!timestamp) return '';
+    const seconds = Math.floor((Date.now() - timestamp) / 1000);
+    if (seconds < 60) return 'Updated just now';
+    const minutes = Math.floor(seconds / 60);
+    if (minutes === 1) return 'Updated 1 minute ago';
+    if (minutes < 60) return `Updated ${minutes} minutes ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours === 1) return 'Updated 1 hour ago';
+    return `Updated ${hours} hours ago`;
+  }
+
+  function updateRelativeTimeDisplay() {
+    const el = document.getElementById('last-updated-relative');
+    if (el && lastSuccessfulLoadTime) {
+      el.textContent = formatRelativeTime(lastSuccessfulLoadTime);
+    }
+  }
 
   async function fetchUsgsGauge() {
     try {
@@ -1962,6 +2054,17 @@ function refreshOutlookImages() {
       tab.addEventListener('click', () => {
         tabs.forEach(t => t.classList.toggle('active', t === tab));
         panels.forEach(p => p.classList.toggle('active', p.id === tab.dataset.target));
+
+        // Lazily load the lightning/forecast map iframes only the first
+        // time their tab is actually opened, instead of every panel
+        // loading unconditionally on page load regardless of which tab
+        // is visible.
+        const activePanel = document.getElementById(tab.dataset.target);
+        const lazyIframe = activePanel && activePanel.querySelector('iframe[data-src]');
+        if (lazyIframe) {
+          lazyIframe.src = lazyIframe.dataset.src;
+          lazyIframe.removeAttribute('data-src');
+        }
 
         if (tab.dataset.target === 'map-panel-radar') {
           // the container may have been display:none — Leaflet needs a
@@ -2695,6 +2798,21 @@ function shouldShowField(field, data) {
 
       errorBanner.style.display = 'none';
       status.textContent = `Last observation: ${data.obsTimeLocal || 'unknown'} · Page checked: ${new Date().toLocaleTimeString()}`;
+      lastSuccessfulLoadTime = Date.now();
+      updateRelativeTimeDisplay();
+
+      // Cache the real data too, alongside the theme colors — so next
+      // visit can render actual numbers/alerts immediately on script
+      // start, instead of sitting blank until the first fetch resolves.
+      try {
+        localStorage.setItem('cloverWeatherDataCache', JSON.stringify({
+          data,
+          alerts,
+          savedAt: Date.now(),
+        }));
+      } catch (e) {
+        // localStorage unavailable — page still works fine either way.
+      }
 
       // prevents the camera image from becoming stale due to an  //
       // old image of the same filename being cached.             //
@@ -2785,10 +2903,31 @@ if (triggered) {
     startCooldownCountdown();
   }
 
+  // Render cached data immediately on script start, before the network
+  // fetch below has a chance to resolve — closes the remaining gap after
+  // the FOUC theme-color trick: colors are already correct from the very
+  // first paint (see the <head> script), and now the actual numbers and
+  // alert banners appear within milliseconds too, rather than sitting
+  // blank for however long the fetch takes. Gets silently replaced the
+  // moment real, fresh data comes back from loadData() below.
+  (function hydrateFromCache() {
+    try {
+      const cached = JSON.parse(localStorage.getItem('cloverWeatherDataCache') || 'null');
+      if (cached && cached.data) {
+        lastWeatherData = cached.data;
+        renderCards(cached.data);
+        renderAlertBanners(cached.alerts || []);
+      }
+    } catch (e) {
+      // no valid cache — the normal loading overlay/fetch path handles it.
+    }
+  })();
+
   loadData();
   loadHistory();
   loadForecast();
   setInterval(loadData, REFRESH_INTERVAL_MS);
+  setInterval(updateRelativeTimeDisplay, 15000); // ticks the "Updated X ago" line independently of the actual data refresh
   setInterval(loadHistory, 5 * 60 * 1000);
   setInterval(loadForecast, 30 * 60 * 1000);
   setInterval(refreshOutlookImages, 30 * 60 * 1000);
@@ -2816,6 +2955,24 @@ if (triggered) {
   
   
   refreshBtn.addEventListener('click', handleRefreshClick);
+
+  // Web Share API — only shown on browsers/devices that actually support
+  // it (mainly mobile; most desktop browsers don't), so it never shows up
+  // as a dead button that does nothing.
+  const shareBtn = document.getElementById('share-btn');
+  if (navigator.share) {
+    shareBtn.style.display = 'inline-block';
+    shareBtn.addEventListener('click', () => {
+      navigator.share({
+        title: 'Clover Terrace Weather Station',
+        text: 'Live weather, radar, and alerts for Clover Terrace, Aliquippa, PA',
+        url: location.href,
+      }).catch(() => {
+        // user canceled the share sheet, or it failed silently — nothing
+        // to do here, the page still works fine either way.
+      });
+    });
+  }
 
   // service worker for refresh button //
   
