@@ -236,15 +236,6 @@
     font-family: var(--font-body);
   }
 
-  #last-updated-relative {
-    margin-top: 0.25rem;
-    color: var(--muted-color);
-    font-size: 0.8rem;
-    text-align: center;
-    font-family: var(--font-body);
-    opacity: 0.75;
-  }
-
   #credits-footer {
     margin-top: 2rem;
     margin-bottom: 1rem;
@@ -364,6 +355,30 @@
     margin-top: 2.5rem;
     display: flex;
     justify-content: center;
+  }
+
+  .visitor-cloud {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: #4a5a6a;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.55rem 1.6rem;
+    border-radius: 999px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+  }
+
+  .visitor-cloud-puff {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 50%;
+  }
+
+  #visitor-count-text {
+    position: relative;
   }
 
 
@@ -1365,14 +1380,16 @@ body.fx-alert-tornado .fx-tornado-vignette {
   </details>
 
   <div id="status" aria-live="polite"></div>
-  <div id="last-updated-relative" aria-live="off"></div>
 
   <button id="refresh-btn">🌪️ Refresh Now</button>
   <button id="share-btn" style="display:none;">📤 Share</button>
 
-  <div id="visitor-counter">
-  <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fcloverterrace.github.io%2Fweather%2F&label=Visitors&icon=cloud-lightning-rain-fill&color=%23e9ecef&message=&style=flat&tz=UTC" alt="Visitor Count">
-</div>
+  <div id="visitor-counter" class="visitor-cloud">
+    <div class="visitor-cloud-puff" style="width:36px;height:36px;top:-15px;left:16px;"></div>
+    <div class="visitor-cloud-puff" style="width:28px;height:28px;top:-10px;right:18px;"></div>
+    <div class="visitor-cloud-puff" style="width:22px;height:22px;top:-6px;left:44%;"></div>
+    <span id="visitor-count-text">☁️ …</span>
+  </div>
 
   <footer id="credits-footer">
     Data &amp; imagery courtesy of
@@ -1429,19 +1446,45 @@ body.fx-alert-tornado .fx-tornado-vignette {
   function formatRelativeTime(timestamp) {
     if (!timestamp) return '';
     const seconds = Math.floor((Date.now() - timestamp) / 1000);
-    if (seconds < 60) return 'Updated just now';
+    if (seconds < 60) return 'updated just now';
     const minutes = Math.floor(seconds / 60);
-    if (minutes === 1) return 'Updated 1 minute ago';
-    if (minutes < 60) return `Updated ${minutes} minutes ago`;
+    if (minutes === 1) return 'updated 1 minute ago';
+    if (minutes < 60) return `updated ${minutes} minutes ago`;
     const hours = Math.floor(minutes / 60);
-    if (hours === 1) return 'Updated 1 hour ago';
-    return `Updated ${hours} hours ago`;
+    if (hours === 1) return 'updated 1 hour ago';
+    return `updated ${hours} hours ago`;
   }
 
-  function updateRelativeTimeDisplay() {
-    const el = document.getElementById('last-updated-relative');
-    if (el && lastSuccessfulLoadTime) {
-      el.textContent = formatRelativeTime(lastSuccessfulLoadTime);
+  // Single combined status line — station's own observation time plus a
+  // continuously-ticking "updated X ago", instead of two separate lines
+  // conveying overlapping information. Skips updating while an error is
+  // currently displayed, so the ticker doesn't quietly paper over a
+  // failed fetch before the next successful one comes in.
+  function updateStatusLine() {
+    if (errorBanner.style.display === 'block') return;
+    if (!lastWeatherData || !lastSuccessfulLoadTime) return;
+    const obsTime = lastWeatherData.obsTimeLocal || 'unknown';
+    status.textContent = `Station observed ${obsTime} · ${formatRelativeTime(lastSuccessfulLoadTime)}`;
+  }
+
+  // Fetches the visitor count via hitscounter.dev's JSON mode (rather
+  // than embedding their pre-rendered badge image) so it can be styled
+  // to match the site instead of using their fixed image graphic. Runs
+  // once per page load only — not on an interval — same as before, so
+  // repeat checks on an already-open tab don't inflate the count.
+  async function loadVisitorCount() {
+    const el = document.getElementById('visitor-count-text');
+    try {
+      const res = await fetch(
+        'https://hitscounter.dev/api/hit?url=https%3A%2F%2Fcloverterrace.github.io%2Fweather%2F&label=Visitors&json=true',
+        { cache: 'no-store' }
+      );
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      el.textContent = `☁️ ${data.message} visitors`;
+    } catch (err) {
+      el.textContent = '☁️ —';
+      console.warn('Visitor counter unavailable:', err.message);
     }
   }
 
@@ -2445,7 +2488,7 @@ const THEMES = {
     rainyNight:       { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', icon: '🌧️🌙', iconImg: 'icons/themes/rainyNight.png', fonts: { title: "Lavishly Yours, cursive" } },
     snowy:            { bg: '#1b2430', card: '#25313f', accent: '#dff3ff', muted: '#d5d4e6', text: '#ffffff', icon: '❄️', iconImg: 'icons/themes/snowy.png', fonts: { title: "Snowby, sans-serif" } },
     snowyNight:       { bg: '#0f151c', card: '#182530', accent: '#a8d8f0', muted: '#dcf0f7', text: '#ffffff', icon: '❄️🌙', iconImg: 'icons/themes/snowyNight.png', fonts: { title: "Snowby, sans-serif" } },
-    night:            { bg: '#14112F', card: '#41406a', accent: '#9F86C0', muted: '#f0eff6', text: '#ffffff', icon: '🌙', iconImg: 'icons/themes/night.png', fonts: { title: "Lavishly Yours, cursive", cardHeading: "Letter Magic" } },
+    night:            { bg: '#14112F', card: '#41406a', accent: '#9F86C0', muted: '#f0eff6', text: '#ffffff', icon: '🌙', iconImg: 'icons/themes/night.png', fonts: { title: "Lavishly Yours, cursive" } },
     auroraNight:      { bg: '#05060f', card: '#141a33', accent: '#7CFFB2', muted: '#eae6ff', text: '#ffffff', icon: '🌌', iconImg: 'icons/themes/auroraNight.png',  fonts: { title: "Lavishly Yours, cursive" } },
     windy:            { bg: '#1c2b28', card: '#25372f', accent: '#7fe0c0', muted: '#dcf0f7', text: '#ffffff', icon: '🌬️', iconImg: 'icons/themes/windy.png', fonts: { title: "Lavishly Yours, cursive" } },
     windyNight:       { bg: '#111d1a', card: '#1a2c26', accent: '#5fc7a3', muted: '#dcf0f7', text: '#ffffff', icon: '🌬️🌙', iconImg: 'icons/themes/windyNight.png', fonts: { title: "NightWindSent, cursive" } },
@@ -2797,9 +2840,8 @@ function shouldShowField(field, data) {
         : `Station ${data.stationID}`;
 
       errorBanner.style.display = 'none';
-      status.textContent = `Last observation: ${data.obsTimeLocal || 'unknown'} · Page checked: ${new Date().toLocaleTimeString()}`;
       lastSuccessfulLoadTime = Date.now();
-      updateRelativeTimeDisplay();
+      updateStatusLine();
 
       // Cache the real data too, alongside the theme colors — so next
       // visit can render actual numbers/alerts immediately on script
@@ -2927,7 +2969,7 @@ if (triggered) {
   loadHistory();
   loadForecast();
   setInterval(loadData, REFRESH_INTERVAL_MS);
-  setInterval(updateRelativeTimeDisplay, 15000); // ticks the "Updated X ago" line independently of the actual data refresh
+  setInterval(updateStatusLine, 15000); // ticks the relative "updated X ago" portion independently of the actual data refresh
   setInterval(loadHistory, 5 * 60 * 1000);
   setInterval(loadForecast, 30 * 60 * 1000);
   setInterval(refreshOutlookImages, 30 * 60 * 1000);
@@ -2939,6 +2981,7 @@ if (triggered) {
   initRadarMap();
   fetchUsgsGauge();
   setInterval(fetchUsgsGauge, USGS_REFRESH_INTERVAL_MS);
+  loadVisitorCount();
   
 
   
