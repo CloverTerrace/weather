@@ -1187,7 +1187,15 @@ body.fx-alert-tornado .fx-tornado-vignette {
       cached = null;
     }
 
-    if (cached && cached.vars) {
+    var hour = new Date().getHours();
+    var isNightNow = hour < 6 || hour >= 20;
+
+    // onky trust the cached theme if it's still the right time-of-day —
+    // otherwise a returning visitor from last night briefly sees last
+    // night's colors/fonts before fresh data corrects it. if it's stale,
+    // fall back to the neutral loading overlay instead of confidently
+    // showing what we now know is probably the wrong theme.
+    if (cached && cached.vars && cached.isNight === isNightNow) {
       var root = document.documentElement.style;
       for (var key in cached.vars) {
         if (Object.prototype.hasOwnProperty.call(cached.vars, key)) {
@@ -1195,11 +1203,9 @@ body.fx-alert-tornado .fx-tornado-vignette {
         }
       }
     } else {
-      var hour = new Date().getHours();
-      var isNight = hour < 6 || hour >= 20;
       document.documentElement.classList.add(
         'show-loading-overlay',
-        isNight ? 'loading-night' : 'loading-day'
+        isNightNow ? 'loading-night' : 'loading-day'
       );
     }
   })();
@@ -2098,7 +2104,7 @@ function refreshOutlookImages() {
         tabs.forEach(t => t.classList.toggle('active', t === tab));
         panels.forEach(p => p.classList.toggle('active', p.id === tab.dataset.target));
 
-        // Lazily load the lightning/forecast map iframes only the first
+        // lazy load the lightning/forecast map iframes only the first
         // time their tab is actually opened, instead of every panel
         // loading unconditionally on page load regardless of which tab
         // is visible.
@@ -2675,7 +2681,7 @@ const THEMES = {
     document.body.classList.toggle('fx-alert-tornado', !!(alertFx && alertFx.tornadoVignette));
     setLightningActive(!!(alertFx && alertFx.lightning));
 
-    // Cache this theme's CSS variables so next visit can apply them
+    // cache this theme's CSS variables so next visit can apply them
     // synchronously before first paint — see the inline script in <head>.
     try {
       localStorage.setItem('cloverWeatherThemeCache', JSON.stringify({
@@ -2687,6 +2693,7 @@ const THEMES = {
           '--text-color': theme.text,
           '--font-page-title': titleFont,
         },
+        isNight: themeKey === 'night' || themeKey.endsWith('Night'),
         savedAt: Date.now(),
       }));
     } catch (e) {
@@ -2694,9 +2701,7 @@ const THEMES = {
       // the page still works fine, just without the FOUC-prevention cache.
     }
 
-    // We now have a real, correctly-computed theme applied — hide the
-    // loading overlay if it's showing. A no-op for returning visitors,
-    // since it was never shown for them in the first place.
+  
     hideLoadingOverlay();
   }
 
