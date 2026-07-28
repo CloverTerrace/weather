@@ -36,14 +36,19 @@ def main():
         print(f"ERROR: Failed to fetch Kp-index data: {e}", file=sys.stderr)
         sys.exit(1)
 
-    # First row is a header; each subsequent row is [time_tag, kp, ...].
-    if len(rows) < 2:
-        print("ERROR: Unexpected response shape from NOAA.", file=sys.stderr)
+    # NOAA's current format is a plain array of objects, no header row:
+    # [{"time_tag": "...", "Kp": 2.00, "a_running": 7, "station_count": 8}, ...]
+    if not rows:
+        print("ERROR: Empty response from NOAA.", file=sys.stderr)
         sys.exit(1)
 
-    latest = rows[-1]
-    time_tag, kp_raw = latest[0], latest[1]
-    kp = float(kp_raw)
+    try:
+        latest = rows[-1]
+        time_tag = latest["time_tag"]
+        kp = float(latest["Kp"])
+    except (KeyError, TypeError, ValueError) as e:
+        print(f"ERROR: Unexpected response shape from NOAA: {e}", file=sys.stderr)
+        sys.exit(1)
 
     result = {
         "kp": kp,
