@@ -1398,7 +1398,7 @@ body.fx-alert-tornado .fx-tornado-vignette {
   </div>
 
   <footer id="credits-footer">
-    Data &amp; imagery courtesy of
+    data &amp; imagery courtesy of
     <a href="https://www.weather.gov/" target="_blank" rel="noopener">NWS</a>,
     <a href="https://www.spc.noaa.gov/" target="_blank" rel="noopener">NOAA SPC</a>,
     <a href="https://www.nasa.gov/" target="_blank" rel="noopener">NASA</a>,
@@ -1406,7 +1406,7 @@ body.fx-alert-tornado .fx-tornado-vignette {
     <a href="https://www.rainviewer.com/" target="_blank" rel="noopener">RainViewer</a>,
     <a href="https://www.blitzortung.org/" target="_blank" rel="noopener">Blitzortung.org</a>,
     <a href="https://www.meteoblue.com/" target="_blank" rel="noopener">meteoblue</a>,
-    and <a href="https://www.ecowitt.com/" target="_blank" rel="noopener">Ecowitt</a>.
+    and <a href="https://www.ecowitt.com/" target="_blank" rel="noopener">Ecowitt PWS (WS90)</a>.
   </footer>
 
   </div>
@@ -1461,7 +1461,7 @@ body.fx-alert-tornado .fx-tornado-vignette {
     return `updated ${hours} hours ago`;
   }
 
-  // Single combined status line — station's own observation time plus a
+  // single combined status line — station's own observation time plus a
   // continuously-ticking "updated X ago", instead of two separate lines
   // conveying overlapping information. Skips updating while an error is
   // currently displayed, so the ticker doesn't quietly paper over a
@@ -1473,7 +1473,7 @@ body.fx-alert-tornado .fx-tornado-vignette {
     status.textContent = `Station observed ${obsTime} · ${formatRelativeTime(lastSuccessfulLoadTime)}`;
   }
 
-  // Fetches the visitor count via hitscounter.dev's JSON mode (rather
+  // fetches the visitor count via hitscounter.dev's JSON mode (rather
   // than embedding their pre-rendered badge image) so it can be styled
   // to match the site instead of using their fixed image graphic. Runs
   // once per page load only — not on an interval — same as before, so
@@ -1482,12 +1482,12 @@ body.fx-alert-tornado .fx-tornado-vignette {
     const el = document.getElementById('visitor-count-text');
     try {
       const res = await fetch(
-        'https://hitscounter.dev/api/hit?url=https%3A%2F%2Fcloverterrace.github.io%2Fweather%2F&label=Visitors&json=true',
+        'https://countapi.mileshilliard.com/api/v1/hit/cloverterrace-weather-visits',
         { cache: 'no-store' }
       );
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      el.textContent = `☁️ ${data.message} visitors`;
+      el.textContent = `☁️ ${data.value} visitors`;
     } catch (err) {
       el.textContent = '☁️ —';
       console.warn('Visitor counter unavailable:', err.message);
