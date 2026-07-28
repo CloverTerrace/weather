@@ -1,12 +1,22 @@
 [
   {
+    "name": "This Afternoon",
+    "temperature": 81,
+    "temperatureUnit": "F",
+    "windSpeed": "10 mph",
+    "windDirection": "NW",
+    "shortForecast": "Chance Showers And Thunderstorms",
+    "detailedForecast": "A chance of showers and thunderstorms before 5pm. Mostly sunny, with a high near 81. Northwest wind around 10 mph, with gusts as high as 21 mph. Chance of precipitation is 30%.",
+    "isDaytime": true
+  },
+  {
     "name": "Tonight",
     "temperature": 62,
     "temperatureUnit": "F",
-    "windSpeed": "6 to 9 mph",
+    "windSpeed": "6 to 12 mph",
     "windDirection": "NW",
     "shortForecast": "Partly Cloudy",
-    "detailedForecast": "Partly cloudy, with a low around 62. Northwest wind 6 to 9 mph, with gusts as high as 21 mph.",
+    "detailedForecast": "Partly cloudy, with a low around 62. Northwest wind 6 to 12 mph.",
     "isDaytime": false
   },
   {
@@ -28,15 +38,5 @@
     "shortForecast": "Mostly Clear",
     "detailedForecast": "Mostly clear, with a low around 60. Northwest wind 5 to 13 mph, with gusts as high as 24 mph.",
     "isDaytime": false
-  },
-  {
-    "name": "Thursday",
-    "temperature": 81,
-    "temperatureUnit": "F",
-    "windSpeed": "5 to 9 mph",
-    "windDirection": "NW",
-    "shortForecast": "Sunny",
-    "detailedForecast": "Sunny, with a high near 81. Northwest wind 5 to 9 mph.",
-    "isDaytime": true
   }
 ]
