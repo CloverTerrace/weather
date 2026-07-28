@@ -6,14 +6,14 @@
 <title>Clover Terrace Weather</title>
 <meta name="description" content="Live weather conditions, forecast, radar, air quality, and severe weather alerts for Clover Terrace, a higher-elevation micro-climate in Aliquippa, PA.">
 
-<!-- Open Graph / social preview -->
+<!-- open graph / social preview -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Clover Terrace Weather Station">
 <meta property="og:description" content="Live weather conditions, forecast, radar, air quality, and severe weather alerts for Clover Terrace, Aliquippa, PA.">
 <meta property="og:url" content="https://cloverterrace.github.io/weather/">
 <meta property="og:image" content="https://cloverterrace.github.io/weather/icons/icon-512.png">
 
-<!-- Twitter/X card -->
+<!-- twitter card -->
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Clover Terrace Weather Station">
 <meta name="twitter:description" content="Live weather conditions, forecast, radar, air quality, and severe weather alerts for Clover Terrace, Aliquippa, PA.">
@@ -63,6 +63,15 @@
   font-style: normal;
   font-weight: 400;
   src: url('fonts/Groovy Clouds.woff2') format('woff2'); 
+}
+
+  /* sunny love - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Sunny Love';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Sunny Love.woff2') format('woff2'); 
 }
 
   /* jelly choco - latin */
@@ -711,7 +720,7 @@ html.loading-night .loading-star {
 }
 
 .loading-text {
-  font-family: var(--font-body);
+  font-family: "Sunny Love";
   font-size: 0.95rem;
   letter-spacing: 0.02em;
 }
@@ -1254,7 +1263,7 @@ body.fx-alert-tornado .fx-tornado-vignette {
   </div>
     
   <div class="camera-card">
-    <h2>Sky &amp; Space</h2>
+    <h2>Space Weather</h2>
     <div class="sky-box" id="sky-box">
       <div class="sky-body" id="sun-body">
         <div class="sky-body-frame">
@@ -1368,7 +1377,7 @@ body.fx-alert-tornado .fx-tornado-vignette {
   <div id="last-updated-relative" aria-live="off"></div>
 
   <button id="refresh-btn">🌪️ Refresh Now</button>
-  <button id="share-btn" style="display:none;">📤 Share</button>
+  <button id="share-btn" style="display:none;"✉️</button>
 
   <div id="visitor-counter">
   <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fcloverterrace.github.io%2Fweather%2F&label=Visitors&icon=cloud-lightning-rain-fill&color=%23e9ecef&message=&style=flat&tz=UTC" alt="Visitor Count">
@@ -2441,20 +2450,20 @@ const THEMES = {
     extremeHeat:      { bg: '#4a1907', card: '#faf4ed', accent: '#ff6b35', muted: '#e07a43', text: '#e09a43', icon: '🔥☀️', iconImg: 'icons/themes/extremeHeat.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
     extremeHeatNight: { bg: '#2e1005', card: '#3d1a0c', accent: '#ff8659', muted: '#ffcc4d', text: '#ffffff', icon: '🔥🌙', iconImg: 'icons/themes/extremeHeatNight.png', fonts: { title: "NightWindSent, Papyrus, serif", cardHeading: "Monas" } },
     cloudy:           { bg: '#b4c9d9', card: '#EEF3F6', accent: '#b4c9d9', muted: '#749BB9', text: '#ffffff', icon: '⛅️', iconImg: 'icons/themes/cloudy.png', fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Jelly Choco" } },
-    rainy:            { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', icon: '🌧️', iconImg: 'icons/themes/rainy.png', fonts: { title: "Letter Magic, Tahoma" } },
-    rainyNight:       { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', icon: '🌧️🌙', iconImg: 'icons/themes/rainyNight.png', fonts: { title: "Lavishly Yours, cursive" } },
+    rainy:            { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', icon: '🌧️', iconImg: 'icons/themes/rainy.png', fonts: { title: "NightWindSent, Tahoma", cardHeading: "Letter Magic" } },
+    rainyNight:       { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', icon: '🌧️🌙', iconImg: 'icons/themes/rainyNight.png', fonts: { title: "NightWindSent, cursive", cardHeading: "NightWindSent" } },
     snowy:            { bg: '#1b2430', card: '#25313f', accent: '#dff3ff', muted: '#d5d4e6', text: '#ffffff', icon: '❄️', iconImg: 'icons/themes/snowy.png', fonts: { title: "Snowby, sans-serif" } },
     snowyNight:       { bg: '#0f151c', card: '#182530', accent: '#a8d8f0', muted: '#dcf0f7', text: '#ffffff', icon: '❄️🌙', iconImg: 'icons/themes/snowyNight.png', fonts: { title: "Snowby, sans-serif" } },
     night:            { bg: '#14112F', card: '#41406a', accent: '#9F86C0', muted: '#f0eff6', text: '#ffffff', icon: '🌙', iconImg: 'icons/themes/night.png', fonts: { title: "Lavishly Yours, cursive" } },
     auroraNight:      { bg: '#05060f', card: '#141a33', accent: '#7CFFB2', muted: '#eae6ff', text: '#ffffff', icon: '🌌', iconImg: 'icons/themes/auroraNight.png',  fonts: { title: "Lavishly Yours, cursive" } },
     windy:            { bg: '#1c2b28', card: '#25372f', accent: '#7fe0c0', muted: '#dcf0f7', text: '#ffffff', icon: '🌬️', iconImg: 'icons/themes/windy.png', fonts: { title: "Lavishly Yours, cursive" } },
-    windyNight:       { bg: '#111d1a', card: '#1a2c26', accent: '#5fc7a3', muted: '#dcf0f7', text: '#ffffff', icon: '🌬️🌙', iconImg: 'icons/themes/windyNight.png', fonts: { title: "NightWindSent, cursive" } },
-    thunderstorm:     { bg: '#181022', card: '#241a33', accent: '#c79bff', muted: '#ffcc4d', text: '#ffffff', icon: '⛈️', iconImg: 'icons/themes/thunderstorm.png', fonts: { title: "Tornado, cursive" } },
-    thunderstormNight: { bg: '#0d0a17', card: '#191228', accent: '#9b7dff', muted: '#ffcc4d', text: '#ffffff', icon: '⛈️🌙', iconImg: 'icons/themes/thunderstormNight.png', fonts: { title: "NightWindSent, cursive" } },
-    flood:             { bg: '#1a2e28', card: '#12211c', accent: '#5ba88f', muted: '#cfe8df', text: '#ffffff', icon: '🌊', iconImg: 'icons/themes/flood.png', fonts: { title: "Eagle Lake" } },
-    floodNight:        { bg: '#0d1c17', card: '#16261f', accent: '#4a8f78', muted: '#cfe8df', text: '#ffffff', icon: '🌊🌙', iconImg: 'icons/themes/floodNight.png', fonts: { title: "NightWindSent, serif" } },
-    tornado:           { bg: '#2b3a1f', card: '#1c2814', accent: '#a8c95a', muted: '#d4e8a8', text: '#ffffff', icon: '🌪️', iconImg: 'icons/themes/tornado.png', fonts: { title: "Tornado" } },
-    tornadoNight:      { bg: '#141d0d', card: '#1c2814', accent: '#8fae4a', muted: '#d4e8a8', text: '#ffffff', icon: '🌪️🌙', iconImg: 'icons/themes/tornadoNight.png', fonts: { title: "Tornado" } },
+    windyNight:       { bg: '#111d1a', card: '#1a2c26', accent: '#5fc7a3', muted: '#dcf0f7', text: '#ffffff', icon: '🌬️🌙', iconImg: 'icons/themes/windyNight.png', fonts: { title: "NightWindSent, cursive", cardHeading: "Letter Magic" } },
+    thunderstorm:     { bg: '#181022', card: '#241a33', accent: '#c79bff', muted: '#ffcc4d', text: '#ffffff', icon: '⛈️', iconImg: 'icons/themes/thunderstorm.png', fonts: { title: "Tornado, cursive", cardHeading: "Tornado" } },
+    thunderstormNight: { bg: '#0d0a17', card: '#191228', accent: '#9b7dff', muted: '#ffcc4d', text: '#ffffff', icon: '⛈️🌙', iconImg: 'icons/themes/thunderstormNight.png', fonts: { title: "NightWindSent, cursive", cardHeading: "Letter Magic" } },
+    flood:             { bg: '#1a2e28', card: '#12211c', accent: '#5ba88f', muted: '#cfe8df', text: '#ffffff', icon: '🌊', iconImg: 'icons/themes/flood.png', fonts: { title: "Eagle Lake", cardHeading: "Eagle Lake" } },
+    floodNight:        { bg: '#0d1c17', card: '#16261f', accent: '#4a8f78', muted: '#cfe8df', text: '#ffffff', icon: '🌊🌙', iconImg: 'icons/themes/floodNight.png', fonts: { title: "NightWindSent, serif", cardHeading: "Eagle Lake" } },
+    tornado:           { bg: '#2b3a1f', card: '#1c2814', accent: '#a8c95a', muted: '#d4e8a8', text: '#ffffff', icon: '🌪️', iconImg: 'icons/themes/tornado.png', fonts: { title: "Tornado", cardHeading: "Eagle Lake" } },
+    tornadoNight:      { bg: '#141d0d', card: '#1c2814', accent: '#8fae4a', muted: '#d4e8a8', text: '#ffffff', icon: '🌪️🌙', iconImg: 'icons/themes/tornadoNight.png', fonts: { title: "Tornado", cardHeading: "NightWindSent" } },
   
   };
 
