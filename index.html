@@ -1485,9 +1485,28 @@ body.fx-alert-tornado .fx-tornado-vignette {
         'https://countapi.mileshilliard.com/api/v1/hit/cloverterrace-weather-visits',
         { cache: 'no-store' }
       );
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      el.textContent = `☁️ ${data.value} visitors`;
+      const rawText = await res.text();
+      if (!res.ok) throw new Error(`HTTP ${res.status} — body: ${rawText.slice(0, 200)}`);
+
+      let data;
+      try {
+        data = JSON.parse(rawText);
+      } catch (parseErr) {
+        // Log the actual raw response so we can see exactly what came
+        // back instead of guessing — could be an HTML error page, a
+        // different field name, etc.
+        console.warn('Visitor counter: response was not valid JSON. Raw text:', rawText.slice(0, 300));
+        throw parseErr;
+      }
+
+      // The service may return the count under a couple of different
+      // field names depending on version — check the common ones.
+      const count = data.value ?? data.count ?? data.hits;
+      if (count === undefined) {
+        console.warn('Visitor counter: no recognizable count field. Full response:', data);
+        throw new Error('No count field in response');
+      }
+      el.textContent = `☁️ ${count} visitors`;
     } catch (err) {
       el.textContent = '☁️ —';
       console.warn('Visitor counter unavailable:', err.message);
@@ -2691,7 +2710,7 @@ const THEMES = {
           '--accent-color': theme.accent,
           '--muted-color': theme.muted,
           '--text-color': theme.text,
-          '--font-page-title': titleFont,
+          ...appliedFonts,
         },
         isNight: themeKey === 'night' || themeKey.endsWith('Night'),
         savedAt: Date.now(),
