@@ -2625,23 +2625,7 @@ const THEMES = {
       appliedFonts[cssVar] = value;
     });
 
-    // --- SAVE TO LOCALSTORAGE FOR FOUC PREVENTION ---
-  try {
-    const themeCache = {
-      themeKey: themeKey,
-      vars: {
-        '--bg-color': theme.bg,
-        '--card-color': theme.card,
-        '--accent-color': theme.accent,
-        '--muted-color': theme.muted,
-        '--text-color': theme.text,
-        ...appliedFonts
-      }
-    };
-    localStorage.setItem('cloverWeatherThemeCache', JSON.stringify(themeCache));
-  } catch (e) {
-    console.warn('Unable to save theme cache:', e);
-  }
+  
     setThemeIcon(theme, themeKey);
 
     // toggle the CSS rain/cloud effects based on the active theme.
@@ -2669,7 +2653,7 @@ const THEMES = {
           '--accent-color': theme.accent,
           '--muted-color': theme.muted,
           '--text-color': theme.text,
-          '--font-page-title': titleFont,
+          '--font-page-title': ...appliedFonts,
         },
         savedAt: Date.now(),
       }));
