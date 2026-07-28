@@ -2624,6 +2624,24 @@ const THEMES = {
       root.setProperty(cssVar, value);
       appliedFonts[cssVar] = value;
     });
+
+    // --- SAVE TO LOCALSTORAGE FOR FOUC PREVENTION ---
+  try {
+    const themeCache = {
+      themeKey: themeKey,
+      vars: {
+        '--bg-color': theme.bg,
+        '--card-color': theme.card,
+        '--accent-color': theme.accent,
+        '--muted-color': theme.muted,
+        '--text-color': theme.text,
+        ...appliedFonts
+      }
+    };
+    localStorage.setItem('cloverWeatherThemeCache', JSON.stringify(themeCache));
+  } catch (e) {
+    console.warn('Unable to save theme cache:', e);
+  }
     setThemeIcon(theme, themeKey);
 
     // toggle the CSS rain/cloud effects based on the active theme.
@@ -2641,7 +2659,7 @@ const THEMES = {
     document.body.classList.toggle('fx-alert-tornado', !!(alertFx && alertFx.tornadoVignette));
     setLightningActive(!!(alertFx && alertFx.lightning));
 
-    // Cache this theme's CSS variables so next visit can apply them
+    // cache this theme's CSS variables so next visit can apply them
     // synchronously before first paint — see the inline script in <head>.
     try {
       localStorage.setItem('cloverWeatherThemeCache', JSON.stringify({
@@ -2659,10 +2677,7 @@ const THEMES = {
       // localStorage unavailable (private browsing, storage full, etc.) —
       // the page still works fine, just without the FOUC-prevention cache.
     }
-
-    // We now have a real, correctly-computed theme applied — hide the
-    // loading overlay if it's showing. A no-op for returning visitors,
-    // since it was never shown for them in the first place.
+    
     hideLoadingOverlay();
   }
 
@@ -2912,12 +2927,12 @@ if (triggered) {
     startCooldownCountdown();
   }
 
-  // Render cached data immediately on script start, before the network
+  // tender cached data immediately on script start, before the network
   // fetch below has a chance to resolve — closes the remaining gap after
   // the FOUC theme-color trick: colors are already correct from the very
   // first paint (see the <head> script), and now the actual numbers and
   // alert banners appear within milliseconds too, rather than sitting
-  // blank for however long the fetch takes. Gets silently replaced the
+  // blank for however long the fetch takes. gets silently replaced the
   // moment real, fresh data comes back from loadData() below.
   (function hydrateFromCache() {
     try {
