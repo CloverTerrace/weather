@@ -52,11 +52,19 @@ jobs:
         continue-on-error: true   # don't let an outlook hiccup block weather data updates
         run: python scripts/fetch_outlook.py
 
+      - name: Fetch active weather alerts
+        continue-on-error: true   # don't let an alerts hiccup block weather data updates
+        run: python scripts/fetch_alerts.py
+
+      - name: Fetch aurora/Kp data
+        continue-on-error: true   # don't let an aurora hiccup block weather data updates
+        run: python scripts/fetch_aurora.py
+
       - name: Commit and push if data changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in data/weather.json data/history.json data/camera.jpg data/forecast.json data/outlook-day1.png data/outlook-day2.png data/outlook-day3.png data/air_quality.json; do
+          for f in data/weather.json data/history.json data/camera.jpg data/forecast.json data/outlook-day1.png data/outlook-day2.png data/outlook-day3.png data/air_quality.json data/alerts.json data/aurora.json; do
             [ -f "$f" ] && git add "$f"
           done
           git diff --cached --quiet || git commit -m "Update weather data [skip ci]"
