@@ -1,11 +1,12 @@
-// A minimal service worker for the PWA/app wrapper.
+// a minimal service worker for the PWA/app wrapper.
 //
-// IMPORTANT: this deliberately does NOT cache data/weather.json,
+// this deliberately does NOT cache data/weather.json,
 // data/history.json, or data/camera.jpg — those must always be fetched
 // fresh so the app shows live conditions, not a stale cached snapshot.
-// It only caches the app "shell" (the page itself, styles, icons) so the
+// only caches the app "shell" (the page itself, styles, icons) so the
 // app opens instantly and still loads its frame if the network is briefly
-// unavailable. Version 3: Added background sync support.
+// unavailable. 
+// Version 3: Added background sync support.
 
 const CACHE_NAME = 'weather-app-shell-v2';
 const SHELL_FILES = [
