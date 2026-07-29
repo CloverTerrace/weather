@@ -2962,7 +2962,8 @@ function shouldShowField(field, data) {
       grid.appendChild(card);
     });
 
-    // USGS river gauge
+    // USGS river gauge //
+    
     const usgsCard = document.createElement('div');
     usgsCard.className = 'card';
     if (currentUsgs) {
@@ -2976,6 +2977,14 @@ function shouldShowField(field, data) {
         <div class="label">River Gauge</div>
         <div class="value">${currentUsgs.gageHeight.toFixed(2)}<span class="unit">ft</span>${trendHtml}</div>
       `;
+
+      const riverMax = getTodayMaxRiver(usgsHistory);
+      if (riverMax && riverMax.val > currentUsgs.gageHeight) {
+        const sub = document.createElement('div');
+        sub.className = 'card-subtext';
+        sub.innerHTML = `<strong>${riverMax.val.toFixed(2)} ft</strong> at ${formatShortTime(riverMax.dateTime)}`;
+        usgsCard.appendChild(sub);
+      }
     } else {
       usgsCard.title = `USGS ${USGS_SITE_ID}`;
       usgsCard.innerHTML = `
