@@ -2880,7 +2880,7 @@ function shouldShowField(field, data) {
         if (maxEntry && maxEntry[field.key] > value) {
           const sub = document.createElement('div');
           sub.className = 'card-subtext';
-          sub.innerHTML = `Today's max: <strong>${maxEntry[field.key]} ${field.unit}</strong><br>at ${formatShortTime(maxEntry.time)}`;
+          sub.innerHTML = `<strong>${maxEntry[field.key]} ${field.unit}</strong>at ${formatShortTime(maxEntry.time)}`;
           card.appendChild(sub);
         }
       }
@@ -3190,10 +3190,7 @@ if (triggered) {
   }
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init();</script>
-  
-  
+    
   
 </body>
 </html>
