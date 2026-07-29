@@ -2880,7 +2880,7 @@ function shouldShowField(field, data) {
         if (maxEntry && maxEntry[field.key] > value) {
           const sub = document.createElement('div');
           sub.className = 'card-subtext';
-          sub.innerHTML = `<strong>${maxEntry[field.key]} ${field.unit}</strong>at ${formatShortTime(maxEntry.time)}`;
+          sub.innerHTML = `<strong>${maxEntry[field.key]} ${field.unit}</strong> at ${formatShortTime(maxEntry.time)}`;
           card.appendChild(sub);
         }
       }
