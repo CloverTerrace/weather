@@ -1213,7 +1213,7 @@ body.fx-alert-tornado .fx-tornado-vignette {
     var hour = new Date().getHours();
     var isNightNow = hour < 6 || hour >= 20;
 
-    // onky trust the cached theme if it's still the right time-of-day —
+    // only trust the cached theme if it's still the right time-of-day —
     // otherwise a returning visitor from last night briefly sees last
     // night's colors/fonts before fresh data corrects it. if it's stale,
     // fall back to the neutral loading overlay instead of confidently
@@ -1532,15 +1532,11 @@ body.fx-alert-tornado .fx-tornado-vignette {
       try {
         data = JSON.parse(rawText);
       } catch (parseErr) {
-        // Log the actual raw response so we can see exactly what came
-        // back instead of guessing — could be an HTML error page, a
-        // different field name, etc.
+        // log the actual raw response for bug hunting 
         console.warn('Visitor counter: response was not valid JSON. Raw text:', rawText.slice(0, 300));
         throw parseErr;
       }
 
-      // The service may return the count under a couple of different
-      // field names depending on version — check the common ones.
       const count = data.value ?? data.count ?? data.hits;
       if (count === undefined) {
         console.warn('Visitor counter: no recognizable count field. Full response:', data);
@@ -1557,7 +1553,7 @@ body.fx-alert-tornado .fx-tornado-vignette {
     if (!values || values.length < 2) return null;
     const latest = values[values.length - 1];
     
-    // Target time is 3 hours ago to match pressure
+    // target time is 3 hours ago to match pressure
     const targetTime = Date.now() - 3 * 60 * 60 * 1000;
     let closest = null;
     let closestDiff = Infinity;
@@ -1582,8 +1578,8 @@ body.fx-alert-tornado .fx-tornado-vignette {
 
   async function fetchUsgsGauge() {
     try {
-      // Fetching the last 4 hours (PT4H) of data rather than just the latest value, 
-      // so we can calculate a trend for the tile gauge over the last 3 hours.
+      // fetching the last 4 hours (PT4H) of data in order to
+      // calculate a trend for the tile gauge over the last 3 hours.
       const url = `https://waterservices.usgs.gov/nwis/iv/?sites=${USGS_SITE_ID}&parameterCd=00065&format=json&period=PT4H`;
       const res = await fetch(url, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -1695,7 +1691,7 @@ body.fx-alert-tornado .fx-tornado-vignette {
     });
   }
 
-  // Time range options for the historical charts.
+  // time range options for the historical charts.
   const RANGE_OPTIONS = [
     { hours: 24, label: '24 Hours' },
     { hours: 48, label: '2 Days' },
@@ -1706,9 +1702,9 @@ body.fx-alert-tornado .fx-tornado-vignette {
 
   let fullHistory = [];       // the complete fetched dataset, unfiltered
 
-  // How far back to look for comparison, and how much change (in inHg)
+  // how far back to look for comparison, and how much change (in inHg)
   // counts as a real trend rather than normal sensor noise.
-  // Finds the reading with the highest value for a given field, among
+  // finds the reading with the highest value for a given field, among
   // today's history entries only (compared by local calendar date).
   function getTodayMax(history, fieldKey) {
     if (!history || history.length === 0) return null;
@@ -2722,7 +2718,7 @@ const THEMES = {
 
     const isNightTheme = themeKey === 'night' || themeKey.endsWith('Night');
     
-    // For pure clear nights, retain the beautiful realistic moon phase imagery.
+    // for pure clear nights, retain the beautiful moon phase imagery.
     if (isNightTheme && themeKey === 'night') {
       const phase = SunCalc.getMoonIllumination(new Date()).phase;
       const index = Math.round(phase * 8) % 8;
@@ -2749,7 +2745,7 @@ const THEMES = {
       img.alt = theme.icon;
       img.className = 'weather-icon-img meteocon';
       img.onerror = () => {
-        el.textContent = theme.icon; // Fallback to emoji if SVG file is missing
+        el.textContent = theme.icon; // fallback to emoji if SVG file is missing
       };
       el.appendChild(img);
       
@@ -2878,7 +2874,7 @@ function shouldShowField(field, data) {
       }
       if (field.key === 'windSpeed' || field.key === 'windGust') {
         const maxEntry = getTodayMax(fullHistory, field.key);
-        // Only worth showing once today's max is meaningfully different
+        // only worth showing once today's max is meaningfully different
         // from the current reading — otherwise it's just repeating the
         // number already shown above.
         if (maxEntry && maxEntry[field.key] > value) {
@@ -2986,7 +2982,7 @@ function shouldShowField(field, data) {
       lastSuccessfulLoadTime = Date.now();
       updateStatusLine();
 
-      // Cache the real data too, alongside the theme colors — so next
+      // cache the real data too, alongside the theme colors — so next
       // visit can render actual numbers/alerts immediately on script
       // start, instead of sitting blank until the first fetch resolves.
       try {
