@@ -1,9 +1,26 @@
 # Clover Terrace Weather Dashboard
 *readme under construction 🚧*
 
-A live weather page for *Clover Terrace*, my nickname for my small, hilltop micro-climate within Aliquippa (a historic city along the Ohio River).
+a live weather page for *Clover Terrace*, my nickname for my small, hilltop micro-climate within Aliquippa (a historic city along the Ohio River).
 
-Includes live data from my personal Ecowitt weather station, using the Weather Underground API. Updates minute by minute using both Cloudflare and Deno service workers for reliable updates every 60 seconds. No downtime during severe weather.
+includes live data from my personal Ecowitt weather station, using the Weather Underground API. updates minute by minute using both Cloudflare and Deno service workers for reliable updates every 60 seconds. No downtime during severe weather.
+
+full list of features:
+-personal weather station data grid, fed by my ecowitt WS90 every 60 seconds
+-live forecast directly from the NWS, checked hourly
+-themes that change instantly with the weather
+-meteocon’s animated weather icons 
+-static camera image pulled from my ecowitt HP10, updated every 5 minutes
+-sun and moon tracker, using NASA and NOAA’s data for positioning and image accuracy, updated every 60 seconds
+-“stargazing score” which triggers a starry night theme with even more stars only when conditions are good for stargazing. 
+-kp index. kp 7+ triggers an aurora alert + special theme with realistic aurora overlay) 
+-SPC convective outlooks for day 1, day 2, and day 3 *today, tomorrow and the day after tomorrow* updated hourly or when the Storm Prediction Center issues a new or corrected outlook. 
+-live radar loop from RainViewer
+-live lightning map from Blitzortung
+-live wind map + future radar from meteoblue
+-historical data charts (charts.js) for weather trends at 24 hour, 2 day, 4 day, 7 day, and 10 day timeframes
+-refresh button for manual refresh if browser is showing old or cached data
+-visitor counter by countapi, for funsies
 
 
 ## how it pulls data from my ecowitt station 🌪️
@@ -25,8 +42,7 @@ Includes live data from my personal Ecowitt weather station, using the Weather U
 *(time slots are offset to every 3rd, 8th, 13th, 18th, 23rd, etc minute for more reliable automatic updates, due to the standard 5/10/15/20 timeslots typically being inundated with the heaviest server traffic)*
 
 4. for reliability, I added two service workers via Cloudflare and Deno Deploy. this ensures that the data is updated every 45-60 seconds, even if the scheduled workflow fails.
-
-   
+  
 5. **where it all comes together**
    `index.html` fetches
      1. `data/weather.json` to populate weather station data cards
@@ -40,7 +56,7 @@ and puts it all together to create a cozy little weather dashboard for you and y
    
 
 ## do it yourself ⛈️
-*under construction*
+*under construction, right now this will at least help you build a PWS dashboard but I plan to add tutorials for every feature I added.*
 
 1. **create the repo**
 download the files, and the add them to a new GitHub repository with pages enabled. name it whatever you want, but it's case sensitive!
@@ -93,17 +109,19 @@ download the files, and the add them to a new GitHub repository with pages enabl
 ## local forecast 
 
 pulled directly from NWS via their free and public API
+🚧
 
 
 
 ## sun & moon position tracker
 
 pulls positions and imagery from NASA and NOAA to create a real time sky tracking system, with sunrise, solar noon, and sunset calculations.. complete with the moon phase, kp index, and stargazing conditions. 
+🚧
 
 ## SPC convective outlooks
 
 pulls the most recent outlooks issued by the SPC (Storm Prediction Center) 
-
+🚧
 
 ## historical graph 🌦️
 
