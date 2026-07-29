@@ -1625,6 +1625,7 @@ body.fx-alert-tornado .fx-tornado-vignette {
   let windRoseChart = null;
   let pressureChart = null;
   let solarChart = null;
+  let riverChart = null;
   let isRefreshing = false;
 
   function renderChart(history) {
@@ -1798,12 +1799,18 @@ body.fx-alert-tornado .fx-tornado-vignette {
 
   function renderAllCharts() {
     const filtered = filterHistoryByRange(fullHistory, currentRangeHours);
-    if (filtered.length === 0) return;
-    renderChart(filtered);
-    renderWindChart(filtered);
-    renderWindRose(filtered);
-    renderPressureChart(filtered);
-    renderSolarChart(filtered);
+    if (filtered.length > 0) {
+      renderChart(filtered);
+      renderWindChart(filtered);
+      renderWindRose(filtered);
+      renderPressureChart(filtered);
+      renderSolarChart(filtered);
+    }
+
+    const filteredRiver = filterRiverByRange(usgsHistory, currentRangeHours);
+    if (filteredRiver.length > 0) {
+      renderRiverChart(filteredRiver);
+    }
   }
 
   function initRangeButtons() {
@@ -3219,8 +3226,8 @@ if (triggered) {
   chartsDropdown.addEventListener('toggle', () => {
     if (chartsDropdown.open) {
       
-      [historyChart, windChart, windRoseChart, pressureChart, solarChart].forEach(c => c?.destroy());
-      historyChart = windChart = windRoseChart = pressureChart = solarChart = null;
+      [historyChart, windChart, windRoseChart, pressureChart, solarChart, riverChart].forEach(c => c?.destroy());
+      historyChart = windChart = windRoseChart = pressureChart = solarChart = riverChart = null;
       renderAllCharts();
     }
   });
