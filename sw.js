@@ -41,7 +41,7 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Never intercept the live data files or the Chart.js CDN/API calls —
+  // never intercept the live data files or the Chart.js CDN/API calls —
   // let those always go straight to the network.
  
   if (
@@ -53,13 +53,13 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // App shell files: try cache first, fall back to network.
+  // app shell files: try cache first, fall back to network.
   event.respondWith(
     caches.match(event.request).then((cached) => cached || fetch(event.request))
   );
 });
 
-// Background Sync: periodically fetch fresh weather data when the app is running in background
+// background sync: periodically fetch fresh weather data when the app is running in background
 self.addEventListener('sync', (event) => {
   if (event.tag === 'sync-weather-data') {
     event.waitUntil(syncWeatherData());
@@ -68,14 +68,14 @@ self.addEventListener('sync', (event) => {
 
 async function syncWeatherData() {
   try {
-    // Fetch all three data files fresh from the network
+    // fetch all three data files fresh from the network
     const [weatherRes, historyRes, cameraRes] = await Promise.allSettled([
       fetch('./data/weather.json?t=' + Date.now()),
       fetch('./data/history.json?t=' + Date.now()),
       fetch('./data/camera.jpg?t=' + Date.now()),
     ]);
 
-    // Notify all clients that new data is available (they can refresh if desired)
+    // notify all clients that new data is available (they can refresh if desired)
     const clients = await self.clients.matchAll();
     if (clients.length > 0) {
       const dataUpdate = {
@@ -94,7 +94,7 @@ async function syncWeatherData() {
   }
 }
 
-// Request a background sync every time the page loads or becomes visible
+// request a background sync every time the page loads or becomes visible
 // (browser may retry this periodically if connectivity is lost)
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SCHEDULE_SYNC') {
