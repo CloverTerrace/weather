@@ -1491,6 +1491,7 @@ body.fx-alert-tornado .fx-tornado-vignette {
   const USGS_SITE_ID = '03086000';
   const USGS_REFRESH_INTERVAL_MS = 15 * 60 * 1000;
   let currentUsgs = null;
+  let usgsHistory = []; // full period.value array kept around for today's-max + the historical chart
   let lastWeatherData = null;
   let lastSuccessfulLoadTime = null;
 
@@ -1578,9 +1579,8 @@ body.fx-alert-tornado .fx-tornado-vignette {
 
   async function fetchUsgsGauge() {
     try {
-      // fetching the last 4 hours (PT4H) of data in order to
-      // calculate a trend for the tile gauge over the last 3 hours.
-      const url = `https://waterservices.usgs.gov/nwis/iv/?sites=${USGS_SITE_ID}&parameterCd=00065&format=json&period=PT4H`;
+      // fetches river trend data for getTodayMax + river chart
+      const url = `https://waterservices.usgs.gov/nwis/iv/?sites=${USGS_SITE_ID}&parameterCd=00065&format=json&period=P10D`;
       const res = await fetch(url, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
@@ -1591,6 +1591,8 @@ body.fx-alert-tornado .fx-tornado-vignette {
 
       const trend = getRiverTrend(values);
 
+      usgsHistory = values;
+
       currentUsgs = {
         siteName: series.sourceInfo?.siteName || 'Ohio River — Dashields L&D',
         gageHeight: parseFloat(point.value),
@@ -1599,9 +1601,10 @@ body.fx-alert-tornado .fx-tornado-vignette {
       };
     } catch (err) {
       console.warn('Could not load USGS gauge data:', err.message);
-      // leave currentUsgs as whatever it was — stale-but-present beats blank
+      // leave currentUsgs as whatever it was — stale is better than blank with river gauges.
     }
     if (lastWeatherData) renderCards(lastWeatherData);
+    renderAllCharts();
   }
 
   const grid = document.getElementById('grid');
@@ -1715,6 +1718,21 @@ body.fx-alert-tornado .fx-tornado-vignette {
       const val = entry[fieldKey];
       if (val === undefined || val === null) return;
       if (!best || val > best[fieldKey]) best = entry;
+    });
+    return best;
+  }
+
+  // getTodayMax, adapted for the river gauge's own field
+  // names (dateTime/value instead of time/fieldKey) and string values.
+  function getTodayMaxRiver(values) {
+    if (!values || values.length === 0) return null;
+    const todayStr = new Date().toDateString();
+    let best = null;
+    values.forEach(entry => {
+      if (new Date(entry.dateTime).toDateString() !== todayStr) return;
+      const val = parseFloat(entry.value);
+      if (isNaN(val)) return;
+      if (!best || val > best.val) best = { val, dateTime: entry.dateTime };
     });
     return best;
   }
