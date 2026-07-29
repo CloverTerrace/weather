@@ -1436,6 +1436,7 @@ body.fx-alert-tornado .fx-tornado-vignette {
     <a href="https://www.rainviewer.com/" target="_blank" rel="noopener">RainViewer</a>,
     <a href="https://www.blitzortung.org/" target="_blank" rel="noopener">Blitzortung.org</a>,
     <a href="https://www.meteoblue.com/" target="_blank" rel="noopener">meteoblue</a>,
+    <a href="https://meteocons.com/icons/" target="_blank" rel="noopener">Meteocons (icons)</a>
     and <a href="https://www.ecowitt.com/" target="_blank" rel="noopener">Ecowitt PWS (WS90)</a>.
   </footer>
 
@@ -1492,10 +1493,8 @@ body.fx-alert-tornado .fx-tornado-vignette {
   }
 
   // single combined status line — station's own observation time plus a
-  // continuously-ticking "updated X ago", instead of two separate lines
-  // conveying overlapping information. Skips updating while an error is
-  // currently displayed, so the ticker doesn't quietly paper over a
-  // failed fetch before the next successful one comes in.
+  // continuously-ticking "updated X ago"
+  
   function updateStatusLine() {
     if (errorBanner.style.display === 'block') return;
     if (!lastWeatherData || !lastSuccessfulLoadTime) return;
@@ -1503,11 +1502,8 @@ body.fx-alert-tornado .fx-tornado-vignette {
     status.textContent = `Station observed ${obsTime} · ${formatRelativeTime(lastSuccessfulLoadTime)}`;
   }
 
-  // fetches the visitor count via hitscounter.dev's JSON mode (rather
-  // than embedding their pre-rendered badge image) so it can be styled
-  // to match the site instead of using their fixed image graphic. Runs
-  // once per page load only — not on an interval — same as before, so
-  // repeat checks on an already-open tab don't inflate the count.
+  // fetches the visitor count via countapi.mileshilliard.com's JSON mode 
+  
   async function loadVisitorCount() {
     const el = document.getElementById('visitor-count-text');
     try {
@@ -1536,9 +1532,9 @@ body.fx-alert-tornado .fx-tornado-vignette {
         console.warn('Visitor counter: no recognizable count field. Full response:', data);
         throw new Error('No count field in response');
       }
-      el.textContent = `☁️ ${count} visitors`;
+      el.textContent = `${count} visitors`;
     } catch (err) {
-      el.textContent = '☁️ —';
+      el.textContent = '—';
       console.warn('Visitor counter unavailable:', err.message);
     }
   }
