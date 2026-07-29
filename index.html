@@ -2677,7 +2677,7 @@ const THEMES = {
   }
 
   function loadMeteoconOrFallback(theme, el) {
-    // 1. Try to load the newly added Meteocon SVG
+    // 1. try to load the newly added Meteocon SVG
     if (theme.meteocon) {
       const img = document.createElement('img');
       img.src = `icons/${theme.meteocon}`;
@@ -2688,7 +2688,7 @@ const THEMES = {
       };
       el.appendChild(img);
       
-    // 2. Legacy fallback to static icons if still present
+    // 2. legacy fallback to static icons if still present
     } else if (theme.iconImg) {
       const img = document.createElement('img');
       img.src = theme.iconImg;
@@ -2699,7 +2699,7 @@ const THEMES = {
       };
       el.appendChild(img);
       
-    // 3. Final fallback: the old emoji text strings
+    // 3. final fallback: the old emoji text strings
     } else {
       el.textContent = theme.icon;
     }
