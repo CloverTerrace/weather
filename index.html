@@ -1251,7 +1251,28 @@ body.fx-alert-tornado .fx-tornado-vignette {
 
   <div id="page-content">
 
-  <h1><span id="weather-icon">🍀</span> Clover Terrace Weather</h1>
+    <h1><span id="weather-icon">🍀</span> Clover Terrace Weather</h1>
+  
+  <script>
+    // ---------- synchronous icon FOUC prevention ----------
+    // restores the cached weather icon before the browser paints the header.
+    (function() {
+      var CACHE_KEY = 'cloverWeatherThemeCache';
+      var cached = null;
+      try {
+        cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+      } catch (e) {}
+
+      var hour = new Date().getHours();
+      var isNightNow = hour < 6 || hour >= 20;
+
+      // ensure the cache is valid for the current time of day and contains the icon
+      if (cached && cached.isNight === isNightNow && cached.iconHtml) {
+        document.getElementById('weather-icon').innerHTML = cached.iconHtml;
+      }
+    })();
+  </script>
+
   <div id="subtitle">Loading...</div>
 
   <div id="alert-banners" role="alert" aria-live="assertive"></div>
@@ -2703,18 +2724,21 @@ const THEMES = {
     // cache this theme's CSS variables so next visit can apply them
     // synchronously before first paint — see the inline script in <head>.
     try {
-      localStorage.setItem('cloverWeatherThemeCache', JSON.stringify({
-        vars: {
-          '--bg-color': theme.bg,
-          '--card-color': theme.card,
-          '--accent-color': theme.accent,
-          '--muted-color': theme.muted,
-          '--text-color': theme.text,
-          ...appliedFonts,
-        },
-        isNight: themeKey === 'night' || themeKey.endsWith('Night'),
-        savedAt: Date.now(),
-      }));
+  localStorage.setItem('cloverWeatherThemeCache', JSON.stringify({
+    vars: {
+      '--bg-color': theme.bg,
+      '--card-color': theme.card,
+      '--accent-color': theme.accent,
+      '--muted-color': theme.muted,
+      '--text-color': theme.text,
+      ...appliedFonts,
+    },
+    isNight: themeKey === 'night' || themeKey.endsWith('Night'),
+    savedAt: Date.now(),
+    // Add this new line to capture the current icon:
+    iconHtml: document.getElementById('weather-icon').innerHTML
+  }));
+
     } catch (e) {
       // localStorage unavailable (private browsing, storage full, etc.) —
       // the page still works fine, just without the FOUC-prevention cache.
@@ -3023,9 +3047,7 @@ if (triggered) {
   
   refreshBtn.addEventListener('click', handleRefreshClick);
 
-  // Web Share API — only shown on browsers/devices that actually support
-  // it (mainly mobile; most desktop browsers don't), so it never shows up
-  // as a dead button that does nothing.
+  // web share API
   const shareBtn = document.getElementById('share-btn');
   if (navigator.share) {
     shareBtn.style.display = 'inline-block';
