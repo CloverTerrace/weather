@@ -1,16 +1,6 @@
 [
   {
-    "name": "Overnight",
-    "temperature": 62,
-    "temperatureUnit": "F",
-    "windSpeed": "6 mph",
-    "windDirection": "N",
-    "shortForecast": "Partly Cloudy",
-    "detailedForecast": "Partly cloudy, with a low around 62. North wind around 6 mph.",
-    "isDaytime": false
-  },
-  {
-    "name": "Wednesday",
+    "name": "Today",
     "temperature": 79,
     "temperatureUnit": "F",
     "windSpeed": "6 to 12 mph",
@@ -20,7 +10,7 @@
     "isDaytime": true
   },
   {
-    "name": "Wednesday Night",
+    "name": "Tonight",
     "temperature": 58,
     "temperatureUnit": "F",
     "windSpeed": "5 to 12 mph",
@@ -38,5 +28,15 @@
     "shortForecast": "Sunny",
     "detailedForecast": "Sunny, with a high near 81. Northwest wind 5 to 9 mph.",
     "isDaytime": true
+  },
+  {
+    "name": "Thursday Night",
+    "temperature": 59,
+    "temperatureUnit": "F",
+    "windSpeed": "0 to 9 mph",
+    "windDirection": "N",
+    "shortForecast": "Clear then Patchy Fog",
+    "detailedForecast": "Patchy fog after 3am. Clear, with a low around 59. North wind 0 to 9 mph.",
+    "isDaytime": false
   }
 ]
