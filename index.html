@@ -307,6 +307,21 @@
   .trend-falling { color: #ff7e67; }
   .trend-steady  { color: var(--muted-color); }
 
+  .card-subtext {
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    line-height: 1.35;
+    color: var(--muted-color);
+    font-family: var(--font-body);
+    opacity: 0.8;
+  }
+
+  .card-subtext strong {
+    color: var(--accent-color);
+    font-weight: 700;
+    opacity: 1;
+  }
+
 .charts-dropdown {
     width: 100%;
     max-width: 900px;
@@ -1693,6 +1708,25 @@ body.fx-alert-tornado .fx-tornado-vignette {
 
   // How far back to look for comparison, and how much change (in inHg)
   // counts as a real trend rather than normal sensor noise.
+  // Finds the reading with the highest value for a given field, among
+  // today's history entries only (compared by local calendar date).
+  function getTodayMax(history, fieldKey) {
+    if (!history || history.length === 0) return null;
+    const todayStr = new Date().toDateString();
+    let best = null;
+    history.forEach(entry => {
+      if (new Date(entry.time).toDateString() !== todayStr) return;
+      const val = entry[fieldKey];
+      if (val === undefined || val === null) return;
+      if (!best || val > best[fieldKey]) best = entry;
+    });
+    return best;
+  }
+
+  function formatShortTime(isoString) {
+    return new Date(isoString).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  }
+
   const PRESSURE_TREND_WINDOW_HOURS = 3;
   const PRESSURE_TREND_THRESHOLD = 0.03;
 
@@ -1715,8 +1749,8 @@ body.fx-alert-tornado .fx-tornado-vignette {
     if (!closest) return null;
 
     const delta = latest.pressure - closest.pressure;
-    if (delta >= PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/high-pressure.svg" class="meteocon" alt="Rising">', label: 'Rising', className: 'trend-rising' };
-    if (delta <= -PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/low-pressure.svg" class="meteocon" alt="Falling">', label: 'Falling', className: 'trend-falling' };
+    if (delta >= PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-high.svg" class="meteocon" alt="Rising">', label: 'Rising', className: 'trend-rising' };
+    if (delta <= -PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-low.svg" class="meteocon" alt="Falling">', label: 'Falling', className: 'trend-falling' };
     return { arrow: '→', label: 'Steady', className: 'trend-steady' };
   }
   let currentRangeHours = 168; // 7 days
@@ -2842,6 +2876,19 @@ function shouldShowField(field, data) {
           );
         }
       }
+      if (field.key === 'windSpeed' || field.key === 'windGust') {
+        const maxEntry = getTodayMax(fullHistory, field.key);
+        // Only worth showing once today's max is meaningfully different
+        // from the current reading — otherwise it's just repeating the
+        // number already shown above.
+        if (maxEntry && maxEntry[field.key] > value) {
+          const sub = document.createElement('div');
+          sub.className = 'card-subtext';
+          sub.innerHTML = `Today's max: <strong>${maxEntry[field.key]} ${field.unit}</strong><br>at ${formatShortTime(maxEntry.time)}`;
+          card.appendChild(sub);
+        }
+      }
+
       grid.appendChild(card);
     });
 
