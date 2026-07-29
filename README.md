@@ -1,21 +1,21 @@
 # Clover Terrace Weather Dashboard
-*readme under construction*
+*readme under construction 🚧*
 
 A live weather page for *Clover Terrace*, my nickname for my small, hilltop micro-climate within Aliquippa (a historic city along the Ohio River).
 
-Includes live data from an Ecowitt station using the Weather Underground API. Updated frequently throughout the day, especially during severe weather events. If GitHub servers are inundated, data may not be fetched automatically as scheduled. In these cases, updates are able to be pushed manually via actions > the update weather workflow. If you are using this guide to create your own version of this website, you can update your data manually as well this way.. I have included the "trigger refresh" button for now, although it seemingly isn't working at the moment. Hopefully I will be able to sort this out in future updates. 
+Includes live data from my personal Ecowitt weather station, using the Weather Underground API. Updates minute by minute using both Cloudflare and Deno service workers for reliable updates every 60 seconds. No downtime during severe weather.
 
 
-## how it works 🌪️
+## how it pulls data from my ecowitt station 🌪️
 
 1. **python scripts to pull data:**
-    `scripts/fetch_weather.py` - calls the Weather Underground PWS "current conditions" API for your station and saves the result to `data/weather.json`. this was the easiest option for ecowitt, but other weather stations may have their own API system that works just as well. worth looking into if you don't want to upload your data to WU.
+    `scripts/fetch_weather.py` - calls the Weather Underground API to pull the newest data directly from the personal weather station, and saves the result to `data/weather.json`. this was the easiest option for ecowitt, but other weather stations may have their own native API system that work just as well. worth looking into if you don't want to upload your data to WU.
    
-   `scripts/fetch_air_quality.py` - calls the latest PM2.5 reading from PurpleAir via their free API. a how-to on swapping out this sensor with yours or one of your choosing, see ##purpleair config
+   `scripts/fetch_air_quality.py` - calls the latest PM2.5 reading from the closest PurpleAir sensor via their free API. 
    
    `scripts/fetch_camera.py` - calls the latest camera snapshot from the Ecowitt camera. (or whatever camera you're using, so long as it has API/APP, a MAC address and a stable url) and saves it to `data/camera.jpg`
    
-   `scripts/fetch_forecast.py` -  calls the local forecast directly from the National Weather Service API for the zip code of your choosing. No API key needed because the NWS is free and public. Adjust by swapping in your own coordinates.
+   `scripts/fetch_forecast.py` -  calls the local forecast directly from the National Weather Service API for this zip code.
    
    `scripts/fetch_outlook.py` - calls the current SPC day 1, day 2, and day 3 convective outlook images and saves them to `data/outlook-day1.png`, `data/outlook-day2.png`, `data/outlook-day3.png`
 
@@ -24,8 +24,10 @@ Includes live data from an Ecowitt station using the Weather Underground API. Up
   `.github/workflows/update-weather.yml` runs that script every 5 minutes, commits the updated file directly to the page. can be run manually, on demand, as often as you'd like.
 *(time slots are offset to every 3rd, 8th, 13th, 18th, 23rd, etc minute for more reliable automatic updates, due to the standard 5/10/15/20 timeslots typically being inundated with the heaviest server traffic)*
 
+4. for reliability, I added two service workers via Cloudflare and Deno Deploy. this ensures that the data is updated every 45-60 seconds, even if the scheduled workflow fails.
+
    
-4. **where it all comes together**
+5. **where it all comes together**
    `index.html` fetches
      1. `data/weather.json` to populate weather station data cards
      2. `data/air_quality.json` to populate updated AQI card
@@ -37,7 +39,8 @@ and puts it all together to create a cozy little weather dashboard for you and y
 
    
 
-## getting started ⛈️
+## do it yourself ⛈️
+*under construction*
 
 1. **create the repo**
 download the files, and the add them to a new GitHub repository with pages enabled. name it whatever you want, but it's case sensitive!
@@ -87,16 +90,19 @@ download the files, and the add them to a new GitHub repository with pages enabl
    - `ECOWITT_MAC`
   
 
-## Local Forecast 
+## local forecast 
 
-**under construction**
+pulled directly from NWS via their free and public API
 
 
 
 ## sun & moon position tracker
 
+pulls positions and imagery from NASA and NOAA to create a real time sky tracking system, with sunrise, solar noon, and sunset calculations.. complete with the moon phase, kp index, and stargazing conditions. 
 
 ## SPC convective outlooks
+
+pulls the most recent outlooks issued by the SPC (Storm Prediction Center) 
 
 
 ## historical graph 🌦️
@@ -112,19 +118,9 @@ created using Chart.js v4.4.4
 ##refresh button
 
 
+
 ## visitor counter ⛅
 
-footer counter uses [HitsCounter](https://hitscounter.dev/) to count
-page visits via a unique URL — no signup, no API key needed! You will need to update
-the `HITSCOUNTER_URL` constant near the bottom of the `<script>` block in
-`index.html` to match your page's live URL *exactly* (including the
-trailing slash) in order for this to work properly. If your Pages URL
-ever changes, update this constant too, or you'll start a fresh count
-under the new URL.
-
-You can also customize the counter's appearance by editing the `label`,
-`icon`, and `color` params in the fetch URL inside `initVisitorCounter()`
-— see https://hitscounter.dev/ for the full icon picker and color list. 
 
 
 ## customizing 🌈
