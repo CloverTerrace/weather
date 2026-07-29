@@ -2039,6 +2039,64 @@ body.fx-alert-tornado .fx-tornado-vignette {
     });
   }
 
+  // river gauge chart
+  function filterRiverByRange(values, hours) {
+    const cutoff = Date.now() - hours * 60 * 60 * 1000;
+    return values.filter(entry => new Date(entry.dateTime).getTime() >= cutoff);
+  }
+
+  function renderRiverChart(values) {
+    const labels = values.map(entry => entry.dateTime);
+    const heightData = values.map(entry => parseFloat(entry.value));
+
+    const ctx = document.getElementById('riverChart').getContext('2d');
+
+    if (riverChart) {
+      riverChart.data.labels = labels;
+      riverChart.data.datasets[0].data = heightData;
+      riverChart.update();
+      return;
+    }
+
+    riverChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Gage Height (ft)',
+            data: heightData,
+            borderColor: '#4fc3f7',
+            backgroundColor: 'rgba(79, 195, 247, 0.15)',
+            tension: 0.25,
+            pointRadius: 0,
+            borderWidth: 2,
+            fill: true,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+          x: {
+            ticks: { color: '#93a1b5', maxTicksLimit: 10, autoSkip: true },
+            grid: { color: 'rgba(255,255,255,0.05)' },
+          },
+          y: {
+            ticks: { color: '#93a1b5' },
+            grid: { color: 'rgba(255,255,255,0.05)' },
+            title: { display: true, text: 'ft', color: '#93a1b5' },
+          },
+        },
+        plugins: {
+          legend: { labels: { color: '#eef2f7' } },
+        },
+      },
+    });
+  }
+
   async function loadForecast(forceRefresh = false) {
     const container = document.getElementById('forecast-periods');
     try {
@@ -2872,11 +2930,9 @@ function shouldShowField(field, data) {
           );
         }
       }
-      if (field.key === 'windSpeed' || field.key === 'windGust') {
+      if (field.key === 'windSpeed' || field.key === 'windGust' || field.key === 'temp' || field.key === 'precipRate') {
         const maxEntry = getTodayMax(fullHistory, field.key);
-        // only worth showing once today's max is meaningfully different
-        // from the current reading — otherwise it's just repeating the
-        // number already shown above.
+        // only show today's max if it's different than the current value
         if (maxEntry && maxEntry[field.key] > value) {
           const sub = document.createElement('div');
           sub.className = 'card-subtext';
