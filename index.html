@@ -47,6 +47,8 @@
 
   * { box-sizing: border-box; }
 
+  /* installed fonts below */
+
   /* macondo-regular - latin */
 @font-face {
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
@@ -144,6 +146,8 @@
   font-weight: 400;
   src: url('fonts/Tornado Serif Font - Demo.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
+
+  /* installed fonts above */
   
   body {
     margin: 0;
@@ -1558,16 +1562,16 @@ body.fx-alert-tornado .fx-tornado-vignette {
   // Add, remove, or reorder entries here to customize the dashboard.
   // Changed "precipRate" label to "Precipitation" and removed precipTotal from loop
   const FIELDS = [
-    { key: 'temp',           label: 'Temperature',   unit: '°F' },
+    { key: 'temp',           label: 'Temperature',   unit: '°F' }
+    { key: 'humidity',       label: 'Humidity',      unit: '%'  },
     { key: 'heatIndex',      label: 'Heat Index',    unit: '°F' },
     { key: 'windChill',      label: 'Wind Chill',    unit: '°F' },
-    { key: 'dewpt',          label: 'Dew Point',     unit: '°F' },
-    { key: 'humidity',       label: 'Humidity',      unit: '%'  },
+    { key: 'winddir',        label: 'Wind Dir',      unit: '°'  },
     { key: 'windSpeed',      label: 'Wind Speed',    unit: 'mph' },
     { key: 'windGust',       label: 'Wind Gust',     unit: 'mph' },
-    { key: 'winddir',        label: 'Wind Dir',      unit: '°'  },
     { key: 'pressure',       label: 'Pressure',      unit: 'inHg' },
     { key: 'precipRate',     label: 'Precipitation', unit: 'in/hr' },
+    { key: 'dewpt',          label: 'Dew Point',     unit: '°F' },
     { key: 'solarRadiation', label: 'Solar Rad.',    unit: 'W/m²' },
     { key: 'uv',             label: 'UV Index',      unit: ''   },
     { key: 'aqiDisplay',     label: 'AQI',           unit: '' },
