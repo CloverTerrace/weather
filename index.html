@@ -3,6 +3,48 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>
+  // ---------- FOUC prevention — runs synchronously, before <body> paints ----------
+  // if a cached theme exists, apply its CSS variables to the root right
+  // now, before the browser renders anything — so a returning visitor's
+  // very first paint is already correct, no flash, no overlay shown at
+  // all. If there's no cache (first visit, or a cleared one), show the
+  // branded loading overlay instead, in the right day/night flavor based
+  // on the visitor's local clock (checked synchronously too)
+  (function () {
+    var CACHE_KEY = 'cloverWeatherThemeCache';
+    var cached = null;
+    try {
+      cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+    } catch (e) {
+      cached = null;
+    }
+
+    var hour = new Date().getHours();
+    var isNightNow = hour < 6 || hour >= 20;
+
+    // only trust the cached theme if it's still the right time-of-day —
+    // otherwise a returning visitor from last night briefly sees last
+    // night's colors/fonts before fresh data corrects it. if it's stale,
+    // fall back to the neutral loading overlay instead of confidently
+    // showing what we now know is probably the wrong theme.
+    if (cached && cached.vars && cached.isNight === isNightNow) {
+      var root = document.documentElement.style;
+      for (var key in cached.vars) {
+        if (Object.prototype.hasOwnProperty.call(cached.vars, key)) {
+          root.setProperty(key, cached.vars[key]);
+        }
+      }
+    } else {
+      document.documentElement.classList.add(
+        'show-loading-overlay',
+        isNightNow ? 'loading-night' : 'loading-day'
+      );
+    }
+  })();
+</script>
+  <link rel="preload" as="font" type="font/woff2" href="fonts/macondo-v27-latin-regular.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/figtree-v9-latin-regular.woff2" crossorigin>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clover Terrace Weather</title>
 <meta name="description" content="Live weather conditions, forecast, radar, air quality, and severe weather alerts for Clover Terrace, a higher-elevation micro-climate in Aliquippa, PA.">
@@ -1301,7 +1343,7 @@ svg circle, svg polygon, svg line {
   #day-night-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9998; /* Just under the FOUC loading overlay */
+  z-index: 9998; /* bg under the FOUC loading overlay */
   display: none;
   overflow: hidden;
   pointer-events: none;
@@ -1322,7 +1364,7 @@ svg circle, svg polygon, svg line {
 .dn-sun {
   position: absolute;
   left: 50%;
-  margin-left: -40px; /* Half of width to center */
+  margin-left: -40px; /* half of width to center */
   top: 30%;
   animation: dn-sun-set 2.5s ease-in-out forwards;
 }
@@ -1361,46 +1403,7 @@ svg circle, svg polygon, svg line {
  
 </style>
 
-<script>
-  // ---------- FOUC prevention — runs synchronously, before <body> paints ----------
-  // if a cached theme exists, apply its CSS variables to the root right
-  // now, before the browser renders anything — so a returning visitor's
-  // very first paint is already correct, no flash, no overlay shown at
-  // all. If there's no cache (first visit, or a cleared one), show the
-  // branded loading overlay instead, in the right day/night flavor based
-  // on the visitor's local clock (checked synchronously too)
-  (function () {
-    var CACHE_KEY = 'cloverWeatherThemeCache';
-    var cached = null;
-    try {
-      cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-    } catch (e) {
-      cached = null;
-    }
 
-    var hour = new Date().getHours();
-    var isNightNow = hour < 6 || hour >= 20;
-
-    // only trust the cached theme if it's still the right time-of-day —
-    // otherwise a returning visitor from last night briefly sees last
-    // night's colors/fonts before fresh data corrects it. if it's stale,
-    // fall back to the neutral loading overlay instead of confidently
-    // showing what we now know is probably the wrong theme.
-    if (cached && cached.vars && cached.isNight === isNightNow) {
-      var root = document.documentElement.style;
-      for (var key in cached.vars) {
-        if (Object.prototype.hasOwnProperty.call(cached.vars, key)) {
-          root.setProperty(key, cached.vars[key]);
-        }
-      }
-    } else {
-      document.documentElement.classList.add(
-        'show-loading-overlay',
-        isNightNow ? 'loading-night' : 'loading-day'
-      );
-    }
-  })();
-</script>
 
 <script src="chart.umd.min.js"></script>
 <script src="suncalc.js"></script>
@@ -1411,7 +1414,6 @@ svg circle, svg polygon, svg line {
   
   
 <body>
-
   
 
   <div id="loading-overlay">
@@ -3177,10 +3179,16 @@ const THEMES = {
 
   function hideLoadingOverlay() {
     const overlay = document.getElementById('loading-overlay');
-    if (overlay && !overlay.classList.contains('hide')) {
+    if (!overlay || overlay.classList.contains('hide')) return;
+
+    // wait for fonts to load too so page doesn't get flashy 
+    Promise.race([
+      document.fonts ? document.fonts.ready : Promise.resolve(),
+      new Promise(resolve => setTimeout(resolve, 400)),
+    ]).then(() => {
       overlay.classList.add('hide');
       setTimeout(() => overlay.remove(), 800);
-    }
+    });
   }
 
 function shouldShowField(field, data) {
