@@ -1783,13 +1783,14 @@ body.fx-alert-tornado .fx-tornado-vignette {
   }
 
   function updateChartTitles(rangeLabel) {
-    const ids = ['historyChart-title', 'windChart-title', 'windRoseChart-title', 'pressureChart-title', 'solarChart-title'];
+    const ids = ['historyChart-title', 'windChart-title', 'windRoseChart-title', 'pressureChart-title', 'solarChart-title', 'riverChart-title'];
     const baseNames = {
       'historyChart-title': 'Temperature & Humidity',
       'windChart-title': 'Wind Speed & Gusts',
       'windRoseChart-title': 'Wind Direction',
       'pressureChart-title': 'Barometric Pressure',
       'solarChart-title': 'Solar Illumination',
+      'riverChart-title': 'River Gauge',
     };
     ids.forEach(id => {
       const el = document.getElementById(id);
