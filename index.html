@@ -3102,18 +3102,6 @@ const THEMES = {
     const overlay = document.getElementById('day-night-overlay');
     if (!overlay) return;
     
-    // Reset the animation by removing and re-adding the class
-    overlay.classList.remove('active');
-    void overlay.offsetWidth; // Force a reflow to restart the animation
-    overlay.classList.add('active');
-  }
-
-  let previousIsNightState = null;
-
-  function triggerDayNightTransition() {
-    const overlay = document.getElementById('day-night-overlay');
-    if (!overlay) return;
-    
     // reset the animation by removing and re-adding the class
     overlay.classList.remove('active');
     void overlay.offsetWidth; // force a reflow to restart the animation
