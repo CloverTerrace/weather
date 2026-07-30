@@ -1465,17 +1465,23 @@ body.fx-alert-tornado .fx-tornado-vignette {
 
   <div id="status" aria-live="polite"></div>
 
-  <div class="footer-actions">
+  <div class="footer-actions" style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+  <!-- too row of clouds -->
+  <div style="display: flex; gap: 12px; z-index: 2;">
     <button id="refresh-btn" class="cloud-btn">refresh</button>
-    <button id="share-btn" class="cloud-btn" style="display:none;">share</button> <p>
-
-    <div id="visitor-counter" class="visitor-cloud">
-      <div class="visitor-cloud-puff" style="width:36px;height:36px;top:-15px;left:16px;"></div>
-      <div class="visitor-cloud-puff" style="width:28px;height:28px;top:-10px;right:18px;"></div>
-      <div class="visitor-cloud-puff" style="width:22px;height:22px;top:-6px;left:44%;"></div>
-      <span id="visitor-count-text">☁️ …</span>
-    </div>
+    <button id="share-btn" class="cloud-btn" style="display:none;">share</button> 
   </div>
+
+  <!-- bottom offset cloud -->
+  <!-- position relative and negative top margin creates the natural cloud overlap -->
+  <div id="visitor-counter" class="visitor-cloud" style="position: relative; top: -8px; left: 15px; z-index: 1;">
+    <div class="visitor-cloud-puff" style="width:36px;height:36px;top:-15px;left:16px;"></div>
+    <div class="visitor-cloud-puff" style="width:28px;height:28px;top:-10px;right:18px;"></div>
+    <div class="visitor-cloud-puff" style="width:22px;height:22px;top:-6px;left:44%;"></div>
+    <span id="visitor-count-text">☁️ …</span>
+  </div>
+</div>
+
 
   <footer id="credits-footer">
     data &amp; imagery courtesy of
