@@ -236,6 +236,56 @@
     font-family: var(--font-grid-value);
   }
 
+  .wind-compass {
+    position: relative;
+    width: 100%;
+    max-width: 140px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+  }
+
+  .wind-compass-ring {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+  }
+
+  .wind-compass-arrow {
+    transition: transform 0.6s ease;
+  }
+
+  .wind-compass-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .wind-compass-degrees {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    font-family: var(--font-grid-value);
+    line-height: 1;
+  }
+
+  .wind-compass-degrees .unit {
+    font-size: 1rem;
+  }
+
+  .wind-compass-cardinal {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--muted-color);
+    margin-top: 0.3rem;
+    letter-spacing: 0.03em;
+    font-family: var(--font-grid-label);
+  }
+
   #status {
     margin-top: 2rem;
     color: var(--muted-color);
@@ -1534,6 +1584,11 @@ body.fx-alert-tornado .fx-tornado-vignette {
   const USGS_REFRESH_INTERVAL_MS = 15 * 60 * 1000;
   let currentUsgs = null;
   let usgsHistory = []; // full period.value array kept around for today's-max + the historical chart
+  // Fallback "today's max" readings restored from the FOUC cache — used
+  // only until fullHistory/usgsHistory have actually loaded, at which
+  // point the real getTodayMax()/getTodayMaxRiver() results take over.
+  let cachedTodaysMax = null;
+  let cachedRiverMax = null;
   let lastWeatherData = null;
   let lastSuccessfulLoadTime = null;
 
@@ -1782,6 +1837,48 @@ body.fx-alert-tornado .fx-tornado-vignette {
 
   function formatShortTime(isoString) {
     return new Date(isoString).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  }
+
+  // ---------- Wind direction compass ----------
+  const CARDINAL_16 = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+
+  function degreesToCardinal16(deg) {
+    return CARDINAL_16[Math.round(deg / 22.5) % 16];
+  }
+
+  // Tick marks are identical every render, so build the SVG string once
+  // and reuse it rather than recomputing 36 trig calls on every refresh.
+  const WIND_COMPASS_TICKS = (() => {
+    let ticks = '';
+    const cx = 60, cy = 60, rOuter = 54, rInner = 47;
+    for (let i = 0; i < 36; i++) {
+      const angle = (i * 10) * Math.PI / 180;
+      const x1 = cx + rInner * Math.sin(angle);
+      const y1 = cy - rInner * Math.cos(angle);
+      const x2 = cx + rOuter * Math.sin(angle);
+      const y2 = cy - rOuter * Math.cos(angle);
+      ticks += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="var(--muted-color)" stroke-width="1.5" opacity="0.5" />`;
+    }
+    return ticks;
+  })();
+
+  function buildWindCompassHtml(label, degrees) {
+    return `
+      <div class="label">${label}</div>
+      <div class="wind-compass">
+        <svg class="wind-compass-ring" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="var(--accent-color)" stroke-width="2.5" />
+          ${WIND_COMPASS_TICKS}
+          <g class="wind-compass-arrow" style="transform: rotate(${degrees}deg); transform-origin: 60px 60px;">
+            <polygon points="60,8 68,24 60,19 52,24" fill="var(--accent-color)" />
+          </g>
+        </svg>
+        <div class="wind-compass-center">
+          <div class="wind-compass-degrees">${degrees}<span class="unit">°</span></div>
+          <div class="wind-compass-cardinal">${degreesToCardinal16(degrees)}</div>
+        </div>
+      </div>
+    `;
   }
 
   const PRESSURE_TREND_WINDOW_HOURS = 3;
@@ -2975,6 +3072,13 @@ function shouldShowField(field, data) {
       if (!shouldShowField(field, data)) return;
       const card = document.createElement('div');
       card.className = 'card';
+
+      if (field.key === 'winddir') {
+        card.innerHTML = buildWindCompassHtml(field.label, value);
+        grid.appendChild(card);
+        return;
+      }
+
       card.innerHTML = `
         <div class="label">${field.label}</div>
         <div class="value">${value}<span class="unit">${field.unit}</span></div>
@@ -2999,7 +3103,7 @@ function shouldShowField(field, data) {
         }
       }
       if (field.key === 'windSpeed' || field.key === 'windGust' || field.key === 'temp' || field.key === 'precipRate') {
-        const maxEntry = getTodayMax(fullHistory, field.key);
+        const maxEntry = getTodayMax(fullHistory, field.key) || (cachedTodaysMax && cachedTodaysMax[field.key]);
         // only show today's max if it's different than the current value
         if (maxEntry && maxEntry[field.key] > value) {
           const sub = document.createElement('div');
@@ -3028,7 +3132,7 @@ function shouldShowField(field, data) {
         <div class="value">${currentUsgs.gageHeight.toFixed(2)}<span class="unit">ft</span>${trendHtml}</div>
       `;
 
-      const riverMax = getTodayMaxRiver(usgsHistory);
+      const riverMax = getTodayMaxRiver(usgsHistory) || cachedRiverMax;
       if (riverMax && riverMax.val > currentUsgs.gageHeight) {
         const sub = document.createElement('div');
         sub.className = 'card-subtext';
@@ -3118,10 +3222,21 @@ function shouldShowField(field, data) {
       // cache the real data too, alongside the theme colors — so next
       // visit can render actual numbers/alerts immediately on script
       // start, instead of sitting blank until the first fetch resolves.
+      // Also caches today's-max readings and the river gauge, so those
+      // subtext lines and the USGS card show real numbers right away too,
+      // instead of waiting on loadHistory()/fetchUsgsGauge() to resolve.
       try {
         localStorage.setItem('cloverWeatherDataCache', JSON.stringify({
           data,
           alerts,
+          todaysMax: {
+            windSpeed: getTodayMax(fullHistory, 'windSpeed'),
+            windGust: getTodayMax(fullHistory, 'windGust'),
+            temp: getTodayMax(fullHistory, 'temp'),
+            precipRate: getTodayMax(fullHistory, 'precipRate'),
+          },
+          usgs: currentUsgs,
+          riverMax: getTodayMaxRiver(usgsHistory),
           savedAt: Date.now(),
         }));
       } catch (e) {
@@ -3229,6 +3344,9 @@ if (triggered) {
       const cached = JSON.parse(localStorage.getItem('cloverWeatherDataCache') || 'null');
       if (cached && cached.data) {
         lastWeatherData = cached.data;
+        cachedTodaysMax = cached.todaysMax || null;
+        cachedRiverMax = cached.riverMax || null;
+        if (cached.usgs) currentUsgs = cached.usgs;
         renderCards(cached.data);
         renderAlertBanners(cached.alerts || []);
       }
