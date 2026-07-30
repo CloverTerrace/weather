@@ -465,7 +465,7 @@
     cursor: pointer;
     font-family: var(--font-body);
     transition: transform 0.2s ease, opacity 0.3s ease;
-    z-index: 1; /* Establishes context for puffs */
+    z-index: 1; /* context for puffs */
   }
 
   .cloud-btn:hover:not(:disabled) {
@@ -1279,8 +1279,86 @@ body.fx-alert-tornado .fx-tornado-vignette {
   .sky-badge-fair      { color: #ffd166; }
   .sky-badge-poor      { color: var(--muted-color); }
   .sky-badge-elevated  { color: #ffd166; }
-  .sky-badge-active    { color: #ff9f6b; }
+  .sky-badge-active    { color: #ff9f6b; }]
 
+
+  }
+
+  /* add smooth transitions to all theme-affected elements */
+body, .card, .chart-card, .camera-card, .charts-dropdown summary, 
+.map-panel iframe, .rainviewer-map, .sky-box, .sky-badge, 
+h1, .label, .value, .unit, .card-subtext, .forecast-period, 
+.outlook-tab, .map-tab, .range-btn {
+  transition: background-color 0.8s ease, background 0.8s ease, color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
+}
+
+/* ensure SVG paths inside cards (like the compass) transition smoothly */
+svg circle, svg polygon, svg line {
+  transition: stroke 0.8s ease, fill 0.8s ease;
+}
+
+
+  #day-night-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998; /* Just under the FOUC loading overlay */
+  display: none;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#day-night-overlay.active {
+  display: block;
+  animation: dn-fade-in-out 2.5s ease-in-out forwards;
+}
+
+.dn-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #eef4fa 0%, #cfe0ee 100%);
+  animation: dn-sky-darken 2.5s ease-in-out forwards;
+}
+
+.dn-sun {
+  position: absolute;
+  left: 50%;
+  margin-left: -40px; /* Half of width to center */
+  top: 30%;
+  animation: dn-sun-set 2.5s ease-in-out forwards;
+}
+
+.dn-moon {
+  position: absolute;
+  left: 50%;
+  margin-left: -40px; 
+  bottom: -20%;
+  animation: dn-moon-rise 2.5s ease-in-out forwards;
+}
+
+@keyframes dn-fade-in-out {
+  0% { opacity: 0; pointer-events: all; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
+@keyframes dn-sky-darken {
+  0% { background: linear-gradient(180deg, #eef4fa 0%, #cfe0ee 100%); }
+  100% { background: linear-gradient(180deg, #0b0e1c 0%, #1c1846 100%); }
+}
+
+@keyframes dn-sun-set {
+  0% { top: 30%; opacity: 1; transform: scale(1); }
+  60% { top: 110%; opacity: 0; transform: scale(0.8); }
+  100% { top: 110%; opacity: 0; }
+}
+
+@keyframes dn-moon-rise {
+  0% { bottom: -20%; opacity: 0; transform: scale(0.8); }
+  40% { bottom: -20%; opacity: 0; }
+  100% { bottom: 45%; opacity: 1; transform: scale(1); }
+}
+ 
 </style>
 
 <script>
@@ -1348,6 +1426,36 @@ body.fx-alert-tornado .fx-tornado-vignette {
     <div class="loading-icon">🍀</div>
     <div class="loading-text">loading the weather at 
       Clover Terrace…</div>
+  </div>
+
+  <div id="loading-overlay">
+    <div class="loading-decor" aria-hidden="true">
+      <div class="loading-cloud" style="width:130px;height:44px;top:22%;left:8%;"></div>
+      <div class="loading-cloud" style="width:90px;height:32px;top:60%;left:68%;"></div>
+      <div class="loading-cloud" style="width:70px;height:26px;top:38%;left:55%;"></div>
+      <div class="loading-star" style="top:14%;left:22%;"></div>
+      <div class="loading-star" style="top:26%;left:78%; animation-delay:-1s;"></div>
+      <div class="loading-star" style="top:68%;left:14%; animation-delay:-2s;"></div>
+      <div class="loading-star" style="top:48%;left:62%; animation-delay:-0.6s;"></div>
+      <div class="loading-star" style="top:80%;left:48%; animation-delay:-1.6s;"></div>
+    </div>
+    <div class="loading-icon">🍀</div>
+    <div class="loading-text">loading the weather at 
+      Clover Terrace…</div>
+  </div>
+  
+  <div id="day-night-overlay" aria-hidden="true">
+    <div class="dn-sky"></div>
+    <div class="dn-sun">
+      <div class="sky-body-frame" style="width: 80px; height: 80px;">
+        <img class="sun-body-img" src="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_512_HMII.jpg" alt="Setting sun" style="width: 100%; border-radius: 50%;">
+      </div>
+    </div>
+    <div class="dn-moon">
+      <div class="sky-body-frame" style="width: 80px; height: 80px;">
+        <img class="moon-body-img" src="https://svs.gsfc.nasa.gov/vis/a000000/a004300/a004310/ph4_full_moon_2k_print.jpg" alt="Rising moon" style="width: 100%; border-radius: 50%;">
+      </div>
+    </div>
   </div>
 
     <div id="weather-fx" aria-hidden="true">
@@ -3002,7 +3110,41 @@ const THEMES = {
     }
   }
 
+  let previousIsNightState = null;
+
+  function triggerDayNightTransition() {
+    const overlay = document.getElementById('day-night-overlay');
+    if (!overlay) return;
+    
+    // Reset the animation by removing and re-adding the class
+    overlay.classList.remove('active');
+    void overlay.offsetWidth; // Force a reflow to restart the animation
+    overlay.classList.add('active');
+  }
+
+  let previousIsNightState = null;
+
+  function triggerDayNightTransition() {
+    const overlay = document.getElementById('day-night-overlay');
+    if (!overlay) return;
+    
+    // reset the animation by removing and re-adding the class
+    overlay.classList.remove('active');
+    void overlay.offsetWidth; // force a reflow to restart the animation
+    overlay.classList.add('active');
+    
+  }
+
   function applyTheme(themeKey, aqi, alertFx) {
+    const isNightNow = themeKey === 'night' || themeKey.endsWith('Night');
+
+    // check if it's specifically day to night
+    if (previousIsNightState === false && isNightNow === true) {
+      triggerDayNightTransition();
+    }
+
+    // update the tracker for the next cycle
+    previousIsNightState = isNightNow;
     const theme = THEMES[themeKey] || THEMES.cloudy;
     const root = document.documentElement.style;
     root.setProperty('--bg-color', theme.bg);
