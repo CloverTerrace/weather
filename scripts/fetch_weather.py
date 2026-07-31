@@ -26,15 +26,92 @@ if not STATION_ID or not API_KEY:
     print("ERROR: WU_STATION_ID and WU_API_KEY must be set as environment variables.", file=sys.stderr)
     sys.exit(1)
 
+# Adding &numericPrecision=decimal forces the WU API to return exact floating 
+# point numbers (e.g. 74.8) instead of aggressively rounding to the nearest integer.
 URL = (
     "https://api.weather.com/v2/pws/observations/current"
-    f"?stationId={STATION_ID}&format=json&units=e&apiKey={API_KEY}"
+    f"?stationId={STATION_ID}&format=json&units=e&numericPrecision=decimal&apiKey={API_KEY}"
 )
 
 def fetch():
     try:
         req = urllib.request.Request(URL, headers={"User-Agent": "github-actions-weather-fetch"})
         with urllib.request.urlopen(req, timeout=15) as resp:
+            return json.load(resp)
+    except urllib.error.HTTPError as e:
+        print(f"HTTP error fetching weather data: {e.code} {e.reason}", file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(f"Error fetching weather data: {e}", file=sys.stderr)
+        sys.exit(1)
+
+def main():
+    raw = fetch()
+
+    observations = raw.get("observations")
+    if not observations:
+        print("ERROR: No observations returned. Is the station currently online?", file=sys.stderr)
+        sys.exit(1)
+
+    obs = observations[0]
+    imperial = obs.get("imperial", {})
+
+    output = {
+        "stationID": obs.get("stationID"),
+        "obsTimeLocal": obs.get("obsTimeLocal"),
+        "obsTimeUtc": obs.get("obsTimeUtc"),
+        "neighborhood": obs.get("neighborhood"),
+        "humidity": obs.get("humidity"),
+        "winddir": obs.get("winddir"),
+        "uv": obs.get("uv"),
+        "solarRadiation": obs.get("solarRadiation"),
+        "temp": imperial.get("temp"),
+        "heatIndex": imperial.get("heatIndex"),
+        "windChill": imperial.get("windChill"),
+        "dewpt": imperial.get("dewpt"),
+        "windSpeed": imperial.get("windSpeed"),
+        "windGust": imperial.get("windGust"),
+        "pressure": imperial.get("pressure"),
+        "precipRate": imperial.get("precipRate"),
+        "precipTotal": imperial.get("precipTotal"),
+    }
+
+    os.makedirs("data", exist_ok=True)
+    with open("data/weather.json", "w") as f:
+        json.dump(output, f, indent=2)
+
+    # Append this reading to the rolling history file used for the chart.
+    history_path = "data/history.json"
+    history = []
+    if os.path.exists(history_path):
+        try:
+            with open(history_path, "r") as f:
+                history = json.load(f)
+        except (json.JSONDecodeError, ValueError):
+            history = []
+
+    history.append({
+        "time": output["obsTimeLocal"],
+        "temp": output["temp"],
+        "humidity": output["humidity"],
+        "windSpeed": output["windSpeed"],
+        "windGust": output["windGust"],
+        "winddir": output["winddir"],
+        "pressure": output["pressure"],
+        "solarRadiation": output["solarRadiation"],
+    })
+
+    # Keep only the most recent MAX_HISTORY_ENTRIES readings.
+    history = history[-MAX_HISTORY_ENTRIES:]
+
+    with open(history_path, "w") as f:
+        json.dump(history, f, indent=2)
+
+    print(f"Wrote data/weather.json and data/history.json ({len(history)} entries) "
+          f"for station {output['stationID']} at {output['obsTimeLocal']}")
+
+if __name__ == "__main__":
+    main()        with urllib.request.urlopen(req, timeout=15) as resp:
             return json.load(resp)
     except urllib.error.HTTPError as e:
         print(f"HTTP error fetching weather data: {e.code} {e.reason}", file=sys.stderr)
