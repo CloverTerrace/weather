@@ -1776,23 +1776,39 @@ svg circle, svg polygon, svg line {
     return { arrow: '→', label: 'Steady', className: 'trend-steady' };
   }
 
-  async function fetchUsgsGauge() {
+    async function fetchUsgsGauge() {
     try {
-      const url = `https://waterservices.usgs.gov/nwis/iv/?sites=${USGS_SITE_ID}&parameterCd=00065, 00060&format=json&period=P10D`;
+      const url = `https://waterservices.usgs.gov/nwis/iv/?sites=${USGS_SITE_ID}&parameterCd=00065,00060&format=json&period=P10D`;
       const res = await fetch(url, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      const series = data?.value?.timeSeries?.[0];
-      const values = series?.values?.[0]?.value || [];
-      const point = values[values.length - 1];
-      if (!point) throw new Error('No gage height data returned');
 
-      usgsHistory = values;
+      const timeSeriesList = data?.value?.timeSeries || [];
+      
+      // 1. find the specific series for Gage Height (00065) and Discharge/CFS (00060)
+      const heightSeries = timeSeriesList.find(s => s.variable?.variableCode?.[0]?.value === '00065');
+      const cfsSeries = timeSeriesList.find(s => s.variable?.variableCode?.[0]?.value === '00060');
+
+      // 2. extract the values arrays from both series
+      const heightValues = heightSeries?.values?.[0]?.value || [];
+      const cfsValues = cfsSeries?.values?.[0]?.value || [];
+
+      // 3. get the most recent data point for both
+      const latestHeight = heightValues[heightValues.length - 1];
+      const latestCfs = cfsValues[cfsValues.length - 1];
+
+      if (!latestHeight) throw new Error('No gage height data returned');
+
+      // keep the height history for the chart and trend calculations
+      usgsHistory = heightValues; 
+
       currentUsgs = {
-        siteName: series.sourceInfo?.siteName || 'Ohio River — Dashields L&D',
-        gageHeight: parseFloat(point.value),
-        time: point.dateTime,
-        trend: getRiverTrend(values) 
+        siteName: heightSeries?.sourceInfo?.siteName || 'Ohio River — Dashields L&D',
+        gageHeight: parseFloat(latestHeight.value),
+        // add the new CFS property safely:
+        dischargeCfs: latestCfs ? parseFloat(latestCfs.value) : null,
+        time: latestHeight.dateTime,
+        trend: getRiverTrend(heightValues) 
       };
     } catch (err) {
       console.warn('Could not load USGS gauge data:', err.message);
@@ -1800,6 +1816,7 @@ svg circle, svg polygon, svg line {
     if (lastWeatherData) renderCards(lastWeatherData);
     renderAllCharts();
   }
+
 
   const grid = document.getElementById('grid');
   const subtitle = document.getElementById('subtitle');
