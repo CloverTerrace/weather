@@ -2016,7 +2016,7 @@ svg circle, svg polygon, svg line {
     if (delta <= -PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-low.svg" class="meteocon" alt="Falling">', label: 'Falling', className: 'trend-falling' };
     return { arrow: '→', label: 'Steady', className: 'trend-steady' };
   }
-  let currentRangeHours = 168; // 7 days
+  let currentRangeHours = 24; // 1 day
 
   function filterHistoryByRange(history, hours) {
     const cutoff = Date.now() - hours * 60 * 60 * 1000;
@@ -3050,7 +3050,7 @@ const THEMES = {
 
     const isNightTheme = themeKey === 'night' || themeKey.endsWith('Night');
     
-    // for pure clear nights, retain the beautiful moon phase imagery.
+    // for pure clear nights, retain beautiful moon phase imagery.
     if (isNightTheme && themeKey === 'night') {
       const phase = SunCalc.getMoonIllumination(new Date()).phase;
       const index = Math.round(phase * 8) % 8;
