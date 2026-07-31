@@ -1778,7 +1778,7 @@ svg circle, svg polygon, svg line {
 
   async function fetchUsgsGauge() {
     try {
-      const url = `https://waterservices.usgs.gov/nwis/iv/?sites=${USGS_SITE_ID}&parameterCd=00065&format=json&period=P10D`;
+      const url = `https://waterservices.usgs.gov/nwis/iv/?sites=${USGS_SITE_ID}&parameterCd=00065, 00060&format=json&period=P10D`;
       const res = await fetch(url, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
