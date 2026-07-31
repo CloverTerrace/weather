@@ -7,7 +7,7 @@
   // if a cached theme exists, apply its CSS variables to the root right
   // now, before the browser renders anything — so a returning visitor's
   // very first paint is already correct, no flash, no overlay shown at
-  // all. If there's no cache (first visit, or a cleared one), show the
+  // all. if there's no cache (first visit, or a cleared one), show the
   // branded loading overlay instead, in the right day/night flavor based
   // on the visitor's local clock (checked synchronously too)
   (function () {
@@ -2627,7 +2627,7 @@ const FONT_ROLES = {
   
 const THEMES = {
     sunny:            { bg: '#ebd48a', card: '#FFFFFF', accent: '#f5b73b', muted: '#f59e3b', text: '#ffffff', icon: '☀️', meteocon: 'clear-day.svg', iconImg: 'icons/themes/sunny.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
-    extremeHeat:      { bg: '#4a1907', card: '#faf4ed', accent: '#ff6b35', muted: '#e07a43', text: '#e09a43', icon: '🔥☀️', meteocon: 'thermometer-warmer.svg', iconImg: 'icons/themes/extremeHeat.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
+    extremeHeat:      { bg: '#4a1907', card: '#faf4ed', accent: '#ff6b35', muted: '#e07a43', text: '#ffffff', icon: '🔥☀️', meteocon: 'thermometer-warmer.svg', iconImg: 'icons/themes/extremeHeat.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
     extremeHeatNight: { bg: '#2e1005', card: '#3d1a0c', accent: '#ff8659', muted: '#ffcc4d', text: '#ffffff', icon: '🔥🌙', meteocon: 'thermometer-warmer.svg', iconImg: 'icons/themes/extremeHeatNight.png', fonts: { title: "NightWindSent, Papyrus, serif", cardHeading: "Monas" } },
     cloudy:           { bg: '#b4c9d9', card: '#EEF3F6', accent: '#b4c9d9', muted: '#749BB9', text: '#222D36', icon: '⛅️', meteocon: 'partly-cloudy-day.svg', iconImg: 'icons/themes/cloudy.png', fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Jelly Choco" } },
     rainy:            { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', icon: '🌧️', meteocon: 'rain.svg', iconImg: 'icons/themes/rainy.png', fonts: { title: "Letter Magic, Tahoma" } },
