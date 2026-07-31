@@ -2884,7 +2884,9 @@ const THEMES = {
          <div class="combo-col" style="flex: 1; text-align: center;">
             <div class="label">Wind Speed</div>
             <div class="value" style="font-size: 1.6rem;">${formatVal(data.windSpeed, 1)}</div>
-            <div class="extreme-item" style="margin-top:8px;"><span class="high-arrow">↑</span> ${formatVal(wsExt.max.val, 1)} <span class="unit" style="font-size:0.75rem">mph</span><br><span class="ext-time">${formatShortTime(wsExt.max.time)}</span></div>
+            <div class="extreme-item" style="margin-top:8px;">
+               Max: ${formatVal(wsExt.max.val, 1)} <span class="unit" style="font-size:0.75rem">mph</span> at <span class="ext-time">${formatShortTime(wsExt.max.time)}</span>
+            </div>
          </div>
          <div class="combo-col compass-container" style="flex: 1.2; padding: 0 5px;">
             ${buildWindCompassHtml(false, data.winddir || 0)}
@@ -2892,11 +2894,14 @@ const THEMES = {
          <div class="combo-col" style="flex: 1; text-align: center;">
             <div class="label">Wind Gust</div>
             <div class="value" style="font-size: 1.6rem;">${formatVal(data.windGust, 1)}</div>
-            <div class="extreme-item" style="margin-top:8px;"><span class="high-arrow">↑</span> ${formatVal(wgExt.max.val, 1)} <span class="unit" style="font-size:0.75rem">mph</span><br><span class="ext-time">${formatShortTime(wgExt.max.time)}</span></div>
+            <div class="extreme-item" style="margin-top:8px;">
+               Max: ${formatVal(wgExt.max.val, 1)} <span class="unit" style="font-size:0.75rem">mph</span> at <span class="ext-time">${formatShortTime(wgExt.max.time)}</span>
+            </div>
          </div>
       </div>
     `;
     grid.appendChild(windCard);
+
 
     // 3. pressure card
     const pExt = extSafe('pressure');
