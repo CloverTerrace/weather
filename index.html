@@ -2897,10 +2897,10 @@ const THEMES = {
       <div class="combo-row">
          <div class="combo-col" style="border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px;">
             <div class="label">Temperature</div>
-            <div class="value">${formatVal(data.temp, 1)}<span class="unit">°F</span></div>
+            <div style="color: var(--muted-color)>${formatVal(data.temp, 1)}<span style="color: var(--muted-color);">°F</span></div>
             <div class="extreme-row">
-               <div class="extreme-item"><span class="high-arrow">↑</span><div class="value"> ${formatVal(tExt.max.val, 1)}°F</div><br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(tExt.max.time)}</span></div>
-               <div class="extreme-item"><span class="low-arrow">↓</span> ${formatVal(tExt.min.val, 1)}°F<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(tExt.min.time)}</span></div>
+               <div class="extreme-item"><span class="high-arrow">↑</span><div style="color: var(--muted-color);"> ${formatVal(tExt.max.val, 1)}°F</div><br><span class="ext-time" style="font-family: var(--font-details); color: (--accent-color);">${formatShortTime(tExt.max.time)}</span></div>
+               <div class="extreme-item"><span class="low-arrow">↓</span><div style="color: var(--muted-color);"> ${formatVal(tExt.min.val, 1)}°F</div><br><span class="ext-time" style="font-family: var(--font-details); color: (--accent-color);">${formatShortTime(tExt.min.time)}</span></div>
             </div>
          </div>
          <div class="combo-col" style="padding-left: 15px;">
@@ -2911,12 +2911,11 @@ const THEMES = {
                <div class="extreme-item"><span class="low-arrow">↓</span> ${formatVal(hExt.min.val, 1)}%<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(hExt.min.time)}</span></div>
             </div>
          </div>
-      </div>
-      <!-- NEW 3-COLUMN METRICS FOOTER -->
+      </div> 
       <div class="card-footer-metrics" style="margin-top: 15px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">
-         <div class="metric-left">Dew Point: <span>${formatVal(data.dewpt, 1)}°F</span></div>
-         <div class="metric-center">Feels Like: <span>${formatVal(feelsLike, 1)}°F</span></div>
-         <div class="metric-right">VPD: <span>${vpd} kPa</span></div>
+         <div class="metric-left">Dew Point<div>${formatVal(data.dewpt, 1)}°F</div></div>
+         <div class="metric-center">Feels Like<div>${formatVal(feelsLike, 1)}°F</div></div>
+         <div class="metric-right">VPD<div>${vpd}kPa</div></div>
       </div>
     `;
     grid.appendChild(tempHumCard);
