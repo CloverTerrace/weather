@@ -3002,7 +3002,7 @@ const THEMES = {
        const riverMax = getTodayMaxRiver(usgsHistory) || cachedRiverMax;
        let maxHtml = '';
        if (riverMax) {
-           maxHtml = `<div class="extreme-item" style="margin-top:10px;"><span class="high-arrow">↑</span> ${riverMax.val.toFixed(2)} ft<br><span class="ext-time">Max (${formatShortTime(riverMax.dateTime)})</span></div>`;
+           maxHtml = `<div class="extreme-item" style="margin-top:10px;"> ${riverMax.val.toFixed(2)} ft<br><span class="ext-time">Max (${formatShortTime(riverMax.dateTime)})</span></div>`;
        }
 
        // format and build the CFS HTML safely
