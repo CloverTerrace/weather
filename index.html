@@ -301,6 +301,13 @@
 
   .high-arrow { color: #ff8659; font-weight: bold; margin-right: 2px; }
   .low-arrow { color: #4fc3f7; font-weight: bold; margin-right: 2px; }
+  .pressure-card .extreme-item .high-arrow,
+  .pressure-card .extreme-item .low-arrow {
+    font-size: 1.3rem;
+    line-height: 1;
+    margin-right: 2px;
+    vertical-align: middle;
+  }
   .ext-time { font-size: 0.7rem; color: var(--muted-color); opacity: 0.75; margin-top: 1px; line-height: 1; }
   
   .extra-row {
@@ -487,6 +494,17 @@
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
+  }
+
+  .pressure-card .pressure-trend {
+    font-size: 1.8rem;
+    margin-left: 0;
+  }
+
+  .pressure-card .pressure-trend .meteocon {
+    width: auto;
+    height: 1em;
+    margin-right: 0;
   }
 
   .trend-rising  { color: #6fcf97; }
@@ -2970,7 +2988,7 @@ const THEMES = {
     const pTrend = getPressureTrend(fullHistory);
     const pTrendHtml = pTrend ? `<span class="pressure-trend ${pTrend.className}" title="${pTrend.label} over last 3h">${pTrend.arrow}</span>` : '';
     const pressureCard = document.createElement('div');
-    pressureCard.className = 'card combo-card';
+    pressureCard.className = 'card combo-card pressure-card';
     pressureCard.innerHTML = `
       <div class="combo-row">
          <div class="combo-col" style="flex: 1; text-align: center;">
