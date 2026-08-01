@@ -2843,7 +2843,7 @@ const THEMES = {
   }
 
   
-  //*  ------------🌪️ HTML FOR ECOWITT WEATHER STATION CARDS + PURPLEAIR AQI + USGS FLOOD GAUGE 🌪️----------- *//
+  //*  ------------🌪️ !! HTML FOR ⛅️ECOWITT WEATHER STATION CARDS + 💨PURPLEAIR AQI + 💧USGS FLOOD GAUGE 🌪️----------- *//
   
   function renderCards(data) {
     grid.innerHTML = '';
@@ -2995,7 +2995,7 @@ const THEMES = {
                 <div class="label">Air Quality</div>
                 <div class="value" style="color: ${aqiColor || 'inherit'}; font-size: 2.2rem;">${styledAqi}</div>
              </div>
-             <div class="combo-col" style="flex: 1.3; padding-left: 15px; font-size: 0.85rem; color: var(--muted-color); line-height: 1.4; font-family: 'Figtree', Tahoma, sans-serif;">
+             <div class="combo-col" style="flex: 1.3; padding-left: 15px; font-size: 0.85rem; color: var(--muted-color); line-height: 1.4; font-family: var(--font-details);">
                 ${aqiDesc}
              </div>
           </div>
@@ -3013,13 +3013,13 @@ const THEMES = {
        const riverMax = getTodayMaxRiver(usgsHistory) || cachedRiverMax;
        let maxHtml = '';
        if (riverMax) {
-           maxHtml = `<div class="extreme-item" style="margin-top:10px;"> ${riverMax.val.toFixed(2)} ft<br><span class="ext-time">Max (${formatShortTime(riverMax.dateTime)})</span></div>`;
+           maxHtml = `<div class="extreme-item" style="margin-top:10px; color: var(--muted-color);"> ${riverMax.val.toFixed(2)} ft<br><span class="ext-time" style="font-family: var(--font-details); color: var(--accent-color);">Max (${formatShortTime(riverMax.dateTime)})</span></div>`;
        }
 
        // format and build the CFS HTML safely
        let cfsHtml = '';
        if (currentUsgs.dischargeCfs != null) {
-           cfsHtml = `<div class="extreme-item" style="margin-top:10px;">${currentUsgs.dischargeCfs.toLocaleString()} <span class="unit" style="font-size:0.75rem">cfs</span></div>`;
+           cfsHtml = `<div class="extreme-item" style="margin-top:10px; color: var(--accent-colors);">${currentUsgs.dischargeCfs.toLocaleString()}<span class="unit" style="font-size:0.75rem; font-family: var(--font-details);">cfs</span></div>`;
        }
 
        usgsCard.innerHTML = `
@@ -3030,8 +3030,7 @@ const THEMES = {
                    <div>${currentUsgs.gageHeight.toFixed(2)}<span class="unit">ft</span></div>
                    ${rTrendHtml}
                 </div>
-                ${cfsHtml} <!-- CFS Data Appears Here -->
-                ${maxHtml}
+                ${cfsHtml} <!-- CFS Data Appears Here --><span style="font-family: var(--font-details);">${maxHtml}</div>
              </div>
              <div class="combo-col" style="flex: 1; padding-left: 15px; font-size: 0.85rem; color: var(--muted-color); line-height: 1.6; text-align: left; font-family: 'Figtree', Tahoma, sans-serif;">
                 <div style="font-family: var(--font-card-heading); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.7rem; margin-bottom: 6px;">Dashields Flood Stages</div>
@@ -3301,9 +3300,19 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
       }
     });
   }
+
+  //* code: alyssa rozsa *//
+  // ecowitt WS90 
+  // NWS, NOAA, SPC public data
+  // Meteocons
+  // PurpleAir api
+  // Rainviewer, Blitzortung, Meteoblue api
+  // created for me and my family, not for commercial use :)
+  
 </script>
 
-    
+   
   
-</body>
+</body> 
 </html>
+
