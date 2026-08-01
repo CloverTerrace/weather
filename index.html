@@ -250,7 +250,7 @@
     font-family: var(--font-body);
   }
 
-  /* Combo Grid System */
+  /* combo grid system */
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -684,29 +684,32 @@
     background: rgba(255, 255, 255, 0.04);
     border-radius: 10px;
     padding: 1rem;
-    font-family: var(--font-body);
   }
 
   .forecast-period .period-name {
     font-weight: 600;
     color: var(--muted-color);
+    font-family: var(--font-details);
     margin-bottom: 0.4rem;
   }
 
   .forecast-period .period-temp {
     font-size: 1.4rem;
     color: var(--accent-color);
+    font-family: var(--font-grid-value);
     font-weight: 700;
     margin-bottom: 0.3rem;
   }
 
   .forecast-period .period-short {
-    color: var(--muted-color);
+    color: var(--text-color);
+    font-family: var(--font-details);
     margin-bottom: 0.3rem;
   }
 
   .forecast-period .period-wind {
     color: var(--muted-color);
+    font-family: var(--font-details);
     font-size: 0.85rem;
   }
 
@@ -721,6 +724,7 @@
     background: rgba(255, 255, 255, 0.06);
     border: none;
     color: var(--muted-color);
+    font-family: var(--font-details);
     padding: 0.5rem 1rem;
     border-radius: 8px;
     cursor: pointer;
@@ -730,6 +734,7 @@
 
   .outlook-tab.active {
     background: var(--bg-color);
+    font-family: var(--font-body);
     color: #e4e8eb;
   }
 
@@ -745,6 +750,7 @@
     background: rgba(255, 255, 255, 0.06);
     border: none;
     color: var(--muted-color);
+    font-family: var(--font-details);
     padding: 0.5rem 1rem;
     border-radius: 8px;
     cursor: pointer;
@@ -754,6 +760,7 @@
 
   .map-tab.active {
     background: var(--bg-color);
+    font-family: var(--font-body);
     color: #e4e8eb;
   }
 
@@ -779,6 +786,7 @@
     margin-top: 0.5rem;
     font-size: 0.8rem;
     color: var(--muted-color);
+    font-family: var(--font-details);
   }
 
   .radar-frame-time {
@@ -818,6 +826,7 @@
 .range-buttons {
     display: flex;
     justify-content: center;
+    font-family: var(--font-details);
     flex-wrap: wrap;
     gap: 0.4rem;
     margin-bottom: 1rem;
@@ -997,11 +1006,7 @@ body.fx-active-stars .fx-stars {
 }
 
 /* bonus star layer — only shows on top of .fx-stars when skies are clear
-   with good/excellent stargazing conditions and no aurora is active. kept
-   as a separate container (rather than more .star elements directly in
-   .fx-stars) because each star's own opacity is already animation-driven,
-   so a shared container opacity is the only clean way to hide the whole
-   set at once. */
+   with good/excellent stargazing conditions and no aurora. */
 .fx-stars-extra {
   position: absolute;
   inset: 0;
