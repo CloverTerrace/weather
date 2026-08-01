@@ -2839,7 +2839,6 @@ const THEMES = {
     const extSafe = (key) => getExtremesSafe(fullHistory, cachedTodaysExtremes, data, key);
     
     // 1. temperature & humidity card
-     // 1. temperature & humidity card
     const tExt = extSafe('temp');
     const hExt = extSafe('humidity');
     const vpd = calculateVPD(data.temp, data.humidity);
@@ -2868,12 +2867,12 @@ const THEMES = {
                <div class="extreme-item"><span class="high-arrow">↑</span> ${formatVal(hExt.max.val, 1)}%<br><span class="ext-time">${formatShortTime(hExt.max.time)}</span></div>
                <div class="extreme-item"><span class="low-arrow">↓</span> ${formatVal(hExt.min.val, 1)}%<br><span class="ext-time">${formatShortTime(hExt.min.time)}</span></div>
             </div>
-            <div class="extra-row" style="margin-top: 15px;">Feels Like <span>${formatVal(feelsLike, 1)}°F</span></div>
+            <div class="extra-row" style="margin-top: 15px;">Dew Point<span>${formatVal(dewpt, 1)}</span></div>
          </div>
       </div>
       <div style="margin-top: 15px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
-         <div class="label">Dew Point</div>
-         <div class="value" style="font-size: 1.5rem;">${formatVal(data.dewpt, 1)}<span class="unit">°F</span></div>
+         <div class="label">Feels Like</div>
+         <div class="value" style="font-size: 1.5rem;">${formatVal(feelsLike, 1)}°F<span class="unit">°F</span></div>
       </div>
     `;
     grid.appendChild(tempHumCard);
@@ -3009,7 +3008,7 @@ const THEMES = {
        // format and build the CFS HTML safely
        let cfsHtml = '';
        if (currentUsgs.dischargeCfs != null) {
-           cfsHtml = `<div class="extreme-item" style="margin-top:10px;">Flow: ${currentUsgs.dischargeCfs.toLocaleString()} <span class="unit" style="font-size:0.75rem">cfs</span></div>`;
+           cfsHtml = `<div class="extreme-item" style="margin-top:10px;">${currentUsgs.dischargeCfs.toLocaleString()} <span class="unit" style="font-size:0.75rem">cfs</span></div>`;
        }
 
        usgsCard.innerHTML = `
