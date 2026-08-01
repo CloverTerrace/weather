@@ -1655,7 +1655,7 @@ svg circle, svg polygon, svg line {
   <div id="status" aria-live="polite"></div>
 
   <div class="footer-actions" style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-  <!-- too row of clouds -->
+  <!-- top row of clouds -->
   <div style="display: flex; gap: 12px; z-index: 2;">
     <button id="refresh-btn" class="cloud-btn">refresh</button>
     <button id="share-btn" class="cloud-btn" style="display:none;">share</button> 
@@ -1721,7 +1721,7 @@ svg circle, svg polygon, svg line {
     return `updated ${hours} hours ago`;
   }
 
-  // Helper for small times in standard format e.g. "10:07 am"
+  // helper for small times in standard format e.g. "10:07 am"
   function formatShortTime(isoString) {
     if (!isoString) return '--:--';
     const d = new Date(isoString);
@@ -1853,7 +1853,7 @@ svg circle, svg polygon, svg line {
     return 'Health warnings of emergency conditions. The entire population is more likely to be affected.';
   }
 
-  // Searches today's history entries and captures both max and min with timestamps.
+  // searches today's history entries and captures both max and min with timestamps.
   function getTodayExtremes(history, fieldKey) {
     if (!history || history.length === 0) return null;
     const todayStr = new Date().toDateString();
@@ -2888,7 +2888,7 @@ const THEMES = {
             <div class="label">Wind Speed</div>
             <div class="value" style="font-size: 1.6rem;">${formatVal(data.windSpeed, 1)}</div>
             <div class="extreme-item" style="margin-top:8px;">
-               Max: ${formatVal(wsExt.max.val, 1)} <span class="unit" style="font-size:0.75rem">mph</span> at <span class="ext-time">${formatShortTime(wsExt.max.time)}</span>
+               ${formatVal(wsExt.max.val, 1)} <span class="unit" style="font-size:0.75rem">mph</span> at <span class="ext-time">${formatShortTime(wsExt.max.time)}</span>
             </div>
          </div>
          <div class="combo-col compass-container" style="flex: 1.2; padding: 0 5px;">
@@ -2898,7 +2898,7 @@ const THEMES = {
             <div class="label">Wind Gust</div>
             <div class="value" style="font-size: 1.6rem;">${formatVal(data.windGust, 1)}</div>
             <div class="extreme-item" style="margin-top:8px;">
-               Max: ${formatVal(wgExt.max.val, 1)} <span class="unit" style="font-size:0.75rem">mph</span> at <span class="ext-time">${formatShortTime(wgExt.max.time)}</span>
+               ${formatVal(wgExt.max.val, 1)} <span class="unit" style="font-size:0.75rem">mph</span> at <span class="ext-time">${formatShortTime(wgExt.max.time)}</span>
             </div>
          </div>
       </div>
