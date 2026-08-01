@@ -2947,7 +2947,7 @@ const THEMES = {
             <div class="label">Precipitation Rate</div>
             <div class="value">${formatVal(data.precipRate, 2)}<span class="unit">in/hr</span></div>
             <div class="extreme-row single" style="justify-content: center; margin-top: 15px;">
-               <div class="extreme-item"><span class="high-arrow">↑</span> ${formatVal(prExt.max.val, 2)} in/hr<br><span class="ext-time">Max Rate (${formatShortTime(prExt.max.time)})</span></div>
+               <div class="extreme-item">${formatVal(prExt.max.val, 2)} in/hr<br><span class="ext-time" style="font-family: var(--font-details);">Max Rate (${formatShortTime(prExt.max.time)})</span></div>
             </div>
          </div>
          <div class="combo-col" style="flex: 1; text-align: center; border-left: 1px solid rgba(255,255,255,0.1);">
