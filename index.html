@@ -2897,18 +2897,18 @@ const THEMES = {
       <div class="combo-row">
          <div class="combo-col" style="border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px;">
             <div class="label">Temperature</div>
-            <div class="value">${formatVal(data.temp, 1)}<span style="color: var(--muted-color);">°F</span></div>
+            <div class="value">${formatVal(data.temp, 1)}<span class="unit">°F</span></div>
             <div class="extreme-row">
-               <div class="extreme-item"><span class="high-arrow">↑</span><div style="color: var(--muted-color);"> ${formatVal(tExt.max.val, 1)}°F</div><br><span class="ext-time" style="font-family: var(--font-details); color: (--accent-color);">${formatShortTime(tExt.max.time)}</span></div>
-               <div class="extreme-item"><span class="low-arrow">↓</span><div style="color: var(--muted-color);"> ${formatVal(tExt.min.val, 1)}°F</div><br><span class="ext-time" style="font-family: var(--font-details); color: (--accent-color);">${formatShortTime(tExt.min.time)}</span></div>
+               <div class="extreme-item"><span class="high-arrow">↑</span><br><span style="color: var(--muted-color); font-size: 1.6rem;"> ${formatVal(tExt.max.val, 1)}°F</span><br><span class="ext-time" style="font-family: var(--font-details); color: (--accent-color);">${formatShortTime(tExt.max.time)}</span></div>
+               <div class="extreme-item"><span class="low-arrow">↓</span><br><span style="color: var(--muted-color); font-size: 1.6rem;"> ${formatVal(tExt.min.val, 1)}°F</span><br><span class="ext-time" style="font-family: var(--font-details); color: (--accent-color);">${formatShortTime(tExt.min.time)}</span></div>
             </div>
          </div>
          <div class="combo-col" style="padding-left: 15px;">
             <div class="label">Humidity</div>
             <div class="value">${formatVal(data.humidity, 1)}<span class="unit">%</span></div>
             <div class="extreme-row">
-               <div class="extreme-item"><span class="high-arrow">↑</span> ${formatVal(hExt.max.val, 1)}%<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(hExt.max.time)}</span></div>
-               <div class="extreme-item"><span class="low-arrow">↓</span> ${formatVal(hExt.min.val, 1)}%<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(hExt.min.time)}</span></div>
+               <div class="extreme-item"><span class="high-arrow">↑</span><br><span style="color: var(--muted-color); font-size: 1.6rem;"> ${formatVal(hExt.max.val, 1)}%</span><br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(hExt.max.time)}</span></div>
+               <div class="extreme-item"><span class="low-arrow">↓</span><br><span style="color: var(--muted-color); font-size: 1.6rem;"> ${formatVal(hExt.min.val, 1)}%</span><br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(hExt.min.time)}</span></div>
             </div>
          </div>
       </div> 
