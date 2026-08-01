@@ -76,7 +76,7 @@
     --accent-color: #CEE5F2;
     --text-color: #ffffff;
     --muted-color: #ffffff;
-    --font-family: Macondo, Georgia, Verdana, system-ui, -apple-system, sans-serif;
+    --font-family: Macondo, system-ui, -apple-system, sans-serif;
 
     /* ---------- font customization ---------- */
     /* defaults to --font-family above, so nothing changes
@@ -2897,7 +2897,7 @@ const THEMES = {
       <div class="combo-row">
          <div class="combo-col" style="border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px;">
             <div class="label">Temperature</div>
-            <div style="color: var(--muted-color)>${formatVal(data.temp, 1)}<span style="color: var(--muted-color);">°F</span></div>
+            <div style="value>${formatVal(data.temp, 1)}<span style="color: var(--muted-color);">°F</span></div>
             <div class="extreme-row">
                <div class="extreme-item"><span class="high-arrow">↑</span><div style="color: var(--muted-color);"> ${formatVal(tExt.max.val, 1)}°F</div><br><span class="ext-time" style="font-family: var(--font-details); color: (--accent-color);">${formatShortTime(tExt.max.time)}</span></div>
                <div class="extreme-item"><span class="low-arrow">↓</span><div style="color: var(--muted-color);"> ${formatVal(tExt.min.val, 1)}°F</div><br><span class="ext-time" style="font-family: var(--font-details); color: (--accent-color);">${formatShortTime(tExt.min.time)}</span></div>
