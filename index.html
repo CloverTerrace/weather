@@ -3019,7 +3019,7 @@ const THEMES = {
        // format and build the CFS HTML safely
        let cfsHtml = '';
        if (currentUsgs.dischargeCfs != null) {
-           cfsHtml = `<div class="extreme-item" style="margin-top:10px; color: var(--accent-color);">${currentUsgs.dischargeCfs.toLocaleString()}<span class="unit" style="font-size:0.75rem; font-family: var(--font-details);">cfs</span></div>`;
+           cfsHtml = `<div class="extreme-item" style="margin-top:10px; color: var(--muted-color);">${currentUsgs.dischargeCfs.toLocaleString()}<span class="unit" style="font-size:0.75rem; font-family: var(--font-details);">cfs</span></div>`;
        }
 
        usgsCard.innerHTML = `
@@ -3027,7 +3027,7 @@ const THEMES = {
              <div class="combo-col" style="flex: 1; text-align: center; border-right: 1px solid rgba(255,255,255,0.1); padding-right: 10px;">
                 <div class="label">River Gauge</div>
                 <div class="value" style="display:flex; justify-content:center; align-items:center; gap:8px;">
-                   <div>${currentUsgs.gageHeight.toFixed(2)}<span class="unit">ft</span></div>
+                   <div>${currentUsgs.gageHeight.toFixed(2)}<span class="unit" style="color: var(--accent-color);">ft</span></div>
                    ${rTrendHtml}
                 </div>
                 <div style="display:flex; gap:12px; align-items:flex-start; margin-top:8px;">
