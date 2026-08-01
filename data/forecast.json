@@ -1,16 +1,26 @@
 [
   {
-    "name": "Today",
-    "temperature": 85,
+    "name": "Overnight",
+    "temperature": 65,
     "temperatureUnit": "F",
-    "windSpeed": "0 to 6 mph",
+    "windSpeed": "1 mph",
     "windDirection": "SE",
     "shortForecast": "Mostly Cloudy",
-    "detailedForecast": "Mostly cloudy, with a high near 85. Southeast wind 0 to 6 mph.",
+    "detailedForecast": "Mostly cloudy, with a low around 65. Southeast wind around 1 mph.",
+    "isDaytime": false
+  },
+  {
+    "name": "Saturday",
+    "temperature": 85,
+    "temperatureUnit": "F",
+    "windSpeed": "1 to 6 mph",
+    "windDirection": "SE",
+    "shortForecast": "Mostly Cloudy",
+    "detailedForecast": "Mostly cloudy, with a high near 85. Southeast wind 1 to 6 mph.",
     "isDaytime": true
   },
   {
-    "name": "Tonight",
+    "name": "Saturday Night",
     "temperature": 68,
     "temperatureUnit": "F",
     "windSpeed": "7 mph",
@@ -28,15 +38,5 @@
     "shortForecast": "Chance Showers And Thunderstorms",
     "detailedForecast": "A chance of showers and thunderstorms before 11am, then scattered showers and thunderstorms between 11am and noon, then a chance of showers and thunderstorms between noon and 5pm, then a chance of showers and thunderstorms. Mostly cloudy, with a high near 80. Southeast wind around 8 mph. Chance of precipitation is 70%. New rainfall amounts between a quarter and half of an inch possible.",
     "isDaytime": true
-  },
-  {
-    "name": "Sunday Night",
-    "temperature": 67,
-    "temperatureUnit": "F",
-    "windSpeed": "1 to 6 mph",
-    "windDirection": "S",
-    "shortForecast": "Showers And Thunderstorms",
-    "detailedForecast": "Showers and thunderstorms. Mostly cloudy, with a low around 67. South wind 1 to 6 mph. Chance of precipitation is 80%. New rainfall amounts less than a tenth of an inch possible.",
-    "isDaytime": false
   }
 ]
