@@ -2650,7 +2650,7 @@ const FONT_ROLES = {
   gridValue:   { cssVar: '--font-grid-value',   fallback: "var(--font-family)" },
 };
 
-// * ☀️ ------- THEME COLORS, TEXT STYLES, AND ICONS HERE ------- 🌙 *//
+// * ☀️ ------- THEME COLORS, TEXT STYLES, AND ICONS HERE ------- 🌙 * //
   
 const THEMES = {
     sunny:            { bg: '#ebd48a', card: '#FFFFFF', accent: '#f5b73b', muted: '#f59e3b', text: '#ffffff', title: '#ffffff', icon: '☀️', meteocon: 'clear-day.svg', iconImg: 'icons/themes/sunny.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
@@ -2896,7 +2896,7 @@ const THEMES = {
             <div class="label">Wind Speed</div>
             <div class="value" style="font-size: 1.6rem;">${formatVal(data.windSpeed, 1)}</div>
             <div class="extreme-item" style="margin-top:8px;">
-               ${formatVal(wsExt.max.val, 1)} <span class="unit" style="font-size:0.75rem">mph</span> at <span class="ext-time">${formatShortTime(wsExt.max.time)}</span>
+               ${formatVal(wsExt.max.val, 1)} <span class="unit" style="font-size:0.75rem; font-family: 'Figtree', Tahoma, sans-serif;">mph at</span><span class="ext-time">${formatShortTime(wsExt.max.time)}</span>
             </div>
          </div>
          <div class="combo-col compass-container" style="flex: 1.2; padding: 0 5px;">
@@ -2906,7 +2906,7 @@ const THEMES = {
             <div class="label">Wind Gust</div>
             <div class="value" style="font-size: 1.6rem;">${formatVal(data.windGust, 1)}</div>
             <div class="extreme-item" style="margin-top:8px;">
-               ${formatVal(wgExt.max.val, 1)} <span class="unit" style="font-size:0.75rem">mph</span> at <span class="ext-time">${formatShortTime(wgExt.max.time)}</span>
+               ${formatVal(wgExt.max.val, 1)} <span class="unit" style="font-size:0.75rem; font-family: 'Figtree', Tahoma, sans-serif;">mph at</span><span class="ext-time">${formatShortTime(wgExt.max.time)}</span>
             </div>
          </div>
       </div>
