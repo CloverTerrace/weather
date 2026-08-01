@@ -1833,7 +1833,7 @@ svg circle, svg polygon, svg line {
   let isRefreshing = false;
   let fullHistory = [];
 
-  // calculates Vapor Pressure Deficit based on T and RH
+  // calculates vapor pressure deficit based on T and RH
   function calculateVPD(tempF, humidity) {
     if (tempF === undefined || tempF === null || humidity === undefined || humidity === null) return '--';
     const tempC = (tempF - 32) * 5 / 9;
@@ -1842,7 +1842,7 @@ svg circle, svg polygon, svg line {
     return (es - ea).toFixed(3);
   }
 
-  // Gets exact descriptive text requested for AQI
+  // gets official descriptive text for AQI
   function getAqiDescription(aqi) {
     if (aqi === undefined || aqi === null) return '';
     if (aqi <= 50) return 'Air quality is considered satisfactory, and air pollution poses little or no risk. Safe to enjoy outdoor activities.';
@@ -2867,12 +2867,12 @@ const THEMES = {
                <div class="extreme-item"><span class="high-arrow">↑</span> ${formatVal(hExt.max.val, 1)}%<br><span class="ext-time">${formatShortTime(hExt.max.time)}</span></div>
                <div class="extreme-item"><span class="low-arrow">↓</span> ${formatVal(hExt.min.val, 1)}%<br><span class="ext-time">${formatShortTime(hExt.min.time)}</span></div>
             </div>
-            <div class="extra-row" style="margin-top: 15px;">Dew Point<span>${formatVal(data.dewpt, 1)}</span></div>
+            <div class="extra-row" style="margin-top: 15px;">Dew Point<span>${formatVal(data.dewpt, 1)}°F</span></div>
          </div>
       </div>
       <div style="margin-top: 15px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
          <div class="label">Feels Like</div>
-         <div class="value" style="font-size: 1.5rem;">${formatVal(feelsLike, 1)}°F<span class="unit">°F</span></div>
+         <div class="value" style="font-size: 1.5rem;">${formatVal(feelsLike, 1)}<span class="unit">°F</span></div>
       </div>
     `;
     grid.appendChild(tempHumCard);
