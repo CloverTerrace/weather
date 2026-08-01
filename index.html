@@ -3013,13 +3013,13 @@ const THEMES = {
        const riverMax = getTodayMaxRiver(usgsHistory) || cachedRiverMax;
        let maxHtml = '';
        if (riverMax) {
-           maxHtml = `<div class="extreme-item" style="margin-top:10px; color: var(--muted-color);"> ${riverMax.val.toFixed(2)} ft<br><span class="ext-time" style="font-family: var(--font-details); color: var(--accent-color);">Max (${formatShortTime(riverMax.dateTime)})</span></div>`;
+           maxHtml = `<div class="extreme-item" style="margin-top:10px; color: var(--text-color);"> ${riverMax.val.toFixed(2)} ft<br><span class="ext-time" style="font-family: var(--font-details); color: var(--muted-color);">${formatShortTime(riverMax.dateTime)}</span></div>`;
        }
 
        // format and build the CFS HTML safely
        let cfsHtml = '';
        if (currentUsgs.dischargeCfs != null) {
-           cfsHtml = `<div class="extreme-item" style="margin-top:10px; color: var(--muted-color);">${currentUsgs.dischargeCfs.toLocaleString()}<span class="unit" style="font-size:0.75rem; font-family: var(--font-details);">cfs</span></div>`;
+           cfsHtml = `<div class="extreme-item" style="margin-top:10px; color: var(--text-color);">${currentUsgs.dischargeCfs.toLocaleString()}<span class="unit" style="font-size:0.75rem; font-family: var(--font-details); color: var(--muted-color);">cfs</span></div>`;
        }
 
        usgsCard.innerHTML = `
@@ -3030,10 +3030,10 @@ const THEMES = {
                    <div>${currentUsgs.gageHeight.toFixed(2)}<span class="unit" style="color: var(--accent-color);">ft</span></div>
                    ${rTrendHtml}
                 </div>
-                <div style="display:flex; gap:12px; align-items:flex-start; margin-top:8px;">
-                   ${cfsHtml}
-                  ${maxHtml}
-         </div>
+                <div style="display:flex; gap:12px; align-items:left; margin-top:8px;">
+                 ${cfsHtml}
+                 ${maxHtml}
+                    </div>
              </div>
             
              <div class="combo-col" style="flex: 1; padding-left: 15px; font-size: 0.85rem; color: var(--muted-color); line-height: 1.6; text-align: left; font-family: 'Figtree', Tahoma, sans-serif;">
