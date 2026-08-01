@@ -2821,7 +2821,7 @@ const THEMES = {
 
     try {
       localStorage.setItem('cloverWeatherThemeCache', JSON.stringify({
-        vars: { '--bg-color': theme.bg, '--card-color': theme.card, '--accent-color': theme.accent, '--muted-color': theme.muted, '--text-color': theme.text, ...appliedFonts },
+        vars: { '--bg-color': theme.bg, '--card-color': theme.card, '--title-color': theme.title, '--accent-color': theme.accent, '--muted-color': theme.muted, '--text-color': theme.text, ...appliedFonts },
         isNight: themeKey === 'night' || themeKey.endsWith('Night'),
         savedAt: Date.now(),
         iconHtml: document.getElementById('weather-icon').innerHTML
@@ -2841,6 +2841,9 @@ const THEMES = {
       setTimeout(() => overlay.remove(), 800);
     });
   }
+
+  
+  //*  ------------🌪️ HTML FOR ECOWITT WEATHER STATION CARDS + PURPLEAIR AQI + USGS FLOOD GAUGE 🌪️----------- *//
   
   function renderCards(data) {
     grid.innerHTML = '';
@@ -2863,8 +2866,8 @@ const THEMES = {
             <div class="label">Temperature</div>
             <div class="value">${formatVal(data.temp, 1)}<span class="unit">°F</span></div>
             <div class="extreme-row">
-               <div class="extreme-item"><span class="high-arrow">↑</span> ${formatVal(tExt.max.val, 1)}°F<br><span class="ext-time">${formatShortTime(tExt.max.time)}</span></div>
-               <div class="extreme-item"><span class="low-arrow">↓</span> ${formatVal(tExt.min.val, 1)}°F<br><span class="ext-time">${formatShortTime(tExt.min.time)}</span></div>
+               <div class="extreme-item"><span class="high-arrow">↑</span> ${formatVal(tExt.max.val, 1)}°F<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(tExt.max.time)}</span></div>
+               <div class="extreme-item"><span class="low-arrow">↓</span> ${formatVal(tExt.min.val, 1)}°F<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(tExt.min.time)}</span></div>
             </div>
             <div class="extra-row" style="margin-top: 15px;">VPD <span>${vpd} kPa</span></div>
          </div>
@@ -2896,7 +2899,7 @@ const THEMES = {
             <div class="label">Wind Speed</div>
             <div class="value" style="font-size: 1.6rem;">${formatVal(data.windSpeed, 1)}</div>
             <div class="extreme-item" style="margin-top:8px;">
-               ${formatVal(wsExt.max.val, 1)} <span class="unit" style="font-size:0.75rem; font-family: 'Figtree', Tahoma, sans-serif;">mph at</span><span class="ext-time">${formatShortTime(wsExt.max.time)}</span>
+               ${formatVal(wsExt.max.val, 1)} <span class="unit" style="font-size:0.75rem; font-family: 'Figtree', Tahoma, sans-serif;">mph at</span><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(wsExt.max.time)}</span>
             </div>
          </div>
          <div class="combo-col compass-container" style="flex: 1.2; padding: 0 5px;">
@@ -2906,7 +2909,7 @@ const THEMES = {
             <div class="label">Wind Gust</div>
             <div class="value" style="font-size: 1.6rem;">${formatVal(data.windGust, 1)}</div>
             <div class="extreme-item" style="margin-top:8px;">
-               ${formatVal(wgExt.max.val, 1)} <span class="unit" style="font-size:0.75rem; font-family: 'Figtree', Tahoma, sans-serif;">mph at</span><span class="ext-time">${formatShortTime(wgExt.max.time)}</span>
+               ${formatVal(wgExt.max.val, 1)} <span class="unit" style="font-size:0.75rem; font-family: 'Figtree', Tahoma, sans-serif;">mph at</span><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(wgExt.max.time)}</span>
             </div>
          </div>
       </div>
@@ -2929,8 +2932,8 @@ const THEMES = {
                ${pTrendHtml}
             </div>
             <div class="extreme-row" style="justify-content: center; gap: 35px; margin-top: 15px;">
-               <div class="extreme-item"><span class="high-arrow">↑</span> ${formatVal(pExt.max.val, 2)} inHg<br><span class="ext-time">${formatShortTime(pExt.max.time)}</span></div>
-               <div class="extreme-item"><span class="low-arrow">↓</span> ${formatVal(pExt.min.val, 2)} inHg<br><span class="ext-time">${formatShortTime(pExt.min.time)}</span></div>
+               <div class="extreme-item"><span class="high-arrow">↑</span> ${formatVal(pExt.max.val, 2)} inHg<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(pExt.max.time)}</span></div>
+               <div class="extreme-item"><span class="low-arrow">↓</span> ${formatVal(pExt.min.val, 2)} inHg<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(pExt.min.time)}</span></div>
             </div>
          </div>
       </div>
@@ -2968,12 +2971,12 @@ const THEMES = {
          <div class="combo-col" style="border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px; text-align: center;">
             <div class="label">Solar Rad.</div>
             <div class="value">${formatVal(data.solarRadiation, 0)}<span class="unit" style="font-size:0.75rem; font-family: Figtree">W/m²</span></div>
-            <div class="extreme-item" style="margin-top: 15px;"><span class="high-arrow">↑</span> ${formatVal(sExt.max.val, 0)} W/m²<br><span class="ext-time">${formatShortTime(sExt.max.time)}</span></div>
+            <div class="extreme-item" style="margin-top: 15px;"><span class="high-arrow">↑</span> ${formatVal(sExt.max.val, 0)} W/m²<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(sExt.max.time)}</span></div>
          </div>
          <div class="combo-col" style="padding-left: 15px; text-align: center;">
             <div class="label">UV Index</div>
             <div class="value">${formatVal(data.uv, 1)}</div>
-            <div class="extreme-item" style="margin-top: 15px;"><span class="high-arrow">↑</span> ${formatVal(uExt.max.val, 1)}<br><span class="ext-time">${formatShortTime(uExt.max.time)}</span></div>
+            <div class="extreme-item" style="margin-top: 15px;"><span class="high-arrow">↑</span> ${formatVal(uExt.max.val, 1)}<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(uExt.max.time)}</span></div>
          </div>
       </div>
     `;
