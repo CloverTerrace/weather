@@ -150,6 +150,8 @@ class JsonExportService(StdService):
                 "winddir": output["winddir"],
                 "pressure": output["pressure"],
                 "solarRadiation": output["solarRadiation"],
+                "uv": output["uv"],
+                "precipRate": output["precipRate"],
             })
             history = history[-self.max_history_entries:]
             self._atomic_write_json(self.history_json, history)
