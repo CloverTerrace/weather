@@ -943,11 +943,7 @@
   }
 
 /* ---------- FOUC loading overlay ----------
-   only ever shown when there's no cached theme yet (first visit, or a
-   cleared cache) — the early inline script in <head> decides this
-   synchronously, before first paint, by adding .show-loading-overlay to
-   <html>. returning visitors with a valid cache never see this at all;
-   their real colors are applied before anything paints. */
+   loading overlay for first time visitors or visits without cached data to rely on  */
 #loading-overlay {
   position: fixed;
   inset: 0;
@@ -3036,13 +3032,15 @@ const THEMES = {
       <div class="combo-row">
          <div class="combo-col" style="border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px; text-align: center;">
             <div class="label">Solar Rad.</div>
+            <br> <img src="icons/solarrad.svg" alt="Solar Irradiance">
             <div class="value">${formatVal(data.solarRadiation, 0)}<span class="unit" style="font-size:0.75rem; font-family: Figtree">W/m²</span></div>
-            <div class="extreme-item" style="margin-top: 15px;"><span class="high-arrow"></span> ${formatVal(sExt.max.val, 0)} <span style="font-family: var(--font-details);>W/m²<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(sExt.max.time)}</span></div>
+            <div class="extreme-item" style="margin-top: 15px;">${formatVal(sExt.max.val, 0)} <span style="font-family: var(--font-details);>W/m²<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(sExt.max.time)}</span></div>
          </div>
          <div class="combo-col" style="padding-left: 15px; text-align: center;">
             <div class="label">UV Index</div>
+            <br> <img src="icons/sunuv.svg" alt="UV Index">
             <div class="value">${formatVal(data.uv, 1)}</div>
-            <div class="extreme-item" style="margin-top: 15px;"><span class="high-arrow"></span> ${formatVal(uExt.max.val, 1)}<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(uExt.max.time)}</span></div>
+            <div class="extreme-item" style="margin-top: 15px;">${formatVal(uExt.max.val, 1)}<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(uExt.max.time)}</span></div>
          </div>
       </div>
     `;
