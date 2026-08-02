@@ -38,6 +38,13 @@ jobs:
           WU_API_KEY: ${{ secrets.WU_API_KEY }}
         run: python scripts/fetch_weather.py
 
+      - name: Fetch WU backup data (always -- feeds dashboard's per-field backfill)
+        continue-on-error: true   # supplementary; a WU hiccup here shouldn't block the job
+        env:
+          WU_STATION_ID: ${{ secrets.WU_STATION_ID }}
+          WU_API_KEY: ${{ secrets.WU_API_KEY }}
+        run: python scripts/fetch_weather_backup.py
+
       - name: Fetch latest camera snapshot
         continue-on-error: true   # don't let a camera hiccup block weather data updates
         env:
@@ -73,7 +80,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in data/weather.json data/history.json data/camera.jpg data/forecast.json data/outlook-day1.png data/outlook-day2.png data/outlook-day3.png data/air_quality.json data/alerts.json data/aurora.json; do
+          for f in data/weather.json data/history.json data/weather_wu.json data/camera.jpg data/forecast.json data/outlook-day1.png data/outlook-day2.png data/outlook-day3.png data/air_quality.json data/alerts.json data/aurora.json; do
             [ -f "$f" ] && git add "$f"
           done
           git diff --cached --quiet || git commit -m "Update weather data [skip ci]"
