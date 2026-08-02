@@ -3033,13 +3033,13 @@ const THEMES = {
     solarUvCard.innerHTML = `
       <div class="combo-row">
          <div class="combo-col" style="border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px; text-align: center;">
-            <span class="label">Solar Rad.<br><br><img src="icons/solarrad.svg" alt="Solar Irradiance" height="44" width="44"></span><br><br>
-         <span class="value">${formatVal(data.solarRadiation, 0)}<span class="unit" style="font-size:0.75rem; font-family: Figtree">W/m²</span></span>
+            <div class="label">Solar Rad.<br><br><img src="icons/solarrad.svg" alt="Solar Irradiance" height="44" width="44"></div><br><br>
+         <div class="value">${formatVal(data.solarRadiation, 0)}<span class="unit" style="font-size:0.75rem; font-family: Figtree">W/m²</span></span>
             <span class="extreme-item" style="margin-top: 15px;">${formatVal(sExt.max.val, 0)} <span class="ext-time" style="font-family: var(--font-details);">W/m²<br><span class="ext-time" style="font-family: var(--font-details);">at ${formatShortTime(sExt.max.time)}</span></div>
          </div>
          <div class="combo-col" style="padding-left: 15px; text-align: center;">
-            <span class="label">UV Index<br><br><img src="icons/sunuv.svg" alt="UV Index" height="44" width="44"></span><br><br>
-          <span class="value">${formatVal(data.uv, 1)}</span>
+            <div class="label">UV Index<br><br><img src="icons/sunuv.svg" alt="UV Index" height="44" width="44"></div><br><br>
+          <div class="value">${formatVal(data.uv, 1)}</div>
             <span class="extreme-item" style="margin-top: 15px;">${formatVal(uExt.max.val, 1)}<br><span class="ext-time" style="font-family: var(--font-details);">at ${formatShortTime(uExt.max.time)}</span></span>
          </div>
       </div>
