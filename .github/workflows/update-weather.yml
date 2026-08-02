@@ -1,9 +1,9 @@
 name: Update Weather Data
 
 on:
-  workflow_dispatch: {}   # lets you trigger it manually from the Actions tab
+  workflow_dispatch: {}
   schedule:
-    - cron: '*/15 * * * *'   # safety-net check every 15 min; only acts if home data is stale
+    - cron: '*/15 * * * *'
 
 permissions:
   contents: write
@@ -18,6 +18,14 @@ jobs:
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
+
+      - name: Pull latest remote changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git stash || true
+          git pull origin main --rebase
+          git stash pop || true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -39,14 +47,14 @@ jobs:
         run: python scripts/fetch_weather.py
 
       - name: Fetch WU backup data (always -- feeds dashboard's per-field backfill)
-        continue-on-error: true   # supplementary; a WU hiccup here shouldn't block the job
+        continue-on-error: true
         env:
           WU_STATION_ID: ${{ secrets.WU_STATION_ID }}
           WU_API_KEY: ${{ secrets.WU_API_KEY }}
         run: python scripts/fetch_weather_backup.py
 
       - name: Fetch latest camera snapshot
-        continue-on-error: true   # don't let a camera hiccup block weather data updates
+        continue-on-error: true
         env:
           ECOWITT_APP_KEY: ${{ secrets.ECOWITT_APP_KEY }}
           ECOWITT_API_KEY: ${{ secrets.ECOWITT_API_KEY }}
@@ -54,38 +62,35 @@ jobs:
         run: python scripts/fetch_camera.py
 
       - name: Fetch local forecast
-        continue-on-error: true   # don't let a forecast hiccup block weather data updates
+        continue-on-error: true
         run: python scripts/fetch_forecast.py
 
-        
       - name: Fetch air quality
-        continue-on-error: true   # don't let an AQI hiccup block weather data updates
+        continue-on-error: true
         env:
           PURPLEAIR_API_KEY: ${{ secrets.PURPLEAIR_API_KEY }}
         run: python scripts/fetch_air_quality.py
 
       - name: Fetch current SPC outlook
-        continue-on-error: true   # don't let an outlook hiccup block weather data updates
+        continue-on-error: true
         run: python scripts/fetch_outlook.py
 
       - name: Fetch active weather alerts
-        continue-on-error: true   # don't let an alerts hiccup block weather data updates
+        continue-on-error: true
         run: python scripts/fetch_alerts.py
 
       - name: Fetch aurora/Kp data
-        continue-on-error: true   # don't let an aurora hiccup block weather data updates
+        continue-on-error: true
         run: python scripts/fetch_aurora.py
         
       - name: Commit and push if data changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          # Pull latest remote changes to avoid push rejections
-          git pull origin main --rebase
-
-          for f in data/weather.json data/history.json data/weather_wu.json data/camera.jpg data/forecast.json data/outlook-day1.png data/outlook-day2.png data/outlook-day3.png data/air_quality.json data/alerts.json data/aurora.json; do
+          
+          # Only commit auxiliary files; let local wx-server own weather.json & history.json
+          for f in data/weather_wu.json data/camera.jpg data/forecast.json data/outlook-day1.png data/outlook-day2.png data/outlook-day3.png data/air_quality.json data/alerts.json data/aurora.json; do
             [ -f "$f" ] && git add "$f"
           done
-          git diff --cached --quiet || git commit -m "Update weather data [skip ci]"
+          git diff --cached --quiet || git commit -m "Update auxiliary weather data [skip ci]"
           git push
