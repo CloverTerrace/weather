@@ -3025,6 +3025,36 @@ const THEMES = {
     `;
     grid.appendChild(precipCard);
 
+    // 4.5 lightning card — only shown when the active source actually
+    // provides lightning data. WU's API has no lightning field at all
+    // (key is simply absent), and weewx reports null until the WH57/etc.
+    // sensor is mapped and has recorded at least one archive interval,
+    // so this keeps the grid clean instead of showing a dead "--" tile.
+    if (data.lightningStrikeCount !== undefined && data.lightningStrikeCount !== null) {
+      const lastStrikeMs = data.lightningLastStrike ? new Date(data.lightningLastStrike).getTime() : null;
+      const lightningCard = document.createElement('div');
+      lightningCard.className = 'card combo-card';
+      lightningCard.innerHTML = `
+        <div class="label">Lightning<br><img src="icons/lightning-bolt.svg" alt="Lightning" height="44" width="44"></div>
+        <div class="combo-row">
+           <div class="combo-col" style="flex: 1; text-align: center;">
+              <div class="label" style="font-size:0.75rem;">Strikes Today</div>
+              <div class="value">${formatVal(data.lightningStrikeCount, 0)}</div>
+           </div>
+           <div class="combo-col" style="flex: 1; text-align: center; border-left: 1px solid rgba(255,255,255,0.1);">
+              <div class="label" style="font-size:0.75rem;">Nearest Strike</div>
+              <div class="value">${data.lightningDistance != null ? formatVal(data.lightningDistance, 1) : '--'}<span class="unit" style="font-size:0.75rem;">mi</span></div>
+           </div>
+        </div>
+        <div class="card-footer-metrics" style="margin-top: 15px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">
+           <div class="metric-center" style="grid-column: 1 / -1; text-align:center;">
+             ${lastStrikeMs ? `Last strike ${formatShortTime(data.lightningLastStrike)}` : 'No strikes detected recently'}
+           </div>
+        </div>
+      `;
+      grid.appendChild(lightningCard);
+    }
+
     // 5. solar & UV card
     const sExt = extSafe('solarRadiation');
     const uExt = extSafe('uv');
