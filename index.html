@@ -3016,7 +3016,7 @@ const THEMES = {
             </div>
          </div>
          <div class="combo-col" style="flex: 1; text-align: center; border-left: 1px solid rgba(255,255,255,0.1);">
-            <div class="label">Daily Total</div>
+            <div class="label"><img src="icons/raindrop-measure.svg" alt="raingauge" height="24" width="24"><br>Daily Total</div>
             <div class="value">${formatVal(data.precipTotal, 2)}<span class="unit">in</span></div>
          </div>
       </div>
@@ -3033,12 +3033,12 @@ const THEMES = {
          <div class="combo-col" style="border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px; text-align: center;">
             <div class="label">Solar Rad.<br><img src="icons/solarrad.svg" alt="Solar Irradiance" height="44" width="44"></div>
               <div class="value">${formatVal(data.solarRadiation, 0)}<span class="unit" style="font-size:0.75rem; font-family: Figtree">W/m²</span></div>
-            <div class="extreme-item" style="margin-top: 15px;">${formatVal(sExt.max.val, 0)} <span style="font-family: var(--font-details);>W/m²<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(sExt.max.time)}</span></div>
+            <div class="extreme-item" style="margin-top: 15px;">${formatVal(sExt.max.val, 0)} <span style="font-family: var(--font-details);>W/m²<br><span class="ext-time" style="font-family: var(--font-details);">at ${formatShortTime(sExt.max.time)}</span></div>
          </div>
          <div class="combo-col" style="padding-left: 15px; text-align: center;">
             <div class="label">UV Index<br><img src="icons/sunuv.svg" alt="UV Index" height="44" width="44"></div>
               <div class="value">${formatVal(data.uv, 1)}</div>
-            <div class="extreme-item" style="margin-top: 15px;">${formatVal(uExt.max.val, 1)}<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(uExt.max.time)}</span></div>
+            <div class="extreme-item" style="margin-top: 15px;">${formatVal(uExt.max.val, 1)}<br><span class="ext-time" style="font-family: var(--font-details);">at ${formatShortTime(uExt.max.time)}</span></div>
          </div>
       </div>
     `;
