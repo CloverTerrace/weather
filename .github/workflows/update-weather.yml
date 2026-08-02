@@ -2,6 +2,8 @@ name: Update Weather Data
 
 on:
   workflow_dispatch: {}   # lets you trigger it manually from the Actions tab
+  schedule:
+    - cron: '*/15 * * * *'   # safety-net check every 15 min; only acts if home data is stale
 
 permissions:
   contents: write
@@ -25,11 +27,23 @@ jobs:
       - name: Install dependencies
         run: pip install pillow
 
-      - name: Fetch latest weather data
+      - name: Check if home-server weather data is stale
+        id: staleness
+        run: python scripts/check_staleness.py
+
+      - name: Fetch latest weather data (WU cloud fallback -- only if home data is stale)
+        if: steps.staleness.outputs.stale == 'true'
         env:
           WU_STATION_ID: ${{ secrets.WU_STATION_ID }}
           WU_API_KEY: ${{ secrets.WU_API_KEY }}
         run: python scripts/fetch_weather.py
+
+      - name: Fetch WU backup data (always -- feeds dashboard's per-field backfill)
+        continue-on-error: true   # supplementary; a WU hiccup here shouldn't block the job
+        env:
+          WU_STATION_ID: ${{ secrets.WU_STATION_ID }}
+          WU_API_KEY: ${{ secrets.WU_API_KEY }}
+        run: python scripts/fetch_weather_backup.py
 
       - name: Fetch latest camera snapshot
         continue-on-error: true   # don't let a camera hiccup block weather data updates
@@ -61,12 +75,15 @@ jobs:
       - name: Fetch aurora/Kp data
         continue-on-error: true   # don't let an aurora hiccup block weather data updates
         run: python scripts/fetch_aurora.py
-
+        
       - name: Commit and push if data changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Pull latest remote changes to avoid push rejections
           git pull origin main --rebase
+
           for f in data/weather.json data/history.json data/weather_wu.json data/camera.jpg data/forecast.json data/outlook-day1.png data/outlook-day2.png data/outlook-day3.png data/air_quality.json data/alerts.json data/aurora.json; do
             [ -f "$f" ] && git add "$f"
           done
