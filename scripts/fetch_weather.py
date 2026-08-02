@@ -74,6 +74,7 @@ def main():
         "pressure": imperial.get("pressure"),
         "precipRate": imperial.get("precipRate"),
         "precipTotal": imperial.get("precipTotal"),
+        "source": "wu_cloud_fallback",
     }
 
     os.makedirs("data", exist_ok=True)
