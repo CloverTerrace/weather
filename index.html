@@ -2929,7 +2929,7 @@ const THEMES = {
          </div>
          <div class="combo-col" style="padding-left: 15px;">
             <div class="label">Humidity</div>
-            <div class="value">${formatVal(data.humidity, 1)}<span class="unit"><img src="icons/humidity.svg" width="44" height="44"></span></div>
+            <div class="value">${formatVal(data.humidity, 1)}<span class="unit"><img src="icons/humidity.svg" width="44" height="44" weight="1"></span></div>
             <div class="extreme-row">
                <div class="extreme-item">
                  <div class="ext-value"><span class="high-arrow">↑</span><span style="color: var(--muted-color); font-size: 1.0rem;"> ${formatVal(hExt.max.val, 1)}%</span></div>
@@ -3008,7 +3008,7 @@ const THEMES = {
     const precipCard = document.createElement('div');
     precipCard.className = 'card combo-card';
     precipCard.innerHTML = `
-      <div class="label">Precipitation <img src="icons/raindrop-measure.svg" alt="raingauge" height="44" width="44"><br></div><br>
+      <div class="label">Precipitation<br><img src="icons/raindrop-measure.svg" alt="raingauge" height="44" width="44"><br></div><br>
       <div class="combo-row">
          <div class="combo-col" style="flex: 1; text-align: center;">
             <div class="label" style="font-size:0.75rem;">Current Rate</div>
@@ -3034,12 +3034,12 @@ const THEMES = {
       <div class="combo-row">
          <div class="combo-col" style="border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px; text-align: center;">
             <div class="label">Solar Rad.<br><br><img src="icons/solarrad.svg" alt="Solar Irradiance" height="44" width="44"></div>
-        <br>      <span class="value">${formatVal(data.solarRadiation, 0)}<span class="unit" style="font-size:0.75rem; font-family: Figtree">W/m²</span></span>
-            <div class="extreme-item" style="margin-top: 15px;">${formatVal(sExt.max.val, 0)} <span style="font-family: var(--font-details);>W/m²<br><span class="ext-time" style="font-family: var(--font-details);">at ${formatShortTime(sExt.max.time)}</span></div>
+         <span class="value">${formatVal(data.solarRadiation, 0)}<span class="unit" style="font-size:0.75rem; font-family: Figtree">W/m²</span></span>
+            <div class="extreme-item" style="margin-top: 15px;">${formatVal(sExt.max.val, 0)} <span class="ext-time" style="font-family: var(--font-details);">W/m²<br><span class="ext-time" style="font-family: var(--font-details);">at ${formatShortTime(sExt.max.time)}</span></div>
          </div>
          <div class="combo-col" style="padding-left: 15px; text-align: center;">
             <div class="label">UV Index<br><br><img src="icons/sunuv.svg" alt="UV Index" height="44" width="44"></div>
-          <br>   <span class="value">${formatVal(data.uv, 1)}</span>
+          <span class="value">${formatVal(data.uv, 1)}</span>
             <div class="extreme-item" style="margin-top: 15px;">${formatVal(uExt.max.val, 1)}<br><span class="ext-time" style="font-family: var(--font-details);">at ${formatShortTime(uExt.max.time)}</span></div>
          </div>
       </div>
