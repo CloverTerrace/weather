@@ -80,10 +80,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # Pull latest remote changes from your local server to avoid push rejections
+
+          # Pull latest remote changes to avoid push rejections
           git pull origin main --rebase
-          
+
           for f in data/weather.json data/history.json data/weather_wu.json data/camera.jpg data/forecast.json data/outlook-day1.png data/outlook-day2.png data/outlook-day3.png data/air_quality.json data/alerts.json data/aurora.json; do
             [ -f "$f" ] && git add "$f"
           done
