@@ -1746,6 +1746,14 @@ svg circle, svg polygon, svg line {
   const REFRESH_INTERVAL_MS = 60 * 1000;
   // path to the history file for fetch script.
   const HISTORY_URL = 'data/history.json';
+  // path to the WU-sourced backup file (kept fresh independently by the
+  // worker on its own schedule -- used to backfill gaps in the weewx feed).
+  const WU_BACKUP_URL = 'data/weather_wu.json';
+  // if the primary (weewx) feed is older than this, treat it as fully down
+  // rather than trying to patch individual fields -- use the WU record
+  // wholesale instead. Should be comfortably longer than both
+  // REFRESH_INTERVAL_MS and however often the WU worker itself runs.
+  const PRIMARY_STALE_MS = 15 * 60 * 1000;
 
   // USGS gauge — Ohio River at Dashields Lock & Dam, upper pool (Sewickley, PA).
   const USGS_SITE_ID = '03086000';
@@ -1935,6 +1943,51 @@ svg circle, svg polygon, svg line {
         }
     }
     return ext || { max: {val: '--', time: null}, min: {val: '--', time: null} };
+  }
+
+  // fields eligible for WU backfill -- the numeric station readings. Not
+  // lightning (WU has no such field) and not identity/time fields (those
+  // are handled separately based on which source is treated as primary).
+  const WU_FILLABLE_FIELDS = [
+    'temp', 'heatIndex', 'windChill', 'dewpt', 'humidity', 'winddir',
+    'windSpeed', 'windGust', 'pressure', 'precipRate', 'precipTotal',
+    'solarRadiation', 'uv',
+  ];
+
+  // merges the primary (weewx) reading with the WU backup reading.
+  // - if weewx's own data is fresh, keep it as the base and only pull in
+  //   individual fields from WU where weewx left a gap (null/undefined).
+  // - if weewx's data is stale (the service itself looks down, not just a
+  //   sensor), use the WU record wholesale instead of trying to patch a
+  //   dead file field-by-field.
+  // returns { data, filledFields, usedWuWholesale } so the caller can
+  // optionally surface which fields (if any) came from the backup.
+  function mergeWithWuBackup(primary, wu) {
+    if (!wu) return { data: primary, filledFields: [], usedWuWholesale: false };
+    if (!primary) return { data: wu, filledFields: [], usedWuWholesale: true };
+
+    const primaryAgeMs = primary.obsTimeLocal
+      ? Date.now() - new Date(primary.obsTimeLocal).getTime()
+      : Infinity;
+    const primaryIsStale = !(primaryAgeMs >= 0) || primaryAgeMs > PRIMARY_STALE_MS;
+
+    if (primaryIsStale) {
+      return { data: wu, filledFields: [], usedWuWholesale: true };
+    }
+
+    const merged = { ...primary };
+    const filledFields = [];
+    WU_FILLABLE_FIELDS.forEach((key) => {
+      if ((merged[key] === undefined || merged[key] === null) &&
+          wu[key] !== undefined && wu[key] !== null) {
+        merged[key] = wu[key];
+        filledFields.push(key);
+      }
+    });
+    if (filledFields.length) {
+      merged.source = `${primary.source || 'local'}+wu_fill`;
+    }
+    return { data: merged, filledFields, usedWuWholesale: false };
   }
 
   function getTodayMaxRiver(values) {
@@ -3170,15 +3223,28 @@ const THEMES = {
     const aqUrl = forceRefresh ? `data/air_quality.json?t=${Date.now()}` : 'data/air_quality.json';
     const alertUrl = forceRefresh ? `data/alerts.json?t=${Date.now()}` : 'data/alerts.json';
     const auroraUrl = forceRefresh ? `data/aurora.json?t=${Date.now()}` : 'data/aurora.json';
+    const wuUrl = forceRefresh ? `${WU_BACKUP_URL}?t=${Date.now()}` : WU_BACKUP_URL;
 
-    const [res, aqRes, alertRes, auroraRes] = await Promise.all([
+    const [res, aqRes, alertRes, auroraRes, wuRes] = await Promise.all([
       fetch(url, { cache: 'no-store' }),
       fetch(aqUrl, { cache: 'no-store' }).catch(() => null),
       fetch(alertUrl, { cache: 'no-store' }).catch(() => null),
       fetch(auroraUrl, { cache: 'no-store' }).catch(() => null),
+      fetch(wuUrl, { cache: 'no-store' }).catch(() => null),
     ]);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
+    const primaryData = await res.json();
+
+    let wuData = null;
+    if (wuRes && wuRes.ok) {
+      try { wuData = await wuRes.json(); } catch (e) { wuData = null; }
+    }
+    const { data, filledFields, usedWuWholesale } = mergeWithWuBackup(primaryData, wuData);
+    if (usedWuWholesale) {
+      console.warn('Primary (weewx) feed is stale — showing WU backup data instead.');
+    } else if (filledFields.length) {
+      console.info('Filled from WU backup:', filledFields.join(', '));
+    }
 
     if (aqRes && aqRes.ok) {
       const aqData = await aqRes.json();
@@ -3204,9 +3270,12 @@ const THEMES = {
     
     applyTheme(themeKey, data.aqi, activeOverride);
     setRadarBaseLayer(isNight);
-    subtitle.textContent = data.neighborhood
+    const backfillNote = usedWuWholesale
+      ? ' · running on WU backup'
+      : (filledFields.length ? ' · partial WU backfill' : '');
+    subtitle.textContent = (data.neighborhood
       ? `Station ${data.stationID} — ${data.neighborhood}`
-      : `Station ${data.stationID}`;
+      : `Station ${data.stationID}`) + backfillNote;
 
     errorBanner.style.display = 'none';
     lastSuccessfulLoadTime = Date.now();
