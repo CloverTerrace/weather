@@ -1,0 +1,42 @@
+# Whether to try indefinitely to load the driver
+    # in this file, which includes a value for the 'driver' option.
+    # This section is for the Ecowitt Gateway driver.
+    # The driver to use:
+    driver = user.gw1000
+    # The driver to use.
+    driver = weewx.drivers.simulator
+        driver = weedb.sqlite
+        driver = weedb.mysql
+    # Start Ecowitt Gateway driver extractors
+clover@wx-server:~$ grep -A 30 '\[GW1000\]' /etc/weewx/weewx.conf
+[GW1000]
+    # This section is for the Ecowitt Gateway driver.
+    
+    # How often to poll the API, default is every 20 seconds:
+    poll_interval = 20
+    
+    # The driver to use:
+    driver = user.gw1000
+    ip_address = 10.0.0.40
+    port = 45000
+
+##############################################################################
+
+[Simulator]
+    # This section is for the weewx weather station simulator.
+    
+    # The time (in seconds) between LOOP packets.
+    loop_interval = 2.5
+    
+    # The simulator mode can be either 'simulator' or 'generator'.
+    # Real-time simulator. Sleep between each LOOP packet.
+    mode = simulator
+    # Generator.  Emit LOOP packets as fast as possible (useful for testing).
+    #mode = generator
+    
+    # The start time. Format is YYYY-mm-ddTHH:MM. If not specified, the
+    # default is to use the present time.
+    #start = 2011-01-01T00:00
+    
+    # The driver to use.
+    driver = weewx.drivers.simulator
