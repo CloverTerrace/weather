@@ -35,16 +35,15 @@ jobs:
       - name: Install dependencies
         run: pip install pillow
 
-      - name: Check if home-server weather data is stale
-        id: staleness
-        run: python scripts/check_staleness.py
-
-      - name: Fetch latest weather data (WU cloud fallback -- only if home data is stale)
-        if: steps.staleness.outputs.stale == 'true'
+      - name: Check staleness / apply WU fallback if home server is down
+        id: fallback
         env:
           WU_STATION_ID: ${{ secrets.WU_STATION_ID }}
           WU_API_KEY: ${{ secrets.WU_API_KEY }}
-        run: python scripts/fetch_weather.py
+          STALE_THRESHOLD_MINUTES: '20'
+        run: |
+          result=$(python scripts/check_and_fallback.py)
+          echo "result=$result" >> "$GITHUB_OUTPUT"
 
       - name: Fetch WU backup data (always -- feeds dashboard's per-field backfill)
         continue-on-error: true
@@ -87,10 +86,18 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # Only commit auxiliary files; let local wx-server own weather.json & history.json
+
+          # Auxiliary files: always eligible to commit.
           for f in data/weather_wu.json data/camera.jpg data/forecast.json data/outlook-day1.png data/outlook-day2.png data/outlook-day3.png data/air_quality.json data/alerts.json data/aurora.json; do
             [ -f "$f" ] && git add "$f"
           done
-          git diff --cached --quiet || git commit -m "Update auxiliary weather data [skip ci]"
+
+          # weather.json / history.json: only commit these when the
+          # staleness check actually applied a WU fallback. The rest of the
+          # time, the home server owns these files exclusively.
+          if [ "${{ steps.fallback.outputs.result }}" = "FALLBACK_APPLIED" ]; then
+            git add data/weather.json data/history.json
+          fi
+
+          git diff --cached --quiet || git commit -m "Update weather data [skip ci]"
           git push
