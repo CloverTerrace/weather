@@ -122,7 +122,12 @@ def append_history(entry):
 
 
 def git_pull_latest():
-    subprocess.run(["git", "pull", "origin", "main", "--rebase"], check=False)
+    # capture_output=True keeps git's own chatter ("From https://...",
+    # "Fast-forward", etc.) out of this script's stdout -- otherwise it
+    # leaks into the `result=$(...)` capture in the workflow and breaks
+    # the GITHUB_OUTPUT parser, since only the final FALLBACK_APPLIED /
+    # NO_ACTION line is meant to be on stdout.
+    subprocess.run(["git", "pull", "origin", "main", "--rebase"], check=False, capture_output=True)
 
 
 def main():
