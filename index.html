@@ -3270,12 +3270,9 @@ const THEMES = {
     
     applyTheme(themeKey, data.aqi, activeOverride);
     setRadarBaseLayer(isNight);
-    const backfillNote = usedWuWholesale
-      ? ' · running on WU backup'
-      : (filledFields.length ? ' · partial WU backfill' : '');
-    subtitle.textContent = (data.neighborhood
+    subtitle.textContent = data.neighborhood
       ? `Station ${data.stationID} — ${data.neighborhood}`
-      : `Station ${data.stationID}`) + backfillNote;
+      : `Station ${data.stationID}`;
 
     errorBanner.style.display = 'none';
     lastSuccessfulLoadTime = Date.now();
