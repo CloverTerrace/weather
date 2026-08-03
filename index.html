@@ -1755,6 +1755,15 @@ svg circle, svg polygon, svg line {
   // REFRESH_INTERVAL_MS and however often the WU worker itself runs.
   const PRIMARY_STALE_MS = 15 * 60 * 1000;
 
+  // fixed station identity for the header. Deliberately NOT pulled from
+  // data.stationID/data.neighborhood -- those reflect whichever backend
+  // happens to be active (weewx's configured station_id, or WU's own
+  // internal PWS ID like "KPAALIQU74"), which isn't the same as your
+  // actual CWOP callsign. This stays constant no matter which source
+  // is currently feeding the dashboard.
+  const STATION_CALLSIGN = 'GW7673';
+  const STATION_CITY = 'Aliquippa';
+
   // USGS gauge — Ohio River at Dashields Lock & Dam, upper pool (Sewickley, PA).
   const USGS_SITE_ID = '03086000';
   const USGS_REFRESH_INTERVAL_MS = 15 * 60 * 1000;
@@ -3270,9 +3279,7 @@ const THEMES = {
     
     applyTheme(themeKey, data.aqi, activeOverride);
     setRadarBaseLayer(isNight);
-    subtitle.textContent = data.neighborhood
-      ? `Station ${data.stationID} — ${data.neighborhood}`
-      : `Station ${data.stationID}`;
+    subtitle.textContent = `${STATION_CALLSIGN} — ${STATION_CITY}`;
 
     errorBanner.style.display = 'none';
     lastSuccessfulLoadTime = Date.now();
