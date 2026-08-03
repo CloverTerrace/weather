@@ -8,7 +8,7 @@ permissions:
   
 concurrency:
   group: weather-data-update
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   update-weather:
