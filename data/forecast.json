@@ -1,16 +1,6 @@
 [
   {
-    "name": "Overnight",
-    "temperature": 65,
-    "temperatureUnit": "F",
-    "windSpeed": "2 to 6 mph",
-    "windDirection": "NW",
-    "shortForecast": "Isolated Rain Showers",
-    "detailedForecast": "Isolated rain showers before 3am. Mostly cloudy, with a low around 65. Northwest wind 2 to 6 mph. Chance of precipitation is 20%.",
-    "isDaytime": false
-  },
-  {
-    "name": "Monday",
+    "name": "Today",
     "temperature": 80,
     "temperatureUnit": "F",
     "windSpeed": "8 mph",
@@ -20,7 +10,7 @@
     "isDaytime": true
   },
   {
-    "name": "Monday Night",
+    "name": "Tonight",
     "temperature": 57,
     "temperatureUnit": "F",
     "windSpeed": "0 to 7 mph",
@@ -38,5 +28,15 @@
     "shortForecast": "Areas Of Fog then Sunny",
     "detailedForecast": "Areas of fog before 9am. Sunny, with a high near 84. Northeast wind 0 to 3 mph.",
     "isDaytime": true
+  },
+  {
+    "name": "Tuesday Night",
+    "temperature": 65,
+    "temperatureUnit": "F",
+    "windSpeed": "3 mph",
+    "windDirection": "E",
+    "shortForecast": "Mostly Clear",
+    "detailedForecast": "Mostly clear, with a low around 65. East wind around 3 mph.",
+    "isDaytime": false
   }
 ]
