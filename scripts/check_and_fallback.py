@@ -54,13 +54,19 @@ def read_weather():
 
 
 def is_stale(weather):
-    if not weather or not weather.get("obsTimeLocal"):
+    if not weather or not weather.get("obsTimeUtc"):
         return True
     try:
-        obs_time = datetime.strptime(weather["obsTimeLocal"], "%Y-%m-%d %H:%M:%S")
+        # Compare UTC to UTC -- obsTimeLocal is the station's local time
+        # (e.g. Eastern), while this script runs on a UTC-clocked GitHub
+        # Actions runner. Comparing those directly produces a permanent
+        # several-hour "gap" that has nothing to do with real staleness,
+        # which was causing this check to misfire as stale almost every
+        # single run. obsTimeUtc avoids the mismatch entirely.
+        obs_time = datetime.strptime(weather["obsTimeUtc"], "%Y-%m-%dT%H:%M:%SZ")
     except ValueError:
         return True
-    return datetime.now() - obs_time > timedelta(minutes=STALE_THRESHOLD_MINUTES)
+    return datetime.utcnow() - obs_time > timedelta(minutes=STALE_THRESHOLD_MINUTES)
 
 
 def fetch_wu_current():
