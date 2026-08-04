@@ -3088,26 +3088,58 @@ const THEMES = {
     `;
     grid.appendChild(pressureCard);
 
-    // 4. precipitation card
+    // 4. precipitation card -- same card slot either way (unlike the
+    // lightning card, this one never disappears), just different contents
+    // depending on whether it's currently raining. Rate matters while it's
+    // actively raining; cumulative totals are more useful the rest of the
+    // time. Week/month/year totals only come from weewx (WU has no
+    // equivalent), so those three simply show '--' via formatVal when
+    // running on the WU fallback -- no extra handling needed.
     const prExt = extSafe('precipRate');
+    const isCurrentlyRaining = data.precipRate !== undefined && data.precipRate !== null && data.precipRate > 0;
     const precipCard = document.createElement('div');
     precipCard.className = 'card combo-card';
-    precipCard.innerHTML = `
-      <div class="label">Precipitation<br><span class="card-icon"><img src="icons/raindrop-measure.svg" alt="raingauge"></span><br></div><br>
-      <div class="combo-row">
-         <div class="combo-col" style="flex: 1; text-align: center;">
-            <div class="label" style="font-size:0.75rem;">Current Rate</div>
-            <div class="value">${formatVal(data.precipRate, 2)}<span class="unit">in/hr</span></div>
-            <div class="extreme-row single" style="justify-content: center; margin-top: 15px;">
-               <div class="extreme-item">${formatVal(prExt.max.val, 2)} in/hr<br><span class="ext-time" style="font-family: var(--font-details);">Max Rate (${formatShortTime(prExt.max.time)})</span></div>
-            </div>
-         </div>
-         <div class="combo-col" style="flex: 1; text-align: center; border-left: 1px solid rgba(255,255,255,0.1);">
-            <div class="label" style="font-size:0.75rem;">Today's Total</div>
-            <div class="value">${formatVal(data.precipTotal, 2)}<span class="unit">in</span></div>
-         </div>
-      </div>
-    `;
+    const precipLabelHtml = `<div class="label">Precipitation<br><span class="card-icon"><img src="icons/raindrop-measure.svg" alt="raingauge"></span><br></div><br>`;
+    if (isCurrentlyRaining) {
+      precipCard.innerHTML = `
+        ${precipLabelHtml}
+        <div class="combo-row">
+           <div class="combo-col" style="flex: 1; text-align: center;">
+              <div class="label" style="font-size:0.75rem;">Current Rate</div>
+              <div class="value">${formatVal(data.precipRate, 2)}<span class="unit">in/hr</span></div>
+              <div class="extreme-row single" style="justify-content: center; margin-top: 15px;">
+                 <div class="extreme-item">${formatVal(prExt.max.val, 2)} in/hr<br><span class="ext-time" style="font-family: var(--font-details);">Max Rate (${formatShortTime(prExt.max.time)})</span></div>
+              </div>
+           </div>
+           <div class="combo-col" style="flex: 1; text-align: center; border-left: 1px solid rgba(255,255,255,0.1);">
+              <div class="label" style="font-size:0.75rem;">Today's Total</div>
+              <div class="value">${formatVal(data.precipTotal, 2)}<span class="unit">in</span></div>
+           </div>
+        </div>
+      `;
+    } else {
+      precipCard.innerHTML = `
+        ${precipLabelHtml}
+        <div style="display: grid; grid-template-columns: 1fr 1fr; row-gap: 15px;">
+           <div style="text-align: center;">
+              <div class="label" style="font-size:0.75rem;">Today</div>
+              <div class="value">${formatVal(data.precipTotal, 2)}<span class="unit">in</span></div>
+           </div>
+           <div style="text-align: center; border-left: 1px solid rgba(255,255,255,0.1);">
+              <div class="label" style="font-size:0.75rem;">This Week</div>
+              <div class="value">${formatVal(data.precipWeekTotal, 2)}<span class="unit">in</span></div>
+           </div>
+           <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+              <div class="label" style="font-size:0.75rem;">This Month</div>
+              <div class="value">${formatVal(data.precipMonthTotal, 2)}<span class="unit">in</span></div>
+           </div>
+           <div style="text-align: center; border-left: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+              <div class="label" style="font-size:0.75rem;">This Year</div>
+              <div class="value">${formatVal(data.precipYearTotal, 2)}<span class="unit">in</span></div>
+           </div>
+        </div>
+      `;
+    }
     grid.appendChild(precipCard);
 
     // 4.5 lightning card — only shown when the active source actually
