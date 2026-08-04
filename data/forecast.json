@@ -1,6 +1,16 @@
 [
   {
-    "name": "Today",
+    "name": "Overnight",
+    "temperature": 56,
+    "temperatureUnit": "F",
+    "windSpeed": "1 mph",
+    "windDirection": "NE",
+    "shortForecast": "Areas Of Fog",
+    "detailedForecast": "Areas of fog. Mostly clear, with a low around 56. Northeast wind around 1 mph.",
+    "isDaytime": false
+  },
+  {
+    "name": "Tuesday",
     "temperature": 86,
     "temperatureUnit": "F",
     "windSpeed": "0 to 3 mph",
@@ -10,7 +20,7 @@
     "isDaytime": true
   },
   {
-    "name": "Tonight",
+    "name": "Tuesday Night",
     "temperature": 67,
     "temperatureUnit": "F",
     "windSpeed": "3 mph",
@@ -28,15 +38,5 @@
     "shortForecast": "Partly Sunny then Scattered Showers And Thunderstorms",
     "detailedForecast": "Scattered rain showers between 1pm and 2pm, then scattered showers and thunderstorms. Partly sunny, with a high near 88. South wind 1 to 5 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
     "isDaytime": true
-  },
-  {
-    "name": "Wednesday Night",
-    "temperature": 68,
-    "temperatureUnit": "F",
-    "windSpeed": "3 mph",
-    "windDirection": "S",
-    "shortForecast": "Scattered Showers And Thunderstorms",
-    "detailedForecast": "Scattered showers and thunderstorms before 11pm, then scattered showers and thunderstorms. Mostly cloudy, with a low around 68. South wind around 3 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
-    "isDaytime": false
   }
 ]
