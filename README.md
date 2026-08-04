@@ -4,20 +4,17 @@ A live weather page for Clover Terrace, a higher-elevation micro-climate within 
 
 **Live at:** <https://cloverterrace.github.io/weather/>
 
-## how it works 🌪️
 
-This isn't a single script anymore — it's three cooperating pieces, each with its own job.
+### 1. the home server (primary source) 🍀
 
-### 1. The home server (primary source)
-
-A local machine (`wx-server`) runs [WeeWX](https://weewx.com/) against an Ecowitt gateway via the `interceptor` driver. A custom WeeWX service, `scripts/weewx_json_export.py` — kept here as a **reference copy only**; it actually runs on the WeeWX box, not in CI — writes `data/weather.json` on every loop packet and appends to `data/history.json` on every archive record, straight into a local clone of this repo. It also:
+a local machine (`wx-server`) runs [WeeWX](https://weewx.com/) against an Ecowitt gateway via the `interceptor` driver. A custom WeeWX service, `scripts/weewx_json_export.py` — kept here as a **reference copy only**; it actually runs on the WeeWX box, not in CI — writes `data/weather.json` on every loop packet and appends to `data/history.json` on every archive record, straight into a local clone of this repo. It also:
 
 - holds onto the last known-good pressure / solar radiation / precip rate reading for a few minutes, so one missed sensor read doesn't blank the dashboard;
 - tracks the lightning sensor (strikes today, distance/time of the most recent one), if you have one mapped.
 
-A systemd timer, `weather-committer.timer` → `weather-committer.service` (calling `scripts/commit_and_push.sh`, also a **reference copy**), commits and pushes `data/weather.json` + `data/history.json` to `main` every 2 minutes — but only if something actually changed. If the push is rejected (e.g. the GitHub Actions fallback below pushed while the server was catching back up), it rebases with `-X theirs`: the home server's own live reading always wins, since it's the freshest source once it's back online.
+a systemd timer, `weather-committer.timer` → `weather-committer.service` (calling `scripts/commit_and_push.sh`, also a **reference copy**), commits and pushes `data/weather.json` + `data/history.json` to `main` every 2 minutes — but only if something actually changed. If the push is rejected (e.g. the GitHub Actions fallback below pushed while the server was catching back up), it rebases with `-X theirs`: the home server's own live reading always wins, since it's the freshest source once it's back online.
 
-### 2. GitHub Actions (fallback + everything else)
+### 2. GitHub Actions (fallback + everything else) 🌩️
 
 `.github/workflows/update-weather.yml` runs on demand (see #3) and does two separate jobs, plus a handful of auxiliary fetches:
 
@@ -42,12 +39,6 @@ Polls `data/weather.json` every 60 seconds. On every load, it also fetches `data
 - If the home server's data is stale (> 15 min old), the WU reading is used wholesale instead of patching a dead file one field at a time.
 
 That split means the site survives both failure modes — "one sensor glitched for a minute" and "the whole home server is offline" — without a visitor ever seeing a blank tile, using whichever mechanism actually fits the situation.
-
-## why so many moving pieces? 🌩️
-
-Short version: this started as "one script fetches WU on a schedule and commits it," and grew a home weather station, a lightning sensor, and enough independent trigger sources that it briefly triggered *itself* into a git-push race and a genuinely excessive GitHub Pages deploy history. If you're setting this up from scratch and don't have your own station, you don't need any of this — see the WU-only setup below, which is much closer to how this page originally worked.
-
-**A hard-learned lesson worth writing down:** every push to `main` causes GitHub Pages to redeploy, full stop, regardless of what triggered it. If more than one thing can trigger `update-weather.yml` or push directly (a cron on a Worker, a timer on the home server, a manual button…), keep every one of those schedules deliberately loose — a few independent 30-second-to-1-minute schedules stacking on each other adds up fast, and no single piece looks obviously wrong on its own until you compare all of them side by side. The dashboard only polls once a minute anyway, so nothing upstream needs to run more often than that to feel instant. If you ever see the Actions tab going green suspiciously often, check `systemctl list-timers` on any server you own *and* every cron trigger on every external service before assuming it's just one thing.
 
 ## repo layout 🗂️
 
@@ -74,7 +65,7 @@ sw.js                                    minimal service worker — app shell on
 manifest.json                          PWA manifest
 ```
 
-> **Housekeeping note:** `check_staleness.py` and `fetch_weather.py` may still be sitting in `scripts/` from an earlier version of this pipeline. Confirm whether `check_and_fallback.py` still calls into `fetch_weather.py` internally before deleting either — if not, they're safe to remove.
+> **housekeeping note:** `check_staleness.py` and `fetch_weather.py` may still be sitting in `scripts/` from an earlier version of this pipeline. Confirm whether `check_and_fallback.py` still calls into `fetch_weather.py` internally before deleting either — if not, they're safe to remove.
 
 ## how to re-create this page — WU-only, no home station ⛈️
 
