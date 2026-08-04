@@ -235,6 +235,29 @@
     object-fit: contain;
   }
 
+  /* Meteocons' animated SVGs are drawn with a lot of built-in canvas
+     padding (space reserved for the animation's motion -- bouncing
+     raindrops, drifting clouds, etc.), so a plain <img> at a fixed size
+     shows mostly empty space around a small glyph. This wrapper crops
+     that padding away: overflow is hidden on a fixed-size box, and the
+     image inside is scaled up past the box's edges so only the dense,
+     central part of the artwork is visible. */
+  .card-icon {
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    overflow: hidden;
+    vertical-align: middle;
+  }
+
+  .card-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: scale(1.45);
+    transform-origin: center;
+  }
+
   .weather-icon-moon {
     width: 1.1em;
     height: 1.1em;
@@ -2977,7 +3000,7 @@ const THEMES = {
       <div class="combo-row">
          <div class="combo-col" style="border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px;">
             <div class="label">Temperature</div>
-            <div class="value">${formatVal(data.temp, 1)}<span class="unit"><img src="icons/thermometer-fahrenheit.svg" height="44" width="44"></span></div>
+            <div class="value">${formatVal(data.temp, 1)}<span class="unit"><span class="card-icon"><img src="icons/thermometer-fahrenheit.svg" alt="Temperature"></span></span></div>
             <div class="extreme-row">
                <div class="extreme-item">
                  <div class="ext-value"><span class="high-arrow">↑</span><span style="color: var(--muted-color); font-size: 1.0rem;"> ${formatVal(tExt.max.val, 1)}°F</span></div>
@@ -2991,7 +3014,7 @@ const THEMES = {
          </div>
          <div class="combo-col" style="padding-left: 15px;">
             <div class="label">Humidity</div>
-            <div class="value">${formatVal(data.humidity, 1)}<span class="unit"><img src="icons/humidity.svg" width="44" height="44" weight="1"></span></div>
+            <div class="value">${formatVal(data.humidity, 1)}<span class="unit"><span class="card-icon"><img src="icons/humidity.svg" alt="Humidity"></span></span></div>
             <div class="extreme-row">
                <div class="extreme-item">
                  <div class="ext-value"><span class="high-arrow">↑</span><span style="color: var(--muted-color); font-size: 1.0rem;"> ${formatVal(hExt.max.val, 1)}%</span></div>
@@ -3018,7 +3041,7 @@ const THEMES = {
     const windCard = document.createElement('div');
     windCard.className = 'card combo-card';
     windCard.innerHTML = `
-     <div class="label">Wind <img src="icons/windmill.svg" height="44" width="44"></div> 
+     <div class="label">Wind <span class="card-icon"><img src="icons/windmill.svg" alt="Wind"></span></div> 
       <div class="combo-row wind-row" style="align-items: center;">
          <div class="combo-col" style="flex: 1; text-align: center;">
             <div class="label">Speed</div>
@@ -3070,7 +3093,7 @@ const THEMES = {
     const precipCard = document.createElement('div');
     precipCard.className = 'card combo-card';
     precipCard.innerHTML = `
-      <div class="label">Precipitation<br><img src="icons/raindrop-measure.svg" alt="raingauge" height="44" width="44"><br></div><br>
+      <div class="label">Precipitation<br><span class="card-icon"><img src="icons/raindrop-measure.svg" alt="raingauge"></span><br></div><br>
       <div class="combo-row">
          <div class="combo-col" style="flex: 1; text-align: center;">
             <div class="label" style="font-size:0.75rem;">Current Rate</div>
@@ -3097,7 +3120,7 @@ const THEMES = {
       const lightningCard = document.createElement('div');
       lightningCard.className = 'card combo-card';
       lightningCard.innerHTML = `
-        <div class="label">Lightning<br><img src="icons/lightning-bolt.svg" alt="Lightning" height="44" width="44"></div>
+        <div class="label">Lightning<br><span class="card-icon"><img src="icons/lightning-bolt.svg" alt="Lightning"></span></div>
         <div class="combo-row">
            <div class="combo-col" style="flex: 1; text-align: center;">
               <div class="label" style="font-size:0.75rem;">Strikes Today</div>
@@ -3125,12 +3148,12 @@ const THEMES = {
     solarUvCard.innerHTML = `
       <div class="combo-row">
          <div class="combo-col" style="border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px; text-align: center;">
-            <div class="label">Solar Rad.<br><br><img src="icons/solarrad.svg" alt="Solar Irradiance" height="44" width="44"></div>
+            <div class="label">Solar Rad.<br><br><span class="card-icon"><img src="icons/solarrad.svg" alt="Solar Irradiance"></span></div>
          <div class="value">${formatVal(data.solarRadiation, 0)}<span class="unit" style="font-size:0.75rem; font-family: Figtree">W/m²</span></span>
             <span class="extreme-item" style="margin-top: 15px;">${formatVal(sExt.max.val, 0)} <span class="ext-time" style="font-family: var(--font-details);">W/m²<br><span class="ext-time" style="font-family: var(--font-details);">at ${formatShortTime(sExt.max.time)}</span></div>
          </div>
          <div class="combo-col" style="padding-left: 15px; text-align: center;">
-            <div class="label">UV Index<br><br><img src="icons/sunuv.svg" alt="UV Index" height="44" width="44"></div>
+            <div class="label">UV Index<br><br><span class="card-icon"><img src="icons/sunuv.svg" alt="UV Index"></span></div>
           <div class="value">${formatVal(data.uv, 1)}</div>
             <span class="extreme-item" style="margin-top: 15px;">${formatVal(uExt.max.val, 1)}<br><span class="ext-time" style="font-family: var(--font-details);">at ${formatShortTime(uExt.max.time)}</span></span>
          </div>
