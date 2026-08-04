@@ -2,7 +2,10 @@
 """
 Staleness-checked Weather Underground fallback.
 
-Runs on the existing 15-minute GitHub Actions schedule. On every run it:
+Runs whenever the "Update Weather Data" workflow is triggered (there's no
+cron in the workflow itself anymore -- runs are dispatched on demand by a
+Cloudflare Worker's Cron Trigger, a Deno Deploy fallback endpoint, and the
+dashboard's own refresh button). On every run it:
 
   1. Reads the obsTimeLocal already inside the committed data/weather.json.
   2. If that reading is fresh (< STALE_THRESHOLD_MINUTES old), does nothing
@@ -121,6 +124,8 @@ def append_history(entry):
         "winddir": entry["winddir"],
         "pressure": entry["pressure"],
         "solarRadiation": entry["solarRadiation"],
+        "uv": entry["uv"],
+        "precipRate": entry["precipRate"],
     })
     history = history[-MAX_HISTORY_ENTRIES:]
     with open(HISTORY_PATH, "w") as f:
