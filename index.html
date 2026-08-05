@@ -1802,6 +1802,17 @@ svg circle, svg polygon, svg line {
   // Universal formatting function to enforce specific decimal places
   const formatVal = (v, dec = 1) => v !== undefined && v !== null && !isNaN(v) ? Number(v).toFixed(dec) : '--';
 
+  // The station scripts write timestamps like "2026-08-05 15:45:46" --
+  // space-separated, no timezone. V8 (Chrome/Edge) parses that leniently
+  // as local time, but that format isn't part of the spec Safari/WebKit
+  // actually follows, and returns Invalid Date for it -- silently breaking
+  // any .getHours()/.getTime() call downstream. Normalizing to a real ISO
+  // string (space -> "T") makes it parse consistently everywhere.
+  function parseStationTime(str) {
+    if (!str) return new Date(NaN);
+    return new Date(str.includes('T') ? str : str.replace(' ', 'T'));
+  }
+
   function formatRelativeTime(timestamp) {
     if (!timestamp) return '';
     const seconds = Math.floor((Date.now() - timestamp) / 1000);
@@ -2000,7 +2011,7 @@ svg circle, svg polygon, svg line {
     if (!primary) return { data: wu, filledFields: [], usedWuWholesale: true };
 
     const primaryAgeMs = primary.obsTimeLocal
-      ? Date.now() - new Date(primary.obsTimeLocal).getTime()
+      ? Date.now() - parseStationTime(primary.obsTimeLocal).getTime()
       : Infinity;
     const primaryIsStale = !(primaryAgeMs >= 0) || primaryAgeMs > PRIMARY_STALE_MS;
 
@@ -2811,7 +2822,7 @@ const THEMES = {
   };
 
   function isNightTime(data) {
-    const hour = new Date(data.obsTimeLocal).getHours();
+    const hour = parseStationTime(data.obsTimeLocal).getHours();
     return hour < 6 || hour >= 20;
   }
 
