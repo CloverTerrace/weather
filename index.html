@@ -3324,7 +3324,17 @@ const THEMES = {
 
     if (aqRes && aqRes.ok) {
       const aqData = await aqRes.json();
-      Object.assign(data, aqData);
+      // Only pull in the specific AQI fields the UI actually uses.
+      // NOTE: purposely NOT a blanket Object.assign(data, aqData) --
+      // PurpleAir's payload includes its own on-sensor `humidity` (and
+      // potentially other overlapping field names like temp/pressure)
+      // used for its PM2.5 correction factor. That reading comes from
+      // inside the sensor's heated housing and is not representative
+      // of ambient conditions, so merging it wholesale silently
+      // clobbers the correct humidity/temp/etc. we just got from the
+      // weewx/WU merge above.
+      if (aqData.aqi !== undefined) data.aqi = aqData.aqi;
+      if (aqData.aqiDisplay !== undefined) data.aqiDisplay = aqData.aqiDisplay;
     }
     if (auroraRes && auroraRes.ok) {
       currentAurora = await auroraRes.json();
