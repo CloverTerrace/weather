@@ -2320,7 +2320,7 @@ svg circle, svg polygon, svg line {
 
   async function loadHistory(forceRefresh = false) {
     try {
-      const url = forceRefresh ? `${HISTORY_URL}?t=${Date.now()}` : HISTORY_URL;
+      const url = `${HISTORY_URL}?t=${Date.now()}`;
       const res = await fetch(url, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const history = await res.json();
@@ -2336,7 +2336,7 @@ svg circle, svg polygon, svg line {
   async function loadForecast(forceRefresh = false) {
     const container = document.getElementById('forecast-periods');
     try {
-      const url = forceRefresh ? `data/forecast.json?t=${Date.now()}` : 'data/forecast.json';
+      const url = `data/forecast.json?t=${Date.now()}`;
       const res = await fetch(url, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const periods = await res.json();
@@ -2791,7 +2791,7 @@ const FONT_ROLES = {
   
 const THEMES = {
     sunny:             { bg: '#ebd48a', card: '#FFFFFF', accent: '#f5b73b', muted: '#f59e3b', text: '#d97236', title: '#ffffff', icon: '☀️', meteocon: 'clear-day.svg', iconImg: 'icons/themes/sunny.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
-    extremeHeat:       { bg: '#4a1907', card: '#faf4ed', accent: '#ff6b35', muted: '#e07a43', text: '#4a1907', title: '#ffffff', icon: '🔥☀️', meteocon: 'thermometer-warmer.svg', iconImg: 'icons/themes/extremeHeat.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
+    extremeHeat:       { bg: '#4a1907', card: '#faf4ed', accent: '#ff6b35', muted: '#e07a43', text: '#ffffff', title: '#ffffff', icon: '🔥☀️', meteocon: 'thermometer-warmer.svg', iconImg: 'icons/themes/extremeHeat.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
     extremeHeatNight:  { bg: '#2e1005', card: '#3d1a0c', accent: '#ff8659', muted: '#ffcc4d', text: '#ffffff', title: '#ffffff', icon: '🔥🌙', meteocon: 'thermometer-warmer.svg', iconImg: 'icons/themes/extremeHeatNight.png', fonts: { title: "NightWindSent, Papyrus, serif", cardHeading: "Monas" } },
     cloudy:            { bg: '#b4c9d9', card: '#EEF3F6', accent: '#A09DBF', muted: '#5585AA', text: '#84ABB0', title: '#ffffff', icon: '⛅️', meteocon: 'partly-cloudy-day.svg', iconImg: 'icons/themes/cloudy.png', fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Jelly Choco" } },
     rainy:             { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️', meteocon: 'rain.svg', iconImg: 'icons/themes/rainy.png', fonts: { title: "Letter Magic, Tahoma" } },
@@ -3128,15 +3128,15 @@ const THEMES = {
            </div>
            <div style="text-align: center; border-left: 1px solid rgba(255,255,255,0.1);">
               <div class="label" style="font-size:0.75rem;">This Week</div>
-              <div class="value">${formatVal(data.precipTotalWeek, 2)}<span class="unit">in</span></div>
+              <div class="value">${formatVal(data.precipWeekTotal, 2)}<span class="unit">in</span></div>
            </div>
            <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
               <div class="label" style="font-size:0.75rem;">This Month</div>
-              <div class="value">${formatVal(data.precipTotalMonth, 2)}<span class="unit">in</span></div>
+              <div class="value">${formatVal(data.precipMonthTotal, 2)}<span class="unit">in</span></div>
            </div>
            <div style="text-align: center; border-left: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
               <div class="label" style="font-size:0.75rem;">This Year</div>
-              <div class="value">${formatVal(data.precipTotalYear, 2)}<span class="unit">in</span></div>
+              <div class="value">${formatVal(data.precipYearTotal, 2)}<span class="unit">in</span></div>
            </div>
         </div>
       `;
@@ -3284,11 +3284,11 @@ const THEMES = {
 
   async function loadData(forceRefresh = false) {
   try {
-    const url = forceRefresh ? `${DATA_URL}?t=${Date.now()}` : DATA_URL;
-    const aqUrl = forceRefresh ? `data/air_quality.json?t=${Date.now()}` : 'data/air_quality.json';
-    const alertUrl = forceRefresh ? `data/alerts.json?t=${Date.now()}` : 'data/alerts.json';
-    const auroraUrl = forceRefresh ? `data/aurora.json?t=${Date.now()}` : 'data/aurora.json';
-    const wuUrl = forceRefresh ? `${WU_BACKUP_URL}?t=${Date.now()}` : WU_BACKUP_URL;
+    const url = `${DATA_URL}?t=${Date.now()}`;
+    const aqUrl = `data/air_quality.json?t=${Date.now()}`;
+    const alertUrl = `data/alerts.json?t=${Date.now()}`;
+    const auroraUrl = `data/aurora.json?t=${Date.now()}`;
+    const wuUrl = `${WU_BACKUP_URL}?t=${Date.now()}`;
 
     const [res, aqRes, alertRes, auroraRes, wuRes] = await Promise.all([
       fetch(url, { cache: 'no-store' }),
