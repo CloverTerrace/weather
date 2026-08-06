@@ -55,6 +55,11 @@ class JsonExportService(StdService):
         self.history_json = os.path.join(self.data_dir, "history.json")
 
         self._last_precip_total = None
+        # week/month/year totals -- refreshed once per archive record, same
+        # as the daily total above, just using a wider aggregation span.
+        self._last_precip_total_week = None
+        self._last_precip_total_month = None
+        self._last_precip_total_year = None
 
         # lightning: daily strike count is refreshed from a DB aggregate
         # (like precip total), since the interceptor driver only reports
@@ -87,6 +92,36 @@ class JsonExportService(StdService):
             vt = weewx.xtypes.get_aggregate("rain", timespan, "sum", db_manager)
             converted = weewx.units.convertStd(vt, weewx.US)
             self._last_precip_total = round(converted[0], 2) if converted[0] is not None else None
+        except Exception:
+            weewx.debug and print(traceback.format_exc())
+            # leave the previous value in place rather than blanking it out
+
+    def _refresh_weekly_precip_total(self, db_manager):
+        try:
+            timespan = weeutil.weeutil.archiveWeekSpan(time.time())
+            vt = weewx.xtypes.get_aggregate("rain", timespan, "sum", db_manager)
+            converted = weewx.units.convertStd(vt, weewx.US)
+            self._last_precip_total_week = round(converted[0], 2) if converted[0] is not None else None
+        except Exception:
+            weewx.debug and print(traceback.format_exc())
+            # leave the previous value in place rather than blanking it out
+
+    def _refresh_monthly_precip_total(self, db_manager):
+        try:
+            timespan = weeutil.weeutil.archiveMonthSpan(time.time())
+            vt = weewx.xtypes.get_aggregate("rain", timespan, "sum", db_manager)
+            converted = weewx.units.convertStd(vt, weewx.US)
+            self._last_precip_total_month = round(converted[0], 2) if converted[0] is not None else None
+        except Exception:
+            weewx.debug and print(traceback.format_exc())
+            # leave the previous value in place rather than blanking it out
+
+    def _refresh_yearly_precip_total(self, db_manager):
+        try:
+            timespan = weeutil.weeutil.archiveYearSpan(time.time())
+            vt = weewx.xtypes.get_aggregate("rain", timespan, "sum", db_manager)
+            converted = weewx.units.convertStd(vt, weewx.US)
+            self._last_precip_total_year = round(converted[0], 2) if converted[0] is not None else None
         except Exception:
             weewx.debug and print(traceback.format_exc())
             # leave the previous value in place rather than blanking it out
@@ -132,8 +167,12 @@ class JsonExportService(StdService):
             "windSpeed": g("windSpeed"),
             "windGust": g("windGust"),
             "pressure": g("barometer"),
+            "pressureAbsolute": g("pressure"),
             "precipRate": g("rainRate"),
             "precipTotal": self._last_precip_total,
+            "precipTotalWeek": self._last_precip_total_week,
+            "precipTotalMonth": self._last_precip_total_month,
+            "precipTotalYear": self._last_precip_total_year,
             "lightningStrikeCount": self._daily_lightning_count,
             "lightningDistance": self._last_lightning_distance,
             "lightningLastStrike": self._last_lightning_time_local,
@@ -181,6 +220,9 @@ class JsonExportService(StdService):
         try:
             db_manager = self.engine.db_binder.get_manager(self.data_binding)
             self._refresh_daily_precip_total(db_manager)
+            self._refresh_weekly_precip_total(db_manager)
+            self._refresh_monthly_precip_total(db_manager)
+            self._refresh_yearly_precip_total(db_manager)
             self._refresh_daily_lightning_count(db_manager)
             self._note_recent_strike(event.record)
             output = self._build_output(event.record)
@@ -201,6 +243,7 @@ class JsonExportService(StdService):
                 "windGust": output["windGust"],
                 "winddir": output["winddir"],
                 "pressure": output["pressure"],
+                "pressureAbsolute": output["pressureAbsolute"],
                 "solarRadiation": output["solarRadiation"],
                 "uv": output["uv"],
                 "precipRate": output["precipRate"],
