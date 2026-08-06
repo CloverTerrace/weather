@@ -263,6 +263,30 @@
     transform-origin: center;
   }
 
+  /* the stacked label/value rows used on the right side of the
+     Precipitation card (This Week / This Month / This Year) --
+     echoes the Ecowitt app's stat-list style rather than three
+     more big numbers competing with "Today". */
+  .precip-stat-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: var(--muted-color);
+    font-family: var(--font-body);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .precip-stat-row:last-child {
+    border-bottom: none;
+  }
+
+  .precip-stat-value {
+    color: var(--accent-color);
+    font-weight: 600;
+  }
+
   .weather-icon-moon {
     width: 1.1em;
     height: 1.1em;
@@ -2095,16 +2119,16 @@ svg circle, svg polygon, svg line {
   const PRESSURE_TREND_WINDOW_HOURS = 3;
   const PRESSURE_TREND_THRESHOLD = 0.03;
 
-  function getPressureTrend(history) {
+  function getPressureTrend(history, fieldKey = 'pressure') {
     if (!history || history.length < 2) return null;
     const latest = history[history.length - 1];
-    if (!latest || latest.pressure === undefined || latest.pressure === null) return null;
+    if (!latest || latest[fieldKey] === undefined || latest[fieldKey] === null) return null;
 
     const targetTime = Date.now() - PRESSURE_TREND_WINDOW_HOURS * 60 * 60 * 1000;
     let closest = null;
     let closestDiff = Infinity;
     history.forEach(entry => {
-      if (entry.pressure === undefined || entry.pressure === null) return;
+      if (entry[fieldKey] === undefined || entry[fieldKey] === null) return;
       const diff = Math.abs(new Date(entry.time).getTime() - targetTime);
       if (diff < closestDiff) {
         closestDiff = diff;
@@ -2113,7 +2137,7 @@ svg circle, svg polygon, svg line {
     });
     if (!closest) return null;
 
-    const delta = latest.pressure - closest.pressure;
+    const delta = latest[fieldKey] - closest[fieldKey];
     if (delta >= PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-high.svg" class="meteocon" alt="Rising">', label: 'Rising', className: 'trend-rising' };
     if (delta <= -PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-low.svg" class="meteocon" alt="Falling">', label: 'Falling', className: 'trend-falling' };
     return { arrow: '→', label: 'Steady', className: 'trend-steady' };
@@ -3082,25 +3106,41 @@ const THEMES = {
     grid.appendChild(windCard);
 
 
-    // 3. pressure card
+    // 3. pressure card -- shows Relative and Absolute side-by-side (like
+    // the Ecowitt app) when the backend supplies a second pressure
+    // reading. `data.pressureAbsolute` is optional: if the weewx script
+    // isn't exporting it yet, this gracefully falls back to a single
+    // "Pressure" column exactly like before -- nothing breaks either way.
     const pExt = extSafe('pressure');
-    const pTrend = getPressureTrend(fullHistory);
-    const pTrendHtml = pTrend ? `<span class="pressure-trend ${pTrend.className}" title="${pTrend.label} over last 3h">${pTrend.arrow}</span>` : '';
+    const pTrend = getPressureTrend(fullHistory, 'pressure');
+    const hasAbsolute = data.pressureAbsolute !== undefined && data.pressureAbsolute !== null;
+    const paExt = hasAbsolute ? extSafe('pressureAbsolute') : null;
+    const paTrend = hasAbsolute ? getPressureTrend(fullHistory, 'pressureAbsolute') : null;
+
+    const pressureColumnHtml = (label, value, ext, trend, withDivider) => {
+      const trendHtml = trend ? `<span class="pressure-trend ${trend.className}" title="${trend.label} over last 3h">${trend.arrow}</span>` : '';
+      return `
+        <div class="combo-col" style="flex: 1; text-align: center; ${withDivider ? 'border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px;' : ''}">
+           <div class="label">${label}</div>
+           <div class="value" style="display:flex; justify-content:center; align-items:center; gap:8px;">
+              <div>${formatVal(value, 2)}<span class="unit">inHg</span></div>
+              ${trendHtml}
+           </div>
+           <div class="extreme-row" style="justify-content: center; gap: 20px; margin-top: 15px;">
+              <div class="extreme-item"><span class="high-arrow">↑</span> ${formatVal(ext.max.val, 2)} inHg<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(ext.max.time)}</span></div>
+              <div class="extreme-item"><span class="low-arrow">↓</span> ${formatVal(ext.min.val, 2)} inHg<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(ext.min.time)}</span></div>
+           </div>
+        </div>
+      `;
+    };
+
     const pressureCard = document.createElement('div');
     pressureCard.className = 'card combo-card pressure-card';
     pressureCard.innerHTML = `
       <div class="combo-row">
-         <div class="combo-col" style="flex: 1; text-align: center;">
-            <div class="label">Pressure</div>
-            <div class="value" style="display:flex; justify-content:center; align-items:center; gap:8px;">
-               <div>${formatVal(data.pressure, 2)}<span class="unit">inHg</span></div>
-               ${pTrendHtml}
-            </div>
-            <div class="extreme-row" style="justify-content: center; gap: 35px; margin-top: 15px;">
-               <div class="extreme-item"><span class="high-arrow">↑</span> ${formatVal(pExt.max.val, 2)} inHg<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(pExt.max.time)}</span></div>
-               <div class="extreme-item"><span class="low-arrow">↓</span> ${formatVal(pExt.min.val, 2)} inHg<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(pExt.min.time)}</span></div>
-            </div>
-         </div>
+        ${hasAbsolute
+          ? pressureColumnHtml('Relative', data.pressure, pExt, pTrend, true) + pressureColumnHtml('Absolute', data.pressureAbsolute, paExt, paTrend, false)
+          : pressureColumnHtml('Pressure', data.pressure, pExt, pTrend, false)}
       </div>
     `;
     grid.appendChild(pressureCard);
@@ -3137,22 +3177,15 @@ const THEMES = {
     } else {
       precipCard.innerHTML = `
         ${precipLabelHtml}
-        <div style="display: grid; grid-template-columns: 1fr 1fr; row-gap: 15px;">
-           <div style="text-align: center;">
+        <div class="combo-row">
+           <div class="combo-col" style="flex: 0.8; text-align: center; border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px; justify-content: center;">
               <div class="label" style="font-size:0.75rem;">Today</div>
-              <div class="value">${formatVal(data.precipTotal, 2)}<span class="unit">in</span></div>
+              <div class="value" style="font-size: 2.3rem;">${formatVal(data.precipTotal, 2)}<span class="unit" style="font-size:1rem;">in</span></div>
            </div>
-           <div style="text-align: center; border-left: 1px solid rgba(255,255,255,0.1);">
-              <div class="label" style="font-size:0.75rem;">This Week</div>
-              <div class="value">${formatVal(data.precipTotalWeek, 2)}<span class="unit">in</span></div>
-           </div>
-           <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
-              <div class="label" style="font-size:0.75rem;">This Month</div>
-              <div class="value">${formatVal(data.precipTotalMonth, 2)}<span class="unit">in</span></div>
-           </div>
-           <div style="text-align: center; border-left: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
-              <div class="label" style="font-size:0.75rem;">This Year</div>
-              <div class="value">${formatVal(data.precipTotalYear, 2)}<span class="unit">in</span></div>
+           <div class="combo-col" style="flex: 1; padding-left: 15px; justify-content: center; gap: 6px;">
+              <div class="precip-stat-row"><span>This Week</span><span class="precip-stat-value">${formatVal(data.precipTotalWeek, 2)} in</span></div>
+              <div class="precip-stat-row"><span>This Month</span><span class="precip-stat-value">${formatVal(data.precipTotalMonth, 2)} in</span></div>
+              <div class="precip-stat-row"><span>This Year</span><span class="precip-stat-value">${formatVal(data.precipTotalYear, 2)} in</span></div>
            </div>
         </div>
       `;
