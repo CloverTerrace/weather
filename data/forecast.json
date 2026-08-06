@@ -1,16 +1,26 @@
 [
   {
-    "name": "Today",
+    "name": "Overnight",
+    "temperature": 69,
+    "temperatureUnit": "F",
+    "windSpeed": "2 mph",
+    "windDirection": "S",
+    "shortForecast": "Patchy Fog",
+    "detailedForecast": "Patchy fog before 5am, then patchy fog and isolated rain showers. Mostly cloudy, with a low around 69. South wind around 2 mph. Chance of precipitation is 20%.",
+    "isDaytime": false
+  },
+  {
+    "name": "Thursday",
     "temperature": 86,
     "temperatureUnit": "F",
     "windSpeed": "1 to 5 mph",
     "windDirection": "SW",
-    "shortForecast": "Isolated Rain Showers then Isolated Showers And Thunderstorms",
-    "detailedForecast": "Areas of fog before 9am, then isolated rain showers between 10am and noon, then isolated showers and thunderstorms. Partly sunny, with a high near 86. Southwest wind 1 to 5 mph. Chance of precipitation is 20%.",
+    "shortForecast": "Isolated Showers And Thunderstorms",
+    "detailedForecast": "Patchy fog and isolated rain showers before 11am, then isolated showers and thunderstorms. Partly sunny, with a high near 86. Southwest wind 1 to 5 mph. Chance of precipitation is 20%.",
     "isDaytime": true
   },
   {
-    "name": "Tonight",
+    "name": "Thursday Night",
     "temperature": 69,
     "temperatureUnit": "F",
     "windSpeed": "0 to 5 mph",
@@ -28,15 +38,5 @@
     "shortForecast": "Areas Of Fog",
     "detailedForecast": "Areas of fog and scattered showers and thunderstorms before 2pm, then scattered showers and thunderstorms between 2pm and 3pm, then a chance of showers and thunderstorms. Mostly cloudy, with a high near 84. Southwest wind 1 to 7 mph. Chance of precipitation is 60%. New rainfall amounts between a tenth and quarter of an inch possible.",
     "isDaytime": true
-  },
-  {
-    "name": "Friday Night",
-    "temperature": 68,
-    "temperatureUnit": "F",
-    "windSpeed": "6 mph",
-    "windDirection": "SW",
-    "shortForecast": "Chance Showers And Thunderstorms",
-    "detailedForecast": "A chance of showers and thunderstorms before 2am, then scattered showers and thunderstorms between 2am and 5am, then scattered showers and thunderstorms. Mostly cloudy, with a low around 68. Southwest wind around 6 mph. Chance of precipitation is 70%. New rainfall amounts less than a tenth of an inch possible.",
-    "isDaytime": false
   }
 ]
