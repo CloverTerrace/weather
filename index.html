@@ -1793,14 +1793,21 @@ svg circle, svg polygon, svg line {
   </div>
     
 <script>
-  // path to the JSON file the GitHub Action keeps updated.
-  const DATA_URL = 'data/weather.json';
-  // how often (ms) the page re-fetches the file to check for new data.
+
+<script>
+  
+  const DATA_REPO_BASE = 'https://raw.githubusercontent.com/CloverTerrace/weather-data/main/data';
+  const DATA_URL = `${DATA_REPO_BASE}/weather.json`;
   const REFRESH_INTERVAL_MS = 60 * 1000;
-  // path to the history file for fetch script.
-  const HISTORY_URL = 'data/history.json';
+  const HISTORY_URL = `${DATA_REPO_BASE}/history.json`;
   // path to the WU-sourced backup file (kept fresh independently by the
   // worker on its own schedule -- used to backfill gaps in the weewx feed).
+  const WU_BACKUP_URL = 'data/weather_wu.json';
+  // if the primary (weewx) feed is older than this, treat it as fully down
+  // rather than trying to patch individual fields -- use the WU record
+  // wholesale instead. Should be comfortably longer than both
+  // REFRESH_INTERVAL_MS and however often the WU worker itself runs.
+  const PRIMARY_STALE_MS = 15 * 60 * 1000;
   const WU_BACKUP_URL = 'data/weather_wu.json';
   // if the primary (weewx) feed is older than this, treat it as fully down
   // rather than trying to patch individual fields -- use the WU record
