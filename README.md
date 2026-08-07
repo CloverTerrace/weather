@@ -1,10 +1,10 @@
-# Clover Terrace Weather Dashboard, created by Alyssa Rozsa 🍀
+# Clover Terrace Weather Dashboard
 
-A live weather page for Clover Terrace, a higher-elevation micro-climate within Aliquippa, PA. Conditions come primarily from a home weather station (Ecowitt gateway → WeeWX) running on-site, with Weather Underground's cloud API as an automatic backup whenever the home server is unreachable — or when just one sensor reading drops out.
+A live weather page for Clover Terrace, a higher-elevation micro-climate within Aliquippa, PA. Conditions come primarily from a home weather station (Ecowitt gateway → WeeWX) running on-site, with Weather Underground's cloud API as an automatic backup whenever the home server is unreachable/when just one sensor reading drops out.
 
 **Live at:** <https://cloverterrace.github.io/weather/>
 
-This repo (`CloverTerrace/weather`) holds the site itself — `index.html`, styling, and the auxiliary data (camera, forecast, air quality, alerts, aurora, SPC outlook) fetched by a GitHub Action. The fast-moving weewx readings (`weather.json`, `history.json`) live in a **separate, sibling repo, `CloverTerrace/weather-data`** — see "why two repos" below for why that split exists.
+this repo (`CloverTerrace/weather`) holds the site — `index.html`, styling, and the auxiliary data (camera, forecast, air quality, alerts, aurora, SPC outlook) grabbed by a GitHub Action. weewx readings (`weather.json`, `history.json`) live in a **separate, sibling repo, `CloverTerrace/weather-data`**
 
 ### 1. the home server (primary source) 🍀
 
@@ -17,7 +17,8 @@ a systemd timer, `weather-data-committer.timer` → `weather-data-committer.serv
 
 ### 1a. why two repos 🔀
 
-`weather-data` has no GitHub Pages attached to it — pushes there build nothing, ever. That matters because the home server pushes every 2 minutes, and a Pages site rebuilds on every push to its branch by default. Committing straight into this repo at that cadence used to regularly outrun GitHub Pages' build queue, leaving the live site soft-broken for stretches at a time.
+`weather-data` the home server pushes every 2 "$
+minutes, and a Pages site rebuilds on every push to its branch by default. committing straight into this repo at that cadence will regularly outrun GitHub Pages' build queue, leaving the live site soft-broken for stretches at a time.
 
 Splitting the fast-moving readings into their own Pages-less repo fixes that at the source: `weather-data` can churn as often as it wants with zero build cost, and `index.html` (in *this* repo) fetches `weather.json`/`history.json` directly from `weather-data`'s raw content URL (`raw.githubusercontent.com/...`) client-side, with a `?t=<timestamp>` cache-busting param on every request. This repo now only rebuilds Pages when someone actually touches code — `index.html`, CSS, JS, or the auxiliary-data Action below — which is rare, so the Pages build stays green instead of chasing a 2-minute commit cadence.
 
