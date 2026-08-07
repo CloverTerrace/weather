@@ -30,24 +30,24 @@ Splitting the fast-moving readings into their own Pages-less repo fixes that at 
 - **Auxiliary data** (all `continue-on-error`, so a hiccup in any one of these never blocks the rest): camera snapshot, local forecast, air quality (PurpleAir), SPC outlook images, active weather alerts, aurora/Kp index.
 - **Commit step**: these auxiliary files are the only thing this Action ever commits. `weather.json`/`history.json` are no longer touched here at all — the home server owns those exclusively, over in `weather-data`. If a push gets rejected (two runs landing close together), it re-fetches, re-points the branch at the new tip, and retries rather than failing the whole job.
 
-> **Migration note:** this Action used to also run a staleness check (`check_and_fallback.py`) that would overwrite `weather.json`/`history.json` with WU data if the home server had gone quiet for 20+ minutes. That's gone now — since the dashboard stopped reading those files from *this* repo entirely, that fallback was writing to a path nobody looked at. The same protection now lives entirely client-side (see "the dashboard" below), driven off the primary feed's own `obsTimeLocal` timestamp rather than whether a file changed. `scripts/check_and_fallback.py` itself is no longer called by anything — safe to delete from `scripts/` once you've confirmed nothing else references it.
+> **migration note:** this Action used to also run a staleness check (`check_and_fallback.py`) that would overwrite `weather.json`/`history.json` with WU data if the home server had gone quiet for 20+ minutes. That's gone now — since the dashboard stopped reading those files from *this* repo entirely, that fallback was writing to a path nobody looked at. The same protection now lives entirely client-side (see "the dashboard" below), driven off the primary feed's own `obsTimeLocal` timestamp rather than whether a file changed. `scripts/check_and_fallback.py` itself is no longer called by anything — safe to delete from `scripts/` once you've confirmed nothing else references it.
 
 ### 3. the dashboard (`index.html`)
 
-Fetches `data/weather.json` and `data/history.json` directly from `CloverTerrace/weather-data`'s raw content URL every 60 seconds (`REFRESH_INTERVAL_MS`), each request cache-busted with `?t=<timestamp>`. Separately, it fetches `data/weather_wu.json` from *this* repo (still updated by the Action above) and merges the two client-side:
+fetches `data/weather.json` and `data/history.json` directly from `CloverTerrace/weather-data`'s raw content URL every 60 seconds (`REFRESH_INTERVAL_MS`), each request cache-busted with `?t=<timestamp>`. Separately, it fetches `data/weather_wu.json` from *this* repo (still updated by the Action above) and merges the two client-side:
 
-- If the home server's data is fresh (< 15 min old — `PRIMARY_STALE_MS`), any individual field it left `null` gets backfilled from the WU reading, field by field.
-- If the home server's data is stale (> 15 min old), the WU reading is used wholesale instead of patching a dead file one field at a time.
+- if the home server's data is fresh (< 15 min old — `PRIMARY_STALE_MS`), any individual field it left `null` gets backfilled from the WU reading, field by field.
+- if the home server's data is stale (> 15 min old), the WU reading is used wholesale instead of patching a dead file one field at a time.
 
 That split means the site survives both failure modes — "one sensor glitched for a minute" and "the whole home server is offline" — without a visitor ever seeing a blank tile, and without any GitHub Action needing to intervene. It also falls back to the last successful load, cached in `localStorage`, if a fetch fails outright (e.g. the home server *and* the WU API are both briefly unreachable at once).
 
-### 4. What actually triggers a run
+### 4. update triggers
 
-There's no cron schedule in the workflow file itself (and none needed — the home-server feed updates itself independently now) — `update-weather.yml` is `workflow_dispatch` only, fired by:
+there's no cron schedule in the workflow file itself. the home-server feed updates independently — `update-weather.yml` is `workflow_dispatch` only, fired by:
 
 - A **Cloudflare Worker** (`weather-refresh-trigger.cloverwx4.workers.dev`) — has both an on-demand endpoint (called by the dashboard's refresh button) *and* its own Cron Trigger, currently every 5 minutes.
-- A **Deno Deploy** project (`weather-refresh-trigger.cloverwx.deno.net`) — a fallback endpoint if the Cloudflare one is unreachable. No schedule of its own; it only ever responds to POST requests.
-- The dashboard's own **refresh button** — POSTs to whichever endpoint answers first, gated by a 10-minute client-side cooldown so a single visitor can't spam runs. It also immediately re-fetches `weather.json`/`history.json`/`forecast.json` client-side on click, independent of whether the Action run succeeds.
+- A **Deno Deploy** project (`weather-refresh-trigger.cloverwx.deno.net`) — a fallback endpoint if the Cloudflare one is unreachable. no schedule of its own; it only ever responds to POST requests.
+- the dashboard's own **refresh button** — POSTs to whichever endpoint answers first, gated by a 10-minute client-side cooldown so a single visitor can't spam runs. It also immediately re-fetches `weather.json`/`history.json`/`forecast.json` client-side on click, independent of whether the Action run succeeds.
 
 ## repo layout 🗂️
 
