@@ -1,16 +1,6 @@
 [
   {
-    "name": "Overnight",
-    "temperature": 69,
-    "temperatureUnit": "F",
-    "windSpeed": "0 mph",
-    "windDirection": "",
-    "shortForecast": "Partly Cloudy",
-    "detailedForecast": "Partly cloudy, with a low around 69. Wind around 0 mph.",
-    "isDaytime": false
-  },
-  {
-    "name": "Friday",
+    "name": "Today",
     "temperature": 84,
     "temperatureUnit": "F",
     "windSpeed": "1 to 6 mph",
@@ -20,7 +10,7 @@
     "isDaytime": true
   },
   {
-    "name": "Friday Night",
+    "name": "Tonight",
     "temperature": 68,
     "temperatureUnit": "F",
     "windSpeed": "2 to 6 mph",
@@ -38,5 +28,15 @@
     "shortForecast": "Scattered Showers And Thunderstorms then Isolated Showers And Thunderstorms",
     "detailedForecast": "Scattered showers and thunderstorms before 8am, then isolated showers and thunderstorms. Partly sunny, with a high near 84. Southwest wind 6 to 10 mph. Chance of precipitation is 40%. New rainfall amounts less than a tenth of an inch possible.",
     "isDaytime": true
+  },
+  {
+    "name": "Saturday Night",
+    "temperature": 67,
+    "temperatureUnit": "F",
+    "windSpeed": "2 to 8 mph",
+    "windDirection": "SW",
+    "shortForecast": "Scattered Showers And Thunderstorms",
+    "detailedForecast": "Scattered showers and thunderstorms before 2am. Mostly cloudy, with a low around 67. Southwest wind 2 to 8 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
+    "isDaytime": false
   }
 ]
