@@ -391,6 +391,16 @@
     text-align: center;
   }
 
+  .sparkline-row {
+    display: flex;
+    gap: 16px;
+  }
+
+  .sparkline-row > div {
+    flex: 1;
+    min-width: 0;
+  }
+
   .combo-row {
     display: flex;
     justify-content: space-between;
@@ -3368,7 +3378,7 @@ const THEMES = {
   // then reverts to whatever the real weather data last produced. Used by
   // the easter-egg preview row in the footer.
   let previewRevertTimer = null;
-  function previewTheme(themeKey, durationMs = 4000) {
+  function previewTheme(themeKey, durationMs = 8000) {
     if (previewRevertTimer) clearTimeout(previewRevertTimer);
     applyTheme(themeKey, null, null, { preview: true });
     previewRevertTimer = setTimeout(() => {
@@ -3445,6 +3455,22 @@ const THEMES = {
       </div>
     `;
     grid.appendChild(tempHumCard);
+    makeCardExpandable(tempHumCard, 'tempHum', 'temp & humidity history', (panel) => {
+      const recent = filterHistoryByRange(fullHistory, 6);
+      const data6 = recent.length >= 2 ? recent : fullHistory;
+      panel.innerHTML = `
+        <div class="sparkline-row">
+          <div>
+            <div class="sparkline-title">Temp — last 6 hrs</div>
+            ${buildSparklineSvg(data6, 'temp', { color: '#ff8f6b', unit: '°F' })}
+          </div>
+          <div>
+            <div class="sparkline-title">Humidity — last 6 hrs</div>
+            ${buildSparklineSvg(data6, 'humidity', { color: '#6bb8ff', unit: '%' })}
+          </div>
+        </div>
+      `;
+    });
 
     // 2. wind card
     const wsExt = extSafe('windSpeed');
@@ -3521,6 +3547,25 @@ const THEMES = {
       </div>
     `;
     grid.appendChild(pressureCard);
+    makeCardExpandable(pressureCard, 'pressure', 'pressure history', (panel) => {
+      const recent = filterHistoryByRange(fullHistory, 6);
+      const data6 = recent.length >= 2 ? recent : fullHistory;
+      panel.innerHTML = hasAbsolute ? `
+        <div class="sparkline-row">
+          <div>
+            <div class="sparkline-title">Relative — last 6 hrs</div>
+            ${buildSparklineSvg(data6, 'pressure', { color: '#c792ff', unit: 'inHg' })}
+          </div>
+          <div>
+            <div class="sparkline-title">Absolute — last 6 hrs</div>
+            ${buildSparklineSvg(data6, 'pressureAbsolute', { color: '#8fd6ff', unit: 'inHg' })}
+          </div>
+        </div>
+      ` : `
+        <div class="sparkline-title">Pressure — last 6 hrs</div>
+        ${buildSparklineSvg(data6, 'pressure', { color: '#c792ff', unit: 'inHg' })}
+      `;
+    });
 
     // 4. precipitation card -- same card slot either way (unlike the
     // lightning card, this one never disappears), just different contents
@@ -3568,6 +3613,14 @@ const THEMES = {
       `;
     }
     grid.appendChild(precipCard);
+    makeCardExpandable(precipCard, 'precip', 'rain rate history', (panel) => {
+      const recent = filterHistoryByRange(fullHistory, 6);
+      const data6 = recent.length >= 2 ? recent : fullHistory;
+      panel.innerHTML = `
+        <div class="sparkline-title">Rain rate — last 6 hrs</div>
+        ${buildSparklineSvg(data6, 'precipRate', { color: '#6bb8ff', unit: 'in/hr' })}
+      `;
+    });
 
     // 4.5 lightning card — only shown when the active source actually
     // provides lightning data. WU's API has no lightning field at all
@@ -3619,6 +3672,22 @@ const THEMES = {
       </div>
     `;
     grid.appendChild(solarUvCard);
+    makeCardExpandable(solarUvCard, 'solarUv', 'solar & UV history', (panel) => {
+      const recent = filterHistoryByRange(fullHistory, 6);
+      const data6 = recent.length >= 2 ? recent : fullHistory;
+      panel.innerHTML = `
+        <div class="sparkline-row">
+          <div>
+            <div class="sparkline-title">Solar Rad. — last 6 hrs</div>
+            ${buildSparklineSvg(data6, 'solarRadiation', { color: '#ffd76b', unit: 'W/m²' })}
+          </div>
+          <div>
+            <div class="sparkline-title">UV Index — last 6 hrs</div>
+            ${buildSparklineSvg(data6, 'uv', { color: '#ff8f6b', unit: '' })}
+          </div>
+        </div>
+      `;
+    });
 
     // 6. AQI card
     if (data.aqiDisplay) {
@@ -3684,6 +3753,15 @@ const THEMES = {
           </div>
        `;
        grid.appendChild(usgsCard);
+       makeCardExpandable(usgsCard, 'river', 'gauge height history', (panel) => {
+         const mapped = (usgsHistory || []).map(e => ({ time: e.dateTime, gageHeight: parseFloat(e.value) }));
+         const recent = filterHistoryByRange(mapped, 24);
+         const data24 = recent.length >= 2 ? recent : mapped;
+         panel.innerHTML = `
+           <div class="sparkline-title">Gauge height — last 24 hrs</div>
+           ${buildSparklineSvg(data24, 'gageHeight', { color: '#8fd6ff', unit: 'ft' })}
+         `;
+       });
     }
   }
 
