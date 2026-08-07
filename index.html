@@ -796,12 +796,18 @@
     margin-bottom: 0.4rem;
   }
 
+  .forecast-period .period-temp-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.3rem;
+  }
+
   .forecast-period .period-temp {
     font-size: 1.4rem;
     color: var(--accent-color);
     font-family: var(--font-grid-value);
     font-weight: 700;
-    margin-bottom: 0.3rem;
   }
 
   .forecast-period .period-short {
@@ -2374,6 +2380,25 @@ svg circle, svg polygon, svg line {
     }
   }
 
+  // maps an NWS shortForecast string (+ day/night) to a Meteocons filename.
+  // more specific/severe conditions are checked first so
+  // "thunderstorms" doesn't fall through to the generic rain icon.
+  function forecastMeteocon(shortForecast, isDaytime) {
+    const s = (shortForecast || '').toLowerCase();
+    const dn = isDaytime === false ? 'night' : 'day';
+    if (s.includes('tornado')) return 'tornado.svg';
+    if (s.includes('thunderstorm') || s.includes('t-storm')) return `thunderstorms-${dn}.svg`;
+    if (s.includes('snow') || s.includes('flurries') || s.includes('blizzard')) return 'snow.svg';
+    if (s.includes('sleet') || s.includes('freezing rain') || s.includes('ice')) return 'sleet.svg';
+    if (s.includes('rain') || s.includes('shower') || s.includes('drizzle')) return 'rain.svg';
+    if (s.includes('fog') || s.includes('haze') || s.includes('mist')) return `fog-${dn}.svg`;
+    if (s.includes('wind')) return 'wind.svg';
+    if (s.includes('overcast') || s.includes('mostly cloudy')) return `overcast-${dn}.svg`;
+    if (s.includes('partly') || s.includes('cloudy')) return `partly-cloudy-${dn}.svg`;
+    if (s.includes('clear') || s.includes('sunny')) return dn === 'day' ? 'clear-day.svg' : 'clear-night.svg';
+    return `partly-cloudy-${dn}.svg`; // sensible default for anything unmatched
+  }
+  
   async function loadForecast(forceRefresh = false) {
     const container = document.getElementById('forecast-periods');
     try {
@@ -2388,9 +2413,13 @@ svg circle, svg polygon, svg line {
       periods.forEach(period => {
         const card = document.createElement('div');
         card.className = 'forecast-period';
+        const iconFile = forecastMeteocon(period.shortForecast, period.isDaytime);
         card.innerHTML = `
           <div class="period-name">${period.name}</div>
-          <div class="period-temp">${period.temperature}°${period.temperatureUnit}</div>
+          <div class="period-temp-row">
+            <span class="period-temp">${period.temperature}°${period.temperatureUnit}</span>
+            <span class="card-icon"><img src="icons/${iconFile}" alt="${period.shortForecast}" onerror="this.parentElement.style.display='none'"></span>
+          </div>
           <div class="period-short">${period.shortForecast}</div>
           <div class="period-wind">${period.windSpeed} ${period.windDirection}</div>
         `;
