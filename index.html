@@ -2897,20 +2897,19 @@ svg circle, svg polygon, svg line {
 
   // builds the footer easter-egg row from THEMES itself, so it stays in
   // sync automatically if themes are ever added/removed/renamed. Each
-  // badge uses the theme's curated static meteocon (theme.meteocon --
-  // see the THEMES table a few hundred lines down) instead of the
-  // doubled-up emoji pair (e.g. '❄️🌙'), which looked cramped at this
-  // size. loadMeteoconOrFallback() -- defined below, also used for the
-  // real current-conditions icon -- already knows the fallback chain
-  // (meteocon svg -> theme's PNG -> plain emoji) if a filename is ever
-  // wrong, so it's reused here rather than duplicated.
+  // badge uses the theme's curated meteocon (theme.meteocon -- see the
+  // THEMES table a few hundred lines down), but in its static (non-
+  // animated) form -- staticOnly: true -- since a dozen animated icons
+  // all moving at once was hard to look at. See the comment on
+  // loadMeteoconOrFallback() for what that requires and how it degrades
+  // gracefully if the static asset isn't there yet.
   function populateThemePreviewRow() {
     const row = document.getElementById('theme-preview-row');
     if (!row) return;
     Object.entries(THEMES).forEach(([key, theme]) => {
       const span = document.createElement('span');
       span.className = 'theme-preview-icon';
-      loadMeteoconOrFallback(theme, span);
+      loadMeteoconOrFallback(theme, span, { staticOnly: true });
       span.addEventListener('click', () => previewTheme(key));
       row.appendChild(span);
     });
@@ -3321,7 +3320,46 @@ const THEMES = {
     loadMeteoconOrFallback(theme, el);
   }
 
-  function loadMeteoconOrFallback(theme, el) {
+  // el gets the theme's icon, in whichever form is available: an SVG
+  // meteocon (icons/<file>.svg), falling back to a themed PNG
+  // (theme.iconImg), falling back to the plain emoji.
+  //
+  // options.staticOnly: the meteocon SVGs are hand-animated (raindrops
+  // falling, clouds drifting, etc.), which is fine for a single icon
+  // showing current conditions but overwhelming when a dozen of them
+  // animate at once in the footer preview row. SVGs loaded via <img> are
+  // fully self-contained -- page CSS has no way to reach in and pause an
+  // animation baked into the SVG itself -- so the only real fix is a
+  // genuinely non-animated source image. Meteocons ships exactly that as
+  // a parallel "static" export (see @meteocons/svg-static, or the
+  // static-style toggle at meteocons.com/icons/); staticOnly points at
+  // icons/static/<file>.svg instead of icons/<file>.svg, using the same
+  // filename already set in theme.meteocon below. Until those static
+  // files are actually added to the icons/static/ folder, this just
+  // falls back to the theme's PNG (already non-animated) instead, so
+  // nothing breaks in the meantime.
+  function loadMeteoconOrFallback(theme, el, options = {}) {
+    if (options.staticOnly && theme.meteocon) {
+      const img = document.createElement('img');
+      img.src = `icons/static/${theme.meteocon}`;
+      img.alt = theme.icon;
+      img.className = 'weather-icon-img meteocon';
+      img.onerror = () => {
+        el.innerHTML = '';
+        if (theme.iconImg) {
+          const fallbackImg = document.createElement('img');
+          fallbackImg.src = theme.iconImg;
+          fallbackImg.alt = theme.icon;
+          fallbackImg.className = 'weather-icon-img';
+          fallbackImg.onerror = () => { el.textContent = theme.icon; };
+          el.appendChild(fallbackImg);
+        } else {
+          el.textContent = theme.icon;
+        }
+      };
+      el.appendChild(img);
+      return;
+    }
     if (theme.meteocon) {
       const img = document.createElement('img');
       img.src = `icons/${theme.meteocon}`;
