@@ -6,7 +6,7 @@ a live weather page for Clover Terrace, a higher-elevation micro-climate within 
 
 this repo (`CloverTerrace/weather`) holds the site — `index.html`, styling, and the auxiliary data (camera, forecast, air quality, alerts, aurora, SPC outlook) grabbed by a GitHub Action. weewx readings (`weather.json`, `history.json`) live in a **separate, sibling repo, `CloverTerrace/weather-data`**
 
-### 1. the home server (primary source) ☀️
+### 1. the home server (main source) ☀️
 
 a local machine (`wx-server`) runs [WeeWX](https://weewx.com/) against an Ecowitt gateway via the `interceptor` driver. a custom WeeWX service, `scripts/weewx_json_export.py` kept here as a **reference copy only** writes `data/weather.json` on every loop packet and appends to `data/history.json` on every archive record, straight into a local clone of **`CloverTerrace/weather-data`** seperate from this repo. it also:
 
@@ -15,7 +15,7 @@ a local machine (`wx-server`) runs [WeeWX](https://weewx.com/) against an Ecowit
 
 a systemd timer, `weather-data-committer.timer` → `weather-data-committer.service` (calling `scripts/commit_and_push.sh`, also a **reference copy**), commits and pushes `data/weather.json` + `data/history.json` to `weather-data`'s `main` branch every 2 minutes if something actually changed. if the push is rejected (two writers landing close together), it rebases with `-X theirs`: the home server's own live reading always takes priority.
 
-### 1a. using two repos to avoid downtime ☔ 
+### 1a. two repos to avoid downtime ☔ 
 
 `weather-data` the home server pushes every 2 "$ minutes, and a Pages site rebuilds on every push to its branch by default. committing straight into this repo at that cadence will regularly outrun GitHub Pages' build queue, leaving the live site soft-broken for stretches at a time.
 
