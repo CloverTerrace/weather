@@ -1017,7 +1017,7 @@
     }
   }
 
-  /* ---------- NWS / SPC issuances section ---------- */
+  /* ---------- SPC / NWS live storm desk ---------- */
   .nws-section {
     width: 100%;
     max-width: 900px;
@@ -1032,7 +1032,7 @@
   }
 
   .nws-card h2 {
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.9rem;
     font-size: 1rem;
     color: var(--muted-color);
     font-weight: 600;
@@ -1043,38 +1043,48 @@
   }
 
   .nws-tabs {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+    margin-bottom: 0.85rem;
   }
 
   .nws-tab {
-    background: rgba(255,255,255,0.08);
-    border: none;
-    color: var(--text-color);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.8rem;
+    min-width: 0;
+    background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(255,255,255,0.055);
+    color: var(--muted-color);
+    padding: 8px 8px;
+    border-radius: 9px;
+    font-size: 0.7rem;
     font-family: var(--font-body);
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    gap: 5px;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   }
 
   .nws-tab .nws-tab-count {
-    background: rgba(0,0,0,0.25);
-    border-radius: 10px;
-    padding: 0 6px;
-    font-size: 0.7rem;
+    min-width: 17px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 9px;
+    padding: 1px 5px;
+    font-size: 0.62rem;
+    text-align: center;
   }
 
   .nws-tab.active {
+    background: rgba(255,255,255,0.09);
+    border-color: rgba(255,255,255,0.12);
+    color: var(--text-color);
+    font-weight: 600;
+  }
+
+  .nws-tab.active .nws-tab-count {
     background: var(--accent-color);
     color: var(--card-color);
-    font-weight: 600;
   }
 
   .nws-panel { display: none; }
@@ -1083,105 +1093,169 @@
   .nws-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 7px;
   }
 
   .nws-item {
-    background: rgba(255,255,255,0.05);
+    position: relative;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.055);
     border-radius: 10px;
-    padding: 12px 14px;
+    padding: 10px 11px;
     cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .nws-item:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.09);
+  }
+
+  .nws-item.expanded {
+    background: rgba(255,255,255,0.045);
   }
 
   .nws-item-header {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 9px;
   }
 
   .nws-item-icon {
     flex-shrink: 0;
-    width: 26px;
-    height: 26px;
+    width: 27px;
+    height: 27px;
     overflow: hidden;
-    margin-top: 2px;
+    margin-top: 1px;
+    opacity: 0.92;
   }
 
   .nws-item-icon img {
     display: block;
     width: 100%;
     height: 100%;
-    transform: scale(1.45);
+    transform: scale(1.35);
     transform-origin: center;
     filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));
   }
 
   .nws-item-body { flex: 1; min-width: 0; }
 
+  .nws-item-title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
   .nws-item-title {
     font-weight: 600;
     color: var(--text-color);
     font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-size: 0.88rem;
+    line-height: 1.25;
+  }
+
+  .nws-item-age {
+    flex: 0 0 auto;
+    color: var(--muted-color);
+    opacity: 0.7;
+    font-family: var(--font-details);
+    font-size: 0.61rem;
   }
 
   .nws-item-meta {
-    font-size: 0.72rem;
+    font-size: 0.65rem;
     color: var(--muted-color);
     font-family: var(--font-details);
-    margin-top: 2px;
+    margin-top: 3px;
+    line-height: 1.3;
   }
 
   .nws-item-summary {
-    font-size: 0.82rem;
+    font-size: 0.77rem;
     color: var(--muted-color);
     font-family: var(--font-body);
-    margin-top: 6px;
+    margin-top: 5px;
     line-height: 1.4;
   }
 
   .nws-item-hint {
-    font-size: 0.68rem;
-    color: var(--muted-color);
-    opacity: 0.6;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.62rem;
+    color: var(--accent-color);
+    opacity: 0.72;
     margin-top: 6px;
     font-family: var(--font-details);
   }
 
-  .nws-item-full {
+  .nws-item-hint::after { content: '＋'; }
+  .nws-item.expanded .nws-item-hint::after { content: '−'; }
+
+  .nws-item-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.3s ease;
-    font-size: 0.82rem;
-    line-height: 1.55;
-    color: var(--text-color);
-    font-family: var(--font-body);
-    white-space: pre-line;
+    transform: translateY(-3px);
+    transition: max-height 0.3s ease, opacity 0.22s ease, transform 0.22s ease, margin-top 0.3s ease, padding-top 0.3s ease;
   }
 
-  .nws-item.expanded .nws-item-full {
-    max-height: 600px;
+  .nws-item.expanded .nws-item-details {
+    max-height: 1200px;
     opacity: 1;
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    overflow-y: auto;
+    transform: translateY(0);
+    margin-top: 9px;
+    padding-top: 9px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .nws-detail-block {
+    min-width: 0;
+    padding: 7px 8px;
+    border-radius: 7px;
+    border: 1px solid rgba(255,255,255,0.055);
+    background: rgba(0,0,0,0.055);
+  }
+
+  .nws-detail-block.wide { grid-column: 1 / -1; }
+
+  .nws-detail-label {
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    font-size: 0.59rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 3px;
+  }
+
+  .nws-detail-text {
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-size: 0.73rem;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
   }
 
   .nws-item-link {
-    display: inline-block;
-    margin-top: 8px;
-    font-size: 0.75rem;
+    display: inline-flex;
+    margin-top: 7px;
+    font-size: 0.66rem;
     color: var(--accent-color);
+    opacity: 0.8;
   }
 
   .nws-empty {
     text-align: center;
     color: var(--muted-color);
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     font-family: var(--font-body);
-    padding: 1.5rem 0;
+    padding: 1.25rem 0;
+    opacity: 0.75;
   }
 
   .nws-badge-tor    { border-left: 3px solid #ff5b5b; }
@@ -1189,6 +1263,72 @@
   .nws-badge-flood  { border-left: 3px solid #5ba8ff; }
   .nws-badge-winter { border-left: 3px solid #cfe8ff; }
   .nws-badge-other  { border-left: 3px solid var(--muted-color); }
+
+  .storm-desk-livebar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 0 0 0.8rem;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    font-size: 0.62rem;
+  }
+
+  .storm-desk-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .storm-desk-live::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    box-shadow: 0 0 7px var(--accent-color);
+    opacity: 0.8;
+  }
+
+  .storm-desk-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 1.1rem 0 0.9rem;
+  }
+
+  .storm-desk-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    color: var(--muted-color);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: var(--font-card-heading);
+    margin-bottom: 0.55rem;
+  }
+
+  .storm-desk-heading .card-icon { width: 20px; height: 20px; }
+
+  .storm-desk-status {
+    margin-top: 0.65rem;
+    text-align: center;
+    color: var(--muted-color);
+    opacity: 0.62;
+    font-size: 0.61rem;
+    font-family: var(--font-details);
+  }
+
+  @media (max-width: 520px) {
+    .nws-tabs { grid-template-columns: 1fr; }
+    .nws-item-details { grid-template-columns: 1fr; }
+    .nws-detail-block.wide { grid-column: auto; }
+    .nws-item-title-row { display: block; }
+    .nws-item-age { display: block; margin-top: 2px; }
+  }
 
 .charts-dropdown {
     width: 100%;
@@ -2478,12 +2618,16 @@ svg circle, svg polygon, svg line {
         <img id="outlook-img-day3" src="data/outlook-day3.png" alt="SPC Day 3 Convective Outlook">
       </div>
     </div>
-    <div class="outlook-note">SPC graphics update with each new issuance. Tap a product below for the full discussion or original NWS product.</div>
+    <div class="outlook-note">Swipe the outlooks. The live desk below keeps only the newest active SPC/NWS products for spotters.</div>
 
     <div class="storm-desk-divider"></div>
     <div class="storm-desk-heading">
       <span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>
-      NWS / SPC Storm Desk
+      Live Storm Desk
+    </div>
+    <div class="storm-desk-livebar">
+      <span class="storm-desk-live">live feed</span>
+      <span id="storm-desk-updated">waiting for update</span>
     </div>
     <div class="nws-tabs" id="nws-tabs">
       <button class="nws-tab active" data-target="nws-panel-watches">
@@ -2492,7 +2636,7 @@ svg circle, svg polygon, svg line {
       </button>
       <button class="nws-tab" data-target="nws-panel-md">
         <span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>
-        Mesoscale <span class="nws-tab-count" id="nws-count-md">0</span>
+        SPC MDs <span class="nws-tab-count" id="nws-count-md">0</span>
       </button>
       <button class="nws-tab" data-target="nws-panel-statements">
         <span class="card-icon"><img src="icons/code-yellow.svg" alt=""></span>
@@ -2509,7 +2653,7 @@ svg circle, svg polygon, svg line {
     <div class="nws-panel" id="nws-panel-statements">
       <div class="nws-list" id="nws-list-statements"><div class="nws-empty">No recent NWS updates.</div></div>
     </div>
-    <div class="storm-desk-status" id="storm-desk-status">Waiting for NWS/SPC product data…</div>
+    <div class="storm-desk-status" id="storm-desk-status">Waiting for SPC / NWS product data…</div>
   </div>
 
 <div class="chart-card weather-map-card">
@@ -4676,6 +4820,26 @@ const THEMES = {
   // maps a product's hazard type to a meteocon + a left-border color class,
   // so watches/MDs/statements get an instant at-a-glance visual cue for
   // what kind of hazard they're about.
+  function escapeNwsHtml(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function nwsAgeLabel(iso) {
+    if (!iso) return '';
+    const ms = Date.now() - new Date(iso).getTime();
+    if (!Number.isFinite(ms) || ms < 0) return '';
+    const mins = Math.floor(ms / 60000);
+    if (mins < 60) return `${mins}m ago`;
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return `${hrs}h ago`;
+    return `${Math.floor(hrs / 24)}d ago`;
+  }
+
   function getNwsHazardVisual(typeText) {
     const t = (typeText || '').toLowerCase();
     if (t.includes('tornado')) return { icon: 'tornado-alert.svg', badge: 'nws-badge-tor' };
@@ -4686,59 +4850,99 @@ const THEMES = {
     return { icon: 'code-yellow.svg', badge: 'nws-badge-other' };
   }
 
+  function cleanNwsDetailText(text) {
+    return String(text || '')
+      .replace(/\r/g, '')
+      .replace(/^\s*(?:WEATHER SERVICE|NATIONAL WEATHER SERVICE|SPC MESOSCALE DISCUSSION).*$/gim, '')
+      .replace(/^\s*(?:home|products|mesoscale discussions|storm prediction center)\s*$/gim, '')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+  }
+
+  function getNwsDetails(item) {
+    if (Array.isArray(item.details) && item.details.length) {
+      return item.details
+        .filter(d => d && d.text)
+        .map(d => ({ label: d.label || 'Detail', text: cleanNwsDetailText(d.text) }))
+        .filter(d => d.text);
+    }
+    // Graceful fallback for an older feed: never expose the raw origin page
+    // wholesale. Keep only the first useful chunk until the backend refreshes.
+    const raw = cleanNwsDetailText(item.fullText || '');
+    if (!raw) return [];
+    const chunks = raw.split(/\n\s*\n/).map(x => x.trim()).filter(Boolean);
+    return chunks.slice(0, 4).map((text, i) => ({ label: i === 0 ? 'Product detail' : 'Additional detail', text: text.slice(0, 1800) }));
+  }
+
   function buildNwsItemHtml(item, typeLabel) {
     const visual = getNwsHazardVisual(item.type || typeLabel);
     const issuedStr = item.issued ? formatShortTime(item.issued) : '';
     const expiresStr = item.expires ? formatShortTime(item.expires) : '';
     const metaBits = [];
-    if (issuedStr) metaBits.push(`Issued ${issuedStr}`);
-    if (expiresStr) metaBits.push(`Until ${expiresStr}`);
-    if (item.office) metaBits.push(item.office);
-    if (item.areas) metaBits.push(item.areas);
-    const title = item.type || item.concerning || typeLabel;
-    const summary = item.summary || item.concerning || item.headline || '';
-    const fullText = item.fullText || '';
+    if (issuedStr) metaBits.push(`Issued ${escapeNwsHtml(issuedStr)}`);
+    if (expiresStr) metaBits.push(`Until ${escapeNwsHtml(expiresStr)}`);
+    if (item.office) metaBits.push(escapeNwsHtml(item.office));
+    const title = escapeNwsHtml(item.type || item.concerning || typeLabel) + (item.number ? ` #${escapeNwsHtml(item.number)}` : '');
+    const summary = escapeNwsHtml(item.summary || item.concerning || item.headline || '');
+    const age = escapeNwsHtml(nwsAgeLabel(item.issued));
+    const details = getNwsDetails(item);
+    const detailsHtml = details.map((d, i) => `
+      <div class="nws-detail-block ${details.length === 1 ? 'wide' : ''}">
+        <div class="nws-detail-label">${escapeNwsHtml(d.label)}</div>
+        <div class="nws-detail-text">${escapeNwsHtml(d.text)}</div>
+      </div>
+    `).join('');
     return `
-      <div class="nws-item ${visual.badge}" data-id="${item.id}">
+      <div class="nws-item ${visual.badge}" data-id="${escapeNwsHtml(item.id || '')}">
         <div class="nws-item-header">
           <span class="nws-item-icon"><img src="icons/${visual.icon}" alt="" onerror="this.parentElement.style.display='none'"></span>
           <div class="nws-item-body">
-            <div class="nws-item-title">${title}${item.number ? ' #' + item.number : ''}</div>
+            <div class="nws-item-title-row">
+              <div class="nws-item-title">${title}</div>
+              ${age ? `<div class="nws-item-age">${age}</div>` : ''}
+            </div>
             <div class="nws-item-meta">${metaBits.join(' · ')}</div>
             ${summary ? `<div class="nws-item-summary">${summary}</div>` : ''}
-            ${fullText ? `<div class="nws-item-hint">tap for full text ▾</div>` : ''}
-            ${fullText ? `<div class="nws-item-full">${fullText}</div>` : ''}
-            ${item.url ? `<a class="nws-item-link" href="${item.url}" target="_blank" rel="noopener" onclick="event.stopPropagation();">View original product →</a>` : ''}
+            ${detailsHtml ? `<div class="nws-item-hint">view curated details</div><div class="nws-item-details">${detailsHtml}</div>` : ''}
+            ${item.url ? `<a class="nws-item-link" href="${escapeNwsHtml(item.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation();">Open official product ↗</a>` : ''}
           </div>
         </div>
       </div>
     `;
   }
 
-  function renderNwsList(containerId, items, emptyText, typeLabel) {
+  function isNwsItemLive(item, kind) {
+    const now = Date.now();
+    const issued = item.issued ? new Date(item.issued).getTime() : 0;
+    const expires = item.expires ? new Date(item.expires).getTime() : 0;
+    if (kind === 'watch') return !expires || expires >= now;
+    if (kind === 'md') return (expires && expires >= now) || (issued && now - issued <= 8 * 3600000);
+    return issued ? now - issued <= 18 * 3600000 : true;
+  }
+
+  function renderNwsList(containerId, items, emptyText, typeLabel, kind) {
     const container = document.getElementById(containerId);
-    if (!items || items.length === 0) {
-      container.innerHTML = `<div class="nws-empty">${emptyText}</div>`;
-      return;
+    const liveItems = (items || []).filter(item => isNwsItemLive(item, kind));
+    if (!liveItems.length) {
+      container.innerHTML = `<div class="nws-empty">${escapeNwsHtml(emptyText)}</div>`;
+      return liveItems;
     }
-    const sortedItems = [...items].sort((a, b) => new Date(b.issued || 0) - new Date(a.issued || 0));
+    const sortedItems = [...liveItems].sort((a, b) => new Date(b.issued || 0) - new Date(a.issued || 0));
     container.innerHTML = sortedItems.map(item => buildNwsItemHtml(item, typeLabel)).join('');
     container.querySelectorAll('.nws-item').forEach(el => {
-      el.addEventListener('click', () => {
-        if (!el.querySelector('.nws-item-full')) return;
+      el.addEventListener('click', (event) => {
+        if (event.target.closest('a')) return;
+        if (!el.querySelector('.nws-item-details')) return;
         el.classList.toggle('expanded');
       });
     });
+    return sortedItems;
   }
 
   function renderNwsProducts() {
-    const watches = nwsProducts.watches || [];
-    const mds = nwsProducts.mesoscaleDiscussions || [];
-    const statements = nwsProducts.statements || [];
-
-    renderNwsList('nws-list-watches', watches, 'No active watches.', 'Watch');
-    renderNwsList('nws-list-md', mds, 'No recent mesoscale discussions.', 'Mesoscale Discussion');
-    renderNwsList('nws-list-statements', statements, 'No active statements.', 'Statement');
+    const watches = renderNwsList('nws-list-watches', nwsProducts.watches || [], 'No active watches.', 'Watch', 'watch');
+    const mds = renderNwsList('nws-list-md', nwsProducts.mesoscaleDiscussions || [], 'No active or very recent mesoscale discussions.', 'Mesoscale Discussion', 'md');
+    const statements = renderNwsList('nws-list-statements', nwsProducts.statements || [], 'No recent NWS updates.', 'NWS Update', 'statement');
 
     const countWatches = document.getElementById('nws-count-watches');
     const countMd = document.getElementById('nws-count-md');
@@ -4746,13 +4950,14 @@ const THEMES = {
     if (countWatches) countWatches.textContent = watches.length;
     if (countMd) countMd.textContent = mds.length;
     if (countStatements) countStatements.textContent = statements.length;
+
     const deskStatus = document.getElementById('storm-desk-status');
-    if (deskStatus) {
-      const generated = nwsProducts.generatedAt ? formatShortTime(nwsProducts.generatedAt) : '';
-      deskStatus.textContent = generated
-        ? `Product feed updated ${generated} · ${watches.length} watch${watches.length === 1 ? '' : 'es'} · ${mds.length} MD${mds.length === 1 ? '' : 's'} · ${statements.length} NWS update${statements.length === 1 ? '' : 's'}`
-        : 'Product feed loaded';
-    }
+    const updated = document.getElementById('storm-desk-updated');
+    const generated = nwsProducts.generatedAt ? formatShortTime(nwsProducts.generatedAt) : '';
+    if (updated) updated.textContent = generated ? `updated ${generated}` : 'awaiting update';
+    if (deskStatus) deskStatus.textContent = generated
+      ? `${watches.length} active watch${watches.length === 1 ? '' : 'es'} · ${mds.length} live/recent SPC MD${mds.length === 1 ? '' : 's'} · ${statements.length} recent NWS update${statements.length === 1 ? '' : 's'}`
+      : 'Product feed loaded';
   }
 
   function initNwsTabs() {
@@ -4767,7 +4972,7 @@ const THEMES = {
     });
   }
 
-  // Fetches the merged SPC/NWS product feed generated by GitHub Actions.
+  // Fetches the compact SPC/NWS product feed generated by GitHub Actions.
   async function loadNwsProducts() {
     try {
       const res = await fetch(`data/nws_products.json?t=${Date.now()}`, { cache: 'no-store' });
@@ -4781,8 +4986,8 @@ const THEMES = {
       };
       renderNwsProducts();
     } catch (err) {
-      // no backend yet, or a transient network hiccup -- fine either way,
-      // the section just keeps showing its empty states.
+      const status = document.getElementById('storm-desk-status');
+      if (status) status.textContent = 'SPC / NWS feed temporarily unavailable';
     }
   }
 
