@@ -395,6 +395,7 @@
     gap: 1.5rem;
     width: 100%;
     max-width: 900px;
+    align-items: start;
   }
 
   .card {
@@ -405,6 +406,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-self: start;
+    min-width: 0;
   }
 
   .card-expandable {
@@ -433,7 +436,7 @@
   }
 
   .card-expandable.expanded .card-expand-panel {
-    max-height: 160px;
+    max-height: 520px;
     opacity: 1;
     margin-top: 12px;
     padding-top: 12px;
@@ -1087,6 +1090,65 @@
   .chart-wrap {
     position: relative;
     height: 300px;
+  }
+
+
+  /* ---------- extreme heat visual refinement ----------
+     Keeps the existing hot ember palette, but gives the day/night variants
+     clearer separation, warmer contrast, and a little more visual depth. */
+  body.theme-extreme-heat .card {
+    background:
+      linear-gradient(145deg, rgba(255, 132, 70, 0.10), rgba(255, 132, 70, 0) 58%),
+      var(--card-color);
+    border: 1px solid rgba(255, 166, 91, 0.10);
+    box-shadow:
+      0 3px 12px rgba(35, 5, 0, 0.32),
+      0 0 22px rgba(255, 91, 39, 0.045);
+  }
+
+  body.theme-extreme-heat-night .card {
+    background:
+      linear-gradient(145deg, rgba(255, 112, 91, 0.09), rgba(255, 112, 91, 0) 58%),
+      var(--card-color);
+    border: 1px solid rgba(255, 145, 112, 0.09);
+    box-shadow:
+      0 3px 14px rgba(0, 0, 0, 0.38),
+      0 0 24px rgba(255, 82, 65, 0.035);
+  }
+
+  /* A restrained ember glow behind the existing heat-shimmer layer. */
+  body.theme-extreme-heat #weather-fx::after,
+  body.theme-extreme-heat-night #weather-fx::after {
+    content: "";
+    position: absolute;
+    inset: -15%;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 50% 8%, rgba(255, 151, 75, 0.10), transparent 42%),
+      radial-gradient(circle at 15% 85%, rgba(255, 76, 35, 0.075), transparent 36%),
+      radial-gradient(circle at 88% 78%, rgba(255, 184, 77, 0.055), transparent 34%);
+    mix-blend-mode: screen;
+    opacity: 0.9;
+    animation: heat-ember-breathe 8s ease-in-out infinite;
+  }
+
+  body.theme-extreme-heat-night #weather-fx::after {
+    background:
+      radial-gradient(circle at 50% 10%, rgba(255, 103, 73, 0.085), transparent 40%),
+      radial-gradient(circle at 18% 82%, rgba(197, 46, 31, 0.06), transparent 36%),
+      radial-gradient(circle at 86% 78%, rgba(255, 137, 73, 0.045), transparent 34%);
+  }
+
+  @keyframes heat-ember-breathe {
+    0%, 100% { transform: scale(1); opacity: 0.78; }
+    50%      { transform: scale(1.025); opacity: 0.98; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body.theme-extreme-heat #weather-fx::after,
+    body.theme-extreme-heat-night #weather-fx::after {
+      animation: none;
+    }
   }
 
   /* ---------- footer actions area (clouds) ---------- */
@@ -3703,8 +3765,8 @@ const FONT_ROLES = {
   
 const THEMES = {
     sunny:             { bg: '#ebd48a', card: '#FFFFFF', accent: '#A66500', muted: '#9C5F00', text: '#A34D14', title: '#ffffff', icon: '☀️', meteocon: 'clear-day.svg', iconImg: 'icons/themes/sunny.png', lightCard: true, fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
-    extremeHeat:       { bg: '#4a1907', card: '#70270c', accent: '#ff6b35', muted: '#e07a43', text: '#ffffff', title: '#ffffff', icon: '🔥☀️', meteocon: 'thermometer-sun.svg', iconImg: 'icons/themes/extremeHeat.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
-    extremeHeatNight:  { bg: '#2e1005', card: '#3d1a0c', accent: '#ff8659', muted: '#ffcc4d', text: '#ffffff', title: '#ffffff', icon: '🔥🌙', meteocon: 'thermometer-moon.svg', iconImg: 'icons/themes/extremeHeatNight.png', fonts: { title: "NightWindSent, Papyrus, serif", cardHeading: "Monas" } },
+    extremeHeat:       { bg: '#3f1408', card: '#70270c', accent: '#ff7840', muted: '#f0a05f', text: '#fff8ef', title: '#ffffff', icon: '🔥☀️', meteocon: 'thermometer-sun.svg', iconImg: 'icons/themes/extremeHeat.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
+    extremeHeatNight:  { bg: '#211008', card: '#3d1a0c', accent: '#ff8964', muted: '#ffc37a', text: '#fff5ee', title: '#ffffff', icon: '🔥🌙', meteocon: 'thermometer-moon.svg', iconImg: 'icons/themes/extremeHeatNight.png', fonts: { title: "NightWindSent, Papyrus, serif", cardHeading: "Monas" } },
     cloudy:            { bg: '#93a1af', card: '#48566a', accent: '#a8cbe8', muted: '#dbe3ea', text: '#ffffff', title: '#ffffff', icon: '⛅️', meteocon: 'partly-cloudy-day.svg', iconImg: 'icons/themes/cloudy.png', fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Jelly Choco" } },
     rainy:             { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️', meteocon: 'rain.svg', iconImg: 'icons/themes/rainy.png', fonts: { title: "Letter Magic, Tahoma" } },
     rainyNight:        { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️🌙', meteocon: 'mostly-clear-night-rain.svg', iconImg: 'icons/themes/rainyNight.png', fonts: { title: "Lavishly Yours, cursive" } },
@@ -3911,6 +3973,8 @@ const THEMES = {
 
     const rainThemes = ['rainy', 'rainyNight', 'thunderstorm', 'thunderstormNight', 'flood', 'floodNight', 'tornado', 'tornadoNight'];
     document.body.classList.toggle('theme-light-card', !!theme.lightCard);
+    document.body.classList.toggle('theme-extreme-heat', themeKey === 'extremeHeat');
+    document.body.classList.toggle('theme-extreme-heat-night', themeKey === 'extremeHeatNight');
     document.body.classList.toggle('fx-active-rain', rainThemes.includes(themeKey));
     document.body.classList.toggle('fx-active-cloudy', themeKey === 'cloudy');
     document.body.classList.toggle('fx-active-stars', themeKey === 'night' || themeKey === 'auroraNight');
