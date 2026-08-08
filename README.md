@@ -1,4 +1,4 @@
-# Clover Terrace Weather Dashboard
+# Clover Terrace Weather Dashboard 🍀
 
 a live weather page for Clover Terrace, a higher-elevation micro-climate within Aliquippa, PA. conditions come from a home weather station (Ecowitt gateway → WeeWX) running on-site, with Weather Underground's cloud API connected to the same weather station as an automatic backup whenever the home server is unreachable/when just one sensor reading drops out.
 
@@ -6,48 +6,47 @@ a live weather page for Clover Terrace, a higher-elevation micro-climate within 
 
 this repo (`CloverTerrace/weather`) holds the site — `index.html`, styling, and the auxiliary data (camera, forecast, air quality, alerts, aurora, SPC outlook) grabbed by a GitHub Action. weewx readings (`weather.json`, `history.json`) live in a **separate, sibling repo, `CloverTerrace/weather-data`**
 
-### 1. the home server (primary source) 🍀
+### 1. the home server (primary source) ☀️
 
-a local machine (`wx-server`) runs [WeeWX](https://weewx.com/) against an Ecowitt gateway via the `interceptor` driver. a custom WeeWX service, `scripts/weewx_json_export.py` — kept here as a **reference copy only**; it actually runs on the WeeWX box, not in CI — writes `data/weather.json` on every loop packet and appends to `data/history.json` on every archive record, straight into a local clone of **`CloverTerrace/weather-data`** (not this repo — see below). It also:
+a local machine (`wx-server`) runs [WeeWX](https://weewx.com/) against an Ecowitt gateway via the `interceptor` driver. a custom WeeWX service, `scripts/weewx_json_export.py` kept here as a **reference copy only** writes `data/weather.json` on every loop packet and appends to `data/history.json` on every archive record, straight into a local clone of **`CloverTerrace/weather-data`** seperate from this repo. it also:
 
 - holds onto the last known-good pressure / solar radiation / precip rate reading for a few minutes, so one missed sensor read doesn't blank the dashboard;
 - tracks the lightning sensor (strikes today, distance/time of the most recent one), if you have one mapped.
 
-a systemd timer, `weather-data-committer.timer` → `weather-data-committer.service` (calling `scripts/commit_and_push.sh`, also a **reference copy**), commits and pushes `data/weather.json` + `data/history.json` to `weather-data`'s `main` branch every 2 minutes — but only if something actually changed. if the push is rejected (two writers landing close together), it rebases with `-X theirs`: the home server's own live reading always wins, since it's the freshest source once it's back online.
+a systemd timer, `weather-data-committer.timer` → `weather-data-committer.service` (calling `scripts/commit_and_push.sh`, also a **reference copy**), commits and pushes `data/weather.json` + `data/history.json` to `weather-data`'s `main` branch every 2 minutes if something actually changed. if the push is rejected (two writers landing close together), it rebases with `-X theirs`: the home server's own live reading always takes priority.
 
-### 1a. why two repos 🔀
+### 1a. using two repos to avoid downtime ☔ 
 
-`weather-data` the home server pushes every 2 "$
-minutes, and a Pages site rebuilds on every push to its branch by default. committing straight into this repo at that cadence will regularly outrun GitHub Pages' build queue, leaving the live site soft-broken for stretches at a time.
+`weather-data` the home server pushes every 2 "$ minutes, and a Pages site rebuilds on every push to its branch by default. committing straight into this repo at that cadence will regularly outrun GitHub Pages' build queue, leaving the live site soft-broken for stretches at a time.
 
 splitting the fast-moving readings into their own Pages-less repo fixes that at the source: `weather-data` can churn as often as it wants with zero build cost, and `index.html` (in *this* repo) fetches `weather.json`/`history.json` directly from `weather-data`'s raw content URL (`raw.githubusercontent.com/...`) client-side, with a `?t=<timestamp>` cache-busting param on every request. this repo only rebuilds Pages to commit code changes — `index.html`, CSS, JS, or the auxiliary-data Action below.
 
-### 2. github actions (auxiliary data) 🌩️
+### 2. github actions 🌩️
 
 `.github/workflows/update-weather.yml` runs on demand (see #4) and fetches everything *except* the home-server readings:
 
 - **always-on WU backup** (`scripts/fetch_weather_backup.py`) — runs every time and writes current Weather Underground conditions to `data/weather_wu.json` in *this* repo. the dashboard uses this to backfill individual fields the home server occasionally reports as null, and — if the whole home-server feed goes stale — as a wholesale stand-in. See "the dashboard" below for exactly how that split works; it's entirely client-side now.
-- **Auxiliary data** (all `continue-on-error`, so a hiccup in any one of these never blocks the rest): camera snapshot, local forecast, air quality (PurpleAir), SPC outlook images, active weather alerts, aurora/Kp index.
-- **Commit step**: these auxiliary files are the only thing this Action ever commits. `weather.json`/`history.json` are no longer touched here at all — the home server owns those exclusively, over in `weather-data`. if a push gets rejected (two runs landing close together), it re-fetches, re-points the branch at the new tip, and retries rather than failing.
+- **auxiliary data** (all `continue-on-error`, so a hiccup in any one of these never blocks the rest): camera snapshot, local forecast, air quality (PurpleAir), SPC outlook images, active weather alerts, aurora/Kp index.
+- **commit step**: these auxiliary files are the only thing this Action ever commits. `weather.json`/`history.json` are no longer touched here at all — the home server owns those exclusively, over in `weather-data`. if a push gets rejected (two runs landing close together), it re-fetches, re-points the branch at the new tip, and retries rather than failing.
 
-### 3. the dashboard (`index.html`)
+### 3. the dashboard (`index.html`) ☁️
 
 fetches `data/weather.json` and `data/history.json` directly from `CloverTerrace/weather-data`'s raw content URL every 60 seconds (`REFRESH_INTERVAL_MS`), each request cache-busted with `?t=<timestamp>`. seperately, it fetches `data/weather_wu.json` from *this* repo (still updated by the Action above) and merges the two client-side:
 
 - if the home server's data is fresh (< 15 min old — `PRIMARY_STALE_MS`), any individual field it left `null` gets backfilled from the WU reading, field by field.
 - if the home server's data is stale (> 15 min old), the WU reading is used instead of patching a dead file one field at a time.
 
-the split means the site survives both failure modes — "one sensor glitched for a minute" and "the whole home server is offline" — without a visitor ever seeing a blank tile, and without any GitHub Action needing to intervene. it also falls back to the last successful load, cached in `localStorage`, if a fetch fails outright (e.g. the home server *and* the WU API are both briefly unreachable at once).
+the split means the site survives both failure modes: "one sensor glitched for a minute" AND "the whole home server is offline" without a visitor seeing a blank tile and without any GitHub Action needing to intervene. it also falls back to the last successful load, cached in `localStorage`, if a fetch fails immediately (in cases where the home server *and* the WU API are both unreachable at once).
 
-### 4. update triggers
+### 4. update triggers ⛈️
 
 there's no cron schedule in the workflow file itself. the home-server feed updates independently — `update-weather.yml` is `workflow_dispatch` only, fired by:
 
-- a **Cloudflare Worker** (`weather-refresh-trigger.cloverwx4.workers.dev`) — has both an on-demand endpoint (called by the dashboard's refresh button) *and* its own Cron Trigger, currently every 5 minutes.
+- a **cloudflare worker** (`weather-refresh-trigger.cloverwx4.workers.dev`) — has both an on-demand endpoint (called by the dashboard's refresh button) *and* its own Cron Trigger, currently every 5 minutes.
 - a **Deno Deploy** project (`weather-refresh-trigger.cloverwx.deno.net`) — a fallback endpoint if the Cloudflare one is unreachable. no schedule of its own; it only ever responds to POST requests.
-- the dashboard's own **refresh button** — POSTs to whichever endpoint answers first, gated by a 10-minute client-side cooldown so a single visitor can't spam runs. It also immediately re-fetches `weather.json`/`history.json`/`forecast.json` client-side on click, independent of whether the Action run succeeds.
+  the dashboard's own **refresh button** POSTs to whichever endpoint answers first, gated by a 10-minute client-side cooldown so a single visitor can't spam runs. it also immediately re-fetches `weather.json`/`history.json`/`forecast.json` client-side on click, independent of whether the Action run succeeds.
 
-## repo layout 🗂️
+## repo layout ❄️
 
 **`CloverTerrace/weather`** (this repo — the site):
 
@@ -83,7 +82,7 @@ scripts/
 
 > **housekeeping note:** `check_staleness.py` and `fetch_weather.py` may still be sitting in `scripts/` (in this repo) from an earlier version of this pipeline, disregard, i’m keeping them around in case i need to reuse that code if i inevitably break something and can’t get it working again.
 
-## how to re-create this page — WU-only, no home station ⛈️
+## how to re-create this page — WU-only, no home station 🌨️
 
 the simplest version: one scheduled script, pulling straight from Weather Underground. no second repo needed for this path — a WU-only setup updates infrequently enough that a single repo's Pages build queue keeps up fine.
 
@@ -98,7 +97,7 @@ the simplest version: one scheduled script, pulling straight from Weather Underg
 7. **run the workflow once manually** (Actions tab → "Update Weather Data" → "Run workflow") to generate the first `data/weather.json`.
 8. visit your Pages URL — `https://yourusername.github.io/your-repo-name/`.
 
-## how to re-create this page — with your own station via WeeWX 🌦️
+## how to re-create this page — with your own station via WeeWX 🌪️
 
 1. do steps 1–5 above first for your **site repo** (repo, WU key/station ID, secrets, Pages).
 2. **create a second, sibling repo** (e.g. `yourname/weather-data`) with **no GitHub Pages attached** — leave Pages disabled entirely in its settings. Pushes here should never trigger a build.
@@ -116,20 +115,20 @@ the simplest version: one scheduled script, pulling straight from Weather Underg
 - **Metric units:** change `units=e` to `units=m` in the WU fetch URL (`fetch_weather_backup.py`'s internals), and adjust WeeWX's own unit system / the dashboard's unit labels to match.
 - **header identity:** `STATION_CALLSIGN` and `STATION_CITY` near the top of `index.html`'s script block — these are hardcoded rather than pulled from `data.stationID`, since that field reflects whichever backend is currently active (WU's internal PWS ID vs. your own callsign), not a fixed identity.
 
-## historical graph 🌦️
+## historical graph ☀️
 
 `data/history.json` (in the **data repo**) is a rolling window of past readings (temperature, humidity, wind, pressure, solar radiation — and lightning strike count/distance, when the home server is the source), trimmed to the most recent `MAX_HISTORY_ENTRIES`. `index.html` fetches it from the data repo's raw content URL and loads it with Chart.js (CDN, no build step) for the temperature/humidity chart and for computing today's highs/lows on each card.
 
-## visitor counter ⛅
+## visitor counter 🌤️
 
 the footer counter uses [HitsCounter](https://hitscounter.dev/) — no signup, no API key. if your Pages URL ever changes, update the `HITSCOUNTER_URL` constant near the bottom of `index.html`'s `<script>` block to match exactly (including the trailing slash), or you'll start a fresh count under the new URL. icon/color/label are also customizable there — see hitscounter.dev for the full picker.
 
-## camera snapshot 🌤️
+## camera snapshot 🌥️
 
 if your station has a camera, `scripts/fetch_camera.py` pulls the latest snapshot from Ecowitt's own cloud API (separate from the WU/Findu data feed) and saves it as `data/camera.jpg` in the **site repo**, served with cache-busting so it's always the freshest image. Ecowitt's response structure varies by device/firmware, so the script searches for an image URL rather than assuming one exact key path — check the "Fetch latest camera snapshot" step's log in the Actions tab if it can't find one; it prints the raw API response there. This step is `continue-on-error`, so a camera hiccup never blocks a weather-data update.
 
 **setup:** create an Application Key + API Key at ecowitt.net (Member Center → API), find your station's MAC/IMEI in the device list, and add `ECOWITT_APP_KEY`, `ECOWITT_API_KEY`, `ECOWITT_MAC` as repository secrets (on the site repo — that's where the Action running this script lives).
 
-## compatibility with other personal weather stations ☔
+## compatibility with other personal weather stations ☁️
 
 the WU-only path should work with any PWS capable of uploading to Weather Underground — you just need an API key and station ID, and a single repo is fine at that update cadence. the WeeWX path is broader still (WeeWX supports a wide range of consoles/gateways beyond Ecowitt via different drivers), but `weewx_json_export.py`'s observation-type names (`outHumidity`, `windDir`, `barometer`, etc.) assume WeeWX's standard schema, so it should work with any WeeWX-supported station with little to no change — the Ecowitt-specific parts of this repo are really just the camera script and the `interceptor` driver notes above. the two-repo split is only necessary once your update cadence gets fast enough to outrun a Pages build queue — if you're happy polling every 5–10 minutes, one repo is simpler and works fine.
