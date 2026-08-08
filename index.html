@@ -602,6 +602,31 @@
     user-select: none;
   }
 
+  /* each theme's preview badge in the footer easter-egg row. Uses the
+     same fixed-size, overflow-hidden + scaled-up-image crop trick as
+     .card-icon above, so the meteocon's animation padding gets cropped
+     away here too -- see the comment on .card-icon for why that's
+     needed. Falls back to plain emoji text (theme.icon) sized/centered
+     to match if a theme has no working image, via loadMeteoconOrFallback(). */
+  .theme-preview-icon {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    overflow: hidden;
+    line-height: 28px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .theme-preview-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: scale(1.45);
+    transform-origin: center;
+  }
+
   #error-banner {
     display: none;
     background: #4a1f1f;
@@ -2871,13 +2896,21 @@ svg circle, svg polygon, svg line {
   }
 
   // builds the footer easter-egg row from THEMES itself, so it stays in
-  // sync automatically if themes are ever added/removed/renamed.
+  // sync automatically if themes are ever added/removed/renamed. Each
+  // badge uses the theme's curated static meteocon (theme.meteocon --
+  // see the THEMES table a few hundred lines down) instead of the
+  // doubled-up emoji pair (e.g. '❄️🌙'), which looked cramped at this
+  // size. loadMeteoconOrFallback() -- defined below, also used for the
+  // real current-conditions icon -- already knows the fallback chain
+  // (meteocon svg -> theme's PNG -> plain emoji) if a filename is ever
+  // wrong, so it's reused here rather than duplicated.
   function populateThemePreviewRow() {
     const row = document.getElementById('theme-preview-row');
     if (!row) return;
     Object.entries(THEMES).forEach(([key, theme]) => {
       const span = document.createElement('span');
-      span.textContent = theme.icon;
+      span.className = 'theme-preview-icon';
+      loadMeteoconOrFallback(theme, span);
       span.addEventListener('click', () => previewTheme(key));
       row.appendChild(span);
     });
