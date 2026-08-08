@@ -388,7 +388,7 @@
     .wind-priority-row { gap: 0.4rem; }
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 850px) {
     .grid {
       grid-template-columns: 1fr;
     }
@@ -2517,6 +2517,70 @@ svg circle, svg polygon, svg line {
     .card {
       padding: 1rem;
       border-radius: 10px;
+    }
+  }
+
+
+  /* ---------- final responsive weather-card layout ----------
+     The live weather cards are rendered inside #grid (.grid). Keep the
+     independent two-column architecture when there is room, but collapse the
+     actual weather-card grid to one full-width flow on phones and compact
+     portrait devices. */
+  @media (max-width: 850px) {
+    #grid.grid {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) !important;
+      gap: 1rem !important;
+      width: 100% !important;
+      max-width: 680px !important;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #grid.grid .grid-column {
+      display: flex !important;
+      flex-direction: column !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      gap: 1rem !important;
+    }
+
+    #grid.grid .card {
+      width: 100% !important;
+      max-width: none !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    #grid.grid .priority-value {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #grid.grid {
+      gap: 0.85rem !important;
+      max-width: 100% !important;
+    }
+
+    #grid.grid .grid-column {
+      gap: 0.85rem !important;
+    }
+
+    #grid.grid .card {
+      padding: 1rem;
+    }
+
+    #grid.grid .wind-priority-row {
+      gap: 0.35rem;
+    }
+
+    #grid.grid .priority-compass {
+      flex-basis: 88px;
+    }
+
+    #grid.grid .priority-value {
+      font-size: 1.85rem !important;
     }
   }
 
