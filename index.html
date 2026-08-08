@@ -687,6 +687,276 @@
   .trend-falling { color: #ff7e67; }
   .trend-steady  { color: var(--muted-color); }
 
+  /* ---------- "at a glance" priority row (temp / feels like / dew point) ---------- */
+  .glance-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .glance-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    text-align: center;
+  }
+
+  .glance-col + .glance-col {
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .glance-col .label {
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+
+  .glance-col .value {
+    font-size: 1.55rem;
+  }
+
+  .glance-col.glance-primary .value {
+    font-size: 1.85rem;
+  }
+
+  .glance-sub {
+    font-size: 0.7rem;
+    color: var(--muted-color);
+    margin-top: 2px;
+    font-family: var(--font-details);
+  }
+
+  .storm-note {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.78rem;
+    color: var(--muted-color);
+    font-family: var(--font-body);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .storm-note strong { color: var(--accent-color); }
+
+  /* ---------- expand panel: "more sensor data" tables (replaces sparklines) ---------- */
+  .card-expandable.expanded .card-expand-panel {
+    max-height: 320px;
+  }
+
+  .extra-data-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .extra-data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 0.83rem;
+    font-family: var(--font-body);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .extra-data-row:last-child { border-bottom: none; }
+
+  .extra-data-label {
+    color: var(--muted-color);
+    display: flex;
+    align-items: center;
+  }
+
+  .extra-data-value {
+    color: var(--accent-color);
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .extra-data-note {
+    font-size: 0.72rem;
+    color: var(--muted-color);
+    opacity: 0.85;
+    margin-top: 8px;
+    font-family: var(--font-details);
+    line-height: 1.4;
+  }
+
+  /* ---------- NWS / SPC issuances section ---------- */
+  .nws-section {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 1.5rem;
+  }
+
+  .nws-card {
+    background: var(--card-color);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+
+  .nws-card h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    color: var(--muted-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: var(--font-card-heading);
+    text-align: center;
+  }
+
+  .nws-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .nws-tab {
+    background: rgba(255,255,255,0.08);
+    border: none;
+    color: var(--text-color);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nws-tab .nws-tab-count {
+    background: rgba(0,0,0,0.25);
+    border-radius: 10px;
+    padding: 0 6px;
+    font-size: 0.7rem;
+  }
+
+  .nws-tab.active {
+    background: var(--accent-color);
+    color: var(--card-color);
+    font-weight: 600;
+  }
+
+  .nws-panel { display: none; }
+  .nws-panel.active { display: block; }
+
+  .nws-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nws-item {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 12px 14px;
+    cursor: pointer;
+  }
+
+  .nws-item-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .nws-item-icon {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    overflow: hidden;
+    margin-top: 2px;
+  }
+
+  .nws-item-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: scale(1.45);
+    transform-origin: center;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));
+  }
+
+  .nws-item-body { flex: 1; min-width: 0; }
+
+  .nws-item-title {
+    font-weight: 600;
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+  }
+
+  .nws-item-meta {
+    font-size: 0.72rem;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    margin-top: 2px;
+  }
+
+  .nws-item-summary {
+    font-size: 0.82rem;
+    color: var(--muted-color);
+    font-family: var(--font-body);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  .nws-item-hint {
+    font-size: 0.68rem;
+    color: var(--muted-color);
+    opacity: 0.6;
+    margin-top: 6px;
+    font-family: var(--font-details);
+  }
+
+  .nws-item-full {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.3s ease;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--text-color);
+    font-family: var(--font-body);
+    white-space: pre-line;
+  }
+
+  .nws-item.expanded .nws-item-full {
+    max-height: 600px;
+    opacity: 1;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    overflow-y: auto;
+  }
+
+  .nws-item-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: var(--accent-color);
+  }
+
+  .nws-empty {
+    text-align: center;
+    color: var(--muted-color);
+    font-size: 0.85rem;
+    font-family: var(--font-body);
+    padding: 1.5rem 0;
+  }
+
+  .nws-badge-tor    { border-left: 3px solid #ff5b5b; }
+  .nws-badge-severe { border-left: 3px solid #ffb347; }
+  .nws-badge-flood  { border-left: 3px solid #5ba8ff; }
+  .nws-badge-winter { border-left: 3px solid #cfe8ff; }
+  .nws-badge-other  { border-left: 3px solid var(--muted-color); }
+
 .charts-dropdown {
     width: 100%;
     max-width: 900px;
@@ -1915,6 +2185,36 @@ svg circle, svg polygon, svg line {
 </div>
 
  </div>
+
+  <section class="nws-section" id="nws-section">
+    <div class="nws-card">
+      <h2>NWS &amp; SPC Issuances</h2>
+      <div class="nws-tabs" id="nws-tabs">
+        <button class="nws-tab active" data-target="nws-panel-watches">
+          <span class="card-icon" style="width:16px; height:16px; margin-right:0.25em;"><img src="icons/code-orange.svg" alt="" onerror="this.parentElement.style.display='none'"></span>
+          Watches <span class="nws-tab-count" id="nws-count-watches">0</span>
+        </button>
+        <button class="nws-tab" data-target="nws-panel-md">
+          <span class="card-icon" style="width:16px; height:16px; margin-right:0.25em;"><img src="icons/thunderstorms.svg" alt="" onerror="this.parentElement.style.display='none'"></span>
+          Mesoscale Discussions <span class="nws-tab-count" id="nws-count-md">0</span>
+        </button>
+        <button class="nws-tab" data-target="nws-panel-statements">
+          <span class="card-icon" style="width:16px; height:16px; margin-right:0.25em;"><img src="icons/code-yellow.svg" alt="" onerror="this.parentElement.style.display='none'"></span>
+          Statements <span class="nws-tab-count" id="nws-count-statements">0</span>
+        </button>
+      </div>
+
+      <div class="nws-panel active" id="nws-panel-watches">
+        <div class="nws-list" id="nws-list-watches"><div class="nws-empty">No active watches.</div></div>
+      </div>
+      <div class="nws-panel" id="nws-panel-md">
+        <div class="nws-list" id="nws-list-md"><div class="nws-empty">No recent mesoscale discussions.</div></div>
+      </div>
+      <div class="nws-panel" id="nws-panel-statements">
+        <div class="nws-list" id="nws-list-statements"><div class="nws-empty">No active statements.</div></div>
+      </div>
+    </div>
+  </section>
   
 <details class="charts-dropdown">
     <summary>Historical Data</summary>
@@ -2225,6 +2525,84 @@ svg circle, svg polygon, svg line {
     return (es - ea).toFixed(3);
   }
 
+  // plain-language comfort read on dew point -- this is what most
+  // weather enthusiasts actually use to judge "how muggy does it feel"
+  // rather than relative humidity, which is temperature-dependent and
+  // misleading on its own.
+  function getDewpointComfort(dewpt) {
+    if (dewpt === undefined || dewpt === null || isNaN(dewpt)) return '';
+    if (dewpt < 50) return 'dry';
+    if (dewpt < 55) return 'comfortable';
+    if (dewpt < 60) return 'pleasant';
+    if (dewpt < 65) return 'a bit sticky';
+    if (dewpt < 70) return 'humid';
+    if (dewpt < 75) return 'muggy';
+    if (dewpt < 80) return 'oppressive';
+    return 'miserable';
+  }
+
+  // Stull (2011) approximation for wet-bulb temperature from dry-bulb
+  // temp (°C) and relative humidity (%), converted back to °F. Good to
+  // within ~1°F across normal ranges -- no extra sensor needed.
+  function calculateWetBulb(tempF, humidity) {
+    if (tempF === undefined || tempF === null || humidity === undefined || humidity === null) return null;
+    const t = (tempF - 32) * 5 / 9;
+    const rh = humidity;
+    const tw = t * Math.atan(0.151977 * Math.sqrt(rh + 8.313659))
+      + Math.atan(t + rh) - Math.atan(rh - 1.676331)
+      + 0.00391838 * Math.pow(rh, 1.5) * Math.atan(0.023101 * rh)
+      - 4.686035;
+    return tw * 9 / 5 + 32;
+  }
+
+  // Beaufort scale label for a wind speed in mph -- the classic
+  // enthusiast shorthand for "what does this wind actually feel/look
+  // like outside".
+  function getBeaufortLabel(mph) {
+    if (mph === undefined || mph === null || isNaN(mph)) return '--';
+    if (mph < 1) return 'Calm';
+    if (mph < 4) return 'Light Air';
+    if (mph < 8) return 'Light Breeze';
+    if (mph < 13) return 'Gentle Breeze';
+    if (mph < 19) return 'Moderate Breeze';
+    if (mph < 25) return 'Fresh Breeze';
+    if (mph < 32) return 'Strong Breeze';
+    if (mph < 39) return 'Near Gale';
+    if (mph < 47) return 'Gale';
+    if (mph < 55) return 'Strong Gale';
+    if (mph < 64) return 'Storm';
+    if (mph < 73) return 'Violent Storm';
+    return 'Hurricane Force';
+  }
+
+  // NWS UV Index risk category + color, straight from the EPA/NWS scale.
+  function getUvRiskCategory(uv) {
+    if (uv === undefined || uv === null || isNaN(uv)) return { label: '--', color: 'var(--muted-color)' };
+    if (uv < 3) return { label: 'Low', color: '#8fd6a8' };
+    if (uv < 6) return { label: 'Moderate', color: '#ffe27a' };
+    if (uv < 8) return { label: 'High', color: '#ffb347' };
+    if (uv < 11) return { label: 'Very High', color: '#ff7e67' };
+    return { label: 'Extreme', color: '#c792ff' };
+  }
+
+  // plain-language storm-development read on a 3h pressure trend rate --
+  // this is the classic "what does a falling barometer mean" cue.
+  function getStormPotentialNote(deltaPerHour) {
+    if (deltaPerHour === null || deltaPerHour === undefined || isNaN(deltaPerHour)) {
+      return 'Not enough recent pressure history yet to read a trend.';
+    }
+    const rate = Math.abs(deltaPerHour);
+    if (deltaPerHour <= -0.02) {
+      if (rate >= 0.06) return '<strong>Rapid fall</strong> — often signals an approaching storm system or strengthening low pressure nearby.';
+      return '<strong>Steady fall</strong> — conditions are trending toward more unsettled weather.';
+    }
+    if (deltaPerHour >= 0.02) {
+      if (rate >= 0.06) return '<strong>Rapid rise</strong> — usually means a system is clearing out and skies should improve.';
+      return '<strong>Steady rise</strong> — fair weather building in.';
+    }
+    return '<strong>Steady</strong> — no major pressure-driven change expected in the short term.';
+  }
+
   // gets official descriptive text for AQI
   function getAqiDescription(aqi) {
     if (aqi === undefined || aqi === null) return '';
@@ -2390,9 +2768,10 @@ svg circle, svg polygon, svg line {
     if (!closest) return null;
 
     const delta = latest[fieldKey] - closest[fieldKey];
-    if (delta >= PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-high.svg" class="meteocon" alt="Rising">', label: 'Rising', className: 'trend-rising' };
-    if (delta <= -PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-low.svg" class="meteocon" alt="Falling">', label: 'Falling', className: 'trend-falling' };
-    return { arrow: '→', label: 'Steady', className: 'trend-steady' };
+    const deltaPerHour = delta / PRESSURE_TREND_WINDOW_HOURS;
+    if (delta >= PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-high.svg" class="meteocon" alt="Rising">', label: 'Rising', className: 'trend-rising', delta, deltaPerHour };
+    if (delta <= -PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-low.svg" class="meteocon" alt="Falling">', label: 'Falling', className: 'trend-falling', delta, deltaPerHour };
+    return { arrow: '→', label: 'Steady', className: 'trend-steady', delta, deltaPerHour };
   }
   
   let currentRangeHours = 24; 
@@ -3508,60 +3887,61 @@ const THEMES = {
     if (data.temp >= 80 && data.heatIndex) feelsLike = data.heatIndex;
     else if (data.temp <= 50 && data.windChill) feelsLike = data.windChill;
 
+    // comfort framing: feels-like relative to actual temp tells you at a
+    // glance whether humidity/wind is making it feel worse or better.
+    const feelsDelta = Math.round(feelsLike - data.temp);
+    const feelsDeltaHtml = feelsDelta === 0
+      ? `<span class="glance-sub">same as actual</span>`
+      : `<span class="glance-sub">${feelsDelta > 0 ? '+' : ''}${feelsDelta}° than actual</span>`;
+    const dewptComfort = getDewpointComfort(data.dewpt);
+
     const tempHumCard = document.createElement('div');
     tempHumCard.className = 'card combo-card';
     tempHumCard.innerHTML = `
-      <div class="combo-row">
-         <div class="combo-col" style="border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px;">
+      <div class="glance-row">
+         <div class="glance-col glance-primary">
             <div class="label"><span class="card-icon"><img src="icons/thermometer-fahrenheit.svg" alt=""></span>Temperature</div>
             <div class="value">${formatVal(data.temp, 1)}<span class="unit">°F</span></div>
-            <div class="extreme-row">
+            <div class="extreme-row" style="justify-content: center; gap: 16px;">
                <div class="extreme-item">
-                 <div class="ext-value"><span class="high-arrow">↑</span><span style="color: var(--muted-color); font-size: 1.0rem;"> ${formatVal(tExt.max.val, 1)}°F</span></div>
+                 <div class="ext-value"><span class="high-arrow">↑</span><span style="color: var(--muted-color); font-size: 0.9rem;"> ${formatVal(tExt.max.val, 1)}°</span></div>
                  <div class="ext-time" style="font-family: var(--font-details); color: var(--accent-color);">${formatShortTime(tExt.max.time)}</div>
                </div>
                <div class="extreme-item">
-                 <div class="ext-value"><span class="low-arrow">↓</span><span style="color: var(--muted-color); font-size: 1.0rem;"> ${formatVal(tExt.min.val, 1)}°F</span></div>
+                 <div class="ext-value"><span class="low-arrow">↓</span><span style="color: var(--muted-color); font-size: 0.9rem;"> ${formatVal(tExt.min.val, 1)}°</span></div>
                  <div class="ext-time" style="font-family: var(--font-details); color: var(--accent-color);">${formatShortTime(tExt.min.time)}</div>
                </div>
             </div>
          </div>
-         <div class="combo-col" style="padding-left: 15px;">
-            <div class="label"><span class="card-icon"><img src="icons/humidity.svg" alt=""></span>Humidity</div>
-            <div class="value">${formatVal(data.humidity, 1)}<span class="unit">%</span></div>
-            <div class="extreme-row">
-               <div class="extreme-item">
-                 <div class="ext-value"><span class="high-arrow">↑</span><span style="color: var(--muted-color); font-size: 1.0rem;"> ${formatVal(hExt.max.val, 1)}%</span></div>
-                 <div class="ext-time" style="font-family: var(--font-details);">${formatShortTime(hExt.max.time)}</div>
-               </div>
-               <div class="extreme-item">
-                 <div class="ext-value"><span class="low-arrow">↓</span><span style="color: var(--muted-color); font-size: 1.0rem;"> ${formatVal(hExt.min.val, 1)}%</span></div>
-                 <div class="ext-time" style="font-family: var(--font-details);">${formatShortTime(hExt.min.time)}</div>
-               </div>
-            </div>
+         <div class="glance-col">
+            <div class="label"><span class="card-icon"><img src="icons/thermometer-warmer.svg" alt="" onerror="this.parentElement.style.display='none'"></span>Feels Like</div>
+            <div class="value">${formatVal(feelsLike, 1)}<span class="unit">°F</span></div>
+            ${feelsDeltaHtml}
          </div>
-      </div> 
+         <div class="glance-col">
+            <div class="label"><span class="card-icon"><img src="icons/raindrops.svg" alt="" onerror="this.parentElement.style.display='none'"></span>Dew Point</div>
+            <div class="value">${formatVal(data.dewpt, 1)}<span class="unit">°F</span></div>
+            <span class="glance-sub">${dewptComfort}</span>
+         </div>
+      </div>
       <div class="card-footer-metrics" style="margin-top: 15px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">
-         <div class="metric-left">Dew Point<div>${formatVal(data.dewpt, 1)}°F</div></div>
-         <div class="metric-center">Feels Like<div>${formatVal(feelsLike, 1)}°F</div></div>
-         <div class="metric-right">VPD<div>${vpd}kPa</div></div>
+         <div class="metric-left">Humidity<div>${formatVal(data.humidity, 1)}%</div></div>
+         <div class="metric-center">VPD<div>${vpd}kPa</div></div>
+         <div class="metric-right">Wet Bulb<div>${formatVal(calculateWetBulb(data.temp, data.humidity), 1)}°F</div></div>
       </div>
     `;
     grid.appendChild(tempHumCard);
-    makeCardExpandable(tempHumCard, 'tempHum', 'temp & humidity history', (panel) => {
-      const recent = filterHistoryByRange(fullHistory, 6);
-      const data6 = recent.length >= 2 ? recent : fullHistory;
+    makeCardExpandable(tempHumCard, 'tempHum', 'more temperature & humidity data', (panel) => {
       panel.innerHTML = `
-        <div class="sparkline-row">
-          <div>
-            <div class="sparkline-title">Temp — last 6 hrs</div>
-            ${buildSparklineSvg(data6, 'temp', { color: '#ff8f6b', unit: '°F' })}
-          </div>
-          <div>
-            <div class="sparkline-title">Humidity — last 6 hrs</div>
-            ${buildSparklineSvg(data6, 'humidity', { color: '#6bb8ff', unit: '%' })}
-          </div>
+        <div class="extra-data-list">
+          <div class="extra-data-row"><span class="extra-data-label">Heat Index</span><span class="extra-data-value">${data.heatIndex != null ? formatVal(data.heatIndex, 1) + '°F' : '--'}</span></div>
+          <div class="extra-data-row"><span class="extra-data-label">Wind Chill</span><span class="extra-data-value">${data.windChill != null ? formatVal(data.windChill, 1) + '°F' : '--'}</span></div>
+          <div class="extra-data-row"><span class="extra-data-label">Dew Point Depression</span><span class="extra-data-value">${(data.temp != null && data.dewpt != null) ? formatVal(data.temp - data.dewpt, 1) + '°F' : '--'}</span></div>
+          <div class="extra-data-row"><span class="extra-data-label">Humidity — Today's High</span><span class="extra-data-value">${formatVal(hExt.max.val, 1)}% <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(hExt.max.time)})</span></span></div>
+          <div class="extra-data-row"><span class="extra-data-label">Humidity — Today's Low</span><span class="extra-data-value">${formatVal(hExt.min.val, 1)}% <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(hExt.min.time)})</span></span></div>
+          <div class="extra-data-row"><span class="extra-data-label">Vapor Pressure Deficit</span><span class="extra-data-value">${vpd} kPa</span></div>
         </div>
+        <div class="extra-data-note">VPD below ~0.4 kPa feels muggy/stagnant; above ~1.6 kPa the air is pulling moisture fast (dry-feeling, higher wildfire/plant-stress risk).</div>
       `;
     });
 
@@ -3593,11 +3973,17 @@ const THEMES = {
       </div>
     `;
     grid.appendChild(windCard);
-    makeCardExpandable(windCard, 'wind', 'gust history', (panel) => {
-      const recent = filterHistoryByRange(fullHistory, 6);
+    makeCardExpandable(windCard, 'wind', 'more wind data', (panel) => {
+      const gustFactor = (data.windSpeed && data.windGust) ? (data.windGust / Math.max(data.windSpeed, 0.1)) : null;
       panel.innerHTML = `
-        <div class="sparkline-title">Gust history — last 6 hrs</div>
-        ${buildSparklineSvg(recent.length >= 2 ? recent : fullHistory, 'windGust', { color: '#ff8f6b', unit: 'mph' })}
+        <div class="extra-data-list">
+          <div class="extra-data-row"><span class="extra-data-label">Beaufort Description</span><span class="extra-data-value">${getBeaufortLabel(data.windSpeed)}</span></div>
+          <div class="extra-data-row"><span class="extra-data-label">Direction</span><span class="extra-data-value">${degreesToCardinal16(data.winddir || 0)} (${formatVal(data.winddir, 0)}°)</span></div>
+          <div class="extra-data-row"><span class="extra-data-label">Gust Factor</span><span class="extra-data-value">${gustFactor ? gustFactor.toFixed(2) + '×' : '--'}</span></div>
+          <div class="extra-data-row"><span class="extra-data-label">Today's Peak Gust</span><span class="extra-data-value">${formatVal(wgExt.max.val, 1)} mph <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(wgExt.max.time)})</span></span></div>
+          <div class="extra-data-row"><span class="extra-data-label">Today's Peak Sustained</span><span class="extra-data-value">${formatVal(wsExt.max.val, 1)} mph <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(wsExt.max.time)})</span></span></div>
+        </div>
+        <div class="extra-data-note">A gust factor above ~1.5× can mean gusty, unstable air; sustained higher ratios during storms can hint at downburst potential.</div>
       `;
     });
 
@@ -3630,6 +4016,11 @@ const THEMES = {
       `;
     };
 
+    const primaryTrend = pTrend;
+    const trendRateHtml = (primaryTrend && primaryTrend.deltaPerHour !== undefined)
+      ? `${primaryTrend.deltaPerHour >= 0 ? '+' : ''}${primaryTrend.deltaPerHour.toFixed(3)} inHg/hr`
+      : 'trend building…';
+
     const pressureCard = document.createElement('div');
     pressureCard.className = 'card combo-card pressure-card';
     pressureCard.innerHTML = `
@@ -3638,26 +4029,25 @@ const THEMES = {
           ? pressureColumnHtml('Relative', data.pressure, pExt, pTrend, true) + pressureColumnHtml('Absolute', data.pressureAbsolute, paExt, paTrend, false)
           : pressureColumnHtml('Pressure', data.pressure, pExt, pTrend, false)}
       </div>
+      <div class="storm-note">
+        <strong>${primaryTrend ? primaryTrend.label : 'Steady'}</strong> · ${trendRateHtml} (last 3h)<br>
+        ${getStormPotentialNote(primaryTrend ? primaryTrend.deltaPerHour : null)}
+      </div>
     `;
     grid.appendChild(pressureCard);
-    makeCardExpandable(pressureCard, 'pressure', 'pressure history', (panel) => {
-      const recent = filterHistoryByRange(fullHistory, 6);
-      const data6 = recent.length >= 2 ? recent : fullHistory;
-      panel.innerHTML = hasAbsolute ? `
-        <div class="sparkline-row">
-          <div>
-            <div class="sparkline-title">Relative — last 6 hrs</div>
-            ${buildSparklineSvg(data6, 'pressure', { color: '#c792ff', unit: 'inHg' })}
-          </div>
-          <div>
-            <div class="sparkline-title">Absolute — last 6 hrs</div>
-            ${buildSparklineSvg(data6, 'pressureAbsolute', { color: '#8fd6ff', unit: 'inHg' })}
-          </div>
-        </div>
-      ` : `
-        <div class="sparkline-title">Pressure — last 6 hrs</div>
-        ${buildSparklineSvg(data6, 'pressure', { color: '#c792ff', unit: 'inHg' })}
-      `;
+    makeCardExpandable(pressureCard, 'pressure', 'more pressure data', (panel) => {
+      const rows = [
+        `<div class="extra-data-row"><span class="extra-data-label">Relative — Today's High</span><span class="extra-data-value">${formatVal(pExt.max.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(pExt.max.time)})</span></span></div>`,
+        `<div class="extra-data-row"><span class="extra-data-label">Relative — Today's Low</span><span class="extra-data-value">${formatVal(pExt.min.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(pExt.min.time)})</span></span></div>`,
+      ];
+      if (hasAbsolute) {
+        rows.push(`<div class="extra-data-row"><span class="extra-data-label">Absolute — Today's High</span><span class="extra-data-value">${formatVal(paExt.max.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(paExt.max.time)})</span></span></div>`);
+        rows.push(`<div class="extra-data-row"><span class="extra-data-label">Absolute — Today's Low</span><span class="extra-data-value">${formatVal(paExt.min.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(paExt.min.time)})</span></span></div>`);
+        rows.push(`<div class="extra-data-row"><span class="extra-data-label">Station Correction</span><span class="extra-data-value">${formatVal(data.pressure - data.pressureAbsolute, 2)} inHg</span></div>`);
+      }
+      rows.push(`<div class="extra-data-row"><span class="extra-data-label">3h Change (Relative)</span><span class="extra-data-value">${pTrend && pTrend.delta !== undefined ? (pTrend.delta >= 0 ? '+' : '') + pTrend.delta.toFixed(3) + ' inHg' : '--'}</span></div>`);
+      panel.innerHTML = `<div class="extra-data-list">${rows.join('')}</div>
+        <div class="extra-data-note">Station elevation is fixed, so "Relative" is already elevation-corrected for storm tracking; "Absolute" is the raw, unadjusted station-level reading.</div>`;
     });
 
     // 4. precipitation card -- same card slot either way (unlike the
@@ -3706,12 +4096,17 @@ const THEMES = {
       `;
     }
     grid.appendChild(precipCard);
-    makeCardExpandable(precipCard, 'precip', 'rain rate history', (panel) => {
-      const recent = filterHistoryByRange(fullHistory, 6);
-      const data6 = recent.length >= 2 ? recent : fullHistory;
+    makeCardExpandable(precipCard, 'precip', 'more precipitation data', (panel) => {
+      const likelyFrozen = data.temp !== null && data.temp !== undefined && data.temp <= 34;
       panel.innerHTML = `
-        <div class="sparkline-title">Rain rate — last 6 hrs</div>
-        ${buildSparklineSvg(data6, 'precipRate', { color: '#6bb8ff', unit: 'in/hr' })}
+        <div class="extra-data-list">
+          <div class="extra-data-row"><span class="extra-data-label">Current Rate</span><span class="extra-data-value">${formatVal(data.precipRate, 2)} in/hr</span></div>
+          <div class="extra-data-row"><span class="extra-data-label">Today's Peak Rate</span><span class="extra-data-value">${formatVal(prExt.max.val, 2)} in/hr <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(prExt.max.time)})</span></span></div>
+          <div class="extra-data-row"><span class="extra-data-label">This Week</span><span class="extra-data-value">${formatVal(data.precipTotalWeek, 2)} in</span></div>
+          <div class="extra-data-row"><span class="extra-data-label">This Month</span><span class="extra-data-value">${formatVal(data.precipTotalMonth, 2)} in</span></div>
+          <div class="extra-data-row"><span class="extra-data-label">This Year</span><span class="extra-data-value">${formatVal(data.precipTotalYear, 2)} in</span></div>
+          <div class="extra-data-row"><span class="extra-data-label">Precip Type (est.)</span><span class="extra-data-value">${likelyFrozen ? 'Likely frozen/mixed' : 'Liquid'}</span></div>
+        </div>
       `;
     });
 
@@ -3765,19 +4160,13 @@ const THEMES = {
       </div>
     `;
     grid.appendChild(solarUvCard);
-    makeCardExpandable(solarUvCard, 'solarUv', 'solar & UV history', (panel) => {
-      const recent = filterHistoryByRange(fullHistory, 6);
-      const data6 = recent.length >= 2 ? recent : fullHistory;
+    makeCardExpandable(solarUvCard, 'solarUv', 'more solar & UV data', (panel) => {
+      const uvCat = getUvRiskCategory(data.uv);
       panel.innerHTML = `
-        <div class="sparkline-row">
-          <div>
-            <div class="sparkline-title">Solar Rad. — last 6 hrs</div>
-            ${buildSparklineSvg(data6, 'solarRadiation', { color: '#ffd76b', unit: 'W/m²' })}
-          </div>
-          <div>
-            <div class="sparkline-title">UV Index — last 6 hrs</div>
-            ${buildSparklineSvg(data6, 'uv', { color: '#ff8f6b', unit: '' })}
-          </div>
+        <div class="extra-data-list">
+          <div class="extra-data-row"><span class="extra-data-label">UV Risk Category</span><span class="extra-data-value" style="color: ${uvCat.color};">${uvCat.label}</span></div>
+          <div class="extra-data-row"><span class="extra-data-label">Today's Peak Solar Rad.</span><span class="extra-data-value">${formatVal(sExt.max.val, 0)} W/m² <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(sExt.max.time)})</span></span></div>
+          <div class="extra-data-row"><span class="extra-data-label">Today's Peak UV</span><span class="extra-data-value">${formatVal(uExt.max.val, 1)} <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(uExt.max.time)})</span></span></div>
         </div>
       `;
     });
@@ -3846,15 +4235,178 @@ const THEMES = {
           </div>
        `;
        grid.appendChild(usgsCard);
-       makeCardExpandable(usgsCard, 'river', 'gauge height history', (panel) => {
-         const mapped = (usgsHistory || []).map(e => ({ time: e.dateTime, gageHeight: parseFloat(e.value) }));
-         const recent = filterHistoryByRange(mapped, 24);
-         const data24 = recent.length >= 2 ? recent : mapped;
+       makeCardExpandable(usgsCard, 'river', 'more river gauge data', (panel) => {
+         const toAction = 20.0 - currentUsgs.gageHeight;
+         const toFlood = 25.0 - currentUsgs.gageHeight;
          panel.innerHTML = `
-           <div class="sparkline-title">Gauge height — last 24 hrs</div>
-           ${buildSparklineSvg(data24, 'gageHeight', { color: '#8fd6ff', unit: 'ft' })}
+           <div class="extra-data-list">
+             <div class="extra-data-row"><span class="extra-data-label">Trend (3h)</span><span class="extra-data-value">${currentUsgs.trend ? currentUsgs.trend.label : '--'}</span></div>
+             <div class="extra-data-row"><span class="extra-data-label">To Action Stage</span><span class="extra-data-value">${toAction > 0 ? toAction.toFixed(2) + ' ft to go' : 'At/above'}</span></div>
+             <div class="extra-data-row"><span class="extra-data-label">To Flood Stage</span><span class="extra-data-value">${toFlood > 0 ? toFlood.toFixed(2) + ' ft to go' : 'At/above'}</span></div>
+             <div class="extra-data-row"><span class="extra-data-label">Today's Peak</span><span class="extra-data-value">${riverMax ? riverMax.val.toFixed(2) + ' ft (' + formatShortTime(riverMax.dateTime) + ')' : '--'}</span></div>
+             <div class="extra-data-row"><span class="extra-data-label">Discharge</span><span class="extra-data-value">${currentUsgs.dischargeCfs != null ? currentUsgs.dischargeCfs.toLocaleString() + ' cfs' : '--'}</span></div>
+           </div>
          `;
        });
+    }
+  }
+
+  //*  ------------ 🌪️ NWS / SPC ISSUANCES (watches, mesoscale discussions, statements) 🌪️ ----------- *//
+  //
+  // Frontend-only for now -- there's no backend fetch job for this yet.
+  // Expects a JSON file at data/nws_products.json shaped like:
+  //
+  // {
+  //   "generatedAt": "2026-08-08T18:32:00Z",
+  //   "watches": [
+  //     {
+  //       "id": "WW0456",                     // unique string, used as dedupe/expand key
+  //       "type": "Tornado Watch",             // "Tornado Watch" | "Severe Thunderstorm Watch" | free text
+  //       "number": 456,
+  //       "issued": "2026-08-08T14:45:00Z",    // ISO 8601
+  //       "expires": "2026-08-08T21:00:00Z",   // ISO 8601
+  //       "areas": "Beaver, Allegheny, Lawrence counties PA; Columbiana, Jefferson counties OH",
+  //       "summary": "One or two short sentences.",   // optional, shown collapsed
+  //       "fullText": "Full product text...",          // optional, shown on tap
+  //       "url": "https://www.spc.noaa.gov/products/watch/2026/ww0456.html"
+  //     }
+  //   ],
+  //   "mesoscaleDiscussions": [
+  //     {
+  //       "id": "MD2231",
+  //       "number": 2231,
+  //       "issued": "2026-08-08T14:10:00Z",
+  //       "expires": "2026-08-08T17:00:00Z",
+  //       "concerning": "Severe potential...watch likely",   // SPC's "Concerning" line
+  //       "areas": "Parts of western PA and eastern OH",
+  //       "watchProbability": "80%",                          // optional, SPC's watch-issuance probability
+  //       "summary": "Short plain-text synopsis.",
+  //       "fullText": "Full MD text body...",
+  //       "url": "https://www.spc.noaa.gov/products/md/2026/md2231.html"
+  //     }
+  //   ],
+  //   "statements": [
+  //     {
+  //       "id": "SPS-PBZ-001",
+  //       "type": "Special Weather Statement",   // or "Flood Advisory", "Wind Advisory", etc.
+  //       "office": "PBZ",
+  //       "issued": "2026-08-08T14:05:00Z",
+  //       "expires": "2026-08-08T16:00:00Z",
+  //       "headline": "Short headline text.",
+  //       "summary": "One or two sentences.",
+  //       "fullText": "Full product text...",
+  //       "url": "https://forecast.weather.gov/product.php?..."
+  //     }
+  //   ]
+  // }
+  //
+  // Every field except id/type is optional and gracefully skipped -- so a
+  // minimal backend can ship watches-only, or statements-only, etc.
+
+  let nwsProducts = { watches: [], mesoscaleDiscussions: [], statements: [] };
+
+  // maps a product's hazard type to a meteocon + a left-border color class,
+  // so watches/MDs/statements get an instant at-a-glance visual cue for
+  // what kind of hazard they're about.
+  function getNwsHazardVisual(typeText) {
+    const t = (typeText || '').toLowerCase();
+    if (t.includes('tornado')) return { icon: 'tornado-alert.svg', badge: 'nws-badge-tor' };
+    if (t.includes('severe') || t.includes('thunderstorm')) return { icon: 'thunderstorms.svg', badge: 'nws-badge-severe' };
+    if (t.includes('flood') || t.includes('flash flood')) return { icon: 'water-alert.svg', badge: 'nws-badge-flood' };
+    if (t.includes('winter') || t.includes('snow') || t.includes('ice')) return { icon: 'snow.svg', badge: 'nws-badge-winter' };
+    if (t.includes('wind')) return { icon: 'wind.svg', badge: 'nws-badge-other' };
+    return { icon: 'code-yellow.svg', badge: 'nws-badge-other' };
+  }
+
+  function buildNwsItemHtml(item, typeLabel) {
+    const visual = getNwsHazardVisual(item.type || typeLabel);
+    const issuedStr = item.issued ? formatShortTime(item.issued) : '';
+    const expiresStr = item.expires ? formatShortTime(item.expires) : '';
+    const metaBits = [];
+    if (issuedStr) metaBits.push(`Issued ${issuedStr}`);
+    if (expiresStr) metaBits.push(`Until ${expiresStr}`);
+    if (item.areas) metaBits.push(item.areas);
+    const title = item.type || item.concerning || typeLabel;
+    const summary = item.summary || item.concerning || '';
+    const fullText = item.fullText || '';
+    return `
+      <div class="nws-item ${visual.badge}" data-id="${item.id}">
+        <div class="nws-item-header">
+          <span class="nws-item-icon"><img src="icons/${visual.icon}" alt="" onerror="this.parentElement.style.display='none'"></span>
+          <div class="nws-item-body">
+            <div class="nws-item-title">${title}${item.number ? ' #' + item.number : ''}</div>
+            <div class="nws-item-meta">${metaBits.join(' · ')}</div>
+            ${summary ? `<div class="nws-item-summary">${summary}</div>` : ''}
+            ${fullText ? `<div class="nws-item-hint">tap for full text ▾</div>` : ''}
+            ${fullText ? `<div class="nws-item-full">${fullText}</div>` : ''}
+            ${item.url ? `<a class="nws-item-link" href="${item.url}" target="_blank" rel="noopener" onclick="event.stopPropagation();">View original product →</a>` : ''}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderNwsList(containerId, items, emptyText, typeLabel) {
+    const container = document.getElementById(containerId);
+    if (!items || items.length === 0) {
+      container.innerHTML = `<div class="nws-empty">${emptyText}</div>`;
+      return;
+    }
+    container.innerHTML = items.map(item => buildNwsItemHtml(item, typeLabel)).join('');
+    container.querySelectorAll('.nws-item').forEach(el => {
+      el.addEventListener('click', () => {
+        if (!el.querySelector('.nws-item-full')) return;
+        el.classList.toggle('expanded');
+      });
+    });
+  }
+
+  function renderNwsProducts() {
+    const watches = nwsProducts.watches || [];
+    const mds = nwsProducts.mesoscaleDiscussions || [];
+    const statements = nwsProducts.statements || [];
+
+    renderNwsList('nws-list-watches', watches, 'No active watches.', 'Watch');
+    renderNwsList('nws-list-md', mds, 'No recent mesoscale discussions.', 'Mesoscale Discussion');
+    renderNwsList('nws-list-statements', statements, 'No active statements.', 'Statement');
+
+    const countWatches = document.getElementById('nws-count-watches');
+    const countMd = document.getElementById('nws-count-md');
+    const countStatements = document.getElementById('nws-count-statements');
+    if (countWatches) countWatches.textContent = watches.length;
+    if (countMd) countMd.textContent = mds.length;
+    if (countStatements) countStatements.textContent = statements.length;
+  }
+
+  function initNwsTabs() {
+    const tabs = document.querySelectorAll('#nws-tabs .nws-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelectorAll('.nws-panel').forEach(p => p.classList.remove('active'));
+        document.getElementById(tab.dataset.target).classList.add('active');
+      });
+    });
+  }
+
+  // fetches data/nws_products.json if/when it exists. Until the backend
+  // job is wired up this simply 404s quietly and the section shows its
+  // built-in "nothing active" empty states -- never breaks the page.
+  async function loadNwsProducts() {
+    try {
+      const res = await fetch(`data/nws_products.json?t=${Date.now()}`, { cache: 'no-store' });
+      if (!res.ok) return;
+      const json = await res.json();
+      nwsProducts = {
+        watches: json.watches || [],
+        mesoscaleDiscussions: json.mesoscaleDiscussions || [],
+        statements: json.statements || [],
+      };
+      renderNwsProducts();
+    } catch (err) {
+      // no backend yet, or a transient network hiccup -- fine either way,
+      // the section just keeps showing its empty states.
     }
   }
 
@@ -4095,6 +4647,9 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
   fetchUsgsGauge();
   setInterval(fetchUsgsGauge, USGS_REFRESH_INTERVAL_MS);
   loadVisitorCount();
+  initNwsTabs();
+  loadNwsProducts();
+  setInterval(loadNwsProducts, 5 * 60 * 1000);
   
   const chartsDropdown = document.querySelector('.charts-dropdown');
   chartsDropdown.addEventListener('toggle', () => {
