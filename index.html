@@ -308,6 +308,86 @@
     font-family: var(--font-body);
   }
 
+  /* ---------- information hierarchy cleanup ---------- */
+  .priority-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .priority-icon {
+    width: 34px;
+    height: 34px;
+    overflow: hidden;
+    flex: 0 0 34px;
+  }
+
+  .priority-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: scale(1.35);
+    transform-origin: center;
+  }
+
+  .priority-heading {
+    color: var(--muted-color);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: var(--font-grid-label);
+  }
+
+  .priority-value {
+    font-size: 2.15rem !important;
+  }
+
+  .priority-glance-row {
+    align-items: center;
+  }
+
+  .priority-context {
+    margin-top: 0.8rem;
+    text-align: center;
+    color: var(--muted-color);
+    font-size: 0.76rem;
+    line-height: 1.35;
+    font-family: var(--font-details);
+  }
+
+  .priority-context span { opacity: 0.55; margin: 0 0.2rem; }
+
+  .priority-single-value {
+    text-align: center;
+  }
+
+  .wind-priority-row,
+  .pressure-priority-row,
+  .lightning-priority-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .wind-priority-metric,
+  .priority-single-value {
+    flex: 1;
+    text-align: center;
+  }
+
+  .priority-compass { flex: 0 0 112px; }
+  .priority-dual-row .combo-col { flex: 1; text-align: center; }
+  .compact-storm-note { margin-top: 0.7rem; font-size: 0.76rem; }
+
+  @media (max-width: 560px) {
+    .priority-value { font-size: 1.9rem !important; }
+    .priority-compass { flex-basis: 92px; }
+    .wind-priority-row { gap: 0.4rem; }
+  }
+
   /* combo grid system */
   .grid {
     display: grid;
@@ -1388,6 +1468,36 @@
     margin: 0 auto;
   }
 
+  .storm-desk-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 1.1rem 0 0.9rem;
+  }
+
+  .storm-desk-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    color: var(--muted-color);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: var(--font-card-heading);
+    margin-bottom: 0.8rem;
+  }
+
+  .storm-desk-heading .card-icon { width: 20px; height: 20px; }
+
+  .storm-desk-status {
+    margin-top: 0.75rem;
+    text-align: center;
+    color: var(--muted-color);
+    opacity: 0.7;
+    font-size: 0.68rem;
+    font-family: var(--font-details);
+  }
+
   .outlook-card .outlook-note {
     color: var(--muted-color);
     font-size: 0.8rem;
@@ -2156,7 +2266,38 @@ svg circle, svg polygon, svg line {
         <img id="outlook-img-day3" src="data/outlook-day3.png" alt="SPC Day 3 Convective Outlook">
       </div>
     </div>
-    <div class="outlook-note">Updated hourly or when a new outlook is issued by NOAA's Storm Prediction Center.</div>
+    <div class="outlook-note">SPC graphics update with each new issuance. Tap a product below for the full discussion or original NWS product.</div>
+
+    <div class="storm-desk-divider"></div>
+    <div class="storm-desk-heading">
+      <span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>
+      NWS / SPC Storm Desk
+    </div>
+    <div class="nws-tabs" id="nws-tabs">
+      <button class="nws-tab active" data-target="nws-panel-watches">
+        <span class="card-icon"><img src="icons/code-orange.svg" alt=""></span>
+        Watches <span class="nws-tab-count" id="nws-count-watches">0</span>
+      </button>
+      <button class="nws-tab" data-target="nws-panel-md">
+        <span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>
+        Mesoscale <span class="nws-tab-count" id="nws-count-md">0</span>
+      </button>
+      <button class="nws-tab" data-target="nws-panel-statements">
+        <span class="card-icon"><img src="icons/code-yellow.svg" alt=""></span>
+        NWS Updates <span class="nws-tab-count" id="nws-count-statements">0</span>
+      </button>
+    </div>
+
+    <div class="nws-panel active" id="nws-panel-watches">
+      <div class="nws-list" id="nws-list-watches"><div class="nws-empty">No active watches.</div></div>
+    </div>
+    <div class="nws-panel" id="nws-panel-md">
+      <div class="nws-list" id="nws-list-md"><div class="nws-empty">No recent mesoscale discussions.</div></div>
+    </div>
+    <div class="nws-panel" id="nws-panel-statements">
+      <div class="nws-list" id="nws-list-statements"><div class="nws-empty">No recent NWS updates.</div></div>
+    </div>
+    <div class="storm-desk-status" id="storm-desk-status">Waiting for NWS/SPC product data…</div>
   </div>
 
 <div class="chart-card weather-map-card">
@@ -2186,35 +2327,6 @@ svg circle, svg polygon, svg line {
 
  </div>
 
-  <section class="nws-section" id="nws-section">
-    <div class="nws-card">
-      <h2>NWS &amp; SPC Issuances</h2>
-      <div class="nws-tabs" id="nws-tabs">
-        <button class="nws-tab active" data-target="nws-panel-watches">
-          <span class="card-icon" style="width:16px; height:16px; margin-right:0.25em;"><img src="icons/code-orange.svg" alt="" onerror="this.parentElement.style.display='none'"></span>
-          Watches <span class="nws-tab-count" id="nws-count-watches">0</span>
-        </button>
-        <button class="nws-tab" data-target="nws-panel-md">
-          <span class="card-icon" style="width:16px; height:16px; margin-right:0.25em;"><img src="icons/thunderstorms.svg" alt="" onerror="this.parentElement.style.display='none'"></span>
-          Mesoscale Discussions <span class="nws-tab-count" id="nws-count-md">0</span>
-        </button>
-        <button class="nws-tab" data-target="nws-panel-statements">
-          <span class="card-icon" style="width:16px; height:16px; margin-right:0.25em;"><img src="icons/code-yellow.svg" alt="" onerror="this.parentElement.style.display='none'"></span>
-          Statements <span class="nws-tab-count" id="nws-count-statements">0</span>
-        </button>
-      </div>
-
-      <div class="nws-panel active" id="nws-panel-watches">
-        <div class="nws-list" id="nws-list-watches"><div class="nws-empty">No active watches.</div></div>
-      </div>
-      <div class="nws-panel" id="nws-panel-md">
-        <div class="nws-list" id="nws-list-md"><div class="nws-empty">No recent mesoscale discussions.</div></div>
-      </div>
-      <div class="nws-panel" id="nws-panel-statements">
-        <div class="nws-list" id="nws-list-statements"><div class="nws-empty">No active statements.</div></div>
-      </div>
-    </div>
-  </section>
   
 <details class="charts-dropdown">
     <summary>Historical Data</summary>
@@ -3898,37 +4010,27 @@ const THEMES = {
     const tempHumCard = document.createElement('div');
     tempHumCard.className = 'card combo-card';
     tempHumCard.innerHTML = `
-      <div class="glance-row">
+      <div class="priority-card-head">
+        <div class="priority-icon"><img src="icons/thermometer-fahrenheit.svg" alt=""></div>
+        <div class="priority-heading">Temperature</div>
+      </div>
+      <div class="glance-row priority-glance-row">
          <div class="glance-col glance-primary">
-            <div class="label"><span class="card-icon"><img src="icons/thermometer-fahrenheit.svg" alt=""></span>Temperature</div>
-            <div class="value">${formatVal(data.temp, 1)}<span class="unit">°F</span></div>
-            <div class="extreme-row" style="justify-content: center; gap: 16px;">
-               <div class="extreme-item">
-                 <div class="ext-value"><span class="high-arrow">↑</span><span style="color: var(--muted-color); font-size: 0.9rem;"> ${formatVal(tExt.max.val, 1)}°</span></div>
-                 <div class="ext-time" style="font-family: var(--font-details); color: var(--accent-color);">${formatShortTime(tExt.max.time)}</div>
-               </div>
-               <div class="extreme-item">
-                 <div class="ext-value"><span class="low-arrow">↓</span><span style="color: var(--muted-color); font-size: 0.9rem;"> ${formatVal(tExt.min.val, 1)}°</span></div>
-                 <div class="ext-time" style="font-family: var(--font-details); color: var(--accent-color);">${formatShortTime(tExt.min.time)}</div>
-               </div>
-            </div>
+            <div class="value priority-value">${formatVal(data.temp, 1)}<span class="unit">°F</span></div>
+            <span class="glance-sub">actual</span>
          </div>
          <div class="glance-col">
-            <div class="label"><span class="card-icon"><img src="icons/thermometer-warmer.svg" alt="" onerror="this.parentElement.style.display='none'"></span>Feels Like</div>
+            <div class="label"><span class="card-icon"><img src="icons/thermometer-warmer.svg" alt=""></span>Feels Like</div>
             <div class="value">${formatVal(feelsLike, 1)}<span class="unit">°F</span></div>
             ${feelsDeltaHtml}
          </div>
          <div class="glance-col">
-            <div class="label"><span class="card-icon"><img src="icons/raindrops.svg" alt="" onerror="this.parentElement.style.display='none'"></span>Dew Point</div>
+            <div class="label"><span class="card-icon"><img src="icons/raindrops.svg" alt=""></span>Dew Point</div>
             <div class="value">${formatVal(data.dewpt, 1)}<span class="unit">°F</span></div>
             <span class="glance-sub">${dewptComfort}</span>
          </div>
       </div>
-      <div class="card-footer-metrics" style="margin-top: 15px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">
-         <div class="metric-left">Humidity<div>${formatVal(data.humidity, 1)}%</div></div>
-         <div class="metric-center">VPD<div>${vpd}kPa</div></div>
-         <div class="metric-right">Wet Bulb<div>${formatVal(calculateWetBulb(data.temp, data.humidity), 1)}°F</div></div>
-      </div>
+      <div class="priority-context">RH ${formatVal(data.humidity, 0)}% <span>·</span> ${vpd} kPa VPD</div>
     `;
     grid.appendChild(tempHumCard);
     makeCardExpandable(tempHumCard, 'tempHum', 'more temperature & humidity data', (panel) => {
@@ -3951,26 +4053,22 @@ const THEMES = {
     const windCard = document.createElement('div');
     windCard.className = 'card combo-card';
     windCard.innerHTML = `
-     <div class="label" style="margin-bottom: 10px;"><span class="card-icon"><img src="icons/windmill.svg" alt=""></span>Wind</div>
-      <div class="combo-row wind-row" style="align-items: center;">
-         <div class="combo-col" style="flex: 1; text-align: center;">
-            <div class="label">Speed</div>
-            <div class="value" style="font-size: 1.6rem;">${formatVal(data.windSpeed, 1)}</div>
-            <div class="extreme-item" style="margin-top:8px;">
-               ${formatVal(wsExt.max.val, 1)} <span class="unit" style="font-size:0.75rem; font-family: 'Figtree', Tahoma, sans-serif;">mph at</span><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(wsExt.max.time)}</span>
-            </div>
-         </div>
-         <div class="combo-col compass-container" style="flex: 1.2; padding: 0 5px;">
-            ${buildWindCompassHtml(false, data.winddir || 0)}
-         </div>
-         <div class="combo-col" style="flex: 1; text-align: center;">
-            <div class="label">Gust</div>
-            <div class="value" style="font-size: 1.6rem;">${formatVal(data.windGust, 1)}</div>
-            <div class="extreme-item" style="margin-top:8px;">
-               ${formatVal(wgExt.max.val, 1)} <span class="unit" style="font-size:0.75rem; font-family: 'Figtree', Tahoma, sans-serif;">mph at</span><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(wgExt.max.time)}</span>
-            </div>
-         </div>
+      <div class="priority-card-head">
+        <div class="priority-icon"><img src="icons/windmill.svg" alt=""></div>
+        <div class="priority-heading">Wind</div>
       </div>
+      <div class="wind-priority-row">
+        <div class="wind-priority-metric">
+          <div class="value priority-value">${formatVal(data.windSpeed, 1)}<span class="unit">mph</span></div>
+          <span class="glance-sub">sustained</span>
+        </div>
+        <div class="compass-container priority-compass">${buildWindCompassHtml(false, data.winddir || 0)}</div>
+        <div class="wind-priority-metric">
+          <div class="value priority-value">${formatVal(data.windGust, 1)}<span class="unit">mph</span></div>
+          <span class="glance-sub">gust</span>
+        </div>
+      </div>
+      <div class="priority-context">${degreesToCardinal16(data.winddir || 0)} · ${getBeaufortLabel(data.windSpeed)}</div>
     `;
     grid.appendChild(windCard);
     makeCardExpandable(windCard, 'wind', 'more wind data', (panel) => {
@@ -3999,40 +4097,27 @@ const THEMES = {
     const paExt = hasAbsolute ? extSafe('pressureAbsolute') : null;
     const paTrend = hasAbsolute ? getPressureTrend(fullHistory, 'pressureAbsolute') : null;
 
-    const pressureColumnHtml = (label, value, ext, trend, withDivider) => {
-      const trendHtml = trend ? `<span class="pressure-trend ${trend.className}" title="${trend.label} over last 3h">${trend.arrow}</span>` : '';
-      return `
-        <div class="combo-col" style="flex: 1; text-align: center; ${withDivider ? 'border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px;' : ''}">
-           <div class="label">${label}</div>
-           <div class="value" style="display:flex; justify-content:center; align-items:center; gap:8px;">
-              <div>${formatVal(value, 2)}<span class="unit">inHg</span></div>
-              ${trendHtml}
-           </div>
-           <div class="extreme-row" style="justify-content: center; gap: 20px; margin-top: 15px;">
-              <div class="extreme-item"><span class="high-arrow">↑</span> ${formatVal(ext.max.val, 2)} inHg<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(ext.max.time)}</span></div>
-              <div class="extreme-item"><span class="low-arrow">↓</span> ${formatVal(ext.min.val, 2)} inHg<br><span class="ext-time" style="font-family: var(--font-details);">${formatShortTime(ext.min.time)}</span></div>
-           </div>
-        </div>
-      `;
-    };
-
     const primaryTrend = pTrend;
     const trendRateHtml = (primaryTrend && primaryTrend.deltaPerHour !== undefined)
       ? `${primaryTrend.deltaPerHour >= 0 ? '+' : ''}${primaryTrend.deltaPerHour.toFixed(3)} inHg/hr`
       : 'trend building…';
+    const pressureIcon = primaryTrend && primaryTrend.deltaPerHour < -0.005
+      ? 'pressure-low.svg'
+      : 'pressure-high.svg';
 
     const pressureCard = document.createElement('div');
     pressureCard.className = 'card combo-card pressure-card';
     pressureCard.innerHTML = `
-      <div class="combo-row">
-        ${hasAbsolute
-          ? pressureColumnHtml('Relative', data.pressure, pExt, pTrend, true) + pressureColumnHtml('Absolute', data.pressureAbsolute, paExt, paTrend, false)
-          : pressureColumnHtml('Pressure', data.pressure, pExt, pTrend, false)}
+      <div class="priority-card-head">
+        <div class="priority-icon"><img src="icons/${pressureIcon}" alt=""></div>
+        <div class="priority-heading">Pressure</div>
       </div>
-      <div class="storm-note">
-        <strong>${primaryTrend ? primaryTrend.label : 'Steady'}</strong> · ${trendRateHtml} (last 3h)<br>
-        ${getStormPotentialNote(primaryTrend ? primaryTrend.deltaPerHour : null)}
+      <div class="pressure-priority-row">
+        <div class="value priority-value">${formatVal(data.pressure, 2)}<span class="unit">inHg</span></div>
+        ${primaryTrend ? `<span class="pressure-trend ${primaryTrend.className}">${primaryTrend.arrow}</span>` : ''}
       </div>
+      <div class="priority-context">${primaryTrend ? primaryTrend.label : 'Steady'} · ${trendRateHtml}</div>
+      <div class="storm-note compact-storm-note">${getStormPotentialNote(primaryTrend ? primaryTrend.deltaPerHour : null)}</div>
     `;
     grid.appendChild(pressureCard);
     makeCardExpandable(pressureCard, 'pressure', 'more pressure data', (panel) => {
@@ -4065,34 +4150,20 @@ const THEMES = {
     if (isCurrentlyRaining) {
       precipCard.innerHTML = `
         ${precipLabelHtml}
-        <div class="combo-row">
-           <div class="combo-col" style="flex: 1; text-align: center;">
-              <div class="label" style="font-size:0.75rem;">Current Rate</div>
-              <div class="value">${formatVal(data.precipRate, 2)}<span class="unit">in/hr</span></div>
-              <div class="extreme-row single" style="justify-content: center; margin-top: 15px;">
-                 <div class="extreme-item">${formatVal(prExt.max.val, 2)} in/hr<br><span class="ext-time" style="font-family: var(--font-details);">Max Rate (${formatShortTime(prExt.max.time)})</span></div>
-              </div>
-           </div>
-           <div class="combo-col" style="flex: 1; text-align: center; border-left: 1px solid rgba(255,255,255,0.1);">
-              <div class="label" style="font-size:0.75rem;">Today's Total</div>
-              <div class="value">${formatVal(data.precipTotal, 2)}<span class="unit">in</span></div>
-           </div>
+        <div class="priority-single-value">
+          <div class="value priority-value">${formatVal(data.precipRate, 2)}<span class="unit">in/hr</span></div>
+          <span class="glance-sub">current rate</span>
         </div>
+        <div class="priority-context">${formatVal(data.precipTotal, 2)} in today · peak ${formatVal(prExt.max.val, 2)} in/hr</div>
       `;
     } else {
       precipCard.innerHTML = `
         ${precipLabelHtml}
-        <div class="combo-row">
-           <div class="combo-col" style="flex: 0.8; text-align: center; border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px; justify-content: center;">
-              <div class="label" style="font-size:0.75rem;">Today</div>
-              <div class="value" style="font-size: 2.3rem;">${formatVal(data.precipTotal, 2)}<span class="unit" style="font-size:1rem;">in</span></div>
-           </div>
-           <div class="combo-col" style="flex: 1; padding-left: 15px; justify-content: center; gap: 6px;">
-              <div class="precip-stat-row"><span>This Week</span><span class="precip-stat-value">${formatVal(data.precipTotalWeek, 2)} in</span></div>
-              <div class="precip-stat-row"><span>This Month</span><span class="precip-stat-value">${formatVal(data.precipTotalMonth, 2)} in</span></div>
-              <div class="precip-stat-row"><span>This Year</span><span class="precip-stat-value">${formatVal(data.precipTotalYear, 2)} in</span></div>
-           </div>
+        <div class="priority-single-value">
+          <div class="value priority-value">${formatVal(data.precipTotal, 2)}<span class="unit">in</span></div>
+          <span class="glance-sub">today</span>
         </div>
+        <div class="priority-context">${formatVal(data.precipTotalWeek, 2)} in week · ${formatVal(data.precipTotalMonth, 2)} in month</div>
       `;
     }
     grid.appendChild(precipCard);
@@ -4120,22 +4191,21 @@ const THEMES = {
       const lightningCard = document.createElement('div');
       lightningCard.className = 'card combo-card';
       lightningCard.innerHTML = `
-        <div class="label"><span class="card-icon"><img src="icons/lightning-bolt.svg" alt=""></span>Lightning</div>
-        <div class="combo-row">
-           <div class="combo-col" style="flex: 1; text-align: center;">
-              <div class="label" style="font-size:0.75rem;">Strikes Today</div>
-              <div class="value">${formatVal(data.lightningStrikeCount, 0)}</div>
-           </div>
-           <div class="combo-col" style="flex: 1; text-align: center; border-left: 1px solid rgba(255,255,255,0.1);">
-              <div class="label" style="font-size:0.75rem;">Nearest Strike</div>
-              <div class="value">${data.lightningDistance != null ? formatVal(data.lightningDistance, 1) : '--'}<span class="unit" style="font-size:0.75rem;">mi</span></div>
-           </div>
+        <div class="priority-card-head">
+          <div class="priority-icon"><img src="icons/lightning-bolt.svg" alt=""></div>
+          <div class="priority-heading">Lightning</div>
         </div>
-        <div class="card-footer-metrics" style="margin-top: 15px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">
-           <div class="metric-center" style="grid-column: 1 / -1; text-align:center;">
-             ${lastStrikeMs ? `Last strike ${formatShortTime(data.lightningLastStrike)}` : 'No strikes detected recently'}
-           </div>
+        <div class="lightning-priority-row">
+          <div class="priority-single-value">
+            <div class="value priority-value">${formatVal(data.lightningStrikeCount, 0)}</div>
+            <span class="glance-sub">strikes today</span>
+          </div>
+          <div class="priority-single-value">
+            <div class="value priority-value">${data.lightningDistance != null ? formatVal(data.lightningDistance, 1) : '--'}<span class="unit">mi</span></div>
+            <span class="glance-sub">nearest</span>
+          </div>
         </div>
+        <div class="priority-context">${lastStrikeMs ? `last strike ${formatShortTime(data.lightningLastStrike)}` : 'no recent strike detected'}</div>
       `;
       grid.appendChild(lightningCard);
     }
@@ -4146,17 +4216,19 @@ const THEMES = {
     const solarUvCard = document.createElement('div');
     solarUvCard.className = 'card combo-card';
     solarUvCard.innerHTML = `
-      <div class="combo-row">
-         <div class="combo-col" style="border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px; text-align: center;">
-            <div class="label" style="margin-bottom: 10px;"><span class="card-icon"><img src="icons/solarrad.svg" alt=""></span>Solar Rad.</div>
-         <div class="value">${formatVal(data.solarRadiation, 0)}<span class="unit" style="font-size:0.75rem; font-family: Figtree">W/m²</span></div>
-            <div class="extreme-item" style="margin-top: 15px;">${formatVal(sExt.max.val, 0)} <span class="ext-time" style="font-family: var(--font-details);">W/m²<br>at ${formatShortTime(sExt.max.time)}</span></div>
-         </div>
-         <div class="combo-col" style="padding-left: 15px; text-align: center;">
-            <div class="label" style="margin-bottom: 10px;"><span class="card-icon"><img src="icons/sunuv.svg" alt=""></span>UV Index</div>
-          <div class="value">${formatVal(data.uv, 1)}</div>
-            <div class="extreme-item" style="margin-top: 15px;">${formatVal(uExt.max.val, 1)}<br><span class="ext-time" style="font-family: var(--font-details);">at ${formatShortTime(uExt.max.time)}</span></div>
-         </div>
+      <div class="priority-card-head">
+        <div class="priority-icon"><img src="icons/solarrad.svg" alt=""></div>
+        <div class="priority-heading">Solar &amp; UV</div>
+      </div>
+      <div class="combo-row priority-dual-row">
+        <div class="combo-col">
+          <div class="value priority-value">${formatVal(data.solarRadiation, 0)}<span class="unit">W/m²</span></div>
+          <span class="glance-sub">solar</span>
+        </div>
+        <div class="combo-col">
+          <div class="value priority-value">${formatVal(data.uv, 1)}</div>
+          <span class="glance-sub">UV index</span>
+        </div>
       </div>
     `;
     grid.appendChild(solarUvCard);
@@ -4179,17 +4251,23 @@ const THEMES = {
         const aqiCard = document.createElement('div');
         aqiCard.className = 'card combo-card';
         aqiCard.innerHTML = `
-          <div class="combo-row" style="align-items: center;">
-             <div class="combo-col" style="flex: 0.7; text-align: center; border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px;">
-                <div class="label">Air Quality</div>
-                <div class="value" style="color: ${aqiColor || 'inherit'}; font-size: 2.2rem;">${styledAqi}</div>
-             </div>
-             <div class="combo-col" style="flex: 1.3; padding-left: 15px; font-size: 0.85rem; color: var(--muted-color); line-height: 1.4; font-family: var(--font-details);">
-                ${aqiDesc}
-             </div>
+          <div class="priority-card-head">
+            <div class="priority-icon"><img src="icons/air-quality.svg" alt="" onerror="this.parentElement.style.display='none'"></div>
+            <div class="priority-heading">Air Quality</div>
+          </div>
+          <div class="priority-single-value">
+            <div class="value priority-value" style="color: ${aqiColor || 'inherit'};">${styledAqi}</div>
           </div>
         `;
         grid.appendChild(aqiCard);
+        makeCardExpandable(aqiCard, 'aqi', 'more air quality data', (panel) => {
+          panel.innerHTML = `
+            <div class="extra-data-list">
+              <div class="extra-data-row"><span class="extra-data-label">AQI Category</span><span class="extra-data-value">${aqiDesc}</span></div>
+              <div class="extra-data-row"><span class="extra-data-label">AQI Value</span><span class="extra-data-value">${formatVal(data.aqi, 0)}</span></div>
+            </div>
+          `;
+        });
     }
 
         // 7. USGS river gauge
@@ -4212,27 +4290,15 @@ const THEMES = {
        }
 
        usgsCard.innerHTML = `
-          <div class="combo-row" style="align-items: center;">
-             <div class="combo-col" style="flex: 1; text-align: center; border-right: 1px solid rgba(255,255,255,0.1); padding-right: 10px;">
-                <div class="label">River Gauge</div>
-                <div class="value" style="display:flex; justify-content:center; align-items:center; gap:8px;">
-                   <div>${currentUsgs.gageHeight.toFixed(2)}<span class="unit" style="color: var(--accent-color);">ft</span></div>
-                   ${rTrendHtml}
-                </div>
-                <div style="display:flex; gap:12px; align-items:left; margin-top:8px;">
-               <br>  ${cfsHtml}
-               <br>  ${maxHtml}
-                    </div>
-             </div>
-            
-             <div class="combo-col" style="flex: 1; padding-left: 15px; font-size: 0.85rem; color: var(--muted-color); line-height: 1.6; text-align: left; font-family: var(--font-details);">
-                <div style="font-family: var(--font-details); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.7rem; margin-bottom: 6px;">Dashields Flood Stages</div>
-                <div><strong style="color: #ffb4b4;">Major:</strong> 28.0 ft</div>
-                <div><strong style="color: #ff8659;">Moderate:</strong> 26.0 ft</div>
-                <div><strong style="color: #ffeb3b;">Flood:</strong> 25.0 ft</div>
-                <div><strong style="color: var(--accent-color);">Action:</strong> 20.0 ft</div>
-             </div>
+          <div class="priority-card-head">
+            <div class="priority-icon"><img src="icons/water-alert.svg" alt="" onerror="this.parentElement.style.display='none'"></div>
+            <div class="priority-heading">River Gauge</div>
           </div>
+          <div class="pressure-priority-row">
+            <div class="value priority-value">${currentUsgs.gageHeight.toFixed(2)}<span class="unit">ft</span></div>
+            ${rTrendHtml}
+          </div>
+          <div class="priority-context">Dashields · ${currentUsgs.trend ? currentUsgs.trend.label : 'trend unavailable'}</div>
        `;
        grid.appendChild(usgsCard);
        makeCardExpandable(usgsCard, 'river', 'more river gauge data', (panel) => {
@@ -4253,7 +4319,7 @@ const THEMES = {
 
   //*  ------------ 🌪️ NWS / SPC ISSUANCES (watches, mesoscale discussions, statements) 🌪️ ----------- *//
   //
-  // Frontend-only for now -- there's no backend fetch job for this yet.
+  // Data is generated by scripts/fetch_nws_products.py and refreshed by GitHub Actions.
   // Expects a JSON file at data/nws_products.json shaped like:
   //
   // {
@@ -4325,9 +4391,10 @@ const THEMES = {
     const metaBits = [];
     if (issuedStr) metaBits.push(`Issued ${issuedStr}`);
     if (expiresStr) metaBits.push(`Until ${expiresStr}`);
+    if (item.office) metaBits.push(item.office);
     if (item.areas) metaBits.push(item.areas);
     const title = item.type || item.concerning || typeLabel;
-    const summary = item.summary || item.concerning || '';
+    const summary = item.summary || item.concerning || item.headline || '';
     const fullText = item.fullText || '';
     return `
       <div class="nws-item ${visual.badge}" data-id="${item.id}">
@@ -4352,7 +4419,8 @@ const THEMES = {
       container.innerHTML = `<div class="nws-empty">${emptyText}</div>`;
       return;
     }
-    container.innerHTML = items.map(item => buildNwsItemHtml(item, typeLabel)).join('');
+    const sortedItems = [...items].sort((a, b) => new Date(b.issued || 0) - new Date(a.issued || 0));
+    container.innerHTML = sortedItems.map(item => buildNwsItemHtml(item, typeLabel)).join('');
     container.querySelectorAll('.nws-item').forEach(el => {
       el.addEventListener('click', () => {
         if (!el.querySelector('.nws-item-full')) return;
@@ -4376,6 +4444,13 @@ const THEMES = {
     if (countWatches) countWatches.textContent = watches.length;
     if (countMd) countMd.textContent = mds.length;
     if (countStatements) countStatements.textContent = statements.length;
+    const deskStatus = document.getElementById('storm-desk-status');
+    if (deskStatus) {
+      const generated = nwsProducts.generatedAt ? formatShortTime(nwsProducts.generatedAt) : '';
+      deskStatus.textContent = generated
+        ? `Product feed updated ${generated} · ${watches.length} watch${watches.length === 1 ? '' : 'es'} · ${mds.length} MD${mds.length === 1 ? '' : 's'} · ${statements.length} NWS update${statements.length === 1 ? '' : 's'}`
+        : 'Product feed loaded';
+    }
   }
 
   function initNwsTabs() {
@@ -4390,15 +4465,14 @@ const THEMES = {
     });
   }
 
-  // fetches data/nws_products.json if/when it exists. Until the backend
-  // job is wired up this simply 404s quietly and the section shows its
-  // built-in "nothing active" empty states -- never breaks the page.
+  // Fetches the merged SPC/NWS product feed generated by GitHub Actions.
   async function loadNwsProducts() {
     try {
       const res = await fetch(`data/nws_products.json?t=${Date.now()}`, { cache: 'no-store' });
       if (!res.ok) return;
       const json = await res.json();
       nwsProducts = {
+        generatedAt: json.generatedAt || null,
         watches: json.watches || [],
         mesoscaleDiscussions: json.mesoscaleDiscussions || [],
         statements: json.statements || [],
