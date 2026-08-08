@@ -388,14 +388,31 @@
     .wind-priority-row { gap: 0.4rem; }
   }
 
-  /* combo grid system */
+  @media (max-width: 700px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* combo grid system
+     The weather cards use two independent vertical columns rather than a
+     conventional CSS grid. That prevents an expanded card from changing the
+     vertical position of the card beside it. */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.5rem;
     width: 100%;
     max-width: 900px;
     align-items: start;
+  }
+
+  .grid-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+    align-items: stretch;
   }
 
   .card {
@@ -822,49 +839,179 @@
 
   .storm-note strong { color: var(--accent-color); }
 
-  /* ---------- expand panel: "more sensor data" tables (replaces sparklines) ---------- */
+  /* ---------- expanded detail panels ----------
+     The expanded area is intentionally a small instrument panel rather than
+     a second copy of the card. Native <details> groups make the nerdier
+     data independently collapsible without adding another JS interaction. */
   .card-expandable.expanded .card-expand-panel {
-    max-height: 320px;
+    max-height: 760px;
+  }
+
+  .detail-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .detail-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 1px;
+  }
+
+  .detail-panel-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.61rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-color);
+    opacity: 0.72;
+    font-family: var(--font-details);
+  }
+
+  .detail-panel-status::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    box-shadow: 0 0 7px var(--accent-color);
+    opacity: 0.75;
+  }
+
+  .detail-section {
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 9px;
+    background: rgba(255,255,255,0.018);
+    overflow: hidden;
+  }
+
+  .detail-section[open] {
+    background: rgba(255,255,255,0.028);
+  }
+
+  .detail-section > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 10px;
+    color: var(--text-color);
+    font-family: var(--font-details);
+    font-size: 0.67rem;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+    user-select: none;
+  }
+
+  .detail-section > summary::-webkit-details-marker { display: none; }
+
+  .detail-section > summary::after {
+    content: "＋";
+    color: var(--muted-color);
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+
+  .detail-section[open] > summary::after {
+    content: "−";
+  }
+
+  .detail-section > summary:hover {
+    background: rgba(255,255,255,0.025);
+  }
+
+  .detail-section-body {
+    padding: 0 8px 8px;
   }
 
   .extra-data-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
   }
 
   .extra-data-row {
+    min-width: 0;
+    min-height: 43px;
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 10px;
-    font-size: 0.83rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    padding: 7px 8px;
+    border: 1px solid rgba(255,255,255,0.055);
+    border-radius: 7px;
+    background: rgba(0,0,0,0.055);
     font-family: var(--font-body);
-    padding: 6px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
   }
-
-  .extra-data-row:last-child { border-bottom: none; }
 
   .extra-data-label {
     color: var(--muted-color);
     display: flex;
     align-items: center;
+    min-width: 0;
+    font-size: 0.66rem;
+    line-height: 1.15;
   }
 
   .extra-data-value {
     color: var(--accent-color);
     font-weight: 600;
-    text-align: right;
+    text-align: left;
+    font-size: 0.82rem;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
   }
 
   .extra-data-note {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     color: var(--muted-color);
-    opacity: 0.85;
-    margin-top: 8px;
+    opacity: 0.82;
+    margin: 2px 3px 0;
     font-family: var(--font-details);
-    line-height: 1.4;
+    line-height: 1.45;
+  }
+
+  .detail-rule {
+    height: 1px;
+    margin: 1px 3px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.09), transparent);
+  }
+
+
+  .card-expandable.expanded .card-expand-panel {
+    position: relative;
+  }
+
+  .card-expandable.expanded .card-expand-panel::before {
+    content: "";
+    position: absolute;
+    top: -13px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    opacity: 0.18;
+  }
+
+  .detail-panel-head::after {
+    content: "tap sections to collapse";
+    font-size: 0.59rem;
+    color: var(--muted-color);
+    opacity: 0.48;
+    font-family: var(--font-details);
+  }
+
+  @media (max-width: 520px) {
+    .extra-data-list {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* ---------- NWS / SPC issuances section ---------- */
@@ -3027,7 +3174,7 @@ svg circle, svg polygon, svg line {
 
     cardEl.addEventListener('click', (e) => {
       // don't hijack taps on links/buttons that might live inside the card later
-      if (e.target.closest('a, button')) return;
+      if (e.target.closest('a, button, details, summary')) return;
       setOpen(!isOpen());
     });
     cardEl.addEventListener('keydown', (e) => {
@@ -4051,7 +4198,12 @@ const THEMES = {
   //*  ------------🌪️ !! HTML FOR ⛅️ECOWITT WEATHER STATION CARDS + 💨PURPLEAIR AQI + 💧USGS FLOOD GAUGE 🌪️----------- *//
   
   function renderCards(data) {
-    grid.innerHTML = '';
+    grid.innerHTML = `
+      <div class="grid-column" id="grid-column-left"></div>
+      <div class="grid-column" id="grid-column-right"></div>
+    `;
+    const gridLeft = document.getElementById('grid-column-left');
+    const gridRight = document.getElementById('grid-column-right');
     const extSafe = (key) => getExtremesSafe(fullHistory, cachedTodaysExtremes, data, key);
     
     // 1. temperature & humidity card
@@ -4096,22 +4248,52 @@ const THEMES = {
       </div>
       <div class="priority-context">RH ${formatVal(data.humidity, 0)}% <span>·</span> ${vpd} kPa VPD</div>
     `;
-    grid.appendChild(tempHumCard);
+    gridLeft.appendChild(tempHumCard);
     makeCardExpandable(tempHumCard, 'tempHum', 'more temperature & humidity data', (panel) => {
-      panel.innerHTML = `
-        <div class="extra-data-list">
-          <div class="extra-data-row"><span class="extra-data-label">Heat Index</span><span class="extra-data-value">${data.heatIndex != null ? formatVal(data.heatIndex, 1) + '°F' : '--'}</span></div>
-          <div class="extra-data-row"><span class="extra-data-label">Wind Chill</span><span class="extra-data-value">${data.windChill != null ? formatVal(data.windChill, 1) + '°F' : '--'}</span></div>
-          <div class="extra-data-row"><span class="extra-data-label">Dew Point Depression</span><span class="extra-data-value">${(data.temp != null && data.dewpt != null) ? formatVal(data.temp - data.dewpt, 1) + '°F' : '--'}</span></div>
-          <div class="extra-data-row"><span class="extra-data-label">Humidity — Today's High</span><span class="extra-data-value">${formatVal(hExt.max.val, 1)}% <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(hExt.max.time)})</span></span></div>
-          <div class="extra-data-row"><span class="extra-data-label">Humidity — Today's Low</span><span class="extra-data-value">${formatVal(hExt.min.val, 1)}% <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(hExt.min.time)})</span></span></div>
-          <div class="extra-data-row"><span class="extra-data-label">Vapor Pressure Deficit</span><span class="extra-data-value">${vpd} kPa</span></div>
-        </div>
-        <div class="extra-data-note">VPD below ~0.4 kPa feels muggy/stagnant; above ~1.6 kPa the air is pulling moisture fast (dry-feeling, higher wildfire/plant-stress risk).</div>
-      `;
+      panel.innerHTML = detailPanelHtml([
+        {
+          title: 'Comfort & moisture',
+          rows: [
+            `<div class="extra-data-row"><span class="extra-data-label">Heat Index</span><span class="extra-data-value">${data.heatIndex != null ? formatVal(data.heatIndex, 1) + '°F' : '--'}</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Wind Chill</span><span class="extra-data-value">${data.windChill != null ? formatVal(data.windChill, 1) + '°F' : '--'}</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Dew Point Depression</span><span class="extra-data-value">${(data.temp != null && data.dewpt != null) ? formatVal(data.temp - data.dewpt, 1) + '°F' : '--'}</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Vapor Pressure Deficit</span><span class="extra-data-value">${vpd} kPa</span></div>`
+          ]
+        },
+        {
+          title: 'Humidity today',
+          rows: [
+            `<div class="extra-data-row"><span class="extra-data-label">High</span><span class="extra-data-value">${formatVal(hExt.max.val, 1)}% <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(hExt.max.time)}</span></span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Low</span><span class="extra-data-value">${formatVal(hExt.min.val, 1)}% <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(hExt.min.time)}</span></span></div>`
+          ]
+        }
+      ], 'VPD below ~0.4 kPa tends to feel muggy/stagnant; above ~1.6 kPa the air is pulling moisture quickly and feels drier.') ;
     });
 
-    // 2. wind card
+  
+    function detailPanelHtml(groups, note = '') {
+      const groupsHtml = groups.map(group => `
+        <details class="detail-section" open>
+          <summary>${group.title}</summary>
+          <div class="detail-section-body">
+            <div class="extra-data-list">
+              ${group.rows.join('')}
+            </div>
+          </div>
+        </details>
+      `).join('');
+      return `
+        <div class="detail-panel">
+          <div class="detail-panel-head">
+            <span class="detail-panel-status">live sensor detail</span>
+          </div>
+          ${groupsHtml}
+          ${note ? `<div class="extra-data-note">${note}</div>` : ''}
+        </div>
+      `;
+    }
+
+  // 2. wind card
     const wsExt = extSafe('windSpeed');
     const wgExt = extSafe('windGust');
     const windCard = document.createElement('div');
@@ -4134,19 +4316,26 @@ const THEMES = {
       </div>
       <div class="priority-context">${degreesToCardinal16(data.winddir || 0)} · ${getBeaufortLabel(data.windSpeed)}</div>
     `;
-    grid.appendChild(windCard);
+    gridRight.appendChild(windCard);
     makeCardExpandable(windCard, 'wind', 'more wind data', (panel) => {
       const gustFactor = (data.windSpeed && data.windGust) ? (data.windGust / Math.max(data.windSpeed, 0.1)) : null;
-      panel.innerHTML = `
-        <div class="extra-data-list">
-          <div class="extra-data-row"><span class="extra-data-label">Beaufort Description</span><span class="extra-data-value">${getBeaufortLabel(data.windSpeed)}</span></div>
-          <div class="extra-data-row"><span class="extra-data-label">Direction</span><span class="extra-data-value">${degreesToCardinal16(data.winddir || 0)} (${formatVal(data.winddir, 0)}°)</span></div>
-          <div class="extra-data-row"><span class="extra-data-label">Gust Factor</span><span class="extra-data-value">${gustFactor ? gustFactor.toFixed(2) + '×' : '--'}</span></div>
-          <div class="extra-data-row"><span class="extra-data-label">Today's Peak Gust</span><span class="extra-data-value">${formatVal(wgExt.max.val, 1)} mph <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(wgExt.max.time)})</span></span></div>
-          <div class="extra-data-row"><span class="extra-data-label">Today's Peak Sustained</span><span class="extra-data-value">${formatVal(wsExt.max.val, 1)} mph <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(wsExt.max.time)})</span></span></div>
-        </div>
-        <div class="extra-data-note">A gust factor above ~1.5× can mean gusty, unstable air; sustained higher ratios during storms can hint at downburst potential.</div>
-      `;
+      panel.innerHTML = detailPanelHtml([
+        {
+          title: 'Current wind',
+          rows: [
+            `<div class="extra-data-row"><span class="extra-data-label">Direction</span><span class="extra-data-value">${degreesToCardinal16(data.winddir || 0)} · ${formatVal(data.winddir, 0)}°</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Beaufort</span><span class="extra-data-value">${getBeaufortLabel(data.windSpeed)}</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Gust Factor</span><span class="extra-data-value">${gustFactor ? gustFactor.toFixed(2) + '×' : '--'}</span></div>`
+          ]
+        },
+        {
+          title: 'Wind extremes',
+          rows: [
+            `<div class="extra-data-row"><span class="extra-data-label">Peak Gust</span><span class="extra-data-value">${formatVal(wgExt.max.val, 1)} mph <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(wgExt.max.time)}</span></span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Peak Sustained</span><span class="extra-data-value">${formatVal(wsExt.max.val, 1)} mph <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(wsExt.max.time)}</span></span></div>`
+          ]
+        }
+      ], 'A gust factor above ~1.5× indicates increasingly gusty flow; elevated ratios during storms can be a useful downburst clue.') ;
     });
 
 
@@ -4183,7 +4372,7 @@ const THEMES = {
       <div class="priority-context">${primaryTrend ? primaryTrend.label : 'Steady'} · ${trendRateHtml}</div>
       <div class="storm-note compact-storm-note">${getStormPotentialNote(primaryTrend ? primaryTrend.deltaPerHour : null)}</div>
     `;
-    grid.appendChild(pressureCard);
+    gridLeft.appendChild(pressureCard);
     makeCardExpandable(pressureCard, 'pressure', 'more pressure data', (panel) => {
       const rows = [
         `<div class="extra-data-row"><span class="extra-data-label">Relative — Today's High</span><span class="extra-data-value">${formatVal(pExt.max.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(pExt.max.time)})</span></span></div>`,
@@ -4195,8 +4384,26 @@ const THEMES = {
         rows.push(`<div class="extra-data-row"><span class="extra-data-label">Station Correction</span><span class="extra-data-value">${formatVal(data.pressure - data.pressureAbsolute, 2)} inHg</span></div>`);
       }
       rows.push(`<div class="extra-data-row"><span class="extra-data-label">3h Change (Relative)</span><span class="extra-data-value">${pTrend && pTrend.delta !== undefined ? (pTrend.delta >= 0 ? '+' : '') + pTrend.delta.toFixed(3) + ' inHg' : '--'}</span></div>`);
-      panel.innerHTML = `<div class="extra-data-list">${rows.join('')}</div>
-        <div class="extra-data-note">Station elevation is fixed, so "Relative" is already elevation-corrected for storm tracking; "Absolute" is the raw, unadjusted station-level reading.</div>`;
+      panel.innerHTML = detailPanelHtml([
+        {
+          title: 'Today · relative pressure',
+          rows: [
+            `<div class="extra-data-row"><span class="extra-data-label">High</span><span class="extra-data-value">${formatVal(pExt.max.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(pExt.max.time)}</span></span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Low</span><span class="extra-data-value">${formatVal(pExt.min.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(pExt.min.time)}</span></span></div>`,
+            ...(hasAbsolute ? [
+              `<div class="extra-data-row"><span class="extra-data-label">Absolute High</span><span class="extra-data-value">${formatVal(paExt.max.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(paExt.max.time)}</span></span></div>`,
+              `<div class="extra-data-row"><span class="extra-data-label">Absolute Low</span><span class="extra-data-value">${formatVal(paExt.min.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(paExt.min.time)}</span></span></div>`
+            ] : [])
+          ]
+        },
+        {
+          title: 'Station & trend',
+          rows: [
+            ...(hasAbsolute ? [`<div class="extra-data-row"><span class="extra-data-label">Station Correction</span><span class="extra-data-value">${formatVal(data.pressure - data.pressureAbsolute, 2)} inHg</span></div>`] : []),
+            `<div class="extra-data-row"><span class="extra-data-label">3h Change</span><span class="extra-data-value">${pTrend && pTrend.delta !== undefined ? (pTrend.delta >= 0 ? '+' : '') + pTrend.delta.toFixed(3) + ' inHg' : '--'}</span></div>`
+          ]
+        }
+      ], 'Relative pressure is elevation-corrected and is the preferred storm-tracking value; absolute pressure is the raw station-level reading.') ;
     });
 
     // 4. precipitation card -- same card slot either way (unlike the
@@ -4230,19 +4437,28 @@ const THEMES = {
         <div class="priority-context">${formatVal(data.precipTotalWeek, 2)} in week · ${formatVal(data.precipTotalMonth, 2)} in month</div>
       `;
     }
-    grid.appendChild(precipCard);
+    gridRight.appendChild(precipCard);
     makeCardExpandable(precipCard, 'precip', 'more precipitation data', (panel) => {
       const likelyFrozen = data.temp !== null && data.temp !== undefined && data.temp <= 34;
-      panel.innerHTML = `
-        <div class="extra-data-list">
-          <div class="extra-data-row"><span class="extra-data-label">Current Rate</span><span class="extra-data-value">${formatVal(data.precipRate, 2)} in/hr</span></div>
-          <div class="extra-data-row"><span class="extra-data-label">Today's Peak Rate</span><span class="extra-data-value">${formatVal(prExt.max.val, 2)} in/hr <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(prExt.max.time)})</span></span></div>
-          <div class="extra-data-row"><span class="extra-data-label">This Week</span><span class="extra-data-value">${formatVal(data.precipTotalWeek, 2)} in</span></div>
-          <div class="extra-data-row"><span class="extra-data-label">This Month</span><span class="extra-data-value">${formatVal(data.precipTotalMonth, 2)} in</span></div>
-          <div class="extra-data-row"><span class="extra-data-label">This Year</span><span class="extra-data-value">${formatVal(data.precipTotalYear, 2)} in</span></div>
-          <div class="extra-data-row"><span class="extra-data-label">Precip Type (est.)</span><span class="extra-data-value">${likelyFrozen ? 'Likely frozen/mixed' : 'Liquid'}</span></div>
-        </div>
-      `;
+      panel.innerHTML = detailPanelHtml([
+        {
+          title: 'Rainfall totals',
+          rows: [
+            `<div class="extra-data-row"><span class="extra-data-label">Today</span><span class="extra-data-value">${formatVal(data.precipTotal, 2)} in</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">This Week</span><span class="extra-data-value">${formatVal(data.precipTotalWeek, 2)} in</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">This Month</span><span class="extra-data-value">${formatVal(data.precipTotalMonth, 2)} in</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">This Year</span><span class="extra-data-value">${formatVal(data.precipTotalYear, 2)} in</span></div>`
+          ]
+        },
+        {
+          title: 'Rain details',
+          rows: [
+            `<div class="extra-data-row"><span class="extra-data-label">Current Rate</span><span class="extra-data-value">${formatVal(data.precipRate, 2)} in/hr</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Peak Rate Today</span><span class="extra-data-value">${formatVal(prExt.max.val, 2)} in/hr <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(prExt.max.time)}</span></span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Type (estimated)</span><span class="extra-data-value">${likelyFrozen ? 'Likely frozen / mixed' : 'Liquid'}</span></div>`
+          ]
+        }
+      ]);
     });
 
     // 4.5 lightning card — only shown when the active source actually
@@ -4271,7 +4487,7 @@ const THEMES = {
         </div>
         <div class="priority-context">${lastStrikeMs ? `last strike ${formatShortTime(data.lightningLastStrike)}` : 'no recent strike detected'}</div>
       `;
-      grid.appendChild(lightningCard);
+      gridLeft.appendChild(lightningCard);
     }
 
     // 5. solar & UV card
@@ -4295,16 +4511,24 @@ const THEMES = {
         </div>
       </div>
     `;
-    grid.appendChild(solarUvCard);
+    gridRight.appendChild(solarUvCard);
     makeCardExpandable(solarUvCard, 'solarUv', 'more solar & UV data', (panel) => {
       const uvCat = getUvRiskCategory(data.uv);
-      panel.innerHTML = `
-        <div class="extra-data-list">
-          <div class="extra-data-row"><span class="extra-data-label">UV Risk Category</span><span class="extra-data-value" style="color: ${uvCat.color};">${uvCat.label}</span></div>
-          <div class="extra-data-row"><span class="extra-data-label">Today's Peak Solar Rad.</span><span class="extra-data-value">${formatVal(sExt.max.val, 0)} W/m² <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(sExt.max.time)})</span></span></div>
-          <div class="extra-data-row"><span class="extra-data-label">Today's Peak UV</span><span class="extra-data-value">${formatVal(uExt.max.val, 1)} <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(uExt.max.time)})</span></span></div>
-        </div>
-      `;
+      panel.innerHTML = detailPanelHtml([
+        {
+          title: 'UV exposure',
+          rows: [
+            `<div class="extra-data-row"><span class="extra-data-label">Risk Category</span><span class="extra-data-value" style="color: ${uvCat.color};">${uvCat.label}</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Peak UV Today</span><span class="extra-data-value">${formatVal(uExt.max.val, 1)} <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(uExt.max.time)}</span></span></div>`
+          ]
+        },
+        {
+          title: 'Solar today',
+          rows: [
+            `<div class="extra-data-row"><span class="extra-data-label">Peak Radiation</span><span class="extra-data-value">${formatVal(sExt.max.val, 0)} W/m² <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(sExt.max.time)}</span></span></div>`
+          ]
+        }
+      ]);
     });
 
     // 6. AQI card
@@ -4323,14 +4547,17 @@ const THEMES = {
             <div class="value priority-value" style="color: ${aqiColor || 'inherit'};">${styledAqi}</div>
           </div>
         `;
-        grid.appendChild(aqiCard);
+        gridLeft.appendChild(aqiCard);
         makeCardExpandable(aqiCard, 'aqi', 'more air quality data', (panel) => {
-          panel.innerHTML = `
-            <div class="extra-data-list">
-              <div class="extra-data-row"><span class="extra-data-label">AQI Category</span><span class="extra-data-value">${aqiDesc}</span></div>
-              <div class="extra-data-row"><span class="extra-data-label">AQI Value</span><span class="extra-data-value">${formatVal(data.aqi, 0)}</span></div>
-            </div>
-          `;
+          panel.innerHTML = detailPanelHtml([
+            {
+              title: 'Air quality detail',
+              rows: [
+                `<div class="extra-data-row"><span class="extra-data-label">AQI</span><span class="extra-data-value">${formatVal(data.aqi, 0)}</span></div>`,
+                `<div class="extra-data-row"><span class="extra-data-label">Category</span><span class="extra-data-value">${aqiDesc}</span></div>`
+              ]
+            }
+          ]);
         });
     }
 
@@ -4364,19 +4591,27 @@ const THEMES = {
           </div>
           <div class="priority-context">Dashields · ${currentUsgs.trend ? currentUsgs.trend.label : 'trend unavailable'}</div>
        `;
-       grid.appendChild(usgsCard);
+       gridRight.appendChild(usgsCard);
        makeCardExpandable(usgsCard, 'river', 'more river gauge data', (panel) => {
          const toAction = 20.0 - currentUsgs.gageHeight;
          const toFlood = 25.0 - currentUsgs.gageHeight;
-         panel.innerHTML = `
-           <div class="extra-data-list">
-             <div class="extra-data-row"><span class="extra-data-label">Trend (3h)</span><span class="extra-data-value">${currentUsgs.trend ? currentUsgs.trend.label : '--'}</span></div>
-             <div class="extra-data-row"><span class="extra-data-label">To Action Stage</span><span class="extra-data-value">${toAction > 0 ? toAction.toFixed(2) + ' ft to go' : 'At/above'}</span></div>
-             <div class="extra-data-row"><span class="extra-data-label">To Flood Stage</span><span class="extra-data-value">${toFlood > 0 ? toFlood.toFixed(2) + ' ft to go' : 'At/above'}</span></div>
-             <div class="extra-data-row"><span class="extra-data-label">Today's Peak</span><span class="extra-data-value">${riverMax ? riverMax.val.toFixed(2) + ' ft (' + formatShortTime(riverMax.dateTime) + ')' : '--'}</span></div>
-             <div class="extra-data-row"><span class="extra-data-label">Discharge</span><span class="extra-data-value">${currentUsgs.dischargeCfs != null ? currentUsgs.dischargeCfs.toLocaleString() + ' cfs' : '--'}</span></div>
-           </div>
-         `;
+         panel.innerHTML = detailPanelHtml([
+           {
+             title: 'Flood context',
+             rows: [
+               `<div class="extra-data-row"><span class="extra-data-label">To Action Stage</span><span class="extra-data-value">${toAction > 0 ? toAction.toFixed(2) + ' ft to go' : 'At / above'}</span></div>`,
+               `<div class="extra-data-row"><span class="extra-data-label">To Flood Stage</span><span class="extra-data-value">${toFlood > 0 ? toFlood.toFixed(2) + ' ft to go' : 'At / above'}</span></div>`,
+               `<div class="extra-data-row"><span class="extra-data-label">3h Trend</span><span class="extra-data-value">${currentUsgs.trend ? currentUsgs.trend.label : '--'}</span></div>`
+             ]
+           },
+           {
+             title: 'Gauge today',
+             rows: [
+               `<div class="extra-data-row"><span class="extra-data-label">Peak Stage</span><span class="extra-data-value">${riverMax ? riverMax.val.toFixed(2) + ' ft · ' + formatShortTime(riverMax.dateTime) : '--'}</span></div>`,
+               `<div class="extra-data-row"><span class="extra-data-label">Discharge</span><span class="extra-data-value">${currentUsgs.dischargeCfs != null ? currentUsgs.dischargeCfs.toLocaleString() + ' cfs' : '--'}</span></div>`
+             ]
+           }
+         ]);
        });
     }
   }
