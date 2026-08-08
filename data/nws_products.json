@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-08T23:05:59.026150Z",
+  "generatedAt": "2026-08-08T23:11:00.780544Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -130,6 +130,22 @@
   ],
   "statements": [
     {
+      "id": "6e97583c-863e-4417-adb9-0ffb1d217e8c",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-08T23:07:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Severe Weather Statement 707 PM EDT Sat Aug 8 2026",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 707 PM EDT Sat Aug 8 2026 PAC085-082317- /O.EXP.KPBZ.SV.W.0251.000000T0000Z-260808T2315Z/ Mercer PA- 707 PM EDT Sat Aug 8 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/6e97583c-863e-4417-adb9-0ffb1d217e8c"
+    },
+    {
       "id": "d318c05b-9174-4838-8976-3137669ba102",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -160,22 +176,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/d51d3508-3c3a-45ae-b6de-e230b80a6029"
-    },
-    {
-      "id": "772e313b-2ff2-41d4-a058-fd7fcf5bef53",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-08-08T22:34:00+00:00",
-      "expires": null,
-      "headline": "Area Forecast Discussion",
-      "summary": "Area Forecast Discussion 634 PM EDT Sat Aug 8 2026",
-      "details": [
-        {
-          "label": "Discussion",
-          "text": "34"
-        }
-      ],
-      "url": "https://api.weather.gov/products/772e313b-2ff2-41d4-a058-fd7fcf5bef53"
     }
   ]
 }
