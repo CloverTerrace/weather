@@ -2469,6 +2469,57 @@ svg circle, svg polygon, svg line {
   100% { bottom: 45%; opacity: 1; transform: scale(1); }
 }
  
+
+  /* ---------- mobile card flow ----------
+     Desktop/tablet use independent columns so expanded cards don't stretch
+     their neighbors. On phones, a single normal-flow column is safer and
+     easier to scan/tap. */
+  @media (max-width: 700px) {
+    .dashboard-grid {
+      display: block !important;
+      width: 100%;
+    }
+
+    .grid-column {
+      display: block;
+      width: 100%;
+    }
+
+    .grid-column + .grid-column {
+      margin-top: 1rem;
+    }
+
+    .grid-column .card {
+      width: 100%;
+      max-width: none;
+      margin: 0 0 1rem;
+    }
+
+    .grid-column .card:last-child {
+      margin-bottom: 0;
+    }
+
+    .card-expand-panel {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .extra-data-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 460px) {
+    .extra-data-list {
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      padding: 1rem;
+      border-radius: 10px;
+    }
+  }
+
 </style>
 
 
