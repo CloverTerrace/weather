@@ -2584,6 +2584,39 @@ svg circle, svg polygon, svg line {
     }
   }
 
+
+  .temp-glance-row {
+    gap: 1rem;
+    margin-top: 0.15rem;
+  }
+
+  .temp-glance-row .glance-col {
+    min-width: 0;
+    padding: 0 0.35rem;
+  }
+
+  .temp-glance-row .glance-col.glance-primary {
+    flex: 1.15;
+  }
+
+  .temp-glance-row .glance-col + .glance-col {
+    padding-left: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    .temp-glance-row {
+      gap: 0.65rem;
+    }
+
+    .temp-glance-row .glance-col {
+      padding: 0;
+    }
+
+    .temp-glance-row .glance-col + .glance-col {
+      padding-left: 0.65rem;
+    }
+  }
+
 </style>
 
 
@@ -4477,12 +4510,9 @@ const THEMES = {
     if (data.temp >= 80 && data.heatIndex) feelsLike = data.heatIndex;
     else if (data.temp <= 50 && data.windChill) feelsLike = data.windChill;
 
-    // comfort framing: feels-like relative to actual temp tells you at a
-    // glance whether humidity/wind is making it feel worse or better.
-    const feelsDelta = Math.round(feelsLike - data.temp);
-    const feelsDeltaHtml = feelsDelta === 0
-      ? `<span class="glance-sub">same as actual</span>`
-      : `<span class="glance-sub">${feelsDelta > 0 ? '+' : ''}${feelsDelta}° than actual</span>`;
+    // Keep the glance view focused on comfort: the feels-like value is the
+    // primary temperature, while the actual sensor temperature sits directly
+    // beneath it instead of consuming a separate column.
     const dewptComfort = getDewpointComfort(data.dewpt);
 
     const tempHumCard = document.createElement('div');
@@ -4492,15 +4522,11 @@ const THEMES = {
         <div class="priority-icon"><img src="icons/thermometer-fahrenheit.svg" alt=""></div>
         <div class="priority-heading">Temperature</div>
       </div>
-      <div class="glance-row priority-glance-row">
+      <div class="glance-row priority-glance-row temp-glance-row">
          <div class="glance-col glance-primary">
-            <div class="value priority-value">${formatVal(data.temp, 1)}<span class="unit">°F</span></div>
-            <span class="glance-sub">actual</span>
-         </div>
-         <div class="glance-col">
             <div class="label"><span class="card-icon"><img src="icons/thermometer-warmer.svg" alt=""></span>Feels Like</div>
-            <div class="value">${formatVal(feelsLike, 1)}<span class="unit">°F</span></div>
-            ${feelsDeltaHtml}
+            <div class="value priority-value">${formatVal(feelsLike, 1)}<span class="unit">°F</span></div>
+            <span class="glance-sub">actual ${formatVal(data.temp, 1)}°F</span>
          </div>
          <div class="glance-col">
             <div class="label"><span class="card-icon"><img src="icons/raindrops.svg" alt=""></span>Dew Point</div>
