@@ -10,8 +10,8 @@ Sources:
 Output:
   data/nws_products.json
 
-The script intentionally keeps the payload small: the dashboard gets a concise
-summary first and the full source text only when a user expands a product.
+The script intentionally keeps the payload small: the dashboard gets a concise summary first and only curated product sections
+when a user expands a product. Source-page navigation/chrome is never stored.
 """
 
 from __future__ import annotations
@@ -54,35 +54,130 @@ NWS_UPDATE_CODES = {
     "RFW": "Red Flag Warning",
 }
 
+# Keep the storm desk intentionally "live": active watches, active/recent SPC
+# mesoscale discussions, and only the newest local NWS products.
+MD_RECENT_HOURS = 8
+NWS_RECENT_HOURS = 18
+MAX_MDS = 5
+MAX_NWS_UPDATES = 7
+
+# Product boilerplate that belongs to the source page rather than the dashboard.
+BOILERPLATE_PATTERNS = [
+    r"^\s*WEATHER SERVICE.*$",
+    r"^\s*NATIONAL WEATHER SERVICE.*$",
+    r"^\s*SPC MESOSCALE DISCUSSION.*$",
+    r"^\s*THE NATIONAL WEATHER SERVICE.*$",
+]
+
 
 class TextExtractor(HTMLParser):
+    """Extract the actual product body when the source page wraps it in HTML."""
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.parts: list[str] = []
         self._skip = 0
+        self._pre_depth = 0
+        self._pre_parts: list[str] = []
 
     def handle_starttag(self, tag, attrs):
-        if tag.lower() in {"script", "style", "noscript"}:
+        tag = tag.lower()
+        if tag in {"script", "style", "noscript"}:
             self._skip += 1
+        elif tag == "pre":
+            self._pre_depth += 1
 
     def handle_endtag(self, tag):
-        if tag.lower() in {"script", "style", "noscript"} and self._skip:
+        tag = tag.lower()
+        if tag in {"script", "style", "noscript"} and self._skip:
             self._skip -= 1
+        elif tag == "pre" and self._pre_depth:
+            self._pre_depth -= 1
 
     def handle_data(self, data):
-        if not self._skip:
+        if self._skip:
+            return
+        if self._pre_depth:
+            self._pre_parts.append(data)
+        else:
             text = data.strip()
             if text:
                 self.parts.append(text)
+
+    def result(self) -> str:
+        if self._pre_parts:
+            return "".join(self._pre_parts)
+        return "\n".join(self.parts)
+
+
+def clean_product_text(value: str) -> str:
+    """Normalize official product text without carrying the origin page chrome."""
+    if not value:
+        return ""
+    value = html.unescape(value).replace("\r", "")
+    # Drop common ASCII framing and repeated blank lines.
+    value = re.sub(r"^\s*\[?\s*Product:.*$", "", value, flags=re.I | re.M)
+    value = re.sub(r"^\s*$$", "", value, flags=re.M)
+    lines = [line.rstrip() for line in value.splitlines()]
+    while lines and not lines[0].strip():
+        lines.pop(0)
+    while lines and not lines[-1].strip():
+        lines.pop()
+    # Remove source-page boilerplate when it appears around a product body.
+    cleaned=[]
+    for line in lines:
+        stripped=line.strip()
+        if any(re.match(pat, stripped, re.I) for pat in BOILERPLATE_PATTERNS):
+            continue
+        if stripped.lower() in {"home", "products", "mesoscale discussions", "storm prediction center", "national weather service"}:
+            continue
+        cleaned.append(line)
+    text="\n".join(cleaned)
+    text=re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
 
 
 def strip_html(value: str) -> str:
     parser = TextExtractor()
     parser.feed(value or "")
-    text = "\n".join(parser.parts)
-    text = html.unescape(text)
-    text = re.sub(r"\n{3,}", "\n\n", text)
-    return text.strip()
+    return clean_product_text(parser.result())
+
+
+def normalize_lines(text: str) -> list[str]:
+    return [re.sub(r"[ \t]+", " ", line).strip() for line in text.splitlines() if line.strip()]
+
+
+def extract_section(text: str, labels: list[str], max_chars: int = 1400) -> str | None:
+    lines = text.splitlines()
+    label_re = r"^(?:" + "|".join(re.escape(x) for x in labels) + r")\.\.\.\s*"
+    start = None
+    for i, line in enumerate(lines):
+        if re.match(label_re, line.strip(), re.I):
+            start = i
+            break
+    if start is None:
+        return None
+    first = re.sub(label_re, "", lines[start].strip(), flags=re.I)
+    body=[first] if first else []
+    for line in lines[start+1:]:
+        if re.match(r"^[A-Z][A-Z /&()0-9-]{2,}\.\.\.", line.strip()):
+            break
+        body.append(line.strip())
+    out=re.sub(r"\s+", " ", " ".join(x for x in body if x)).strip()
+    return out[:max_chars] if out else None
+
+
+def clean_nws_product_text(text: str) -> str:
+    text=clean_product_text(text)
+    lines=normalize_lines(text)
+    # Strip WMO headers / product IDs / leading office timestamps.
+    kept=[]
+    for line in lines:
+        if re.match(r"^(?:FXUS|WWUS|WUUS|ABUS|FLUS|SXUS|NOUS|NZUS|WWUS|ACUS)\d{2}", line):
+            continue
+        if re.match(r"^(?:[A-Z]{3,6})\s+\d{3,6}\s+\d{6}", line):
+            continue
+        kept.append(line)
+    return "\n".join(kept).strip()
 
 
 def fetch_bytes(url: str, accept: str | None = None) -> bytes:
@@ -121,7 +216,13 @@ def alert_to_watch(feature: dict) -> dict | None:
 
     description = p.get("description") or ""
     instruction = p.get("instruction") or ""
-    full_text = "\n\n".join(x for x in [description.strip(), instruction.strip()] if x.strip())
+    details=[]
+    if p.get("areaDesc"):
+        details.append({"label":"Areas", "text":p.get("areaDesc")})
+    if instruction.strip():
+        details.append({"label":"Instructions", "text":clean_product_text(instruction)[:1800]})
+    elif description.strip():
+        details.append({"label":"Alert detail", "text":clean_product_text(description)[:1800]})
 
     return {
         "id": source_id or f"watch-{p.get('effective')}-{event}",
@@ -129,9 +230,8 @@ def alert_to_watch(feature: dict) -> dict | None:
         "number": number,
         "issued": safe_iso(p.get("effective")),
         "expires": safe_iso(p.get("expires")),
-        "areas": p.get("areaDesc"),
         "summary": p.get("headline") or event,
-        "fullText": full_text,
+        "details": details,
         "url": p.get("@id") or feature.get("id"),
         "office": p.get("senderName"),
     }
@@ -212,9 +312,14 @@ def parse_md(url: str, raw_html: str, number: int) -> dict:
     concerning = extract_md_field(text, "CONCERNING")
     summary = extract_md_field(text, "SUMMARY")
     areas = extract_md_field(text, "AREAS AFFECTED")
+    discussion = extract_section(text, ["DISCUSSION"], 1800)
     if not summary:
-        # Keep the collapsed card useful even if SPC changes its formatting.
         summary = concerning or "Latest SPC mesoscale discussion"
+
+    details=[]
+    if concerning: details.append({"label":"Concerning", "text":concerning})
+    if areas: details.append({"label":"Areas affected", "text":areas})
+    if discussion: details.append({"label":"Discussion", "text":discussion})
 
     return {
         "id": f"MD{number:04d}",
@@ -224,80 +329,116 @@ def parse_md(url: str, raw_html: str, number: int) -> dict:
         "concerning": concerning,
         "areas": areas,
         "summary": summary,
-        "fullText": text,
+        "details": details,
         "url": url,
         "office": "SPC",
     }
 
 
-def fetch_mesoscale_discussions(limit: int = 6) -> list[dict]:
+def fetch_mesoscale_discussions(limit: int = MAX_MDS) -> list[dict]:
     raw_index = fetch_text(SPC_MD_INDEX)
     links = []
     for match in re.finditer(r"(?:href=[\"'])([^\"']*md(\d{4})\.html)[\"']", raw_index, re.I):
         href, number_raw = match.groups()
         number = int(number_raw)
-        if href.startswith("http"):
-            url = href
-        else:
-            url = urllib.parse.urljoin(SPC_MD_INDEX, href)
+        url = href if href.startswith("http") else urllib.parse.urljoin(SPC_MD_INDEX, href)
         links.append((number, url))
-    # Highest-numbered MDs are normally the newest. De-duplicate by number.
-    links = sorted({n: u for n, u in links}.items(), reverse=True)[:limit]
+    links = sorted({n: u for n, u in links}.items(), reverse=True)[:10]
 
-    items = []
+    now = datetime.now(timezone.utc)
+    items=[]
     for number, url in links:
         try:
-            item = parse_md(url, fetch_text(url), number)
+            item=parse_md(url, fetch_text(url), number)
+            issued=item.get("issued")
+            expires=item.get("expires")
+            if expires:
+                exp=datetime.fromisoformat(expires.replace("Z","+00:00"))
+                if exp < now:
+                    continue
+            elif issued:
+                dt=datetime.fromisoformat(issued.replace("Z","+00:00"))
+                if dt < now - timedelta(hours=MD_RECENT_HOURS):
+                    continue
             items.append(item)
         except Exception as exc:
             print(f"WARNING: failed to parse {url}: {exc}", file=sys.stderr)
     items.sort(key=lambda x: (x.get("issued") or "", x.get("number") or 0), reverse=True)
-    return items
+    return items[:limit]
 
 
-def fetch_nws_updates(limit: int = 8) -> list[dict]:
+def fetch_nws_updates(limit: int = MAX_NWS_UPDATES) -> list[dict]:
     params = urllib.parse.urlencode({"location": WFO, "limit": 50})
     payload = fetch_json(f"{NWS_PRODUCTS_URL}?{params}")
-    candidates = []
+    candidates=[]
+    now=datetime.now(timezone.utc)
+    cutoff=now-timedelta(hours=NWS_RECENT_HOURS)
 
     for feature in payload.get("@graph", payload.get("features", [])):
-        props = feature.get("properties", feature)
-        code = props.get("productCode") or feature.get("productCode")
+        props=feature.get("properties", feature)
+        code=props.get("productCode") or feature.get("productCode")
         if code not in NWS_UPDATE_CODES:
             continue
-        candidates.append((props.get("issuanceTime") or "", feature, props, code))
+        issued_raw=props.get("issuanceTime") or ""
+        try:
+            issued_dt=datetime.fromisoformat(issued_raw.replace("Z","+00:00")) if issued_raw else None
+        except ValueError:
+            issued_dt=None
+        if issued_dt and issued_dt < cutoff:
+            continue
+        candidates.append((issued_raw, feature, props, code))
 
     candidates.sort(key=lambda x: x[0], reverse=True)
-    items = []
-    for _, feature, props, code in candidates[:limit]:
-        url = props.get("@id") or feature.get("@id") or feature.get("id")
-        full_text = props.get("productText") or ""
+    items=[]
+    seen=set()
+    for _, feature, props, code in candidates:
+        url=props.get("@id") or feature.get("@id") or feature.get("id")
+        source_id=props.get("id") or feature.get("id") or url
+        if source_id in seen:
+            continue
+        seen.add(source_id)
+        full_text=props.get("productText") or ""
         if url and not full_text:
             try:
-                product = fetch_json(url)
-                full_text = product.get("productText") or product.get("properties", {}).get("productText") or ""
+                product=fetch_json(url)
+                full_text=product.get("productText") or product.get("properties", {}).get("productText") or ""
             except Exception:
                 pass
+        full_text=clean_nws_product_text(full_text)
+        product_name=props.get("productName") or NWS_UPDATE_CODES[code]
 
-        product_name = props.get("productName") or NWS_UPDATE_CODES[code]
-        text_summary = ""
-        if full_text:
-            lines = [line.strip() for line in full_text.splitlines() if line.strip()]
-            # Avoid duplicating the WMO header; the first few human-readable
-            # lines are a better collapsed synopsis.
-            text_summary = " ".join(lines[:3])[:420]
+        # Prefer official structured metadata; fall back to the first clean body lines.
+        headline=props.get("headline") or product_name
+        summary=props.get("headline") or ""
+        if not summary or summary == product_name:
+            lines=[x for x in normalize_lines(full_text) if len(x) > 8]
+            summary=" ".join(lines[:2])[:420] if lines else product_name
+
+        details=[]
+        for label, labels, limit_chars in [
+            ("Overview", ["OVERVIEW", "SUMMARY", "SYNOPSIS"], 1100),
+            ("Discussion", ["DISCUSSION"], 1800),
+            ("Hazards", ["HAZARDS", "IMPACTS", "IMPACT"], 1100),
+            ("Timing", ["TIMING", "THREAT", "VALID"], 900),
+        ]:
+            value=extract_section(full_text, labels, limit_chars)
+            if value: details.append({"label":label,"text":value})
+        if not details and full_text:
+            details=[{"label":"Product detail","text":" ".join(normalize_lines(full_text)[:8])[:1800]}]
 
         items.append({
-            "id": props.get("id") or feature.get("id") or url,
+            "id": source_id,
             "type": product_name,
             "office": props.get("issuingOffice") or WFO,
             "issued": props.get("issuanceTime"),
-            "expires": None,
-            "headline": product_name,
-            "summary": text_summary,
-            "fullText": full_text,
+            "expires": props.get("expirationTime") or props.get("expires"),
+            "headline": headline,
+            "summary": summary,
+            "details": details,
             "url": url,
         })
+        if len(items) >= limit:
+            break
     return items
 
 
