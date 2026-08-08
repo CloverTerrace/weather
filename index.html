@@ -2048,10 +2048,10 @@ svg circle, svg polygon, svg line {
   let lastWeatherData = null;
   let lastSuccessfulLoadTime = null;
 
-  // Universal formatting function to enforce specific decimal places
+  // universal formatting function to enforce specific decimal places
   const formatVal = (v, dec = 1) => v !== undefined && v !== null && !isNaN(v) ? Number(v).toFixed(dec) : '--';
 
-  // The station scripts write timestamps like "2026-08-05 15:45:46" --
+  // the station scripts write timestamps like "2026-08-05 15:45:46" --
   // space-separated, no timezone. V8 (Chrome/Edge) parses that leniently
   // as local time, but that format isn't part of the spec Safari/WebKit
   // actually follows, and returns Invalid Date for it -- silently breaking
@@ -2062,13 +2062,13 @@ svg circle, svg polygon, svg line {
     return new Date(str.includes('T') ? str : str.replace(' ', 'T'));
   }
 
-  // The station is fixed in Aliquippa, PA -- this page is meant to show
+  // the station is fixed in Aliquippa, PA -- this page is meant to show
   // conditions AT THE STATION, so anything comparing "now" against a
   // station reading needs to use the station's own clock, never the
   // visitor's browser timezone.
   const STATION_TIMEZONE = 'America/New_York';
 
-  // Returns the current moment as a naive "YYYY-MM-DD HH:MM:SS" string in
+  // returns the current moment as a naive "YYYY-MM-DD HH:MM:SS" string in
   // the station's timezone -- the same shape weewx/WU already write to
   // obsTimeLocal. Diffing two values built this way (this function and a
   // station reading) through parseStationTime() cancels out the visitor's
@@ -3216,7 +3216,7 @@ const THEMES = {
     extremeHeatNight:  { bg: '#2e1005', card: '#3d1a0c', accent: '#ff8659', muted: '#ffcc4d', text: '#ffffff', title: '#ffffff', icon: '🔥🌙', meteocon: 'thermometer-moon.svg', iconImg: 'icons/themes/extremeHeatNight.png', fonts: { title: "NightWindSent, Papyrus, serif", cardHeading: "Monas" } },
     cloudy:            { bg: '#93a1af', card: '#48566a', accent: '#a8cbe8', muted: '#dbe3ea', text: '#ffffff', title: '#ffffff', icon: '⛅️', meteocon: 'mostly-clear-day.svg', iconImg: 'icons/themes/cloudy.png', fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Jelly Choco" } },
     rainy:             { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️', meteocon: 'rain.svg', iconImg: 'icons/themes/rainy.png', fonts: { title: "Letter Magic, Tahoma" } },
-    rainyNight:        { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️🌙', meteocon: 'partly-cloudy-night-rain.svg', iconImg: 'icons/themes/rainyNight.png', fonts: { title: "Lavishly Yours, cursive" } },
+    rainyNight:        { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️🌙', meteocon: 'mostly-clear-night-rain.svg', iconImg: 'icons/themes/rainyNight.png', fonts: { title: "Lavishly Yours, cursive" } },
     snowy:             { bg: '#1b2430', card: '#25313f', accent: '#dff3ff', muted: '#d5d4e6', text: '#ffffff', title: '#ffffff', icon: '❄️', meteocon: 'snow.svg', iconImg: 'icons/themes/snowy.png', fonts: { title: "Snowby, sans-serif" } },
     snowyNight:        { bg: '#0f151c', card: '#182530', accent: '#a8d8f0', muted: '#dcf0f7', text: '#ffffff', title: '#ffffff', icon: '❄️🌙', meteocon: 'partly-cloudy-night-snow.svg', iconImg: 'icons/themes/snowyNight.png', fonts: { title: "Snowby, sans-serif" } },
     night:             { bg: '#14112F', card: '#41406a', accent: '#9F86C0', muted: '#f0eff6', text: '#ffffff', title: '#ffffff', icon: '🌙', meteocon: 'starry-night.svg', iconImg: 'icons/themes/night.png', fonts: { title: "Lavishly Yours, cursive", details: "Figtree" } },
