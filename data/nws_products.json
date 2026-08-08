@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-08T23:40:57.288193Z",
+  "generatedAt": "2026-08-08T23:46:00.134837Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -105,6 +105,22 @@
   ],
   "statements": [
     {
+      "id": "9adbc19d-e516-491d-8330-c22c7da366c3",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-08T23:43:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Severe Weather Statement 743 PM EDT Sat Aug 8 2026",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 743 PM EDT Sat Aug 8 2026 PAC007-073-082353- /O.EXP.KPBZ.SV.W.0252.000000T0000Z-260808T2345Z/ Beaver PA-Lawrence PA- 743 PM EDT Sat Aug 8 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/9adbc19d-e516-491d-8330-c22c7da366c3"
+    },
+    {
       "id": "e1cdc83d-02a8-403e-bb60-14a4658372ce",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -119,38 +135,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/e1cdc83d-02a8-403e-bb60-14a4658372ce"
-    },
-    {
-      "id": "718350af-69c5-495f-bb56-886dfd28ef03",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-08T23:15:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Severe Weather Statement 715 PM EDT Sat Aug 8 2026",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Ellwood City, New Beaver, Ellport, Wampum, Rose Point Park and McConnells Mill."
-        }
-      ],
-      "url": "https://api.weather.gov/products/718350af-69c5-495f-bb56-886dfd28ef03"
-    },
-    {
-      "id": "6e97583c-863e-4417-adb9-0ffb1d217e8c",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-08T23:07:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Severe Weather Statement 707 PM EDT Sat Aug 8 2026",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 707 PM EDT Sat Aug 8 2026 PAC085-082317- /O.EXP.KPBZ.SV.W.0251.000000T0000Z-260808T2315Z/ Mercer PA- 707 PM EDT Sat Aug 8 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/6e97583c-863e-4417-adb9-0ffb1d217e8c"
     }
   ]
 }
