@@ -2495,24 +2495,11 @@ svg circle, svg polygon, svg line {
       margin-bottom: 0 !important;
     }
 
-    .grid-column {
-      display: block;
-      width: 100%;
-    }
-
-    .grid-column + .grid-column {
-      margin-top: 1rem;
-    }
-
-    .grid-column .card {
-      width: 100%;
-      max-width: none;
-      margin: 0 0 1rem;
-    }
-
-    .grid-column .card:last-child {
-      margin-bottom: 0;
-    }
+    /* .grid-column layout itself is handled by the "final responsive
+       weather-card layout" rules below (display: contents + explicit
+       `order`, scoped to #grid.grid) -- not duplicated here, since a plain
+       margin-based stack would fight with that grid's `gap` and produce
+       uneven spacing between reordered cards. */
 
     .card-expand-panel {
       width: 100%;
@@ -2540,7 +2527,17 @@ svg circle, svg polygon, svg line {
      The live weather cards are rendered inside #grid (.grid). Keep the
      independent two-column architecture when there is room, but collapse the
      actual weather-card grid to one full-width flow on phones and compact
-     portrait devices. */
+     portrait devices.
+
+     The two .grid-column wrappers are populated independently in JS (left:
+     temp, pressure, lightning, aqi -- right: wind, precip, solar/uv, river),
+     so simply stacking each column in full (flex column) puts them in DOM
+     order, not the preferred reading order. display: contents drops each
+     wrapper from layout so its cards become direct items of #grid.grid's
+     single-column grid, then `order` puts them in the preferred sequence:
+     temp, wind, pressure, precip, lightning, solar/uv, air quality, river --
+     all without touching the DOM structure the expand/collapse logic relies
+     on. */
   @media (max-width: 850px) {
     #grid.grid {
       display: grid !important;
@@ -2553,11 +2550,7 @@ svg circle, svg polygon, svg line {
     }
 
     #grid.grid .grid-column {
-      display: flex !important;
-      flex-direction: column !important;
-      width: 100% !important;
-      min-width: 0 !important;
-      gap: 1rem !important;
+      display: contents !important;
     }
 
     #grid.grid .card {
@@ -2566,6 +2559,15 @@ svg circle, svg polygon, svg line {
       min-width: 0 !important;
       box-sizing: border-box !important;
     }
+
+    #grid.grid .card.temp-card     { order: 1; }
+    #grid.grid .card.wind-card     { order: 2; }
+    #grid.grid .card.pressure-card { order: 3; }
+    #grid.grid .card.precip-card   { order: 4; }
+    #grid.grid .card.lightning-card { order: 5; }
+    #grid.grid .card.solar-card    { order: 6; }
+    #grid.grid .card.aqi-card      { order: 7; }
+    #grid.grid .card.river-card    { order: 8; }
 
     #grid.grid .priority-value {
       max-width: 100%;
@@ -2576,10 +2578,6 @@ svg circle, svg polygon, svg line {
     #grid.grid {
       gap: 0.85rem !important;
       max-width: 100% !important;
-    }
-
-    #grid.grid .grid-column {
-      gap: 0.85rem !important;
     }
 
     #grid.grid .card {
@@ -3216,18 +3214,13 @@ svg circle, svg polygon, svg line {
     return { label: 'Extreme', color: '#c792ff' };
   }
 
-  // plain-language storm-development read on a 3h pressure trend rate --
-  // this is the classic "what does a falling barometer mean" cue.
-  //
-  // Takes the *same* trend object getPressureTrend() produces (the one the
-  // card's arrow/badge are built from), and switches on its label rather
-  // than re-deriving a rising/falling/steady call from a second, separately
-  // -tuned threshold. That second threshold used to disagree with
-  // PRESSURE_TREND_THRESHOLD often enough that the arrow could read
-  // "Rising" while this note still said "Steady" -- same sensor data, two
-  // different verdicts. Rate (deltaPerHour) is still used, but only to pick
-  // "rapid" vs "steady" within whichever direction the trend object already
-  // settled on.
+  // plain-language storm-development read on a 3h pressure trend --
+  // this is the classic "what does a falling barometer mean" cue. Takes the
+  // *same* trend object getPressureTrend() produces (and that drives the
+  // card's arrow/label) rather than re-deriving Rising/Falling/Steady from
+  // deltaPerHour against a separate threshold -- two independent thresholds
+  // could disagree right at the boundary, showing a rising arrow next to
+  // "steady" text. Reading trend.label keeps the note and the arrow in sync.
   function getStormPotentialNote(trend) {
     if (!trend || trend.deltaPerHour === null || trend.deltaPerHour === undefined || isNaN(trend.deltaPerHour)) {
       return 'Not enough recent pressure history yet to read a trend.';
@@ -3390,12 +3383,12 @@ svg circle, svg polygon, svg line {
   const PRESSURE_TREND_WINDOW_HOURS = 3;
   const PRESSURE_TREND_THRESHOLD = 0.03;
 
-  function getPressureTrend(history, fieldKey = 'pressure', windowHours = PRESSURE_TREND_WINDOW_HOURS) {
+  function getPressureTrend(history, fieldKey = 'pressure') {
     if (!history || history.length < 2) return null;
     const latest = history[history.length - 1];
     if (!latest || latest[fieldKey] === undefined || latest[fieldKey] === null) return null;
 
-    const targetTime = Date.now() - windowHours * 60 * 60 * 1000;
+    const targetTime = Date.now() - PRESSURE_TREND_WINDOW_HOURS * 60 * 60 * 1000;
     let closest = null;
     let closestDiff = Infinity;
     history.forEach(entry => {
@@ -3409,17 +3402,10 @@ svg circle, svg polygon, svg line {
     if (!closest) return null;
 
     const delta = latest[fieldKey] - closest[fieldKey];
-    const deltaPerHour = delta / windowHours;
-    // Rising/Falling/Steady is only ever classified against the 3h
-    // threshold (the standard storm-tracking window) regardless of which
-    // window was requested, so a 24h call still reports a real delta but
-    // doesn't hand back a differently-tuned label/arrow.
-    if (windowHours === PRESSURE_TREND_WINDOW_HOURS) {
-      if (delta >= PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-high.svg" class="meteocon" alt="Rising">', label: 'Rising', className: 'trend-rising', delta, deltaPerHour };
-      if (delta <= -PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-low.svg" class="meteocon" alt="Falling">', label: 'Falling', className: 'trend-falling', delta, deltaPerHour };
-      return { arrow: '→', label: 'Steady', className: 'trend-steady', delta, deltaPerHour };
-    }
-    return { delta, deltaPerHour };
+    const deltaPerHour = delta / PRESSURE_TREND_WINDOW_HOURS;
+    if (delta >= PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-high.svg" class="meteocon" alt="Rising">', label: 'Rising', className: 'trend-rising', delta, deltaPerHour };
+    if (delta <= -PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-low.svg" class="meteocon" alt="Falling">', label: 'Falling', className: 'trend-falling', delta, deltaPerHour };
+    return { arrow: '→', label: 'Steady', className: 'trend-steady', delta, deltaPerHour };
   }
   
   let currentRangeHours = 24; 
@@ -4548,7 +4534,7 @@ const THEMES = {
     const dewptComfort = getDewpointComfort(data.dewpt);
 
     const tempHumCard = document.createElement('div');
-    tempHumCard.className = 'card combo-card';
+    tempHumCard.className = 'card combo-card temp-card';
     tempHumCard.innerHTML = `
       <div class="priority-card-head">
         <div class="priority-icon"><img src="icons/thermometer-fahrenheit.svg" alt=""></div>
@@ -4617,7 +4603,7 @@ const THEMES = {
     const wsExt = extSafe('windSpeed');
     const wgExt = extSafe('windGust');
     const windCard = document.createElement('div');
-    windCard.className = 'card combo-card';
+    windCard.className = 'card combo-card wind-card';
     windCard.innerHTML = `
       <div class="priority-card-head">
         <div class="priority-icon"><img src="icons/windmill.svg" alt=""></div>
@@ -4659,17 +4645,28 @@ const THEMES = {
     });
 
 
-    // 3. pressure card -- relative (elevation-corrected) pressure is the
-    // only reading shown; it's the preferred storm-tracking value and
-    // matches what the trend/arrow/storm-note below are all computed from.
+    // 3. pressure card -- relative (elevation-corrected) pressure only.
+    // Absolute/station-corrected pressure isn't shown here: it's the raw,
+    // un-corrected station reading and duplicates relative pressure for
+    // at-a-glance/storm-tracking purposes.
     const pExt = extSafe('pressure');
     const pTrend = getPressureTrend(fullHistory, 'pressure');
-    const pTrend24 = getPressureTrend(fullHistory, 'pressure', 24);
 
     const primaryTrend = pTrend;
     const trendRateHtml = (primaryTrend && primaryTrend.deltaPerHour !== undefined)
       ? `${primaryTrend.deltaPerHour >= 0 ? '+' : ''}${primaryTrend.deltaPerHour.toFixed(3)} inHg/hr`
       : 'trend building…';
+
+    // plain-language read on where the current relative reading sits
+    // against the standard sea-level reference -- gives the raw inHg
+    // number some context instead of just floating on its own.
+    function getPressureLevelNote(val) {
+      if (val === undefined || val === null || isNaN(val)) return null;
+      if (val >= 30.20) return 'High';
+      if (val >= 29.80) return 'Normal range';
+      return 'Low';
+    }
+    const pLevel = getPressureLevelNote(data.pressure);
 
     const pressureCard = document.createElement('div');
     pressureCard.className = 'card combo-card pressure-card';
@@ -4689,20 +4686,23 @@ const THEMES = {
     makeCardExpandable(pressureCard, 'pressure', 'more pressure data', (panel) => {
       panel.innerHTML = detailPanelHtml([
         {
-          title: "Today's range",
+          title: "Today's relative pressure",
           rows: [
             `<div class="extra-data-row"><span class="extra-data-label">High</span><span class="extra-data-value">${formatVal(pExt.max.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(pExt.max.time)}</span></span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Low</span><span class="extra-data-value">${formatVal(pExt.min.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(pExt.min.time)}</span></span></div>`
+            `<div class="extra-data-row"><span class="extra-data-label">Low</span><span class="extra-data-value">${formatVal(pExt.min.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(pExt.min.time)}</span></span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">3h Change</span><span class="extra-data-value">${pTrend && pTrend.delta !== undefined ? (pTrend.delta >= 0 ? '+' : '') + pTrend.delta.toFixed(3) + ' inHg' : '--'}</span></div>`
           ]
         },
         {
-          title: 'Trend',
+          title: 'Reading the barometer',
           rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">3h Change</span><span class="extra-data-value">${pTrend && pTrend.delta !== undefined ? (pTrend.delta >= 0 ? '+' : '') + pTrend.delta.toFixed(3) + ' inHg' : '--'}</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">24h Change</span><span class="extra-data-value">${pTrend24 && pTrend24.delta !== undefined ? (pTrend24.delta >= 0 ? '+' : '') + pTrend24.delta.toFixed(3) + ' inHg' : '--'}</span></div>`
+            `<div class="extra-data-row"><span class="extra-data-label">Current Level</span><span class="extra-data-value">${pLevel || '--'}</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Standard Sea-Level</span><span class="extra-data-value">29.92 inHg</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Typical Fair-Weather</span><span class="extra-data-value">30.00 – 30.20 inHg</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Low / Unsettled Below</span><span class="extra-data-value">29.80 inHg</span></div>`
           ]
         }
-      ], 'A 3-hour fall of 0.06 inHg or more often signals an approaching storm system; a slow, steady rise usually means fair weather building in. Average sea-level pressure is about 29.92 inHg.');
+      ]);
     });
 
     // 4. precipitation card -- same card slot either way (unlike the
@@ -4715,7 +4715,7 @@ const THEMES = {
     const prExt = extSafe('precipRate');
     const isCurrentlyRaining = data.precipRate !== undefined && data.precipRate !== null && data.precipRate > 0;
     const precipCard = document.createElement('div');
-    precipCard.className = 'card combo-card';
+    precipCard.className = 'card combo-card precip-card';
     const precipLabelHtml = `<div class="label" style="margin-bottom: 10px;"><span class="card-icon"><img src="icons/raindrop-measure.svg" alt=""></span>Precipitation</div>`;
     if (isCurrentlyRaining) {
       precipCard.innerHTML = `
@@ -4768,7 +4768,7 @@ const THEMES = {
     if (data.lightningStrikeCount !== undefined && data.lightningStrikeCount !== null) {
       const lastStrikeMs = data.lightningLastStrike ? new Date(data.lightningLastStrike).getTime() : null;
       const lightningCard = document.createElement('div');
-      lightningCard.className = 'card combo-card';
+      lightningCard.className = 'card combo-card lightning-card';
       lightningCard.innerHTML = `
         <div class="priority-card-head">
           <div class="priority-icon"><img src="icons/lightning-bolt.svg" alt=""></div>
@@ -4793,7 +4793,7 @@ const THEMES = {
     const sExt = extSafe('solarRadiation');
     const uExt = extSafe('uv');
     const solarUvCard = document.createElement('div');
-    solarUvCard.className = 'card combo-card';
+    solarUvCard.className = 'card combo-card solar-card';
     solarUvCard.innerHTML = `
       <div class="priority-card-head">
         <div class="priority-icon"><img src="icons/solarrad.svg" alt=""></div>
@@ -4836,7 +4836,7 @@ const THEMES = {
         const styledAqi = data.aqiDisplay.replace(/(\([^)]*\))/, '<span class="aqi-category" style="font-size:0.44em; display:block; margin-top:5px;">$1</span>');
         const aqiDesc = getAqiDescription(data.aqi);
         const aqiCard = document.createElement('div');
-        aqiCard.className = 'card combo-card';
+        aqiCard.className = 'card combo-card aqi-card';
         aqiCard.innerHTML = `
           <div class="priority-card-head">
             <div class="priority-icon"><img src="icons/air-quality.svg" alt="" onerror="this.parentElement.style.display='none'"></div>
@@ -4863,7 +4863,7 @@ const THEMES = {
         // 7. USGS river gauge
     if (currentUsgs) {
        const usgsCard = document.createElement('div');
-       usgsCard.className = 'card combo-card';
+       usgsCard.className = 'card combo-card river-card';
        usgsCard.title = `${currentUsgs.siteName} — USGS ${USGS_SITE_ID}`;
        const rTrendHtml = currentUsgs.trend ? `<span class="pressure-trend ${currentUsgs.trend.className}" title="${currentUsgs.trend.label} over 3h">${currentUsgs.trend.arrow}</span>` : '';
        
