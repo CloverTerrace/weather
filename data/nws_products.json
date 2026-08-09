@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T00:05:57.362839Z",
+  "generatedAt": "2026-08-09T00:10:59.019479Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -80,6 +80,22 @@
   ],
   "statements": [
     {
+      "id": "23479e52-a8c8-430e-8fcd-ac4fffe9b4e4",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-09T00:05:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Severe Weather Statement 805 PM EDT Sat Aug 8 2026",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Emlenton, Bruin, Clintonville, Eau Claire, Kennerdell, Cherry Valley, Boyers and Cranberry Township."
+        }
+      ],
+      "url": "https://api.weather.gov/products/23479e52-a8c8-430e-8fcd-ac4fffe9b4e4"
+    },
+    {
       "id": "433d16f8-0c54-471c-99a3-4b24b9d80025",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -94,22 +110,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/433d16f8-0c54-471c-99a3-4b24b9d80025"
-    },
-    {
-      "id": "9adbc19d-e516-491d-8330-c22c7da366c3",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-08T23:43:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Severe Weather Statement 743 PM EDT Sat Aug 8 2026",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 743 PM EDT Sat Aug 8 2026 PAC007-073-082353- /O.EXP.KPBZ.SV.W.0252.000000T0000Z-260808T2345Z/ Beaver PA-Lawrence PA- 743 PM EDT Sat Aug 8 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/9adbc19d-e516-491d-8330-c22c7da366c3"
     }
   ]
 }
