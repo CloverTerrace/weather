@@ -537,7 +537,7 @@
   .high-arrow { color: #ff8659; font-weight: bold; margin-right: 2px; }
   .low-arrow { color: #4fc3f7; font-weight: bold; margin-right: 2px; }
   /* the default arrow colors above are tuned for dark cards; on
-     light-card themes (currently just sunny) they're too pale to read, so
+     light-card themes (sunny, cloudy) they're too pale to read, so
      swap in deeper shades of the same hues just for those themes */
   .theme-light-card .high-arrow { color: #C1470F; }
   .theme-light-card .low-arrow  { color: #0E6FA3; }
@@ -3255,20 +3255,21 @@ svg circle, svg polygon, svg line {
   // deltaPerHour against a separate threshold -- two independent thresholds
   // could disagree right at the boundary, showing a rising arrow next to
   // "steady" text. Reading trend.label keeps the note and the arrow in sync.
-  function getStormPotentialNote(trend) {
+  function getStormPotentialNote(trend, rateHtml) {
+    const rateSuffix = rateHtml ? ` · ${rateHtml}` : '';
     if (!trend || trend.deltaPerHour === null || trend.deltaPerHour === undefined || isNaN(trend.deltaPerHour)) {
       return 'Not enough recent pressure history yet to read a trend.';
     }
     const rate = Math.abs(trend.deltaPerHour);
     if (trend.label === 'Falling') {
-      if (rate >= 0.06) return '<strong>Rapid fall</strong> — often signals an approaching storm system or strengthening low pressure nearby.';
-      return '<strong>Steady fall</strong> — conditions are trending toward more unsettled weather.';
+      if (rate >= 0.06) return `<strong>Rapid fall</strong>${rateSuffix} — often signals an approaching storm system or strengthening low pressure nearby.`;
+      return `<strong>Steady fall</strong>${rateSuffix} — conditions are trending toward more unsettled weather.`;
     }
     if (trend.label === 'Rising') {
-      if (rate >= 0.06) return '<strong>Rapid rise</strong> — usually means a system is clearing out and skies should improve.';
-      return '<strong>Steady rise</strong> — fair weather building in.';
+      if (rate >= 0.06) return `<strong>Rapid rise</strong>${rateSuffix} — usually means a system is clearing out and skies should improve.`;
+      return `<strong>Steady rise</strong>${rateSuffix} — fair weather building in.`;
     }
-    return '<strong>Steady</strong> — no major pressure-driven change expected in the short term.';
+    return `<strong>Steady</strong>${rateSuffix} — no major pressure-driven change expected in the short term.`;
   }
 
   // gets official descriptive text for AQI
@@ -4261,7 +4262,7 @@ const THEMES = {
     sunny:             { bg: '#FBBF24', card: '#FFFFFF', accent: '#D97706', muted: '#B45309', text: '#78350F', title: '#ffffff', icon: '☀️', meteocon: 'clear-day.svg', iconImg: 'icons/themes/sunny.png', lightCard: true, fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
     extremeHeat:       { bg: '#351a13', card: '#5f2d1d', accent: '#e9895d', muted: '#d7a07e', text: '#fff4ec', title: '#fff8f2', icon: '🔥☀️', meteocon: 'thermometer-sun.svg', iconImg: 'icons/themes/extremeHeat.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
     extremeHeatNight:  { bg: '#201416', card: '#3d2522', accent: '#dc8977', muted: '#d2a095', text: '#fff2ed', title: '#fff8f5', icon: '🔥🌙', meteocon: 'thermometer-moon.svg', iconImg: 'icons/themes/extremeHeatNight.png', fonts: { title: "NightWindSent, Papyrus, serif", cardHeading: "Monas" } },
-    cloudy:            { bg: '#CBD5E1', card: '#6B7B94', accent: '#BFDCF2', muted: '#E8EEF5', text: '#FBFAF7', title: '#ffffff', icon: '⛅️', meteocon: 'partly-cloudy-day.svg', iconImg: 'icons/themes/cloudy.png', fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Jelly Choco" } },
+    cloudy:            { bg: '#6FA3D6', card: '#F3F6FA', accent: '#1D6FA5', muted: '#5F7A93', text: '#33455A', title: '#ffffff', icon: '⛅️', meteocon: 'partly-cloudy-day.svg', iconImg: 'icons/themes/cloudy.png', lightCard: true, fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Jelly Choco" } },
     rainy:             { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️', meteocon: 'rain.svg', iconImg: 'icons/themes/rainy.png', fonts: { title: "Letter Magic, Tahoma" } },
     rainyNight:        { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️🌙', meteocon: 'mostly-clear-night-rain.svg', iconImg: 'icons/themes/rainyNight.png', fonts: { title: "Lavishly Yours, cursive" } },
     snowy:             { bg: '#1b2430', card: '#25313f', accent: '#dff3ff', muted: '#d5d4e6', text: '#ffffff', title: '#ffffff', icon: '❄️', meteocon: 'snow.svg', iconImg: 'icons/themes/snowy.png', fonts: { title: "Snowby, sans-serif" } },
@@ -4704,8 +4705,7 @@ const THEMES = {
         <div class="value priority-value">${formatVal(data.pressure, 2)}<span class="unit">inHg</span></div>
         ${primaryTrend ? `<span class="pressure-trend ${primaryTrend.className}">${primaryTrend.arrow}</span>` : ''}
       </div>
-      <div class="priority-context">${primaryTrend ? primaryTrend.label : 'Steady'} · ${trendRateHtml}</div>
-      <div class="storm-note compact-storm-note">${getStormPotentialNote(primaryTrend)}</div>
+      <div class="storm-note compact-storm-note">${getStormPotentialNote(primaryTrend, trendRateHtml)}</div>
     `;
     gridLeft.appendChild(pressureCard);
     makeCardExpandable(pressureCard, 'pressure', 'more pressure data', (panel) => {
