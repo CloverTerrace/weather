@@ -297,28 +297,59 @@ def parse_valid_window(text: str, issued_iso: str | None):
     return vals[0].isoformat().replace("+00:00", "Z"), vals[1].isoformat().replace("+00:00", "Z")
 
 
-def extract_md_field(text: str, label: str) -> str | None:
-    m = re.search(rf"^\s*{re.escape(label)}\.\.\.\s*(.+?)(?=\n[A-Z][A-Z /-]+\.\.\.|\Z)", text, re.I | re.M | re.S)
-    if not m:
-        return None
-    value = re.sub(r"\s+", " ", m.group(1)).strip()
-    return value[:700]
+# SPC MD text products are one continuous flowing paragraph -- e.g.
+# "Areas affected...X Concerning...Y Valid HHMMSSZ-HHMMSSZ Probability of
+# Watch Issuance...Z SUMMARY...A DISCUSSION...B" -- with NO newline between
+# sections. A line-anchored "next section starts a new line" boundary (the
+# old approach) never matches here, so each field used to swallow
+# everything after it, all the way to the next field it COULD find (or the
+# character limit). This splits on every label's position directly,
+# wherever it falls in the running text, and "Valid HHMMSSZ-HHMMSSZ" is
+# matched as a boundary-only token (it has no "..." of its own) so it
+# still stops "Concerning" from bleeding into "Probability of Issuance".
+MD_SECTION_LABELS = ["Areas affected", "Concerning", "Probability of (?:Watch|Unconditional) Issuance", "SUMMARY", "DISCUSSION"]
+MD_BOUNDARY_RE = re.compile(
+    r"\b(?:(?P<label>" + "|".join(MD_SECTION_LABELS) + r")\.\.\.|(?P<valid>Valid\s+\d{6}Z\s*-\s*\d{6}Z))",
+    re.I,
+)
+# trailing forecaster signature line, e.g.
+# "..Squitieri/Mosier.. 08/09/2026 ...Please see www.spc.noaa.gov..."
+MD_SIGNATURE_RE = re.compile(r"\.\.[A-Za-z/ ]+\.\.\s*\d{2}/\d{2}/\d{4}")
+
+
+def split_md_sections(text: str, max_chars: int = 1800) -> dict[str, str]:
+    matches = list(MD_BOUNDARY_RE.finditer(text))
+    sections: dict[str, str] = {}
+    for i, m in enumerate(matches):
+        if not m.group("label"):
+            continue  # "Valid ..." is a boundary only, not a captured section
+        label = m.group("label")
+        start = m.end()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
+        value = MD_SIGNATURE_RE.split(text[start:end], maxsplit=1)[0]
+        value = re.sub(r"\s+", " ", value).strip()
+        if value:
+            sections[label.title()] = value[:max_chars]
+    return sections
 
 
 def parse_md(url: str, raw_html: str, number: int) -> dict:
     text = strip_html(raw_html)
     issued = parse_spc_datetime(text)
     valid = parse_valid_window(text, issued)
-    concerning = extract_md_field(text, "CONCERNING")
-    summary = extract_md_field(text, "SUMMARY")
-    areas = extract_md_field(text, "AREAS AFFECTED")
-    discussion = extract_section(text, ["DISCUSSION"], 1800)
+    sections = split_md_sections(text)
+    concerning = sections.get("Concerning")
+    areas = sections.get("Areas Affected")
+    summary = sections.get("Summary")
+    discussion = sections.get("Discussion")
+    watch_probability = sections.get("Probability Of Watch Issuance") or sections.get("Probability Of Unconditional Issuance")
     if not summary:
         summary = concerning or "Latest SPC mesoscale discussion"
 
     details=[]
     if concerning: details.append({"label":"Concerning", "text":concerning})
     if areas: details.append({"label":"Areas affected", "text":areas})
+    if watch_probability: details.append({"label":"Watch Probability", "text":watch_probability})
     if discussion: details.append({"label":"Discussion", "text":discussion})
 
     return {
