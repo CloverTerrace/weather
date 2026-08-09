@@ -541,6 +541,30 @@
      swap in deeper shades of the same hues just for those themes */
   .theme-light-card .high-arrow { color: #C1470F; }
   .theme-light-card .low-arrow  { color: #0E6FA3; }
+  /* every hairline border / subtle panel tint elsewhere in the app is a
+     translucent WHITE overlay (rgba(255,255,255,x)) -- that reads fine on
+     the dark card themes it was designed for, but on a light-card theme
+     (white-ish card) it's nearly invisible: white-on-white. Rather than
+     hand-tune each theme, we flip every one of those to a translucent
+     BLACK overlay of roughly matching strength whenever the light-card
+     class is active, so section boundaries, dividers, and tab/item
+     outlines stay crisp no matter how light the active card color is. */
+  .theme-light-card .card-expandable.expanded .card-expand-panel { border-top-color: rgba(0,0,0,0.12); }
+  .theme-light-card .glance-col + .glance-col { border-left-color: rgba(0,0,0,0.12); }
+  .theme-light-card .storm-note { border-top-color: rgba(0,0,0,0.12); }
+  .theme-light-card .storm-desk-divider { background: rgba(0,0,0,0.12); }
+  .theme-light-card .detail-section { border-color: rgba(0,0,0,0.09); background: rgba(0,0,0,0.022); }
+  .theme-light-card .detail-section[open] { background: rgba(0,0,0,0.035); }
+  .theme-light-card .detail-section > summary:hover { background: rgba(0,0,0,0.032); }
+  .theme-light-card .extra-data-row { border-color: rgba(0,0,0,0.09); }
+  .theme-light-card .detail-rule { background: linear-gradient(90deg, transparent, rgba(0,0,0,0.12), transparent); }
+  .theme-light-card .nws-tab { background: rgba(0,0,0,0.035); border-color: rgba(0,0,0,0.09); }
+  .theme-light-card .nws-tab.active { background: rgba(0,0,0,0.065); border-color: rgba(0,0,0,0.16); }
+  .theme-light-card .nws-item { background: rgba(0,0,0,0.028); border-color: rgba(0,0,0,0.09); }
+  .theme-light-card .nws-item:hover { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.13); }
+  .theme-light-card .nws-item.expanded { background: rgba(0,0,0,0.035); }
+  .theme-light-card .nws-item.expanded .nws-item-details { border-top-color: rgba(0,0,0,0.1); }
+  .theme-light-card .nws-detail-block { border-color: rgba(0,0,0,0.09); background: rgba(0,0,0,0.035); }
   .pressure-card .extreme-item .high-arrow,
   .pressure-card .extreme-item .low-arrow {
     font-size: 1.3rem;
@@ -1322,11 +1346,21 @@
   }
 
   @media (max-width: 520px) {
-    .nws-tabs { grid-template-columns: 1fr; }
+    /* keep the 3 tabs in a single compact row on mobile instead of
+       stacking them full-width -- stacking was eating a huge amount of
+       vertical space for no added information, since the label + count
+       already fit comfortably on one line once trimmed down. */
+    .nws-tabs { grid-template-columns: repeat(3, 1fr); gap: 5px; }
+    .nws-tab { padding: 7px 4px; font-size: 0.63rem; gap: 3px; }
+    .nws-tab .card-icon { display: none; }
+    .nws-tab .nws-tab-count { min-width: 14px; padding: 1px 4px; font-size: 0.58rem; }
     .nws-item-details { grid-template-columns: 1fr; }
     .nws-detail-block.wide { grid-column: auto; }
     .nws-item-title-row { display: block; }
     .nws-item-title-tags { display: flex; margin-top: 2px; }
+    .storm-desk-divider { margin: 0.9rem 0 0.7rem; }
+    .storm-desk-heading { margin-bottom: 0.6rem; }
+    .nws-empty { padding: 0.85rem 0; }
   }
 
 .charts-dropdown {
@@ -4224,10 +4258,10 @@ const FONT_ROLES = {
 // * ☀️ ------- THEME COLORS, TEXT STYLES, AND ICONS HERE ------- 🌙 * //
   
 const THEMES = {
-    sunny:             { bg: '#ebd48a', card: '#FFFFFF', accent: '#A66500', muted: '#9C5F00', text: '#A34D14', title: '#ffffff', icon: '☀️', meteocon: 'clear-day.svg', iconImg: 'icons/themes/sunny.png', lightCard: true, fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
+    sunny:             { bg: '#FBBF24', card: '#FFFFFF', accent: '#D97706', muted: '#B45309', text: '#78350F', title: '#ffffff', icon: '☀️', meteocon: 'clear-day.svg', iconImg: 'icons/themes/sunny.png', lightCard: true, fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
     extremeHeat:       { bg: '#351a13', card: '#5f2d1d', accent: '#e9895d', muted: '#d7a07e', text: '#fff4ec', title: '#fff8f2', icon: '🔥☀️', meteocon: 'thermometer-sun.svg', iconImg: 'icons/themes/extremeHeat.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
     extremeHeatNight:  { bg: '#201416', card: '#3d2522', accent: '#dc8977', muted: '#d2a095', text: '#fff2ed', title: '#fff8f5', icon: '🔥🌙', meteocon: 'thermometer-moon.svg', iconImg: 'icons/themes/extremeHeatNight.png', fonts: { title: "NightWindSent, Papyrus, serif", cardHeading: "Monas" } },
-    cloudy:            { bg: '#93a1af', card: '#48566a', accent: '#a8cbe8', muted: '#dbe3ea', text: '#ffffff', title: '#ffffff', icon: '⛅️', meteocon: 'partly-cloudy-day.svg', iconImg: 'icons/themes/cloudy.png', fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Jelly Choco" } },
+    cloudy:            { bg: '#CBD5E1', card: '#6B7B94', accent: '#BFDCF2', muted: '#E8EEF5', text: '#FBFAF7', title: '#ffffff', icon: '⛅️', meteocon: 'partly-cloudy-day.svg', iconImg: 'icons/themes/cloudy.png', fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Jelly Choco" } },
     rainy:             { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️', meteocon: 'rain.svg', iconImg: 'icons/themes/rainy.png', fonts: { title: "Letter Magic, Tahoma" } },
     rainyNight:        { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️🌙', meteocon: 'mostly-clear-night-rain.svg', iconImg: 'icons/themes/rainyNight.png', fonts: { title: "Lavishly Yours, cursive" } },
     snowy:             { bg: '#1b2430', card: '#25313f', accent: '#dff3ff', muted: '#d5d4e6', text: '#ffffff', title: '#ffffff', icon: '❄️', meteocon: 'snow.svg', iconImg: 'icons/themes/snowy.png', fonts: { title: "Snowby, sans-serif" } },
@@ -4621,7 +4655,6 @@ const THEMES = {
         {
           title: 'Current wind',
           rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">Direction</span><span class="extra-data-value">${degreesToCardinal16(data.winddir || 0)} · ${formatVal(data.winddir, 0)}°</span></div>`,
             `<div class="extra-data-row"><span class="extra-data-label">Beaufort</span><span class="extra-data-value">${getBeaufortLabel(data.windSpeed)}</span></div>`,
             `<div class="extra-data-row"><span class="extra-data-label">Gust Factor</span><span class="extra-data-value">${gustFactor ? gustFactor.toFixed(2) + '×' : '--'}</span></div>`
           ]
@@ -4725,7 +4758,6 @@ const THEMES = {
           <div class="value priority-value">${formatVal(data.precipTotal, 2)}<span class="unit">in</span></div>
           <span class="glance-sub">today</span>
         </div>
-        <div class="priority-context">${formatVal(data.precipTotalWeek, 2)} in week · ${formatVal(data.precipTotalMonth, 2)} in month</div>
       `;
     }
     gridRight.appendChild(precipCard);
@@ -4735,7 +4767,6 @@ const THEMES = {
         {
           title: 'Rainfall totals',
           rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">Today</span><span class="extra-data-value">${formatVal(data.precipTotal, 2)} in</span></div>`,
             `<div class="extra-data-row"><span class="extra-data-label">This Week</span><span class="extra-data-value">${formatVal(data.precipTotalWeek, 2)} in</span></div>`,
             `<div class="extra-data-row"><span class="extra-data-label">This Month</span><span class="extra-data-value">${formatVal(data.precipTotalMonth, 2)} in</span></div>`,
             `<div class="extra-data-row"><span class="extra-data-label">This Year</span><span class="extra-data-value">${formatVal(data.precipTotalYear, 2)} in</span></div>`
@@ -4842,13 +4873,23 @@ const THEMES = {
         makeCardExpandable(aqiCard, 'aqi', 'more air quality data', (panel) => {
           panel.innerHTML = detailPanelHtml([
             {
-              title: 'Air quality detail',
+              title: 'What this means',
               rows: [
-                `<div class="extra-data-row"><span class="extra-data-label">AQI</span><span class="extra-data-value">${formatVal(data.aqi, 0)}</span></div>`,
-                `<div class="extra-data-row"><span class="extra-data-label">Category</span><span class="extra-data-value">${aqiDesc}</span></div>`
+                `<div class="extra-data-row" style="grid-column: 1 / -1;"><span class="extra-data-label">Category</span><span class="extra-data-value">${aqiDesc}</span></div>`
+              ]
+            },
+            {
+              title: 'AQI scale reference',
+              rows: [
+                `<div class="extra-data-row"><span class="extra-data-label">0–50</span><span class="extra-data-value" style="color:#54ab7c;">Good</span></div>`,
+                `<div class="extra-data-row"><span class="extra-data-label">51–100</span><span class="extra-data-value" style="color:#c9a800;">Moderate</span></div>`,
+                `<div class="extra-data-row"><span class="extra-data-label">101–150</span><span class="extra-data-value" style="color:#ff7e00;">Unhealthy (Sensitive)</span></div>`,
+                `<div class="extra-data-row"><span class="extra-data-label">151–200</span><span class="extra-data-value" style="color:#ff4136;">Unhealthy</span></div>`,
+                `<div class="extra-data-row"><span class="extra-data-label">201–300</span><span class="extra-data-value" style="color:#8f3f97;">Very Unhealthy</span></div>`,
+                `<div class="extra-data-row"><span class="extra-data-label">301+</span><span class="extra-data-value" style="color:#7e0023;">Hazardous</span></div>`
               ]
             }
-          ]);
+          ], 'AQI is driven by the pollutant with the worst reading at the moment — usually fine particulates (PM2.5) or ground-level ozone, depending on conditions.');
         });
     }
 
