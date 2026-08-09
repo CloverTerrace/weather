@@ -1,39 +1,40 @@
 {
-  "generatedAt": "2026-08-09T01:40:17.619725Z",
+  "generatedAt": "2026-08-09T01:45:26.104523Z",
   "watches": [],
-  "mesoscaleDiscussions": [
+  "mesoscaleDiscussions": [],
+  "statements": [
     {
-      "id": "MD1872",
-      "number": 1872,
-      "issued": "2026-08-09T00:08:00Z",
-      "expires": "2026-08-09T01:45:00Z",
-      "concerning": "Severe potential...Watch unlikely",
-      "areas": "portions of southern and eastern North Dakota into far northern South Dakota",
-      "watchProbability": "20 percent",
-      "summary": "A few instances of severe wind/hail may occur with storms that can mature over the next few hours. The severe threat should remain isolated, so a WW issuance is not anticipated.",
+      "id": "6442e88c-bb6c-4c2a-a167-4b2ac735f61f",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-09T01:38:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Uhrichsville, Dennison, Gnadenhutten, Tuscarawas, Port Washington, Stone Creek and Stillwater.",
       "details": [
         {
-          "label": "Concerning",
-          "text": "Severe potential...Watch unlikely"
-        },
-        {
-          "label": "Areas affected",
-          "text": "portions of southern and eastern North Dakota into far northern South Dakota"
-        },
-        {
-          "label": "Watch Probability",
-          "text": "20 percent"
-        },
-        {
-          "label": "Discussion",
-          "text": "Multicellular storms/possible LP supercells have attempted to intensify over the past hour. The initial attempts at stronger convection have produced outflow to the southwest, where localized convergence is allowing for additional attempts at initiation to occur. At the moment, it is unclear if these initial storms will pose the primary threat for severe wind/hail, or if the greater severe threat will manifest from later storms this evening (per high-resolution guidance consensus). Uncertainty in convective evolution is heightened further by the presence of smoke overspreading the warm sector, which may inhibit convective development and intensification. Nonetheless, under the condition that a thunderstorm should intensify further and become sustained, the presence of 1000-2500 J/kg MLCAPE amid 50-60 kts of effective bulk shear is adequate in supporting supercell structures capable of producing severe wind and hail (with an instance or two of 2+ inch diameter hail possible)."
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Uhrichsville, Dennison, Gnadenhutten, Tuscarawas, Port Washington, Stone Creek and Stillwater."
         }
       ],
-      "url": "https://www.spc.noaa.gov/products/md/md1872.html",
-      "office": "SPC"
-    }
-  ],
-  "statements": [
+      "url": "https://api.weather.gov/products/6442e88c-bb6c-4c2a-a167-4b2ac735f61f"
+    },
+    {
+      "id": "2cc09feb-663f-4f79-82d8-ec3246621be3",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-09T01:37:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC065-090147- /O.EXP.KPBZ.SV.W.0254.000000T0000Z-260809T0145Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 937 PM EDT Sat Aug 8 2026 PAC065-090147- /O.EXP.KPBZ.SV.W.0254.000000T0000Z-260809T0145Z/ Jefferson PA- 937 PM EDT Sat Aug 8 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/2cc09feb-663f-4f79-82d8-ec3246621be3"
+    },
     {
       "id": "83ecfe93-f42c-4560-8421-475e8409e855",
       "type": "Severe Weather Statement",
@@ -113,38 +114,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/6a659540-efbc-4c26-83ef-b7a826e08088"
-    },
-    {
-      "id": "18b3805d-1276-4cc4-985c-e26f782f226f",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-09T01:11:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Brookville, Reynoldsville, Brockway, Falls Creek, Strattanville, Summerville, Limestone, Corsica and Knox-Dale.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Brookville, Reynoldsville, Brockway, Falls Creek, Strattanville, Summerville, Limestone, Corsica and Knox-Dale."
-        }
-      ],
-      "url": "https://api.weather.gov/products/18b3805d-1276-4cc4-985c-e26f782f226f"
-    },
-    {
-      "id": "5543caa7-f187-4354-91bf-256a61d80b8f",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-09T01:10:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Worthington.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Worthington."
-        }
-      ],
-      "url": "https://api.weather.gov/products/5543caa7-f187-4354-91bf-256a61d80b8f"
     }
   ]
 }
