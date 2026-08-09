@@ -572,7 +572,6 @@
   .theme-light-card .nws-tab.active { background: rgba(0,0,0,0.065); border-color: rgba(0,0,0,0.16); }
   .theme-light-card .outlook-category-tab { background: rgba(0,0,0,0.035); border-color: rgba(0,0,0,0.09); }
   .theme-light-card .outlook-category-tab.active { background: rgba(0,0,0,0.065); border-color: rgba(0,0,0,0.16); }
-  .theme-light-card .thunderstorm-outlook-panel { background: rgba(0,0,0,0.028); border-color: rgba(0,0,0,0.09); }
   .theme-light-card .nws-item { background: rgba(0,0,0,0.028); border-color: rgba(0,0,0,0.09); }
   .theme-light-card .nws-item:hover { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.13); }
   .theme-light-card .nws-item.expanded { background: rgba(0,0,0,0.035); }
@@ -1054,6 +1053,8 @@
     }
   }
 
+
+
   /* ---------- SPC / NWS live storm desk ---------- */
   .nws-section {
     width: 100%;
@@ -1079,59 +1080,63 @@
     text-align: center;
   }
 
+  /* Compact status strip: three related information sources, one visual group. */
   .nws-tabs {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 7px;
-    margin-bottom: 0.85rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 0.9rem;
   }
 
   .nws-tab {
     min-width: 0;
-    background: rgba(255,255,255,0.045);
-    border: 1px solid rgba(255,255,255,0.055);
+    min-height: 48px;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.065);
     color: var(--muted-color);
-    padding: 8px 8px;
-    border-radius: 9px;
-    font-size: 0.7rem;
+    padding: 7px 8px;
+    border-radius: 10px;
+    font-size: 0.67rem;
     font-family: var(--font-body);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
-    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    gap: 6px;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
   }
 
+  .nws-tab:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .nws-tab .nws-tab-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .nws-tab-label-short { display: none; }
+
   .nws-tab .nws-tab-count {
-    min-width: 17px;
-    background: rgba(0,0,0,0.2);
-    border-radius: 9px;
-    padding: 1px 5px;
-    font-size: 0.62rem;
+    flex: 0 0 auto;
+    min-width: 20px;
+    background: rgba(0,0,0,0.16);
+    border-radius: 999px;
+    padding: 2px 6px;
+    font-size: 0.61rem;
+    font-weight: 700;
     text-align: center;
   }
 
   .nws-tab.active {
-    background: rgba(255,255,255,0.09);
-    border-color: rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.075);
+    border-color: rgba(255,255,255,0.13);
     color: var(--text-color);
     font-weight: 600;
-  }
-
-  .nws-tab.active .nws-tab-count {
-    background: var(--accent-color);
-    color: var(--card-color);
-  }
-
-  .nws-tab.urgent {
-    border-color: rgba(255,91,91,0.55);
-    animation: nws-tab-urgent-pulse 1.8s ease-in-out infinite;
-  }
-
-  @keyframes nws-tab-urgent-pulse {
-    0%, 100% { box-shadow: 0 0 0 rgba(255,91,91,0); }
-    50%      { box-shadow: 0 0 9px 1px rgba(255,91,91,0.55); }
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
   }
 
   .nws-panel { display: none; }
@@ -1360,22 +1365,30 @@
   }
 
   @media (max-width: 520px) {
-    /* keep the 3 tabs in a single compact row on mobile instead of
-       stacking them full-width -- stacking was eating a huge amount of
-       vertical space for no added information, since the label + count
-       already fit comfortably on one line once trimmed down. */
-    .nws-tabs { grid-template-columns: repeat(3, 1fr); gap: 5px; }
-    .nws-tab { padding: 7px 4px; font-size: 0.63rem; gap: 3px; }
+    .nws-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+    .nws-tab { min-height: 43px; padding: 6px 4px; font-size: 0.61rem; gap: 3px; }
     .nws-tab .card-icon { display: none; }
-    .nws-tab .nws-tab-count { min-width: 14px; padding: 1px 4px; font-size: 0.58rem; }
+    .nws-tab .nws-tab-count { min-width: 18px; padding: 1px 4px; font-size: 0.57rem; }
+    .nws-tab-label-full { display: none; }
+    .nws-tab-label-short { display: inline; }
     .nws-item-details { grid-template-columns: 1fr; }
     .nws-detail-block.wide { grid-column: auto; }
     .nws-item-title-row { display: block; }
     .nws-item-title-tags { display: flex; margin-top: 2px; }
-    .storm-desk-divider { margin: 0.9rem 0 0.7rem; }
-    .storm-desk-heading { margin-bottom: 0.6rem; }
+    .storm-desk-divider { margin: 0.85rem 0 0.75rem; }
     .nws-empty { padding: 0.85rem 0; }
+
+    .outlook-section-label { font-size: 0.67rem; margin-bottom: 0.45rem; }
+    .outlook-category-tabs { gap: 5px; margin-bottom: 0.65rem; }
+    .outlook-category-tab { padding: 8px 5px; font-size: 0.67rem; }
+    .outlook-tabs { gap: 0.15rem; margin-bottom: 0.6rem; flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scrollbar-width: none; }
+    .outlook-tabs::-webkit-scrollbar { display: none; }
+    .outlook-tab { flex: 0 0 auto; padding: 0.38rem 0.62rem; font-size: 0.7rem; }
+    .outlook-viewport, .thunderstorm-outlook-panel { min-height: 150px; }
+    .outlook-slide img, .thunderstorm-outlook-panel img { max-height: 58vh; border-radius: 6px; }
+    .outlook-card .outlook-note { font-size: 0.66rem; margin-top: 0.45rem; }
   }
+
 
 .charts-dropdown {
     width: 100%;
@@ -1695,29 +1708,38 @@
     font-size: 0.85rem;
   }
 
+  /* SPC outlook navigation: product first, forecast period second. */
   .outlook-tabs {
     display: flex;
     justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    gap: 0.35rem;
+    margin: 0 0 0.85rem;
+    flex-wrap: wrap;
   }
 
   .outlook-tab {
-    background: rgba(255, 255, 255, 0.06);
-    border: none;
+    background: transparent;
+    border: 1px solid transparent;
     color: var(--muted-color);
     font-family: var(--font-details);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     font-weight: 600;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .outlook-tab:hover {
+    background: rgba(255,255,255,0.045);
+    color: var(--text-color);
   }
 
   .outlook-tab.active {
-    background: var(--bg-color);
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.11);
+    color: var(--text-color);
     font-family: var(--font-body);
-    color: #e4e8eb;
   }
 
   .map-tabs {
@@ -1842,12 +1864,25 @@
     }
   }
   
+  .outlook-section-label {
+    color: var(--muted-color);
+    font-family: var(--font-card-heading);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    text-align: center;
+    margin: 0 0 0.55rem;
+    opacity: 0.9;
+  }
+
   .outlook-scroll {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     gap: 1rem;
     scrollbar-width: none;
+    border-radius: 10px;
+    overscroll-behavior-x: contain;
   }
 
   .outlook-scroll::-webkit-scrollbar {
@@ -1858,90 +1893,91 @@
     flex: 0 0 100%;
     scroll-snap-align: start;
     text-align: center;
+    min-width: 0;
   }
 
-  .outlook-slide img {
-    max-width: 100%;
-    border-radius: 8px;
+  .outlook-viewport {
+    width: 100%;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  .outlook-slide img,
+  .thunderstorm-outlook-panel img {
     display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 62vh;
+    object-fit: contain;
+    border-radius: 8px;
     margin: 0 auto;
   }
 
   .storm-desk-divider {
     height: 1px;
     background: rgba(255,255,255,0.1);
-    margin: 1.1rem 0 0.9rem;
+    margin: 1rem 0 0.85rem;
   }
-
-  .storm-desk-heading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    color: var(--muted-color);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-family: var(--font-card-heading);
-    margin-bottom: 0.8rem;
-  }
-
-  .storm-desk-heading .card-icon { width: 20px; height: 20px; }
 
   .outlook-category-tabs {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 7px;
-    margin-bottom: 0.9rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 0.8rem;
   }
 
   .outlook-category-tab {
-    background: rgba(255,255,255,0.045);
-    border: 1px solid rgba(255,255,255,0.055);
+    min-width: 0;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.065);
     color: var(--muted-color);
     padding: 9px 8px;
-    border-radius: 9px;
-    font-size: 0.78rem;
+    border-radius: 10px;
+    font-size: 0.76rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     font-family: var(--font-card-heading);
     cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   }
 
+  .outlook-category-tab:hover {
+    background: rgba(255,255,255,0.06);
+  }
+
   .outlook-category-tab.active {
     background: rgba(255,255,255,0.09);
-    border-color: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.14);
     color: var(--text-color);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
   }
 
   .outlook-category-panel { display: none; }
   .outlook-category-panel.active { display: block; }
 
-  /* the thunderstorm outlook is a single static graphic rather than a
-     day-by-day carousel, so it gets its own quiet panel treatment to
-     set it apart from the Convective Outlook's slides. */
   .thunderstorm-outlook-panel {
-    background: rgba(255,255,255,0.035);
-    border: 1px solid rgba(255,255,255,0.06);
+    width: 100%;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
     border-radius: 10px;
-    padding: 0.9rem;
-    text-align: center;
-  }
-
-  .thunderstorm-outlook-panel img {
-    max-width: 100%;
-    border-radius: 8px;
-    display: block;
-    margin: 0 auto;
   }
 
   .outlook-card .outlook-note {
     color: var(--muted-color);
-    font-size: 0.8rem;
-    margin-top: 0.75rem;
+    font-size: 0.72rem;
+    margin: 0.55rem 0 0;
     font-family: var(--font-body);
+    text-align: center;
+    opacity: 0.8;
   }
 
 /* ---------- FOUC loading overlay ----------
@@ -2856,63 +2892,79 @@ svg circle, svg polygon, svg line {
       <span class="storm-desk-live">live feed</span>
       <span id="storm-desk-updated">waiting for update</span>
     </div>
-    <div class="nws-tabs" id="nws-tabs">
-      <button class="nws-tab" data-target="nws-panel-watches">
+    <div class="nws-tabs" id="nws-tabs" role="tablist" aria-label="Storm alerts and discussions">
+      <button class="nws-tab active" type="button" role="tab" aria-selected="true" aria-controls="nws-panel-watches" data-target="nws-panel-watches">
         <span class="card-icon"><img src="icons/code-orange.svg" alt=""></span>
-        Watches <span class="nws-tab-count" id="nws-count-watches">0</span>
+        <span class="nws-tab-label nws-tab-label-full">Watches</span>
+        <span class="nws-tab-label nws-tab-label-short">Watches</span>
+        <span class="nws-tab-count" id="nws-count-watches">0</span>
       </button>
-      <button class="nws-tab" data-target="nws-panel-md">
+      <button class="nws-tab" type="button" role="tab" aria-selected="false" aria-controls="nws-panel-md" data-target="nws-panel-md">
         <span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>
-        SPC MDs <span class="nws-tab-count" id="nws-count-md">0</span>
+        <span class="nws-tab-label nws-tab-label-full">Mesoscale Discussions</span>
+        <span class="nws-tab-label nws-tab-label-short">MDs</span>
+        <span class="nws-tab-count" id="nws-count-md">0</span>
       </button>
-      <button class="nws-tab" data-target="nws-panel-statements">
+      <button class="nws-tab" type="button" role="tab" aria-selected="false" aria-controls="nws-panel-statements" data-target="nws-panel-statements">
         <span class="card-icon"><img src="icons/code-yellow.svg" alt=""></span>
-        NWS Updates <span class="nws-tab-count" id="nws-count-statements">0</span>
+        <span class="nws-tab-label nws-tab-label-full">NWS Updates</span>
+        <span class="nws-tab-label nws-tab-label-short">NWS</span>
+        <span class="nws-tab-count" id="nws-count-statements">0</span>
       </button>
     </div>
 
-    <div class="nws-panel" id="nws-panel-watches">
+    <div class="nws-panel active" id="nws-panel-watches" role="tabpanel">
       <div class="nws-list" id="nws-list-watches"><div class="nws-empty">No active watches.</div></div>
     </div>
-    <div class="nws-panel" id="nws-panel-md">
+    <div class="nws-panel" id="nws-panel-md" role="tabpanel">
       <div class="nws-list" id="nws-list-md"><div class="nws-empty">No recent mesoscale discussions.</div></div>
     </div>
-    <div class="nws-panel" id="nws-panel-statements">
+    <div class="nws-panel" id="nws-panel-statements" role="tabpanel">
       <div class="nws-list" id="nws-list-statements"><div class="nws-empty">No recent NWS updates.</div></div>
     </div>
 
     <div class="storm-desk-divider"></div>
 
-    <div class="outlook-category-tabs" id="outlook-category-tabs">
-      <button class="outlook-category-tab active" data-target="outlook-panel-convective">Convective Outlook</button>
-      <button class="outlook-category-tab" data-target="outlook-panel-thunderstorm">Thunderstorm Outlook</button>
+    <div class="outlook-section-label">SPC Outlooks</div>
+
+    <div class="outlook-category-tabs" id="outlook-category-tabs" role="tablist" aria-label="SPC outlook products">
+      <button class="outlook-category-tab active" type="button" role="tab" aria-selected="true" aria-controls="outlook-panel-convective" data-target="outlook-panel-convective">Convective</button>
+      <button class="outlook-category-tab" type="button" role="tab" aria-selected="false" aria-controls="outlook-panel-thunderstorm" data-target="outlook-panel-thunderstorm">Thunderstorm</button>
     </div>
 
-    <div class="outlook-category-panel active" id="outlook-panel-convective">
-      <div class="outlook-tabs">
-        <button class="outlook-tab active" data-target="outlook-slide-day1">Day 1</button>
-        <button class="outlook-tab" data-target="outlook-slide-day2">Day 2</button>
-        <button class="outlook-tab" data-target="outlook-slide-day3">Day 3</button>
-        <button class="outlook-tab" data-target="outlook-slide-day48">Day 4-8</button>
+    <div class="outlook-category-panel active" id="outlook-panel-convective" role="tabpanel">
+      <div class="outlook-tabs" role="tablist" aria-label="Convective outlook days">
+        <button class="outlook-tab active" type="button" role="tab" aria-selected="true" data-target="outlook-slide-day1">Day 1</button>
+        <button class="outlook-tab" type="button" role="tab" aria-selected="false" data-target="outlook-slide-day2">Day 2</button>
+        <button class="outlook-tab" type="button" role="tab" aria-selected="false" data-target="outlook-slide-day3">Day 3</button>
+        <button class="outlook-tab" type="button" role="tab" aria-selected="false" data-target="outlook-slide-day48">Day 4–8</button>
       </div>
       <div class="outlook-scroll" id="outlook-scroll">
-        <div class="outlook-slide" id="outlook-slide-day1">
-          <img id="outlook-img-day1" src="data/outlook-day1.png" alt="SPC Day 1 Convective Outlook">
+        <div class="outlook-slide" id="outlook-slide-day1" role="tabpanel">
+          <div class="outlook-viewport">
+            <img id="outlook-img-day1" src="data/outlook-day1.png" alt="SPC Day 1 Convective Outlook">
+          </div>
         </div>
-        <div class="outlook-slide" id="outlook-slide-day2">
-          <img id="outlook-img-day2" src="data/outlook-day2.png" alt="SPC Day 2 Convective Outlook">
+        <div class="outlook-slide" id="outlook-slide-day2" role="tabpanel">
+          <div class="outlook-viewport">
+            <img id="outlook-img-day2" src="data/outlook-day2.png" alt="SPC Day 2 Convective Outlook">
+          </div>
         </div>
-        <div class="outlook-slide" id="outlook-slide-day3">
-          <img id="outlook-img-day3" src="data/outlook-day3.png" alt="SPC Day 3 Convective Outlook">
+        <div class="outlook-slide" id="outlook-slide-day3" role="tabpanel">
+          <div class="outlook-viewport">
+            <img id="outlook-img-day3" src="data/outlook-day3.png" alt="SPC Day 3 Convective Outlook">
+          </div>
         </div>
-        <div class="outlook-slide" id="outlook-slide-day48">
-          <img id="outlook-img-day48" src="data/outlook-day4-8.png" alt="SPC Day 4-8 Severe Weather Outlook">
+        <div class="outlook-slide" id="outlook-slide-day48" role="tabpanel">
+          <div class="outlook-viewport">
+            <img id="outlook-img-day48" src="data/outlook-day4-8.png" alt="SPC Day 4–8 Severe Weather Outlook">
+          </div>
         </div>
       </div>
-      <div class="outlook-note">Swipe for Day 1–8.</div>
+      <div class="outlook-note">Day 1–8 • swipe to browse</div>
     </div>
 
-    <div class="outlook-category-panel" id="outlook-panel-thunderstorm">
+    <div class="outlook-category-panel" id="outlook-panel-thunderstorm" role="tabpanel">
       <div class="thunderstorm-outlook-panel">
         <img id="outlook-img-thunderstorm" src="data/outlook-thunderstorm.png" alt="SPC Thunderstorm Outlook">
       </div>
@@ -3888,30 +3940,38 @@ svg circle, svg polygon, svg line {
   }
 
   function initOutlookCategoryTabs() {
-    const tabs = document.querySelectorAll('#outlook-category-tabs .outlook-category-tab');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        document.querySelectorAll('.outlook-category-panel').forEach(p => p.classList.remove('active'));
-        document.getElementById(tab.dataset.target).classList.add('active');
-      });
-    });
-  }
+     const tabs = document.querySelectorAll('#outlook-category-tabs .outlook-category-tab');
+     tabs.forEach(tab => {
+       tab.addEventListener('click', () => {
+         tabs.forEach(t => {
+           t.classList.remove('active');
+           t.setAttribute('aria-selected', 'false');
+         });
+         tab.classList.add('active');
+         tab.setAttribute('aria-selected', 'true');
+         document.querySelectorAll('.outlook-category-panel').forEach(p => p.classList.remove('active'));
+         document.getElementById(tab.dataset.target).classList.add('active');
+       });
+     });
+   }
 
   function initOutlookCarousel() {
-    const scroller = document.getElementById('outlook-scroll');
-    const tabs = document.querySelectorAll('.outlook-tab');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.getElementById(tab.dataset.target).scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
-      });
-    });
-    scroller.addEventListener('scroll', () => {
-      const index = Math.round(scroller.scrollLeft / scroller.clientWidth);
-      tabs.forEach((tab, i) => tab.classList.toggle('active', i === index));
-    });
-  }
+     const scroller = document.getElementById('outlook-scroll');
+     const tabs = document.querySelectorAll('.outlook-tab');
+     tabs.forEach(tab => {
+       tab.addEventListener('click', () => {
+         document.getElementById(tab.dataset.target).scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+       });
+     });
+     scroller.addEventListener('scroll', () => {
+       const index = Math.round(scroller.scrollLeft / scroller.clientWidth);
+       tabs.forEach((tab, i) => {
+         const active = i === index;
+         tab.classList.toggle('active', active);
+         tab.setAttribute('aria-selected', active ? 'true' : 'false');
+       });
+     });
+   }
   
   // ---------- maps card ----------
   const RADAR_LAT = 40.616;
@@ -5197,16 +5257,20 @@ const THEMES = {
   }
 
   function initNwsTabs() {
-    const tabs = document.querySelectorAll('#nws-tabs .nws-tab');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        document.querySelectorAll('.nws-panel').forEach(p => p.classList.remove('active'));
-        document.getElementById(tab.dataset.target).classList.add('active');
-      });
-    });
-  }
+     const tabs = document.querySelectorAll('#nws-tabs .nws-tab');
+     tabs.forEach(tab => {
+       tab.addEventListener('click', () => {
+         tabs.forEach(t => {
+           t.classList.remove('active');
+           t.setAttribute('aria-selected', 'false');
+         });
+         tab.classList.add('active');
+         tab.setAttribute('aria-selected', 'true');
+         document.querySelectorAll('.nws-panel').forEach(p => p.classList.remove('active'));
+         document.getElementById(tab.dataset.target).classList.add('active');
+       });
+     });
+   }
 
   // fetches the compact SPC/NWS product feed generated by GitHub Actions.
   async function loadNwsProducts() {
