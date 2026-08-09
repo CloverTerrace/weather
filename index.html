@@ -4443,7 +4443,7 @@ const THEMES = {
     // 'snowy'/'snowyNight' can be reached two ways: via a winter storm/
     // blizzard warning (alertFx.snow = true) or just from locally-observed
     // snow with no active alert (classifyWeather() picks the theme
-    // directly, alertFx is null). Snowflakes should fall either way -- a
+    // directly, alertFx is null). snowflakes should fall either way -- a
     // "snowy" theme with no snow falling was the bug -- so gate on the
     // theme key too, same as the aurora fix above.
     document.body.classList.toggle('fx-active-snow', !!(alertFx && alertFx.snow) || themeKey === 'snowy' || themeKey === 'snowyNight');
@@ -4453,11 +4453,11 @@ const THEMES = {
     // lightning on the theme key is safe and, like aurora, is what lets
     // the footer preview show them.
     document.body.classList.toggle('fx-alert-tornado', !!(alertFx && alertFx.tornadoVignette) || themeKey === 'tornado' || themeKey === 'tornadoNight');
-    // Lightning is different: 'thunderstorm'/'thunderstormNight' can also
+    // lightning is different: 'thunderstorm'/'thunderstormNight' can also
     // be reached from locally-observed heavy rain + wind with no NWS
     // warning active (classifyWeather(), alertFx null) -- and a
     // thunderstorm theme with no lightning looked broken, alert or not.
-    // Tornado always implies lightning too.
+    // tornado always implies lightning too.
     const lightningThemes = ['thunderstorm', 'thunderstormNight', 'tornado', 'tornadoNight'];
     setLightningActive(!!(alertFx && alertFx.lightning) || lightningThemes.includes(themeKey));
 
@@ -4520,7 +4520,7 @@ const THEMES = {
     if (data.temp >= 80 && data.heatIndex) feelsLike = data.heatIndex;
     else if (data.temp <= 50 && data.windChill) feelsLike = data.windChill;
 
-    // Keep the glance view focused on comfort: the feels-like value is the
+    // keep the glance view focused on comfort: the feels-like value is the
     // primary temperature, while the actual sensor temperature sits directly
     // beneath it instead of consuming a separate column.
     const dewptComfort = getDewpointComfort(data.dewpt);
