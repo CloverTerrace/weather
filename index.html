@@ -2480,6 +2480,22 @@ svg circle, svg polygon, svg line {
       width: 100%;
     }
 
+    /* .dashboard-grid's spacing normally comes from `gap` (grid-only) plus
+       `margin-top: 0 !important` on every child (see base rule above) --
+       that combo goes to zero once this media query forces block layout,
+       since `gap` has no effect outside grid/flex. Without this, cards
+       stack flush against each other, and any card whose real rendered
+       height differs even slightly from initial layout (async-loaded
+       images, the Leaflet radar map, JS-injected product lists) visually
+       overlaps its neighbor instead of just looking cramped. */
+    .dashboard-grid > * {
+      margin-bottom: 1.5rem !important;
+    }
+
+    .dashboard-grid > *:last-child {
+      margin-bottom: 0 !important;
+    }
+
     .grid-column {
       display: block;
       width: 100%;
