@@ -3218,16 +3218,26 @@ svg circle, svg polygon, svg line {
 
   // plain-language storm-development read on a 3h pressure trend rate --
   // this is the classic "what does a falling barometer mean" cue.
-  function getStormPotentialNote(deltaPerHour) {
-    if (deltaPerHour === null || deltaPerHour === undefined || isNaN(deltaPerHour)) {
+  //
+  // Takes the *same* trend object getPressureTrend() produces (the one the
+  // card's arrow/badge are built from), and switches on its label rather
+  // than re-deriving a rising/falling/steady call from a second, separately
+  // -tuned threshold. That second threshold used to disagree with
+  // PRESSURE_TREND_THRESHOLD often enough that the arrow could read
+  // "Rising" while this note still said "Steady" -- same sensor data, two
+  // different verdicts. Rate (deltaPerHour) is still used, but only to pick
+  // "rapid" vs "steady" within whichever direction the trend object already
+  // settled on.
+  function getStormPotentialNote(trend) {
+    if (!trend || trend.deltaPerHour === null || trend.deltaPerHour === undefined || isNaN(trend.deltaPerHour)) {
       return 'Not enough recent pressure history yet to read a trend.';
     }
-    const rate = Math.abs(deltaPerHour);
-    if (deltaPerHour <= -0.02) {
+    const rate = Math.abs(trend.deltaPerHour);
+    if (trend.label === 'Falling') {
       if (rate >= 0.06) return '<strong>Rapid fall</strong> — often signals an approaching storm system or strengthening low pressure nearby.';
       return '<strong>Steady fall</strong> — conditions are trending toward more unsettled weather.';
     }
-    if (deltaPerHour >= 0.02) {
+    if (trend.label === 'Rising') {
       if (rate >= 0.06) return '<strong>Rapid rise</strong> — usually means a system is clearing out and skies should improve.';
       return '<strong>Steady rise</strong> — fair weather building in.';
     }
@@ -3380,12 +3390,12 @@ svg circle, svg polygon, svg line {
   const PRESSURE_TREND_WINDOW_HOURS = 3;
   const PRESSURE_TREND_THRESHOLD = 0.03;
 
-  function getPressureTrend(history, fieldKey = 'pressure') {
+  function getPressureTrend(history, fieldKey = 'pressure', windowHours = PRESSURE_TREND_WINDOW_HOURS) {
     if (!history || history.length < 2) return null;
     const latest = history[history.length - 1];
     if (!latest || latest[fieldKey] === undefined || latest[fieldKey] === null) return null;
 
-    const targetTime = Date.now() - PRESSURE_TREND_WINDOW_HOURS * 60 * 60 * 1000;
+    const targetTime = Date.now() - windowHours * 60 * 60 * 1000;
     let closest = null;
     let closestDiff = Infinity;
     history.forEach(entry => {
@@ -3399,10 +3409,17 @@ svg circle, svg polygon, svg line {
     if (!closest) return null;
 
     const delta = latest[fieldKey] - closest[fieldKey];
-    const deltaPerHour = delta / PRESSURE_TREND_WINDOW_HOURS;
-    if (delta >= PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-high.svg" class="meteocon" alt="Rising">', label: 'Rising', className: 'trend-rising', delta, deltaPerHour };
-    if (delta <= -PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-low.svg" class="meteocon" alt="Falling">', label: 'Falling', className: 'trend-falling', delta, deltaPerHour };
-    return { arrow: '→', label: 'Steady', className: 'trend-steady', delta, deltaPerHour };
+    const deltaPerHour = delta / windowHours;
+    // Rising/Falling/Steady is only ever classified against the 3h
+    // threshold (the standard storm-tracking window) regardless of which
+    // window was requested, so a 24h call still reports a real delta but
+    // doesn't hand back a differently-tuned label/arrow.
+    if (windowHours === PRESSURE_TREND_WINDOW_HOURS) {
+      if (delta >= PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-high.svg" class="meteocon" alt="Rising">', label: 'Rising', className: 'trend-rising', delta, deltaPerHour };
+      if (delta <= -PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-low.svg" class="meteocon" alt="Falling">', label: 'Falling', className: 'trend-falling', delta, deltaPerHour };
+      return { arrow: '→', label: 'Steady', className: 'trend-steady', delta, deltaPerHour };
+    }
+    return { delta, deltaPerHour };
   }
   
   let currentRangeHours = 24; 
@@ -4642,30 +4659,23 @@ const THEMES = {
     });
 
 
-    // 3. pressure card -- shows Relative and Absolute side-by-side (like
-    // the Ecowitt app) when the backend supplies a second pressure
-    // reading. `data.pressureAbsolute` is optional: if the weewx script
-    // isn't exporting it yet, this gracefully falls back to a single
-    // "Pressure" column exactly like before -- nothing breaks either way.
+    // 3. pressure card -- relative (elevation-corrected) pressure is the
+    // only reading shown; it's the preferred storm-tracking value and
+    // matches what the trend/arrow/storm-note below are all computed from.
     const pExt = extSafe('pressure');
     const pTrend = getPressureTrend(fullHistory, 'pressure');
-    const hasAbsolute = data.pressureAbsolute !== undefined && data.pressureAbsolute !== null;
-    const paExt = hasAbsolute ? extSafe('pressureAbsolute') : null;
-    const paTrend = hasAbsolute ? getPressureTrend(fullHistory, 'pressureAbsolute') : null;
+    const pTrend24 = getPressureTrend(fullHistory, 'pressure', 24);
 
     const primaryTrend = pTrend;
     const trendRateHtml = (primaryTrend && primaryTrend.deltaPerHour !== undefined)
       ? `${primaryTrend.deltaPerHour >= 0 ? '+' : ''}${primaryTrend.deltaPerHour.toFixed(3)} inHg/hr`
       : 'trend building…';
-    const pressureIcon = primaryTrend && primaryTrend.deltaPerHour < -0.005
-      ? 'pressure-low.svg'
-      : 'pressure-high.svg';
 
     const pressureCard = document.createElement('div');
     pressureCard.className = 'card combo-card pressure-card';
     pressureCard.innerHTML = `
       <div class="priority-card-head">
-        <div class="priority-icon"><img src="icons/${pressureIcon}" alt=""></div>
+        <div class="priority-icon"><img src="icons/barometer.svg" alt=""></div>
         <div class="priority-heading">Pressure</div>
       </div>
       <div class="pressure-priority-row">
@@ -4673,40 +4683,26 @@ const THEMES = {
         ${primaryTrend ? `<span class="pressure-trend ${primaryTrend.className}">${primaryTrend.arrow}</span>` : ''}
       </div>
       <div class="priority-context">${primaryTrend ? primaryTrend.label : 'Steady'} · ${trendRateHtml}</div>
-      <div class="storm-note compact-storm-note">${getStormPotentialNote(primaryTrend ? primaryTrend.deltaPerHour : null)}</div>
+      <div class="storm-note compact-storm-note">${getStormPotentialNote(primaryTrend)}</div>
     `;
     gridLeft.appendChild(pressureCard);
     makeCardExpandable(pressureCard, 'pressure', 'more pressure data', (panel) => {
-      const rows = [
-        `<div class="extra-data-row"><span class="extra-data-label">Relative — Today's High</span><span class="extra-data-value">${formatVal(pExt.max.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(pExt.max.time)})</span></span></div>`,
-        `<div class="extra-data-row"><span class="extra-data-label">Relative — Today's Low</span><span class="extra-data-value">${formatVal(pExt.min.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(pExt.min.time)})</span></span></div>`,
-      ];
-      if (hasAbsolute) {
-        rows.push(`<div class="extra-data-row"><span class="extra-data-label">Absolute — Today's High</span><span class="extra-data-value">${formatVal(paExt.max.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(paExt.max.time)})</span></span></div>`);
-        rows.push(`<div class="extra-data-row"><span class="extra-data-label">Absolute — Today's Low</span><span class="extra-data-value">${formatVal(paExt.min.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">(${formatShortTime(paExt.min.time)})</span></span></div>`);
-        rows.push(`<div class="extra-data-row"><span class="extra-data-label">Station Correction</span><span class="extra-data-value">${formatVal(data.pressure - data.pressureAbsolute, 2)} inHg</span></div>`);
-      }
-      rows.push(`<div class="extra-data-row"><span class="extra-data-label">3h Change (Relative)</span><span class="extra-data-value">${pTrend && pTrend.delta !== undefined ? (pTrend.delta >= 0 ? '+' : '') + pTrend.delta.toFixed(3) + ' inHg' : '--'}</span></div>`);
       panel.innerHTML = detailPanelHtml([
         {
-          title: 'Today · relative pressure',
+          title: "Today's range",
           rows: [
             `<div class="extra-data-row"><span class="extra-data-label">High</span><span class="extra-data-value">${formatVal(pExt.max.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(pExt.max.time)}</span></span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Low</span><span class="extra-data-value">${formatVal(pExt.min.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(pExt.min.time)}</span></span></div>`,
-            ...(hasAbsolute ? [
-              `<div class="extra-data-row"><span class="extra-data-label">Absolute High</span><span class="extra-data-value">${formatVal(paExt.max.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(paExt.max.time)}</span></span></div>`,
-              `<div class="extra-data-row"><span class="extra-data-label">Absolute Low</span><span class="extra-data-value">${formatVal(paExt.min.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(paExt.min.time)}</span></span></div>`
-            ] : [])
+            `<div class="extra-data-row"><span class="extra-data-label">Low</span><span class="extra-data-value">${formatVal(pExt.min.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(pExt.min.time)}</span></span></div>`
           ]
         },
         {
-          title: 'Station & trend',
+          title: 'Trend',
           rows: [
-            ...(hasAbsolute ? [`<div class="extra-data-row"><span class="extra-data-label">Station Correction</span><span class="extra-data-value">${formatVal(data.pressure - data.pressureAbsolute, 2)} inHg</span></div>`] : []),
-            `<div class="extra-data-row"><span class="extra-data-label">3h Change</span><span class="extra-data-value">${pTrend && pTrend.delta !== undefined ? (pTrend.delta >= 0 ? '+' : '') + pTrend.delta.toFixed(3) + ' inHg' : '--'}</span></div>`
+            `<div class="extra-data-row"><span class="extra-data-label">3h Change</span><span class="extra-data-value">${pTrend && pTrend.delta !== undefined ? (pTrend.delta >= 0 ? '+' : '') + pTrend.delta.toFixed(3) + ' inHg' : '--'}</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">24h Change</span><span class="extra-data-value">${pTrend24 && pTrend24.delta !== undefined ? (pTrend24.delta >= 0 ? '+' : '') + pTrend24.delta.toFixed(3) + ' inHg' : '--'}</span></div>`
           ]
         }
-      ], 'Relative pressure is elevation-corrected and is the preferred storm-tracking value; absolute pressure is the raw station-level reading.') ;
+      ], 'A 3-hour fall of 0.06 inHg or more often signals an approaching storm system; a slow, steady rise usually means fair weather building in. Average sea-level pressure is about 29.92 inHg.');
     });
 
     // 4. precipitation card -- same card slot either way (unlike the
