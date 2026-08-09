@@ -116,7 +116,10 @@ def clean_product_text(value: str) -> str:
     value = html.unescape(value).replace("\r", "")
     # Drop common ASCII framing and repeated blank lines.
     value = re.sub(r"^\s*\[?\s*Product:.*$", "", value, flags=re.I | re.M)
-    value = re.sub(r"^\s*$$", "", value, flags=re.M)
+    # NOTE: "$$" here must be escaped -- an unescaped "$" is a regex anchor,
+    # not a literal dollar sign, so this now actually matches the literal
+    # "$$" end-of-product marker NWS/SPC bulletins terminate with.
+    value = re.sub(r"^\s*\$\$\s*$", "", value, flags=re.M)
     lines = [line.rstrip() for line in value.splitlines()]
     while lines and not lines[0].strip():
         lines.pop(0)
@@ -359,6 +362,7 @@ def parse_md(url: str, raw_html: str, number: int) -> dict:
         "expires": valid[1] if valid else None,
         "concerning": concerning,
         "areas": areas,
+        "watchProbability": watch_probability,
         "summary": summary,
         "details": details,
         "url": url,
@@ -438,13 +442,6 @@ def fetch_nws_updates(limit: int = MAX_NWS_UPDATES) -> list[dict]:
         full_text=clean_nws_product_text(full_text)
         product_name=props.get("productName") or NWS_UPDATE_CODES[code]
 
-        # Prefer official structured metadata; fall back to the first clean body lines.
-        headline=props.get("headline") or product_name
-        summary=props.get("headline") or ""
-        if not summary or summary == product_name:
-            lines=[x for x in normalize_lines(full_text) if len(x) > 8]
-            summary=" ".join(lines[:2])[:420] if lines else product_name
-
         details=[]
         for label, labels, limit_chars in [
             ("Overview", ["OVERVIEW", "SUMMARY", "SYNOPSIS"], 1100),
@@ -454,6 +451,23 @@ def fetch_nws_updates(limit: int = MAX_NWS_UPDATES) -> list[dict]:
         ]:
             value=extract_section(full_text, labels, limit_chars)
             if value: details.append({"label":label,"text":value})
+
+        # Prefer official structured metadata; most plain-text products (SVS,
+        # SPS, etc.) have no "headline" field at all, so this falls through
+        # to real content -- prefer an already-extracted detail section
+        # (Hazards/Overview/...) over raw body lines, since the first lines
+        # of full_text are usually just the product's own name + issuance
+        # timestamp banner (e.g. "Severe Weather Statement 805 PM EDT..."),
+        # not anything a spotter would find useful as a summary.
+        headline=props.get("headline") or product_name
+        summary=props.get("headline") or ""
+        if not summary or summary == product_name:
+            if details:
+                summary=details[0]["text"][:420]
+            else:
+                banner_re=re.compile(rf"^(?:{re.escape(product_name)}|\d{{3,4}}\s+(?:AM|PM)\s+[A-Z]{{2,4}}\s+\w{{3}}\s+\w{{3}}\s+\d{{1,2}}\s+\d{{4}})$", re.I)
+                lines=[x for x in normalize_lines(full_text) if len(x) > 8 and not banner_re.match(x)]
+                summary=" ".join(lines[:2])[:420] if lines else product_name
         if not details and full_text:
             details=[{"label":"Product detail","text":" ".join(normalize_lines(full_text)[:8])[:1800]}]
 
