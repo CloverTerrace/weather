@@ -87,6 +87,11 @@
     --font-details: Figtree, Tahoma, sans-serif;       /* general text within cards — subtitle, status line, forecast periods, alert banners, sun/moon details, sky badges */
     --font-grid-label: Figtree, Tahoma, sans-serif;    /* dashboard tile labels — "TEMPERATURE", "WIND SPEED", etc. */
     --font-grid-value: var(--font-family);             /* dashboard tile big numbers — "68", "°F", etc. */
+
+    /* one soft, ambient shadow shared by the page title and every
+       meteocon icon, so they all sit on the page with the same gentle
+       lift instead of each spot inventing its own harsher shadow. */
+    --icon-shadow: drop-shadow(0 1px 2px rgba(0,0,0,0.16));
   }
 
   * { box-sizing: border-box; }
@@ -219,7 +224,9 @@
     font-weight: 600;
     font-family: var(--font-page-title);
     color: var(--title-color);
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    /* soft, ambient lift instead of a hard directional shadow -- keeps
+       the title from clashing with the meteocons' own gentle look */
+    text-shadow: 0 2px 6px rgba(0,0,0,0.16);
   }
 
   .weather-icon-img {
@@ -228,11 +235,11 @@
     vertical-align: -0.15em;
     /* Meteocons are drawn light/pale by design (meant to float on dark
        backgrounds), so on the white-ish "sunny" card they lose their
-       edges. A soft dark drop-shadow gives every icon a consistent
+       edges. A soft, shared drop-shadow gives every icon a consistent
        outline no matter how light the card behind it is -- barely
        visible on dark cards, but it quietly rescues legibility on the
        light ones. */
-    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));
+    filter: var(--icon-shadow);
   }
 
   .meteocon {
@@ -260,6 +267,10 @@
     overflow: hidden;
     vertical-align: -6px;
     margin-right: 0.35em;
+    /* shadow lives on the container, not the cropped image inside it --
+       putting it on the (overflow:hidden) img clipped the shadow itself
+       into a harsh little rectangle on one or two sides of the icon */
+    filter: var(--icon-shadow);
   }
 
   .card-icon img {
@@ -268,7 +279,6 @@
     height: 100%;
     transform: scale(1.45);
     transform-origin: center;
-    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));
   }
 
   /* the stacked label/value rows used on the right side of the
@@ -1162,6 +1172,8 @@
     overflow: hidden;
     margin-top: 1px;
     opacity: 0.92;
+    /* shadow on the container so it isn't clipped by the crop below */
+    filter: var(--icon-shadow);
   }
 
   .nws-item-icon img {
@@ -1170,7 +1182,6 @@
     height: 100%;
     transform: scale(1.35);
     transform-origin: center;
-    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));
   }
 
   .nws-item-body { flex: 1; min-width: 0; }
@@ -1873,15 +1884,6 @@
   }
 
   .storm-desk-heading .card-icon { width: 20px; height: 20px; }
-
-  .storm-desk-status {
-    margin-top: 0.75rem;
-    text-align: center;
-    color: var(--muted-color);
-    opacity: 0.7;
-    font-size: 0.68rem;
-    font-family: var(--font-details);
-  }
 
   .outlook-card .outlook-note {
     color: var(--muted-color);
@@ -2796,7 +2798,43 @@ svg circle, svg polygon, svg line {
  </div>    
 
   <div class="camera-card outlook-card">
-    <h2>SPC Convective Outlook</h2>
+    <h2><span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>Storm Center</h2>
+
+    <div class="storm-desk-livebar">
+      <span class="storm-desk-live">live feed</span>
+      <span id="storm-desk-updated">waiting for update</span>
+    </div>
+    <div class="outlook-note">Only the newest active SPC/NWS products are kept here for spotters.</div>
+    <div class="nws-tabs" id="nws-tabs">
+      <button class="nws-tab" data-target="nws-panel-watches">
+        <span class="card-icon"><img src="icons/code-orange.svg" alt=""></span>
+        Watches <span class="nws-tab-count" id="nws-count-watches">0</span>
+      </button>
+      <button class="nws-tab" data-target="nws-panel-md">
+        <span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>
+        SPC MDs <span class="nws-tab-count" id="nws-count-md">0</span>
+      </button>
+      <button class="nws-tab" data-target="nws-panel-statements">
+        <span class="card-icon"><img src="icons/code-yellow.svg" alt=""></span>
+        NWS Updates <span class="nws-tab-count" id="nws-count-statements">0</span>
+      </button>
+    </div>
+
+    <div class="nws-panel" id="nws-panel-watches">
+      <div class="nws-list" id="nws-list-watches"><div class="nws-empty">No active watches.</div></div>
+    </div>
+    <div class="nws-panel" id="nws-panel-md">
+      <div class="nws-list" id="nws-list-md"><div class="nws-empty">No recent mesoscale discussions.</div></div>
+    </div>
+    <div class="nws-panel" id="nws-panel-statements">
+      <div class="nws-list" id="nws-list-statements"><div class="nws-empty">No recent NWS updates.</div></div>
+    </div>
+
+    <div class="storm-desk-divider"></div>
+    <div class="storm-desk-heading">
+      <span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>
+      SPC Outlook
+    </div>
     <div class="outlook-tabs">
       <button class="outlook-tab active" data-target="outlook-slide-day1">Day 1</button>
       <button class="outlook-tab" data-target="outlook-slide-day2">Day 2</button>
@@ -2813,42 +2851,7 @@ svg circle, svg polygon, svg line {
         <img id="outlook-img-day3" src="data/outlook-day3.png" alt="SPC Day 3 Convective Outlook">
       </div>
     </div>
-    <div class="outlook-note">Swipe the outlooks. The live desk below keeps only the newest active SPC/NWS products for spotters.</div>
-
-    <div class="storm-desk-divider"></div>
-    <div class="storm-desk-heading">
-      <span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>
-      Live Storm Desk
-    </div>
-    <div class="storm-desk-livebar">
-      <span class="storm-desk-live">live feed</span>
-      <span id="storm-desk-updated">waiting for update</span>
-    </div>
-    <div class="nws-tabs" id="nws-tabs">
-      <button class="nws-tab active" data-target="nws-panel-watches">
-        <span class="card-icon"><img src="icons/code-orange.svg" alt=""></span>
-        Watches <span class="nws-tab-count" id="nws-count-watches">0</span>
-      </button>
-      <button class="nws-tab" data-target="nws-panel-md">
-        <span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>
-        SPC MDs <span class="nws-tab-count" id="nws-count-md">0</span>
-      </button>
-      <button class="nws-tab" data-target="nws-panel-statements">
-        <span class="card-icon"><img src="icons/code-yellow.svg" alt=""></span>
-        NWS Updates <span class="nws-tab-count" id="nws-count-statements">0</span>
-      </button>
-    </div>
-
-    <div class="nws-panel active" id="nws-panel-watches">
-      <div class="nws-list" id="nws-list-watches"><div class="nws-empty">No active watches.</div></div>
-    </div>
-    <div class="nws-panel" id="nws-panel-md">
-      <div class="nws-list" id="nws-list-md"><div class="nws-empty">No recent mesoscale discussions.</div></div>
-    </div>
-    <div class="nws-panel" id="nws-panel-statements">
-      <div class="nws-list" id="nws-list-statements"><div class="nws-empty">No recent NWS updates.</div></div>
-    </div>
-    <div class="storm-desk-status" id="storm-desk-status">Waiting for SPC / NWS product data…</div>
+    <div class="outlook-note">Swipe the outlooks for Day 1–3.</div>
   </div>
 
 <div class="chart-card weather-map-card">
@@ -5109,13 +5112,9 @@ const THEMES = {
     }
     nwsPrevHasTornadoWatch = hasTornadoWatch;
 
-    const deskStatus = document.getElementById('storm-desk-status');
     const updated = document.getElementById('storm-desk-updated');
     const generated = nwsProducts.generatedAt ? formatShortTime(nwsProducts.generatedAt) : '';
     if (updated) updated.textContent = generated ? `updated ${generated}` : 'awaiting update';
-    if (deskStatus) deskStatus.textContent = generated
-      ? `${watches.length} active watch${watches.length === 1 ? '' : 'es'} · ${mds.length} live/recent SPC MD${mds.length === 1 ? '' : 's'} · ${statements.length} recent NWS update${statements.length === 1 ? '' : 's'}`
-      : 'Product feed loaded';
   }
 
   function initNwsTabs() {
@@ -5144,8 +5143,7 @@ const THEMES = {
       };
       renderNwsProducts();
     } catch (err) {
-      const status = document.getElementById('storm-desk-status');
-      if (status) status.textContent = 'SPC / NWS feed temporarily unavailable';
+      console.warn('SPC / NWS feed temporarily unavailable', err);
     }
   }
 
