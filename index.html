@@ -1087,6 +1087,16 @@
     color: var(--card-color);
   }
 
+  .nws-tab.urgent {
+    border-color: rgba(255,91,91,0.55);
+    animation: nws-tab-urgent-pulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes nws-tab-urgent-pulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(255,91,91,0); }
+    50%      { box-shadow: 0 0 9px 1px rgba(255,91,91,0.55); }
+  }
+
   .nws-panel { display: none; }
   .nws-panel.active { display: block; }
 
@@ -1156,12 +1166,31 @@
     line-height: 1.25;
   }
 
+  .nws-item-title-tags {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
   .nws-item-age {
     flex: 0 0 auto;
     color: var(--muted-color);
     opacity: 0.7;
     font-family: var(--font-details);
     font-size: 0.61rem;
+  }
+
+  .nws-prob-badge {
+    flex: 0 0 auto;
+    background: rgba(255,179,71,0.16);
+    color: #ffb347;
+    border: 1px solid rgba(255,179,71,0.35);
+    border-radius: 9px;
+    padding: 1px 6px;
+    font-family: var(--font-details);
+    font-size: 0.6rem;
+    white-space: nowrap;
   }
 
   .nws-item-meta {
@@ -1292,42 +1321,12 @@
     opacity: 0.8;
   }
 
-  .storm-desk-divider {
-    height: 1px;
-    background: rgba(255,255,255,0.1);
-    margin: 1.1rem 0 0.9rem;
-  }
-
-  .storm-desk-heading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    color: var(--muted-color);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-family: var(--font-card-heading);
-    margin-bottom: 0.55rem;
-  }
-
-  .storm-desk-heading .card-icon { width: 20px; height: 20px; }
-
-  .storm-desk-status {
-    margin-top: 0.65rem;
-    text-align: center;
-    color: var(--muted-color);
-    opacity: 0.62;
-    font-size: 0.61rem;
-    font-family: var(--font-details);
-  }
-
   @media (max-width: 520px) {
     .nws-tabs { grid-template-columns: 1fr; }
     .nws-item-details { grid-template-columns: 1fr; }
     .nws-detail-block.wide { grid-column: auto; }
     .nws-item-title-row { display: block; }
-    .nws-item-age { display: block; margin-top: 2px; }
+    .nws-item-title-tags { display: flex; margin-top: 2px; }
   }
 
 .charts-dropdown {
@@ -4973,6 +4972,11 @@ const THEMES = {
   // minimal backend can ship watches-only, or statements-only, etc.
 
   let nwsProducts = { watches: [], mesoscaleDiscussions: [], statements: [] };
+  // Tracks the previous render's tornado-watch state so the tab auto-switch
+  // (below) only fires on the moment a tornado watch newly appears, not on
+  // every 10-min refresh while it's still active -- so it doesn't keep
+  // yanking the user back to the Watches tab if they've since clicked away.
+  let nwsPrevHasTornadoWatch = false;
 
   // maps a product's hazard type to a meteocon + a left-border color class,
   // so watches/MDs/statements get an instant at-a-glance visual cue for
@@ -5042,6 +5046,7 @@ const THEMES = {
     const title = escapeNwsHtml(item.type || item.concerning || typeLabel) + (item.number ? ` #${escapeNwsHtml(item.number)}` : '');
     const summary = escapeNwsHtml(item.summary || item.concerning || item.headline || '');
     const age = escapeNwsHtml(nwsAgeLabel(item.issued));
+    const probBadge = item.watchProbability ? escapeNwsHtml(item.watchProbability) : '';
     const details = getNwsDetails(item);
     const detailsHtml = details.map((d, i) => `
       <div class="nws-detail-block ${details.length === 1 ? 'wide' : ''}">
@@ -5056,7 +5061,10 @@ const THEMES = {
           <div class="nws-item-body">
             <div class="nws-item-title-row">
               <div class="nws-item-title">${title}</div>
-              ${age ? `<div class="nws-item-age">${age}</div>` : ''}
+              <div class="nws-item-title-tags">
+                ${probBadge ? `<span class="nws-prob-badge" title="SPC probability of watch issuance">${probBadge} watch prob</span>` : ''}
+                ${age ? `<div class="nws-item-age">${age}</div>` : ''}
+              </div>
             </div>
             <div class="nws-item-meta">${metaBits.join(' · ')}</div>
             ${summary ? `<div class="nws-item-summary">${summary}</div>` : ''}
@@ -5107,6 +5115,20 @@ const THEMES = {
     if (countWatches) countWatches.textContent = watches.length;
     if (countMd) countMd.textContent = mds.length;
     if (countStatements) countStatements.textContent = statements.length;
+
+    // A tornado watch deserves to be seen without opening a tab: pulse the
+    // Watches tab for as long as one is live, and jump to it automatically
+    // the moment one appears (only on that transition -- see
+    // nwsPrevHasTornadoWatch above -- so it doesn't fight the user later).
+    const hasTornadoWatch = watches.some(w => (w.type || '').toLowerCase().includes('tornado'));
+    const watchTab = document.querySelector('#nws-tabs .nws-tab[data-target="nws-panel-watches"]');
+    if (watchTab) {
+      watchTab.classList.toggle('urgent', hasTornadoWatch);
+      if (hasTornadoWatch && !nwsPrevHasTornadoWatch && !watchTab.classList.contains('active')) {
+        watchTab.click();
+      }
+    }
+    nwsPrevHasTornadoWatch = hasTornadoWatch;
 
     const deskStatus = document.getElementById('storm-desk-status');
     const updated = document.getElementById('storm-desk-updated');
