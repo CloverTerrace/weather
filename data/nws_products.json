@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T01:00:19.669987Z",
+  "generatedAt": "2026-08-09T01:05:19.246058Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -32,5 +32,38 @@
       "office": "SPC"
     }
   ],
-  "statements": []
+  "statements": [
+    {
+      "id": "e4874a90-db84-4320-851b-b7dfa91197f4",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-09T01:00:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Severe Weather Statement 900 PM EDT Sat Aug 8 2026",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Clarion, Brookville, Reynoldsville, Brockway, Falls Creek, Strattanville, Summerville, Limestone, Corsica and Knox-Dale."
+        }
+      ],
+      "url": "https://api.weather.gov/products/e4874a90-db84-4320-851b-b7dfa91197f4"
+    },
+    {
+      "id": "2359f7e1-510e-4351-9aa9-19f8a68a7e41",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-09T00:58:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Severe Weather Statement 858 PM EDT Sat Aug 8 2026",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Worthington."
+        }
+      ],
+      "url": "https://api.weather.gov/products/2359f7e1-510e-4351-9aa9-19f8a68a7e41"
+    }
+  ]
 }
