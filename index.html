@@ -570,6 +570,9 @@
   .theme-light-card .detail-rule { background: linear-gradient(90deg, transparent, rgba(0,0,0,0.12), transparent); }
   .theme-light-card .nws-tab { background: rgba(0,0,0,0.035); border-color: rgba(0,0,0,0.09); }
   .theme-light-card .nws-tab.active { background: rgba(0,0,0,0.065); border-color: rgba(0,0,0,0.16); }
+  .theme-light-card .outlook-category-tab { background: rgba(0,0,0,0.035); border-color: rgba(0,0,0,0.09); }
+  .theme-light-card .outlook-category-tab.active { background: rgba(0,0,0,0.065); border-color: rgba(0,0,0,0.16); }
+  .theme-light-card .thunderstorm-outlook-panel { background: rgba(0,0,0,0.028); border-color: rgba(0,0,0,0.09); }
   .theme-light-card .nws-item { background: rgba(0,0,0,0.028); border-color: rgba(0,0,0,0.09); }
   .theme-light-card .nws-item:hover { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.13); }
   .theme-light-card .nws-item.expanded { background: rgba(0,0,0,0.035); }
@@ -1885,6 +1888,55 @@
 
   .storm-desk-heading .card-icon { width: 20px; height: 20px; }
 
+  .outlook-category-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 7px;
+    margin-bottom: 0.9rem;
+  }
+
+  .outlook-category-tab {
+    background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(255,255,255,0.055);
+    color: var(--muted-color);
+    padding: 9px 8px;
+    border-radius: 9px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-family: var(--font-card-heading);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .outlook-category-tab.active {
+    background: rgba(255,255,255,0.09);
+    border-color: rgba(255,255,255,0.12);
+    color: var(--text-color);
+  }
+
+  .outlook-category-panel { display: none; }
+  .outlook-category-panel.active { display: block; }
+
+  /* the thunderstorm outlook is a single static graphic rather than a
+     day-by-day carousel, so it gets its own quiet panel treatment to
+     set it apart from the Convective Outlook's slides. */
+  .thunderstorm-outlook-panel {
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 0.9rem;
+    text-align: center;
+  }
+
+  .thunderstorm-outlook-panel img {
+    max-width: 100%;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+  }
+
   .outlook-card .outlook-note {
     color: var(--muted-color);
     font-size: 0.8rem;
@@ -2804,7 +2856,6 @@ svg circle, svg polygon, svg line {
       <span class="storm-desk-live">live feed</span>
       <span id="storm-desk-updated">waiting for update</span>
     </div>
-    <div class="outlook-note">Only the newest active SPC/NWS products are kept here for spotters.</div>
     <div class="nws-tabs" id="nws-tabs">
       <button class="nws-tab" data-target="nws-panel-watches">
         <span class="card-icon"><img src="icons/code-orange.svg" alt=""></span>
@@ -2831,27 +2882,41 @@ svg circle, svg polygon, svg line {
     </div>
 
     <div class="storm-desk-divider"></div>
-    <div class="storm-desk-heading">
-      <span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>
-      SPC Outlook
+
+    <div class="outlook-category-tabs" id="outlook-category-tabs">
+      <button class="outlook-category-tab active" data-target="outlook-panel-convective">Convective Outlook</button>
+      <button class="outlook-category-tab" data-target="outlook-panel-thunderstorm">Thunderstorm Outlook</button>
     </div>
-    <div class="outlook-tabs">
-      <button class="outlook-tab active" data-target="outlook-slide-day1">Day 1</button>
-      <button class="outlook-tab" data-target="outlook-slide-day2">Day 2</button>
-      <button class="outlook-tab" data-target="outlook-slide-day3">Day 3</button>
+
+    <div class="outlook-category-panel active" id="outlook-panel-convective">
+      <div class="outlook-tabs">
+        <button class="outlook-tab active" data-target="outlook-slide-day1">Day 1</button>
+        <button class="outlook-tab" data-target="outlook-slide-day2">Day 2</button>
+        <button class="outlook-tab" data-target="outlook-slide-day3">Day 3</button>
+        <button class="outlook-tab" data-target="outlook-slide-day48">Day 4-8</button>
+      </div>
+      <div class="outlook-scroll" id="outlook-scroll">
+        <div class="outlook-slide" id="outlook-slide-day1">
+          <img id="outlook-img-day1" src="data/outlook-day1.png" alt="SPC Day 1 Convective Outlook">
+        </div>
+        <div class="outlook-slide" id="outlook-slide-day2">
+          <img id="outlook-img-day2" src="data/outlook-day2.png" alt="SPC Day 2 Convective Outlook">
+        </div>
+        <div class="outlook-slide" id="outlook-slide-day3">
+          <img id="outlook-img-day3" src="data/outlook-day3.png" alt="SPC Day 3 Convective Outlook">
+        </div>
+        <div class="outlook-slide" id="outlook-slide-day48">
+          <img id="outlook-img-day48" src="data/outlook-day4-8.png" alt="SPC Day 4-8 Severe Weather Outlook">
+        </div>
+      </div>
+      <div class="outlook-note">Swipe for Day 1–8.</div>
     </div>
-    <div class="outlook-scroll" id="outlook-scroll">
-      <div class="outlook-slide" id="outlook-slide-day1">
-        <img id="outlook-img-day1" src="data/outlook-day1.png" alt="SPC Day 1 Convective Outlook">
-      </div>
-      <div class="outlook-slide" id="outlook-slide-day2">
-        <img id="outlook-img-day2" src="data/outlook-day2.png" alt="SPC Day 2 Convective Outlook">
-      </div>
-      <div class="outlook-slide" id="outlook-slide-day3">
-        <img id="outlook-img-day3" src="data/outlook-day3.png" alt="SPC Day 3 Convective Outlook">
+
+    <div class="outlook-category-panel" id="outlook-panel-thunderstorm">
+      <div class="thunderstorm-outlook-panel">
+        <img id="outlook-img-thunderstorm" src="data/outlook-thunderstorm.png" alt="SPC Thunderstorm Outlook">
       </div>
     </div>
-    <div class="outlook-note">Swipe the outlooks for Day 1–3.</div>
   </div>
 
 <div class="chart-card weather-map-card">
@@ -3818,6 +3883,20 @@ svg circle, svg polygon, svg line {
     document.getElementById('outlook-img-day1').src = `data/outlook-day1.png?t=${t}`;
     document.getElementById('outlook-img-day2').src = `data/outlook-day2.png?t=${t}`;
     document.getElementById('outlook-img-day3').src = `data/outlook-day3.png?t=${t}`;
+    document.getElementById('outlook-img-day48').src = `data/outlook-day4-8.png?t=${t}`;
+    document.getElementById('outlook-img-thunderstorm').src = `data/outlook-thunderstorm.png?t=${t}`;
+  }
+
+  function initOutlookCategoryTabs() {
+    const tabs = document.querySelectorAll('#outlook-category-tabs .outlook-category-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelectorAll('.outlook-category-panel').forEach(p => p.classList.remove('active'));
+        document.getElementById(tab.dataset.target).classList.add('active');
+      });
+    });
   }
 
   function initOutlookCarousel() {
@@ -5375,6 +5454,7 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
   setInterval(loadForecast, 30 * 60 * 1000);
   setInterval(refreshOutlookImages, 30 * 60 * 1000);
   initOutlookCarousel();
+  initOutlookCategoryTabs();
   initRangeButtons();
   initWeatherFx();
   populateThemePreviewRow();
