@@ -2966,10 +2966,13 @@ svg circle, svg polygon, svg line {
      dashboard and the larger-screen weather-center layout.
      ================================================================ */
 
-  /* The page can use its available width on larger screens without forcing
-     phones to behave like miniature desktops. */
+  /* The page settles into a fixed, readable content column on larger
+     screens rather than stretching edge-to-edge -- more "old personal
+     weather page" than "wide admin dashboard." Extra viewport width just
+     becomes ambient margin (the weather-fx sky animation shows through
+     it), which is the point rather than a gap to fill. */
   #page-content {
-    width: min(100%, 1560px);
+    width: min(100%, 1120px);
     padding-inline: clamp(0.35rem, 1.2vw, 1rem);
   }
 
@@ -2988,7 +2991,7 @@ svg circle, svg polygon, svg line {
   }
 
   .grid {
-    width: min(100%, 1240px);
+    width: min(100%, 860px);
     gap: clamp(0.9rem, 1.4vw, 1.35rem);
   }
 
@@ -3001,7 +3004,7 @@ svg circle, svg polygon, svg line {
   }
 
   .camera-card {
-    width: min(100%, 1240px);
+    width: min(100%, 1040px);
     padding: clamp(0.9rem, 1.6vw, 1.35rem);
     margin-top: clamp(1rem, 1.8vw, 1.5rem);
   }
@@ -3014,7 +3017,7 @@ svg circle, svg polygon, svg line {
   }
 
   .dashboard-grid {
-    width: min(100%, 1240px);
+    width: min(100%, 1040px);
     gap: clamp(0.9rem, 1.4vw, 1.35rem);
     margin-top: clamp(1rem, 1.8vw, 1.5rem);
   }
@@ -3043,12 +3046,9 @@ svg circle, svg polygon, svg line {
   }
 
   @media (min-width: 1500px) {
-    .grid,
-    .dashboard-grid,
-    .camera-card {
-      width: min(100%, 1460px);
-    }
-
+    /* Content column stays fixed-width past this point on purpose --
+       ultra-wide monitors get more ambient margin around the page, not a
+       wider dashboard. Only the breathing room inside the grid grows a touch. */
     .grid { gap: 1.35rem; }
     .dashboard-grid { gap: 1.35rem; }
   }
