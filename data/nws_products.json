@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T16:40:41.934821Z",
+  "generatedAt": "2026-08-10T16:45:46.036497Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.dfef5a1b104e85ebe78cb3b99c5b88d2aa4bfe1a.002.1",
@@ -81,6 +81,38 @@
     }
   ],
   "statements": [
+    {
+      "id": "a34d1833-2f2b-406f-b8ed-0bcefc1b78e3",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-08-10T16:45:00+00:00",
+      "expires": null,
+      "headline": "Area Forecast Discussion",
+      "summary": "Milcarek",
+      "details": [
+        {
+          "label": "Discussion",
+          "text": "Milcarek"
+        }
+      ],
+      "url": "https://api.weather.gov/products/a34d1833-2f2b-406f-b8ed-0bcefc1b78e3"
+    },
+    {
+      "id": "fea58bc3-3d9b-4cb1-8e52-c6eeb4c78686",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T16:41:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Mount Pleasant, Irwin, Manor, Youngwood, West Newton, New Stanton, North Irwin, Sutersville, Penn, Madison, Arona, Hunker, Adamsburg, Herminie, Grapeville and Harrison City.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Mount Pleasant, Irwin, Manor, Youngwood, West Newton, New Stanton, North Irwin, Sutersville, Penn, Madison, Arona, Hunker, Adamsburg, Herminie, Grapeville and Harrison City."
+        }
+      ],
+      "url": "https://api.weather.gov/products/fea58bc3-3d9b-4cb1-8e52-c6eeb4c78686"
+    },
     {
       "id": "0777eadc-d068-48f1-aaea-ce476bd2c629",
       "type": "Severe Weather Statement",
