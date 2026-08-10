@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T14:30:45.901425Z",
+  "generatedAt": "2026-08-10T14:35:49.929366Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7dbd0529fbfcbe03c4d8d86333ba0d952d96dbe4.001.1",
@@ -86,6 +86,22 @@
   ],
   "statements": [
     {
+      "id": "d574e305-5386-4673-9d1e-5f8179ad01f7",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T14:35:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Lisbon, Hanoverton, Rogers, Summitville, Guilford Lake State Park, Winona, New Garden and East Rochester.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Lisbon, Hanoverton, Rogers, Summitville, Guilford Lake State Park, Winona, New Garden and East Rochester."
+        }
+      ],
+      "url": "https://api.weather.gov/products/d574e305-5386-4673-9d1e-5f8179ad01f7"
+    },
+    {
       "id": "67399da6-245f-4df2-852c-dec8b8e9c36c",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -148,22 +164,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/4aa924a2-55a1-4d6e-9c89-7f629f79bf5a"
-    },
-    {
-      "id": "525da7a8-9232-437c-a7d5-099acbccaa46",
-      "type": "Flash Flood Watch",
-      "office": "KPBZ",
-      "issued": "2026-08-10T14:07:00+00:00",
-      "expires": null,
-      "headline": "Flash Flood Watch",
-      "summary": "WGUS61 KPBZ 101407 URGENT - IMMEDIATE BROADCAST REQUESTED",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 WGUS61 KPBZ 101407 FFAPBZ URGENT - IMMEDIATE BROADCAST REQUESTED Flood Watch 1007 AM EDT Mon Aug 10 2026 .Repetitive rounds of precipitation through Tuesday night will raise flash flood potential."
-        }
-      ],
-      "url": "https://api.weather.gov/products/525da7a8-9232-437c-a7d5-099acbccaa46"
     }
   ]
 }
