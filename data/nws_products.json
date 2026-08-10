@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T16:50:46.013461Z",
+  "generatedAt": "2026-08-10T16:55:45.534973Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -61,6 +61,22 @@
   ],
   "statements": [
     {
+      "id": "42c0f386-c6bd-45ee-ba42-6110b09e5142",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T16:51:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Mount Pleasant, Manor, Youngwood, New Stanton, Penn, Madison, Arona, Hunker, Adamsburg and Grapeville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Mount Pleasant, Manor, Youngwood, New Stanton, Penn, Madison, Arona, Hunker, Adamsburg and Grapeville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/42c0f386-c6bd-45ee-ba42-6110b09e5142"
+    },
+    {
       "id": "a34d1833-2f2b-406f-b8ed-0bcefc1b78e3",
       "type": "Area Forecast Discussion",
       "office": "KPBZ",
@@ -107,38 +123,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/0777eadc-d068-48f1-aaea-ce476bd2c629"
-    },
-    {
-      "id": "098a1efd-746e-4d09-a7cb-6259a1e43f1e",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T16:21:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greensburg, McKeesport, Jeannette, Gastonville, West Mifflin, South Park Township, Jefferson Hills, Pleasant Hills, White Oak, Clairton, Donora, Glassport, Mount Pleasant, Monongahela, Irwin, Manor, Youngwood and West Newton.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greensburg, McKeesport, Jeannette, Gastonville, West Mifflin, South Park Township, Jefferson Hills, Pleasant Hills, White Oak, Clairton, Donora, Glassport, Mount Pleasant, Monongahela, Irwin, Manor, Youngwood and West Newton."
-        }
-      ],
-      "url": "https://api.weather.gov/products/098a1efd-746e-4d09-a7cb-6259a1e43f1e"
-    },
-    {
-      "id": "a2777e96-7632-4537-9b24-8cdc8a05d6a7",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T16:19:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC059-119-121-101629- /O.CAN.KPBZ.SV.W.0262.000000T0000Z-260810T1630Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 1219 PM EDT Mon Aug 10 2026 OHC059-119-121-101629- /O.CAN.KPBZ.SV.W.0262.000000T0000Z-260810T1630Z/ Guernsey OH-Muskingum OH-Noble OH- 1219 PM EDT Mon Aug 10 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/a2777e96-7632-4537-9b24-8cdc8a05d6a7"
     }
   ]
 }
