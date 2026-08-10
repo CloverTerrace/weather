@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import html
 import json
+import math
 import os
 import re
 import sys
@@ -207,6 +208,33 @@ def safe_iso(value):
     return value
 
 
+def distance_to_geometry_miles(geometry: dict | None, lat: float, lon: float) -> float | None:
+    if not geometry:
+        return None
+    gtype = geometry.get("type")
+    coords = geometry.get("coordinates")
+    if not coords:
+        return None
+    polygons = []
+    if gtype == "Polygon":
+        polygons = [coords]
+    elif gtype == "MultiPolygon":
+        polygons = coords
+    else:
+        return None
+    best = None
+    for polygon in polygons:
+        # Use the outer ring; holes do not materially affect a nearest-distance
+        # readout for this small station-focused dashboard.
+        if not polygon:
+            continue
+        pts = [(float(p[1]), float(p[0])) for p in polygon[0] if len(p) >= 2]
+        d = distance_to_md_polygon_miles(lat, lon, pts)
+        if d is not None and (best is None or d < best):
+            best = d
+    return best
+
+
 def alert_to_watch(feature: dict) -> dict | None:
     p = feature.get("properties", {})
     event = p.get("event") or ""
@@ -300,40 +328,112 @@ def parse_valid_window(text: str, issued_iso: str | None):
     return vals[0].isoformat().replace("+00:00", "Z"), vals[1].isoformat().replace("+00:00", "Z")
 
 
-# SPC MD text products are one continuous flowing paragraph -- e.g.
-# "Areas affected...X Concerning...Y Valid HHMMSSZ-HHMMSSZ Probability of
-# Watch Issuance...Z SUMMARY...A DISCUSSION...B" -- with NO newline between
-# sections. A line-anchored "next section starts a new line" boundary (the
-# old approach) never matches here, so each field used to swallow
-# everything after it, all the way to the next field it COULD find (or the
-# character limit). This splits on every label's position directly,
-# wherever it falls in the running text, and "Valid HHMMSSZ-HHMMSSZ" is
-# matched as a boundary-only token (it has no "..." of its own) so it
-# still stops "Concerning" from bleeding into "Probability of Issuance".
-MD_SECTION_LABELS = ["Areas affected", "Concerning", "Probability of (?:Watch|Unconditional) Issuance", "SUMMARY", "DISCUSSION"]
+# SPC MD text products are commonly a single flowing paragraph.  Parse by
+# label position rather than relying on line breaks, and explicitly stop at the
+# non-narrative tail (forecaster/ATTN/LAT...LON/peak-threat lines).
+MD_SECTION_LABELS = [
+    "Areas affected",
+    "Concerning",
+    "Probability of (?:Watch|Unconditional) Issuance",
+    "SUMMARY",
+    "DISCUSSION",
+]
 MD_BOUNDARY_RE = re.compile(
-    r"\b(?:(?P<label>" + "|".join(MD_SECTION_LABELS) + r")\.\.\.|(?P<valid>Valid\s+\d{6}Z\s*-\s*\d{6}Z))",
+    r"\b(?:(?P<label>" + "|".join(MD_SECTION_LABELS) +
+    r")\.\.\.|(?P<valid>Valid\s+\d{6}Z\s*-\s*\d{6}Z)|"
+    r"(?P<tail>ATTN\.\.\.|LAT\.\.\.LON\b|MOST\s+PROBABLE\b|\.\.\.[A-Za-z/ ]+\.\.\s*\d{2}/\d{2}/\d{4}))",
     re.I,
 )
-# trailing forecaster signature line, e.g.
-# "..Squitieri/Mosier.. 08/09/2026 ...Please see www.spc.noaa.gov..."
-MD_SIGNATURE_RE = re.compile(r"\.\.[A-Za-z/ ]+\.\.\s*\d{2}/\d{2}/\d{4}")
+MD_SIGNATURE_RE = re.compile(r"\.\.[A-Za-z/ ]+\.\.\s*\d{2}/\d{2}/\d{4}", re.I)
+MD_ATTN_RE = re.compile(r"\bATTN\.\.\.\s*(.*?)(?=\bLAT\.\.\.LON\b|\Z)", re.I | re.S)
+MD_LATLON_RE = re.compile(r"\bLAT\.\.\.LON\s+((?:\d{8}\s*)+)", re.I)
+MD_PEAK_RE = re.compile(r"\b(MOST\s+PROBABLE[^\n]+)", re.I)
 
 
 def split_md_sections(text: str, max_chars: int = 1800) -> dict[str, str]:
     matches = list(MD_BOUNDARY_RE.finditer(text))
     sections: dict[str, str] = {}
     for i, m in enumerate(matches):
-        if not m.group("label"):
-            continue  # "Valid ..." is a boundary only, not a captured section
         label = m.group("label")
+        if not label:
+            continue
         start = m.end()
-        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
-        value = MD_SIGNATURE_RE.split(text[start:end], maxsplit=1)[0]
-        value = re.sub(r"\s+", " ", value).strip()
+        end = len(text)
+        for nxt in matches[i + 1:]:
+            # A later labeled section, Valid line, or the narrative tail ends this field.
+            end = nxt.start()
+            break
+        value = text[start:end]
+        value = MD_SIGNATURE_RE.split(value, maxsplit=1)[0]
+        value = re.sub(r"\s+", " ", value).strip(" .")
         if value:
             sections[label.title()] = value[:max_chars]
     return sections
+
+
+def parse_md_forecaster(text: str) -> str | None:
+    m = MD_SIGNATURE_RE.search(text)
+    if not m:
+        return None
+    value = re.sub(r"^\.\.|\.\.$", "", m.group(0).split("..")[1] if ".." in m.group(0) else m.group(0)).strip()
+    return value or None
+
+
+def parse_md_polygon(text: str) -> list[tuple[float, float]]:
+    m = MD_LATLON_RE.search(text)
+    if not m:
+        return []
+    coords = []
+    for token in re.findall(r"\d{8}", m.group(1)):
+        lat = int(token[:4]) / 100.0
+        lon = int(token[4:]) / 100.0
+        # SPC's CONUS coordinates are conventionally west longitudes unless
+        # explicitly outside the CONUS convention.
+        if lon > 0:
+            lon = -lon
+        if 0 <= lat <= 90 and -180 <= lon <= 180:
+            coords.append((lat, lon))
+    return coords
+
+
+def distance_to_md_polygon_miles(lat: float, lon: float, polygon: list[tuple[float, float]]) -> float | None:
+    if len(polygon) < 2:
+        return None
+    # Local tangent-plane approximation is more than adequate for a weather
+    # discussion-scale polygon and lets us report distance without a GIS dependency.
+    r = 3958.7613
+    lat0 = math.radians(lat)
+    def xy(p):
+        plat, plon = p
+        return (
+            r * math.radians(plon - lon) * math.cos(lat0),
+            r * math.radians(plat - lat),
+        )
+    pts = [xy(p) for p in polygon]
+    p = (0.0, 0.0)
+
+    inside = False
+    j = len(pts) - 1
+    for i in range(len(pts)):
+        xi, yi = pts[i]
+        xj, yj = pts[j]
+        if ((yi > 0) != (yj > 0)) and (0 < (xj - xi) * (-yi) / ((yj - yi) or 1e-12) + xi):
+            inside = not inside
+        j = i
+    if inside:
+        return 0.0
+
+    best = float("inf")
+    for i, a in enumerate(pts):
+        b = pts[(i + 1) % len(pts)]
+        ax, ay = a
+        bx, by = b
+        dx, dy = bx - ax, by - ay
+        denom = dx * dx + dy * dy
+        t = 0.0 if denom == 0 else max(0.0, min(1.0, (-(ax * dx + ay * dy)) / denom))
+        qx, qy = ax + t * dx, ay + t * dy
+        best = min(best, math.hypot(qx, qy))
+    return round(best, 1)
 
 
 def parse_md(url: str, raw_html: str, number: int) -> dict:
@@ -346,14 +446,39 @@ def parse_md(url: str, raw_html: str, number: int) -> dict:
     summary = sections.get("Summary")
     discussion = sections.get("Discussion")
     watch_probability = sections.get("Probability Of Watch Issuance") or sections.get("Probability Of Unconditional Issuance")
+    forecaster = parse_md_forecaster(text)
+    polygon = parse_md_polygon(text)
+    distance = distance_to_md_polygon_miles(LAT, LON, polygon)
+    attn = None
+    m_attn = MD_ATTN_RE.search(text)
+    if m_attn:
+        attn = re.sub(r"\s+", " ", m_attn.group(1)).strip(" .")
+
+    threats = []
+    for line in text.splitlines():
+        line = re.sub(r"\s+", " ", line).strip()
+        if re.match(r"^MOST\s+PROBABLE\b", line, re.I):
+            threats.append(line)
+    if not threats:
+        # The HTML/pre extraction can flatten these into one line.
+        threats = [re.sub(r"\s+", " ", m.group(1)).strip() for m in MD_PEAK_RE.finditer(text)]
+
     if not summary:
         summary = concerning or "Latest SPC mesoscale discussion"
 
-    details=[]
-    if concerning: details.append({"label":"Concerning", "text":concerning})
-    if areas: details.append({"label":"Areas affected", "text":areas})
-    if watch_probability: details.append({"label":"Watch Probability", "text":watch_probability})
-    if discussion: details.append({"label":"Discussion", "text":discussion})
+    details = []
+    if summary:
+        details.append({"label": "Summary", "text": summary})
+    if discussion:
+        details.append({"label": "Discussion", "text": discussion})
+    if watch_probability:
+        details.append({"label": "Watch probability", "text": watch_probability})
+    if threats:
+        details.append({"label": "Most probable threats", "text": " · ".join(threats)})
+    if forecaster:
+        details.append({"label": "Forecaster", "text": forecaster})
+    if attn:
+        details.append({"label": "WFOs", "text": attn})
 
     return {
         "id": f"MD{number:04d}",
@@ -361,14 +486,17 @@ def parse_md(url: str, raw_html: str, number: int) -> dict:
         "issued": issued,
         "expires": valid[1] if valid else None,
         "concerning": concerning,
+        "hazard": concerning,
         "areas": areas,
-        "watchProbability": watch_probability,
+        "location": areas,
+        "distanceMiles": distance,
         "summary": summary,
+        "watchProbability": watch_probability,
+        "forecaster": forecaster,
         "details": details,
         "url": url,
         "office": "SPC",
     }
-
 
 def fetch_mesoscale_discussions(limit: int = MAX_MDS) -> list[dict]:
     raw_index = fetch_text(SPC_MD_INDEX)
@@ -400,6 +528,19 @@ def fetch_mesoscale_discussions(limit: int = MAX_MDS) -> list[dict]:
             print(f"WARNING: failed to parse {url}: {exc}", file=sys.stderr)
     items.sort(key=lambda x: (x.get("issued") or "", x.get("number") or 0), reverse=True)
     return items[:limit]
+
+
+def extract_nws_location(full_text: str, product_name: str) -> str | None:
+    lines = normalize_lines(full_text)
+    # Many PBZ products use: UGC line -> /O.../ line -> county/area line.
+    for i, line in enumerate(lines):
+        if re.match(r"^/[^/]+/$", line) and i + 1 < len(lines):
+            candidate = lines[i + 1]
+            candidate = re.sub(r"\s+\d{3,4}\s+(?:AM|PM)\s+[A-Z]{2,4}\s+\w{3}\s+\w{3}\s+\d{1,2}\s+\d{4}.*$", "", candidate, flags=re.I)
+            candidate = re.sub(r"\s+\d{3,4}\s+(?:AM|PM)\s+[A-Z]{2,4}.*$", "", candidate, flags=re.I)
+            if candidate and not re.match(r"^\d{3,4}\s+(?:AM|PM)\b", candidate, re.I):
+                return candidate.strip(" -")
+    return None
 
 
 def fetch_nws_updates(limit: int = MAX_NWS_UPDATES) -> list[dict]:
@@ -477,6 +618,9 @@ def fetch_nws_updates(limit: int = MAX_NWS_UPDATES) -> list[dict]:
             "office": props.get("issuingOffice") or WFO,
             "issued": props.get("issuanceTime"),
             "expires": props.get("expirationTime") or props.get("expires"),
+            "location": props.get("areaDesc") or extract_nws_location(full_text, product_name),
+            "hazard": props.get("headline") or product_name,
+            "distanceMiles": None,
             "headline": headline,
             "summary": summary,
             "details": details,
