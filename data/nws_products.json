@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T15:05:38.097731Z",
+  "generatedAt": "2026-08-10T15:10:49.623508Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7dbd0529fbfcbe03c4d8d86333ba0d952d96dbe4.001.1",
@@ -24,6 +24,22 @@
   ],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "c87086ee-5524-4c00-bae6-b0959de690b5",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T15:09:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Wheeling, Steubenville, Moundsville, Martins Ferry, St. Clairsville, Bellaire, Barnesville, Cadiz, Warwood, Wellsburg, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Wintersville, Shadyside, Mingo Junction and Follansbee.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Wheeling, Steubenville, Moundsville, Martins Ferry, St. Clairsville, Bellaire, Barnesville, Cadiz, Warwood, Wellsburg, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Wintersville, Shadyside, Mingo Junction and Follansbee."
+        }
+      ],
+      "url": "https://api.weather.gov/products/c87086ee-5524-4c00-bae6-b0959de690b5"
+    },
     {
       "id": "e87dde73-0028-47c8-a12a-4ca744c7ecad",
       "type": "Severe Weather Statement",
@@ -87,54 +103,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/88361e6d-bb8f-4548-85d1-aab17dce15ad"
-    },
-    {
-      "id": "f4adb41f-5065-4e68-9089-e4fa179d1139",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T14:38:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Coshocton, Cambridge, Freeport, Newcomerstown, New Concord, Byesville, West Lafayette, South Zanesville, North Zanesville, Antrim, Philo, Pleasant Grove, Senecaville, Pleasant City, Cumberland, Conesville, Lore City, Old Washington and Belle Valley.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Coshocton, Cambridge, Freeport, Newcomerstown, New Concord, Byesville, West Lafayette, South Zanesville, North Zanesville, Antrim, Philo, Pleasant Grove, Senecaville, Pleasant City, Cumberland, Conesville, Lore City, Old Washington and Belle Valley."
-        }
-      ],
-      "url": "https://api.weather.gov/products/f4adb41f-5065-4e68-9089-e4fa179d1139"
-    },
-    {
-      "id": "74ff7457-4cfc-43c8-90a1-163549bfdb46",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T14:36:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... New Philadelphia, Uhrichsville, Carrollton, Dennison, Augusta, Gnadenhutten, Tuscarawas, Scio, Midvale, Port Washington, Bowerston, Barnhill, Dellroy, Sherrodsville, Roswell, Stone Creek, Leesville, Stillwater, Tippecanoe and Gilmore.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... New Philadelphia, Uhrichsville, Carrollton, Dennison, Augusta, Gnadenhutten, Tuscarawas, Scio, Midvale, Port Washington, Bowerston, Barnhill, Dellroy, Sherrodsville, Roswell, Stone Creek, Leesville, Stillwater, Tippecanoe and Gilmore."
-        }
-      ],
-      "url": "https://api.weather.gov/products/74ff7457-4cfc-43c8-90a1-163549bfdb46"
-    },
-    {
-      "id": "d574e305-5386-4673-9d1e-5f8179ad01f7",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T14:35:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Lisbon, Hanoverton, Rogers, Summitville, Guilford Lake State Park, Winona, New Garden and East Rochester.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Lisbon, Hanoverton, Rogers, Summitville, Guilford Lake State Park, Winona, New Garden and East Rochester."
-        }
-      ],
-      "url": "https://api.weather.gov/products/d574e305-5386-4673-9d1e-5f8179ad01f7"
     }
   ]
 }
