@@ -1,16 +1,6 @@
 [
   {
-    "name": "Overnight",
-    "temperature": 68,
-    "temperatureUnit": "F",
-    "windSpeed": "5 mph",
-    "windDirection": "S",
-    "shortForecast": "Partly Cloudy",
-    "detailedForecast": "Partly cloudy, with a low around 68. South wind around 5 mph.",
-    "isDaytime": false
-  },
-  {
-    "name": "Monday",
+    "name": "Today",
     "temperature": 85,
     "temperatureUnit": "F",
     "windSpeed": "5 to 9 mph",
@@ -20,7 +10,7 @@
     "isDaytime": true
   },
   {
-    "name": "Monday Night",
+    "name": "Tonight",
     "temperature": 68,
     "temperatureUnit": "F",
     "windSpeed": "3 to 8 mph",
@@ -38,5 +28,15 @@
     "shortForecast": "Chance Showers And Thunderstorms",
     "detailedForecast": "Patchy fog before 7am, then a chance of rain showers and patchy fog between 7am and 11am, then a chance of showers and thunderstorms between 11am and noon, then a chance of showers and thunderstorms between noon and 4pm, then showers and thunderstorms likely. Mostly cloudy, with a high near 83. Southwest wind 2 to 6 mph. Chance of precipitation is 70%. New rainfall amounts between a quarter and half of an inch possible.",
     "isDaytime": true
+  },
+  {
+    "name": "Tuesday Night",
+    "temperature": 66,
+    "temperatureUnit": "F",
+    "windSpeed": "1 to 5 mph",
+    "windDirection": "W",
+    "shortForecast": "Showers And Thunderstorms Likely",
+    "detailedForecast": "Showers and thunderstorms likely. Some of the storms could produce heavy rain. Mostly cloudy, with a low around 66. West wind 1 to 5 mph. Chance of precipitation is 70%. New rainfall amounts between 1 and 2 inches possible.",
+    "isDaytime": false
   }
 ]
