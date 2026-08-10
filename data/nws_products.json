@@ -1,7 +1,49 @@
 {
-  "generatedAt": "2026-08-10T21:20:36.021031Z",
+  "generatedAt": "2026-08-10T21:25:37.358600Z",
   "watches": [],
   "mesoscaleDiscussions": [
+    {
+      "id": "MD1903",
+      "number": 1903,
+      "issued": "2026-08-10T20:51:00Z",
+      "expires": "2026-08-10T23:15:00Z",
+      "concerning": "Severe potential...Watch possible",
+      "hazard": "Severe potential...Watch possible",
+      "areas": "Northeast CO...far northwest KS...and portions of western NE",
+      "location": "Northeast CO...far northwest KS...and portions of western NE",
+      "distanceMiles": 4038.0,
+      "summary": "The risk of severe wind gusts and hail will increase from west to east during the next few hours. A watch may be needed relatively soon for parts of the area",
+      "watchProbability": "60 percent",
+      "forecaster": "Weinman/Hart",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "The risk of severe wind gusts and hail will increase from west to east during the next few hours. A watch may be needed relatively soon for parts of the area"
+        },
+        {
+          "label": "Discussion",
+          "text": "Isolated high-based thunderstorms are evolving along a lee trough extending from the NE Panhandle southward into northeastern CO, and storm coverage should continue to increase as a subtle midlevel wave approaches the area from the west (per recent WV loops). Over the next few hours, this activity will spread eastward into a a plume of middle/upper 50s dewpoints and steep deep-layer lapse rates, which are contributing to a moderately unstable air mass. This, combined with an elongating and mostly straight hodograph, should support some convective organization/cell splitting. While severe hail will be possible (especially in the earlier stages of convective intensification), the primary concern will be an increasing risk of severe wind gusts with any clustering that occurs. A watch may be needed relatively soon for parts of the area"
+        },
+        {
+          "label": "Watch probability",
+          "text": "60 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK WIND GUST...65-80 MPH · MOST PROBABLE PEAK HAIL SIZE...1.00-1.75 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Weinman/Hart"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...LBF...GLD...BOU...CYS"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md1903.html",
+      "office": "SPC"
+    },
     {
       "id": "MD1902",
       "number": 1902,
@@ -77,28 +119,6 @@
       ],
       "url": "https://www.spc.noaa.gov/products/md/md1901.html",
       "office": "SPC"
-    },
-    {
-      "id": "MD1903",
-      "number": 1903,
-      "issued": null,
-      "expires": null,
-      "concerning": null,
-      "hazard": null,
-      "areas": null,
-      "location": null,
-      "distanceMiles": null,
-      "summary": "Latest SPC mesoscale discussion",
-      "watchProbability": null,
-      "forecaster": null,
-      "details": [
-        {
-          "label": "Summary",
-          "text": "Latest SPC mesoscale discussion"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md1903.html",
-      "office": "SPC"
     }
   ],
   "statements": [
@@ -139,25 +159,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/fe8ec869-19e0-485e-94f7-27fdf44020d6"
-    },
-    {
-      "id": "40e38fa7-0e5e-407a-ab5c-86a845d0784d",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T20:56:00+00:00",
-      "expires": null,
-      "location": "Guernsey OH-Noble OH",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Barnesville, Bethesda, Belmont, Beallsville, Wilson, Alledonia, Somerton and Barkcamp State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Barnesville, Bethesda, Belmont, Beallsville, Wilson, Alledonia, Somerton and Barkcamp State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/40e38fa7-0e5e-407a-ab5c-86a845d0784d"
     }
   ]
 }
