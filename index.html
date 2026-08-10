@@ -1379,6 +1379,7 @@
     .nws-empty { padding: 0.85rem 0; }
 
     .outlook-section-label { font-size: 0.67rem; margin-bottom: 0.45rem; }
+    .outlook-subsection-label { font-size: 0.58rem; }
     .outlook-category-tabs { gap: 5px; margin-bottom: 0.65rem; }
     .outlook-category-tab { padding: 8px 5px; font-size: 0.67rem; }
     .outlook-tabs { gap: 0.15rem; margin-bottom: 0.6rem; flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scrollbar-width: none; }
@@ -1873,6 +1874,20 @@
     text-align: center;
     margin: 0 0 0.55rem;
     opacity: 0.9;
+  }
+
+  .outlook-subsection-label {
+    color: var(--muted-color);
+    font-family: var(--font-card-heading);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.45rem;
+    opacity: 0.72;
+  }
+
+  .outlook-subsection-label.extended-label {
+    margin-top: 1rem;
   }
 
   .outlook-scroll {
@@ -2933,11 +2948,11 @@ svg circle, svg polygon, svg line {
     </div>
 
     <div class="outlook-category-panel active" id="outlook-panel-convective" role="tabpanel">
-      <div class="outlook-tabs" role="tablist" aria-label="Convective outlook days">
+      <div class="outlook-subsection-label">Convective Outlook</div>
+      <div class="outlook-tabs" id="outlook-tabs-convective" role="tablist" aria-label="Convective outlook days">
         <button class="outlook-tab active" type="button" role="tab" aria-selected="true" data-target="outlook-slide-day1">Day 1</button>
         <button class="outlook-tab" type="button" role="tab" aria-selected="false" data-target="outlook-slide-day2">Day 2</button>
         <button class="outlook-tab" type="button" role="tab" aria-selected="false" data-target="outlook-slide-day3">Day 3</button>
-        <button class="outlook-tab" type="button" role="tab" aria-selected="false" data-target="outlook-slide-day48">Day 4–8</button>
       </div>
       <div class="outlook-scroll" id="outlook-scroll">
         <div class="outlook-slide" id="outlook-slide-day1" role="tabpanel">
@@ -2955,13 +2970,45 @@ svg circle, svg polygon, svg line {
             <img id="outlook-img-day3" src="data/outlook-day3.png" alt="SPC Day 3 Convective Outlook">
           </div>
         </div>
-        <div class="outlook-slide" id="outlook-slide-day48" role="tabpanel">
+      </div>
+      <div class="outlook-note">Day 1–3 • swipe to browse</div>
+
+      <div class="outlook-subsection-label extended-label">Extended Outlook</div>
+      <div class="outlook-tabs" id="outlook-tabs-extended" role="tablist" aria-label="SPC Day 4 through Day 8 outlook">
+        <button class="outlook-tab active" type="button" role="tab" aria-selected="true" data-target="outlook-slide-day4">D4</button>
+        <button class="outlook-tab" type="button" role="tab" aria-selected="false" data-target="outlook-slide-day5">D5</button>
+        <button class="outlook-tab" type="button" role="tab" aria-selected="false" data-target="outlook-slide-day6">D6</button>
+        <button class="outlook-tab" type="button" role="tab" aria-selected="false" data-target="outlook-slide-day7">D7</button>
+        <button class="outlook-tab" type="button" role="tab" aria-selected="false" data-target="outlook-slide-day8">D8</button>
+      </div>
+      <div class="outlook-scroll" id="outlook-scroll-extended">
+        <div class="outlook-slide" id="outlook-slide-day4" role="tabpanel">
           <div class="outlook-viewport">
-            <img id="outlook-img-day48" src="data/outlook-day4-8.png" alt="SPC Day 4–8 Severe Weather Outlook">
+            <img id="outlook-img-day4" src="data/outlook-day4.png" alt="SPC Day 4 Severe Weather Outlook">
+          </div>
+        </div>
+        <div class="outlook-slide" id="outlook-slide-day5" role="tabpanel">
+          <div class="outlook-viewport">
+            <img id="outlook-img-day5" src="data/outlook-day5.png" alt="SPC Day 5 Severe Weather Outlook">
+          </div>
+        </div>
+        <div class="outlook-slide" id="outlook-slide-day6" role="tabpanel">
+          <div class="outlook-viewport">
+            <img id="outlook-img-day6" src="data/outlook-day6.png" alt="SPC Day 6 Severe Weather Outlook">
+          </div>
+        </div>
+        <div class="outlook-slide" id="outlook-slide-day7" role="tabpanel">
+          <div class="outlook-viewport">
+            <img id="outlook-img-day7" src="data/outlook-day7.png" alt="SPC Day 7 Severe Weather Outlook">
+          </div>
+        </div>
+        <div class="outlook-slide" id="outlook-slide-day8" role="tabpanel">
+          <div class="outlook-viewport">
+            <img id="outlook-img-day8" src="data/outlook-day8.png" alt="SPC Day 8 Severe Weather Outlook">
           </div>
         </div>
       </div>
-      <div class="outlook-note">Day 1–8 • swipe to browse</div>
+      <div class="outlook-note">Day 4–8 • swipe to browse</div>
     </div>
 
     <div class="outlook-category-panel" id="outlook-panel-thunderstorm" role="tabpanel">
@@ -3932,11 +3979,12 @@ svg circle, svg polygon, svg line {
 
   function refreshOutlookImages() {
     const t = Date.now();
-    document.getElementById('outlook-img-day1').src = `data/outlook-day1.png?t=${t}`;
-    document.getElementById('outlook-img-day2').src = `data/outlook-day2.png?t=${t}`;
-    document.getElementById('outlook-img-day3').src = `data/outlook-day3.png?t=${t}`;
-    document.getElementById('outlook-img-day48').src = `data/outlook-day4-8.png?t=${t}`;
-    document.getElementById('outlook-img-thunderstorm').src = `data/outlook-thunderstorm.png?t=${t}`;
+    ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7', 'day8'].forEach(day => {
+      const img = document.getElementById(`outlook-img-${day}`);
+      if (img) img.src = `data/outlook-${day}.png?t=${t}`;
+    });
+    const thunderstorm = document.getElementById('outlook-img-thunderstorm');
+    if (thunderstorm) thunderstorm.src = `data/outlook-thunderstorm.png?t=${t}`;
   }
 
   function initOutlookCategoryTabs() {
@@ -3956,21 +4004,31 @@ svg circle, svg polygon, svg line {
    }
 
   function initOutlookCarousel() {
-     const scroller = document.getElementById('outlook-scroll');
-     const tabs = document.querySelectorAll('.outlook-tab');
-     tabs.forEach(tab => {
-       tab.addEventListener('click', () => {
-         document.getElementById(tab.dataset.target).scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+     function bindCarousel(scrollerId, tabsId) {
+       const scroller = document.getElementById(scrollerId);
+       const tabs = document.querySelectorAll(`#${tabsId} .outlook-tab`);
+       if (!scroller || !tabs.length) return;
+
+       tabs.forEach(tab => {
+         tab.addEventListener('click', () => {
+           const target = document.getElementById(tab.dataset.target);
+           if (target) target.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+         });
        });
-     });
-     scroller.addEventListener('scroll', () => {
-       const index = Math.round(scroller.scrollLeft / scroller.clientWidth);
-       tabs.forEach((tab, i) => {
-         const active = i === index;
-         tab.classList.toggle('active', active);
-         tab.setAttribute('aria-selected', active ? 'true' : 'false');
-       });
-     });
+
+       scroller.addEventListener('scroll', () => {
+         const index = Math.max(0, Math.min(tabs.length - 1,
+           Math.round(scroller.scrollLeft / Math.max(1, scroller.clientWidth))));
+         tabs.forEach((tab, i) => {
+           const active = i === index;
+           tab.classList.toggle('active', active);
+           tab.setAttribute('aria-selected', active ? 'true' : 'false');
+         });
+       }, { passive: true });
+     }
+
+     bindCarousel('outlook-scroll', 'outlook-tabs-convective');
+     bindCarousel('outlook-scroll-extended', 'outlook-tabs-extended');
    }
   
   // ---------- maps card ----------
