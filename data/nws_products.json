@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T14:35:49.929366Z",
+  "generatedAt": "2026-08-10T14:40:52.645551Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7dbd0529fbfcbe03c4d8d86333ba0d952d96dbe4.001.1",
@@ -86,6 +86,38 @@
   ],
   "statements": [
     {
+      "id": "f4adb41f-5065-4e68-9089-e4fa179d1139",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T14:38:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Coshocton, Cambridge, Freeport, Newcomerstown, New Concord, Byesville, West Lafayette, South Zanesville, North Zanesville, Antrim, Philo, Pleasant Grove, Senecaville, Pleasant City, Cumberland, Conesville, Lore City, Old Washington and Belle Valley.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Coshocton, Cambridge, Freeport, Newcomerstown, New Concord, Byesville, West Lafayette, South Zanesville, North Zanesville, Antrim, Philo, Pleasant Grove, Senecaville, Pleasant City, Cumberland, Conesville, Lore City, Old Washington and Belle Valley."
+        }
+      ],
+      "url": "https://api.weather.gov/products/f4adb41f-5065-4e68-9089-e4fa179d1139"
+    },
+    {
+      "id": "74ff7457-4cfc-43c8-90a1-163549bfdb46",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T14:36:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... New Philadelphia, Uhrichsville, Carrollton, Dennison, Augusta, Gnadenhutten, Tuscarawas, Scio, Midvale, Port Washington, Bowerston, Barnhill, Dellroy, Sherrodsville, Roswell, Stone Creek, Leesville, Stillwater, Tippecanoe and Gilmore.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... New Philadelphia, Uhrichsville, Carrollton, Dennison, Augusta, Gnadenhutten, Tuscarawas, Scio, Midvale, Port Washington, Bowerston, Barnhill, Dellroy, Sherrodsville, Roswell, Stone Creek, Leesville, Stillwater, Tippecanoe and Gilmore."
+        }
+      ],
+      "url": "https://api.weather.gov/products/74ff7457-4cfc-43c8-90a1-163549bfdb46"
+    },
+    {
       "id": "d574e305-5386-4673-9d1e-5f8179ad01f7",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -148,22 +180,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/8d34ef1c-9f96-46bb-b920-5a62b673a1ed"
-    },
-    {
-      "id": "4aa924a2-55a1-4d6e-9c89-7f629f79bf5a",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T14:12:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Coshocton, Cambridge, Freeport, Newcomerstown, New Concord, Byesville, West Lafayette, South Zanesville, North Zanesville, Dresden, Frazeysburg, Antrim, Philo, Pleasant Grove, Senecaville, Pleasant City, Cumberland, Conesville and Lore City.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Coshocton, Cambridge, Freeport, Newcomerstown, New Concord, Byesville, West Lafayette, South Zanesville, North Zanesville, Dresden, Frazeysburg, Antrim, Philo, Pleasant Grove, Senecaville, Pleasant City, Cumberland, Conesville and Lore City."
-        }
-      ],
-      "url": "https://api.weather.gov/products/4aa924a2-55a1-4d6e-9c89-7f629f79bf5a"
     }
   ]
 }
