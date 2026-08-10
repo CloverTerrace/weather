@@ -1,7 +1,37 @@
 {
-  "generatedAt": "2026-08-10T17:10:38.510335Z",
+  "generatedAt": "2026-08-10T17:15:42.198541Z",
   "watches": [],
   "mesoscaleDiscussions": [
+    {
+      "id": "MD1896",
+      "number": 1896,
+      "issued": "2026-08-10T16:59:00Z",
+      "expires": "2026-08-10T19:00:00Z",
+      "concerning": "Severe potential...Watch likely",
+      "areas": "the Maryland and West Virginia Panhandles into the Delmarva",
+      "watchProbability": "80 percent",
+      "summary": "The threat for locally damaging winds is expected to increase this afternoon, likely requiring a severe thunderstorm watch issuance.",
+      "details": [
+        {
+          "label": "Concerning",
+          "text": "Severe potential...Watch likely"
+        },
+        {
+          "label": "Areas affected",
+          "text": "the Maryland and West Virginia Panhandles into the Delmarva"
+        },
+        {
+          "label": "Watch Probability",
+          "text": "80 percent"
+        },
+        {
+          "label": "Discussion",
+          "text": "Daytime heating combined with boundary-layer dewpoints in the upper 60s to lower 70s has contributed to a moderately unstable air mass as of early afternoon with steepening low-level lapse rates and MLCAPE of 1500-2500 J/kg. Upstream convection over southwest PA is gradually developing a tighter leading-edge reflectivity gradient and more robust trailing stratiform region, suggestive of an organizing cold pool. Current thinking is that the evolving convective system will further intensify as it continues east-southeast and encounters an increasingly unstable environment across the discussion area. The current KPBZ VWP is sampling strengthening west-northwest flow above 2 km AGL, which will likely aid in further cold pool organization. These factors will lead to an increasing threat for damaging wind gusts across the area this afternoon, likely requiring the issuance of a severe thunderstorm watch."
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md1896.html",
+      "office": "SPC"
+    },
     {
       "id": "MD1895",
       "number": 1895,
@@ -61,6 +91,38 @@
   ],
   "statements": [
     {
+      "id": "ccc9ee24-1fd1-42ac-9490-5e8bf36ca22b",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T17:14:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Seven Springs, Donegal, Champion, Indian Head, Mill Run, Normalville and Jones Mills.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Seven Springs, Donegal, Champion, Indian Head, Mill Run, Normalville and Jones Mills."
+        }
+      ],
+      "url": "https://api.weather.gov/products/ccc9ee24-1fd1-42ac-9490-5e8bf36ca22b"
+    },
+    {
+      "id": "2ae356a4-c198-43de-a2eb-d4d34c02d1f3",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T17:06:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Morgantown, Westover, Kingwood, Star City, Point Marion, Granville, Brookhaven, Reedsville, Masontown, Albright, Brandonville, Bruceton Mills, Laurel Run, Valley Point, Cheat Lake, Clifton Mills, Hazelton, Booth and Everettville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Morgantown, Westover, Kingwood, Star City, Point Marion, Granville, Brookhaven, Reedsville, Masontown, Albright, Brandonville, Bruceton Mills, Laurel Run, Valley Point, Cheat Lake, Clifton Mills, Hazelton, Booth and Everettville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/2ae356a4-c198-43de-a2eb-d4d34c02d1f3"
+    },
+    {
       "id": "3bbf03e0-496f-4b52-9733-ded27a0bbb8d",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -91,38 +153,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/1130fc7d-acab-433f-a2d5-728f011b7baf"
-    },
-    {
-      "id": "42c0f386-c6bd-45ee-ba42-6110b09e5142",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T16:51:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Mount Pleasant, Manor, Youngwood, New Stanton, Penn, Madison, Arona, Hunker, Adamsburg and Grapeville.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Mount Pleasant, Manor, Youngwood, New Stanton, Penn, Madison, Arona, Hunker, Adamsburg and Grapeville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/42c0f386-c6bd-45ee-ba42-6110b09e5142"
-    },
-    {
-      "id": "a34d1833-2f2b-406f-b8ed-0bcefc1b78e3",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-08-10T16:45:00+00:00",
-      "expires": null,
-      "headline": "Area Forecast Discussion",
-      "summary": "Milcarek",
-      "details": [
-        {
-          "label": "Discussion",
-          "text": "Milcarek"
-        }
-      ],
-      "url": "https://api.weather.gov/products/a34d1833-2f2b-406f-b8ed-0bcefc1b78e3"
     }
   ]
 }
