@@ -36,7 +36,7 @@ except ImportError:
 OUTLOOK_BASE_URL = "https://www.spc.noaa.gov/products/outlook/"
 DAY48_BASE_URL = "https://www.spc.noaa.gov/products/exper/day4-8/"
 TSTM_PAGE_URL = "https://www.spc.noaa.gov/products/exper/enhtstm/"
-TSTM_IMAGE_BASE_URL = "https://www.spc.noaa.gov/products/exper/enhtstm/"
+TSTM_IMAGE_BASE_URL = "https://www.spc.noaa.gov/products/exper/enhtstm/imgs/"
 
 USER_AGENT = (
     "home-weather-station-dashboard/1.0 "
@@ -103,14 +103,19 @@ def fetch_day4_8():
 
 
 def get_latest_tstm_issuance_hour():
-    """Return the latest known SPC Enhanced Thunderstorm issuance hour."""
+    """Return the current UTC hour, used to order fallback guesses.
+
+    NOTE: previously this picked among a hardcoded issuance schedule
+    (1, 6, 13, 16, 20), but that schedule turned out to be wrong --
+    confirmed real filenames (e.g. enh_0400.gif) don't fit it. We no
+    longer assume a fixed schedule; discover_tstm_graphics() finding the
+    real filename on the page is the primary path, and the fallback
+    below just sweeps all hours ordered by recency instead of guessing
+    a specific set.
+    """
     from datetime import datetime, timezone
 
-    issuance_hours = (1, 6, 13, 16, 20)
-    current_hour = datetime.now(timezone.utc).hour
-
-    earlier = [h for h in issuance_hours if h <= current_hour]
-    return max(earlier) if earlier else max(issuance_hours)
+    return datetime.now(timezone.utc).hour
 
 
 def discover_tstm_graphics():
@@ -136,6 +141,7 @@ def discover_tstm_graphics():
     html = page_bytes.decode("utf-8", errors="replace")
     found = {}
 
+    # Primary (legacy) pattern: enh_HHMM.ext
     pattern = re.compile(
         r"enh_(\d{4})\.(gif|png|jpg|jpeg)",
         flags=re.IGNORECASE,
@@ -145,23 +151,55 @@ def discover_tstm_graphics():
         hhmm = match.group(1)
         hour = int(hhmm[:2])
 
-        if hour not in (1, 6, 13, 16, 20):
-            continue
-
         url = f"{TSTM_IMAGE_BASE_URL}enh_{hhmm}.{match.group(2)}"
 
         if "rfc_enh" in url.lower():
             continue
 
+        # Don't filter by a hardcoded set of "known" issuance hours --
+        # SPC's actual valid-period schedule isn't fixed to the hours we
+        # previously assumed (e.g. enh_0400 is a real, current product).
+        # Keep every non-rfc_enh match the page actually contains.
         found[hour] = url
 
     print(
         f"[thunderstorm] Found {len(found)} explicit enhanced "
-        "outlook graphic(s)."
+        "outlook graphic(s) matching legacy enh_HHMM pattern."
     )
 
     for hour in sorted(found):
         print(f"[thunderstorm] Discovered {hour:02d}Z: {found[hour]}")
+
+    # DEBUG FALLBACK: the legacy pattern above has started returning zero
+    # matches (SPC likely renamed/restructured these files). Rather than
+    # fail silently, scan for ANY .gif/.png/.jpg reference on the page so
+    # the Actions log tells us the real current filename(s) to fix the
+    # pattern above with.
+    if not found:
+        any_img_pattern = re.compile(
+            r"""(?:src|href)\s*=\s*["']([^"']+\.(?:gif|png|jpe?g))["']""",
+            flags=re.IGNORECASE,
+        )
+        all_imgs = sorted(set(m.group(1) for m in any_img_pattern.finditer(html)))
+
+        print(
+            f"[thunderstorm] DEBUG: legacy pattern found nothing. "
+            f"Raw image references on page ({len(all_imgs)}):",
+            file=sys.stderr,
+        )
+        for src in all_imgs:
+            print(f"[thunderstorm] DEBUG:   {src}", file=sys.stderr)
+
+        if not all_imgs:
+            # Not even a broad image match -- dump a chunk of raw HTML so
+            # we can see what the page actually contains (e.g. if it's
+            # JS-rendered, paywalled, or restructured entirely).
+            print(
+                "[thunderstorm] DEBUG: no image tags found at all. "
+                "First 1500 chars of page HTML:",
+                file=sys.stderr,
+            )
+            print(html[:1500], file=sys.stderr)
 
     return found
 
@@ -170,44 +208,37 @@ def fetch_thunderstorm():
     """
     Download the actual Enhanced Thunderstorm Outlook.
 
-    IMPORTANT:
-      01Z -> enh_0100.gif
-      06Z -> enh_0600.gif
-      13Z -> enh_1300.gif
-      16Z -> enh_1600.gif
-      20Z -> enh_2000.gif
-
-    The previous implementation incorrectly reversed the timestamp and
-    generated names such as enh_0001.gif.
+    Images live under TSTM_IMAGE_BASE_URL (.../enhtstm/imgs/) as
+    enh_HHMM.gif, where HHMM is the start of the graphic's valid period
+    -- NOT a fixed issuance-time schedule. (Confirmed via a real URL:
+    enh_0400.gif.) We no longer hardcode which hours are "valid" --
+    discover_tstm_graphics() reads whatever hour(s) the live page
+    actually references, and the fallback sweep below just tries every
+    hour of the day if the page can't be read at all.
     """
     discovered = discover_tstm_graphics()
-    latest_hour = get_latest_tstm_issuance_hour()
+    current_hour = get_latest_tstm_issuance_hour()
 
-    print(
-        f"[thunderstorm] Current UTC issuance target: "
-        f"{latest_hour:02d}Z"
-    )
-
-    issuance_hours = (1, 6, 13, 16, 20)
-
-    ordered_hours = [
-        h for h in sorted(issuance_hours, reverse=True)
-        if h <= latest_hour
-    ]
-    ordered_hours += [
-        h for h in sorted(issuance_hours, reverse=True)
-        if h not in ordered_hours
-    ]
+    print(f"[thunderstorm] Current UTC hour: {current_hour:02d}Z")
 
     candidates = []
 
-    # Use anything explicitly exposed by the SPC page first.
-    for hour in ordered_hours:
-        if hour in discovered:
-            candidates.append(discovered[hour])
+    # 1. Anything the page itself actually referenced -- this is the
+    #    authoritative source now that discovery isn't filtered against
+    #    a hardcoded (and wrong) issuance schedule. Order by how close
+    #    the hour is to the current UTC hour (most recent first).
+    for hour in sorted(
+        discovered,
+        key=lambda h: (current_hour - h) % 24,
+    ):
+        candidates.append(discovered[hour])
 
-    # Then use the known SPC filename pattern directly.
-    for hour in ordered_hours:
+    # 2. Fallback only: if the page couldn't be read/parsed at all, sweep
+    #    every hour of the day (most recent first) as a last resort guess,
+    #    since we no longer have a reliable fixed issuance schedule to
+    #    guess from.
+    for delta in range(24):
+        hour = (current_hour - delta) % 24
         hhmm = f"{hour:02d}00"
 
         for ext in ("gif", "png"):
