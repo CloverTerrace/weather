@@ -1,17 +1,21 @@
 #!/usr/bin/env python3
-
 """
-Downloads the current SPC outlook images and saves them as PNG files.
+Download the current SPC outlook graphics used by the weather dashboard.
 
-Day 1-3:
-    SPC Convective Outlooks
+Outputs:
+  data/outlook-day1.png
+  data/outlook-day2.png
+  data/outlook-day3.png
+  data/outlook-day4-8.png
+  data/outlook-thunderstorm.png
 
-Day 4-8:
-    SPC extended-range severe weather outlook
+Day 1-3 and Day 4-8 use SPC's current product URLs.
 
-Thunderstorm:
-    SPC Thunderstorm Outlook. The image URL is discovered from
-    the current SPC product page rather than guessed.
+The SPC Thunderstorm Outlook page contains several graphics, including
+supporting/alternate graphics such as rfc_enh.gif.  We specifically select
+the enhanced thunderstorm graphic (enh_HHMM.gif/png) corresponding to the
+most recent SPC Thunderstorm Outlook issuance, rather than simply taking
+the first image on the page.
 """
 
 import io
@@ -20,6 +24,8 @@ import re
 import sys
 import urllib.request
 import urllib.error
+from datetime import datetime, timezone
+from html import unescape
 from urllib.parse import urljoin
 
 try:
@@ -35,14 +41,26 @@ except ImportError:
 OUTLOOK_BASE_URL = "https://www.spc.noaa.gov/products/outlook/"
 DAY48_BASE_URL = "https://www.spc.noaa.gov/products/exper/day4-8/"
 TSTM_PAGE_URL = "https://www.spc.noaa.gov/products/exper/enhtstm/"
+TSTM_IMAGE_BASE_URL = "https://www.spc.noaa.gov/products/exper/enhtstm/imgs/"
 
 USER_AGENT = (
     "home-weather-station-dashboard/1.0 "
     "(https://cloverterrace.github.io/Weather/)"
 )
 
+EXTENSIONS = ("png", "gif", "jpg", "jpeg")
 
-def fetch_bytes(url):
+# SPC's Thunderstorm Outlook issuance cycle.  The graphic filenames use
+# these hour labels even though one operational issuance is commonly referred
+# to as 1630Z; the corresponding graphic is enh_1600.gif.
+TSTM_ISSUANCE_HOURS = (1, 6, 13, 16, 20)
+
+
+# ---------------------------------------------------------------------------
+# Generic download helpers
+# ---------------------------------------------------------------------------
+
+def fetch_bytes(url, timeout=20):
     """Fetch a URL and return its bytes, or None on failure."""
     try:
         req = urllib.request.Request(
@@ -53,7 +71,7 @@ def fetch_bytes(url):
             },
         )
 
-        with urllib.request.urlopen(req, timeout=20) as response:
+        with urllib.request.urlopen(req, timeout=timeout) as response:
             data = response.read()
 
         if len(data) > 500:
@@ -91,10 +109,7 @@ def fetch_fixed_image(key, candidates):
 
         data = fetch_bytes(url)
 
-        if data and save_as_png(
-            data,
-            f"data/outlook-{key}.png",
-        ):
+        if data and save_as_png(data, f"data/outlook-{key}.png"):
             print(f"[{key}] Saved data/outlook-{key}.png")
             print(f"[{key}] Source: {url}")
             return True
@@ -106,114 +121,138 @@ def fetch_fixed_image(key, candidates):
     return False
 
 
-def find_thunderstorm_image():
-    """
-    Fetch the SPC Thunderstorm Outlook product page and discover
-    the actual current image URL from its HTML.
-    """
+# ---------------------------------------------------------------------------
+# Thunderstorm Outlook
+# ---------------------------------------------------------------------------
 
+def get_latest_tstm_issuance_hour(now_utc=None):
+    """Return the most recent Thunderstorm Outlook issuance hour in UTC."""
+    if now_utc is None:
+        now_utc = datetime.now(timezone.utc)
+
+    current_hour = now_utc.hour
+
+    # Before 01Z, the latest issuance is the previous day's 20Z product.
+    eligible = [hour for hour in TSTM_ISSUANCE_HOURS if hour <= current_hour]
+    if not eligible:
+        return 20
+
+    return max(eligible)
+
+
+def discover_tstm_graphics():
+    """Find enhanced thunderstorm graphics exposed by the SPC page."""
     print("[thunderstorm] Loading SPC product page...")
 
-    html_bytes = fetch_bytes(TSTM_PAGE_URL)
+    page_bytes = fetch_bytes(TSTM_PAGE_URL)
+    if not page_bytes:
+        return []
 
-    if not html_bytes:
-        print(
-            "[thunderstorm] ERROR: could not load SPC product page.",
-            file=sys.stderr,
-        )
-        return False
+    html = page_bytes.decode("utf-8", errors="replace")
 
-    try:
-        html = html_bytes.decode("utf-8", errors="replace")
-    except Exception as exc:
-        print(
-            f"[thunderstorm] ERROR: could not decode page: {exc}",
-            file=sys.stderr,
-        )
-        return False
-
-    # Find image sources from <img ... src="..."> tags.
-    img_sources = re.findall(
-        r'<img\b[^>]*?\bsrc\s*=\s*["\']([^"\']+)["\']',
-        html,
+    # Only accept the actual enhanced Thunderstorm Outlook graphics:
+    #   enh_0100.gif
+    #   enh_0600.gif
+    #   enh_1300.gif
+    #   enh_1600.gif
+    #   enh_2000.gif
+    #
+    # This deliberately excludes rfc_enh.gif and other supporting graphics.
+    pattern = re.compile(
+        r"(?:src|href)\s*=\s*[\"']([^\"']*?/imgs/enh_(\d{4})\.(?:gif|png|jpg|jpeg))[\"']",
         flags=re.IGNORECASE,
     )
 
-    candidates = []
+    found = {}
 
-    for src in img_sources:
-        absolute = urljoin(TSTM_PAGE_URL, src)
-
-        # Ignore page decorations and obvious non-product images.
-        lower = absolute.lower()
-
-        if any(
-            excluded in lower
-            for excluded in (
-                "logo",
-                "banner",
-                "button",
-                "icon",
-                "spacer",
-                "arrow",
-            )
-        ):
+    for raw_url, hhmm in pattern.findall(html):
+        hour = int(hhmm[:2])
+        if hour not in TSTM_ISSUANCE_HOURS:
             continue
 
-        # Prefer files that look like SPC forecast graphics.
-        score = 0
+        url = unescape(urljoin(TSTM_PAGE_URL, raw_url))
+        found[hour] = url
 
-        if "tstm" in lower:
-            score += 10
-
-        if "enhtstm" in lower:
-            score += 20
-
-        if lower.endswith((".gif", ".png", ".jpg", ".jpeg")):
-            score += 5
-
-        candidates.append((score, absolute))
-
-    # Highest-scoring candidates first.
-    candidates.sort(reverse=True)
-
-    print(
-        f"[thunderstorm] Found {len(candidates)} candidate image(s)."
+    # Some versions of the SPC page may expose the images in markup that
+    # doesn't match the first pattern.  Look for the filename itself too.
+    filename_pattern = re.compile(
+        r"(?:^|[^A-Za-z0-9])enh_(\d{4})\.(gif|png|jpg|jpeg)",
+        flags=re.IGNORECASE,
     )
 
-    for score, url in candidates:
-        print(
-            f"[thunderstorm] Trying discovered image "
-            f"(score {score}): {url}"
+    for match in filename_pattern.finditer(html):
+        hhmm = match.group(1)
+        hour = int(hhmm[:2])
+        if hour not in TSTM_ISSUANCE_HOURS or hour in found:
+            continue
+
+        found[hour] = urljoin(
+            TSTM_IMAGE_BASE_URL,
+            f"enh_{hhmm}.{match.group(2)}",
         )
 
+    print(f"[thunderstorm] Found {len(found)} enhanced outlook graphic(s).")
+
+    return found
+
+
+def fetch_thunderstorm():
+    """Download the current enhanced Thunderstorm Outlook graphic."""
+    discovered = discover_tstm_graphics()
+    latest_hour = get_latest_tstm_issuance_hour()
+
+    print(f"[thunderstorm] Current UTC issuance target: {latest_hour:02d}Z")
+
+    # Prefer the most recent issuance at or before the current UTC time.
+    # If the exact graphic is unavailable, fall back through older issuance
+    # times rather than ever selecting rfc_enh.gif.
+    ordered_hours = []
+    for hour in sorted(TSTM_ISSUANCE_HOURS, reverse=True):
+        if hour <= latest_hour:
+            ordered_hours.append(hour)
+    for hour in sorted(TSTM_ISSUANCE_HOURS, reverse=True):
+        if hour not in ordered_hours:
+            ordered_hours.append(hour)
+
+    candidates = []
+
+    for hour in ordered_hours:
+        if hour in discovered:
+            candidates.append(discovered[hour])
+
+    # Direct URL fallbacks make the script resilient if SPC changes the page
+    # markup while retaining the established product filenames.
+    for hour in ordered_hours:
+        for ext in ("gif", "png"):
+            url = f"{TSTM_IMAGE_BASE_URL}enh_{hour:04d}.{ext}"
+            if url not in candidates:
+                candidates.append(url)
+
+    for url in candidates:
+        print(f"[thunderstorm] Trying {url}")
         data = fetch_bytes(url)
 
-        if data and save_as_png(
-            data,
-            "data/outlook-thunderstorm.png",
-        ):
-            print(
-                "[thunderstorm] Saved "
-                "data/outlook-thunderstorm.png"
-            )
+        if data and save_as_png(data, "data/outlook-thunderstorm.png"):
+            print("[thunderstorm] Saved data/outlook-thunderstorm.png")
             print(f"[thunderstorm] Source: {url}")
             return True
 
     print(
-        "[thunderstorm] ERROR: could not find a usable "
-        "Thunderstorm Outlook image.",
+        "[thunderstorm] ERROR: no enhanced Thunderstorm Outlook graphic "
+        "could be downloaded.",
         file=sys.stderr,
     )
     return False
 
 
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
 def main():
     failed = False
 
-    # ---------------------------------------------------------
-    # DAY 1 — unchanged
-    # ---------------------------------------------------------
+    # Day 1-3: unchanged SPC Convective Outlook URLs.
     if not fetch_fixed_image(
         "day1",
         [
@@ -223,9 +262,6 @@ def main():
     ):
         failed = True
 
-    # ---------------------------------------------------------
-    # DAY 2 — unchanged
-    # ---------------------------------------------------------
     if not fetch_fixed_image(
         "day2",
         [
@@ -235,9 +271,6 @@ def main():
     ):
         failed = True
 
-    # ---------------------------------------------------------
-    # DAY 3 — unchanged
-    # ---------------------------------------------------------
     if not fetch_fixed_image(
         "day3",
         [
@@ -247,9 +280,7 @@ def main():
     ):
         failed = True
 
-    # ---------------------------------------------------------
-    # DAY 4-8 — keep the current SPC product URL
-    # ---------------------------------------------------------
+    # Day 4-8: the combined extended-range severe weather graphic.
     if not fetch_fixed_image(
         "day4-8",
         [
@@ -259,10 +290,8 @@ def main():
     ):
         failed = True
 
-    # ---------------------------------------------------------
-    # THUNDERSTORM — discover the current image from SPC page
-    # ---------------------------------------------------------
-    if not find_thunderstorm_image():
+    # Thunderstorm: choose the current enhanced issuance graphic.
+    if not fetch_thunderstorm():
         failed = True
 
     if failed:
