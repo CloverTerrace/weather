@@ -31,6 +31,7 @@ import io
 import json
 import os
 import sys
+from datetime import datetime, timezone
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -50,6 +51,18 @@ TSTM_IMAGE_BASE_URL = "https://www.spc.noaa.gov/products/exper/enhtstm/imgs/"
 USER_AGENT = "(home-weather-station-dashboard, https://cloverterrace.github.io/Weather/)"
 EXTENSIONS = ("gif", "png")
 TSTM_BOUNDARIES = (0, 4, 8, 12, 16, 20)
+
+# Authoritative SPC Enhanced Thunderstorm Outlook schedule.  The filenames
+# themselves only contain the valid-period start time, so we use the current
+# issuance cycle to distinguish the live products from older files that SPC
+# may still leave accessible (HTTP 200).
+TSTM_ISSUANCE_SCHEDULE = (
+    (1, 0, (4,)),             # 01Z: 04Z-12Z
+    (6, 0, (12, 16, 20)),     # 06Z: 12Z-16Z, 16Z-20Z, 20Z-00Z
+    (13, 0, (16, 20, 0)),     # 13Z: 16Z-20Z, 20Z-00Z, 00Z-04Z
+    (16, 30, (20, 0, 4)),     # 1630Z: 20Z-00Z, 00Z-04Z, 04Z-12Z
+    (20, 0, (0, 4)),           # 20Z: 00Z-04Z, 04Z-12Z
+)
 DATA_DIR = Path("data")
 MANIFEST_PATH = DATA_DIR / "outlook-thunderstorm.json"
 LEGACY_TSTM_PATH = DATA_DIR / "outlook-thunderstorm.png"
@@ -161,50 +174,50 @@ def period_label(start_hour):
 
 
 def order_periods(periods):
-    """
-    Keep the live periods in their natural rolling order.
+    """Return periods in the same order SPC presents them for the cycle."""
+    order = {hour: i for i, hour in enumerate(TSTM_BOUNDARIES)}
+    return sorted(periods, key=lambda item: order.get(int(item["start_hour"]), 99))
 
-    The SPC set normally consists of three consecutive 4-hour blocks, e.g.
-    16Z–20Z, 20Z–00Z, 00Z–04Z.  Rotating at the largest gap keeps that
-    sequence intact even though 00Z wraps back to the beginning of the day.
-    """
-    if len(periods) <= 1:
-        return periods
 
-    sorted_periods = sorted(periods, key=lambda item: item["start_hour"])
-    starts = [item["start_hour"] for item in sorted_periods]
+def current_tstm_schedule(now=None):
+    """Return (issuance_label, expected_start_hours) for the latest SPC cycle."""
+    now = now or datetime.now(timezone.utc)
+    minute_of_day = now.hour * 60 + now.minute
 
-    if len(sorted_periods) == 2:
-        # For two products, simply keep numeric order unless they wrap around
-        # midnight, in which case put the later-day block first.
-        gap_candidates = []
-        for i, current in enumerate(starts):
-            nxt = starts[(i + 1) % len(starts)]
-            gap = (nxt - current) % 24
-            gap_candidates.append((gap, i))
-        largest_gap, largest_gap_index = max(gap_candidates)
-        if largest_gap > 4:
-            start_index = (largest_gap_index + 1) % len(sorted_periods)
-            return sorted_periods[start_index:] + sorted_periods[:start_index]
-        return sorted_periods
+    candidates = []
+    for issue_hour, issue_minute, starts in TSTM_ISSUANCE_SCHEDULE:
+        issue_minutes = issue_hour * 60 + issue_minute
+        if issue_minutes <= minute_of_day:
+            candidates.append((issue_minutes, issue_hour, issue_minute, starts))
 
-    gap_candidates = []
-    for i, current in enumerate(starts):
-        nxt = starts[(i + 1) % len(starts)]
-        gap = (nxt - current) % 24
-        gap_candidates.append((gap, i))
+    if candidates:
+        _, hour, minute, starts = max(candidates)
+    else:
+        # Before 01Z, the latest cycle is yesterday's 20Z issuance.
+        hour, minute, starts = TSTM_ISSUANCE_SCHEDULE[-1]
 
-    _, largest_gap_index = max(gap_candidates)
-    start_index = (largest_gap_index + 1) % len(sorted_periods)
-    return sorted_periods[start_index:] + sorted_periods[:start_index]
+    label = f"{hour:02d}{minute:02d}Z"
+    return label, tuple(starts)
 
 
 def fetch_thunderstorm_periods():
-    """Probe all six fixed boundaries and save every currently live period."""
+    """Probe the six filename boundaries, but keep only the current SPC cycle."""
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     discovered = []
 
-    print("[thunderstorm] Sweeping fixed 4-hour boundaries: " + ", ".join(f"{h:02d}Z" for h in TSTM_BOUNDARIES))
+    issuance_label, expected_starts = current_tstm_schedule()
+    expected_set = set(expected_starts)
+
+    print(
+        "[thunderstorm] Current SPC issuance cycle: "
+        f"{issuance_label} (expected period starts: "
+        + ", ".join(f"{h:02d}Z" for h in expected_starts)
+        + ")"
+    )
+    print(
+        "[thunderstorm] Sweeping fixed 4-hour filename boundaries: "
+        + ", ".join(f"{h:02d}Z" for h in TSTM_BOUNDARIES)
+    )
 
     for start_hour in TSTM_BOUNDARIES:
         hhmm = f"{start_hour:02d}00"
@@ -224,22 +237,32 @@ def fetch_thunderstorm_periods():
                 break
 
         if saved:
-            print(f"[thunderstorm {period_label(start_hour)}] Saved {out_path}")
-            print(f"[thunderstorm {period_label(start_hour)}] Source: {source_url}")
-            discovered.append(
-                {
-                    "start_hour": f"{start_hour:02d}",
-                    "end_hour": f"{period_end_hour(start_hour):02d}",
-                    "label": period_label(start_hour),
-                    "file": out_path.as_posix(),
-                    "source": source_url,
-                }
-            )
+            if start_hour in expected_set:
+                print(
+                    f"[thunderstorm {period_label(start_hour)}] Active for "
+                    f"{issuance_label} cycle; keeping."
+                )
+                discovered.append(
+                    {
+                        "start_hour": start_hour,
+                        "end_hour": period_end_hour(start_hour),
+                        "label": period_label(start_hour),
+                        "file": out_path.as_posix(),
+                        "source": source_url,
+                    }
+                )
+            else:
+                print(
+                    f"[thunderstorm {period_label(start_hour)}] Available but not "
+                    f"part of current {issuance_label} cycle; will remove as stale."
+                )
         else:
-            print(f"[thunderstorm {period_label(start_hour)}] Not currently available (likely expired).")
+            print(
+                f"[thunderstorm {period_label(start_hour)}] Not currently "
+                "available (HTTP 404 or unreadable)."
+            )
 
-    discovered = order_periods(discovered)
-    return discovered
+    return order_periods(discovered)
 
 
 def clean_stale_thunderstorm_files(active_periods):
@@ -265,6 +288,7 @@ def clean_stale_thunderstorm_files(active_periods):
 def write_manifest(periods):
     payload = {
         "product": "SPC Enhanced Thunderstorm Outlook",
+        "updated_at_utc": datetime.now(timezone.utc).isoformat(),
         "period_hours": 4,
         "periods": periods,
     }
