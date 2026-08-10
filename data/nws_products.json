@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T14:05:41.457703Z",
+  "generatedAt": "2026-08-10T14:10:45.366541Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7dbd0529fbfcbe03c4d8d86333ba0d952d96dbe4.001.1",
@@ -86,6 +86,38 @@
   ],
   "statements": [
     {
+      "id": "525da7a8-9232-437c-a7d5-099acbccaa46",
+      "type": "Flash Flood Watch",
+      "office": "KPBZ",
+      "issued": "2026-08-10T14:07:00+00:00",
+      "expires": null,
+      "headline": "Flash Flood Watch",
+      "summary": "WGUS61 KPBZ 101407 URGENT - IMMEDIATE BROADCAST REQUESTED",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 WGUS61 KPBZ 101407 FFAPBZ URGENT - IMMEDIATE BROADCAST REQUESTED Flood Watch 1007 AM EDT Mon Aug 10 2026 .Repetitive rounds of precipitation through Tuesday night will raise flash flood potential."
+        }
+      ],
+      "url": "https://api.weather.gov/products/525da7a8-9232-437c-a7d5-099acbccaa46"
+    },
+    {
+      "id": "75e53017-da08-4289-b448-c6dacd54d873",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T14:01:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... New Philadelphia, Dover, Uhrichsville, Carrollton, Dennison, Strasburg, Sugarcreek, Augusta, Gnadenhutten, Malvern, Tuscarawas, Bolivar, Baltic, Scio, Midvale, Mineral City, Port Washington, Bowerston, Barnhill and Dellroy.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... New Philadelphia, Dover, Uhrichsville, Carrollton, Dennison, Strasburg, Sugarcreek, Augusta, Gnadenhutten, Malvern, Tuscarawas, Bolivar, Baltic, Scio, Midvale, Mineral City, Port Washington, Bowerston, Barnhill and Dellroy."
+        }
+      ],
+      "url": "https://api.weather.gov/products/75e53017-da08-4289-b448-c6dacd54d873"
+    },
+    {
       "id": "eeef4837-d361-4e55-bc5e-3a0c883d204b",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -100,22 +132,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/eeef4837-d361-4e55-bc5e-3a0c883d204b"
-    },
-    {
-      "id": "78d83de9-9e4a-4bf1-9d85-60b436f2a5d0",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-08-10T13:36:00+00:00",
-      "expires": null,
-      "headline": "Area Forecast Discussion",
-      "summary": "CL/Milcarek",
-      "details": [
-        {
-          "label": "Discussion",
-          "text": "CL/Milcarek"
-        }
-      ],
-      "url": "https://api.weather.gov/products/78d83de9-9e4a-4bf1-9d85-60b436f2a5d0"
     }
   ]
 }
