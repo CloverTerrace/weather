@@ -101,116 +101,126 @@ def fetch_day4_8():
     return not failed
 
 
-def discover_thunderstorm_candidates():
-    """
-    Discover the primary thunderstorm graphic from SPC's product page.
+def get_latest_tstm_issuance_hour():
+    """Return the latest known SPC Enhanced Thunderstorm issuance hour."""
+    from datetime import datetime, timezone
 
-    The page contains multiple supporting images. We exclude rfc_enh.gif,
-    page decoration, and navigation images, then rank the remaining
-    thunderstorm/enhanced candidates by filename relevance and dimensions.
+    issuance_hours = (1, 6, 13, 16, 20)
+    current_hour = datetime.now(timezone.utc).hour
+
+    earlier = [h for h in issuance_hours if h <= current_hour]
+    return max(earlier) if earlier else max(issuance_hours)
+
+
+def discover_tstm_graphics():
+    """
+    Discover actual enh_HHMM product filenames from the SPC page.
+
+    We intentionally do NOT rank arbitrary <img> tags. rfc_enh.gif is a
+    supporting/base graphic and can produce the blank radar-style map seen
+    on the dashboard instead of the actual Thunderstorm Outlook.
     """
     print("[thunderstorm] Loading SPC product page...")
 
     page_bytes = fetch_bytes(TSTM_PAGE_URL)
+
     if not page_bytes:
-        print("[thunderstorm] ERROR: could not load SPC product page.",
-              file=sys.stderr)
-        return []
+        print(
+            "[thunderstorm] Could not read product page; "
+            "using known filename fallbacks.",
+            file=sys.stderr,
+        )
+        return {}
 
     html = page_bytes.decode("utf-8", errors="replace")
+    found = {}
 
-    img_sources = re.findall(
-        r"<img\b[^>]*?\bsrc\s*=\s*[\"']([^\"']+)[\"']",
-        html,
+    pattern = re.compile(
+        r"enh_(\d{4})\.(gif|png|jpg|jpeg)",
         flags=re.IGNORECASE,
     )
 
-    candidates = []
-    seen = set()
+    for match in pattern.finditer(html):
+        hhmm = match.group(1)
+        hour = int(hhmm[:2])
 
-    for raw_src in img_sources:
-        src = unescape(raw_src).strip()
-        url = urljoin(TSTM_PAGE_URL, src)
-
-        if url in seen:
-            continue
-        seen.add(url)
-
-        lower = url.lower()
-        filename = lower.rsplit("/", 1)[-1]
-
-        if "rfc_enh" in lower:
+        if hour not in (1, 6, 13, 16, 20):
             continue
 
-        if any(
-            token in lower
-            for token in (
-                "logo", "banner", "button", "spacer",
-                "arrow", "nav", "icon",
-            )
-        ):
+        url = f"{TSTM_IMAGE_BASE_URL}enh_{hhmm}.{match.group(2)}"
+
+        if "rfc_enh" in url.lower():
             continue
 
-        if not lower.endswith((".gif", ".png", ".jpg", ".jpeg")):
-            continue
-
-        # Prefer names associated with the actual enhanced thunderstorm
-        # product, but do not depend on one exact filename.
-        score = 0
-        if "enh" in filename:
-            score += 100
-        if "tstm" in filename or "thunder" in filename:
-            score += 80
-
-        data = fetch_bytes(url)
-        if not data:
-            continue
-
-        try:
-            with Image.open(io.BytesIO(data)) as image:
-                width, height = image.size
-        except Exception:
-            continue
-
-        area = width * height
-
-        if width >= 700 and height >= 400:
-            score += 100
-        if width >= 800 and height >= 500:
-            score += 30
-
-        candidates.append(
-            (score, area, width, height, url)
-        )
-
-    candidates.sort(reverse=True)
+        found[hour] = url
 
     print(
-        f"[thunderstorm] Found {len(candidates)} usable candidate image(s)."
+        f"[thunderstorm] Found {len(found)} explicit enhanced "
+        "outlook graphic(s)."
     )
 
-    for score, area, width, height, url in candidates:
-        print(
-            f"[thunderstorm] Candidate: {url} "
-            f"({width}x{height}, score {score})"
-        )
+    for hour in sorted(found):
+        print(f"[thunderstorm] Discovered {hour:02d}Z: {found[hour]}")
 
-    return candidates
+    return found
 
 
 def fetch_thunderstorm():
-    candidates = discover_thunderstorm_candidates()
+    """
+    Download the actual Enhanced Thunderstorm Outlook.
 
-    if not candidates:
-        print(
-            "[thunderstorm] ERROR: no usable Thunderstorm Outlook "
-            "graphic could be discovered.",
-            file=sys.stderr,
-        )
-        return False
+    IMPORTANT:
+      01Z -> enh_0100.gif
+      06Z -> enh_0600.gif
+      13Z -> enh_1300.gif
+      16Z -> enh_1600.gif
+      20Z -> enh_2000.gif
 
-    for score, area, width, height, url in candidates:
-        print(f"[thunderstorm] Trying discovered graphic: {url}")
+    The previous implementation incorrectly reversed the timestamp and
+    generated names such as enh_0001.gif.
+    """
+    discovered = discover_tstm_graphics()
+    latest_hour = get_latest_tstm_issuance_hour()
+
+    print(
+        f"[thunderstorm] Current UTC issuance target: "
+        f"{latest_hour:02d}Z"
+    )
+
+    issuance_hours = (1, 6, 13, 16, 20)
+
+    ordered_hours = [
+        h for h in sorted(issuance_hours, reverse=True)
+        if h <= latest_hour
+    ]
+    ordered_hours += [
+        h for h in sorted(issuance_hours, reverse=True)
+        if h not in ordered_hours
+    ]
+
+    candidates = []
+
+    # Use anything explicitly exposed by the SPC page first.
+    for hour in ordered_hours:
+        if hour in discovered:
+            candidates.append(discovered[hour])
+
+    # Then use the known SPC filename pattern directly.
+    for hour in ordered_hours:
+        hhmm = f"{hour:02d}00"
+
+        for ext in ("gif", "png"):
+            url = f"{TSTM_IMAGE_BASE_URL}enh_{hhmm}.{ext}"
+
+            if url not in candidates:
+                candidates.append(url)
+
+    for url in candidates:
+        # Absolute guard against the supporting RFC/base graphic.
+        if "rfc_enh" in url.lower():
+            continue
+
+        print(f"[thunderstorm] Trying {url}")
 
         data = fetch_bytes(url)
 
@@ -223,12 +233,11 @@ def fetch_thunderstorm():
             return True
 
     print(
-        "[thunderstorm] ERROR: discovered Thunderstorm graphics "
-        "could not be downloaded.",
+        "[thunderstorm] ERROR: no actual Enhanced Thunderstorm "
+        "Outlook graphic could be downloaded.",
         file=sys.stderr,
     )
     return False
-
 
 def main():
     failed = False
