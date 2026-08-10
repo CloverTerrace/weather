@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T15:20:38.012679Z",
+  "generatedAt": "2026-08-10T15:25:11.507908Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7dbd0529fbfcbe03c4d8d86333ba0d952d96dbe4.001.1",
@@ -24,6 +24,22 @@
   ],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "e2bb419d-cb6a-409e-b5da-1202f46e97fa",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T15:20:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Wheeling, Steubenville, Moundsville, Martins Ferry, St. Clairsville, Bellaire, Barnesville, Cadiz, Warwood, Wellsburg, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Wintersville, Shadyside, Mingo Junction and Follansbee.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Wheeling, Steubenville, Moundsville, Martins Ferry, St. Clairsville, Bellaire, Barnesville, Cadiz, Warwood, Wellsburg, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Wintersville, Shadyside, Mingo Junction and Follansbee."
+        }
+      ],
+      "url": "https://api.weather.gov/products/e2bb419d-cb6a-409e-b5da-1202f46e97fa"
+    },
     {
       "id": "c87086ee-5524-4c00-bae6-b0959de690b5",
       "type": "Severe Weather Statement",
@@ -55,22 +71,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/e87dde73-0028-47c8-a12a-4ca744c7ecad"
-    },
-    {
-      "id": "dfbd5652-98a0-4043-903a-937adfdc3757",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T14:48:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Cambridge, Freeport, Newcomerstown, New Concord, Byesville, Antrim, Philo, Senecaville, Pleasant City, Cumberland, Lore City, Old Washington, Belle Valley, Plainfield, Norwich, High Hill, Chandlersville, Ruraldale, Duncan Falls and Tippecanoe.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Cambridge, Freeport, Newcomerstown, New Concord, Byesville, Antrim, Philo, Senecaville, Pleasant City, Cumberland, Lore City, Old Washington, Belle Valley, Plainfield, Norwich, High Hill, Chandlersville, Ruraldale, Duncan Falls and Tippecanoe."
-        }
-      ],
-      "url": "https://api.weather.gov/products/dfbd5652-98a0-4043-903a-937adfdc3757"
     }
   ]
 }
