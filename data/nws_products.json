@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T15:45:44.974930Z",
+  "generatedAt": "2026-08-10T15:50:06.463275Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.dfef5a1b104e85ebe78cb3b99c5b88d2aa4bfe1a.002.1",
@@ -22,7 +22,34 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [],
+  "mesoscaleDiscussions": [
+    {
+      "id": "MD1894",
+      "number": 1894,
+      "issued": "2026-08-10T15:44:00Z",
+      "expires": "2026-08-10T17:45:00Z",
+      "concerning": "Severe Thunderstorm Watch 552...",
+      "areas": "western into central New York and north-central Pennsylvania",
+      "watchProbability": null,
+      "summary": "Damaging wind potential may increase early this afternoon with storms located immediately ahead of an MCV. An additional downstream watch may become necessary.",
+      "details": [
+        {
+          "label": "Concerning",
+          "text": "Severe Thunderstorm Watch 552..."
+        },
+        {
+          "label": "Areas affected",
+          "text": "western into central New York and north-central Pennsylvania"
+        },
+        {
+          "label": "Discussion",
+          "text": "Ahead of a well-defined MCV, a broken band of thunderstorms has persisted this morning across portions of western NY and northwest PA. Considerable cloud cover has limited daytime heating and resultant air mass destabilization so far today. However, thinner clouds are allowing for stronger daytime heating across portions of central NY into north-central PA, which should allow for greater destabilization to occur with steepening low-level lapse rates. Dynamic forcing associated with the MCV is likely to sustain ongoing storms, which may intensify as they continue east and encounter an increasingly unstable environment. Earlier VWP observations near Cleveland, OH and current storm motions of around 40 kt are suggestive of a belt of enhanced westerly flow, generally in the 1-4 km layer, which coupled with steepening low-level lapse rates, may support an increased potential for damaging wind gusts early this afternoon."
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md1894.html",
+      "office": "SPC"
+    }
+  ],
   "statements": [
     {
       "id": "a4bdd6e9-2edc-49c6-918a-9034e30c6aa9",
