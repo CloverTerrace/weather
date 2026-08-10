@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T17:20:42.270772Z",
+  "generatedAt": "2026-08-10T17:25:36.546681Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -127,6 +127,25 @@
   ],
   "statements": [
     {
+      "id": "d2ada8ed-9d16-403f-a0db-2fe881e3dcde",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T17:24:00+00:00",
+      "expires": null,
+      "location": "Fayette PA-Westmoreland PA",
+      "hazard": "Severe Weather Statement",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC051-129-101734- /O.CAN.KPBZ.SV.W.0265.000000T0000Z-260810T1745Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 124 PM EDT Mon Aug 10 2026 PAC051-129-101734- /O.CAN.KPBZ.SV.W.0265.000000T0000Z-260810T1745Z/ Fayette PA-Westmoreland PA- 124 PM EDT Mon Aug 10 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/d2ada8ed-9d16-403f-a0db-2fe881e3dcde"
+    },
+    {
       "id": "ccc9ee24-1fd1-42ac-9490-5e8bf36ca22b",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -163,44 +182,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/2ae356a4-c198-43de-a2eb-d4d34c02d1f3"
-    },
-    {
-      "id": "3bbf03e0-496f-4b52-9733-ded27a0bbb8d",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T16:58:00+00:00",
-      "expires": null,
-      "location": "Fayette PA-Greene PA-Marion WV-Monongalia WV-Preston WV",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Morgantown, Westover, Kingwood, Star City, Point Marion, Granville, Brookhaven, Cassville, Reedsville, Masontown, Bobtown, Albright, Brandonville, Bruceton Mills, Cheat Lake, Laurel Run, Valley Point and Clifton Mills.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Morgantown, Westover, Kingwood, Star City, Point Marion, Granville, Brookhaven, Cassville, Reedsville, Masontown, Bobtown, Albright, Brandonville, Bruceton Mills, Cheat Lake, Laurel Run, Valley Point and Clifton Mills."
-        }
-      ],
-      "url": "https://api.weather.gov/products/3bbf03e0-496f-4b52-9733-ded27a0bbb8d"
-    },
-    {
-      "id": "1130fc7d-acab-433f-a2d5-728f011b7baf",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T16:56:00+00:00",
-      "expires": null,
-      "location": "Westmoreland PA",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC129-101706- /O.EXP.KPBZ.SV.W.0263.000000T0000Z-260810T1700Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 1256 PM EDT Mon Aug 10 2026 PAC129-101706- /O.EXP.KPBZ.SV.W.0263.000000T0000Z-260810T1700Z/ Westmoreland PA- 1256 PM EDT Mon Aug 10 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/1130fc7d-acab-433f-a2d5-728f011b7baf"
     }
   ]
 }
