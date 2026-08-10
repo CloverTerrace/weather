@@ -62,7 +62,30 @@ def fetch_bytes(url, timeout=20):
 
 def save_as_png(image_bytes, output_path):
     try:
-        image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+        img = Image.open(io.BytesIO(image_bytes))
+
+        if getattr(img, "is_animated", False) and getattr(img, "n_frames", 1) > 1:
+            # This GIF has multiple frames. SPC's enh_HHMM.gif appears to
+            # build the map incrementally across frames (contour outlines
+            # in frame 0, color fill layered in on later frames) rather
+            # than being a simple animation loop. Grabbing only frame 0
+            # (the old behavior) produces outlines with no fill -- which
+            # matches exactly what showed up on the dashboard. Composite
+            # every frame onto an accumulating canvas so we end up with
+            # the fully-rendered map.
+            from PIL import ImageSequence
+
+            canvas = None
+            for frame in ImageSequence.Iterator(img):
+                frame_rgba = frame.convert("RGBA")
+                if canvas is None:
+                    canvas = frame_rgba.copy()
+                else:
+                    canvas.paste(frame_rgba, (0, 0), frame_rgba)
+            image = canvas.convert("RGB")
+        else:
+            image = img.convert("RGB")
+
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         image.save(output_path, "PNG")
         return True
