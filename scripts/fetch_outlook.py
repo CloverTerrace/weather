@@ -60,11 +60,22 @@ def fetch_bytes(url, timeout=20):
     return None
 
 
-def save_as_png(image_bytes, output_path):
+def save_as_png(image_bytes, output_path, debug_label=None):
     try:
         img = Image.open(io.BytesIO(image_bytes))
+        n_frames = getattr(img, "n_frames", 1)
+        is_animated = getattr(img, "is_animated", False)
 
-        if getattr(img, "is_animated", False) and getattr(img, "n_frames", 1) > 1:
+        if debug_label:
+            print(
+                f"[{debug_label}] DEBUG: format={img.format} "
+                f"mode={img.mode} size={img.size} "
+                f"n_frames={n_frames} is_animated={is_animated} "
+                f"info_keys={list(img.info.keys())}",
+                file=sys.stderr,
+            )
+
+        if is_animated and n_frames > 1:
             # This GIF has multiple frames. SPC's enh_HHMM.gif appears to
             # build the map incrementally across frames (contour outlines
             # in frame 0, color fill layered in on later frames) rather
@@ -76,8 +87,16 @@ def save_as_png(image_bytes, output_path):
             from PIL import ImageSequence
 
             canvas = None
-            for frame in ImageSequence.Iterator(img):
+            for i, frame in enumerate(ImageSequence.Iterator(img)):
                 frame_rgba = frame.convert("RGBA")
+                if debug_label:
+                    colors = frame_rgba.convert("RGB").getcolors(maxcolors=1_000_000)
+                    n_colors = len(colors) if colors else "many(>1M)"
+                    print(
+                        f"[{debug_label}] DEBUG: frame {i} "
+                        f"unique_colors={n_colors}",
+                        file=sys.stderr,
+                    )
                 if canvas is None:
                     canvas = frame_rgba.copy()
                 else:
@@ -85,6 +104,24 @@ def save_as_png(image_bytes, output_path):
             image = canvas.convert("RGB")
         else:
             image = img.convert("RGB")
+
+        if debug_label:
+            colors = image.getcolors(maxcolors=1_000_000)
+            if colors:
+                colors.sort(key=lambda c: -c[0])
+                top = colors[:12]
+                print(
+                    f"[{debug_label}] DEBUG: final image unique_colors="
+                    f"{len(colors)} top_colors(count,rgb)={top}",
+                    file=sys.stderr,
+                )
+            else:
+                print(
+                    f"[{debug_label}] DEBUG: final image has >1,000,000 "
+                    "unique colors (photo-like, unexpected for this "
+                    "product)",
+                    file=sys.stderr,
+                )
 
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         image.save(output_path, "PNG")
@@ -282,6 +319,7 @@ def fetch_thunderstorm():
         if data and save_as_png(
             data,
             "data/outlook-thunderstorm.png",
+            debug_label="thunderstorm",
         ):
             print("[thunderstorm] Saved data/outlook-thunderstorm.png")
             print(f"[thunderstorm] Source: {url}")
