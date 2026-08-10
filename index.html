@@ -2963,6 +2963,297 @@ svg circle, svg polygon, svg line {
     }
   }
 
+
+
+  /* ================================================================
+     STORM DESK + SPC PRESENTATION PASS
+     The decorative font is reserved for the page title. Everything in
+     the information interface below uses the shared, highly legible
+     Figtree roles so labels never change shape from theme to theme.
+     ================================================================ */
+  .nws-section,
+  .nws-card,
+  .camera-card.outlook-card {
+    max-width: 1120px;
+  }
+
+  .nws-card {
+    padding: clamp(1rem, 2vw, 1.4rem);
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.16);
+  }
+
+  .nws-card h2,
+  .outlook-section-label,
+  .outlook-category-tab,
+  .storm-desk-heading {
+    font-family: var(--font-body);
+  }
+
+  .nws-card h2 {
+    font-size: clamp(1rem, 1.4vw, 1.12rem);
+    letter-spacing: 0.075em;
+  }
+
+  .nws-tabs {
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .nws-tab {
+    min-height: 44px;
+    padding: 9px 10px;
+    border-radius: 11px;
+    font-family: var(--font-body);
+    font-size: clamp(0.68rem, 1vw, 0.76rem);
+  }
+
+  .nws-list { gap: 10px; }
+
+  .nws-item {
+    padding: clamp(11px, 1.5vw, 14px);
+    border-radius: 13px;
+    border-color: rgba(255,255,255,0.065);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .theme-light-card .nws-item {
+    border-color: rgba(0,0,0,0.085);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.035);
+  }
+
+  .nws-item-title {
+    font-family: var(--font-body);
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    letter-spacing: 0.005em;
+  }
+
+  .nws-item-title-tags { gap: 7px; }
+  .nws-item-age { font-size: 0.64rem; white-space: nowrap; }
+  .nws-prob-badge { font-size: 0.61rem; padding: 2px 7px; }
+
+  /* The five priority fields are a responsive briefing strip rather than
+     five equally weighted mini-cards. Location and hazard get the most room. */
+  .nws-priority-grid {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.45fr) minmax(92px, .8fr) minmax(82px, .7fr) minmax(82px, .7fr);
+    gap: 7px;
+    margin-top: 10px;
+  }
+
+  .nws-priority-block {
+    padding: 8px 9px;
+    border-radius: 9px;
+    border-color: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.022);
+  }
+
+  .theme-light-card .nws-priority-block {
+    background: rgba(0,0,0,0.025);
+    border-color: rgba(0,0,0,0.075);
+  }
+
+  .nws-priority-label {
+    font-size: 0.56rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .nws-priority-value {
+    font-size: clamp(0.7rem, 1vw, 0.78rem);
+    line-height: 1.28;
+  }
+
+  .nws-priority-block.location .nws-priority-value,
+  .nws-priority-block.hazard .nws-priority-value {
+    font-weight: 650;
+  }
+
+  .nws-item-hint {
+    display: flex;
+    width: fit-content;
+    margin: 9px auto 0;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 0.63rem;
+    letter-spacing: 0.015em;
+    opacity: 0.78;
+    cursor: pointer;
+    transition: background .2s ease, opacity .2s ease;
+  }
+
+  .nws-item-hint:hover { background: rgba(255,255,255,0.055); opacity: 1; }
+  .theme-light-card .nws-item-hint:hover { background: rgba(0,0,0,0.045); }
+
+  .nws-item-details {
+    gap: 8px;
+  }
+
+  .nws-detail-block {
+    padding: 9px 10px;
+    border-radius: 9px;
+  }
+
+  .nws-detail-label { font-size: 0.6rem; }
+  .nws-detail-text { font-size: 0.76rem; line-height: 1.5; }
+
+  .nws-item-link {
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    margin: 9px auto 0;
+    font-family: var(--font-details);
+  }
+
+  .storm-desk-divider {
+    margin: clamp(1.1rem, 2vw, 1.5rem) 0 1rem;
+    opacity: .8;
+  }
+
+  .outlook-section-label {
+    font-size: clamp(0.74rem, 1vw, 0.82rem);
+    font-weight: 650;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.7rem;
+  }
+
+  .outlook-category-tabs {
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .outlook-category-tab {
+    padding: 10px 12px;
+    border-radius: 11px;
+    font-size: clamp(0.72rem, 1vw, 0.78rem);
+    font-weight: 650;
+    letter-spacing: 0.07em;
+  }
+
+  .outlook-current-label {
+    margin-bottom: 0.55rem;
+    font-family: var(--font-details);
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+
+  .outlook-viewport {
+    min-height: clamp(180px, 28vw, 300px);
+    background: rgba(0,0,0,0.025);
+  }
+
+  .outlook-slide img,
+  .thunderstorm-primary-slide img {
+    max-height: min(68vh, 760px);
+  }
+
+  .outlook-thumbnails,
+  .thunderstorm-thumb-grid {
+    gap: 8px;
+    padding-top: 0.8rem;
+  }
+
+  .outlook-thumb,
+  .thunderstorm-thumb {
+    flex-basis: clamp(105px, 12vw, 138px);
+    border-radius: 10px;
+  }
+
+  .outlook-thumb-label,
+  .thunderstorm-thumb-label {
+    font-family: var(--font-details);
+    font-size: 0.65rem;
+    font-weight: 600;
+  }
+
+  .outlook-nav-hint {
+    margin-top: 0.5rem;
+    font-size: 0.62rem;
+    font-family: var(--font-details);
+  }
+
+  .thunderstorm-period-label {
+    font-family: var(--font-details);
+    font-weight: 600;
+  }
+
+  .outlook-note {
+    font-family: var(--font-details) !important;
+    text-align: center;
+    opacity: .65;
+    font-size: .66rem !important;
+  }
+
+  /* Medium screens: let location/hazard breathe, then keep the three compact
+     time/distance fields together on the second line. */
+  @media (max-width: 860px) {
+    .nws-priority-grid {
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.15fr) repeat(3, minmax(74px, .7fr));
+    }
+  }
+
+  @media (max-width: 700px) {
+    .nws-card { border-radius: 13px; }
+
+    .nws-priority-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .nws-priority-block.location,
+    .nws-priority-block.hazard {
+      grid-column: 1 / -1;
+    }
+
+    .nws-priority-block.distance,
+    .nws-priority-block.time {
+      min-width: 0;
+    }
+
+    .outlook-category-tab { padding: 9px 8px; }
+    .outlook-viewport { min-height: 160px; }
+  }
+
+  @media (max-width: 520px) {
+    .nws-tabs { gap: 5px; }
+    .nws-tab { min-height: 42px; padding: 6px 5px; }
+
+    .nws-item-header { gap: 8px; }
+    .nws-item-icon { width: 24px; height: 24px; }
+    .nws-item-title { font-size: 0.88rem; }
+
+    /* Keep the five priority values legible on phones: location + hazard,
+       then distance / issued / until as a compact three-column strip. */
+    .nws-priority-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .nws-priority-block.location,
+    .nws-priority-block.hazard {
+      grid-column: 1 / -1;
+    }
+
+    .nws-priority-block { padding: 7px 7px; }
+    .nws-priority-label { font-size: 0.51rem; }
+    .nws-priority-value { font-size: 0.67rem; }
+    .nws-priority-block.distance .nws-priority-value,
+    .nws-priority-block.time .nws-priority-value { white-space: normal; }
+
+    .outlook-slide img,
+    .thunderstorm-primary-slide img { max-height: 58vh; }
+    .outlook-thumb,
+    .thunderstorm-thumb { flex-basis: 104px; }
+  }
+
+  @media (max-width: 370px) {
+    .nws-priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .nws-priority-block.until { grid-column: 1 / -1; }
+    .nws-item { padding: 10px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .outlook-scroll { scroll-behavior: auto; }
+  }
+
 </style>
 
 
@@ -4834,10 +5125,10 @@ const FONT_ROLES = {
 // * ☀️ ------- THEME COLORS, TEXT STYLES, AND ICONS HERE ------- 🌙 * //
   
 const THEMES = {
-    sunny:             { bg: '#FBBF24', card: '#FFFFFF', accent: '#D97706', muted: '#B45309', text: '#78350F', title: '#ffffff', icon: '☀️', meteocon: 'clear-day.svg', iconImg: 'icons/themes/sunny.png', lightCard: true, fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
-    extremeHeat:       { bg: '#351a13', card: '#5f2d1d', accent: '#e9895d', muted: '#d7a07e', text: '#fff4ec', title: '#fff8f2', icon: '🔥☀️', meteocon: 'thermometer-sun.svg', iconImg: 'icons/themes/extremeHeat.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
-    extremeHeatNight:  { bg: '#201416', card: '#3d2522', accent: '#dc8977', muted: '#d2a095', text: '#fff2ed', title: '#fff8f5', icon: '🔥🌙', meteocon: 'thermometer-moon.svg', iconImg: 'icons/themes/extremeHeatNight.png', fonts: { title: "NightWindSent, Papyrus, serif", cardHeading: "Monas" } },
-    cloudy:            { bg: '#6FA3D6', card: '#F3F6FA', accent: '#1D6FA5', muted: '#5F7A93', text: '#33455A', title: '#ffffff', icon: '⛅️', meteocon: 'partly-cloudy-day.svg', iconImg: 'icons/themes/cloudy.png', lightCard: true, fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Jelly Choco" } },
+    sunny:             { bg: '#FBBF24', card: '#FFFFFF', accent: '#D97706', muted: '#B45309', text: '#78350F', title: '#ffffff', icon: '☀️', meteocon: 'clear-day.svg', iconImg: 'icons/themes/sunny.png', lightCard: true, fonts: { title: "Monas, Papyrus, serif" } },
+    extremeHeat:       { bg: '#351a13', card: '#5f2d1d', accent: '#e9895d', muted: '#d7a07e', text: '#fff4ec', title: '#fff8f2', icon: '🔥☀️', meteocon: 'thermometer-sun.svg', iconImg: 'icons/themes/extremeHeat.png', fonts: { title: "Monas, Papyrus, serif" } },
+    extremeHeatNight:  { bg: '#201416', card: '#3d2522', accent: '#dc8977', muted: '#d2a095', text: '#fff2ed', title: '#fff8f5', icon: '🔥🌙', meteocon: 'thermometer-moon.svg', iconImg: 'icons/themes/extremeHeatNight.png', fonts: { title: "NightWindSent, Papyrus, serif" } },
+    cloudy:            { bg: '#6FA3D6', card: '#F3F6FA', accent: '#1D6FA5', muted: '#5F7A93', text: '#33455A', title: '#ffffff', icon: '⛅️', meteocon: 'partly-cloudy-day.svg', iconImg: 'icons/themes/cloudy.png', lightCard: true, fonts: { title: "Groovy Clouds, Tahoma" } },
     rainy:             { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️', meteocon: 'rain.svg', iconImg: 'icons/themes/rainy.png', fonts: { title: "Letter Magic, Tahoma" } },
     rainyNight:        { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️🌙', meteocon: 'mostly-clear-night-rain.svg', iconImg: 'icons/themes/rainyNight.png', fonts: { title: "Lavishly Yours, cursive" } },
     snowy:             { bg: '#1b2430', card: '#25313f', accent: '#dff3ff', muted: '#d5d4e6', text: '#ffffff', title: '#ffffff', icon: '❄️', meteocon: 'snow.svg', iconImg: 'icons/themes/snowy.png', fonts: { title: "Snowby, sans-serif" } },
@@ -5638,7 +5929,7 @@ const THEMES = {
                 <div class="nws-priority-label">Issued</div>
                 <div class="nws-priority-value">${escapeNwsHtml(issuedStr || '—')}</div>
               </div>
-              <div class="nws-priority-block time">
+              <div class="nws-priority-block time until">
                 <div class="nws-priority-label">Until</div>
                 <div class="nws-priority-value">${escapeNwsHtml(expiresStr || '—')}</div>
               </div>
