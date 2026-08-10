@@ -1,23 +1,33 @@
 {
-  "generatedAt": "2026-08-10T07:15:40.060092Z",
+  "generatedAt": "2026-08-10T07:20:37.247121Z",
   "watches": [],
-  "mesoscaleDiscussions": [],
-  "statements": [
+  "mesoscaleDiscussions": [
     {
-      "id": "67ccccf4-a545-4f39-8471-d283c796a27b",
-      "type": "Hazardous Weather Outlook",
-      "office": "KPBZ",
-      "issued": "2026-08-10T06:44:00+00:00",
-      "expires": null,
-      "headline": "Hazardous Weather Outlook",
-      "summary": "OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029- 031-073>078-WVZ001>004-012-021-509>514-110645-",
+      "id": "MD1891",
+      "number": 1891,
+      "issued": "2026-08-10T07:15:00Z",
+      "expires": "2026-08-10T09:15:00Z",
+      "concerning": "Severe Thunderstorm Watch 550...551...",
+      "areas": "parts of east central Illinois...north central Indiana",
+      "watchProbability": null,
+      "summary": "Scattered thunderstorm activity continues to develop east and south of the Lake Michigan vicinity, but the risk for additional severe weather appears to be lowering enough that a new severe weather watch is not anticipated.",
       "details": [
         {
-          "label": "Product detail",
-          "text": "000 HWOPBZ Hazardous Weather Outlook 244 AM EDT Mon Aug 10 2026 OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029- 031-073>078-WVZ001>004-012-021-509>514-110645- Tuscarawas-Carroll-Columbiana-Coshocton-Harrison-Jefferson OH- Muskingum-Guernsey-Belmont-Noble-Monroe-Mercer-Venango-Forest-"
+          "label": "Concerning",
+          "text": "Severe Thunderstorm Watch 550...551..."
+        },
+        {
+          "label": "Areas affected",
+          "text": "parts of east central Illinois...north central Indiana"
+        },
+        {
+          "label": "Discussion",
+          "text": "Lingering convection now generally spreading across and to the east/south of the southern Lake Michigan vicinity appears rooted within forcing for ascent associated with lower/mid-tropospheric warm advection. This is downstream of a low-amplitude short wave perturbation which is forecast to continue across the southwestern Great Lakes region overnight. A small clustering of storms now to the northwest of Danville IL appears the lone activity maintaining roots near the surface, within a boundary-layer characterized by seasonably high moisture content including dew points in the lower/mid 70s F. Located along a 30-35+ kt west-southwesterly 850 mb jet axis, near-surface hodographs are characterized by large clockwise curvature supportive of updraft rotation, though there is a weakness in flow further aloft, particularly with south/southeastward extent from the current position of the stronger convection. As activity continues to develop east-southeastward into a somewhat less moist air mass, any lingering risk for tornadoes seems likely to diminish. Potential for a couple of strong surface gusts may persist, but it is not clear that this will require a new severe weather watch."
         }
       ],
-      "url": "https://api.weather.gov/products/67ccccf4-a545-4f39-8471-d283c796a27b"
+      "url": "https://www.spc.noaa.gov/products/md/md1891.html",
+      "office": "SPC"
     }
-  ]
+  ],
+  "statements": []
 }
