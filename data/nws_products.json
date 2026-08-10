@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T17:45:34.693286Z",
+  "generatedAt": "2026-08-10T17:50:40.862574Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -127,6 +127,63 @@
   ],
   "statements": [
     {
+      "id": "07fa6a3b-f306-454b-bea0-4d227d60978e",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T17:49:00+00:00",
+      "expires": null,
+      "location": "Preston WV",
+      "hazard": "Severe Weather Statement",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "WVC077-101759- /O.CAN.KPBZ.SV.W.0266.000000T0000Z-260810T1815Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 149 PM EDT Mon Aug 10 2026 WVC077-101759- /O.CAN.KPBZ.SV.W.0266.000000T0000Z-260810T1815Z/ Preston WV- 149 PM EDT Mon Aug 10 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/07fa6a3b-f306-454b-bea0-4d227d60978e"
+    },
+    {
+      "id": "729c8eb7-f00d-42d6-aceb-8060118c3ee2",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T17:43:00+00:00",
+      "expires": null,
+      "location": "Preston WV",
+      "hazard": "Severe Weather Statement",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "WVC077-101753- /O.EXP.KPBZ.SV.W.0264.000000T0000Z-260810T1745Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 143 PM EDT Mon Aug 10 2026 WVC077-101753- /O.EXP.KPBZ.SV.W.0264.000000T0000Z-260810T1745Z/ Preston WV- 143 PM EDT Mon Aug 10 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/729c8eb7-f00d-42d6-aceb-8060118c3ee2"
+    },
+    {
+      "id": "ae13c436-b05a-45c2-a605-48eb19646e02",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-08-10T17:41:00+00:00",
+      "expires": null,
+      "location": null,
+      "hazard": "Hazardous Weather Outlook",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "OHZ040-041-050-PAZ007>009-013>016-020>022-029-073>078-WVZ001-002- Carroll-Columbiana-Jefferson OH-Mercer-Venango-Forest-Lawrence-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 HWOPBZ Hazardous Weather Outlook 141 PM EDT Mon Aug 10 2026 OHZ040-041-050-PAZ007>009-013>016-020>022-029-073>078-WVZ001-002- 111745- Carroll-Columbiana-Jefferson OH-Mercer-Venango-Forest-Lawrence- Butler-Clarion-Jefferson PA-Beaver-Allegheny-Armstrong-Washington-"
+        }
+      ],
+      "url": "https://api.weather.gov/products/ae13c436-b05a-45c2-a605-48eb19646e02"
+    },
+    {
       "id": "feda0bed-7bd2-4e32-a5fe-fbbd6e7fc6e9",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -163,25 +220,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/9b848951-4cdc-4ed5-be7e-2126d596a153"
-    },
-    {
-      "id": "d2ada8ed-9d16-403f-a0db-2fe881e3dcde",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T17:24:00+00:00",
-      "expires": null,
-      "location": "Fayette PA-Westmoreland PA",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC051-129-101734- /O.CAN.KPBZ.SV.W.0265.000000T0000Z-260810T1745Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 124 PM EDT Mon Aug 10 2026 PAC051-129-101734- /O.CAN.KPBZ.SV.W.0265.000000T0000Z-260810T1745Z/ Fayette PA-Westmoreland PA- 124 PM EDT Mon Aug 10 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/d2ada8ed-9d16-403f-a0db-2fe881e3dcde"
     }
   ]
 }
