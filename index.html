@@ -1254,6 +1254,50 @@
     line-height: 1.4;
   }
 
+  /* The collapsed storm-desk card is a quick-read instrument panel:
+     location -> hazard -> distance -> issued -> until. Everything else
+     belongs behind the curated-details toggle. */
+  .nws-priority-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1.35fr) repeat(3, minmax(82px, 0.8fr));
+    gap: 6px;
+    margin-top: 7px;
+  }
+
+  .nws-priority-block {
+    min-width: 0;
+    padding: 6px 7px;
+    border: 1px solid rgba(255,255,255,0.055);
+    border-radius: 7px;
+    background: rgba(0,0,0,0.045);
+  }
+
+  .nws-priority-label {
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    font-size: 0.54rem;
+    text-transform: uppercase;
+    letter-spacing: 0.055em;
+    line-height: 1.1;
+    margin-bottom: 3px;
+  }
+
+  .nws-priority-value {
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .nws-priority-block.location .nws-priority-value,
+  .nws-priority-block.hazard .nws-priority-value { font-weight: 600; }
+  .nws-priority-block.distance .nws-priority-value,
+  .nws-priority-block.time .nws-priority-value { white-space: nowrap; }
+  .nws-priority-muted { opacity: 0.58; font-weight: 400; }
+  .theme-light-card .nws-priority-block { background: rgba(0,0,0,0.035); border-color: rgba(0,0,0,0.09); }
+  .nws-item-summary { display: none; }
+
   .nws-item-hint {
     display: inline-flex;
     align-items: center;
@@ -1374,6 +1418,9 @@
     .nws-tab-label-full { display: none; }
     .nws-tab-label-short { display: inline; }
     .nws-item-details { grid-template-columns: 1fr; }
+    .nws-priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .nws-priority-block.location,
+    .nws-priority-block.hazard { grid-column: 1 / -1; }
     .nws-detail-block.wide { grid-column: auto; }
     .nws-item-title-row { display: block; }
     .nws-item-title-tags { display: flex; margin-top: 2px; }
@@ -5546,14 +5593,15 @@ const THEMES = {
     const visual = getNwsHazardVisual(item.type || typeLabel);
     const issuedStr = item.issued ? formatShortTime(item.issued) : '';
     const expiresStr = item.expires ? formatShortTime(item.expires) : '';
-    const metaBits = [];
-    if (issuedStr) metaBits.push(`Issued ${escapeNwsHtml(issuedStr)}`);
-    if (expiresStr) metaBits.push(`Until ${escapeNwsHtml(expiresStr)}`);
-    if (item.office) metaBits.push(escapeNwsHtml(item.office));
-    const title = escapeNwsHtml(item.type || item.concerning || typeLabel) + (item.number ? ` #${escapeNwsHtml(item.number)}` : '');
-    const summary = escapeNwsHtml(item.summary || item.concerning || item.headline || '');
+    const location = item.location || item.areas || item.areaDesc || '';
+    const hazard = item.hazard || item.concerning || item.headline || item.type || typeLabel || '';
+    const distance = Number.isFinite(Number(item.distanceMiles))
+      ? `≈ ${Number(item.distanceMiles).toFixed(0)} mi from 15001`
+      : 'Not available';
     const age = escapeNwsHtml(nwsAgeLabel(item.issued));
     const probBadge = item.watchProbability ? escapeNwsHtml(item.watchProbability) : '';
+    const titleBase = item.type || typeLabel || 'Weather product';
+    const title = `${escapeNwsHtml(titleBase)}${item.number ? ` #${escapeNwsHtml(item.number)}` : ''}`;
     const details = getNwsDetails(item);
     const detailsHtml = details.map((d, i) => `
       <div class="nws-detail-block ${details.length === 1 ? 'wide' : ''}">
@@ -5573,8 +5621,28 @@ const THEMES = {
                 ${age ? `<div class="nws-item-age">${age}</div>` : ''}
               </div>
             </div>
-            <div class="nws-item-meta">${metaBits.join(' · ')}</div>
-            ${summary ? `<div class="nws-item-summary">${summary}</div>` : ''}
+            <div class="nws-priority-grid">
+              <div class="nws-priority-block location">
+                <div class="nws-priority-label">Location</div>
+                <div class="nws-priority-value">${escapeNwsHtml(location || 'Location not available')}</div>
+              </div>
+              <div class="nws-priority-block hazard">
+                <div class="nws-priority-label">Hazard</div>
+                <div class="nws-priority-value">${escapeNwsHtml(hazard || 'Hazard not available')}</div>
+              </div>
+              <div class="nws-priority-block distance">
+                <div class="nws-priority-label">Distance</div>
+                <div class="nws-priority-value ${distance === 'Not available' ? 'nws-priority-muted' : ''}">${escapeNwsHtml(distance)}</div>
+              </div>
+              <div class="nws-priority-block time">
+                <div class="nws-priority-label">Issued</div>
+                <div class="nws-priority-value">${escapeNwsHtml(issuedStr || '—')}</div>
+              </div>
+              <div class="nws-priority-block time">
+                <div class="nws-priority-label">Until</div>
+                <div class="nws-priority-value">${escapeNwsHtml(expiresStr || '—')}</div>
+              </div>
+            </div>
             ${detailsHtml ? `<div class="nws-item-hint">view curated details</div><div class="nws-item-details">${detailsHtml}</div>` : ''}
             ${item.url ? `<a class="nws-item-link" href="${escapeNwsHtml(item.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation();">Open official product ↗</a>` : ''}
           </div>
