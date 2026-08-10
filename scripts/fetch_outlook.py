@@ -6,7 +6,8 @@ Convective Outlooks remain the existing single-file products:
   data/outlook-day1.png
   data/outlook-day2.png
   data/outlook-day3.png
-  data/outlook-day4-8.png
+  data/outlook-day4-8.gif   (animated SPC product, when available)
+  data/outlook-day4-8.png   (static fallback)
 
 SPC's Enhanced Thunderstorm Outlook is different: one issuance can expose
 multiple 4-hour-period graphics.  The live filenames are keyed only by the
@@ -84,6 +85,56 @@ def save_image_as_png(image_bytes, out_path):
     except Exception as exc:
         print(f"    downloaded data could not be decoded: {exc}", file=sys.stderr)
         return False
+
+
+def save_raw_bytes(data, out_path):
+    """Save a downloaded source file without altering its format."""
+    try:
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_bytes(data)
+        return True
+    except Exception as exc:
+        print(f"    could not save {out_path}: {exc}", file=sys.stderr)
+        return False
+
+
+def fetch_day4_8():
+    """
+    Preserve SPC's animated Day 4-8 GIF instead of converting it to PNG.
+
+    The previous implementation decoded the GIF with Pillow and saved only
+    the first frame as PNG, which made the dashboard look like a static Day 4
+    product even though SPC's day48prob.gif is an animated sequence.
+    """
+    gif_path = DATA_DIR / "outlook-day4-8.gif"
+    png_path = DATA_DIR / "outlook-day4-8.png"
+
+    gif_url = f"{DAY48_BASE_URL}day48prob.gif"
+    png_url = f"{DAY48_BASE_URL}day48prob.png"
+
+    print(f"[day4-8] Trying {gif_url}")
+    gif_data = try_fetch(gif_url)
+
+    if gif_data and save_raw_bytes(gif_data, gif_path):
+        print(f"[day4-8] Saved {gif_path}")
+        print(f"[day4-8] Source: {gif_url}")
+
+        # Also keep a PNG fallback for browsers/environments that cannot
+        # display the animated source. This does not replace the GIF.
+        save_image_as_png(gif_data, png_path)
+        return True
+
+    print(f"[day4-8] GIF unavailable; trying {png_url}")
+    png_data = try_fetch(png_url)
+
+    if png_data and save_raw_bytes(png_data, png_path):
+        print(f"[day4-8] Saved {png_path}")
+        print(f"[day4-8] Source: {png_url}")
+        gif_path.unlink(missing_ok=True)
+        return True
+
+    print("[day4-8] ERROR: neither animated GIF nor PNG could be downloaded.", file=sys.stderr)
+    return False
 
 
 def fetch_simple_outlook(key, candidates):
@@ -243,11 +294,13 @@ def main():
     ):
         any_failed = True
 
-    if not fetch_simple_outlook(
-        "day4-8",
-        [f"{DAY48_BASE_URL}day48prob.{ext}" for ext in ("png", "gif")],
-    ):
+    if not fetch_day4_8():
         any_failed = True
+
+    # Remove the old static/animated alternate if the current fetch mode
+    # changed. The GIF is canonical when available; PNG is only its fallback.
+    if (DATA_DIR / "outlook-day4-8.gif").exists():
+        pass
 
     periods = fetch_thunderstorm_periods()
     clean_stale_thunderstorm_files(periods)
