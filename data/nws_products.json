@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T18:10:37.376742Z",
+  "generatedAt": "2026-08-10T18:15:38.658752Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -42,44 +42,6 @@
         }
       ],
       "url": "https://www.spc.noaa.gov/products/md/md1898.html",
-      "office": "SPC"
-    },
-    {
-      "id": "MD1897",
-      "number": 1897,
-      "issued": "2026-08-10T17:38:00Z",
-      "expires": "2026-08-10T19:45:00Z",
-      "concerning": "Severe Thunderstorm Watch 552...553",
-      "hazard": "Severe Thunderstorm Watch 552...553",
-      "areas": "south-central New York into portions of central and eastern Pennsylvania",
-      "location": "south-central New York into portions of central and eastern Pennsylvania",
-      "distanceMiles": 74.4,
-      "summary": "The threat for mainly damaging winds is expected to increase from central into eastern Pennsylvania and locations farther east. An additional downstream watch will likely be required",
-      "watchProbability": null,
-      "forecaster": "Mead/Hart",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "The threat for mainly damaging winds is expected to increase from central into eastern Pennsylvania and locations farther east. An additional downstream watch will likely be required"
-        },
-        {
-          "label": "Discussion",
-          "text": "A transition from a line into more cellular convection has occurred over the past 1-2 hours from the vicinity of an MCV over north-central PA into central PA. Storm mode and poor low-level lapse rates have limited damaging wind potential thus far with the cellular convection. With time, coalescing storm-scale cold pools, 40 kt of westerly deep-layer shear, and continued heating/ destabilization of the inflow air mass should support increasing damaging wind potential from central into eastern PA, and eventually NJ and the lower Hudson Valley. As such, a downstream severe thunderstorm watch will likely be required"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Mead/Hart"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...OKX...ALY...PHI...BGM...CTP"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md1897.html",
       "office": "SPC"
     },
     {
@@ -165,6 +127,28 @@
       ],
       "url": "https://www.spc.noaa.gov/products/md/md1895.html",
       "office": "SPC"
+    },
+    {
+      "id": "MD1897",
+      "number": 1897,
+      "issued": null,
+      "expires": null,
+      "concerning": null,
+      "hazard": null,
+      "areas": null,
+      "location": null,
+      "distanceMiles": null,
+      "summary": "Latest SPC mesoscale discussion",
+      "watchProbability": null,
+      "forecaster": null,
+      "details": [
+        {
+          "label": "Summary",
+          "text": "Latest SPC mesoscale discussion"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md1897.html",
+      "office": "SPC"
     }
   ],
   "statements": [
@@ -205,44 +189,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/07fa6a3b-f306-454b-bea0-4d227d60978e"
-    },
-    {
-      "id": "729c8eb7-f00d-42d6-aceb-8060118c3ee2",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T17:43:00+00:00",
-      "expires": null,
-      "location": "Preston WV",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "WVC077-101753- /O.EXP.KPBZ.SV.W.0264.000000T0000Z-260810T1745Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 143 PM EDT Mon Aug 10 2026 WVC077-101753- /O.EXP.KPBZ.SV.W.0264.000000T0000Z-260810T1745Z/ Preston WV- 143 PM EDT Mon Aug 10 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/729c8eb7-f00d-42d6-aceb-8060118c3ee2"
-    },
-    {
-      "id": "ae13c436-b05a-45c2-a605-48eb19646e02",
-      "type": "Hazardous Weather Outlook",
-      "office": "KPBZ",
-      "issued": "2026-08-10T17:41:00+00:00",
-      "expires": null,
-      "location": null,
-      "hazard": "Hazardous Weather Outlook",
-      "distanceMiles": null,
-      "headline": "Hazardous Weather Outlook",
-      "summary": "OHZ040-041-050-PAZ007>009-013>016-020>022-029-073>078-WVZ001-002- Carroll-Columbiana-Jefferson OH-Mercer-Venango-Forest-Lawrence-",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 HWOPBZ Hazardous Weather Outlook 141 PM EDT Mon Aug 10 2026 OHZ040-041-050-PAZ007>009-013>016-020>022-029-073>078-WVZ001-002- 111745- Carroll-Columbiana-Jefferson OH-Mercer-Venango-Forest-Lawrence- Butler-Clarion-Jefferson PA-Beaver-Allegheny-Armstrong-Washington-"
-        }
-      ],
-      "url": "https://api.weather.gov/products/ae13c436-b05a-45c2-a605-48eb19646e02"
     }
   ]
 }
