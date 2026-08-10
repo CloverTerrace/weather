@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T14:20:38.920463Z",
+  "generatedAt": "2026-08-10T14:25:40.473431Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7dbd0529fbfcbe03c4d8d86333ba0d952d96dbe4.001.1",
@@ -86,6 +86,22 @@
   ],
   "statements": [
     {
+      "id": "67399da6-245f-4df2-852c-dec8b8e9c36c",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T14:24:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Coshocton, Cambridge, Freeport, Newcomerstown, New Concord, Byesville, West Lafayette, South Zanesville, North Zanesville, Dresden, Antrim, Philo, Pleasant Grove, Senecaville, Pleasant City, Cumberland, Conesville, Lore City and Old Washington.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Coshocton, Cambridge, Freeport, Newcomerstown, New Concord, Byesville, West Lafayette, South Zanesville, North Zanesville, Dresden, Antrim, Philo, Pleasant Grove, Senecaville, Pleasant City, Cumberland, Conesville, Lore City and Old Washington."
+        }
+      ],
+      "url": "https://api.weather.gov/products/67399da6-245f-4df2-852c-dec8b8e9c36c"
+    },
+    {
       "id": "b996e560-2a42-4d9c-889c-51c77c9e3c1d",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -148,38 +164,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/525da7a8-9232-437c-a7d5-099acbccaa46"
-    },
-    {
-      "id": "75e53017-da08-4289-b448-c6dacd54d873",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T14:01:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... New Philadelphia, Dover, Uhrichsville, Carrollton, Dennison, Strasburg, Sugarcreek, Augusta, Gnadenhutten, Malvern, Tuscarawas, Bolivar, Baltic, Scio, Midvale, Mineral City, Port Washington, Bowerston, Barnhill and Dellroy.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... New Philadelphia, Dover, Uhrichsville, Carrollton, Dennison, Strasburg, Sugarcreek, Augusta, Gnadenhutten, Malvern, Tuscarawas, Bolivar, Baltic, Scio, Midvale, Mineral City, Port Washington, Bowerston, Barnhill and Dellroy."
-        }
-      ],
-      "url": "https://api.weather.gov/products/75e53017-da08-4289-b448-c6dacd54d873"
-    },
-    {
-      "id": "eeef4837-d361-4e55-bc5e-3a0c883d204b",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T14:00:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Salem, Columbiana, Lisbon, Leetonia, New Waterford, Hanoverton, Rogers, Summitville, Guilford Lake State Park, Winona, New Garden, North Georgetown, East Rochester and Homeworth.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Salem, Columbiana, Lisbon, Leetonia, New Waterford, Hanoverton, Rogers, Summitville, Guilford Lake State Park, Winona, New Garden, North Georgetown, East Rochester and Homeworth."
-        }
-      ],
-      "url": "https://api.weather.gov/products/eeef4837-d361-4e55-bc5e-3a0c883d204b"
     }
   ]
 }
