@@ -1,27 +1,38 @@
 #!/usr/bin/env python3
 """
-Download the current SPC outlook graphics used by the weather dashboard.
+Download the current SPC outlook graphics.
 
-Outputs:
+Convective Outlooks remain the existing single-file products:
   data/outlook-day1.png
   data/outlook-day2.png
   data/outlook-day3.png
-  data/outlook-day4.png
-  data/outlook-day5.png
-  data/outlook-day6.png
-  data/outlook-day7.png
-  data/outlook-day8.png
-  data/outlook-thunderstorm.png
+  data/outlook-day4-8.png
+
+SPC's Enhanced Thunderstorm Outlook is different: one issuance can expose
+multiple 4-hour-period graphics.  The live filenames are keyed only by the
+period start time (enh_HHMM.gif), so we probe the six fixed UTC boundaries
+and keep whichever products currently exist:
+  00Z, 04Z, 08Z, 12Z, 16Z, 20Z
+
+Each successful period is saved separately as:
+  data/outlook-thunderstorm-HH-HH.png
+
+A manifest is written to:
+  data/outlook-thunderstorm.json
+
+The manifest tells the dashboard which periods are currently live and what
+human-readable label belongs above each image.  Old period files and the
+previous single-file data/outlook-thunderstorm.png are removed after a new
+set has been discovered, so expired periods do not become stale UI cards.
 """
 
 import io
+import json
 import os
-import re
 import sys
-import urllib.request
 import urllib.error
-from html import unescape
-from urllib.parse import urljoin
+import urllib.request
+from pathlib import Path
 
 try:
     from PIL import Image
@@ -32,346 +43,225 @@ except ImportError:
     )
     sys.exit(1)
 
-
 OUTLOOK_BASE_URL = "https://www.spc.noaa.gov/products/outlook/"
 DAY48_BASE_URL = "https://www.spc.noaa.gov/products/exper/day4-8/"
-TSTM_PAGE_URL = "https://www.spc.noaa.gov/products/exper/enhtstm/"
 TSTM_IMAGE_BASE_URL = "https://www.spc.noaa.gov/products/exper/enhtstm/imgs/"
+USER_AGENT = "(home-weather-station-dashboard, https://cloverterrace.github.io/Weather/)"
+EXTENSIONS = ("gif", "png")
+TSTM_BOUNDARIES = (0, 4, 8, 12, 16, 20)
+DATA_DIR = Path("data")
+MANIFEST_PATH = DATA_DIR / "outlook-thunderstorm.json"
+LEGACY_TSTM_PATH = DATA_DIR / "outlook-thunderstorm.png"
 
-USER_AGENT = (
-    "home-weather-station-dashboard/1.0 "
-    "(https://cloverterrace.github.io/Weather/)"
-)
 
-
-def fetch_bytes(url, timeout=20):
+def try_fetch(url):
+    """Return image bytes for a URL, or None if the URL is unavailable."""
     try:
-        req = urllib.request.Request(
-            url,
-            headers={"User-Agent": USER_AGENT, "Accept": "*/*"},
-        )
-        with urllib.request.urlopen(req, timeout=timeout) as response:
-            data = response.read()
-        return data if len(data) > 500 else None
-    except (urllib.error.HTTPError, urllib.error.URLError) as exc:
-        print(f"  failed: {exc}", file=sys.stderr)
+        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            data = resp.read()
+            if len(data) > 500:
+                return data
+            print(f"    rejected tiny response ({len(data)} bytes)")
+    except urllib.error.HTTPError as exc:
+        print(f"    HTTP {exc.code}")
+    except urllib.error.URLError as exc:
+        print(f"    URL error: {exc.reason}")
     except Exception as exc:
-        print(f"  failed: {exc}", file=sys.stderr)
+        print(f"    error: {exc}")
     return None
 
 
-def save_as_png(image_bytes, output_path, debug_label=None):
+def save_image_as_png(image_bytes, out_path):
+    """Decode an SPC image and save it as a normal PNG."""
     try:
-        img = Image.open(io.BytesIO(image_bytes))
-        n_frames = getattr(img, "n_frames", 1)
-        is_animated = getattr(img, "is_animated", False)
-
-        if debug_label:
-            print(
-                f"[{debug_label}] DEBUG: format={img.format} "
-                f"mode={img.mode} size={img.size} "
-                f"n_frames={n_frames} is_animated={is_animated} "
-                f"info_keys={list(img.info.keys())}",
-                file=sys.stderr,
-            )
-
-        if is_animated and n_frames > 1:
-            # This GIF has multiple frames. SPC's enh_HHMM.gif appears to
-            # build the map incrementally across frames (contour outlines
-            # in frame 0, color fill layered in on later frames) rather
-            # than being a simple animation loop. Grabbing only frame 0
-            # (the old behavior) produces outlines with no fill -- which
-            # matches exactly what showed up on the dashboard. Composite
-            # every frame onto an accumulating canvas so we end up with
-            # the fully-rendered map.
-            from PIL import ImageSequence
-
-            canvas = None
-            for i, frame in enumerate(ImageSequence.Iterator(img)):
-                frame_rgba = frame.convert("RGBA")
-                if debug_label:
-                    colors = frame_rgba.convert("RGB").getcolors(maxcolors=1_000_000)
-                    n_colors = len(colors) if colors else "many(>1M)"
-                    print(
-                        f"[{debug_label}] DEBUG: frame {i} "
-                        f"unique_colors={n_colors}",
-                        file=sys.stderr,
-                    )
-                if canvas is None:
-                    canvas = frame_rgba.copy()
-                else:
-                    canvas.paste(frame_rgba, (0, 0), frame_rgba)
-            image = canvas.convert("RGB")
-        else:
-            image = img.convert("RGB")
-
-        if debug_label:
-            colors = image.getcolors(maxcolors=1_000_000)
-            if colors:
-                colors.sort(key=lambda c: -c[0])
-                top = colors[:12]
-                print(
-                    f"[{debug_label}] DEBUG: final image unique_colors="
-                    f"{len(colors)} top_colors(count,rgb)={top}",
-                    file=sys.stderr,
-                )
-            else:
-                print(
-                    f"[{debug_label}] DEBUG: final image has >1,000,000 "
-                    "unique colors (photo-like, unexpected for this "
-                    "product)",
-                    file=sys.stderr,
-                )
-
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        image.save(output_path, "PNG")
+        with Image.open(io.BytesIO(image_bytes)) as source:
+            # SPC graphics are static map frames. Converting here gives the
+            # dashboard a consistent local PNG regardless of source format.
+            image = source.convert("RGB")
+            image.save(out_path, format="PNG")
         return True
     except Exception as exc:
-        print(f"ERROR: could not decode image for {output_path}: {exc}",
-              file=sys.stderr)
+        print(f"    downloaded data could not be decoded: {exc}", file=sys.stderr)
         return False
 
 
-def fetch_fixed_image(key, candidates):
+def fetch_simple_outlook(key, candidates):
+    """Fetch one of the existing single-file outlook products."""
     for url in candidates:
         print(f"[{key}] Trying {url}")
-        data = fetch_bytes(url)
-        if data and save_as_png(data, f"data/outlook-{key}.png"):
-            print(f"[{key}] Saved data/outlook-{key}.png")
-            print(f"[{key}] Source: {url}")
-            return True
-    print(f"[{key}] ERROR: no candidate URL loaded successfully.",
-          file=sys.stderr)
+        data = try_fetch(url)
+        if data:
+            out_path = DATA_DIR / f"outlook-{key}.png"
+            if save_image_as_png(data, out_path):
+                print(f"[{key}] Saved {out_path}")
+                print(f"[{key}] Source: {url}")
+                return True
+    print(f"[{key}] ERROR: no candidate URL loaded successfully.", file=sys.stderr)
     return False
 
 
-def fetch_day4_8():
-    """Download the five separate SPC D4-D8 graphics."""
-    failed = False
-
-    for day in range(4, 9):
-        key = f"day{day}"
-        candidates = [
-            f"{DAY48_BASE_URL}day{day}prob.png",
-            f"{DAY48_BASE_URL}day{day}prob.gif",
-        ]
-
-        if not fetch_fixed_image(key, candidates):
-            failed = True
-
-    return not failed
+def period_end_hour(start_hour):
+    return (start_hour + 4) % 24
 
 
-def get_latest_tstm_issuance_hour():
-    """Return the current UTC hour, used to order fallback guesses.
+def period_label(start_hour):
+    return f"{start_hour:02d}Z–{period_end_hour(start_hour):02d}Z"
 
-    NOTE: previously this picked among a hardcoded issuance schedule
-    (1, 6, 13, 16, 20), but that schedule turned out to be wrong --
-    confirmed real filenames (e.g. enh_0400.gif) don't fit it. We no
-    longer assume a fixed schedule; discover_tstm_graphics() finding the
-    real filename on the page is the primary path, and the fallback
-    below just sweeps all hours ordered by recency instead of guessing
-    a specific set.
+
+def order_periods(periods):
     """
-    from datetime import datetime, timezone
+    Keep the live periods in their natural rolling order.
 
-    return datetime.now(timezone.utc).hour
-
-
-def discover_tstm_graphics():
+    The SPC set normally consists of three consecutive 4-hour blocks, e.g.
+    16Z–20Z, 20Z–00Z, 00Z–04Z.  Rotating at the largest gap keeps that
+    sequence intact even though 00Z wraps back to the beginning of the day.
     """
-    Discover actual enh_HHMM product filenames from the SPC page.
+    if len(periods) <= 1:
+        return periods
 
-    We intentionally do NOT rank arbitrary <img> tags. rfc_enh.gif is a
-    supporting/base graphic and can produce the blank radar-style map seen
-    on the dashboard instead of the actual Thunderstorm Outlook.
-    """
-    print("[thunderstorm] Loading SPC product page...")
+    sorted_periods = sorted(periods, key=lambda item: item["start_hour"])
+    starts = [item["start_hour"] for item in sorted_periods]
 
-    page_bytes = fetch_bytes(TSTM_PAGE_URL)
+    if len(sorted_periods) == 2:
+        # For two products, simply keep numeric order unless they wrap around
+        # midnight, in which case put the later-day block first.
+        gap_candidates = []
+        for i, current in enumerate(starts):
+            nxt = starts[(i + 1) % len(starts)]
+            gap = (nxt - current) % 24
+            gap_candidates.append((gap, i))
+        largest_gap, largest_gap_index = max(gap_candidates)
+        if largest_gap > 4:
+            start_index = (largest_gap_index + 1) % len(sorted_periods)
+            return sorted_periods[start_index:] + sorted_periods[:start_index]
+        return sorted_periods
 
-    if not page_bytes:
-        print(
-            "[thunderstorm] Could not read product page; "
-            "using known filename fallbacks.",
-            file=sys.stderr,
-        )
-        return {}
+    gap_candidates = []
+    for i, current in enumerate(starts):
+        nxt = starts[(i + 1) % len(starts)]
+        gap = (nxt - current) % 24
+        gap_candidates.append((gap, i))
 
-    html = page_bytes.decode("utf-8", errors="replace")
-    found = {}
-
-    # Primary (legacy) pattern: enh_HHMM.ext
-    pattern = re.compile(
-        r"enh_(\d{4})\.(gif|png|jpg|jpeg)",
-        flags=re.IGNORECASE,
-    )
-
-    for match in pattern.finditer(html):
-        hhmm = match.group(1)
-        hour = int(hhmm[:2])
-
-        url = f"{TSTM_IMAGE_BASE_URL}enh_{hhmm}.{match.group(2)}"
-
-        if "rfc_enh" in url.lower():
-            continue
-
-        # Don't filter by a hardcoded set of "known" issuance hours --
-        # SPC's actual valid-period schedule isn't fixed to the hours we
-        # previously assumed (e.g. enh_0400 is a real, current product).
-        # Keep every non-rfc_enh match the page actually contains.
-        found[hour] = url
-
-    print(
-        f"[thunderstorm] Found {len(found)} explicit enhanced "
-        "outlook graphic(s) matching legacy enh_HHMM pattern."
-    )
-
-    for hour in sorted(found):
-        print(f"[thunderstorm] Discovered {hour:02d}Z: {found[hour]}")
-
-    # DEBUG FALLBACK: the legacy pattern above has started returning zero
-    # matches (SPC likely renamed/restructured these files). Rather than
-    # fail silently, scan for ANY .gif/.png/.jpg reference on the page so
-    # the Actions log tells us the real current filename(s) to fix the
-    # pattern above with.
-    if not found:
-        any_img_pattern = re.compile(
-            r"""(?:src|href)\s*=\s*["']([^"']+\.(?:gif|png|jpe?g))["']""",
-            flags=re.IGNORECASE,
-        )
-        all_imgs = sorted(set(m.group(1) for m in any_img_pattern.finditer(html)))
-
-        print(
-            f"[thunderstorm] DEBUG: legacy pattern found nothing. "
-            f"Raw image references on page ({len(all_imgs)}):",
-            file=sys.stderr,
-        )
-        for src in all_imgs:
-            print(f"[thunderstorm] DEBUG:   {src}", file=sys.stderr)
-
-        if not all_imgs:
-            # Not even a broad image match -- dump a chunk of raw HTML so
-            # we can see what the page actually contains (e.g. if it's
-            # JS-rendered, paywalled, or restructured entirely).
-            print(
-                "[thunderstorm] DEBUG: no image tags found at all. "
-                "First 1500 chars of page HTML:",
-                file=sys.stderr,
-            )
-            print(html[:1500], file=sys.stderr)
-
-    return found
+    _, largest_gap_index = max(gap_candidates)
+    start_index = (largest_gap_index + 1) % len(sorted_periods)
+    return sorted_periods[start_index:] + sorted_periods[:start_index]
 
 
-def fetch_thunderstorm():
-    """
-    Download the actual Enhanced Thunderstorm Outlook.
+def fetch_thunderstorm_periods():
+    """Probe all six fixed boundaries and save every currently live period."""
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    discovered = []
 
-    Images live under TSTM_IMAGE_BASE_URL (.../enhtstm/imgs/) as
-    enh_HHMM.gif, where HHMM is the start of the graphic's valid period
-    -- NOT a fixed issuance-time schedule. (Confirmed via a real URL:
-    enh_0400.gif.) We no longer hardcode which hours are "valid" --
-    discover_tstm_graphics() reads whatever hour(s) the live page
-    actually references, and the fallback sweep below just tries every
-    hour of the day if the page can't be read at all.
-    """
-    discovered = discover_tstm_graphics()
-    current_hour = get_latest_tstm_issuance_hour()
+    print("[thunderstorm] Sweeping fixed 4-hour boundaries: " + ", ".join(f"{h:02d}Z" for h in TSTM_BOUNDARIES))
 
-    print(f"[thunderstorm] Current UTC hour: {current_hour:02d}Z")
+    for start_hour in TSTM_BOUNDARIES:
+        hhmm = f"{start_hour:02d}00"
+        out_path = DATA_DIR / f"outlook-thunderstorm-{start_hour:02d}-{period_end_hour(start_hour):02d}.png"
+        source_url = None
+        saved = False
 
-    candidates = []
-
-    # 1. Anything the page itself actually referenced -- this is the
-    #    authoritative source now that discovery isn't filtered against
-    #    a hardcoded (and wrong) issuance schedule. Order by how close
-    #    the hour is to the current UTC hour (most recent first).
-    for hour in sorted(
-        discovered,
-        key=lambda h: (current_hour - h) % 24,
-    ):
-        candidates.append(discovered[hour])
-
-    # 2. Fallback only: if the page couldn't be read/parsed at all, sweep
-    #    every hour of the day (most recent first) as a last resort guess,
-    #    since we no longer have a reliable fixed issuance schedule to
-    #    guess from.
-    for delta in range(24):
-        hour = (current_hour - delta) % 24
-        hhmm = f"{hour:02d}00"
-
-        for ext in ("gif", "png"):
+        for ext in EXTENSIONS:
             url = f"{TSTM_IMAGE_BASE_URL}enh_{hhmm}.{ext}"
+            print(f"[thunderstorm {period_label(start_hour)}] Trying {url}")
+            data = try_fetch(url)
+            if not data:
+                continue
+            if save_image_as_png(data, out_path):
+                source_url = url
+                saved = True
+                break
 
-            if url not in candidates:
-                candidates.append(url)
+        if saved:
+            print(f"[thunderstorm {period_label(start_hour)}] Saved {out_path}")
+            print(f"[thunderstorm {period_label(start_hour)}] Source: {source_url}")
+            discovered.append(
+                {
+                    "start_hour": f"{start_hour:02d}",
+                    "end_hour": f"{period_end_hour(start_hour):02d}",
+                    "label": period_label(start_hour),
+                    "file": out_path.as_posix(),
+                    "source": source_url,
+                }
+            )
+        else:
+            print(f"[thunderstorm {period_label(start_hour)}] Not currently available (likely expired).")
 
-    for url in candidates:
-        # Absolute guard against the supporting RFC/base graphic.
-        if "rfc_enh" in url.lower():
-            continue
+    discovered = order_periods(discovered)
+    return discovered
 
-        print(f"[thunderstorm] Trying {url}")
 
-        data = fetch_bytes(url)
+def clean_stale_thunderstorm_files(active_periods):
+    """Remove old period PNGs and the deprecated single-file output."""
+    active_files = {Path(item["file"]).name for item in active_periods}
+    removed = []
 
-        if data and save_as_png(
-            data,
-            "data/outlook-thunderstorm.png",
-            debug_label="thunderstorm",
-        ):
-            print("[thunderstorm] Saved data/outlook-thunderstorm.png")
-            print(f"[thunderstorm] Source: {url}")
-            return True
+    for path in DATA_DIR.glob("outlook-thunderstorm-*.png"):
+        if path.name not in active_files:
+            path.unlink(missing_ok=True)
+            removed.append(path.name)
 
-    print(
-        "[thunderstorm] ERROR: no actual Enhanced Thunderstorm "
-        "Outlook graphic could be downloaded.",
-        file=sys.stderr,
-    )
-    return False
+    if LEGACY_TSTM_PATH.exists():
+        LEGACY_TSTM_PATH.unlink()
+        removed.append(LEGACY_TSTM_PATH.name)
+
+    if removed:
+        print("[thunderstorm] Removed stale/deprecated files: " + ", ".join(sorted(removed)))
+    else:
+        print("[thunderstorm] No stale/deprecated thunderstorm files to remove.")
+
+
+def write_manifest(periods):
+    payload = {
+        "product": "SPC Enhanced Thunderstorm Outlook",
+        "period_hours": 4,
+        "periods": periods,
+    }
+    MANIFEST_PATH.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(f"[thunderstorm] Wrote {MANIFEST_PATH} with {len(periods)} active period(s).")
+
 
 def main():
-    failed = False
+    any_failed = False
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-    # Day 1-3: unchanged.
-    if not fetch_fixed_image(
+    if not fetch_simple_outlook(
         "day1",
-        [
-            f"{OUTLOOK_BASE_URL}day1otlk.png",
-            f"{OUTLOOK_BASE_URL}day1otlk.gif",
-        ],
+        [f"{OUTLOOK_BASE_URL}day1otlk.{ext}" for ext in ("png", "gif")],
     ):
-        failed = True
+        any_failed = True
 
-    if not fetch_fixed_image(
+    if not fetch_simple_outlook(
         "day2",
-        [
-            f"{OUTLOOK_BASE_URL}day2otlk.png",
-            f"{OUTLOOK_BASE_URL}day2otlk.gif",
-        ],
+        [f"{OUTLOOK_BASE_URL}day2otlk.{ext}" for ext in ("png", "gif")],
     ):
-        failed = True
+        any_failed = True
 
-    if not fetch_fixed_image(
+    if not fetch_simple_outlook(
         "day3",
-        [
-            f"{OUTLOOK_BASE_URL}day3otlk.png",
-            f"{OUTLOOK_BASE_URL}day3otlk.gif",
-        ],
+        [f"{OUTLOOK_BASE_URL}day3otlk.{ext}" for ext in ("png", "gif")],
     ):
-        failed = True
+        any_failed = True
 
-    # D4-D8: five separate SPC graphics.
-    if not fetch_day4_8():
-        failed = True
+    if not fetch_simple_outlook(
+        "day4-8",
+        [f"{DAY48_BASE_URL}day48prob.{ext}" for ext in ("png", "gif")],
+    ):
+        any_failed = True
 
-    # Thunderstorm: discover the primary product graphic.
-    if not fetch_thunderstorm():
-        failed = True
+    periods = fetch_thunderstorm_periods()
+    clean_stale_thunderstorm_files(periods)
+    write_manifest(periods)
 
-    if failed:
+    if not periods:
+        print(
+            "[thunderstorm] ERROR: no Enhanced Thunderstorm Outlook periods "
+            "were available at any fixed boundary.",
+            file=sys.stderr,
+        )
+        any_failed = True
+
+    if any_failed:
         sys.exit(1)
 
 
