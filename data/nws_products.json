@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T16:15:35.991361Z",
+  "generatedAt": "2026-08-10T16:20:51.186798Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.dfef5a1b104e85ebe78cb3b99c5b88d2aa4bfe1a.002.1",
@@ -52,6 +52,22 @@
   ],
   "statements": [
     {
+      "id": "a2777e96-7632-4537-9b24-8cdc8a05d6a7",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T16:19:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC059-119-121-101629- /O.CAN.KPBZ.SV.W.0262.000000T0000Z-260810T1630Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 1219 PM EDT Mon Aug 10 2026 OHC059-119-121-101629- /O.CAN.KPBZ.SV.W.0262.000000T0000Z-260810T1630Z/ Guernsey OH-Muskingum OH-Noble OH- 1219 PM EDT Mon Aug 10 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/a2777e96-7632-4537-9b24-8cdc8a05d6a7"
+    },
+    {
       "id": "4f7c42f6-6052-4c49-b9e4-b822a58762a9",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -66,54 +82,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/4f7c42f6-6052-4c49-b9e4-b822a58762a9"
-    },
-    {
-      "id": "5cf646eb-d9bb-4147-8e5b-643e05a6e02f",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T15:53:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, South Zanesville, North Zanesville, Philo, Pleasant Grove, Cumberland, Fultonham, Duncan Falls, Cannelville, Chandlersville, Ruraldale, East Fultonham, High Hill, Blue Rock State Park and Dillon State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, South Zanesville, North Zanesville, Philo, Pleasant Grove, Cumberland, Fultonham, Duncan Falls, Cannelville, Chandlersville, Ruraldale, East Fultonham, High Hill, Blue Rock State Park and Dillon State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/5cf646eb-d9bb-4147-8e5b-643e05a6e02f"
-    },
-    {
-      "id": "eeebabfd-799b-4bba-b54a-f02175edab1d",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T15:51:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC013-067-081-111-PAC125-WVC009-051-069-101601- /O.CAN.KPBZ.SV.W.0261.000000T0000Z-260810T1600Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 1151 AM EDT Mon Aug 10 2026 OHC013-067-081-111-PAC125-WVC009-051-069-101601- /O.CAN.KPBZ.SV.W.0261.000000T0000Z-260810T1600Z/ Belmont OH-Harrison OH-Jefferson OH-Monroe OH-Washington PA- Brooke WV-Marshall WV-Ohio WV-"
-        }
-      ],
-      "url": "https://api.weather.gov/products/eeebabfd-799b-4bba-b54a-f02175edab1d"
-    },
-    {
-      "id": "a4bdd6e9-2edc-49c6-918a-9034e30c6aa9",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T15:44:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, South Zanesville, North Zanesville, Philo, Pleasant Grove, Cumberland, Fultonham, Duncan Falls, Cannelville, Chandlersville, Ruraldale, East Fultonham, High Hill, Blue Rock State Park and Dillon State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, South Zanesville, North Zanesville, Philo, Pleasant Grove, Cumberland, Fultonham, Duncan Falls, Cannelville, Chandlersville, Ruraldale, East Fultonham, High Hill, Blue Rock State Park and Dillon State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/a4bdd6e9-2edc-49c6-918a-9034e30c6aa9"
     }
   ]
 }
