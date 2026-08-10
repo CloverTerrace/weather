@@ -2966,18 +2966,16 @@ svg circle, svg polygon, svg line {
      dashboard and the larger-screen weather-center layout.
      ================================================================ */
 
-  /* The page settles into a fixed, readable content column on larger
-     screens rather than stretching edge-to-edge -- more "old personal
-     weather page" than "wide admin dashboard." Extra viewport width just
-     becomes ambient margin (the weather-fx sky animation shows through
-     it), which is the point rather than a gap to fill. */
+  /* Larger screens get a deliberate web-page composition rather than a
+     horizontally stretched phone/dashboard. The viewport may grow freely,
+     but the information itself stays at a comfortable reading width. */
   #page-content {
-    width: min(100%, 1120px);
-    padding-inline: clamp(0.35rem, 1.2vw, 1rem);
+    width: min(100%, 1320px);
+    padding-inline: clamp(0.45rem, 1.5vw, 1.1rem);
   }
 
   #subtitle {
-    max-width: 72rem;
+    max-width: 58rem;
     margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
     text-align: center;
     line-height: 1.45;
@@ -2990,12 +2988,14 @@ svg circle, svg polygon, svg line {
     max-width: none;
   }
 
+  /* 85vw gives a little more breathing room as a monitor grows, while the
+     1320px ceiling prevents the page from ever becoming a giant dashboard. */
   .grid {
-    width: min(100%, 860px);
-    gap: clamp(0.9rem, 1.4vw, 1.35rem);
+    width: min(82vw, 1320px);
+    gap: clamp(0.95rem, 1.35vw, 1.35rem);
   }
 
-  .grid-column { gap: clamp(0.9rem, 1.4vw, 1.35rem); }
+  .grid-column { gap: clamp(0.95rem, 1.35vw, 1.35rem); }
 
   .card,
   .camera-card,
@@ -3004,8 +3004,8 @@ svg circle, svg polygon, svg line {
   }
 
   .camera-card {
-    width: min(100%, 1040px);
-    padding: clamp(0.9rem, 1.6vw, 1.35rem);
+    width: min(82vw, 1320px);
+    padding: clamp(0.9rem, 1.45vw, 1.35rem);
     margin-top: clamp(1rem, 1.8vw, 1.5rem);
   }
 
@@ -3017,8 +3017,8 @@ svg circle, svg polygon, svg line {
   }
 
   .dashboard-grid {
-    width: min(100%, 1040px);
-    gap: clamp(0.9rem, 1.4vw, 1.35rem);
+    width: min(82vw, 1320px);
+    gap: clamp(0.95rem, 1.35vw, 1.35rem);
     margin-top: clamp(1rem, 1.8vw, 1.5rem);
   }
 
@@ -3040,17 +3040,93 @@ svg circle, svg polygon, svg line {
     }
 
     .camera-card img {
-      max-height: 68vh;
+      max-height: 64vh;
       object-fit: contain;
     }
   }
 
-  @media (min-width: 1500px) {
-    /* Content column stays fixed-width past this point on purpose --
-       ultra-wide monitors get more ambient margin around the page, not a
-       wider dashboard. Only the breathing room inside the grid grows a touch. */
-    .grid { gap: 1.35rem; }
-    .dashboard-grid { gap: 1.35rem; }
+  /* The desktop lower half is intentionally composed as a tools rail: the
+     map gets the visual weight, while historical data occupies a narrower
+     analytical column instead of leaving a large unused field of blue. */
+  .web-tools-grid {
+    width: min(82vw, 1320px);
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.85fr);
+    gap: clamp(0.95rem, 1.35vw, 1.35rem);
+    align-items: start;
+    margin-top: clamp(1rem, 1.8vw, 1.5rem);
+  }
+
+  .web-tools-grid > .weather-map-card,
+  .web-tools-grid > .charts-dropdown {
+    width: 100%;
+    max-width: none;
+    margin-top: 0;
+  }
+
+  .web-tools-grid > .charts-dropdown {
+    align-self: stretch;
+  }
+
+  @media (max-width: 1050px) {
+    .web-tools-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Lightning card: the live map is created only after expansion. This is
+     intentionally not an iframe in the closed card, so the sensor grid stays
+     cheap to paint and the external map cannot become a background lag source. */
+  .lightning-map-panel {
+    width: 100%;
+  }
+
+  .lightning-map-frame {
+    display: block;
+    width: 100%;
+    height: 360px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--card-color);
+  }
+
+  .lightning-map-caption {
+    margin-top: 0.5rem;
+    font-size: 0.72rem;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    text-align: center;
+  }
+
+  /* Desktop information rails: constrain text, let visual material be the
+     thing that earns the wider canvas. */
+  @media (min-width: 1100px) {
+    .forecast-periods {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    .forecast-period {
+      padding: 0.85rem 0.9rem;
+      min-height: 116px;
+    }
+
+    .nws-priority-grid {
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.35fr) repeat(3, minmax(78px, 0.72fr));
+    }
+
+    .outlook-viewport {
+      min-height: clamp(250px, 26vw, 430px);
+    }
+
+    .weather-map-card .rainviewer-map,
+    .weather-map-card .map-panel iframe {
+      height: clamp(360px, 34vw, 520px);
+    }
+
+    .charts-dropdown {
+      min-height: 100%;
+    }
   }
 
   /* ---------------- Storm Center ---------------- */
@@ -3225,6 +3301,26 @@ svg circle, svg polygon, svg line {
   }
 
   @media (max-width: 700px) {
+    .web-tools-grid {
+      display: block;
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    .web-tools-grid > .weather-map-card,
+    .web-tools-grid > .charts-dropdown {
+      width: 100%;
+      margin-top: 0;
+    }
+
+    .web-tools-grid > .charts-dropdown {
+      margin-top: 1rem;
+    }
+
+    .lightning-map-frame {
+      height: 320px;
+    }
+
     #page-content { padding-inline: 0.25rem; }
 
     .camera-card {
@@ -3523,11 +3619,14 @@ svg circle, svg polygon, svg line {
     </div>
   </div>
 
+ </div> <!-- .dashboard-grid -->
+
+ <div class="web-tools-grid">
+
 <div class="chart-card weather-map-card">
   <h2></h2>
   <div class="map-tabs">
     <button class="map-tab active" data-target="map-panel-radar">Live Radar</button>
-    <button class="map-tab" data-target="map-panel-lightning">Lightning</button>
     <button class="map-tab" data-target="map-panel-forecast">Forecast Map</button>
   </div>
 
@@ -3537,18 +3636,11 @@ svg circle, svg polygon, svg line {
     <div class="map-attribution"><a href="https://www.rainviewer.com/" target="_blank" rel="noopener">RainViewer</a></div>
   </div>
 
-  <div class="map-panel" id="map-panel-lightning">
-    <iframe data-src="https://map.blitzortung.org/#3.7/40.616/-80.274" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
-    <div class="map-attribution"><a href="https://www.blitzortung.org/" target="_blank" rel="noopener">Blitzortung.org</a></div>
-  </div>
-
   <div class="map-panel" id="map-panel-forecast">
     <iframe data-src="https://www.meteoblue.com/en/weather/maps/widget/40.616N-80.274E339_America%2FNew_York?windAnimation=1&gust=1&satellite=1&cloudsAndPrecipitation=1&temperature=1&sunshine=1&extremeForecastIndex=1&geoloc=fixed&tempunit=F&lengthunit=imperial&windunit=mph&zoom=6&autowidth=auto&user_key=8134bd0af0541cef&embed_key=d66f82d141afbc64&sig=6603f082f9b0195f2a320cd4d879ab45b1976f9a06721ed0592e3de0900955bb" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
     <div class="map-attribution"><a href="https://www.meteoblue.com/en/weather/week/index" target="_blank" rel="noopener">meteoblue</a></div>
   </div>
 </div>
-
- </div>
 
   
 <details class="charts-dropdown">
@@ -3605,6 +3697,8 @@ svg circle, svg polygon, svg line {
     </div>
   </div>
   </details>
+
+ </div> <!-- .web-tools-grid -->
 
   <div id="status" aria-live="polite"></div>
 
@@ -5684,34 +5778,42 @@ const THEMES = {
       ]);
     });
 
-    // 4.5 lightning card — only shown when the active source actually
-    // provides lightning data. WU's API has no lightning field at all
-    // (key is simply absent), and weewx reports null until the WH57/etc.
-    // sensor is mapped and has recorded at least one archive interval,
-    // so this keeps the grid clean instead of showing a dead "--" tile.
-    if (data.lightningStrikeCount !== undefined && data.lightningStrikeCount !== null) {
-      const lastStrikeMs = data.lightningLastStrike ? new Date(data.lightningLastStrike).getTime() : null;
-      const lightningCard = document.createElement('div');
-      lightningCard.className = 'card combo-card lightning-card';
-      lightningCard.innerHTML = `
-        <div class="priority-card-head">
-          <div class="priority-icon"><img src="icons/lightning-bolt.svg" alt=""></div>
-          <div class="priority-heading">Lightning</div>
+    // 4.5 lightning card -- always present. The station may not expose the
+    // lightning sensor on every backend/fallback, so unavailable fields stay
+    // as em dashes rather than making the whole card disappear. The live
+    // Blitzortung map is created only when the card is expanded.
+    const lightningHasData = data.lightningStrikeCount !== undefined && data.lightningStrikeCount !== null;
+    const lastStrikeMs = data.lightningLastStrike ? new Date(data.lightningLastStrike).getTime() : null;
+    const lightningCard = document.createElement('div');
+    lightningCard.className = 'card combo-card lightning-card';
+    lightningCard.innerHTML = `
+      <div class="priority-card-head">
+        <div class="priority-icon"><img src="icons/lightning-bolt.svg" alt=""></div>
+        <div class="priority-heading">Lightning</div>
+      </div>
+      <div class="lightning-priority-row">
+        <div class="priority-single-value">
+          <div class="value priority-value">${formatVal(data.lightningStrikeCount, 0)}</div>
+          <span class="glance-sub">strikes today</span>
         </div>
-        <div class="lightning-priority-row">
-          <div class="priority-single-value">
-            <div class="value priority-value">${formatVal(data.lightningStrikeCount, 0)}</div>
-            <span class="glance-sub">strikes today</span>
-          </div>
-          <div class="priority-single-value">
-            <div class="value priority-value">${data.lightningDistance != null ? formatVal(data.lightningDistance, 1) : '--'}<span class="unit">mi</span></div>
-            <span class="glance-sub">nearest</span>
-          </div>
+        <div class="priority-single-value">
+          <div class="value priority-value">${data.lightningDistance != null ? formatVal(data.lightningDistance, 1) : '--'}<span class="unit">mi</span></div>
+          <span class="glance-sub">nearest</span>
         </div>
-        <div class="priority-context">${lastStrikeMs ? `last strike ${formatShortTime(data.lightningLastStrike)}` : 'no recent strike detected'}</div>
+      </div>
+      <div class="priority-context">${lastStrikeMs ? `last strike ${formatShortTime(data.lightningLastStrike)}` : (lightningHasData ? 'no recent strike detected' : 'sensor data unavailable')}</div>
+    `;
+    gridLeft.appendChild(lightningCard);
+    makeCardExpandable(lightningCard, 'lightning', 'live lightning map', (panel) => {
+      // This renderer runs only on expansion, so the external Blitzortung
+      // iframe literally does not exist on the page while the card is closed.
+      panel.innerHTML = `
+        <div class="lightning-map-panel">
+          <iframe class="lightning-map-frame" src="https://map.blitzortung.org/#3.7/40.616/-80.274" title="Live lightning map" loading="lazy" frameborder="0" scrolling="no" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
+          <div class="lightning-map-caption">Live lightning activity · Blitzortung.org</div>
+        </div>
       `;
-      gridLeft.appendChild(lightningCard);
-    }
+    });
 
     // 5. solar & UV card
     const sExt = extSafe('solarRadiation');
