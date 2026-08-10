@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T14:45:51.110180Z",
+  "generatedAt": "2026-08-10T14:50:43.314081Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7dbd0529fbfcbe03c4d8d86333ba0d952d96dbe4.001.1",
@@ -22,8 +22,87 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [],
+  "mesoscaleDiscussions": [
+    {
+      "id": "MD1893",
+      "number": 1893,
+      "issued": "2026-08-10T13:29:00Z",
+      "expires": "2026-08-10T15:00:00Z",
+      "concerning": "Severe potential...Watch possible",
+      "areas": "southeast Pennsylvania...northeast Maryland...northern Delaware...and southern New Jersey",
+      "watchProbability": "40 percent",
+      "summary": "Damaging wind potential may increase with an ongoing MCS. Convective trends are being monitored for a possible severe thunderstorm watch.",
+      "details": [
+        {
+          "label": "Concerning",
+          "text": "Severe potential...Watch possible"
+        },
+        {
+          "label": "Areas affected",
+          "text": "southeast Pennsylvania...northeast Maryland...northern Delaware...and southern New Jersey"
+        },
+        {
+          "label": "Watch Probability",
+          "text": "40 percent"
+        },
+        {
+          "label": "Discussion",
+          "text": "As of 1325Z, radar imagery showed a small MCS with a leading bow structure moving through Lebanon and Lancaster Counties in southeast PA at around 30 kt. The system has a history of producing wind damage; however, recent radar trends indicate decreasing echo heights, potentially suggesting a weakening trend. Visible satellite shows cloud-free skies ahead of the MCS with temperatures already around 80 degrees observed within the inflow air mass. Modification of the 12Z PIT sounding for similar boundary-layer conditions suggests that only minimal convective inhibition exists for surface-based parcels. As such, it's possible the MCS could restrengthen within the next hour or so with an increased potential for damaging winds."
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md1893.html",
+      "office": "SPC"
+    }
+  ],
   "statements": [
+    {
+      "id": "dfbd5652-98a0-4043-903a-937adfdc3757",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T14:48:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Cambridge, Freeport, Newcomerstown, New Concord, Byesville, Antrim, Philo, Senecaville, Pleasant City, Cumberland, Lore City, Old Washington, Belle Valley, Plainfield, Norwich, High Hill, Chandlersville, Ruraldale, Duncan Falls and Tippecanoe.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Cambridge, Freeport, Newcomerstown, New Concord, Byesville, Antrim, Philo, Senecaville, Pleasant City, Cumberland, Lore City, Old Washington, Belle Valley, Plainfield, Norwich, High Hill, Chandlersville, Ruraldale, Duncan Falls and Tippecanoe."
+        }
+      ],
+      "url": "https://api.weather.gov/products/dfbd5652-98a0-4043-903a-937adfdc3757"
+    },
+    {
+      "id": "8497c1b6-8c6c-411f-a792-f4f987fb9b37",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T14:43:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC019-067-157-101453- /O.EXP.KPBZ.SV.W.0259.000000T0000Z-260810T1445Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 1043 AM EDT Mon Aug 10 2026 OHC019-067-157-101453- /O.EXP.KPBZ.SV.W.0259.000000T0000Z-260810T1445Z/ Carroll OH-Harrison OH-Tuscarawas OH- 1043 AM EDT Mon Aug 10 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/8497c1b6-8c6c-411f-a792-f4f987fb9b37"
+    },
+    {
+      "id": "88361e6d-bb8f-4548-85d1-aab17dce15ad",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T14:42:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC019-029-101452- /O.EXP.KPBZ.SV.W.0258.000000T0000Z-260810T1445Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 1042 AM EDT Mon Aug 10 2026 OHC019-029-101452- /O.EXP.KPBZ.SV.W.0258.000000T0000Z-260810T1445Z/ Carroll OH-Columbiana OH- 1042 AM EDT Mon Aug 10 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/88361e6d-bb8f-4548-85d1-aab17dce15ad"
+    },
     {
       "id": "f4adb41f-5065-4e68-9089-e4fa179d1139",
       "type": "Severe Weather Statement",
@@ -87,38 +166,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/67399da6-245f-4df2-852c-dec8b8e9c36c"
-    },
-    {
-      "id": "b996e560-2a42-4d9c-889c-51c77c9e3c1d",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T14:16:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... New Philadelphia, Dover, Uhrichsville, Carrollton, Dennison, Augusta, Gnadenhutten, Malvern, Tuscarawas, Scio, Midvale, Mineral City, Port Washington, Bowerston, Barnhill, Dellroy, Sherrodsville, Roswell and Parral.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... New Philadelphia, Dover, Uhrichsville, Carrollton, Dennison, Augusta, Gnadenhutten, Malvern, Tuscarawas, Scio, Midvale, Mineral City, Port Washington, Bowerston, Barnhill, Dellroy, Sherrodsville, Roswell and Parral."
-        }
-      ],
-      "url": "https://api.weather.gov/products/b996e560-2a42-4d9c-889c-51c77c9e3c1d"
-    },
-    {
-      "id": "8d34ef1c-9f96-46bb-b920-5a62b673a1ed",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T14:14:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Salem, Columbiana, Lisbon, Leetonia, New Waterford, Hanoverton, Rogers, Summitville, Guilford Lake State Park, Winona, New Garden, North Georgetown, East Rochester and Homeworth.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Salem, Columbiana, Lisbon, Leetonia, New Waterford, Hanoverton, Rogers, Summitville, Guilford Lake State Park, Winona, New Garden, North Georgetown, East Rochester and Homeworth."
-        }
-      ],
-      "url": "https://api.weather.gov/products/8d34ef1c-9f96-46bb-b920-5a62b673a1ed"
     }
   ]
 }
