@@ -1,0 +1,28 @@
+{
+  "product": "SPC Enhanced Thunderstorm Outlook",
+  "updated_at_utc": "2026-08-10T16:05:43.699028+00:00",
+  "period_hours": 4,
+  "periods": [
+    {
+      "start_hour": 0,
+      "end_hour": 4,
+      "label": "00Z\u201304Z",
+      "file": "data/outlook-thunderstorm-00-04.png",
+      "source": "https://www.spc.noaa.gov/products/exper/enhtstm/imgs/enh_0000.gif"
+    },
+    {
+      "start_hour": 16,
+      "end_hour": 20,
+      "label": "16Z\u201320Z",
+      "file": "data/outlook-thunderstorm-16-20.png",
+      "source": "https://www.spc.noaa.gov/products/exper/enhtstm/imgs/enh_1600.gif"
+    },
+    {
+      "start_hour": 20,
+      "end_hour": 0,
+      "label": "20Z\u201300Z",
+      "file": "data/outlook-thunderstorm-20-00.png",
+      "source": "https://www.spc.noaa.gov/products/exper/enhtstm/imgs/enh_2000.gif"
+    }
+  ]
+}
