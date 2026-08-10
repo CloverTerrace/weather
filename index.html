@@ -3992,7 +3992,12 @@ svg circle, svg polygon, svg line {
     document.getElementById('outlook-img-day1').src = `data/outlook-day1.png?t=${t}`;
     document.getElementById('outlook-img-day2').src = `data/outlook-day2.png?t=${t}`;
     document.getElementById('outlook-img-day3').src = `data/outlook-day3.png?t=${t}`;
-    document.getElementById('outlook-img-day48').src = `data/outlook-day4-8.png?t=${t}`;
+    const day48 = document.getElementById('outlook-img-day48');
+    day48.onerror = () => {
+      day48.onerror = null;
+      day48.src = `data/outlook-day4-8.png?t=${t}`;
+    };
+    day48.src = `data/outlook-day4-8.gif?t=${t}`;
     await loadThunderstormOutlooks(t);
   }
 
