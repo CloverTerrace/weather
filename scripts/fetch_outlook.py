@@ -36,6 +36,7 @@ except ImportError:
 OUTLOOK_BASE_URL = "https://www.spc.noaa.gov/products/outlook/"
 DAY48_BASE_URL = "https://www.spc.noaa.gov/products/exper/day4-8/"
 TSTM_PAGE_URL = "https://www.spc.noaa.gov/products/exper/enhtstm/"
+TSTM_IMAGE_BASE_URL = "https://www.spc.noaa.gov/products/exper/enhtstm/"
 
 USER_AGENT = (
     "home-weather-station-dashboard/1.0 "
