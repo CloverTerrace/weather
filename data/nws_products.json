@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T14:55:39.216675Z",
+  "generatedAt": "2026-08-10T15:00:49.676295Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7dbd0529fbfcbe03c4d8d86333ba0d952d96dbe4.001.1",
@@ -22,39 +22,24 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [
+  "mesoscaleDiscussions": [],
+  "statements": [
     {
-      "id": "MD1893",
-      "number": 1893,
-      "issued": "2026-08-10T13:29:00Z",
-      "expires": "2026-08-10T15:00:00Z",
-      "concerning": "Severe potential...Watch possible",
-      "areas": "southeast Pennsylvania...northeast Maryland...northern Delaware...and southern New Jersey",
-      "watchProbability": "40 percent",
-      "summary": "Damaging wind potential may increase with an ongoing MCS. Convective trends are being monitored for a possible severe thunderstorm watch.",
+      "id": "e87dde73-0028-47c8-a12a-4ca744c7ecad",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-10T15:00:00+00:00",
+      "expires": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC031-059-067-119-121-157-101510- /O.EXP.KPBZ.SV.W.0260.000000T0000Z-260810T1500Z/",
       "details": [
         {
-          "label": "Concerning",
-          "text": "Severe potential...Watch possible"
-        },
-        {
-          "label": "Areas affected",
-          "text": "southeast Pennsylvania...northeast Maryland...northern Delaware...and southern New Jersey"
-        },
-        {
-          "label": "Watch Probability",
-          "text": "40 percent"
-        },
-        {
-          "label": "Discussion",
-          "text": "As of 1325Z, radar imagery showed a small MCS with a leading bow structure moving through Lebanon and Lancaster Counties in southeast PA at around 30 kt. The system has a history of producing wind damage; however, recent radar trends indicate decreasing echo heights, potentially suggesting a weakening trend. Visible satellite shows cloud-free skies ahead of the MCS with temperatures already around 80 degrees observed within the inflow air mass. Modification of the 12Z PIT sounding for similar boundary-layer conditions suggests that only minimal convective inhibition exists for surface-based parcels. As such, it's possible the MCS could restrengthen within the next hour or so with an increased potential for damaging winds."
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 1100 AM EDT Mon Aug 10 2026 OHC031-059-067-119-121-157-101510- /O.EXP.KPBZ.SV.W.0260.000000T0000Z-260810T1500Z/ Coshocton OH-Guernsey OH-Harrison OH-Muskingum OH-Noble OH- Tuscarawas OH-"
         }
       ],
-      "url": "https://www.spc.noaa.gov/products/md/md1893.html",
-      "office": "SPC"
-    }
-  ],
-  "statements": [
+      "url": "https://api.weather.gov/products/e87dde73-0028-47c8-a12a-4ca744c7ecad"
+    },
     {
       "id": "dfbd5652-98a0-4043-903a-937adfdc3757",
       "type": "Severe Weather Statement",
@@ -150,22 +135,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/d574e305-5386-4673-9d1e-5f8179ad01f7"
-    },
-    {
-      "id": "67399da6-245f-4df2-852c-dec8b8e9c36c",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-10T14:24:00+00:00",
-      "expires": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Coshocton, Cambridge, Freeport, Newcomerstown, New Concord, Byesville, West Lafayette, South Zanesville, North Zanesville, Dresden, Antrim, Philo, Pleasant Grove, Senecaville, Pleasant City, Cumberland, Conesville, Lore City and Old Washington.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Coshocton, Cambridge, Freeport, Newcomerstown, New Concord, Byesville, West Lafayette, South Zanesville, North Zanesville, Dresden, Antrim, Philo, Pleasant Grove, Senecaville, Pleasant City, Cumberland, Conesville, Lore City and Old Washington."
-        }
-      ],
-      "url": "https://api.weather.gov/products/67399da6-245f-4df2-852c-dec8b8e9c36c"
     }
   ]
 }
