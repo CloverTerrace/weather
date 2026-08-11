@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T12:50:35.024639Z",
+  "generatedAt": "2026-08-11T12:55:40.818634Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7714a3ce12550aa77c1933a78bada3c9ae44ae1b.001.1",
@@ -70,6 +70,44 @@
   ],
   "statements": [
     {
+      "id": "4b0dfc0c-f241-492c-b7eb-df7187d26e64",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-11T12:51:00+00:00",
+      "expires": null,
+      "location": "Belmont OH-Carroll OH-Guernsey OH-Harrison OH-Muskingum OH-Noble",
+      "hazard": "Severe Weather Statement",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC013-019-059-067-119-121-111301- /O.EXP.KPBZ.SV.W.0271.000000T0000Z-260811T1300Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 851 AM EDT Tue Aug 11 2026 OHC013-019-059-067-119-121-111301- /O.EXP.KPBZ.SV.W.0271.000000T0000Z-260811T1300Z/ Belmont OH-Carroll OH-Guernsey OH-Harrison OH-Muskingum OH-Noble OH-"
+        }
+      ],
+      "url": "https://api.weather.gov/products/4b0dfc0c-f241-492c-b7eb-df7187d26e64"
+    },
+    {
+      "id": "23144133-aece-4132-a768-0a132d894050",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-11T12:49:00+00:00",
+      "expires": null,
+      "location": "Belmont OH-Carroll OH-Guernsey OH-Harrison OH-Muskingum OH-Noble",
+      "hazard": "Severe Weather Statement",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Cambridge, Cadiz, New Concord, Byesville, South Zanesville, North Zanesville, Hopedale, Flushing, Scio, Philo, Jewett, Quaker City, Pleasant Grove, Senecaville, Pleasant City, Cumberland, Holloway, Lore City and New Athens.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Cambridge, Cadiz, New Concord, Byesville, South Zanesville, North Zanesville, Hopedale, Flushing, Scio, Philo, Jewett, Quaker City, Pleasant Grove, Senecaville, Pleasant City, Cumberland, Holloway, Lore City and New Athens."
+        }
+      ],
+      "url": "https://api.weather.gov/products/23144133-aece-4132-a768-0a132d894050"
+    },
+    {
       "id": "760bad89-6a03-41c9-b958-32297eb49037",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -106,82 +144,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/4b66e813-4f00-42cb-9bcd-1510ca3bfe9c"
-    },
-    {
-      "id": "81f9ec33-58ba-448e-bf53-7da7d0861fa9",
-      "type": "Flood Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-11T12:32:00+00:00",
-      "expires": null,
-      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
-      "hazard": "Flood Statement",
-      "distanceMiles": null,
-      "headline": "Flood Statement",
-      "summary": "WGUS81 KPBZ 111232 OHC119-111242-",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 WGUS81 KPBZ 111232 FLSPBZ Flood Statement 832 AM EDT Tue Aug 11 2026 OHC119-111242- /O.CAN.KPBZ.FA.W.0030.000000T0000Z-260811T1245Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
-        }
-      ],
-      "url": "https://api.weather.gov/products/81f9ec33-58ba-448e-bf53-7da7d0861fa9"
-    },
-    {
-      "id": "38cd61b1-a24a-4767-8577-9109bcafa98b",
-      "type": "Flood Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-11T12:30:00+00:00",
-      "expires": null,
-      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
-      "hazard": "Flood Statement",
-      "distanceMiles": null,
-      "headline": "Flood Statement",
-      "summary": "WGUS81 KPBZ 111230 PAC051-129-WVC077-111240-",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 WGUS81 KPBZ 111230 FLSPBZ Flood Statement 830 AM EDT Tue Aug 11 2026 PAC051-129-WVC077-111240- /O.CAN.KPBZ.FA.W.0031.000000T0000Z-260811T1300Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
-        }
-      ],
-      "url": "https://api.weather.gov/products/38cd61b1-a24a-4767-8577-9109bcafa98b"
-    },
-    {
-      "id": "065e2dbb-7828-44ea-b442-01fd277e8926",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-11T12:29:00+00:00",
-      "expires": null,
-      "location": "Belmont OH-Carroll OH-Coshocton OH-Guernsey OH-Harrison OH",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Cambridge, Uhrichsville, Cadiz, Carrollton, Freeport, Newcomerstown, Dennison, New Concord, Byesville, South Zanesville, North Zanesville, Dresden, Frazeysburg, Gnadenhutten, Antrim, Malvern, Tuscarawas, Hopedale and Flushing.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Cambridge, Uhrichsville, Cadiz, Carrollton, Freeport, Newcomerstown, Dennison, New Concord, Byesville, South Zanesville, North Zanesville, Dresden, Frazeysburg, Gnadenhutten, Antrim, Malvern, Tuscarawas, Hopedale and Flushing."
-        }
-      ],
-      "url": "https://api.weather.gov/products/065e2dbb-7828-44ea-b442-01fd277e8926"
-    },
-    {
-      "id": "4d1a08d8-091e-49ca-b80e-07dca44f043f",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-11T12:22:00+00:00",
-      "expires": null,
-      "location": "Belmont OH-Carroll OH-Coshocton OH-Guernsey OH-Harrison OH",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, New Philadelphia, Dover, Coshocton, Cambridge, Uhrichsville, Cadiz, Carrollton, Freeport, Newcomerstown, Dennison, New Concord, Byesville, West Lafayette, South Zanesville, North Zanesville, Dresden, Frazeysburg, Gnadenhutten and Antrim.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, New Philadelphia, Dover, Coshocton, Cambridge, Uhrichsville, Cadiz, Carrollton, Freeport, Newcomerstown, Dennison, New Concord, Byesville, West Lafayette, South Zanesville, North Zanesville, Dresden, Frazeysburg, Gnadenhutten and Antrim."
-        }
-      ],
-      "url": "https://api.weather.gov/products/4d1a08d8-091e-49ca-b80e-07dca44f043f"
     }
   ]
 }
