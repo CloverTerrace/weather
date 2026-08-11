@@ -4027,6 +4027,180 @@ svg circle, svg polygon, svg line {
     }
   }
 
+
+  /* ================================================================
+     DESKTOP COMPOSITION — FINAL BALANCE / EXPANSION FIXES
+     851px+ only. Mobile/tablet styles are intentionally untouched.
+     ================================================================ */
+  @media (min-width: 851px) {
+    /* Keep the main two-column dashboard balanced. */
+    .desktop-dashboard-layout {
+      grid-template-columns: minmax(0, 1.42fr) minmax(420px, 0.92fr) !important;
+      align-items: start !important;
+    }
+
+    /* The weather matrix must grow when an expanded card grows, rather than
+       letting the expanded panel paint over the row below it. Closed tiles
+       remain a uniform 232px tall; expanded tiles determine only their own
+       row's natural height. */
+    .desktop-left-rail #grid {
+      grid-auto-rows: auto !important;
+      align-items: start !important;
+      grid-auto-flow: row !important;
+    }
+
+    .desktop-left-rail #grid.grid .card,
+    #grid.grid .desktop-camera-tile {
+      height: 232px !important;
+      min-height: 232px !important;
+      align-self: start !important;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .desktop-left-rail #grid.grid .card.expanded {
+      height: auto !important;
+      min-height: 232px !important;
+      overflow: visible !important;
+      align-self: start !important;
+      justify-content: flex-start;
+      z-index: 2;
+    }
+
+    .desktop-left-rail #grid.grid .card-expand-panel {
+      flex: 0 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .desktop-left-rail #grid.grid .card-expand-hint {
+      flex: 0 0 auto;
+    }
+
+    /* Sky & Space is intentionally moved below Forecast: it is useful, but
+       it should not compete visually with the urgent Storm Center column. */
+    .desktop-left-rail > .desktop-sky-card {
+      order: 3;
+      width: 100%;
+      margin: 0 !important;
+      padding: 0.85rem !important;
+      min-height: 300px !important;
+      border-radius: 13px;
+    }
+
+    .desktop-left-rail > .desktop-sky-card h2 {
+      margin-bottom: 0.45rem;
+      font-size: clamp(0.78rem, 0.9vw, 0.98rem);
+    }
+
+    .desktop-left-rail > .desktop-sky-card .sky-box {
+      min-height: 190px;
+      height: clamp(190px, 15vw, 235px);
+    }
+
+    .desktop-left-rail > .desktop-sky-card .sunmoon-details {
+      margin-top: 0.55rem;
+      font-size: 0.7rem;
+    }
+
+    .desktop-left-rail > .desktop-sky-card .sky-badges {
+      margin-top: 0.45rem;
+      gap: 0.5rem;
+      font-size: 0.67rem;
+    }
+
+    /* Forecast becomes a compact bridge between the 3x3 sensor matrix and
+       Sky & Space, rather than a large blank slab. */
+    .desktop-left-rail .forecast-card {
+      order: 2;
+      min-height: 122px !important;
+      padding: 0.7rem 0.85rem !important;
+    }
+
+    .desktop-left-rail .forecast-card h2 {
+      margin: 0 0 0.35rem;
+      font-size: clamp(0.74rem, 0.82vw, 0.9rem);
+    }
+
+    .desktop-left-rail .forecast-periods {
+      gap: 0.35rem;
+    }
+
+    .desktop-left-rail .forecast-period {
+      min-height: 78px;
+      padding: 0.4rem 0.45rem;
+      border-radius: 7px;
+    }
+
+    .desktop-left-rail .forecast-period .period-name { font-size: 0.66rem; }
+    .desktop-left-rail .forecast-period .period-temp { font-size: 1rem; }
+    .desktop-left-rail .forecast-period .period-short { font-size: 0.65rem; line-height: 1.18; }
+    .desktop-left-rail .forecast-period .period-wind { font-size: 0.58rem; }
+
+    /* Storm Center owns the top of the right rail now. Give it horizontal
+       room and let its contents determine the natural height. */
+    .desktop-right-rail {
+      gap: 0 !important;
+    }
+
+    .desktop-right-rail .dashboard-grid {
+      display: contents !important;
+    }
+
+    .desktop-right-rail .outlook-card {
+      order: 1;
+      width: 100%;
+      margin: 0 !important;
+      padding: 0.9rem !important;
+      min-height: 0;
+      height: auto;
+    }
+
+    .desktop-right-rail .outlook-card .nws-priority-grid {
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.35fr) repeat(3, minmax(62px, 0.62fr));
+    }
+
+    .desktop-right-rail .outlook-viewport {
+      min-height: 205px;
+    }
+
+    .desktop-right-rail .outlook-slide img,
+    .desktop-right-rail .thunderstorm-primary-slide img {
+      max-height: 285px;
+    }
+
+    /* Lower tools retain the requested historical-left / radar-right split. */
+    .web-tools-grid {
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.42fr) !important;
+      gap: clamp(0.9rem, 1.2vw, 1.25rem);
+    }
+  }
+
+  @media (min-width: 851px) and (max-width: 1120px) {
+    .desktop-dashboard-layout {
+      grid-template-columns: minmax(0, 1.25fr) minmax(390px, 0.95fr) !important;
+    }
+
+    .desktop-left-rail #grid {
+      grid-auto-rows: auto !important;
+    }
+
+    .desktop-left-rail #grid.grid .card,
+    #grid.grid .desktop-camera-tile {
+      height: 220px !important;
+      min-height: 220px !important;
+    }
+
+    .desktop-left-rail #grid.grid .card.expanded {
+      height: auto !important;
+      min-height: 220px !important;
+    }
+
+    .desktop-left-rail .forecast-periods {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
 </style>
 
 
@@ -6149,6 +6323,10 @@ const THEMES = {
   //*  ------------🌪️ !! HTML FOR ⛅️ECOWITT WEATHER STATION CARDS + 💨PURPLEAIR AQI + 💧USGS FLOOD GAUGE 🌪️----------- *//
   
   function renderCards(data) {
+    // On desktop the live camera tile is temporarily moved into #grid.
+    // Preserve that existing DOM node across the weather-card rebuild so a
+    // refresh cannot silently remove the camera from the desktop layout.
+    const desktopCameraTile = grid.querySelector('.desktop-camera-tile');
     grid.innerHTML = `
       <div class="grid-column" id="grid-column-left"></div>
       <div class="grid-column" id="grid-column-right"></div>
@@ -6564,6 +6742,16 @@ const THEMES = {
            }
          ]);
        });
+    }
+
+    // renderCards() rebuilds the weather grid every refresh. If the camera was
+    // already living in that grid on desktop, put the same node back after
+    // the sensor cards are rebuilt. This preserves its event listeners and
+    // prevents the desktop camera from disappearing until a breakpoint
+    // resize happens.
+    if (desktopCameraTile && window.matchMedia('(min-width: 851px)').matches) {
+      desktopCameraTile.classList.add('desktop-camera-tile');
+      grid.appendChild(desktopCameraTile);
     }
   }
 
@@ -6995,66 +7183,88 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
   }
 
   // Desktop-only composition: move the existing live camera tile into the
-  // 3x3 weather grid. Below 851px it is returned to its original dashboard
-  // position so the existing mobile/tablet layout remains unchanged.
-  (function initDesktopCameraLayout() {
-    const cameraCard = document.querySelector('.dashboard-grid > .camera-card:not(.outlook-card)');
+  // 3x3 weather grid and move the non-urgent Sky & Space card below Forecast.
+  // Below 851px both cards return to their original DOM locations so the
+  // existing mobile/tablet layout remains unchanged.
+  (function initDesktopComposition() {
     const dashboardGrid = document.querySelector('.dashboard-grid');
     const weatherGrid = document.getElementById('grid');
-    if (!cameraCard || !dashboardGrid || !weatherGrid) return;
+    const leftRail = document.querySelector('.desktop-left-rail');
+    const forecastCard = document.querySelector('.desktop-left-rail .forecast-card');
+    const cameraCard = document.getElementById('camera-img')?.closest('.camera-card');
+    const skyCard = document.getElementById('sky-box')?.closest('.camera-card');
+    const stormCard = document.querySelector('.dashboard-grid > .outlook-card');
+    if (!dashboardGrid || !weatherGrid || !leftRail || !forecastCard || !cameraCard || !skyCard || !stormCard) return;
 
     const desktopQuery = window.matchMedia('(min-width: 851px)');
-    const originalNextSibling = cameraCard.nextElementSibling;
+    const originalCameraNextSibling = cameraCard.nextElementSibling;
+    const originalSkyNextSibling = skyCard.nextElementSibling;
 
-    function syncCameraPlacement() {
+    function syncDesktopComposition() {
       if (desktopQuery.matches) {
         if (cameraCard.parentElement !== weatherGrid) {
           cameraCard.classList.add('desktop-camera-tile');
           weatherGrid.appendChild(cameraCard);
         }
-      } else if (cameraCard.parentElement !== dashboardGrid) {
+        if (skyCard.parentElement !== leftRail) {
+          skyCard.classList.add('desktop-sky-card');
+          leftRail.insertBefore(skyCard, forecastCard.nextElementSibling);
+        }
+      } else {
         cameraCard.classList.remove('desktop-camera-tile');
-        if (originalNextSibling && originalNextSibling.parentElement === dashboardGrid) {
-          dashboardGrid.insertBefore(cameraCard, originalNextSibling);
-        } else {
-          dashboardGrid.insertBefore(cameraCard, dashboardGrid.firstElementChild);
+        if (cameraCard.parentElement !== dashboardGrid) {
+          if (originalCameraNextSibling && originalCameraNextSibling.parentElement === dashboardGrid) {
+            dashboardGrid.insertBefore(cameraCard, originalCameraNextSibling);
+          } else {
+            dashboardGrid.insertBefore(cameraCard, dashboardGrid.firstElementChild);
+          }
+        }
+
+        skyCard.classList.remove('desktop-sky-card');
+        if (skyCard.parentElement !== dashboardGrid) {
+          if (originalSkyNextSibling && originalSkyNextSibling.parentElement === dashboardGrid) {
+            dashboardGrid.insertBefore(skyCard, originalSkyNextSibling);
+          } else {
+            dashboardGrid.insertBefore(skyCard, stormCard);
+          }
         }
       }
     }
 
-    syncCameraPlacement();
-    desktopQuery.addEventListener?.('change', syncCameraPlacement);
+    syncDesktopComposition();
+    desktopQuery.addEventListener?.('change', syncDesktopComposition);
 
     const lightbox = document.getElementById('camera-lightbox');
     const lightboxImg = document.getElementById('camera-lightbox-img');
     const closeBtn = document.getElementById('camera-lightbox-close');
 
     function closeLightbox() {
+      if (!lightbox) return;
       lightbox.classList.remove('open');
       lightbox.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
     }
 
     function openLightbox() {
-      if (!desktopQuery.matches) return;
+      if (!desktopQuery.matches || !lightbox || !lightboxImg) return;
       const source = document.getElementById('camera-img');
-      if (!source) return;
+      if (!source || !source.src) return;
       lightboxImg.src = source.currentSrc || source.src;
       lightbox.classList.add('open');
       lightbox.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
-      closeBtn.focus({ preventScroll: true });
+      closeBtn?.focus({ preventScroll: true });
     }
 
     cameraCard.addEventListener('click', (event) => {
       if (desktopQuery.matches && !event.target.closest('a, button')) openLightbox();
     });
-    closeBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (event) => {
+    closeBtn?.addEventListener('click', closeLightbox);
+    lightbox?.addEventListener('click', (event) => {
       if (event.target === lightbox) closeLightbox();
     });
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+      if (event.key === 'Escape' && lightbox?.classList.contains('open')) closeLightbox();
     });
   })();
 
