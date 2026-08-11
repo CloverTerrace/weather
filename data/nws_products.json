@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T12:20:32.173690Z",
+  "generatedAt": "2026-08-11T12:25:42.317738Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7714a3ce12550aa77c1933a78bada3c9ae44ae1b.001.1",
@@ -70,6 +70,25 @@
   ],
   "statements": [
     {
+      "id": "4d1a08d8-091e-49ca-b80e-07dca44f043f",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-11T12:22:00+00:00",
+      "expires": null,
+      "location": "Belmont OH-Carroll OH-Coshocton OH-Guernsey OH-Harrison OH",
+      "hazard": "Severe Weather Statement",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, New Philadelphia, Dover, Coshocton, Cambridge, Uhrichsville, Cadiz, Carrollton, Freeport, Newcomerstown, Dennison, New Concord, Byesville, West Lafayette, South Zanesville, North Zanesville, Dresden, Frazeysburg, Gnadenhutten and Antrim.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, New Philadelphia, Dover, Coshocton, Cambridge, Uhrichsville, Cadiz, Carrollton, Freeport, Newcomerstown, Dennison, New Concord, Byesville, West Lafayette, South Zanesville, North Zanesville, Dresden, Frazeysburg, Gnadenhutten and Antrim."
+        }
+      ],
+      "url": "https://api.weather.gov/products/4d1a08d8-091e-49ca-b80e-07dca44f043f"
+    },
+    {
       "id": "d7374838-c11e-4685-9455-0d567e1439f5",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -87,44 +106,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/d7374838-c11e-4685-9455-0d567e1439f5"
-    },
-    {
-      "id": "a6e7e1f2-1890-4306-9bf6-96ad705a6e12",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-11T11:56:00+00:00",
-      "expires": null,
-      "location": "Coshocton OH-Guernsey OH-Muskingum OH-Tuscarawas OH",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, New Philadelphia, Dover, Coshocton, Uhrichsville, Newcomerstown, Dennison, Strasburg, New Concord, West Lafayette, Sugarcreek, South Zanesville, North Zanesville, Dresden, Frazeysburg, Gnadenhutten, Tuscarawas, Baltic, Midvale and Philo.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, New Philadelphia, Dover, Coshocton, Uhrichsville, Newcomerstown, Dennison, Strasburg, New Concord, West Lafayette, Sugarcreek, South Zanesville, North Zanesville, Dresden, Frazeysburg, Gnadenhutten, Tuscarawas, Baltic, Midvale and Philo."
-        }
-      ],
-      "url": "https://api.weather.gov/products/a6e7e1f2-1890-4306-9bf6-96ad705a6e12"
-    },
-    {
-      "id": "24746a00-9dc6-4c3b-896f-6cee8ba9a7e3",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-08-11T11:52:00+00:00",
-      "expires": null,
-      "location": null,
-      "hazard": "Area Forecast Discussion",
-      "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": "Milcarek",
-      "details": [
-        {
-          "label": "Discussion",
-          "text": "Milcarek"
-        }
-      ],
-      "url": "https://api.weather.gov/products/24746a00-9dc6-4c3b-896f-6cee8ba9a7e3"
     }
   ]
 }
