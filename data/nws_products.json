@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T16:25:40.021646Z",
+  "generatedAt": "2026-08-11T16:30:43.372828Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7714a3ce12550aa77c1933a78bada3c9ae44ae1b.001.1",
@@ -25,6 +25,48 @@
     }
   ],
   "mesoscaleDiscussions": [
+    {
+      "id": "MD1924",
+      "number": 1924,
+      "issued": "2026-08-11T16:12:00Z",
+      "expires": "2026-08-11T17:15:00Z",
+      "concerning": "Severe potential...Watch likely",
+      "hazard": "Severe potential...Watch likely",
+      "areas": "southeast Indiana into west-central and southwest Ohio",
+      "location": "southeast Indiana into west-central and southwest Ohio",
+      "distanceMiles": 174.4,
+      "summary": "The threat for severe weather is expected to increase by early afternoon, likely requiring a new severe thunderstorm watch",
+      "watchProbability": "80 percent",
+      "forecaster": "Mead/Hart",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "The threat for severe weather is expected to increase by early afternoon, likely requiring a new severe thunderstorm watch"
+        },
+        {
+          "label": "Discussion",
+          "text": "Recent trends in base velocity data indicate a strengthening cold pool with the leading edge of thunderstorms near Marion, IN. That convection is located to the north of an outflow boundary stretching from northwest through southeast IN. However, prevailing west-southwest low-level winds (per KIND VWP) will likely support the eastward movement of the boundary with resultant air mass recovery expected across portions of western OH by early afternoon. As such, it appears likely that the above-mentioned storms will continue to spread southeast into the discussion area within the next hour or so. Damaging wind gusts will be the primary hazard with the most intense storms"
+        },
+        {
+          "label": "Watch probability",
+          "text": "80 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...65-80 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Mead/Hart"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...ILN...IND"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md1924.html",
+      "office": "SPC"
+    },
     {
       "id": "MD1923",
       "number": 1923,
@@ -62,51 +104,47 @@
       ],
       "url": "https://www.spc.noaa.gov/products/md/md1923.html",
       "office": "SPC"
-    },
-    {
-      "id": "MD1922",
-      "number": 1922,
-      "issued": "2026-08-11T14:31:00Z",
-      "expires": "2026-08-11T16:30:00Z",
-      "concerning": "Severe potential...Watch likely",
-      "hazard": "Severe potential...Watch likely",
-      "areas": "northern and central Indiana",
-      "location": "northern and central Indiana",
-      "distanceMiles": 240.3,
-      "summary": "The threat for severe weather is expected to increase this morning, likely necessitating a watch issuance",
-      "watchProbability": "80 percent",
-      "forecaster": "Mead/Hart",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "The threat for severe weather is expected to increase this morning, likely necessitating a watch issuance"
-        },
-        {
-          "label": "Discussion",
-          "text": "A gradual increase in thunderstorms, including splitting supercell structures, has been observed over northwest IN over the past hour or so. That activity appears to be associated with a zone of warm advection occurring to the north of an outflow boundary extending from west-central through southeast IN. Regional 12Z soundings sampled a strongly unstable environment in place this morning, which is likely to sustain the ongoing storms with some large hail and locally damaging wind potential. A greater severe weather threat, mainly in the form of damaging winds with significant gusts, is expected to move into the area from the northwest in association with a bowing MCS ongoing across north-central IL"
-        },
-        {
-          "label": "Watch probability",
-          "text": "80 percent"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...65-80 MPH"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Mead/Hart"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...IWX...IND...LOT"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md1922.html",
-      "office": "SPC"
     }
   ],
   "statements": [
+    {
+      "id": "7cd12b70-22dc-4700-9587-b046640d9da9",
+      "type": "Flood Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-11T16:30:00+00:00",
+      "expires": null,
+      "location": "/CLLP1.1.ER.260811T1327Z.260811T1415Z.260811T1509Z.NO/",
+      "hazard": "Flood Statement",
+      "distanceMiles": null,
+      "headline": "Flood Statement",
+      "summary": "WGUS81 KPBZ 111630 ...The Flood Warning is cancelled for the following rivers in",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 WGUS81 KPBZ 111630 FLSPBZ Flood Statement 1230 PM EDT Tue Aug 11 2026 ...The Flood Warning is cancelled for the following rivers in Pennsylvania... Youghiogheny River At Connellsville affecting Fayette County."
+        }
+      ],
+      "url": "https://api.weather.gov/products/7cd12b70-22dc-4700-9587-b046640d9da9"
+    },
+    {
+      "id": "853c9b85-32a8-4ac8-a73f-c8934dcc30ce",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-11T16:22:00+00:00",
+      "expires": null,
+      "location": "Monroe OH-Wetzel WV",
+      "hazard": "Severe Weather Statement",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC111-WVC103-111632- /O.CAN.KPBZ.SV.W.0275.000000T0000Z-260811T1700Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 1222 PM EDT Tue Aug 11 2026 OHC111-WVC103-111632- /O.CAN.KPBZ.SV.W.0275.000000T0000Z-260811T1700Z/ Monroe OH-Wetzel WV- 1222 PM EDT Tue Aug 11 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/853c9b85-32a8-4ac8-a73f-c8934dcc30ce"
+    },
     {
       "id": "77e279a7-ab55-46e0-8886-47c75de64b48",
       "type": "Severe Weather Statement",
@@ -125,25 +163,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/77e279a7-ab55-46e0-8886-47c75de64b48"
-    },
-    {
-      "id": "5e172cdc-ce43-4fe2-8699-caf17c1975f3",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-11T15:54:00+00:00",
-      "expires": null,
-      "location": "Monroe OH-Noble OH",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC111-121-111604- /O.EXP.KPBZ.SV.W.0274.000000T0000Z-260811T1600Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 1154 AM EDT Tue Aug 11 2026 OHC111-121-111604- /O.EXP.KPBZ.SV.W.0274.000000T0000Z-260811T1600Z/ Monroe OH-Noble OH- 1154 AM EDT Tue Aug 11 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/5e172cdc-ce43-4fe2-8699-caf17c1975f3"
     }
   ]
 }
