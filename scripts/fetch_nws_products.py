@@ -247,9 +247,11 @@ def alert_to_watch(feature: dict) -> dict | None:
 
     description = p.get("description") or ""
     instruction = p.get("instruction") or ""
+    area_desc = p.get("areaDesc")
+    distance = distance_to_geometry_miles(feature.get("geometry"), LAT, LON)
     details=[]
-    if p.get("areaDesc"):
-        details.append({"label":"Areas", "text":p.get("areaDesc")})
+    if area_desc:
+        details.append({"label":"Areas", "text":area_desc})
     if instruction.strip():
         details.append({"label":"Instructions", "text":clean_product_text(instruction)[:1800]})
     elif description.strip():
@@ -261,6 +263,8 @@ def alert_to_watch(feature: dict) -> dict | None:
         "number": number,
         "issued": safe_iso(p.get("effective")),
         "expires": safe_iso(p.get("expires")),
+        "location": area_desc,
+        "distanceMiles": distance,
         "summary": p.get("headline") or event,
         "details": details,
         "url": p.get("@id") or feature.get("id"),
