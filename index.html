@@ -4311,6 +4311,135 @@ svg circle, svg polygon, svg line {
     }
   }
 
+  /* ================================================================
+     LEGIBILITY + SPACING FIX PASS — 851px+ only. The <=850px mobile
+     layout is completely untouched (every selector below only exists
+     under `.desktop-left-rail` / `.desktop-right-rail`, which the JS
+     above only creates at 851px+).
+
+     Two problems this fixes:
+
+     1. Sensor tiles were pinned to a fixed pixel height with
+        `overflow: hidden`, and "Feels Like" / "Dew Point" (and other
+        tile labels) were forced onto one line with `white-space:
+        nowrap`. At in-between desktop widths the labels didn't fit
+        that one line, so instead of wrapping they overflowed sideways
+        and printed on top of each other. Tiles now size to their own
+        content (min-height, not a hard height + clip), and labels are
+        allowed to wrap.
+
+     2. Numbers/labels inside each tile now scale using CSS container
+        query units (cqw = % of the tile's own rendered width, since
+        `.card` already declares itself a query container earlier in
+        this stylesheet). That's the "responsive growth" -- one rule
+        that scales smoothly with each tile's actual width instead of
+        a different fixed rem value bolted on per breakpoint. Every
+        value is still clamp()'d so it can't shrink past legible or
+        grow past the old max size.
+
+     3. Storm Center and the Live Radar/Forecast Map card were
+        stacked with zero gap between them (`gap: 0`), which is what
+        made the map read as jammed against the bottom of the Storm
+        Center card. A real gap is restored, and the map itself gets
+        more vertical room.
+     ================================================================ */
+  @media (min-width: 851px) {
+    /* Tiles grow to fit their content -- a generous min-height keeps
+       the matrix looking uniform, but nothing is clipped or forced to
+       overlap again regardless of window width. */
+    .desktop-left-rail #grid {
+      grid-auto-rows: auto !important;
+    }
+
+    .desktop-left-rail #grid.grid .card,
+    #grid.grid .desktop-camera-tile {
+      height: auto !important;
+      min-height: 200px !important;
+      overflow: visible !important;
+      padding: clamp(0.85rem, 1.4cqw, 1.15rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .card.expanded {
+      min-height: 200px !important;
+    }
+
+    /* Let labels wrap onto a second line instead of forcing one line
+       that overflows into the neighboring column. */
+    .desktop-left-rail #grid.grid .glance-col .label,
+    .desktop-left-rail #grid.grid .priority-heading {
+      white-space: normal;
+      overflow-wrap: break-word;
+      line-height: 1.2;
+    }
+
+    /* Big numbers scale with the tile's own rendered width. */
+    .desktop-left-rail #grid.grid .priority-value {
+      font-size: clamp(1.3rem, 9cqw, 1.9rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .glance-col .value {
+      font-size: clamp(1.05rem, 7.5cqw, 1.5rem);
+    }
+
+    .desktop-left-rail #grid.grid .glance-col.glance-primary .value {
+      font-size: clamp(1.2rem, 8.5cqw, 1.7rem);
+    }
+
+    /* Labels and supporting text scale a little more gently, and stay
+       readable at every tile width the 3-column matrix can settle on. */
+    .desktop-left-rail #grid.grid .priority-heading,
+    .desktop-left-rail #grid.grid .glance-col .label {
+      font-size: clamp(0.64rem, 2.7cqw, 0.78rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .glance-sub,
+    .desktop-left-rail #grid.grid .priority-context {
+      font-size: clamp(0.6rem, 2.3cqw, 0.72rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .card-expand-hint {
+      font-size: clamp(0.58rem, 2.2cqw, 0.68rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .priority-icon {
+      width: clamp(1.1rem, 5cqw, 1.5rem);
+      height: clamp(1.1rem, 5cqw, 1.5rem);
+    }
+
+    /* Wind compass: the ring and its degree/cardinal readout scale
+       together so the numbers never outgrow the ring around them. */
+    .desktop-left-rail #grid.grid .priority-compass {
+      flex-basis: clamp(62px, 24cqw, 92px);
+    }
+
+    .desktop-left-rail #grid.grid .priority-compass .compass-container,
+    .desktop-left-rail #grid.grid .priority-compass svg {
+      max-width: clamp(62px, 24cqw, 92px);
+      max-height: clamp(62px, 24cqw, 92px);
+    }
+
+    .desktop-left-rail #grid.grid .wind-compass-degrees {
+      font-size: clamp(0.85rem, 4.2cqw, 1.3rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .wind-compass-cardinal {
+      font-size: clamp(0.55rem, 2.6cqw, 0.78rem) !important;
+    }
+
+    /* Storm Center + radar: restore real breathing room between the
+       two stacked right-rail cards instead of butting them together. */
+    .desktop-right-rail {
+      gap: clamp(1.1rem, 1.6vw, 1.6rem) !important;
+    }
+
+    /* Give the radar/forecast map more vertical room so it reads as a
+       proper full card, not a cramped strip. */
+    .desktop-right-rail .desktop-radar-card .rainviewer-map,
+    .desktop-right-rail .desktop-radar-card .map-panel iframe {
+      height: clamp(320px, 30vw, 460px) !important;
+    }
+  }
+
 </style>
 
 
