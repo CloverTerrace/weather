@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T12:30:38.446739Z",
+  "generatedAt": "2026-08-11T12:35:40.891918Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7714a3ce12550aa77c1933a78bada3c9ae44ae1b.001.1",
@@ -69,6 +69,63 @@
     }
   ],
   "statements": [
+    {
+      "id": "81f9ec33-58ba-448e-bf53-7da7d0861fa9",
+      "type": "Flood Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-11T12:32:00+00:00",
+      "expires": null,
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "Flood Statement",
+      "distanceMiles": null,
+      "headline": "Flood Statement",
+      "summary": "WGUS81 KPBZ 111232 OHC119-111242-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 WGUS81 KPBZ 111232 FLSPBZ Flood Statement 832 AM EDT Tue Aug 11 2026 OHC119-111242- /O.CAN.KPBZ.FA.W.0030.000000T0000Z-260811T1245Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
+        }
+      ],
+      "url": "https://api.weather.gov/products/81f9ec33-58ba-448e-bf53-7da7d0861fa9"
+    },
+    {
+      "id": "38cd61b1-a24a-4767-8577-9109bcafa98b",
+      "type": "Flood Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-11T12:30:00+00:00",
+      "expires": null,
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "Flood Statement",
+      "distanceMiles": null,
+      "headline": "Flood Statement",
+      "summary": "WGUS81 KPBZ 111230 PAC051-129-WVC077-111240-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 WGUS81 KPBZ 111230 FLSPBZ Flood Statement 830 AM EDT Tue Aug 11 2026 PAC051-129-WVC077-111240- /O.CAN.KPBZ.FA.W.0031.000000T0000Z-260811T1300Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
+        }
+      ],
+      "url": "https://api.weather.gov/products/38cd61b1-a24a-4767-8577-9109bcafa98b"
+    },
+    {
+      "id": "065e2dbb-7828-44ea-b442-01fd277e8926",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-11T12:29:00+00:00",
+      "expires": null,
+      "location": "Belmont OH-Carroll OH-Coshocton OH-Guernsey OH-Harrison OH",
+      "hazard": "Severe Weather Statement",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Cambridge, Uhrichsville, Cadiz, Carrollton, Freeport, Newcomerstown, Dennison, New Concord, Byesville, South Zanesville, North Zanesville, Dresden, Frazeysburg, Gnadenhutten, Antrim, Malvern, Tuscarawas, Hopedale and Flushing.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Cambridge, Uhrichsville, Cadiz, Carrollton, Freeport, Newcomerstown, Dennison, New Concord, Byesville, South Zanesville, North Zanesville, Dresden, Frazeysburg, Gnadenhutten, Antrim, Malvern, Tuscarawas, Hopedale and Flushing."
+        }
+      ],
+      "url": "https://api.weather.gov/products/065e2dbb-7828-44ea-b442-01fd277e8926"
+    },
     {
       "id": "4d1a08d8-091e-49ca-b80e-07dca44f043f",
       "type": "Severe Weather Statement",
