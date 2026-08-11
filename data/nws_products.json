@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T12:15:32.647216Z",
+  "generatedAt": "2026-08-11T12:20:32.173690Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7714a3ce12550aa77c1933a78bada3c9ae44ae1b.001.1",
@@ -7,6 +7,8 @@
       "number": null,
       "issued": "2026-08-11T07:06:00-04:00",
       "expires": "2026-08-11T17:00:00-04:00",
+      "location": "Columbiana; Beaver; Allegheny; Westmoreland; Westmoreland Ridges",
+      "distanceMiles": null,
       "summary": "Flood Watch issued August 11 at 7:06AM EDT until August 12 at 8:00AM EDT by NWS Pittsburgh PA",
       "details": [
         {
@@ -67,6 +69,25 @@
     }
   ],
   "statements": [
+    {
+      "id": "d7374838-c11e-4685-9455-0d567e1439f5",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-11T12:10:00+00:00",
+      "expires": null,
+      "location": "Coshocton OH-Guernsey OH-Muskingum OH-Tuscarawas OH",
+      "hazard": "Severe Weather Statement",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC031-059-119-157-111220- /O.EXP.KPBZ.SV.W.0270.000000T0000Z-260811T1215Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 810 AM EDT Tue Aug 11 2026 OHC031-059-119-157-111220- /O.EXP.KPBZ.SV.W.0270.000000T0000Z-260811T1215Z/ Coshocton OH-Guernsey OH-Muskingum OH-Tuscarawas OH- 810 AM EDT Tue Aug 11 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/d7374838-c11e-4685-9455-0d567e1439f5"
+    },
     {
       "id": "a6e7e1f2-1890-4306-9bf6-96ad705a6e12",
       "type": "Severe Weather Statement",
