@@ -1,29 +1,6 @@
 {
-  "generatedAt": "2026-08-11T16:50:34.985779Z",
-  "watches": [
-    {
-      "id": "urn:oid:2.49.0.1.840.0.7714a3ce12550aa77c1933a78bada3c9ae44ae1b.001.1",
-      "type": "Flood Watch",
-      "number": null,
-      "issued": "2026-08-11T07:06:00-04:00",
-      "expires": "2026-08-11T17:00:00-04:00",
-      "location": "Columbiana; Beaver; Allegheny; Westmoreland; Westmoreland Ridges",
-      "distanceMiles": null,
-      "summary": "Flood Watch issued August 11 at 7:06AM EDT until August 12 at 8:00AM EDT by NWS Pittsburgh PA",
-      "details": [
-        {
-          "label": "Areas",
-          "text": "Columbiana; Beaver; Allegheny; Westmoreland; Westmoreland Ridges"
-        },
-        {
-          "label": "Instructions",
-          "text": "You should monitor later forecasts and be prepared to take action\nshould Flash Flood Warnings be issued."
-        }
-      ],
-      "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7714a3ce12550aa77c1933a78bada3c9ae44ae1b.001.1",
-      "office": "NWS Pittsburgh PA"
-    }
-  ],
+  "generatedAt": "2026-08-11T17:46:13.457389Z",
+  "watches": [],
   "mesoscaleDiscussions": [
     {
       "id": "MD1925",
@@ -62,126 +39,27 @@
       ],
       "url": "https://www.spc.noaa.gov/products/md/md1925.html",
       "office": "SPC"
-    },
-    {
-      "id": "MD1924",
-      "number": 1924,
-      "issued": "2026-08-11T16:12:00Z",
-      "expires": "2026-08-11T17:15:00Z",
-      "concerning": "Severe potential...Watch likely",
-      "hazard": "Severe potential...Watch likely",
-      "areas": "southeast Indiana into west-central and southwest Ohio",
-      "location": "southeast Indiana into west-central and southwest Ohio",
-      "distanceMiles": 174.4,
-      "summary": "The threat for severe weather is expected to increase by early afternoon, likely requiring a new severe thunderstorm watch",
-      "watchProbability": "80 percent",
-      "forecaster": "Mead/Hart",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "The threat for severe weather is expected to increase by early afternoon, likely requiring a new severe thunderstorm watch"
-        },
-        {
-          "label": "Discussion",
-          "text": "Recent trends in base velocity data indicate a strengthening cold pool with the leading edge of thunderstorms near Marion, IN. That convection is located to the north of an outflow boundary stretching from northwest through southeast IN. However, prevailing west-southwest low-level winds (per KIND VWP) will likely support the eastward movement of the boundary with resultant air mass recovery expected across portions of western OH by early afternoon. As such, it appears likely that the above-mentioned storms will continue to spread southeast into the discussion area within the next hour or so. Damaging wind gusts will be the primary hazard with the most intense storms"
-        },
-        {
-          "label": "Watch probability",
-          "text": "80 percent"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...65-80 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Mead/Hart"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...ILN...IND"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md1924.html",
-      "office": "SPC"
-    },
-    {
-      "id": "MD1923",
-      "number": 1923,
-      "issued": "2026-08-11T15:18:00Z",
-      "expires": "2026-08-11T17:15:00Z",
-      "concerning": "Severe Thunderstorm Watch 564",
-      "hazard": "Severe Thunderstorm Watch 564",
-      "areas": "central Ohio...far southeast Indiana...northeast Kentucky...western West Virginia...and western Virginia",
-      "location": "central Ohio...far southeast Indiana...northeast Kentucky...western West Virginia...and western Virginia",
-      "distanceMiles": 121.6,
-      "summary": "The threat for damaging winds is expected to continue across the watch area this morning. Additional storm development is possible along a composite outflow boundary from northeast Kentucky into western Virginia by early afternoon, possibly requiring an additional watch issuance",
-      "watchProbability": null,
-      "forecaster": "Mead/Hart",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "The threat for damaging winds is expected to continue across the watch area this morning. Additional storm development is possible along a composite outflow boundary from northeast Kentucky into western Virginia by early afternoon, possibly requiring an additional watch issuance"
-        },
-        {
-          "label": "Discussion",
-          "text": "A mature MCS with embedded bowing structure is ongoing as of 1510Z across portions of central and southern OH with a wind gust to 82 mph reported within the past hour at the Columbus John Glenn International Airport. While that portion of the MCS is currently the most intense, considerable downstream convection present from southeast OH into northwest WV leads to uncertainty in the longevity of the damaging wind threat given the convectively overturned air mass. Potentially greater air mass destabilization is expected by early afternoon farther southwest from northeast KY into western portions of WV and VA, in the vicinity of a composite outflow boundary. There, storm intensification on the western flank of the OH MCS appears possible, along with additional in situ development along the boundary. While the region will reside on the southern fringe of stronger vertical shear, the presence of moderate to strong instability with steepening low-level lapse rates will support damaging wind potential with the strongest storms"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Mead/Hart"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...RNK...RLX...MRX...JKL...ILN...LMK"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md1923.html",
-      "office": "SPC"
     }
   ],
   "statements": [
     {
-      "id": "7cd12b70-22dc-4700-9587-b046640d9da9",
-      "type": "Flood Statement",
+      "id": "1b9c067c-e05a-4707-8b1e-edb46e90e50b",
+      "type": "Flash Flood Watch",
       "office": "KPBZ",
-      "issued": "2026-08-11T16:30:00+00:00",
+      "issued": "2026-08-11T17:40:00+00:00",
       "expires": null,
-      "location": "/CLLP1.1.ER.260811T1327Z.260811T1415Z.260811T1509Z.NO/",
-      "hazard": "Flood Statement",
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "Flash Flood Watch",
       "distanceMiles": null,
-      "headline": "Flood Statement",
-      "summary": "WGUS81 KPBZ 111630 ...The Flood Warning is cancelled for the following rivers in",
+      "headline": "Flash Flood Watch",
+      "summary": "WGUS61 KPBZ 111740 Flood Watch",
       "details": [
         {
           "label": "Product detail",
-          "text": "000 WGUS81 KPBZ 111630 FLSPBZ Flood Statement 1230 PM EDT Tue Aug 11 2026 ...The Flood Warning is cancelled for the following rivers in Pennsylvania... Youghiogheny River At Connellsville affecting Fayette County."
+          "text": "000 WGUS61 KPBZ 111740 FFAPBZ Flood Watch 140 PM EDT Tue Aug 11 2026 OHZ040-041-049-050-059-PAZ020-021-029-031-073>076-WVZ001>004-111845- /O.CAN.KPBZ.FA.A.0015.000000T0000Z-260812T1200Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
         }
       ],
-      "url": "https://api.weather.gov/products/7cd12b70-22dc-4700-9587-b046640d9da9"
-    },
-    {
-      "id": "853c9b85-32a8-4ac8-a73f-c8934dcc30ce",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-11T16:22:00+00:00",
-      "expires": null,
-      "location": "Monroe OH-Wetzel WV",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC111-WVC103-111632- /O.CAN.KPBZ.SV.W.0275.000000T0000Z-260811T1700Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 1222 PM EDT Tue Aug 11 2026 OHC111-WVC103-111632- /O.CAN.KPBZ.SV.W.0275.000000T0000Z-260811T1700Z/ Monroe OH-Wetzel WV- 1222 PM EDT Tue Aug 11 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/853c9b85-32a8-4ac8-a73f-c8934dcc30ce"
+      "url": "https://api.weather.gov/products/1b9c067c-e05a-4707-8b1e-edb46e90e50b"
     }
   ]
 }
