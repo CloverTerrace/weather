@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T16:05:39.142129Z",
+  "generatedAt": "2026-08-11T16:10:45.213316Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7714a3ce12550aa77c1933a78bada3c9ae44ae1b.001.1",
@@ -108,6 +108,25 @@
   ],
   "statements": [
     {
+      "id": "77e279a7-ab55-46e0-8886-47c75de64b48",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-11T16:09:00+00:00",
+      "expires": null,
+      "location": "Noble OH",
+      "hazard": "Severe Weather Statement",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... New Martinsville, Pine Grove, Jacksonburg, Sardis, Smithfield, Fly, Antioch, Porters Falls, Reader, Rinard Mills and Folsom.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... New Martinsville, Pine Grove, Jacksonburg, Sardis, Smithfield, Fly, Antioch, Porters Falls, Reader, Rinard Mills and Folsom."
+        }
+      ],
+      "url": "https://api.weather.gov/products/77e279a7-ab55-46e0-8886-47c75de64b48"
+    },
+    {
       "id": "5e172cdc-ce43-4fe2-8699-caf17c1975f3",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -144,25 +163,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/2b629870-4311-4b15-908e-b2e2d03d70e7"
-    },
-    {
-      "id": "f98626d9-5cc7-4a1b-86df-cf80e28d2253",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-11T15:40:00+00:00",
-      "expires": null,
-      "location": "Muskingum OH",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Woodsfield, Caldwell, Dudley, Senecaville, Pleasant City, Cumberland, Summerfield, Belle Valley, Lewisville, Sarahsville, Jerusalem, Dexter City, Wilson, Stafford, Harriettsville, Miltonsburg, Seneca Lake Park and Wolf Run State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Woodsfield, Caldwell, Dudley, Senecaville, Pleasant City, Cumberland, Summerfield, Belle Valley, Lewisville, Sarahsville, Jerusalem, Dexter City, Wilson, Stafford, Harriettsville, Miltonsburg, Seneca Lake Park and Wolf Run State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/f98626d9-5cc7-4a1b-86df-cf80e28d2253"
     }
   ]
 }
