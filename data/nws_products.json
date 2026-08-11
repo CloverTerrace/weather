@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T13:05:41.890680Z",
+  "generatedAt": "2026-08-11T13:10:42.738901Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7714a3ce12550aa77c1933a78bada3c9ae44ae1b.001.1",
@@ -70,6 +70,25 @@
   ],
   "statements": [
     {
+      "id": "9e0eabce-49ac-49e0-b2d6-1653a368ed0e",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-11T13:04:00+00:00",
+      "expires": null,
+      "location": "Monroe OH-Noble OH",
+      "hazard": "Severe Weather Statement",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC111-121-111314- /O.CAN.KPBZ.SV.W.0272.000000T0000Z-260811T1330Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 904 AM EDT Tue Aug 11 2026 OHC111-121-111314- /O.CAN.KPBZ.SV.W.0272.000000T0000Z-260811T1330Z/ Monroe OH-Noble OH- 904 AM EDT Tue Aug 11 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/9e0eabce-49ac-49e0-b2d6-1653a368ed0e"
+    },
+    {
       "id": "4b0dfc0c-f241-492c-b7eb-df7187d26e64",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -106,44 +125,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/23144133-aece-4132-a768-0a132d894050"
-    },
-    {
-      "id": "760bad89-6a03-41c9-b958-32297eb49037",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-11T12:45:00+00:00",
-      "expires": null,
-      "location": "Tuscarawas OH",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Cambridge, Cadiz, New Concord, Byesville, South Zanesville, North Zanesville, Dresden, Frazeysburg, Antrim, Hopedale, Flushing, Scio, Philo, Jewett, Quaker City, Pleasant Grove, Senecaville, Pleasant City and Cumberland.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Cambridge, Cadiz, New Concord, Byesville, South Zanesville, North Zanesville, Dresden, Frazeysburg, Antrim, Hopedale, Flushing, Scio, Philo, Jewett, Quaker City, Pleasant Grove, Senecaville, Pleasant City and Cumberland."
-        }
-      ],
-      "url": "https://api.weather.gov/products/760bad89-6a03-41c9-b958-32297eb49037"
-    },
-    {
-      "id": "4b66e813-4f00-42cb-9bcd-1510ca3bfe9c",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-11T12:40:00+00:00",
-      "expires": null,
-      "location": "Coshocton OH",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Cambridge, Cadiz, Freeport, New Concord, Byesville, South Zanesville, North Zanesville, Dresden, Frazeysburg, Antrim, Hopedale, Flushing, Scio, Philo, Jewett, Quaker City, Pleasant Grove and Senecaville.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Cambridge, Cadiz, Freeport, New Concord, Byesville, South Zanesville, North Zanesville, Dresden, Frazeysburg, Antrim, Hopedale, Flushing, Scio, Philo, Jewett, Quaker City, Pleasant Grove and Senecaville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/4b66e813-4f00-42cb-9bcd-1510ca3bfe9c"
     }
   ]
 }
