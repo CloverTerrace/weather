@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T11:55:35.621168Z",
+  "generatedAt": "2026-08-11T12:00:57.888743Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7714a3ce12550aa77c1933a78bada3c9ae44ae1b.001.1",
@@ -25,6 +25,25 @@
   "mesoscaleDiscussions": [],
   "statements": [
     {
+      "id": "a6e7e1f2-1890-4306-9bf6-96ad705a6e12",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-11T11:56:00+00:00",
+      "expires": null,
+      "location": "Coshocton OH-Guernsey OH-Muskingum OH-Tuscarawas OH",
+      "hazard": "Severe Weather Statement",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, New Philadelphia, Dover, Coshocton, Uhrichsville, Newcomerstown, Dennison, Strasburg, New Concord, West Lafayette, Sugarcreek, South Zanesville, North Zanesville, Dresden, Frazeysburg, Gnadenhutten, Tuscarawas, Baltic, Midvale and Philo.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, New Philadelphia, Dover, Coshocton, Uhrichsville, Newcomerstown, Dennison, Strasburg, New Concord, West Lafayette, Sugarcreek, South Zanesville, North Zanesville, Dresden, Frazeysburg, Gnadenhutten, Tuscarawas, Baltic, Midvale and Philo."
+        }
+      ],
+      "url": "https://api.weather.gov/products/a6e7e1f2-1890-4306-9bf6-96ad705a6e12"
+    },
+    {
       "id": "24746a00-9dc6-4c3b-896f-6cee8ba9a7e3",
       "type": "Area Forecast Discussion",
       "office": "KPBZ",
@@ -42,25 +61,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/24746a00-9dc6-4c3b-896f-6cee8ba9a7e3"
-    },
-    {
-      "id": "34ea79db-c3eb-4829-a639-051669a1c568",
-      "type": "Hazardous Weather Outlook",
-      "office": "KPBZ",
-      "issued": "2026-08-11T11:26:00+00:00",
-      "expires": null,
-      "location": null,
-      "hazard": "Hazardous Weather Outlook",
-      "distanceMiles": null,
-      "headline": "Hazardous Weather Outlook",
-      "summary": "PAZ007>009-013>016-022-077-078-121130- Mercer-Venango-Forest-Lawrence-Butler-Clarion-Jefferson PA-Armstrong-",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 HWOPBZ Hazardous Weather Outlook 726 AM EDT Tue Aug 11 2026 PAZ007>009-013>016-022-077-078-121130- Mercer-Venango-Forest-Lawrence-Butler-Clarion-Jefferson PA-Armstrong- Indiana-Higher Elevations of Indiana- 726 AM EDT Tue Aug 11 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/34ea79db-c3eb-4829-a639-051669a1c568"
     }
   ]
 }
