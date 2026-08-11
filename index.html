@@ -4201,6 +4201,116 @@ svg circle, svg polygon, svg line {
     }
   }
 
+  /* ================================================================
+     DESKTOP SPACING PASS — sensor grid breathing room, narrower forecast
+     card, right rail gets the reclaimed width, and the radar map moves
+     into the right rail beneath Storm Center. 851px+ only; mobile/tablet
+     (<=850px) is untouched, and the JS above reverts the radar card's DOM
+     position below 851px so its layout there is unaffected too.
+     ================================================================ */
+  @media (min-width: 851px) {
+    /* Give the right rail more of the page's width; the left rail (sensor
+       grid + forecast card) narrows to match. */
+    .desktop-dashboard-layout {
+      grid-template-columns: minmax(0, 1.2fr) minmax(440px, 1fr) !important;
+    }
+
+    /* Shrink the 3x3 tile matrix a bit so each tile has real breathing
+       room at the new, narrower left-rail width instead of feeling packed
+       edge-to-edge. */
+    .desktop-left-rail #grid {
+      grid-auto-rows: 206px !important;
+    }
+
+    .desktop-left-rail #grid.grid .card,
+    #grid.grid .desktop-camera-tile {
+      height: 206px !important;
+      min-height: 206px !important;
+      padding: 0.7rem !important;
+    }
+
+    .desktop-left-rail #grid.grid .card.expanded {
+      height: auto !important;
+      min-height: 206px !important;
+    }
+
+    .desktop-left-rail #grid.grid .priority-value {
+      font-size: clamp(1.22rem, 1.5vw, 1.55rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .priority-heading {
+      font-size: clamp(0.6rem, 0.64vw, 0.72rem);
+    }
+
+    .desktop-left-rail #grid.grid .priority-icon {
+      width: 1.1rem;
+      height: 1.1rem;
+    }
+
+    .desktop-left-rail #grid.grid .priority-compass {
+      flex-basis: 62px;
+    }
+
+    .desktop-left-rail #grid.grid .priority-compass .compass-container,
+    .desktop-left-rail #grid.grid .priority-compass svg {
+      max-width: 62px;
+      max-height: 62px;
+    }
+
+    .desktop-left-rail #grid.grid .glance-sub,
+    .desktop-left-rail #grid.grid .priority-context {
+      font-size: 0.58rem;
+    }
+
+    .desktop-left-rail #grid.grid .card-expand-hint {
+      font-size: 0.53rem;
+    }
+
+    #grid.grid .desktop-camera-tile img {
+      height: 138px;
+    }
+
+    /* Forecast card follows the narrower left rail; keep the four periods
+       but let them compress cleanly instead of overflowing. */
+    .desktop-left-rail .forecast-periods {
+      gap: 0.3rem;
+    }
+
+    .desktop-left-rail .forecast-period {
+      padding: 0.35rem 0.4rem;
+      min-height: 74px;
+    }
+
+    .desktop-left-rail .forecast-period .period-name { font-size: 0.62rem; }
+    .desktop-left-rail .forecast-period .period-temp { font-size: 0.92rem; }
+    .desktop-left-rail .forecast-period .period-short { font-size: 0.6rem; }
+    .desktop-left-rail .forecast-period .period-wind { font-size: 0.54rem; }
+
+    /* Radar card: moved into the right rail (below Storm Center) by JS.
+       It now sizes to the right rail's width instead of the old two-column
+       web-tools-grid, and always sits after Storm Center. */
+    .desktop-right-rail .desktop-radar-card {
+      order: 2;
+      grid-column: 1 / -1;
+      width: 100%;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0.9rem !important;
+      border-radius: 13px;
+    }
+
+    .desktop-right-rail .desktop-radar-card .rainviewer-map,
+    .desktop-right-rail .desktop-radar-card .map-panel iframe {
+      height: clamp(280px, 26vw, 380px);
+    }
+
+    /* With the radar card relocated, the lower tools row is just Historical
+       Data on desktop -- let it use the full width. */
+    .web-tools-grid {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+  }
+
 </style>
 
 
@@ -7190,15 +7300,19 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
     const dashboardGrid = document.querySelector('.dashboard-grid');
     const weatherGrid = document.getElementById('grid');
     const leftRail = document.querySelector('.desktop-left-rail');
+    const rightRail = document.querySelector('.desktop-right-rail');
     const forecastCard = document.querySelector('.desktop-left-rail .forecast-card');
     const cameraCard = document.getElementById('camera-img')?.closest('.camera-card');
     const skyCard = document.getElementById('sky-box')?.closest('.camera-card');
     const stormCard = document.querySelector('.dashboard-grid > .outlook-card');
+    const webToolsGrid = document.querySelector('.web-tools-grid');
+    const radarCard = document.querySelector('.web-tools-grid > .weather-map-card');
     if (!dashboardGrid || !weatherGrid || !leftRail || !forecastCard || !cameraCard || !skyCard || !stormCard) return;
 
     const desktopQuery = window.matchMedia('(min-width: 851px)');
     const originalCameraNextSibling = cameraCard.nextElementSibling;
     const originalSkyNextSibling = skyCard.nextElementSibling;
+    const originalRadarNextSibling = radarCard ? radarCard.nextElementSibling : null;
 
     function syncDesktopComposition() {
       if (desktopQuery.matches) {
@@ -7209,6 +7323,10 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
         if (skyCard.parentElement !== leftRail) {
           skyCard.classList.add('desktop-sky-card');
           leftRail.insertBefore(skyCard, forecastCard.nextElementSibling);
+        }
+        if (radarCard && rightRail && radarCard.parentElement !== rightRail) {
+          radarCard.classList.add('desktop-radar-card');
+          rightRail.appendChild(radarCard);
         }
       } else {
         cameraCard.classList.remove('desktop-camera-tile');
@@ -7226,6 +7344,17 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
             dashboardGrid.insertBefore(skyCard, originalSkyNextSibling);
           } else {
             dashboardGrid.insertBefore(skyCard, stormCard);
+          }
+        }
+
+        if (radarCard && webToolsGrid) {
+          radarCard.classList.remove('desktop-radar-card');
+          if (radarCard.parentElement !== webToolsGrid) {
+            if (originalRadarNextSibling && originalRadarNextSibling.parentElement === webToolsGrid) {
+              webToolsGrid.insertBefore(radarCard, originalRadarNextSibling);
+            } else {
+              webToolsGrid.insertBefore(radarCard, webToolsGrid.firstElementChild);
+            }
           }
         }
       }
