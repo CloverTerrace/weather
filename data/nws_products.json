@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T14:50:33.861774Z",
+  "generatedAt": "2026-08-11T14:55:44.222319Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7714a3ce12550aa77c1933a78bada3c9ae44ae1b.001.1",
@@ -106,5 +106,25 @@
       "office": "SPC"
     }
   ],
-  "statements": []
+  "statements": [
+    {
+      "id": "23334ded-0b70-46d4-b2f3-72b3b4f4687f",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-11T14:55:00+00:00",
+      "expires": null,
+      "location": "Coshocton OH-Muskingum OH-Noble OH",
+      "hazard": "Severe Weather Statement",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Zanesville, Coshocton, New Concord, West Lafayette, South Zanesville, North Zanesville, Dresden, Frazeysburg, Philo, Warsaw, Pleasant Grove, Conesville, Fultonham, Plainfield, Nellie, Norwich, Drake, Bridgeville and Otsego.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Zanesville, Coshocton, New Concord, West Lafayette, South Zanesville, North Zanesville, Dresden, Frazeysburg, Philo, Warsaw, Pleasant Grove, Conesville, Fultonham, Plainfield, Nellie, Norwich, Drake, Bridgeville and Otsego."
+        }
+      ],
+      "url": "https://api.weather.gov/products/23334ded-0b70-46d4-b2f3-72b3b4f4687f"
+    }
+  ]
 }
