@@ -3643,6 +3643,390 @@ svg circle, svg polygon, svg line {
     }
   }
 
+  /* ================================================================
+     DESKTOP BALANCE PASS — 851px+
+     The desktop composition keeps the mobile layout untouched while
+     tightening proportions, keeping the 3x3 weather tiles uniform, giving
+     Storm Center enough horizontal room, and reducing the forecast/map
+     footprint so the whole page reads as one balanced weather center.
+     ================================================================ */
+  @media (min-width: 851px) {
+    #page-content {
+      width: min(94vw, 1440px);
+      max-width: 1440px;
+      padding-inline: 0;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 2.8vw, 3rem);
+      line-height: 1.08;
+    }
+
+    h1 #weather-icon {
+      width: clamp(3rem, 4vw, 4.75rem);
+      height: clamp(3rem, 4vw, 4.75rem);
+    }
+
+    #subtitle {
+      font-size: clamp(0.82rem, 0.95vw, 1rem);
+      margin-bottom: 1rem;
+    }
+
+    .desktop-dashboard-layout {
+      grid-template-columns: minmax(0, 1.38fr) minmax(430px, 0.92fr);
+      gap: clamp(1rem, 1.35vw, 1.4rem);
+      align-items: start;
+    }
+
+    .desktop-left-rail,
+    .desktop-right-rail {
+      gap: clamp(0.9rem, 1.15vw, 1.2rem);
+    }
+
+    /* A true 3x3 tile matrix. Closed tiles share one height so rows line up
+       cleanly instead of letting the wind/lightning cards create huge gaps. */
+    .desktop-left-rail #grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      grid-auto-rows: 232px;
+      gap: clamp(0.8rem, 1vw, 1rem) !important;
+      align-items: stretch !important;
+    }
+
+    .desktop-left-rail #grid.grid .card,
+    #grid.grid .desktop-camera-tile {
+      min-height: 232px;
+      height: 232px;
+      padding: 0.85rem;
+      border-radius: 13px;
+      overflow: hidden;
+    }
+
+    /* Expanded sensor cards are allowed to grow naturally; closed cards stay
+       uniform. The existing expansion JS/class is unchanged. */
+    .desktop-left-rail #grid.grid .card.expanded {
+      height: auto;
+      min-height: 232px;
+      overflow: visible;
+    }
+
+    .desktop-left-rail #grid.grid .priority-card-head {
+      margin-bottom: 0.35rem;
+    }
+
+    .desktop-left-rail #grid.grid .priority-heading {
+      font-size: clamp(0.68rem, 0.72vw, 0.82rem);
+    }
+
+    .desktop-left-rail #grid.grid .priority-icon {
+      width: 1.35rem;
+      height: 1.35rem;
+    }
+
+    .desktop-left-rail #grid.grid .priority-value {
+      font-size: clamp(1.45rem, 1.8vw, 1.85rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .unit {
+      font-size: 0.52em;
+    }
+
+    .desktop-left-rail #grid.grid .glance-sub,
+    .desktop-left-rail #grid.grid .priority-context {
+      font-size: 0.66rem;
+    }
+
+    .desktop-left-rail #grid.grid .priority-context {
+      margin-top: 0.35rem;
+    }
+
+    .desktop-left-rail #grid.grid .card-expand-hint {
+      margin-top: auto;
+      padding-top: 0.25rem;
+      font-size: 0.59rem;
+    }
+
+    .desktop-left-rail #grid.grid .wind-priority-row,
+    .desktop-left-rail #grid.grid .pressure-priority-row,
+    .desktop-left-rail #grid.grid .lightning-priority-row {
+      gap: 0.45rem;
+    }
+
+    .desktop-left-rail #grid.grid .priority-compass {
+      flex-basis: 76px;
+    }
+
+    .desktop-left-rail #grid.grid .priority-compass .compass-container,
+    .desktop-left-rail #grid.grid .priority-compass svg {
+      max-width: 76px;
+      max-height: 76px;
+    }
+
+    /* Camera occupies tile nine in the same matrix. */
+    #grid.grid .desktop-camera-tile {
+      cursor: zoom-in;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+    }
+
+    #grid.grid .desktop-camera-tile h2 {
+      flex: 0 0 auto;
+      margin: 0 0 0.45rem;
+      font-size: clamp(0.68rem, 0.72vw, 0.82rem);
+      line-height: 1.15;
+    }
+
+    #grid.grid .desktop-camera-tile img {
+      display: block;
+      width: 100%;
+      height: 170px;
+      max-height: none;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 0;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    /* Forecast is deliberately compact: it should be useful at a glance,
+       not become a giant empty panel that pushes the analytical tools down. */
+    .desktop-left-rail .forecast-card {
+      padding: 0.85rem 1rem;
+      border-radius: 13px;
+    }
+
+    .desktop-left-rail .forecast-card h2 {
+      margin-bottom: 0.55rem;
+      font-size: clamp(0.8rem, 0.9vw, 0.98rem);
+    }
+
+    .desktop-left-rail .forecast-periods {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+
+    .desktop-left-rail .forecast-period {
+      padding: 0.55rem 0.6rem;
+      min-height: 92px;
+      border-radius: 8px;
+    }
+
+    .desktop-left-rail .forecast-period .period-name {
+      font-size: 0.72rem;
+      margin-bottom: 0.18rem;
+    }
+
+    .desktop-left-rail .forecast-period .period-temp {
+      font-size: 1.12rem;
+    }
+
+    .desktop-left-rail .forecast-period .period-short {
+      font-size: 0.72rem;
+      line-height: 1.25;
+      margin-bottom: 0.15rem;
+    }
+
+    .desktop-left-rail .forecast-period .period-wind {
+      font-size: 0.64rem;
+    }
+
+    /* Right rail: Sky & Space gets enough visual weight, Storm Center gets
+       enough width that its priority fields remain readable instead of
+       collapsing into tall vertical strings. */
+    .desktop-right-rail .dashboard-grid {
+      gap: clamp(0.9rem, 1.15vw, 1.2rem);
+    }
+
+    .desktop-right-rail .dashboard-grid > .camera-card {
+      padding: 0.9rem;
+      border-radius: 13px;
+    }
+
+    .desktop-right-rail .dashboard-grid > .camera-card:not(.outlook-card) {
+      min-height: 390px;
+    }
+
+    .desktop-right-rail .dashboard-grid > .camera-card:not(.outlook-card) h2 {
+      margin-bottom: 0.55rem;
+      font-size: clamp(0.78rem, 0.9vw, 0.98rem);
+    }
+
+    .desktop-right-rail .dashboard-grid > .camera-card:not(.outlook-card) .sky-box {
+      min-height: 215px;
+    }
+
+    .desktop-right-rail .outlook-card {
+      padding: 0.9rem;
+    }
+
+    .desktop-right-rail .outlook-card > h2 {
+      margin-bottom: 0.55rem;
+      font-size: clamp(0.78rem, 0.9vw, 0.98rem);
+    }
+
+    .desktop-right-rail .storm-desk-livebar {
+      margin-bottom: 0.65rem;
+      font-size: 0.6rem;
+    }
+
+    .desktop-right-rail .nws-tabs {
+      gap: 0.45rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .desktop-right-rail .nws-tab {
+      min-height: 40px;
+      padding: 0.45rem 0.55rem;
+      font-size: 0.7rem;
+    }
+
+    .desktop-right-rail .nws-list {
+      gap: 0.55rem;
+    }
+
+    .desktop-right-rail .nws-item {
+      padding: 0.65rem 0.7rem;
+      border-radius: 9px;
+    }
+
+    .desktop-right-rail .nws-item-title {
+      font-size: 0.8rem;
+    }
+
+    /* Seven tracks: location + hazard each get two tracks; the compact
+       distance/issued/until fields get one each. This is far more stable
+       at desktop widths than five equal-ish tracks. */
+    .desktop-right-rail .nws-priority-grid {
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 5px;
+    }
+
+    .desktop-right-rail .nws-priority-block.location,
+    .desktop-right-rail .nws-priority-block.hazard {
+      grid-column: span 2;
+    }
+
+    .desktop-right-rail .nws-priority-block.distance,
+    .desktop-right-rail .nws-priority-block.issued,
+    .desktop-right-rail .nws-priority-block.until,
+    .desktop-right-rail .nws-priority-block.time {
+      grid-column: span 1;
+    }
+
+    .desktop-right-rail .nws-priority-label {
+      font-size: 0.49rem;
+    }
+
+    .desktop-right-rail .nws-priority-value {
+      font-size: 0.66rem;
+      line-height: 1.2;
+      overflow-wrap: break-word;
+      word-break: normal;
+    }
+
+    .desktop-right-rail .outlook-viewport {
+      min-height: 235px;
+    }
+
+    .desktop-right-rail .outlook-slide img,
+    .desktop-right-rail .thunderstorm-primary-slide img {
+      max-height: 330px;
+    }
+
+    .desktop-right-rail .outlook-thumbnails {
+      gap: 0.45rem;
+      margin-top: 0.5rem;
+    }
+
+    .desktop-right-rail .outlook-thumb,
+    .desktop-right-rail .thunderstorm-thumb {
+      flex-basis: 82px;
+    }
+
+    .desktop-right-rail .outlook-nav-hint {
+      font-size: 0.56rem;
+      margin-top: 0.45rem;
+    }
+
+    /* Lower tools align with the same two-column footprint: historical data
+       on the left, radar/forecast map on the right. */
+    .web-tools-grid {
+      width: 100% !important;
+      max-width: none !important;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.45fr) !important;
+      gap: clamp(1rem, 1.35vw, 1.35rem);
+      margin-top: clamp(1rem, 1.35vw, 1.35rem);
+    }
+
+    .web-tools-grid > .charts-dropdown {
+      grid-column: 1 !important;
+      grid-row: 1 !important;
+    }
+
+    .web-tools-grid > .weather-map-card {
+      grid-column: 2 !important;
+      grid-row: 1 !important;
+    }
+
+    .web-tools-grid > .weather-map-card .rainviewer-map,
+    .web-tools-grid > .weather-map-card .map-panel iframe {
+      height: clamp(390px, 31vw, 500px);
+    }
+
+    .web-tools-grid > .charts-dropdown .charts-dropdown-body {
+      display: block;
+    }
+
+    .web-tools-grid > .charts-dropdown .chart-card {
+      margin-bottom: 0.8rem;
+    }
+  }
+
+  @media (min-width: 851px) and (max-width: 1120px) {
+    .desktop-dashboard-layout {
+      grid-template-columns: minmax(0, 1.2fr) minmax(390px, 0.9fr);
+    }
+
+    .desktop-left-rail #grid {
+      grid-auto-rows: 220px;
+    }
+
+    .desktop-left-rail #grid.grid .card,
+    #grid.grid .desktop-camera-tile {
+      min-height: 220px;
+      height: 220px;
+    }
+
+    .desktop-left-rail .forecast-periods {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 851px) and (max-width: 980px) {
+    .desktop-dashboard-layout {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    .desktop-right-rail {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .desktop-right-rail .dashboard-grid {
+      display: contents;
+    }
+
+    .desktop-right-rail .dashboard-grid > .camera-card:not(.outlook-card) {
+      min-height: 340px;
+    }
+
+    .desktop-right-rail .outlook-card {
+      grid-column: 1 / -1;
+    }
+  }
+
 </style>
 
 
@@ -6527,7 +6911,9 @@ const THEMES = {
     } catch (e) {}
 
     const cameraImg = document.getElementById('camera-img');
-    cameraImg.src = `data/camera.jpg?t=${Date.now()}`;
+    if (cameraImg) {
+      cameraImg.src = `data/camera.jpg?t=${Date.now()}`;
+    }
   } catch (err) {
     errorBanner.textContent = `Couldn't load weather data: ${err.message}`;
     errorBanner.style.display = 'block';
