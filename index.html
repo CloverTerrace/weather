@@ -438,6 +438,13 @@
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
+    /* lets a tile's own internal layout (wind compass, dual value rows,
+       etc.) react to how wide THAT card actually renders -- not the
+       viewport -- so it stays readable at any tile size the desktop
+       square-tile grid settles on. See the `@container card` rules near
+       the end of the stylesheet. */
+    container-type: inline-size;
+    container-name: card;
   }
 
   .card-expandable {
@@ -2899,6 +2906,78 @@ svg circle, svg polygon, svg line {
     #grid.grid .priority-value {
       max-width: 100%;
     }
+  }
+
+  /* ---------- desktop weather-card layout ----------
+     Same trick as the mobile block above, aimed the other direction: the
+     two .grid-column wrappers (still populated by the same JS, still in
+     the same left/right groups) are dropped from layout with
+     display:contents so each card becomes a direct item of #grid.grid.
+     With room to work with, that lets the tiles wrap into a real
+     multi-column grid instead of two tall stretched columns. Each card's
+     width is capped so it stays close to square and readable instead of
+     stretching to fill the row, and `order` keeps the same temp -> wind ->
+     pressure -> ... reading sequence used on mobile. align-self is pinned
+     to `start` so an expanded card (tap-to-open extra data) only grows
+     itself, never the row it happens to share with other tiles. */
+  @media (min-width: 851px) {
+    #grid.grid {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 300px)) !important;
+      justify-content: center !important;
+      align-items: start !important;
+      gap: clamp(1rem, 1.6vw, 1.5rem) !important;
+      width: 100% !important;
+      max-width: 1320px !important;
+      margin: 0 auto !important;
+    }
+
+    #grid.grid .grid-column {
+      display: contents !important;
+    }
+
+    #grid.grid .card {
+      width: 100% !important;
+      max-width: none !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
+      align-self: start !important;
+    }
+
+    #grid.grid .card.temp-card      { order: 1; }
+    #grid.grid .card.wind-card      { order: 2; }
+    #grid.grid .card.pressure-card  { order: 3; }
+    #grid.grid .card.precip-card    { order: 4; }
+    #grid.grid .card.lightning-card { order: 5; }
+    #grid.grid .card.solar-card     { order: 6; }
+    #grid.grid .card.aqi-card       { order: 7; }
+    #grid.grid .card.river-card     { order: 8; }
+  }
+
+  /* Whatever width the square-tile grid above settles a card into, keep
+     the wind compass / dual-value rows from ever feeling cramped -- this
+     reacts to the card's own rendered width, so it works no matter how
+     many columns the grid happens to be showing. */
+  @container card (max-width: 300px) {
+    .wind-priority-row,
+    .pressure-priority-row,
+    .lightning-priority-row {
+      gap: 0.5rem;
+    }
+
+    .priority-compass { flex-basis: 88px; }
+    .priority-value { font-size: 1.7rem !important; }
+  }
+
+  @container card (max-width: 250px) {
+    .wind-priority-row,
+    .pressure-priority-row,
+    .lightning-priority-row {
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .priority-compass { flex-basis: auto; }
   }
 
   @media (max-width: 480px) {
