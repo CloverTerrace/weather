@@ -366,13 +366,11 @@
     text-align: center;
   }
 
-  .priority-compass { flex: 0 0 112px; }
   .priority-dual-row .combo-col { flex: 1; text-align: center; }
   .compact-storm-note { margin-top: 0.7rem; font-size: 0.76rem; }
 
   @media (max-width: 560px) {
     .priority-value { font-size: 1.9rem !important; }
-    .priority-compass { flex-basis: 92px; }
     .wind-priority-row { gap: 0.4rem; }
   }
 
@@ -416,11 +414,7 @@
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
-    /* lets a tile's own internal layout (wind compass, dual value rows,
-       etc.) react to how wide THAT card actually renders -- not the
-       viewport -- so it stays readable at any tile size the desktop
-       square-tile grid settles on. See the `@container card` rules near
-       the end of the stylesheet. */
+    /* let card content respond to the tile's own rendered width */
     container-type: inline-size;
     container-name: card;
   }
@@ -2826,78 +2820,6 @@ svg circle, svg polygon, svg line {
     }
   }
 
-  /* ---------- desktop weather-card layout ----------
-     Same trick as the mobile block above, aimed the other direction: the
-     two .grid-column wrappers (still populated by the same JS, still in
-     the same left/right groups) are dropped from layout with
-     display:contents so each card becomes a direct item of #grid.grid.
-     With room to work with, that lets the tiles wrap into a real
-     multi-column grid instead of two tall stretched columns. Each card's
-     width is capped so it stays close to square and readable instead of
-     stretching to fill the row, and `order` keeps the same temp -> wind ->
-     pressure -> ... reading sequence used on mobile. align-self is pinned
-     to `start` so an expanded card (tap-to-open extra data) only grows
-     itself, never the row it happens to share with other tiles. */
-  @media (min-width: 851px) {
-    #grid.grid {
-      display: grid !important;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 300px)) !important;
-      justify-content: center !important;
-      align-items: start !important;
-      gap: clamp(1rem, 1.6vw, 1.5rem) !important;
-      width: 100% !important;
-      max-width: 1320px !important;
-      margin: 0 auto !important;
-    }
-
-    #grid.grid .grid-column {
-      display: contents !important;
-    }
-
-    #grid.grid .card {
-      width: 100% !important;
-      max-width: none !important;
-      min-width: 0 !important;
-      box-sizing: border-box !important;
-      align-self: start !important;
-    }
-
-    #grid.grid .card.temp-card      { order: 1; }
-    #grid.grid .card.wind-card      { order: 2; }
-    #grid.grid .card.pressure-card  { order: 3; }
-    #grid.grid .card.precip-card    { order: 4; }
-    #grid.grid .card.lightning-card { order: 5; }
-    #grid.grid .card.solar-card     { order: 6; }
-    #grid.grid .card.aqi-card       { order: 7; }
-    #grid.grid .card.river-card     { order: 8; }
-  }
-
-  /* Whatever width the square-tile grid above settles a card into, keep
-     the wind compass / dual-value rows from ever feeling cramped -- this
-     reacts to the card's own rendered width, so it works no matter how
-     many columns the grid happens to be showing. */
-  @container card (max-width: 300px) {
-    .wind-priority-row,
-    .pressure-priority-row,
-    .lightning-priority-row {
-      gap: 0.5rem;
-    }
-
-    .priority-compass { flex-basis: 88px; }
-    .priority-value { font-size: 1.7rem !important; }
-  }
-
-  @container card (max-width: 250px) {
-    .wind-priority-row,
-    .pressure-priority-row,
-    .lightning-priority-row {
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .priority-compass { flex-basis: auto; }
-  }
-
   @media (max-width: 480px) {
     #grid.grid {
       gap: 0.85rem !important;
@@ -2910,10 +2832,6 @@ svg circle, svg polygon, svg line {
 
     #grid.grid .wind-priority-row {
       gap: 0.35rem;
-    }
-
-    #grid.grid .priority-compass {
-      flex-basis: 88px;
     }
 
     #grid.grid .priority-value {
@@ -2956,25 +2874,7 @@ svg circle, svg polygon, svg line {
 
 
 
-  /* ================================================================
-     DESKTOP WEATHER-CENTER COMPOSITION
-     851px+ only. The mobile/tablet flow below 851px is intentionally left
-     on the existing responsive architecture.
-     ================================================================ */
-  .desktop-dashboard-layout,
-  .desktop-left-rail,
-  .desktop-right-rail {
-    width: 100%;
-  }
-
-  .desktop-dashboard-layout,
-  .desktop-left-rail,
-  .desktop-right-rail {
-    display: contents;
-  }
-
-  .forecast-card { margin-top: 0; }
-
+  /* Camera lightbox */
   .camera-lightbox {
     position: fixed;
     inset: 0;
@@ -3026,164 +2926,6 @@ svg circle, svg polygon, svg line {
   .camera-lightbox-close:focus-visible {
     background: rgba(255,255,255,0.22);
     outline: none;
-  }
-
-  @media (min-width: 851px) {
-    #page-content {
-      width: min(94vw, 1500px);
-      max-width: 1500px;
-    }
-
-    h1 {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: clamp(0.45rem, 0.9vw, 0.85rem);
-      margin-bottom: 0.15rem;
-      text-align: center;
-    }
-
-    h1 #weather-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex: 0 0 auto;
-      width: clamp(3.25rem, 5vw, 5.5rem);
-      height: clamp(3.25rem, 5vw, 5.5rem);
-      line-height: 1;
-    }
-
-    h1 .weather-icon-img,
-    h1 .meteocon {
-      width: 100%;
-      height: 100%;
-      max-width: 100%;
-      max-height: 100%;
-      margin-right: 0;
-      vertical-align: middle;
-      object-fit: contain;
-    }
-
-    #subtitle { margin-bottom: clamp(1.1rem, 1.8vw, 1.6rem); }
-
-    .desktop-dashboard-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.55fr) minmax(360px, 0.85fr);
-      gap: clamp(1rem, 1.5vw, 1.5rem);
-      align-items: start;
-      width: 100%;
-    }
-
-    .desktop-left-rail,
-    .desktop-right-rail {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-      gap: clamp(1rem, 1.5vw, 1.5rem);
-    }
-
-    .desktop-left-rail #grid {
-      width: 100% !important;
-      max-width: none !important;
-      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-      gap: clamp(0.9rem, 1.15vw, 1.25rem) !important;
-      justify-content: stretch !important;
-      margin: 0 !important;
-    }
-
-    .desktop-left-rail #grid.grid .card { width: 100% !important; }
-    .desktop-left-rail #grid.grid .card.temp-card      { order: 1; }
-    .desktop-left-rail #grid.grid .card.wind-card      { order: 2; }
-    .desktop-left-rail #grid.grid .card.pressure-card  { order: 3; }
-    .desktop-left-rail #grid.grid .card.precip-card    { order: 4; }
-    .desktop-left-rail #grid.grid .card.lightning-card { order: 5; }
-    .desktop-left-rail #grid.grid .card.solar-card     { order: 6; }
-    .desktop-left-rail #grid.grid .card.aqi-card       { order: 7; }
-    .desktop-left-rail #grid.grid .card.river-card     { order: 8; }
-
-    #grid.grid .desktop-camera-tile {
-      order: 9 !important;
-      display: flex;
-      min-width: 0;
-      width: 100% !important;
-      max-width: none !important;
-      margin: 0 !important;
-      padding: clamp(0.7rem, 0.9vw, 1rem);
-      cursor: zoom-in;
-      align-self: stretch;
-      justify-content: flex-start;
-      overflow: hidden;
-    }
-
-    #grid.grid .desktop-camera-tile h2 {
-      flex: 0 0 auto;
-      margin: 0 0 0.7rem;
-      font-size: clamp(0.72rem, 0.8vw, 0.9rem);
-    }
-
-    #grid.grid .desktop-camera-tile img {
-      width: 100%;
-      max-width: none;
-      height: auto;
-      max-height: clamp(130px, 10vw, 190px);
-      object-fit: cover;
-      border-radius: 8px;
-      margin: 0;
-    }
-
-    .desktop-left-rail .forecast-card {
-      width: 100%;
-      max-width: none;
-      margin: 0;
-    }
-
-    .desktop-right-rail .dashboard-grid {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      gap: clamp(1rem, 1.5vw, 1.5rem);
-      width: 100%;
-      max-width: none;
-      margin: 0;
-    }
-
-    .desktop-right-rail .dashboard-grid > .camera-card {
-      width: 100%;
-      max-width: none;
-      margin: 0 !important;
-    }
-
-    .desktop-right-rail .dashboard-grid > .camera-card img {
-      max-height: none;
-      object-fit: contain;
-    }
-
-    .web-tools-grid {
-      width: 100%;
-      max-width: none;
-      display: grid;
-      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr);
-      gap: clamp(1rem, 1.5vw, 1.5rem);
-      align-items: start;
-      margin-top: clamp(1rem, 1.5vw, 1.5rem);
-    }
-
-    .web-tools-grid > .weather-map-card {
-      grid-column: 2; grid-row: 1; width: 100%; max-width: none; margin: 0;
-    }
-
-    .web-tools-grid > .charts-dropdown {
-      grid-column: 1; grid-row: 1; width: 100%; max-width: none; margin: 0; align-self: start;
-    }
-
-    .web-tools-grid > .weather-map-card .rainviewer-map,
-    .web-tools-grid > .weather-map-card .map-panel iframe {
-      height: clamp(360px, 35vw, 560px);
-    }
-
-    .web-tools-grid > .charts-dropdown .charts-dropdown-body { display: block; }
-    .web-tools-grid > .charts-dropdown .chart-card { width: 100%; margin-bottom: 1rem; }
-    .web-tools-grid > .charts-dropdown .chart-card:last-child { margin-bottom: 0; }
   }
 
   /* ================================================================
@@ -3613,43 +3355,17 @@ svg circle, svg polygon, svg line {
   }
 
 
-  /* Final desktop overrides: these come after the existing refinement rules
-     so the requested desktop composition wins without touching <=850px. */
-  @media (min-width: 851px) {
-    .desktop-dashboard-layout {
-      width: 100%;
-    }
-
-    .desktop-left-rail #grid {
-      width: 100% !important;
-      max-width: none !important;
-      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    }
-
-    .web-tools-grid {
-      width: 100% !important;
-      max-width: none !important;
-      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr) !important;
-    }
-
-    .web-tools-grid > .weather-map-card {
-      grid-column: 2 !important;
-      grid-row: 1 !important;
-    }
-
-    .web-tools-grid > .charts-dropdown {
-      grid-column: 1 !important;
-      grid-row: 1 !important;
-    }
-  }
-
   /* ================================================================
-     DESKTOP BALANCE PASS — 851px+
-     The desktop composition keeps the mobile layout untouched while
-     tightening proportions, keeping the 3x3 weather tiles uniform, giving
-     Storm Center enough horizontal room, and reducing the forecast/map
-     footprint so the whole page reads as one balanced weather center.
+     DESKTOP WEATHER CENTER — CONSOLIDATED LAYOUT
+     851px+ only. One source of truth for the desktop composition:
+     - three equal sensor columns
+     - fixed, uniform closed-tile height
+     - expanded detail panels float above neighboring tiles
+     - Sky & Space follows Forecast in the left rail
+     - Storm Center leads the right rail, with Radar below it
+     - Historical Data lives in the left rail
      ================================================================ */
+
   @media (min-width: 851px) {
     #page-content {
       width: min(94vw, 1440px);
@@ -3658,211 +3374,358 @@ svg circle, svg polygon, svg line {
     }
 
     h1 {
-      font-size: clamp(2rem, 2.8vw, 3rem);
-      line-height: 1.08;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(0.45rem, 0.9vw, 0.85rem);
+      margin-bottom: 0.15rem;
+      text-align: center;
     }
 
     h1 #weather-icon {
-      width: clamp(3rem, 4vw, 4.75rem);
-      height: clamp(3rem, 4vw, 4.75rem);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      width: clamp(3.25rem, 5vw, 5.5rem);
+      height: clamp(3.25rem, 5vw, 5.5rem);
+      line-height: 1;
+    }
+
+    h1 .weather-icon-img,
+    h1 .meteocon {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      margin-right: 0;
+      vertical-align: middle;
+      object-fit: contain;
     }
 
     #subtitle {
-      font-size: clamp(0.82rem, 0.95vw, 1rem);
-      margin-bottom: 1rem;
+      margin-bottom: clamp(1.1rem, 1.8vw, 1.6rem);
     }
 
     .desktop-dashboard-layout {
-      grid-template-columns: minmax(0, 1.38fr) minmax(430px, 0.92fr);
-      gap: clamp(1rem, 1.35vw, 1.4rem);
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(430px, 0.92fr);
+      gap: clamp(1rem, 1.35vw, 1.35rem);
       align-items: start;
+      width: 100%;
     }
 
     .desktop-left-rail,
     .desktop-right-rail {
-      gap: clamp(0.9rem, 1.15vw, 1.2rem);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      gap: clamp(1rem, 1.35vw, 1.35rem);
     }
 
-    /* A true 3x3 tile matrix. Closed tiles share one height so rows line up
-       cleanly instead of letting the wind/lightning cards create huge gaps. */
+    /* --- sensor matrix --- */
     .desktop-left-rail #grid {
+      display: grid !important;
       grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-      grid-auto-rows: 232px;
+      grid-auto-rows: clamp(200px, 16vw, 224px) !important;
       gap: clamp(0.8rem, 1vw, 1rem) !important;
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
       align-items: stretch !important;
+      justify-content: stretch !important;
     }
 
-    .desktop-left-rail #grid.grid .card,
-    #grid.grid .desktop-camera-tile {
-      min-height: 232px;
-      height: 232px;
-      padding: 0.85rem;
-      border-radius: 13px;
+    .desktop-left-rail #grid .grid-column {
+      display: contents !important;
+    }
+
+    .desktop-left-rail #grid .card {
+      position: relative;
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 0 !important;
+      max-width: none !important;
+      padding: clamp(0.8rem, 1vw, 1rem);
+      align-self: stretch !important;
+      justify-content: center;
+      overflow: visible;
+      z-index: 1;
+    }
+
+    .desktop-left-rail #grid .card:not(.expanded) {
       overflow: hidden;
     }
 
-    /* Expanded sensor cards are allowed to grow naturally; closed cards stay
-       uniform. The existing expansion JS/class is unchanged. */
-    .desktop-left-rail #grid.grid .card.expanded {
-      height: auto;
-      min-height: 232px;
+    .desktop-left-rail #grid .card.expanded {
+      z-index: 100;
       overflow: visible;
     }
 
-    .desktop-left-rail #grid.grid .priority-card-head {
-      margin-bottom: 0.35rem;
+    .desktop-left-rail #grid .card.temp-card      { order: 1; }
+    .desktop-left-rail #grid .card.wind-card      { order: 2; }
+    .desktop-left-rail #grid .card.pressure-card  { order: 3; }
+    .desktop-left-rail #grid .card.precip-card    { order: 4; }
+    .desktop-left-rail #grid .card.lightning-card { order: 5; }
+    .desktop-left-rail #grid .card.solar-card     { order: 6; }
+    .desktop-left-rail #grid .card.aqi-card       { order: 7; }
+    .desktop-left-rail #grid .card.river-card     { order: 8; }
+
+    /* Keep the card's main content centered. The hint participates in the
+       normal flow instead of using margin-top:auto, which was pushing the
+       shorter cards' data toward the top of the tile. */
+    .desktop-left-rail #grid .card-expand-hint {
+      flex: 0 0 auto;
+      margin-top: 0.65rem;
+      padding-top: 0;
+      font-size: clamp(0.58rem, 0.7vw, 0.68rem);
     }
 
-    .desktop-left-rail #grid.grid .priority-heading {
-      font-size: clamp(0.68rem, 0.72vw, 0.82rem);
+    /* Expanded content floats over the following grid rows rather than
+       changing row height or pushing neighboring cards around. */
+    .desktop-left-rail #grid .card-expand-panel {
+      position: absolute;
+      top: calc(100% - 0.35rem);
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-height: min(70vh, 560px);
+      margin-top: 0 !important;
+      padding: 0.85rem 0.9rem 0.95rem;
+      overflow: auto;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0 0 13px 13px;
+      background: var(--card-color);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.24);
+      transform: translateY(-5px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
     }
 
-    .desktop-left-rail #grid.grid .priority-icon {
-      width: 1.35rem;
-      height: 1.35rem;
+    .desktop-left-rail #grid .card.expanded .card-expand-panel {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
     }
 
-    .desktop-left-rail #grid.grid .priority-value {
-      font-size: clamp(1.45rem, 1.8vw, 1.85rem) !important;
+    /* Wind: keep the at-a-glance tile compact; the compass belongs in the
+       expanded instrument panel where it has room to be useful. */
+    .desktop-left-rail #grid .wind-priority-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(0.55rem, 1vw, 0.85rem);
+      width: 100%;
+      align-items: center;
     }
 
-    .desktop-left-rail #grid.grid .unit {
-      font-size: 0.52em;
+    .desktop-left-rail #grid .wind-priority-metric {
+      min-width: 0;
+      text-align: center;
     }
 
-    .desktop-left-rail #grid.grid .glance-sub,
-    .desktop-left-rail #grid.grid .priority-context {
-      font-size: 0.66rem;
+    .wind-detail-compass {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto 0.75rem;
     }
 
-    .desktop-left-rail #grid.grid .priority-context {
-      margin-top: 0.35rem;
+    .wind-detail-compass .wind-compass {
+      width: clamp(82px, 12cqw, 112px);
+      max-width: 112px;
     }
 
-    .desktop-left-rail #grid.grid .card-expand-hint {
-      margin-top: auto;
-      padding-top: 0.25rem;
-      font-size: 0.59rem;
+    /* Keep the two-value cards genuinely horizontal at desktop widths. */
+    .desktop-left-rail #grid .lightning-priority-row,
+    .desktop-left-rail #grid .priority-dual-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(0.55rem, 1vw, 0.85rem);
+      align-items: center;
+      width: 100%;
     }
 
-    .desktop-left-rail #grid.grid .wind-priority-row,
-    .desktop-left-rail #grid.grid .pressure-priority-row,
-    .desktop-left-rail #grid.grid .lightning-priority-row {
-      gap: 0.45rem;
+    .desktop-left-rail #grid .lightning-priority-row .priority-single-value,
+    .desktop-left-rail #grid .priority-dual-row .combo-col {
+      min-width: 0;
+      text-align: center;
     }
 
-    .desktop-left-rail #grid.grid .priority-compass {
-      flex-basis: 76px;
+    /* Slightly stronger typography for the quiet single-number tiles. */
+    .desktop-left-rail #grid .aqi-card .priority-value,
+    .desktop-left-rail #grid .river-card .priority-value {
+      font-size: clamp(1.45rem, 7.5cqw, 2rem) !important;
     }
 
-    .desktop-left-rail #grid.grid .priority-compass .compass-container,
-    .desktop-left-rail #grid.grid .priority-compass svg {
-      max-width: 76px;
-      max-height: 76px;
+    .desktop-left-rail #grid .aqi-card .priority-heading,
+    .desktop-left-rail #grid .river-card .priority-heading {
+      font-size: clamp(0.68rem, 2.8cqw, 0.8rem);
     }
 
-    /* Camera occupies tile nine in the same matrix. */
-    #grid.grid .desktop-camera-tile {
-      cursor: zoom-in;
+    .desktop-left-rail #grid .priority-heading {
+      font-size: clamp(0.66rem, 2.8cqw, 0.8rem);
+      line-height: 1.2;
+    }
+
+    .desktop-left-rail #grid .priority-value {
+      font-size: clamp(1.35rem, 7.5cqw, 1.85rem) !important;
+      line-height: 1.05;
+    }
+
+    .desktop-left-rail #grid .glance-col .value {
+      font-size: clamp(1.05rem, 6.2cqw, 1.5rem);
+    }
+
+    .desktop-left-rail #grid .glance-col.glance-primary .value {
+      font-size: clamp(1.18rem, 7.2cqw, 1.7rem);
+    }
+
+    .desktop-left-rail #grid .glance-col .label {
+      font-size: clamp(0.62rem, 2.5cqw, 0.76rem);
+      line-height: 1.2;
+      white-space: normal;
+    }
+
+    .desktop-left-rail #grid .glance-sub,
+    .desktop-left-rail #grid .priority-context {
+      font-size: clamp(0.6rem, 2.2cqw, 0.72rem);
+    }
+
+    .desktop-left-rail #grid .priority-card-head {
+      margin-bottom: 0.45rem;
+    }
+
+    /* --- camera / forecast / Sky & Space --- */
+    #grid .desktop-camera-tile {
+      order: 9 !important;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: stretch;
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 0 !important;
+      margin: 0 !important;
+      padding: 0.8rem;
+      cursor: zoom-in;
+      overflow: hidden;
+      border-radius: 13px;
     }
 
-    #grid.grid .desktop-camera-tile h2 {
+    #grid .desktop-camera-tile h2 {
       flex: 0 0 auto;
       margin: 0 0 0.45rem;
-      font-size: clamp(0.68rem, 0.72vw, 0.82rem);
+      font-size: clamp(0.7rem, 0.78vw, 0.84rem);
       line-height: 1.15;
     }
 
-    #grid.grid .desktop-camera-tile img {
+    #grid .desktop-camera-tile img {
       display: block;
       width: 100%;
-      height: 170px;
+      height: auto;
+      flex: 1 1 auto;
+      min-height: 0;
       max-height: none;
       object-fit: cover;
       border-radius: 8px;
       margin: 0;
-      flex: 1 1 auto;
-      min-height: 0;
     }
 
-    /* Forecast is deliberately compact: it should be useful at a glance,
-       not become a giant empty panel that pushes the analytical tools down. */
     .desktop-left-rail .forecast-card {
-      padding: 0.85rem 1rem;
+      order: 2;
+      width: 96%;
+      max-width: none;
+      min-height: 104px;
+      margin: 0;
+      padding: 0.65rem 0.75rem;
+      align-self: flex-start;
       border-radius: 13px;
     }
 
     .desktop-left-rail .forecast-card h2 {
-      margin-bottom: 0.55rem;
-      font-size: clamp(0.8rem, 0.9vw, 0.98rem);
+      margin: 0 0 0.3rem;
+      font-size: clamp(0.74rem, 0.82vw, 0.9rem);
     }
 
     .desktop-left-rail .forecast-periods {
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0.55rem;
+      gap: 0.35rem;
     }
 
     .desktop-left-rail .forecast-period {
-      padding: 0.55rem 0.6rem;
-      min-height: 92px;
-      border-radius: 8px;
+      min-height: 74px;
+      padding: 0.35rem 0.4rem;
+      border-radius: 7px;
     }
 
-    .desktop-left-rail .forecast-period .period-name {
-      font-size: 0.72rem;
-      margin-bottom: 0.18rem;
-    }
+    .desktop-left-rail .forecast-period .period-name { font-size: 0.63rem; }
+    .desktop-left-rail .forecast-period .period-temp { font-size: 0.95rem; }
+    .desktop-left-rail .forecast-period .period-short { font-size: 0.61rem; line-height: 1.18; }
+    .desktop-left-rail .forecast-period .period-wind { font-size: 0.55rem; }
 
-    .desktop-left-rail .forecast-period .period-temp {
-      font-size: 1.12rem;
-    }
-
-    .desktop-left-rail .forecast-period .period-short {
-      font-size: 0.72rem;
-      line-height: 1.25;
-      margin-bottom: 0.15rem;
-    }
-
-    .desktop-left-rail .forecast-period .period-wind {
-      font-size: 0.64rem;
-    }
-
-    /* Right rail: Sky & Space gets enough visual weight, Storm Center gets
-       enough width that its priority fields remain readable instead of
-       collapsing into tall vertical strings. */
-    .desktop-right-rail .dashboard-grid {
-      gap: clamp(0.9rem, 1.15vw, 1.2rem);
-    }
-
-    .desktop-right-rail .dashboard-grid > .camera-card {
-      padding: 0.9rem;
+    .desktop-left-rail > .desktop-sky-card {
+      order: 3;
+      width: 96%;
+      min-height: 280px;
+      margin: 0 !important;
+      padding: 0.85rem;
       border-radius: 13px;
     }
 
-    .desktop-right-rail .dashboard-grid > .camera-card:not(.outlook-card) {
-      min-height: 390px;
-    }
-
-    .desktop-right-rail .dashboard-grid > .camera-card:not(.outlook-card) h2 {
-      margin-bottom: 0.55rem;
+    .desktop-left-rail > .desktop-sky-card h2 {
+      margin-bottom: 0.45rem;
       font-size: clamp(0.78rem, 0.9vw, 0.98rem);
     }
 
-    .desktop-right-rail .dashboard-grid > .camera-card:not(.outlook-card) .sky-box {
-      min-height: 215px;
+    .desktop-left-rail > .desktop-sky-card .sky-box {
+      min-height: 175px;
+      height: clamp(175px, 15vw, 225px);
+    }
+
+    .desktop-left-rail > .desktop-sky-card .sunmoon-details {
+      margin-top: 0.5rem;
+      font-size: 0.69rem;
+    }
+
+    .desktop-left-rail > .desktop-sky-card .sky-badges {
+      margin-top: 0.4rem;
+      gap: 0.45rem;
+      font-size: 0.66rem;
+    }
+
+    /* Historical Data is deliberately a left-rail tool on desktop. */
+    .desktop-left-rail > .charts-dropdown {
+      order: 4;
+      width: 96%;
+      max-width: none;
+      margin: 0;
+      align-self: flex-start;
+    }
+
+    .desktop-left-rail > .charts-dropdown .charts-dropdown-body {
+      margin-top: 0.7rem;
+    }
+
+    /* --- right rail: Storm Center first, Radar second --- */
+    .desktop-right-rail .dashboard-grid {
+      display: contents;
     }
 
     .desktop-right-rail .outlook-card {
+      order: 1;
+      width: 100%;
+      margin: 0 !important;
       padding: 0.9rem;
+      min-height: 0;
+      height: auto;
+      border-radius: 13px;
     }
 
     .desktop-right-rail .outlook-card > h2 {
       margin-bottom: 0.55rem;
-      font-size: clamp(0.78rem, 0.9vw, 0.98rem);
+      font-size: clamp(0.8rem, 0.9vw, 0.98rem);
     }
 
     .desktop-right-rail .storm-desk-livebar {
@@ -3894,44 +3757,13 @@ svg circle, svg polygon, svg line {
       font-size: 0.8rem;
     }
 
-    /* Seven tracks: location + hazard each get two tracks; the compact
-       distance/issued/until fields get one each. This is far more stable
-       at desktop widths than five equal-ish tracks. */
-    .desktop-right-rail .nws-priority-grid {
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 5px;
-    }
-
-    .desktop-right-rail .nws-priority-block.location,
-    .desktop-right-rail .nws-priority-block.hazard {
-      grid-column: span 2;
-    }
-
-    .desktop-right-rail .nws-priority-block.distance,
-    .desktop-right-rail .nws-priority-block.issued,
-    .desktop-right-rail .nws-priority-block.until,
-    .desktop-right-rail .nws-priority-block.time {
-      grid-column: span 1;
-    }
-
-    .desktop-right-rail .nws-priority-label {
-      font-size: 0.49rem;
-    }
-
-    .desktop-right-rail .nws-priority-value {
-      font-size: 0.66rem;
-      line-height: 1.2;
-      overflow-wrap: break-word;
-      word-break: normal;
-    }
-
     .desktop-right-rail .outlook-viewport {
-      min-height: 235px;
+      min-height: 205px;
     }
 
     .desktop-right-rail .outlook-slide img,
     .desktop-right-rail .thunderstorm-primary-slide img {
-      max-height: 330px;
+      max-height: 285px;
     }
 
     .desktop-right-rail .outlook-thumbnails {
@@ -3949,349 +3781,8 @@ svg circle, svg polygon, svg line {
       margin-top: 0.45rem;
     }
 
-    /* Lower tools align with the same two-column footprint: historical data
-       on the left, radar/forecast map on the right. */
-    .web-tools-grid {
-      width: 100% !important;
-      max-width: none !important;
-      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.45fr) !important;
-      gap: clamp(1rem, 1.35vw, 1.35rem);
-      margin-top: clamp(1rem, 1.35vw, 1.35rem);
-    }
-
-    .web-tools-grid > .charts-dropdown {
-      grid-column: 1 !important;
-      grid-row: 1 !important;
-    }
-
-    .web-tools-grid > .weather-map-card {
-      grid-column: 2 !important;
-      grid-row: 1 !important;
-    }
-
-    .web-tools-grid > .weather-map-card .rainviewer-map,
-    .web-tools-grid > .weather-map-card .map-panel iframe {
-      height: clamp(390px, 31vw, 500px);
-    }
-
-    .web-tools-grid > .charts-dropdown .charts-dropdown-body {
-      display: block;
-    }
-
-    .web-tools-grid > .charts-dropdown .chart-card {
-      margin-bottom: 0.8rem;
-    }
-  }
-
-  @media (min-width: 851px) and (max-width: 1120px) {
-    .desktop-dashboard-layout {
-      grid-template-columns: minmax(0, 1.2fr) minmax(390px, 0.9fr);
-    }
-
-    .desktop-left-rail #grid {
-      grid-auto-rows: 220px;
-    }
-
-    .desktop-left-rail #grid.grid .card,
-    #grid.grid .desktop-camera-tile {
-      min-height: 220px;
-      height: 220px;
-    }
-
-    .desktop-left-rail .forecast-periods {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (min-width: 851px) and (max-width: 980px) {
-    .desktop-dashboard-layout {
-      grid-template-columns: minmax(0, 1fr) !important;
-    }
-
-    .desktop-right-rail {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.9rem;
-    }
-
-    .desktop-right-rail .dashboard-grid {
-      display: contents;
-    }
-
-    .desktop-right-rail .dashboard-grid > .camera-card:not(.outlook-card) {
-      min-height: 340px;
-    }
-
-    .desktop-right-rail .outlook-card {
-      grid-column: 1 / -1;
-    }
-  }
-
-
-  /* ================================================================
-     DESKTOP COMPOSITION — FINAL BALANCE / EXPANSION FIXES
-     851px+ only. Mobile/tablet styles are intentionally untouched.
-     ================================================================ */
-  @media (min-width: 851px) {
-    /* Keep the main two-column dashboard balanced. */
-    .desktop-dashboard-layout {
-      grid-template-columns: minmax(0, 1.42fr) minmax(420px, 0.92fr) !important;
-      align-items: start !important;
-    }
-
-    /* The weather matrix must grow when an expanded card grows, rather than
-       letting the expanded panel paint over the row below it. Closed tiles
-       remain a uniform 232px tall; expanded tiles determine only their own
-       row's natural height. */
-    .desktop-left-rail #grid {
-      grid-auto-rows: auto !important;
-      align-items: start !important;
-      grid-auto-flow: row !important;
-    }
-
-    .desktop-left-rail #grid.grid .card,
-    #grid.grid .desktop-camera-tile {
-      height: 232px !important;
-      min-height: 232px !important;
-      align-self: start !important;
-      overflow: hidden;
-      box-sizing: border-box;
-    }
-
-    .desktop-left-rail #grid.grid .card.expanded {
-      height: auto !important;
-      min-height: 232px !important;
-      overflow: visible !important;
-      align-self: start !important;
-      justify-content: flex-start;
-      z-index: 2;
-    }
-
-    .desktop-left-rail #grid.grid .card-expand-panel {
-      flex: 0 0 auto;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .desktop-left-rail #grid.grid .card-expand-hint {
-      flex: 0 0 auto;
-    }
-
-    /* Sky & Space is intentionally moved below Forecast: it is useful, but
-       it should not compete visually with the urgent Storm Center column. */
-    .desktop-left-rail > .desktop-sky-card {
-      order: 3;
-      width: 100%;
-      margin: 0 !important;
-      padding: 0.85rem !important;
-      min-height: 300px !important;
-      border-radius: 13px;
-    }
-
-    .desktop-left-rail > .desktop-sky-card h2 {
-      margin-bottom: 0.45rem;
-      font-size: clamp(0.78rem, 0.9vw, 0.98rem);
-    }
-
-    .desktop-left-rail > .desktop-sky-card .sky-box {
-      min-height: 190px;
-      height: clamp(190px, 15vw, 235px);
-    }
-
-    .desktop-left-rail > .desktop-sky-card .sunmoon-details {
-      margin-top: 0.55rem;
-      font-size: 0.7rem;
-    }
-
-    .desktop-left-rail > .desktop-sky-card .sky-badges {
-      margin-top: 0.45rem;
-      gap: 0.5rem;
-      font-size: 0.67rem;
-    }
-
-    /* Forecast becomes a compact bridge between the 3x3 sensor matrix and
-       Sky & Space, rather than a large blank slab. */
-    .desktop-left-rail .forecast-card {
-      order: 2;
-      min-height: 122px !important;
-      padding: 0.7rem 0.85rem !important;
-    }
-
-    .desktop-left-rail .forecast-card h2 {
-      margin: 0 0 0.35rem;
-      font-size: clamp(0.74rem, 0.82vw, 0.9rem);
-    }
-
-    .desktop-left-rail .forecast-periods {
-      gap: 0.35rem;
-    }
-
-    .desktop-left-rail .forecast-period {
-      min-height: 78px;
-      padding: 0.4rem 0.45rem;
-      border-radius: 7px;
-    }
-
-    .desktop-left-rail .forecast-period .period-name { font-size: 0.66rem; }
-    .desktop-left-rail .forecast-period .period-temp { font-size: 1rem; }
-    .desktop-left-rail .forecast-period .period-short { font-size: 0.65rem; line-height: 1.18; }
-    .desktop-left-rail .forecast-period .period-wind { font-size: 0.58rem; }
-
-    /* Storm Center owns the top of the right rail now. Give it horizontal
-       room and let its contents determine the natural height. */
-    .desktop-right-rail {
-      gap: 0 !important;
-    }
-
-    .desktop-right-rail .dashboard-grid {
-      display: contents !important;
-    }
-
-    .desktop-right-rail .outlook-card {
-      order: 1;
-      width: 100%;
-      margin: 0 !important;
-      padding: 0.9rem !important;
-      min-height: 0;
-      height: auto;
-    }
-
-    .desktop-right-rail .outlook-card .nws-priority-grid {
-      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.35fr) repeat(3, minmax(62px, 0.62fr));
-    }
-
-    .desktop-right-rail .outlook-viewport {
-      min-height: 205px;
-    }
-
-    .desktop-right-rail .outlook-slide img,
-    .desktop-right-rail .thunderstorm-primary-slide img {
-      max-height: 285px;
-    }
-
-    /* Lower tools retain the requested historical-left / radar-right split. */
-    .web-tools-grid {
-      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.42fr) !important;
-      gap: clamp(0.9rem, 1.2vw, 1.25rem);
-    }
-  }
-
-  @media (min-width: 851px) and (max-width: 1120px) {
-    .desktop-dashboard-layout {
-      grid-template-columns: minmax(0, 1.25fr) minmax(390px, 0.95fr) !important;
-    }
-
-    .desktop-left-rail #grid {
-      grid-auto-rows: auto !important;
-    }
-
-    .desktop-left-rail #grid.grid .card,
-    #grid.grid .desktop-camera-tile {
-      height: 220px !important;
-      min-height: 220px !important;
-    }
-
-    .desktop-left-rail #grid.grid .card.expanded {
-      height: auto !important;
-      min-height: 220px !important;
-    }
-
-    .desktop-left-rail .forecast-periods {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-  }
-
-  /* ================================================================
-     DESKTOP SPACING PASS — sensor grid breathing room, narrower forecast
-     card, right rail gets the reclaimed width, and the radar map moves
-     into the right rail beneath Storm Center. 851px+ only; mobile/tablet
-     (<=850px) is untouched, and the JS above reverts the radar card's DOM
-     position below 851px so its layout there is unaffected too.
-     ================================================================ */
-  @media (min-width: 851px) {
-    /* Give the right rail more of the page's width; the left rail (sensor
-       grid + forecast card) narrows to match. */
-    .desktop-dashboard-layout {
-      grid-template-columns: minmax(0, 1.2fr) minmax(440px, 1fr) !important;
-    }
-
-    /* Shrink the 3x3 tile matrix a bit so each tile has real breathing
-       room at the new, narrower left-rail width instead of feeling packed
-       edge-to-edge. */
-    .desktop-left-rail #grid {
-      grid-auto-rows: 206px !important;
-    }
-
-    .desktop-left-rail #grid.grid .card,
-    #grid.grid .desktop-camera-tile {
-      height: 206px !important;
-      min-height: 206px !important;
-      padding: 0.7rem !important;
-    }
-
-    .desktop-left-rail #grid.grid .card.expanded {
-      height: auto !important;
-      min-height: 206px !important;
-    }
-
-    .desktop-left-rail #grid.grid .priority-value {
-      font-size: clamp(1.22rem, 1.5vw, 1.55rem) !important;
-    }
-
-    .desktop-left-rail #grid.grid .priority-heading {
-      font-size: clamp(0.6rem, 0.64vw, 0.72rem);
-    }
-
-    .desktop-left-rail #grid.grid .priority-icon {
-      width: 1.1rem;
-      height: 1.1rem;
-    }
-
-    .desktop-left-rail #grid.grid .priority-compass {
-      flex-basis: 62px;
-    }
-
-    .desktop-left-rail #grid.grid .priority-compass .compass-container,
-    .desktop-left-rail #grid.grid .priority-compass svg {
-      max-width: 62px;
-      max-height: 62px;
-    }
-
-    .desktop-left-rail #grid.grid .glance-sub,
-    .desktop-left-rail #grid.grid .priority-context {
-      font-size: 0.58rem;
-    }
-
-    .desktop-left-rail #grid.grid .card-expand-hint {
-      font-size: 0.53rem;
-    }
-
-    #grid.grid .desktop-camera-tile img {
-      height: 138px;
-    }
-
-    /* Forecast card follows the narrower left rail; keep the four periods
-       but let them compress cleanly instead of overflowing. */
-    .desktop-left-rail .forecast-periods {
-      gap: 0.3rem;
-    }
-
-    .desktop-left-rail .forecast-period {
-      padding: 0.35rem 0.4rem;
-      min-height: 74px;
-    }
-
-    .desktop-left-rail .forecast-period .period-name { font-size: 0.62rem; }
-    .desktop-left-rail .forecast-period .period-temp { font-size: 0.92rem; }
-    .desktop-left-rail .forecast-period .period-short { font-size: 0.6rem; }
-    .desktop-left-rail .forecast-period .period-wind { font-size: 0.54rem; }
-
-    /* Radar card: moved into the right rail (below Storm Center) by JS.
-       It now sizes to the right rail's width instead of the old two-column
-       web-tools-grid, and always sits after Storm Center. */
     .desktop-right-rail .desktop-radar-card {
       order: 2;
-      grid-column: 1 / -1;
       width: 100%;
       max-width: none !important;
       margin: 0 !important;
@@ -4301,142 +3792,40 @@ svg circle, svg polygon, svg line {
 
     .desktop-right-rail .desktop-radar-card .rainviewer-map,
     .desktop-right-rail .desktop-radar-card .map-panel iframe {
-      height: clamp(280px, 26vw, 380px);
+      height: clamp(320px, 30vw, 460px);
     }
 
-    /* With the radar card relocated, the lower tools row is just Historical
-       Data on desktop -- let it use the full width. */
-    .web-tools-grid {
-      grid-template-columns: minmax(0, 1fr) !important;
-    }
-  }
-
-  /* ================================================================
-     LEGIBILITY + SPACING FIX PASS — 851px+ only. The <=850px mobile
-     layout is completely untouched (every selector below only exists
-     under `.desktop-left-rail` / `.desktop-right-rail`, which the JS
-     above only creates at 851px+).
-
-     Two problems this fixes:
-
-     1. Sensor tiles were pinned to a fixed pixel height with
-        `overflow: hidden`, and "Feels Like" / "Dew Point" (and other
-        tile labels) were forced onto one line with `white-space:
-        nowrap`. At in-between desktop widths the labels didn't fit
-        that one line, so instead of wrapping they overflowed sideways
-        and printed on top of each other. Tiles now size to their own
-        content (min-height, not a hard height + clip), and labels are
-        allowed to wrap.
-
-     2. Numbers/labels inside each tile now scale using CSS container
-        query units (cqw = % of the tile's own rendered width, since
-        `.card` already declares itself a query container earlier in
-        this stylesheet). That's the "responsive growth" -- one rule
-        that scales smoothly with each tile's actual width instead of
-        a different fixed rem value bolted on per breakpoint. Every
-        value is still clamp()'d so it can't shrink past legible or
-        grow past the old max size.
-
-     3. Storm Center and the Live Radar/Forecast Map card were
-        stacked with zero gap between them (`gap: 0`), which is what
-        made the map read as jammed against the bottom of the Storm
-        Center card. A real gap is restored, and the map itself gets
-        more vertical room.
-     ================================================================ */
-  @media (min-width: 851px) {
-    /* Tiles grow to fit their content -- a generous min-height keeps
-       the matrix looking uniform, but nothing is clipped or forced to
-       overlap again regardless of window width. */
-    .desktop-left-rail #grid {
-      grid-auto-rows: auto !important;
+    /* The wrapper is empty on desktop because both tools are moved into
+       their proper rails by syncDesktopComposition(). */
+    .desktop-dashboard-layout + .web-tools-grid {
+      display: none;
     }
 
-    .desktop-left-rail #grid.grid .card,
-    #grid.grid .desktop-camera-tile {
-      height: auto !important;
-      min-height: 200px !important;
-      overflow: visible !important;
-      padding: clamp(0.85rem, 1.4cqw, 1.15rem) !important;
-    }
+    /* Below 1050px the two major rails stack, but the sensor matrix remains
+       a clean three-column matrix when there is enough width for it. */
+    @media (min-width: 851px) and (max-width: 1049px) {
+      .desktop-dashboard-layout {
+        grid-template-columns: 1fr;
+      }
 
-    .desktop-left-rail #grid.grid .card.expanded {
-      min-height: 200px !important;
-    }
+      .desktop-right-rail {
+        gap: 1rem;
+      }
 
-    /* Let labels wrap onto a second line instead of forcing one line
-       that overflows into the neighboring column. */
-    .desktop-left-rail #grid.grid .glance-col .label,
-    .desktop-left-rail #grid.grid .priority-heading {
-      white-space: normal;
-      overflow-wrap: break-word;
-      line-height: 1.2;
-    }
+      .desktop-left-rail #grid {
+        grid-auto-rows: 210px !important;
+      }
 
-    /* Big numbers scale with the tile's own rendered width. */
-    .desktop-left-rail #grid.grid .priority-value {
-      font-size: clamp(1.3rem, 9cqw, 1.9rem) !important;
-    }
+      .desktop-left-rail > .forecast-card,
+      .desktop-left-rail > .desktop-sky-card,
+      .desktop-left-rail > .charts-dropdown {
+        width: 100%;
+      }
 
-    .desktop-left-rail #grid.grid .glance-col .value {
-      font-size: clamp(1.05rem, 7.5cqw, 1.5rem);
-    }
-
-    .desktop-left-rail #grid.grid .glance-col.glance-primary .value {
-      font-size: clamp(1.2rem, 8.5cqw, 1.7rem);
-    }
-
-    /* Labels and supporting text scale a little more gently, and stay
-       readable at every tile width the 3-column matrix can settle on. */
-    .desktop-left-rail #grid.grid .priority-heading,
-    .desktop-left-rail #grid.grid .glance-col .label {
-      font-size: clamp(0.64rem, 2.7cqw, 0.78rem) !important;
-    }
-
-    .desktop-left-rail #grid.grid .glance-sub,
-    .desktop-left-rail #grid.grid .priority-context {
-      font-size: clamp(0.6rem, 2.3cqw, 0.72rem) !important;
-    }
-
-    .desktop-left-rail #grid.grid .card-expand-hint {
-      font-size: clamp(0.58rem, 2.2cqw, 0.68rem) !important;
-    }
-
-    .desktop-left-rail #grid.grid .priority-icon {
-      width: clamp(1.1rem, 5cqw, 1.5rem);
-      height: clamp(1.1rem, 5cqw, 1.5rem);
-    }
-
-    /* Wind compass: the ring and its degree/cardinal readout scale
-       together so the numbers never outgrow the ring around them. */
-    .desktop-left-rail #grid.grid .priority-compass {
-      flex-basis: clamp(62px, 24cqw, 92px);
-    }
-
-    .desktop-left-rail #grid.grid .priority-compass .compass-container,
-    .desktop-left-rail #grid.grid .priority-compass svg {
-      max-width: clamp(62px, 24cqw, 92px);
-      max-height: clamp(62px, 24cqw, 92px);
-    }
-
-    .desktop-left-rail #grid.grid .wind-compass-degrees {
-      font-size: clamp(0.85rem, 4.2cqw, 1.3rem) !important;
-    }
-
-    .desktop-left-rail #grid.grid .wind-compass-cardinal {
-      font-size: clamp(0.55rem, 2.6cqw, 0.78rem) !important;
-    }
-
-    /* Storm Center + radar: restore real breathing room between the
-       two stacked right-rail cards instead of butting them together. */
-    .desktop-right-rail {
-      gap: clamp(1.1rem, 1.6vw, 1.6rem) !important;
-    }
-
-    /* Give the radar/forecast map more vertical room so it reads as a
-       proper full card, not a cramped strip. */
-    .desktop-right-rail .desktop-radar-card .rainviewer-map,
-    .desktop-right-rail .desktop-radar-card .map-panel iframe {
-      height: clamp(320px, 30vw, 460px) !important;
+      .desktop-right-rail .desktop-radar-card .rainviewer-map,
+      .desktop-right-rail .desktop-radar-card .map-panel iframe {
+        height: clamp(300px, 48vw, 420px);
+      }
     }
   }
 
@@ -5312,9 +4701,28 @@ svg circle, svg polygon, svg line {
       }
     });
 
+    // The expanded panel is an overlay, so leaving it must dismiss it rather
+    // than letting it permanently cover the matrix.
+    cardEl._setExpanded = setOpen;
+
     // restore state across the 60s rebuild
     if (isOpen()) setOpen(true);
   }
+
+  // Expanded sensor panels behave like temporary popovers: tapping elsewhere
+  // closes the old one, and any scroll closes all of them.
+  document.addEventListener('pointerdown', (event) => {
+    const activeCard = event.target.closest?.('.card-expandable.expanded');
+    document.querySelectorAll('.card-expandable.expanded').forEach(card => {
+      if (card !== activeCard) card._setExpanded?.(false);
+    });
+  }, true);
+
+  window.addEventListener('scroll', () => {
+    document.querySelectorAll('.card-expandable.expanded').forEach(card => {
+      card._setExpanded?.(false);
+    });
+  }, { passive: true });
 
   function renderChart(history) {
     const labels = history.map(entry => entry.time);
@@ -6669,7 +6077,6 @@ const THEMES = {
           <div class="value priority-value">${formatVal(data.windSpeed, 1)}<span class="unit">mph</span></div>
           <span class="glance-sub">sustained</span>
         </div>
-        <div class="compass-container priority-compass">${buildWindCompassHtml(false, data.winddir || 0)}</div>
         <div class="wind-priority-metric">
           <div class="value priority-value">${formatVal(data.windGust, 1)}<span class="unit">mph</span></div>
           <span class="glance-sub">gust</span>
@@ -6680,22 +6087,26 @@ const THEMES = {
     gridRight.appendChild(windCard);
     makeCardExpandable(windCard, 'wind', 'more wind data', (panel) => {
       const gustFactor = (data.windSpeed && data.windGust) ? (data.windGust / Math.max(data.windSpeed, 0.1)) : null;
-      panel.innerHTML = detailPanelHtml([
-        {
-          title: 'Current wind',
-          rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">Beaufort</span><span class="extra-data-value">${getBeaufortLabel(data.windSpeed)}</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Gust Factor</span><span class="extra-data-value">${gustFactor ? gustFactor.toFixed(2) + '×' : '--'}</span></div>`
-          ]
-        },
-        {
-          title: 'Wind extremes',
-          rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">Peak Gust</span><span class="extra-data-value">${formatVal(wgExt.max.val, 1)} mph <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(wgExt.max.time)}</span></span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Peak Sustained</span><span class="extra-data-value">${formatVal(wsExt.max.val, 1)} mph <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(wsExt.max.time)}</span></span></div>`
-          ]
-        }
-      ], 'A gust factor above ~1.5× indicates increasingly gusty flow; elevated ratios during storms can be a useful downburst clue.') ;
+      panel.innerHTML = `
+        <div class="wind-detail-compass">${buildWindCompassHtml(false, data.winddir || 0)}</div>
+        ${detailPanelHtml([
+          {
+            title: 'Current wind',
+            rows: [
+              `<div class="extra-data-row"><span class="extra-data-label">Direction</span><span class="extra-data-value">${formatVal(data.winddir, 0)}° ${degreesToCardinal16(data.winddir || 0)}</span></div>`,
+              `<div class="extra-data-row"><span class="extra-data-label">Beaufort</span><span class="extra-data-value">${getBeaufortLabel(data.windSpeed)}</span></div>`,
+              `<div class="extra-data-row"><span class="extra-data-label">Gust Factor</span><span class="extra-data-value">${gustFactor ? gustFactor.toFixed(2) + '×' : '--'}</span></div>`
+            ]
+          },
+          {
+            title: 'Wind extremes',
+            rows: [
+              `<div class="extra-data-row"><span class="extra-data-label">Peak Gust</span><span class="extra-data-value">${formatVal(wgExt.max.val, 1)} mph <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(wgExt.max.time)}</span></span></div>`,
+              `<div class="extra-data-row"><span class="extra-data-label">Peak Sustained</span><span class="extra-data-value">${formatVal(wsExt.max.val, 1)} mph <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(wsExt.max.time)}</span></span></div>`
+            ]
+          }
+        ], 'A gust factor above ~1.5× indicates increasingly gusty flow; elevated ratios during storms can be a useful downburst clue.')}
+      `;
     });
 
 
@@ -7436,12 +6847,14 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
     const stormCard = document.querySelector('.dashboard-grid > .outlook-card');
     const webToolsGrid = document.querySelector('.web-tools-grid');
     const radarCard = document.querySelector('.web-tools-grid > .weather-map-card');
+    const chartsDropdown = document.querySelector('.web-tools-grid > .charts-dropdown');
     if (!dashboardGrid || !weatherGrid || !leftRail || !forecastCard || !cameraCard || !skyCard || !stormCard) return;
 
     const desktopQuery = window.matchMedia('(min-width: 851px)');
     const originalCameraNextSibling = cameraCard.nextElementSibling;
     const originalSkyNextSibling = skyCard.nextElementSibling;
     const originalRadarNextSibling = radarCard ? radarCard.nextElementSibling : null;
+    const originalChartsNextSibling = chartsDropdown ? chartsDropdown.nextElementSibling : null;
 
     function syncDesktopComposition() {
       if (desktopQuery.matches) {
@@ -7456,6 +6869,9 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
         if (radarCard && rightRail && radarCard.parentElement !== rightRail) {
           radarCard.classList.add('desktop-radar-card');
           rightRail.appendChild(radarCard);
+        }
+        if (chartsDropdown && chartsDropdown.parentElement !== leftRail) {
+          leftRail.appendChild(chartsDropdown);
         }
       } else {
         cameraCard.classList.remove('desktop-camera-tile');
@@ -7483,6 +6899,16 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
               webToolsGrid.insertBefore(radarCard, originalRadarNextSibling);
             } else {
               webToolsGrid.insertBefore(radarCard, webToolsGrid.firstElementChild);
+            }
+          }
+        }
+
+        if (chartsDropdown && webToolsGrid) {
+          if (chartsDropdown.parentElement !== webToolsGrid) {
+            if (originalChartsNextSibling && originalChartsNextSibling.parentElement === webToolsGrid) {
+              webToolsGrid.insertBefore(chartsDropdown, originalChartsNextSibling);
+            } else {
+              webToolsGrid.appendChild(chartsDropdown);
             }
           }
         }
