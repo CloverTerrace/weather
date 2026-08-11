@@ -2957,6 +2957,236 @@ svg circle, svg polygon, svg line {
 
 
   /* ================================================================
+     DESKTOP WEATHER-CENTER COMPOSITION
+     851px+ only. The mobile/tablet flow below 851px is intentionally left
+     on the existing responsive architecture.
+     ================================================================ */
+  .desktop-dashboard-layout,
+  .desktop-left-rail,
+  .desktop-right-rail {
+    width: 100%;
+  }
+
+  .desktop-dashboard-layout,
+  .desktop-left-rail,
+  .desktop-right-rail {
+    display: contents;
+  }
+
+  .forecast-card { margin-top: 0; }
+
+  .camera-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1rem, 3vw, 3rem);
+    background: rgba(0, 0, 0, 0.86);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  .camera-lightbox.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .camera-lightbox img {
+    display: block;
+    max-width: min(94vw, 1800px);
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .camera-lightbox-close {
+    position: absolute;
+    top: clamp(0.75rem, 2vw, 1.5rem);
+    right: clamp(0.75rem, 2vw, 1.5rem);
+    width: 2.6rem;
+    height: 2.6rem;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    font: 400 2rem/1 system-ui, sans-serif;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .camera-lightbox-close:hover,
+  .camera-lightbox-close:focus-visible {
+    background: rgba(255,255,255,0.22);
+    outline: none;
+  }
+
+  @media (min-width: 851px) {
+    #page-content {
+      width: min(94vw, 1500px);
+      max-width: 1500px;
+    }
+
+    h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(0.45rem, 0.9vw, 0.85rem);
+      margin-bottom: 0.15rem;
+      text-align: center;
+    }
+
+    h1 #weather-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      width: clamp(3.25rem, 5vw, 5.5rem);
+      height: clamp(3.25rem, 5vw, 5.5rem);
+      line-height: 1;
+    }
+
+    h1 .weather-icon-img,
+    h1 .meteocon {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      margin-right: 0;
+      vertical-align: middle;
+      object-fit: contain;
+    }
+
+    #subtitle { margin-bottom: clamp(1.1rem, 1.8vw, 1.6rem); }
+
+    .desktop-dashboard-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(360px, 0.85fr);
+      gap: clamp(1rem, 1.5vw, 1.5rem);
+      align-items: start;
+      width: 100%;
+    }
+
+    .desktop-left-rail,
+    .desktop-right-rail {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      gap: clamp(1rem, 1.5vw, 1.5rem);
+    }
+
+    .desktop-left-rail #grid {
+      width: 100% !important;
+      max-width: none !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: clamp(0.9rem, 1.15vw, 1.25rem) !important;
+      justify-content: stretch !important;
+      margin: 0 !important;
+    }
+
+    .desktop-left-rail #grid.grid .card { width: 100% !important; }
+    .desktop-left-rail #grid.grid .card.temp-card      { order: 1; }
+    .desktop-left-rail #grid.grid .card.wind-card      { order: 2; }
+    .desktop-left-rail #grid.grid .card.pressure-card  { order: 3; }
+    .desktop-left-rail #grid.grid .card.precip-card    { order: 4; }
+    .desktop-left-rail #grid.grid .card.lightning-card { order: 5; }
+    .desktop-left-rail #grid.grid .card.solar-card     { order: 6; }
+    .desktop-left-rail #grid.grid .card.aqi-card       { order: 7; }
+    .desktop-left-rail #grid.grid .card.river-card     { order: 8; }
+
+    #grid.grid .desktop-camera-tile {
+      order: 9 !important;
+      display: flex;
+      min-width: 0;
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: clamp(0.7rem, 0.9vw, 1rem);
+      cursor: zoom-in;
+      align-self: stretch;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+
+    #grid.grid .desktop-camera-tile h2 {
+      flex: 0 0 auto;
+      margin: 0 0 0.7rem;
+      font-size: clamp(0.72rem, 0.8vw, 0.9rem);
+    }
+
+    #grid.grid .desktop-camera-tile img {
+      width: 100%;
+      max-width: none;
+      height: auto;
+      max-height: clamp(130px, 10vw, 190px);
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 0;
+    }
+
+    .desktop-left-rail .forecast-card {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+
+    .desktop-right-rail .dashboard-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: clamp(1rem, 1.5vw, 1.5rem);
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+
+    .desktop-right-rail .dashboard-grid > .camera-card {
+      width: 100%;
+      max-width: none;
+      margin: 0 !important;
+    }
+
+    .desktop-right-rail .dashboard-grid > .camera-card img {
+      max-height: none;
+      object-fit: contain;
+    }
+
+    .web-tools-grid {
+      width: 100%;
+      max-width: none;
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr);
+      gap: clamp(1rem, 1.5vw, 1.5rem);
+      align-items: start;
+      margin-top: clamp(1rem, 1.5vw, 1.5rem);
+    }
+
+    .web-tools-grid > .weather-map-card {
+      grid-column: 2; grid-row: 1; width: 100%; max-width: none; margin: 0;
+    }
+
+    .web-tools-grid > .charts-dropdown {
+      grid-column: 1; grid-row: 1; width: 100%; max-width: none; margin: 0; align-self: start;
+    }
+
+    .web-tools-grid > .weather-map-card .rainviewer-map,
+    .web-tools-grid > .weather-map-card .map-panel iframe {
+      height: clamp(360px, 35vw, 560px);
+    }
+
+    .web-tools-grid > .charts-dropdown .charts-dropdown-body { display: block; }
+    .web-tools-grid > .charts-dropdown .chart-card { width: 100%; margin-bottom: 1rem; }
+    .web-tools-grid > .charts-dropdown .chart-card:last-child { margin-bottom: 0; }
+  }
+
+  /* ================================================================
      PHASE 1 — LOCAL WEATHER CENTER REFINEMENT
      Keep the existing data/features/effects; improve hierarchy, breathing
      room, responsive behavior, and the relationship between the analytical
@@ -3382,6 +3612,37 @@ svg circle, svg polygon, svg line {
     }
   }
 
+
+  /* Final desktop overrides: these come after the existing refinement rules
+     so the requested desktop composition wins without touching <=850px. */
+  @media (min-width: 851px) {
+    .desktop-dashboard-layout {
+      width: 100%;
+    }
+
+    .desktop-left-rail #grid {
+      width: 100% !important;
+      max-width: none !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+
+    .web-tools-grid {
+      width: 100% !important;
+      max-width: none !important;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr) !important;
+    }
+
+    .web-tools-grid > .weather-map-card {
+      grid-column: 2 !important;
+      grid-row: 1 !important;
+    }
+
+    .web-tools-grid > .charts-dropdown {
+      grid-column: 1 !important;
+      grid-row: 1 !important;
+    }
+  }
+
 </style>
 
 
@@ -3482,16 +3743,20 @@ svg circle, svg polygon, svg line {
 
   <div id="error-banner" role="alert" aria-live="assertive"></div>
 
-  <div class="grid" id="grid">
+  <div class="desktop-dashboard-layout">
+    <div class="desktop-left-rail">
+      <div class="grid" id="grid">
+      </div>
+
+      <div class="camera-card forecast-card">
+        <h2>Forecast</h2>
+        <div class="forecast-periods" id="forecast-periods">
+        </div>
+      </div>
     </div>
 
-      <div class="camera-card">
-    <h2>Forecast</h2>
-    <div class="forecast-periods" id="forecast-periods">
-    </div>
-  </div>
-
- <div class="dashboard-grid">
+    <div class="desktop-right-rail">
+      <div class="dashboard-grid">
 
   <div class="camera-card">
     <h2>Station Camera</h2>
@@ -3616,7 +3881,9 @@ svg circle, svg polygon, svg line {
     </div>
   </div>
 
- </div> <!-- .dashboard-grid -->
+      </div> <!-- .dashboard-grid -->
+    </div> <!-- .desktop-right-rail -->
+  </div> <!-- .desktop-dashboard-layout -->
 
  <div class="web-tools-grid">
 
@@ -3696,6 +3963,11 @@ svg circle, svg polygon, svg line {
   </details>
 
  </div> <!-- .web-tools-grid -->
+
+  <div id="camera-lightbox" class="camera-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Station camera photo">
+    <button id="camera-lightbox-close" class="camera-lightbox-close" type="button" aria-label="Close station camera photo">&times;</button>
+    <img id="camera-lightbox-img" src="data/camera.jpg" alt="Latest snapshot from the weather station camera">
+  </div>
 
   <div id="status" aria-live="polite"></div>
 
@@ -6335,6 +6607,70 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
   if (getRemainingCooldownMs() > 0) {
     startCooldownCountdown();
   }
+
+  // Desktop-only composition: move the existing live camera tile into the
+  // 3x3 weather grid. Below 851px it is returned to its original dashboard
+  // position so the existing mobile/tablet layout remains unchanged.
+  (function initDesktopCameraLayout() {
+    const cameraCard = document.querySelector('.dashboard-grid > .camera-card:not(.outlook-card)');
+    const dashboardGrid = document.querySelector('.dashboard-grid');
+    const weatherGrid = document.getElementById('grid');
+    if (!cameraCard || !dashboardGrid || !weatherGrid) return;
+
+    const desktopQuery = window.matchMedia('(min-width: 851px)');
+    const originalNextSibling = cameraCard.nextElementSibling;
+
+    function syncCameraPlacement() {
+      if (desktopQuery.matches) {
+        if (cameraCard.parentElement !== weatherGrid) {
+          cameraCard.classList.add('desktop-camera-tile');
+          weatherGrid.appendChild(cameraCard);
+        }
+      } else if (cameraCard.parentElement !== dashboardGrid) {
+        cameraCard.classList.remove('desktop-camera-tile');
+        if (originalNextSibling && originalNextSibling.parentElement === dashboardGrid) {
+          dashboardGrid.insertBefore(cameraCard, originalNextSibling);
+        } else {
+          dashboardGrid.insertBefore(cameraCard, dashboardGrid.firstElementChild);
+        }
+      }
+    }
+
+    syncCameraPlacement();
+    desktopQuery.addEventListener?.('change', syncCameraPlacement);
+
+    const lightbox = document.getElementById('camera-lightbox');
+    const lightboxImg = document.getElementById('camera-lightbox-img');
+    const closeBtn = document.getElementById('camera-lightbox-close');
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function openLightbox() {
+      if (!desktopQuery.matches) return;
+      const source = document.getElementById('camera-img');
+      if (!source) return;
+      lightboxImg.src = source.currentSrc || source.src;
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus({ preventScroll: true });
+    }
+
+    cameraCard.addEventListener('click', (event) => {
+      if (desktopQuery.matches && !event.target.closest('a, button')) openLightbox();
+    });
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
+  })();
 
   (function hydrateFromCache() {
     try {
