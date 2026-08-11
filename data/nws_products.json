@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T15:55:39.143861Z",
+  "generatedAt": "2026-08-11T16:00:42.182229Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7714a3ce12550aa77c1933a78bada3c9ae44ae1b.001.1",
@@ -104,44 +104,6 @@
       ],
       "url": "https://www.spc.noaa.gov/products/md/md1922.html",
       "office": "SPC"
-    },
-    {
-      "id": "MD1921",
-      "number": 1921,
-      "issued": "2026-08-11T14:00:00Z",
-      "expires": "2026-08-11T16:00:00Z",
-      "concerning": "Severe Thunderstorm Watch 563",
-      "hazard": "Severe Thunderstorm Watch 563",
-      "areas": "southern Wisconsin...northern Illinois...and far northwest Indiana",
-      "location": "southern Wisconsin...northern Illinois...and far northwest Indiana",
-      "distanceMiles": 357.4,
-      "summary": "The potential for significant wind gusts up to 75-85 mph is expected to persist with an evolving bow echo this morning",
-      "watchProbability": null,
-      "forecaster": "Mead",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "The potential for significant wind gusts up to 75-85 mph is expected to persist with an evolving bow echo this morning"
-        },
-        {
-          "label": "Discussion",
-          "text": "An MCS with a history of producing wind gusts of 70-80 mph is currently evolving into a broader bowing configuration over east-central IA and far northwest IL as of 1355Z. The 12z DVN sounding is likely a good representation of the ambient inflow environment, featuring steep mid-level lapse rates and abundant boundary-layer moisture, yielding MUCAPE of 4500-5000 J/kg. A largely unidirectional wind profile with around 35 kt of deep-layer shear (per the 12z DVN sounding and current VWP) in conjunction with the strongly unstable environment is likely to support further intensification of the bow echo with an associated risk for significant wind gusts up to 75-85 mph. Around 30 kt of 0-3 km shear oriented largely perpendicular to the cold pool may support some tornado potential, especially where the low-level shear and cold pool remain in balance. The bow echo is expected to track along a residual outflow boundary from a downstream MCS, which extends east-southeast through the south side of the greater Chicago metropolitan area into far northwest IN"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK WIND GUST...65-80 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Mead"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...LOT...ILX...MKX...DVN...ARX"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md1921.html",
-      "office": "SPC"
     }
   ],
   "statements": [
@@ -201,25 +163,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/f98626d9-5cc7-4a1b-86df-cf80e28d2253"
-    },
-    {
-      "id": "32927040-54d4-40e6-919b-de4fb8e15431",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-11T15:32:00+00:00",
-      "expires": null,
-      "location": "Belmont OH-Guernsey OH-Monroe OH-Muskingum OH-Noble OH",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Cambridge, Woodsfield, Caldwell, New Concord, Byesville, Dudley, Quaker City, Senecaville, Pleasant City, Cumberland, Lore City, Summerfield, Belle Valley, Lewisville, Sarahsville, Jerusalem, Dexter City, Salesville, Wilson and Somerton.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Cambridge, Woodsfield, Caldwell, New Concord, Byesville, Dudley, Quaker City, Senecaville, Pleasant City, Cumberland, Lore City, Summerfield, Belle Valley, Lewisville, Sarahsville, Jerusalem, Dexter City, Salesville, Wilson and Somerton."
-        }
-      ],
-      "url": "https://api.weather.gov/products/32927040-54d4-40e6-919b-de4fb8e15431"
     }
   ]
 }
