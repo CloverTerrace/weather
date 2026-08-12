@@ -282,12 +282,15 @@
   }
 
   .weather-icon-moon {
-    width: 1.1em;
-    height: 1.1em;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 0.15em;
-  }
+     width: 1.25em;
+     height: 1.25em;
+     border-radius: 50%;
+     object-fit: cover;
+     object-position: center;
+     margin-right: 0.15em;
+     background: #050505;
+     box-shadow: 0 2px 8px rgba(0,0,0,0.24);
+   }
 
   #subtitle {
     color: var(--muted-color);
@@ -902,7 +905,9 @@
     text-align: left;
     font-size: 0.82rem;
     line-height: 1.15;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: none;
   }
 
   .extra-data-note {
@@ -1152,7 +1157,9 @@
     font-family: var(--font-body);
     font-size: 0.68rem;
     line-height: 1.25;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: none;
   }
 
   .nws-priority-block.location .nws-priority-value,
@@ -2671,6 +2678,17 @@ svg circle, svg polygon, svg line {
      Desktop/tablet use independent columns so expanded cards don't stretch
      their neighbors. On phones, a single normal-flow column is safer and
      easier to scan/tap. */
+  @media (min-width: 851px) and (max-width: 1120px) {
+    .nws-priority-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+    .nws-priority-block.distance .nws-priority-value,
+    .nws-priority-block.time .nws-priority-value {
+      white-space: normal;
+    }
+  }
+
   @media (max-width: 700px) {
     .dashboard-grid {
       display: block !important;
@@ -3059,6 +3077,10 @@ svg circle, svg polygon, svg line {
       align-self: stretch;
       justify-content: flex-start;
       overflow: hidden;
+      position: relative;
+      isolation: isolate;
+      align-items: stretch;
+      justify-content: flex-start;
     }
 
     #grid.grid .desktop-camera-tile h2 {
@@ -3068,11 +3090,16 @@ svg circle, svg polygon, svg line {
     }
 
     #grid.grid .desktop-camera-tile img {
-      width: 100%;
-      max-width: none;
-      height: auto;
-      max-height: clamp(130px, 10vw, 190px);
+      position: static !important;
+      display: block;
+      width: 100% !important;
+      max-width: none !important;
+      height: clamp(125px, 9vw, 165px) !important;
+      max-height: none !important;
+      flex: 1 1 auto;
+      min-height: 0;
       object-fit: cover;
+      object-position: center;
       border-radius: 8px;
       margin: 0;
     }
@@ -3842,7 +3869,12 @@ svg circle, svg polygon, svg line {
     flex-direction: column;
     justify-content: flex-start;
     padding: 0.15rem;
-    overflow: hidden;
+    inset: 0 auto auto 0;
+    height: max-content;
+    min-height: 100%;
+    overflow: visible;
+    background: var(--card-color);
+    box-shadow: 0 14px 34px rgba(0,0,0,0.28);
   }
 
   .card-back-close {
@@ -3862,9 +3894,9 @@ svg circle, svg polygon, svg line {
 
   .card-flip-back .card-expand-panel {
     display: block;
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     min-height: 0;
-    max-height: none !important;
+    max-height: min(460px, calc(100vh - 7rem)) !important;
     overflow-y: auto;
     opacity: 1;
     margin: 0;
@@ -5956,6 +5988,9 @@ const THEMES = {
         img.src = imageUrl;
         img.alt = 'Tonight\u2019s moon phase';
         img.className = 'weather-icon-img weather-icon-moon';
+        img.loading = 'eager';
+        img.decoding = 'async';
+        img.referrerPolicy = 'no-referrer';
         img.onerror = () => loadMeteoconOrFallback(theme, el);
         el.appendChild(img);
         return;
