@@ -1,7 +1,45 @@
 {
-  "generatedAt": "2026-08-12T17:51:08.148319Z",
+  "generatedAt": "2026-08-12T17:56:11.245329Z",
   "watches": [],
   "mesoscaleDiscussions": [
+    {
+      "id": "MD1953",
+      "number": 1953,
+      "issued": "2026-08-12T17:52:00Z",
+      "expires": "2026-08-12T19:45:00Z",
+      "concerning": "Severe Thunderstorm Watch 575",
+      "hazard": "Severe Thunderstorm Watch 575",
+      "areas": "central and southern Indiana into central Kentucky",
+      "location": "central and southern Indiana into central Kentucky",
+      "distanceMiles": 262.9,
+      "summary": "The damaging wind threat is expected to spread south across the discussion area this afternoon with the potential for significant gusts up to 75 mph. Some potential exists for a brief tornado or two. A new watch will likely be required over portions of far southern Indiana into central Kentucky",
+      "watchProbability": null,
+      "forecaster": "Mead/Thompson",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "The damaging wind threat is expected to spread south across the discussion area this afternoon with the potential for significant gusts up to 75 mph. Some potential exists for a brief tornado or two. A new watch will likely be required over portions of far southern Indiana into central Kentucky"
+        },
+        {
+          "label": "Discussion",
+          "text": "Recent trends in volumetric radar data indicate deeper convective updrafts forming on the western flank of the MCS, near Terre Haute. That area coincides with where the MCS intersects a residual outflow boundary that extends south-southeast into south-central KY. Low-level convergence/ascent along that boundary in conjunction with the influx of a moderately to strongly unstable air mass from the west is expected to support further storm intensification this afternoon over portions of central and southern IN. Damaging winds with localized gusts up to 75 mph will be the primary hazard. Some brief tornado potential may materialize to the immediate east of the outflow boundary, where locally backed near-surface winds enhance low-level shear. The severe threat is expected to spread south of the current watch area in far southern IN into central KY, where a new watch will likely be required"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...65-80 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Mead/Thompson"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...ILN...LMK...IWX...IND...PAH"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md1953.html",
+      "office": "SPC"
+    },
     {
       "id": "MD1952",
       "number": 1952,
@@ -182,25 +220,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/ad03bb55-023d-4a89-a999-f941b6d72d5e"
-    },
-    {
-      "id": "a8385a02-db05-4952-8f65-7d4adf47abdc",
-      "type": "Hazardous Weather Outlook",
-      "office": "KPBZ",
-      "issued": "2026-08-12T17:24:00+00:00",
-      "expires": null,
-      "location": null,
-      "hazard": "Hazardous Weather Outlook",
-      "distanceMiles": null,
-      "headline": "Hazardous Weather Outlook",
-      "summary": "PAZ007>009-013>016-022-077-078-131730- Mercer-Venango-Forest-Lawrence-Butler-Clarion-Jefferson PA-Armstrong-",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 HWOPBZ Hazardous Weather Outlook 124 PM EDT Wed Aug 12 2026 PAZ007>009-013>016-022-077-078-131730- Mercer-Venango-Forest-Lawrence-Butler-Clarion-Jefferson PA-Armstrong- Indiana-Higher Elevations of Indiana- 124 PM EDT Wed Aug 12 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/a8385a02-db05-4952-8f65-7d4adf47abdc"
     }
   ]
 }
