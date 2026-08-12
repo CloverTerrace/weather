@@ -438,15 +438,6 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 2px var(--accent-color);
   }
 
-  .card-expand-hint {
-    text-align: center;
-    font-size: 0.68rem;
-    color: var(--muted-color);
-    opacity: 0.6;
-    margin-top: 10px;
-    font-family: var(--font-details);
-  }
-
   .card-expand-panel {
     max-height: 0;
     overflow: hidden;
@@ -3000,11 +2991,6 @@ svg circle, svg polygon, svg line {
   }
 
   @media (min-width: 851px) {
-    #page-content {
-      width: min(94vw, 1500px);
-      max-width: 1500px;
-    }
-
     h1 {
       display: flex;
       align-items: center;
@@ -3019,8 +3005,6 @@ svg circle, svg polygon, svg line {
       align-items: center;
       justify-content: center;
       flex: 0 0 auto;
-      width: clamp(3.25rem, 5vw, 5.5rem);
-      height: clamp(3.25rem, 5vw, 5.5rem);
       line-height: 1;
     }
 
@@ -3373,7 +3357,6 @@ svg circle, svg polygon, svg line {
   }
 
   .nws-priority-grid {
-    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1.3fr) repeat(3, minmax(88px, 0.78fr));
     gap: 7px;
     margin-top: 0.65rem;
   }
@@ -3649,6 +3632,11 @@ svg circle, svg polygon, svg line {
     /* Flipped cards sit above neighboring tiles without altering their row. */
     .desktop-left-rail #grid.grid .card.card-flipped { z-index: 50 !important; }
 
+    /* The camera tile isn't a flip card -- it holds a real image, so it
+       needs to stay clipped to its own rounded rectangle instead of
+       inheriting the flip cards' overflow:visible escape hatch above. */
+    #grid.grid .desktop-camera-tile { overflow: hidden !important; }
+
     .desktop-left-rail #grid.grid .priority-heading,
     .desktop-left-rail #grid.grid .glance-col .label {
       white-space: normal;
@@ -3911,12 +3899,6 @@ svg circle, svg polygon, svg line {
   }
 
   .card-flip-back .detail-panel { padding-top: 0; }
-
-  .card-expand-hint {
-    margin-top: auto !important;
-    padding-top: 0.45rem;
-    cursor: pointer;
-  }
 
   /* Wind's compass is a back-side instrument, not a front-side layout
      constraint. */
@@ -4832,11 +4814,6 @@ svg circle, svg polygon, svg line {
     front.className = 'card-flip-front';
     existingContent.forEach(node => front.appendChild(node));
 
-    const hint = document.createElement('div');
-    hint.className = 'card-expand-hint';
-    hint.textContent = `tap for ${title} ↗`;
-    front.appendChild(hint);
-
     const back = document.createElement('div');
     back.className = 'card-flip-back';
 
@@ -4855,8 +4832,6 @@ svg circle, svg polygon, svg line {
           if (other === cardEl) return;
           other.classList.remove('card-flipped');
           other.setAttribute('aria-expanded', 'false');
-          const otherHint = other.querySelector('.card-expand-hint');
-          if (otherHint) otherHint.textContent = `tap for ${other.dataset.expandHint || 'more data'} ↗`;
         });
         expandedCards.clear();
         expandedCards.add(key);
@@ -4866,7 +4841,6 @@ svg circle, svg polygon, svg line {
       }
       cardEl.classList.toggle('card-flipped', open);
       cardEl.setAttribute('aria-expanded', String(open));
-      hint.textContent = open ? 'tap card to return ↩' : `tap for ${title} ↗`;
     };
 
     cardEl.addEventListener('click', (e) => {
@@ -4891,8 +4865,6 @@ svg circle, svg polygon, svg line {
     document.querySelectorAll('.card.card-flipped').forEach(card => {
       card.classList.remove('card-flipped');
       card.setAttribute('aria-expanded', 'false');
-      const hint = card.querySelector('.card-expand-hint');
-      if (hint) hint.textContent = `tap for ${card.dataset.expandHint || 'more data'} ↗`;
     });
     document.querySelectorAll('.lightning-card.lightning-map-open').forEach(card => {
       card.classList.remove('lightning-map-open');
@@ -5985,7 +5957,6 @@ const THEMES = {
         img.className = 'weather-icon-img weather-icon-moon';
         img.loading = 'eager';
         img.decoding = 'async';
-        img.referrerPolicy = 'no-referrer';
         img.onerror = () => loadMeteoconOrFallback(theme, el);
         el.appendChild(img);
         return;
@@ -6199,12 +6170,12 @@ const THEMES = {
       </div>
       <div class="glance-row priority-glance-row temp-glance-row">
          <div class="glance-col glance-primary">
-            <div class="label"><span class="card-icon"><img src="icons/thermometer-warmer.svg" alt=""></span>Feels Like</div>
+            <div class="label">Feels Like</div>
             <div class="value priority-value">${formatVal(feelsLike, 1)}<span class="unit">°F</span></div>
             <span class="glance-sub">actual ${formatVal(data.temp, 1)}°F</span>
          </div>
          <div class="glance-col">
-            <div class="label"><span class="card-icon"><img src="icons/raindrops.svg" alt=""></span>Dew Point</div>
+            <div class="label">Dew Point</div>
             <div class="value">${formatVal(data.dewpt, 1)}<span class="unit">°F</span></div>
             <span class="glance-sub">${dewptComfort}</span>
          </div>
