@@ -1,7 +1,68 @@
 {
-  "generatedAt": "2026-08-12T07:06:07.634294Z",
+  "generatedAt": "2026-08-12T07:11:08.931515Z",
   "watches": [],
-  "mesoscaleDiscussions": [],
+  "mesoscaleDiscussions": [
+    {
+      "id": "MD1945",
+      "number": 1945,
+      "issued": "2026-08-12T06:02:00Z",
+      "expires": "2026-08-12T07:30:00Z",
+      "concerning": "Severe Thunderstorm Watch 572",
+      "hazard": "Severe Thunderstorm Watch 572",
+      "areas": "northern NE and southern SD",
+      "location": "northern NE and southern SD",
+      "distanceMiles": 126.4,
+      "summary": "A maturing bow will continue to yield a risk for higher-end wind potential over the next 1-2 hours as it moves into northern portions of NE",
+      "watchProbability": null,
+      "forecaster": "Smith",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "A maturing bow will continue to yield a risk for higher-end wind potential over the next 1-2 hours as it moves into northern portions of NE"
+        },
+        {
+          "label": "Discussion",
+          "text": "Latest radar imagery from KFSD/KUDX shows a potent cluster evolving into a maturing bow along the NE/SD border with echo tops increasing in the past 30 minutes to 60 kft. The airmass remains very unstable per RAP forecast soundings (around 4000 J/kg MUCAPE) with modest lower to mid-level flow (20-25 kt) increasing to 60 kt around 250 mb. This thermodynamic/kinematic environment will continue to strongly favor severe gusts and a continuation of the mature phase of the bow echo through at least 2-3am CDT. Recently measured gusts in the 90-95 mph range in southern SD are indicative of the higher-end wind potential"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK WIND GUST...85-100 MPH"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Smith"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...FSD...ABR...LBF...UNR"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md1945.html",
+      "office": "SPC"
+    },
+    {
+      "id": "MD1946",
+      "number": 1946,
+      "issued": null,
+      "expires": null,
+      "concerning": null,
+      "hazard": null,
+      "areas": null,
+      "location": null,
+      "distanceMiles": null,
+      "summary": "Latest SPC mesoscale discussion",
+      "watchProbability": null,
+      "forecaster": null,
+      "details": [
+        {
+          "label": "Summary",
+          "text": "Latest SPC mesoscale discussion"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md1946.html",
+      "office": "SPC"
+    }
+  ],
   "statements": [
     {
       "id": "e97fb6e1-ae94-48bd-ad26-f7cef6f451c1",
@@ -40,25 +101,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/34683821-640f-4e4f-b6d1-234e193b1c76"
-    },
-    {
-      "id": "d7900869-6e3a-4586-bed9-2f7b1aaaa9f8",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-08-12T06:33:00+00:00",
-      "expires": null,
-      "location": null,
-      "hazard": "Area Forecast Discussion",
-      "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": "CL",
-      "details": [
-        {
-          "label": "Discussion",
-          "text": "CL"
-        }
-      ],
-      "url": "https://api.weather.gov/products/d7900869-6e3a-4586-bed9-2f7b1aaaa9f8"
     }
   ]
 }
