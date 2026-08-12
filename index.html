@@ -438,6 +438,14 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 2px var(--accent-color);
   }
 
+  /* Hidden site-wide: the hint text felt repetitive across every card.
+     The cards are still fully tappable/expandable -- click/keyboard
+     handling lives on the card element itself, not this label -- so
+     hiding it purely removes the redundant "tap for X" caption. */
+  .card-expand-hint {
+    display: none;
+  }
+
   .card-expand-panel {
     max-height: 0;
     overflow: hidden;
@@ -2991,6 +2999,11 @@ svg circle, svg polygon, svg line {
   }
 
   @media (min-width: 851px) {
+    #page-content {
+      width: min(94vw, 1500px);
+      max-width: 1500px;
+    }
+
     h1 {
       display: flex;
       align-items: center;
@@ -3005,6 +3018,8 @@ svg circle, svg polygon, svg line {
       align-items: center;
       justify-content: center;
       flex: 0 0 auto;
+      width: clamp(3.25rem, 5vw, 5.5rem);
+      height: clamp(3.25rem, 5vw, 5.5rem);
       line-height: 1;
     }
 
@@ -3357,6 +3372,7 @@ svg circle, svg polygon, svg line {
   }
 
   .nws-priority-grid {
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1.3fr) repeat(3, minmax(88px, 0.78fr));
     gap: 7px;
     margin-top: 0.65rem;
   }
@@ -3624,18 +3640,27 @@ svg circle, svg polygon, svg line {
       max-width: none !important;
       padding: clamp(0.75rem, 1.15cqw, 1rem) !important;
       align-self: stretch !important;
-      overflow: visible !important;
       position: relative;
       z-index: 1;
     }
 
+    /* Only the flip-open sensor tiles need to escape their row (their
+       back panel opens above neighboring cards) -- the camera tile never
+       flips, so it keeps overflow clipped to its own rounded corners.
+       Without this split, the shared rule above used to force
+       overflow:visible on the camera tile too, letting its caption/alt
+       text spill into the next grid cell whenever the photo failed to
+       load. */
+    .desktop-left-rail #grid.grid .card {
+      overflow: visible !important;
+    }
+
+    #grid.grid .desktop-camera-tile {
+      overflow: hidden !important;
+    }
+
     /* Flipped cards sit above neighboring tiles without altering their row. */
     .desktop-left-rail #grid.grid .card.card-flipped { z-index: 50 !important; }
-
-    /* The camera tile isn't a flip card -- it holds a real image, so it
-       needs to stay clipped to its own rounded rectangle instead of
-       inheriting the flip cards' overflow:visible escape hatch above. */
-    #grid.grid .desktop-camera-tile { overflow: hidden !important; }
 
     .desktop-left-rail #grid.grid .priority-heading,
     .desktop-left-rail #grid.grid .glance-col .label {
@@ -3899,6 +3924,12 @@ svg circle, svg polygon, svg line {
   }
 
   .card-flip-back .detail-panel { padding-top: 0; }
+
+  .card-expand-hint {
+    margin-top: auto !important;
+    padding-top: 0.45rem;
+    cursor: pointer;
+  }
 
   /* Wind's compass is a back-side instrument, not a front-side layout
      constraint. */
@@ -4814,6 +4845,11 @@ svg circle, svg polygon, svg line {
     front.className = 'card-flip-front';
     existingContent.forEach(node => front.appendChild(node));
 
+    const hint = document.createElement('div');
+    hint.className = 'card-expand-hint';
+    hint.textContent = `tap for ${title} ↗`;
+    front.appendChild(hint);
+
     const back = document.createElement('div');
     back.className = 'card-flip-back';
 
@@ -4832,6 +4868,8 @@ svg circle, svg polygon, svg line {
           if (other === cardEl) return;
           other.classList.remove('card-flipped');
           other.setAttribute('aria-expanded', 'false');
+          const otherHint = other.querySelector('.card-expand-hint');
+          if (otherHint) otherHint.textContent = `tap for ${other.dataset.expandHint || 'more data'} ↗`;
         });
         expandedCards.clear();
         expandedCards.add(key);
@@ -4841,6 +4879,7 @@ svg circle, svg polygon, svg line {
       }
       cardEl.classList.toggle('card-flipped', open);
       cardEl.setAttribute('aria-expanded', String(open));
+      hint.textContent = open ? 'tap card to return ↩' : `tap for ${title} ↗`;
     };
 
     cardEl.addEventListener('click', (e) => {
@@ -4865,6 +4904,8 @@ svg circle, svg polygon, svg line {
     document.querySelectorAll('.card.card-flipped').forEach(card => {
       card.classList.remove('card-flipped');
       card.setAttribute('aria-expanded', 'false');
+      const hint = card.querySelector('.card-expand-hint');
+      if (hint) hint.textContent = `tap for ${card.dataset.expandHint || 'more data'} ↗`;
     });
     document.querySelectorAll('.lightning-card.lightning-map-open').forEach(card => {
       card.classList.remove('lightning-map-open');
@@ -5957,6 +5998,7 @@ const THEMES = {
         img.className = 'weather-icon-img weather-icon-moon';
         img.loading = 'eager';
         img.decoding = 'async';
+        img.referrerPolicy = 'no-referrer';
         img.onerror = () => loadMeteoconOrFallback(theme, el);
         el.appendChild(img);
         return;
