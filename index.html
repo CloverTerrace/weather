@@ -282,6 +282,7 @@
   }
 
   .weather-icon-moon {
+     display: block;
      width: 1.25em;
      height: 1.25em;
      border-radius: 50%;
@@ -905,9 +906,10 @@
     text-align: left;
     font-size: 0.82rem;
     line-height: 1.15;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
     word-break: normal;
-    hyphens: none;
+    hyphens: auto;
+    text-wrap: pretty;
   }
 
   .extra-data-note {
@@ -925,18 +927,15 @@
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.09), transparent);
   }
 
-  .detail-panel-head::after {
-    content: "tap sections to collapse";
-    font-size: 0.59rem;
-    color: var(--muted-color);
-    opacity: 0.48;
-    font-family: var(--font-details);
-  }
-
   @media (max-width: 520px) {
     .extra-data-list {
       grid-template-columns: 1fr;
     }
+    .nws-priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .nws-priority-block.location,
+    .nws-priority-block.hazard,
+    .nws-priority-block.distance,
+    .nws-priority-block.time { grid-column: span 1; }
   }
 
 
@@ -1082,6 +1081,7 @@
   }
 
   .nws-item-title {
+    min-width: 0;
     font-weight: 600;
     color: var(--text-color);
     font-family: var(--font-body);
@@ -1129,10 +1129,17 @@
      belongs behind the curated-details toggle. */
   .nws-priority-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1.35fr) repeat(3, minmax(82px, 0.8fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 6px;
     margin-top: 7px;
   }
+
+  /* Keep the long human-readable location/hazard strings horizontal.
+     They get the whole first row; distance/issued/until share the second. */
+  .nws-priority-block.location,
+  .nws-priority-block.hazard { grid-column: span 3; }
+  .nws-priority-block.distance,
+  .nws-priority-block.time { grid-column: span 2; }
 
   .nws-priority-block {
     min-width: 0;
@@ -3067,6 +3074,8 @@ svg circle, svg polygon, svg line {
 
     #grid.grid .desktop-camera-tile {
       order: 9 !important;
+      grid-column: 3 !important;
+      grid-row: 3 !important;
       display: flex;
       min-width: 0;
       width: 100% !important;
@@ -3690,8 +3699,18 @@ svg circle, svg polygon, svg line {
       min-width: 0;
     }
 
+    .desktop-left-rail #grid.grid .precip-card .priority-single-value {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      margin-top: 0.1rem;
+    }
+
     .desktop-left-rail #grid.grid .precip-card .priority-value {
-      font-size: clamp(1.55rem, 10cqw, 2.05rem) !important;
+      font-size: clamp(1.7rem, 10.5cqw, 2.2rem) !important;
+      line-height: 1.05;
     }
 
     .desktop-left-rail #grid.grid .aqi-card .priority-single-value,
@@ -3830,13 +3849,15 @@ svg circle, svg polygon, svg line {
 
   /* ---------- sensor card flip ---------- */
   .card.card-expandable {
+    position: relative;
     perspective: 1200px;
     transform-style: preserve-3d;
     overflow: visible !important;
   }
 
   .card-flip-inner {
-    position: relative;
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
@@ -3861,6 +3882,8 @@ svg circle, svg polygon, svg line {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow: hidden;
+    padding: 0;
   }
 
   .card-flip-back {
@@ -3868,35 +3891,17 @@ svg circle, svg polygon, svg line {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 0.15rem;
-    inset: 0 auto auto 0;
-    height: max-content;
-    min-height: 100%;
-    overflow: visible;
+    padding: 0.7rem;
+    overflow: hidden;
     background: var(--card-color);
     box-shadow: 0 14px 34px rgba(0,0,0,0.28);
   }
 
-  .card-back-close {
-    align-self: flex-end;
-    border: 0;
-    background: transparent;
-    color: var(--muted-color);
-    font: 600 0.68rem var(--font-details);
-    opacity: 0.75;
-    cursor: pointer;
-    padding: 0.15rem 0.25rem;
-    margin-bottom: 0.15rem;
-  }
-
-  .card-back-close:hover,
-  .card-back-close:focus-visible { opacity: 1; }
-
   .card-flip-back .card-expand-panel {
     display: block;
-    flex: 0 1 auto;
+    flex: 1 1 auto;
     min-height: 0;
-    max-height: min(460px, calc(100vh - 7rem)) !important;
+    max-height: min(430px, calc(100vh - 8rem)) !important;
     overflow-y: auto;
     opacity: 1;
     margin: 0;
@@ -3906,7 +3911,6 @@ svg circle, svg polygon, svg line {
   }
 
   .card-flip-back .detail-panel { padding-top: 0; }
-  .card-flip-back .detail-panel-head { margin-bottom: 0.45rem; }
 
   .card-expand-hint {
     margin-top: auto !important;
@@ -3939,6 +3943,7 @@ svg circle, svg polygon, svg line {
     position: absolute;
     z-index: 100;
     inset: 0;
+    min-height: 280px;
     padding: 0.55rem;
     border-radius: inherit;
     background: var(--card-color);
@@ -3978,7 +3983,8 @@ svg circle, svg polygon, svg line {
   @media (max-width: 850px) {
     .card-flip-front,
     .card-flip-back { position: absolute; }
-    .card-flip-back { padding: 0.2rem; }
+    .card-flip-back { padding: 0.65rem; }
+    .card-flip-back .card-expand-panel { max-height: min(520px, calc(100vh - 6rem)) !important; }
     .lightning-map-panel { inset: 0.1rem; }
   }
 </style>
@@ -4834,15 +4840,9 @@ svg circle, svg polygon, svg line {
     const back = document.createElement('div');
     back.className = 'card-flip-back';
 
-    const close = document.createElement('button');
-    close.type = 'button';
-    close.className = 'card-back-close';
-    close.textContent = 'back ↩';
-    close.setAttribute('aria-label', `Return to ${title} overview`);
-
     const panel = document.createElement('div');
     panel.className = 'card-expand-panel';
-    back.append(close, panel);
+    back.append(panel);
     inner.append(front, back);
     cardEl.appendChild(inner);
 
@@ -4872,11 +4872,6 @@ svg circle, svg polygon, svg line {
     cardEl.addEventListener('click', (e) => {
       if (e.target.closest('a, button, details, summary')) return;
       setOpen(!isOpen());
-    });
-
-    close.addEventListener('click', (e) => {
-      e.stopPropagation();
-      setOpen(false);
     });
 
     cardEl.addEventListener('keydown', (e) => {
@@ -5985,7 +5980,7 @@ const THEMES = {
       const imageUrl = getMoonPhaseImageUrl(phase);
       if (imageUrl) {
         const img = document.createElement('img');
-        img.src = imageUrl;
+        img.src = `${imageUrl}?v=2`;
         img.alt = 'Tonight\u2019s moon phase';
         img.className = 'weather-icon-img weather-icon-moon';
         img.loading = 'eager';
@@ -6252,9 +6247,6 @@ const THEMES = {
       `).join('');
       return `
         <div class="detail-panel">
-          <div class="detail-panel-head">
-            <span class="detail-panel-status">live sensor detail</span>
-          </div>
           ${groupsHtml}
           ${note ? `<div class="extra-data-note">${note}</div>` : ''}
         </div>
