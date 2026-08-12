@@ -3595,41 +3595,32 @@ svg circle, svg polygon, svg line {
 
 
   /* ================================================================
-     DESKTOP DASHBOARD COMPOSITION — consolidated
-     Keep the weather matrix deterministic: closed tiles share one row
-     height, while flipped detail lives above the grid instead of changing
-     the grid geometry.  Specialized cards (camera, lightning, Storm
-     Center, radar, history, Sky & Space) keep their own interaction model.
+     DESKTOP DASHBOARD COMPOSITION
      ================================================================ */
   @media (min-width: 851px) {
     #page-content {
       width: min(94vw, 1440px);
       max-width: 1440px;
-      padding-inline: 0;
+      padding-inline: clamp(0.5rem, 1vw, 1rem);
     }
 
-    h1 { font-size: clamp(2rem, 2.8vw, 3rem); line-height: 1.08; }
-    h1 #weather-icon { width: clamp(3rem, 4vw, 4.75rem); height: clamp(3rem, 4vw, 4.75rem); }
-    #subtitle { font-size: clamp(0.82rem, 0.95vw, 1rem); margin-bottom: 1rem; }
-
     .desktop-dashboard-layout {
-      grid-template-columns: minmax(0, 1.2fr) minmax(440px, 1fr) !important;
+      grid-template-columns: minmax(0, 1.22fr) minmax(430px, 0.92fr) !important;
       gap: clamp(1rem, 1.35vw, 1.4rem);
-      align-items: start;
     }
 
     .desktop-left-rail,
-    .desktop-right-rail { gap: clamp(0.9rem, 1.15vw, 1.2rem); }
+    .desktop-right-rail {
+      gap: clamp(0.9rem, 1.15vw, 1.2rem);
+    }
 
-    /* Closed weather tiles: one consistent 3x3 matrix. */
     .desktop-left-rail #grid {
       grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
       grid-auto-rows: 220px !important;
-      gap: clamp(0.8rem, 1vw, 1rem) !important;
-      align-items: stretch !important;
+      gap: clamp(0.85rem, 1vw, 1rem) !important;
       width: 100% !important;
       max-width: none !important;
-      position: relative;
+      align-items: stretch !important;
     }
 
     .desktop-left-rail #grid.grid .card,
@@ -3638,114 +3629,224 @@ svg circle, svg polygon, svg line {
       height: 220px !important;
       min-height: 220px !important;
       max-width: none !important;
-      padding: clamp(0.75rem, 1.15cqw, 1rem) !important;
+      padding: 0.9rem clamp(0.9rem, 1.2cqw, 1.1rem) !important;
       align-self: stretch !important;
+      position: relative;
+      z-index: 1;
+      box-sizing: border-box;
+    }
+
+    .desktop-left-rail #grid.grid .card { overflow: visible !important; }
+    #grid.grid .desktop-camera-tile { overflow: hidden !important; }
+    .desktop-left-rail #grid.grid .card.card-flipped { z-index: 50 !important; }
+
+    .desktop-left-rail #grid.grid .priority-card-head {
+      position: absolute;
+      top: 0.8rem;
+      left: 0.85rem;
+      right: 0.85rem;
+      margin: 0 !important;
+      gap: 0.35rem;
+      min-height: 1.35rem;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .desktop-left-rail #grid.grid .priority-heading,
+    .desktop-left-rail #grid.grid .glance-col .label {
+      font-size: clamp(0.62rem, 2.45cqw, 0.76rem) !important;
+      line-height: 1.15;
+      letter-spacing: 0.05em;
+    }
+
+    .desktop-left-rail #grid.grid .priority-icon {
+      width: clamp(1.05rem, 4.2cqw, 1.3rem);
+      height: clamp(1.05rem, 4.2cqw, 1.3rem);
+      flex-basis: clamp(1.05rem, 4.2cqw, 1.3rem);
+    }
+
+    .desktop-left-rail #grid.grid .card > :not(.priority-card-head) {
       position: relative;
       z-index: 1;
     }
 
-    /* Only the flip-open sensor tiles need to escape their row (their
-       back panel opens above neighboring cards) -- the camera tile never
-       flips, so it keeps overflow clipped to its own rounded corners.
-       Without this split, the shared rule above used to force
-       overflow:visible on the camera tile too, letting its caption/alt
-       text spill into the next grid cell whenever the photo failed to
-       load. */
-    .desktop-left-rail #grid.grid .card {
-      overflow: visible !important;
-    }
-
-    #grid.grid .desktop-camera-tile {
-      overflow: hidden !important;
-    }
-
-    /* Flipped cards sit above neighboring tiles without altering their row. */
-    .desktop-left-rail #grid.grid .card.card-flipped { z-index: 50 !important; }
-
-    .desktop-left-rail #grid.grid .priority-heading,
-    .desktop-left-rail #grid.grid .glance-col .label {
-      white-space: normal;
-      overflow-wrap: break-word;
-      line-height: 1.2;
-      font-size: clamp(0.64rem, 2.7cqw, 0.78rem) !important;
-    }
-
     .desktop-left-rail #grid.grid .priority-value {
-      font-size: clamp(1.3rem, 9cqw, 1.9rem) !important;
+      font-size: clamp(1.45rem, 8.5cqw, 1.9rem) !important;
+      line-height: 1.05;
     }
 
     .desktop-left-rail #grid.grid .glance-col .value {
-      font-size: clamp(1.05rem, 7.5cqw, 1.5rem);
+      font-size: clamp(1.05rem, 6.8cqw, 1.42rem);
     }
 
     .desktop-left-rail #grid.grid .glance-col.glance-primary .value {
-      font-size: clamp(1.2rem, 8.5cqw, 1.7rem);
+      font-size: clamp(1.18rem, 8cqw, 1.65rem);
     }
 
     .desktop-left-rail #grid.grid .glance-sub,
     .desktop-left-rail #grid.grid .priority-context {
-      font-size: clamp(0.6rem, 2.3cqw, 0.72rem) !important;
+      font-size: clamp(0.58rem, 2.15cqw, 0.7rem) !important;
+      line-height: 1.2;
     }
 
-    .desktop-left-rail #grid.grid .priority-icon {
-      width: clamp(1.1rem, 5cqw, 1.5rem);
-      height: clamp(1.1rem, 5cqw, 1.5rem);
+    .desktop-left-rail #grid.grid .temp-card .temp-glance-row,
+    .desktop-left-rail #grid.grid .wind-card .wind-priority-row,
+    .desktop-left-rail #grid.grid .lightning-card .lightning-priority-row,
+    .desktop-left-rail #grid.grid .solar-card .priority-dual-row {
+      width: 100%;
+      margin-top: auto;
+      margin-bottom: auto;
     }
 
-    /* Wind is intentionally compact on the front; the compass belongs on
-       the flip side so it can never dictate the closed tile's height. */
+    .desktop-left-rail #grid.grid .temp-card .priority-context,
+    .desktop-left-rail #grid.grid .wind-card .priority-context,
+    .desktop-left-rail #grid.grid .pressure-card .storm-note,
+    .desktop-left-rail #grid.grid .lightning-card .priority-context {
+      margin-top: auto;
+    }
+
     .desktop-left-rail #grid.grid .wind-card .wind-priority-row {
-      gap: 0.4rem;
-    }
-
-    .desktop-left-rail #grid.grid .wind-card .priority-compass { display: none; }
-    .desktop-left-rail #grid.grid .wind-card .wind-priority-metric { flex: 1 1 50%; }
-
-    /* Lightning has its own map interaction, not the generic flip. */
-    .desktop-left-rail #grid.grid .lightning-card { z-index: 3; }
-    .desktop-left-rail #grid.grid .lightning-card.lightning-map-open { z-index: 60 !important; }
-    .desktop-left-rail #grid.grid .lightning-card .lightning-priority-row {
       flex-direction: row !important;
-      gap: clamp(0.35rem, 1.4cqw, 0.75rem) !important;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(0.45rem, 1.2cqw, 0.8rem);
     }
-    .desktop-left-rail #grid.grid .lightning-card .priority-single-value {
+
+    .desktop-left-rail #grid.grid .wind-card .wind-priority-metric {
+      flex: 1 1 50%;
       min-width: 0;
     }
 
-    .desktop-left-rail #grid.grid .precip-card .priority-single-value {
+    .desktop-left-rail #grid.grid .wind-card .priority-compass { display: none; }
+
+    .desktop-left-rail #grid.grid .pressure-card .pressure-priority-row {
+      margin-top: auto;
+      margin-bottom: 0.25rem;
+      gap: 0.6rem;
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .storm-note {
+      margin-top: 0;
+      margin-bottom: auto;
+      max-width: 92%;
+      font-size: clamp(0.58rem, 2.05cqw, 0.68rem);
+      line-height: 1.18;
+    }
+
+    .desktop-left-rail #grid.grid .precip-card .label {
+      position: absolute;
+      top: 0.8rem;
+      left: 0.85rem;
+      right: 0.85rem;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex: 0 0 auto;
-      margin-top: 0.1rem;
+      gap: 0.35rem;
+      margin: 0 !important;
+      font-size: clamp(0.62rem, 2.45cqw, 0.76rem) !important;
+      line-height: 1.15;
+      letter-spacing: 0.05em;
+    }
+
+    .desktop-left-rail #grid.grid .precip-card .label .card-icon {
+      width: clamp(1.05rem, 4.2cqw, 1.3rem);
+      height: clamp(1.05rem, 4.2cqw, 1.3rem);
+      margin: 0;
+    }
+
+    .desktop-left-rail #grid.grid .precip-card .priority-single-value {
+      margin-top: auto;
+      margin-bottom: auto;
     }
 
     .desktop-left-rail #grid.grid .precip-card .priority-value {
-      font-size: clamp(1.7rem, 10.5cqw, 2.2rem) !important;
-      line-height: 1.05;
+      font-size: clamp(1.55rem, 9.5cqw, 2rem) !important;
     }
 
-    .desktop-left-rail #grid.grid .aqi-card .priority-single-value,
-    .desktop-left-rail #grid.grid .river-card .pressure-priority-row {
-      justify-content: center;
-      align-items: center;
+    .desktop-left-rail #grid.grid .lightning-card .lightning-priority-row {
+      flex-direction: row !important;
+      gap: clamp(0.45rem, 1.2cqw, 0.8rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .aqi-card .priority-single-value {
+      margin-top: auto;
+      margin-bottom: auto;
+      gap: 0.25rem;
     }
 
     .desktop-left-rail #grid.grid .aqi-card .aqi-summary {
-      margin-top: 0.35rem;
-      font-size: clamp(0.62rem, 2.25cqw, 0.72rem);
-      line-height: 1.2;
+      margin: 0.3rem auto 0;
+      max-width: 90%;
+      font-size: clamp(0.56rem, 2cqw, 0.66rem);
+      line-height: 1.18;
       text-align: center;
-      color: var(--muted-color);
-      opacity: 0.82;
+    }
+
+    .desktop-left-rail #grid.grid .aqi-card .priority-value {
+      font-size: clamp(1.45rem, 8.5cqw, 1.85rem) !important;
+      line-height: 1;
+    }
+
+    .desktop-left-rail #grid.grid .river-card .pressure-priority-row {
+      margin-top: auto;
+      margin-bottom: auto;
+      gap: 0.5rem;
     }
 
     .desktop-left-rail #grid.grid .river-card .priority-value {
-      font-size: clamp(1.45rem, 9.5cqw, 1.95rem) !important;
+      font-size: clamp(1.45rem, 8.5cqw, 1.85rem) !important;
     }
 
-    /* Forecast is deliberately compact and follows the sensor matrix. */
+    #grid.grid .desktop-camera-tile {
+      grid-column: 3 !important;
+      grid-row: 3 !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      cursor: zoom-in;
+    }
+
+    #grid.grid .desktop-camera-tile h2 {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      width: 100%;
+      margin: 0 0 0.5rem !important;
+      min-height: 1.35rem;
+      color: var(--muted-color);
+      font-family: var(--font-grid-label);
+      font-size: clamp(0.62rem, 2.45cqw, 0.76rem) !important;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.15;
+    }
+
+    #grid.grid .desktop-camera-tile h2::before {
+      content: '📷';
+      font-family: system-ui, sans-serif;
+      font-size: 0.95rem;
+      line-height: 1;
+    }
+
+    #grid.grid .desktop-camera-tile img {
+      position: static !important;
+      display: block;
+      width: 100% !important;
+      max-width: none !important;
+      height: auto !important;
+      max-height: 165px !important;
+      flex: 1 1 auto;
+      min-height: 0;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 8px;
+      margin: 0;
+    }
+
     .desktop-left-rail .forecast-card {
       order: 2;
       min-height: 112px !important;
@@ -3765,7 +3866,6 @@ svg circle, svg polygon, svg line {
     .desktop-left-rail .forecast-period .period-short { font-size: 0.62rem; line-height: 1.18; }
     .desktop-left-rail .forecast-period .period-wind { font-size: 0.55rem; }
 
-    /* Sky & Space is non-urgent and therefore remains below Forecast. */
     .desktop-left-rail > .desktop-sky-card {
       order: 3;
       width: 100%;
@@ -3780,7 +3880,6 @@ svg circle, svg polygon, svg line {
     .desktop-left-rail > .desktop-sky-card .sunmoon-details { margin-top: 0.55rem; font-size: 0.7rem; }
     .desktop-left-rail > .desktop-sky-card .sky-badges { margin-top: 0.45rem; gap: 0.5rem; font-size: 0.67rem; }
 
-    /* Storm Center owns the top of the right rail. Radar follows it. */
     .desktop-right-rail { gap: clamp(1.1rem, 1.6vw, 1.6rem) !important; }
     .desktop-right-rail .dashboard-grid { display: contents !important; }
     .desktop-right-rail .outlook-card {
@@ -3811,7 +3910,6 @@ svg circle, svg polygon, svg line {
       height: clamp(320px, 30vw, 460px) !important;
     }
 
-    /* Historical data gets the left side of the lower tools row. */
     .web-tools-grid {
       width: 100% !important;
       max-width: none !important;
