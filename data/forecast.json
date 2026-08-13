@@ -1,16 +1,6 @@
 [
   {
-    "name": "Overnight",
-    "temperature": 67,
-    "temperatureUnit": "F",
-    "windSpeed": "3 mph",
-    "windDirection": "W",
-    "shortForecast": "Slight Chance Rain Showers",
-    "detailedForecast": "A slight chance of rain showers before 3am. Mostly cloudy, with a low around 67. West wind around 3 mph. Chance of precipitation is 20%.",
-    "isDaytime": false
-  },
-  {
-    "name": "Thursday",
+    "name": "Today",
     "temperature": 83,
     "temperatureUnit": "F",
     "windSpeed": "1 to 6 mph",
@@ -20,7 +10,7 @@
     "isDaytime": true
   },
   {
-    "name": "Thursday Night",
+    "name": "Tonight",
     "temperature": 66,
     "temperatureUnit": "F",
     "windSpeed": "0 to 5 mph",
@@ -38,5 +28,15 @@
     "shortForecast": "Patchy Fog then Chance Showers And Thunderstorms",
     "detailedForecast": "Areas of fog before 8am, then patchy fog and a slight chance of rain showers between 8am and 2pm, then a chance of showers and thunderstorms between 2pm and 3pm, then a slight chance of showers and thunderstorms between 3pm and 4pm. Mostly cloudy, with a high near 82. Northeast wind 0 to 5 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
     "isDaytime": true
+  },
+  {
+    "name": "Friday Night",
+    "temperature": 63,
+    "temperatureUnit": "F",
+    "windSpeed": "3 mph",
+    "windDirection": "NE",
+    "shortForecast": "Partly Cloudy then Patchy Fog",
+    "detailedForecast": "Patchy fog after 4am. Partly cloudy, with a low around 63. Northeast wind around 3 mph. New rainfall amounts less than a tenth of an inch possible.",
+    "isDaytime": false
   }
 ]
