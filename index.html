@@ -715,6 +715,13 @@
     display: block;
   }
 
+  /* Front-side description text uses the same details font as every
+     other tile's front copy (priority-context, storm-note, etc.) instead
+     of inheriting the page's decorative display font. */
+  .aqi-summary {
+    font-family: var(--font-details);
+  }
+
   .pressure-trend {
     font-size: 0.85em;
     margin-left: 0.25em;
@@ -3680,7 +3687,7 @@ svg circle, svg polygon, svg line {
       flex-basis: clamp(1.05rem, 4.2cqw, 1.3rem);
     }
 
-    .desktop-left-rail #grid.grid .card > :not(.priority-card-head) {
+    .desktop-left-rail #grid.grid .card > :not(.priority-card-head):not(.card-flip-inner):not(.lightning-map-panel) {
       position: relative;
       z-index: 1;
     }
@@ -3704,7 +3711,6 @@ svg circle, svg polygon, svg line {
       line-height: 1.2;
     }
 
-    .desktop-left-rail #grid.grid .temp-card .temp-glance-row,
     .desktop-left-rail #grid.grid .wind-card .wind-priority-row,
     .desktop-left-rail #grid.grid .lightning-card .lightning-priority-row,
     .desktop-left-rail #grid.grid .solar-card .priority-dual-row {
@@ -3713,11 +3719,31 @@ svg circle, svg polygon, svg line {
       margin-bottom: auto;
     }
 
-    .desktop-left-rail #grid.grid .temp-card .priority-context,
     .desktop-left-rail #grid.grid .wind-card .priority-context,
     .desktop-left-rail #grid.grid .pressure-card .storm-note,
     .desktop-left-rail #grid.grid .lightning-card .priority-context {
       margin-top: auto;
+    }
+
+    /* Temperature's front content (the feels-like/dew-point row plus the
+       RH/VPD context line) was hugging the header instead of sitting in
+       the middle of the tile. That's the same "stack of independent auto
+       margins" pattern used above, but with three auto margins competing
+       (row-top, row-bottom, context-top) most of the free space ended up
+       in the gap *between* the row and the context line rather than
+       *above* the row -- so the whole block read as top-heavy. Centering
+       the pair as a single block via the front face's own flex
+       justify-content (see .card-flip-front) gives a true vertical
+       center instead. */
+    .desktop-left-rail #grid.grid .temp-card .temp-glance-row {
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .desktop-left-rail #grid.grid .temp-card .priority-context {
+      margin-top: 0.8rem;
+      margin-bottom: 0;
     }
 
     .desktop-left-rail #grid.grid .wind-card .wind-priority-row {
@@ -3985,6 +4011,7 @@ svg circle, svg polygon, svg line {
   .card.card-expandable {
     position: relative;
     perspective: 1200px;
+    -webkit-perspective: 1200px;
     transform-style: preserve-3d;
     overflow: visible !important;
   }
@@ -3995,10 +4022,11 @@ svg circle, svg polygon, svg line {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
     transition: transform 0.46s cubic-bezier(.2,.72,.25,1);
   }
 
-  .card.card-flipped .card-flip-inner { transform: rotateY(180deg); }
+  .card.card-flipped .card-flip-inner { transform: rotateY(180deg); -webkit-transform: rotateY(180deg); }
 
   .card-flip-front,
   .card-flip-back {
@@ -4012,16 +4040,27 @@ svg circle, svg polygon, svg line {
     border-radius: inherit;
   }
 
+  /* Both faces get an explicit (rather than implicit-zero) rotateY plus a
+     tiny translateZ nudge. Some WebKit/tablet-Safari builds fail to cull
+     the backface of a preserve-3d child when one face relies on an
+     "unset" transform instead of an explicit one on the same axis as its
+     sibling -- the practical symptom is the front face's content bleeding
+     through, mirrored, behind the back face. Giving both faces their own
+     explicit transform (and their own compositing layer via translateZ)
+     keeps them reliably separated on every engine. */
   .card-flip-front {
     display: flex;
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
     padding: 0;
+    transform: rotateY(0deg) translateZ(0.01px);
+    -webkit-transform: rotateY(0deg) translateZ(0.01px);
   }
 
   .card-flip-back {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) translateZ(0.01px);
+    -webkit-transform: rotateY(180deg) translateZ(0.01px);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -4120,6 +4159,29 @@ svg circle, svg polygon, svg line {
     .card-flip-back { padding: 0.65rem; }
     .card-flip-back .card-expand-panel { max-height: min(520px, calc(100vh - 6rem)) !important; }
     .lightning-map-panel { inset: 0.1rem; }
+  }
+
+  /* Desktop only: the lightning map was confined to the same ~220px tile
+     footprint as every other sensor card, which is far too small to read
+     strike activity on. Break it out into a large centered overlay
+     instead of resizing the grid (resizing would reflow every other
+     tile). Mobile keeps its original inset:0 in-tile behavior above. */
+  @media (min-width: 851px) {
+    .desktop-left-rail #grid.grid .lightning-card.lightning-map-open {
+      z-index: 60 !important;
+    }
+    .desktop-left-rail #grid.grid .lightning-card .lightning-map-panel {
+      position: fixed !important;
+      inset: auto !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: min(760px, 86vw) !important;
+      height: min(600px, 84vh) !important;
+      min-height: 0 !important;
+      padding: 1rem !important;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.45);
+    }
   }
 </style>
 
@@ -6400,11 +6462,11 @@ const THEMES = {
       <div class="wind-priority-row">
         <div class="wind-priority-metric">
           <div class="value priority-value">${formatVal(data.windSpeed, 1)}<span class="unit">mph</span></div>
-          <span class="glance-sub">sustained</span>
+          <span class="glance-sub">sustained · peak ${formatVal(wsExt.max.val, 1)}</span>
         </div>
         <div class="wind-priority-metric">
           <div class="value priority-value">${formatVal(data.windGust, 1)}<span class="unit">mph</span></div>
-          <span class="glance-sub">gust</span>
+          <span class="glance-sub">gust · peak ${formatVal(wgExt.max.val, 1)}</span>
         </div>
       </div>
       <div class="priority-context">${degreesToCardinal16(data.winddir || 0)} · ${getBeaufortLabel(data.windSpeed)}</div>
@@ -6420,13 +6482,6 @@ const THEMES = {
             `<div class="extra-data-row wind-compass-detail-visual"><div class="compass-container">${buildWindCompassHtml(false, data.winddir || 0)}</div></div>`,
             `<div class="extra-data-row"><span class="extra-data-label">Beaufort</span><span class="extra-data-value">${getBeaufortLabel(data.windSpeed)}</span></div>`,
             `<div class="extra-data-row"><span class="extra-data-label">Gust Factor</span><span class="extra-data-value">${gustFactor ? gustFactor.toFixed(2) + '×' : '--'}</span></div>`
-          ]
-        },
-        {
-          title: 'Wind extremes',
-          rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">Peak Gust</span><span class="extra-data-value">${formatVal(wgExt.max.val, 1)} mph <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(wgExt.max.time)}</span></span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Peak Sustained</span><span class="extra-data-value">${formatVal(wsExt.max.val, 1)} mph <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(wsExt.max.time)}</span></span></div>`
           ]
         }
       ], 'A gust factor above ~1.5× indicates increasingly gusty flow; elevated ratios during storms can be a useful downburst clue.') ;
@@ -6501,6 +6556,7 @@ const THEMES = {
     // running on the WU fallback -- no extra handling needed.
     const prExt = extSafe('precipRate');
     const isCurrentlyRaining = data.precipRate !== undefined && data.precipRate !== null && data.precipRate > 0;
+    const likelyFrozen = data.temp !== null && data.temp !== undefined && data.temp <= 34;
     const precipCard = document.createElement('div');
     precipCard.className = 'card combo-card precip-card';
     const precipLabelHtml = `<div class="label" style="margin-bottom: 10px;"><span class="card-icon"><img src="icons/raindrop-measure.svg" alt=""></span>Precipitation</div>`;
@@ -6511,7 +6567,7 @@ const THEMES = {
           <div class="value priority-value">${formatVal(data.precipRate, 2)}<span class="unit">in/hr</span></div>
           <span class="glance-sub">current rate</span>
         </div>
-        <div class="priority-context">${formatVal(data.precipTotal, 2)} in today · peak ${formatVal(prExt.max.val, 2)} in/hr</div>
+        <div class="priority-context">${formatVal(data.precipTotal, 2)} in today · peak ${formatVal(prExt.max.val, 2)} in/hr${likelyFrozen ? ' · likely frozen/mixed' : ''}</div>
       `;
     } else {
       precipCard.innerHTML = `
@@ -6520,11 +6576,11 @@ const THEMES = {
           <div class="value priority-value">${formatVal(data.precipTotal, 2)}<span class="unit">in</span></div>
           <span class="glance-sub">today</span>
         </div>
+        <div class="priority-context">peak ${formatVal(prExt.max.val, 2)} in/hr today${likelyFrozen ? ' · likely frozen/mixed' : ''}</div>
       `;
     }
     gridRight.appendChild(precipCard);
     makeCardExpandable(precipCard, 'precip', 'more precipitation data', (panel) => {
-      const likelyFrozen = data.temp !== null && data.temp !== undefined && data.temp <= 34;
       panel.innerHTML = detailPanelHtml([
         {
           title: 'Rainfall totals',
@@ -6532,14 +6588,6 @@ const THEMES = {
             `<div class="extra-data-row"><span class="extra-data-label">This Week</span><span class="extra-data-value">${formatVal(data.precipTotalWeek, 2)} in</span></div>`,
             `<div class="extra-data-row"><span class="extra-data-label">This Month</span><span class="extra-data-value">${formatVal(data.precipTotalMonth, 2)} in</span></div>`,
             `<div class="extra-data-row"><span class="extra-data-label">This Year</span><span class="extra-data-value">${formatVal(data.precipTotalYear, 2)} in</span></div>`
-          ]
-        },
-        {
-          title: 'Rain details',
-          rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">Current Rate</span><span class="extra-data-value">${formatVal(data.precipRate, 2)} in/hr</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Peak Rate Today</span><span class="extra-data-value">${formatVal(prExt.max.val, 2)} in/hr <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(prExt.max.time)}</span></span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Type (estimated)</span><span class="extra-data-value">${likelyFrozen ? 'Likely frozen / mixed' : 'Liquid'}</span></div>`
           ]
         }
       ]);
@@ -6608,6 +6656,7 @@ const THEMES = {
     // 5. solar & UV card
     const sExt = extSafe('solarRadiation');
     const uExt = extSafe('uv');
+    const uvCat = getUvRiskCategory(data.uv);
     const solarUvCard = document.createElement('div');
     solarUvCard.className = 'card combo-card solar-card';
     solarUvCard.innerHTML = `
@@ -6625,21 +6674,15 @@ const THEMES = {
           <span class="glance-sub">UV index</span>
         </div>
       </div>
+      <div class="priority-context">Risk <span style="color: ${uvCat.color};">${uvCat.label}</span></div>
     `;
     gridRight.appendChild(solarUvCard);
     makeCardExpandable(solarUvCard, 'solarUv', 'more solar & UV data', (panel) => {
-      const uvCat = getUvRiskCategory(data.uv);
       panel.innerHTML = detailPanelHtml([
         {
-          title: 'UV exposure',
+          title: "Today's peaks",
           rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">Risk Category</span><span class="extra-data-value" style="color: ${uvCat.color};">${uvCat.label}</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Peak UV Today</span><span class="extra-data-value">${formatVal(uExt.max.val, 1)} <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(uExt.max.time)}</span></span></div>`
-          ]
-        },
-        {
-          title: 'Solar today',
-          rows: [
+            `<div class="extra-data-row"><span class="extra-data-label">Peak UV</span><span class="extra-data-value">${formatVal(uExt.max.val, 1)} <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(uExt.max.time)}</span></span></div>`,
             `<div class="extra-data-row"><span class="extra-data-label">Peak Radiation</span><span class="extra-data-value">${formatVal(sExt.max.val, 0)} W/m² <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(sExt.max.time)}</span></span></div>`
           ]
         }
@@ -6667,12 +6710,6 @@ const THEMES = {
         makeCardExpandable(aqiCard, 'aqi', 'more air quality data', (panel) => {
           panel.innerHTML = detailPanelHtml([
             {
-              title: 'What this means',
-              rows: [
-                `<div class="extra-data-row" style="grid-column: 1 / -1;"><span class="extra-data-label">Category</span><span class="extra-data-value">${aqiDesc}</span></div>`
-              ]
-            },
-            {
               title: 'AQI scale reference',
               rows: [
                 `<div class="extra-data-row"><span class="extra-data-label">0–50</span><span class="extra-data-value" style="color:#54ab7c;">Good</span></div>`,
@@ -6695,16 +6732,8 @@ const THEMES = {
        const rTrendHtml = currentUsgs.trend ? `<span class="pressure-trend ${currentUsgs.trend.className}" title="${currentUsgs.trend.label} over 3h">${currentUsgs.trend.arrow}</span>` : '';
        
        const riverMax = getTodayMaxRiver(usgsHistory) || cachedRiverMax;
-       let maxHtml = '';
-       if (riverMax) {
-           maxHtml = `<div class="extreme-item" style="margin-top:10px; color: var(--text-color);"> ${riverMax.val.toFixed(2)} ft<br><span class="ext-time" style="font-family: var(--font-details); color: var(--muted-color);">${formatShortTime(riverMax.dateTime)}</span></div>`;
-       }
-
-       // format and build the CFS HTML safely
-       let cfsHtml = '';
-       if (currentUsgs.dischargeCfs != null) {
-           cfsHtml = `<div class="extreme-item" style="margin-top:10px; color: var(--text-color);">${currentUsgs.dischargeCfs.toLocaleString()}<span class="unit" style="font-size:0.75rem; font-family: var(--font-details); color: var(--muted-color);">cfs</span></div>`;
-       }
+       const peakStageText = riverMax ? `${riverMax.val.toFixed(2)} ft` : '--';
+       const cfsText = currentUsgs.dischargeCfs != null ? `${currentUsgs.dischargeCfs.toLocaleString()} cfs` : '-- cfs';
 
        usgsCard.innerHTML = `
           <div class="priority-card-head">
@@ -6716,6 +6745,7 @@ const THEMES = {
             ${rTrendHtml}
           </div>
           <div class="priority-context">Dashields · ${currentUsgs.trend ? currentUsgs.trend.label : 'trend unavailable'}</div>
+          <div class="priority-context">peak ${peakStageText} · ${cfsText}</div>
        `;
        gridRight.appendChild(usgsCard);
        makeCardExpandable(usgsCard, 'river', 'more river gauge data', (panel) => {
@@ -6728,13 +6758,6 @@ const THEMES = {
                `<div class="extra-data-row"><span class="extra-data-label">To Action Stage</span><span class="extra-data-value">${toAction > 0 ? toAction.toFixed(2) + ' ft to go' : 'At / above'}</span></div>`,
                `<div class="extra-data-row"><span class="extra-data-label">To Flood Stage</span><span class="extra-data-value">${toFlood > 0 ? toFlood.toFixed(2) + ' ft to go' : 'At / above'}</span></div>`,
                `<div class="extra-data-row"><span class="extra-data-label">3h Trend</span><span class="extra-data-value">${currentUsgs.trend ? currentUsgs.trend.label : '--'}</span></div>`
-             ]
-           },
-           {
-             title: 'Gauge today',
-             rows: [
-               `<div class="extra-data-row"><span class="extra-data-label">Peak Stage</span><span class="extra-data-value">${riverMax ? riverMax.val.toFixed(2) + ' ft · ' + formatShortTime(riverMax.dateTime) : '--'}</span></div>`,
-               `<div class="extra-data-row"><span class="extra-data-label">Discharge</span><span class="extra-data-value">${currentUsgs.dischargeCfs != null ? currentUsgs.dischargeCfs.toLocaleString() + ' cfs' : '--'}</span></div>`
              ]
            }
          ]);
