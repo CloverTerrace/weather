@@ -364,8 +364,17 @@
     gap: 1rem;
   }
 
+  /* NOTE: flex:1 only belongs here for the two-up row layouts (wind's
+     compass pairing, lightning's strikes/nearest pair) where
+     .priority-single-value is used as a SIBLING inside a flex row and
+     needs to split that row's width evenly. Precip and AQI reuse the same
+     .priority-single-value class as a single standalone block (direct
+     child of .card, not inside a row) -- if flex:1 applied there too, its
+     flex-basis:0% would force it to stretch and fill the entire column
+     instead of sizing to its content, which is what was pushing the
+     precip/AQI values to the top of the card and overlapping the label. */
   .wind-priority-metric,
-  .priority-single-value {
+  .lightning-priority-row .priority-single-value {
     flex: 1;
     text-align: center;
   }
@@ -2857,9 +2866,15 @@ svg circle, svg polygon, svg line {
     .priority-value { font-size: 1.7rem !important; }
   }
 
+  /* .pressure-priority-row is deliberately left OUT of this stack-to-column
+     rule (unlike wind/lightning, which genuinely need the extra vertical
+     room for a compass or a second metric). Pressure is just a value next
+     to a trend arrow -- stacking it broke the "arrow next to the value"
+     layout on every card narrower than 250px, which is the normal tile
+     width on the desktop grid, so the arrow was dropping onto its own line
+     and pushing the value off-center on essentially every desktop view. */
   @container card (max-width: 250px) {
     .wind-priority-row,
-    .pressure-priority-row,
     .lightning-priority-row {
       flex-direction: column;
       gap: 0.6rem;
@@ -3722,7 +3737,15 @@ svg circle, svg polygon, svg line {
     .desktop-left-rail #grid.grid .pressure-card .pressure-priority-row {
       margin-top: auto;
       margin-bottom: 0.25rem;
-      gap: 0.6rem;
+      gap: 0.5rem;
+    }
+
+    /* the base 1.8rem trend arrow (sized for a roomier, non-tile layout)
+       was disproportionately large next to the compacted tile value --
+       scaling it down to roughly match the value's own clamp() keeps the
+       arrow legible without letting it dominate the row or force a wrap. */
+    .desktop-left-rail #grid.grid .pressure-card .pressure-trend {
+      font-size: clamp(1.05rem, 5.5cqw, 1.4rem) !important;
     }
 
     .desktop-left-rail #grid.grid .pressure-card .storm-note {
