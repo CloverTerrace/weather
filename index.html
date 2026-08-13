@@ -396,7 +396,7 @@
   }
 
   /* combo grid system
-     the weather cards use two independent vertical columns rather than a
+     The weather cards use two independent vertical columns rather than a
      conventional CSS grid. That prevents an expanded card from changing the
      vertical position of the card beside it. */
   .grid {
@@ -720,6 +720,41 @@
      of inheriting the page's decorative display font. */
   .aqi-summary {
     font-family: var(--font-details);
+  }
+
+  /* Compact AQI scale reference for the back of the tile -- a single-line-
+     per-category list instead of a 2-column grid of boxes, so all six
+     categories fit in the tile's limited back-face height without a
+     scrollbar. */
+  .aqi-scale-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .aqi-scale-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2px 2px;
+    font-family: var(--font-details);
+    font-size: 0.72rem;
+  }
+
+  .aqi-scale-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex: 0 0 8px;
+  }
+
+  .aqi-scale-range {
+    flex: 0 0 4.2em;
+    color: var(--muted-color);
+  }
+
+  .aqi-scale-label {
+    font-weight: 600;
   }
 
   .pressure-trend {
@@ -3687,7 +3722,7 @@ svg circle, svg polygon, svg line {
       flex-basis: clamp(1.05rem, 4.2cqw, 1.3rem);
     }
 
-    .desktop-left-rail #grid.grid .card > :not(.priority-card-head):not(.card-flip-inner):not(.lightning-map-panel) {
+    .desktop-left-rail #grid.grid .card > :not(.priority-card-head):not(.card-flip-inner):not(.lightning-map-panel):not(.lightning-map-backdrop) {
       position: relative;
       z-index: 1;
     }
@@ -3707,22 +3742,37 @@ svg circle, svg polygon, svg line {
 
     .desktop-left-rail #grid.grid .glance-sub,
     .desktop-left-rail #grid.grid .priority-context {
-      font-size: clamp(0.58rem, 2.15cqw, 0.7rem) !important;
-      line-height: 1.2;
+      font-size: clamp(0.78rem, 3.1cqw, 0.95rem) !important;
+      line-height: 1.25;
     }
 
+    /* Every sensor tile's front content -- value row plus whatever
+       secondary stat line follows it (peak wind, peak rain rate, risk
+       category, peak river stage/CFS...) -- centers as a single group via
+       the front face's own flex justify-content, the same way Pressure
+       and AQI's fronts already did. Earlier these rows used competing
+       margin-top:auto/margin-bottom:auto pairs, which don't cooperate:
+       free space gets divided across every auto margin in the flex
+       container, so most of it piled up in the gap *between* the row and
+       its trailing context line instead of centering the pair -- reading
+       as "value up top, tiny caption stranded at the very bottom." Fixed
+       margins throughout keep the whole group together while the parent
+       still centers it as a block. */
     .desktop-left-rail #grid.grid .wind-card .wind-priority-row,
     .desktop-left-rail #grid.grid .lightning-card .lightning-priority-row,
-    .desktop-left-rail #grid.grid .solar-card .priority-dual-row {
+    .desktop-left-rail #grid.grid .solar-card .priority-dual-row,
+    .desktop-left-rail #grid.grid .precip-card .priority-single-value {
       width: 100%;
-      margin-top: auto;
-      margin-bottom: auto;
+      margin-top: 0;
+      margin-bottom: 0;
     }
 
     .desktop-left-rail #grid.grid .wind-card .priority-context,
-    .desktop-left-rail #grid.grid .pressure-card .storm-note,
-    .desktop-left-rail #grid.grid .lightning-card .priority-context {
-      margin-top: auto;
+    .desktop-left-rail #grid.grid .lightning-card .priority-context,
+    .desktop-left-rail #grid.grid .solar-card .priority-context,
+    .desktop-left-rail #grid.grid .precip-card .priority-context {
+      margin-top: 0.55rem;
+      margin-bottom: 0;
     }
 
     /* Temperature's front content (the feels-like/dew-point row plus the
@@ -3803,11 +3853,6 @@ svg circle, svg polygon, svg line {
       margin: 0;
     }
 
-    .desktop-left-rail #grid.grid .precip-card .priority-single-value {
-      margin-top: auto;
-      margin-bottom: auto;
-    }
-
     .desktop-left-rail #grid.grid .precip-card .priority-value {
       font-size: clamp(1.55rem, 9.5cqw, 2rem) !important;
     }
@@ -3837,9 +3882,18 @@ svg circle, svg polygon, svg line {
     }
 
     .desktop-left-rail #grid.grid .river-card .pressure-priority-row {
-      margin-top: auto;
-      margin-bottom: auto;
+      margin-top: 0;
+      margin-bottom: 0;
       gap: 0.5rem;
+    }
+
+    .desktop-left-rail #grid.grid .river-card .priority-context:first-of-type {
+      margin-top: 0.55rem;
+      margin-bottom: 0;
+    }
+
+    .desktop-left-rail #grid.grid .river-card .priority-context + .priority-context {
+      margin-top: 0.15rem;
     }
 
     .desktop-left-rail #grid.grid .river-card .priority-value {
@@ -4153,6 +4207,13 @@ svg circle, svg polygon, svg line {
     cursor: pointer;
   }
 
+  /* Only meaningful on desktop (see the enlarged-modal rules below) --
+     on mobile the map stays inline in the tile, so the backdrop is
+     inert there. */
+  .lightning-map-backdrop {
+    display: none;
+  }
+
   @media (max-width: 850px) {
     .card-flip-front,
     .card-flip-back { position: absolute; }
@@ -4165,10 +4226,27 @@ svg circle, svg polygon, svg line {
      footprint as every other sensor card, which is far too small to read
      strike activity on. Break it out into a large centered overlay
      instead of resizing the grid (resizing would reflow every other
-     tile). Mobile keeps its original inset:0 in-tile behavior above. */
+     tile). Mobile keeps its original inset:0 in-tile behavior above.
+
+     z-index note: Leaflet's own panes/controls (used by the radar map
+     elsewhere on the page) go up to z-index:1000, and a modest z-index
+     on an ancestor here (.lightning-card) creates its own local stacking
+     context that traps a fixed descendant's z-index for comparison
+     against THAT ancestor's level, not the whole document -- so both
+     values here are set well clear of 1000 to guarantee the enlarged
+     map (and its dimmed backdrop) always paints above the radar card
+     rather than clipping underneath it. */
   @media (min-width: 851px) {
     .desktop-left-rail #grid.grid .lightning-card.lightning-map-open {
-      z-index: 60 !important;
+      z-index: 5000 !important;
+    }
+    .desktop-left-rail #grid.grid .lightning-card .lightning-map-backdrop {
+      display: block;
+      position: fixed !important;
+      inset: 0 !important;
+      background: rgba(5, 8, 12, 0.6);
+      z-index: 4999 !important;
+      cursor: pointer;
     }
     .desktop-left-rail #grid.grid .lightning-card .lightning-map-panel {
       position: fixed !important;
@@ -4180,6 +4258,7 @@ svg circle, svg polygon, svg line {
       height: min(600px, 84vh) !important;
       min-height: 0 !important;
       padding: 1rem !important;
+      z-index: 5001 !important;
       box-shadow: 0 24px 64px rgba(0,0,0,0.45);
     }
   }
@@ -4580,6 +4659,29 @@ svg circle, svg polygon, svg line {
   const USGS_REFRESH_INTERVAL_MS = 15 * 60 * 1000;
   let currentUsgs = null;
   let usgsHistory = []; 
+
+  // NWS flood stage thresholds for the Dashields Lock & Dam gauge (AHPS
+  // station DSHP1), Ohio River Forecast Center — Ohio River, PA - PBZ.
+  const DASHIELDS_STAGES = [
+    { label: 'Action Stage',         ft: 19.4, color: '#c9a800' },
+    { label: 'Flood Stage',          ft: 25.0, color: '#ff7e00' },
+    { label: 'Moderate Flood Stage', ft: 29.0, color: '#ff4136' },
+    { label: 'Major Flood Stage',    ft: 32.0, color: '#8f3f97' },
+  ];
+
+  // plain-language read on where the current gage height sits relative to
+  // the flood stage ladder above -- mirrors getPressureLevelNote()'s
+  // approach of turning a raw number into a quick "where do I stand" line.
+  function getDashieldsStageNote(gageHeight) {
+    if (gageHeight === undefined || gageHeight === null || isNaN(gageHeight)) return null;
+    for (let i = DASHIELDS_STAGES.length - 1; i >= 0; i--) {
+      if (gageHeight >= DASHIELDS_STAGES[i].ft) {
+        return { text: `At/above ${DASHIELDS_STAGES[i].label}`, color: DASHIELDS_STAGES[i].color };
+      }
+    }
+    const toAction = DASHIELDS_STAGES[0].ft - gageHeight;
+    return { text: `${toAction.toFixed(1)} ft below Action Stage`, color: 'var(--muted-color)' };
+  }
 
   let cachedTodaysExtremes = null;
   let cachedRiverMax = null;
@@ -5094,6 +5196,8 @@ svg circle, svg polygon, svg line {
       card.classList.remove('lightning-map-open');
       const map = card.querySelector('.lightning-map-panel');
       if (map) map.remove();
+      const backdrop = card.querySelector('.lightning-map-backdrop');
+      if (backdrop) backdrop.remove();
       card.setAttribute('aria-expanded', 'false');
     });
   }
@@ -6629,18 +6733,24 @@ const THEMES = {
         closeOpenSensorCards();
         if (!current) {
           lightningCard.insertAdjacentHTML('beforeend', `
+            <div class="lightning-map-backdrop"></div>
             <div class="lightning-map-panel">
               <iframe class="lightning-map-frame" src="https://map.blitzortung.org/#3.7/40.616/-80.274" title="Live lightning map" loading="lazy" frameborder="0" scrolling="no" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
               <div class="lightning-map-caption">Live lightning activity · Blitzortung.org</div>
               <button type="button" class="lightning-map-close">close map ×</button>
             </div>`);
           lightningCard.querySelector('.lightning-map-close')?.addEventListener('click', (e) => { e.stopPropagation(); toggleLightningMap(false); });
+          // Desktop only (the backdrop is invisible/inert on mobile via CSS):
+          // clicking the dimmed area outside the enlarged map closes it
+          // immediately, same as scrolling the page away from it.
+          lightningCard.querySelector('.lightning-map-backdrop')?.addEventListener('click', (e) => { e.stopPropagation(); toggleLightningMap(false); });
         }
         lightningCard.classList.add('lightning-map-open');
         lightningCard.setAttribute('aria-expanded', 'true');
       } else {
         lightningCard.classList.remove('lightning-map-open');
         lightningCard.querySelector('.lightning-map-panel')?.remove();
+        lightningCard.querySelector('.lightning-map-backdrop')?.remove();
         lightningCard.setAttribute('aria-expanded', 'false');
       }
     };
@@ -6708,17 +6818,27 @@ const THEMES = {
         `;
         gridLeft.appendChild(aqiCard);
         makeCardExpandable(aqiCard, 'aqi', 'more air quality data', (panel) => {
+          const aqiScaleRows = [
+            ['0–50', 'Good', '#54ab7c'],
+            ['51–100', 'Moderate', '#c9a800'],
+            ['101–150', 'Unhealthy (Sensitive)', '#ff7e00'],
+            ['151–200', 'Unhealthy', '#ff4136'],
+            ['201–300', 'Very Unhealthy', '#8f3f97'],
+            ['301+', 'Hazardous', '#7e0023'],
+          ];
+          const aqiScaleHtml = `<div class="aqi-scale-compact" style="grid-column: 1 / -1;">${
+            aqiScaleRows.map(([range, label, color]) => `
+              <div class="aqi-scale-row">
+                <span class="aqi-scale-dot" style="background:${color};"></span>
+                <span class="aqi-scale-range">${range}</span>
+                <span class="aqi-scale-label" style="color:${color};">${label}</span>
+              </div>
+            `).join('')
+          }</div>`;
           panel.innerHTML = detailPanelHtml([
             {
               title: 'AQI scale reference',
-              rows: [
-                `<div class="extra-data-row"><span class="extra-data-label">0–50</span><span class="extra-data-value" style="color:#54ab7c;">Good</span></div>`,
-                `<div class="extra-data-row"><span class="extra-data-label">51–100</span><span class="extra-data-value" style="color:#c9a800;">Moderate</span></div>`,
-                `<div class="extra-data-row"><span class="extra-data-label">101–150</span><span class="extra-data-value" style="color:#ff7e00;">Unhealthy (Sensitive)</span></div>`,
-                `<div class="extra-data-row"><span class="extra-data-label">151–200</span><span class="extra-data-value" style="color:#ff4136;">Unhealthy</span></div>`,
-                `<div class="extra-data-row"><span class="extra-data-label">201–300</span><span class="extra-data-value" style="color:#8f3f97;">Very Unhealthy</span></div>`,
-                `<div class="extra-data-row"><span class="extra-data-label">301+</span><span class="extra-data-value" style="color:#7e0023;">Hazardous</span></div>`
-              ]
+              rows: [aqiScaleHtml]
             }
           ], 'AQI is driven by the pollutant with the worst reading at the moment — usually fine particulates (PM2.5) or ground-level ozone, depending on conditions.');
         });
@@ -6749,18 +6869,15 @@ const THEMES = {
        `;
        gridRight.appendChild(usgsCard);
        makeCardExpandable(usgsCard, 'river', 'more river gauge data', (panel) => {
-         const toAction = 20.0 - currentUsgs.gageHeight;
-         const toFlood = 25.0 - currentUsgs.gageHeight;
+         const stageNote = getDashieldsStageNote(currentUsgs.gageHeight);
          panel.innerHTML = detailPanelHtml([
            {
-             title: 'Flood context',
-             rows: [
-               `<div class="extra-data-row"><span class="extra-data-label">To Action Stage</span><span class="extra-data-value">${toAction > 0 ? toAction.toFixed(2) + ' ft to go' : 'At / above'}</span></div>`,
-               `<div class="extra-data-row"><span class="extra-data-label">To Flood Stage</span><span class="extra-data-value">${toFlood > 0 ? toFlood.toFixed(2) + ' ft to go' : 'At / above'}</span></div>`,
-               `<div class="extra-data-row"><span class="extra-data-label">3h Trend</span><span class="extra-data-value">${currentUsgs.trend ? currentUsgs.trend.label : '--'}</span></div>`
-             ]
+             title: 'Flood stages · Dashields L&D',
+             rows: DASHIELDS_STAGES.map(s =>
+               `<div class="extra-data-row"><span class="extra-data-label">${s.label}</span><span class="extra-data-value" style="color:${s.color};">${s.ft.toFixed(1)} ft</span></div>`
+             )
            }
-         ]);
+         ], stageNote ? `Current: ${currentUsgs.gageHeight.toFixed(2)} ft — <span style="color:${stageNote.color};">${stageNote.text}</span>` : '');
        });
     }
 
