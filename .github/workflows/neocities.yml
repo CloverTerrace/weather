@@ -3,19 +3,45 @@ name: Deploy to Neocities
 on:
   push:
     branches:
-      - main # Change this to 'master' if your main branch is called master
+      - main
+
+# Prevent two deployments from running at the same time
+concurrency:
+  group: deploy-to-neocities
+  cancel-in-progress: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
 
-    - name: Deploy to Neocities
-      uses: bcomnes/deploy-to-neocities@v3
-      with:
-        api_key: ${{ secrets.NEOCITIES_API_KEY }}
-        dist_dir: '.' # Set this to 'public' or 'dist' if your HTML files live in a subfolder
-        cleanup: false # Set to true if you want GitHub to delete old files off Neocities
-        
+    steps:
+      # Get the files from the GitHub repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Create a temporary copy of the actual website
+      - name: Prepare website for Neocities
+        run: |
+          rm -rf _site
+          mkdir -p _site
+
+          cp index.html _site/
+          cp manifest.json _site/
+          cp suncalc.js _site/
+          cp sw.js _site/
+          cp chart.umd.min.js _site/
+          cp .nojekyll _site/
+
+          cp -R data _site/
+          cp -R fonts _site/
+          cp -R icons _site/
+          cp -R scripts _site/
+
+      # Send the temporary website copy to Neocities
+      - name: Deploy to Neocities
+        uses: bcomnes/deploy-to-neocities@v3
+        with:
+          api_key: ${{ secrets.NEOCITIES_API_KEY }}
+          dist_dir: ./_site
+          cleanup: false
+          preview_before_deploy: true
