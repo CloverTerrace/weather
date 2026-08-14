@@ -25,7 +25,6 @@ jobs:
           cp index.html _site/
           cp manifest.json _site/
           cp suncalc.js _site/
-          cp sw.js _site/
           cp chart.umd.min.js _site/
 
           cp -R data _site/
