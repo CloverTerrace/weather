@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T04:31:01.729872Z",
+  "generatedAt": "2026-08-14T04:36:06.711605Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -45,5 +45,29 @@
       "office": "SPC"
     }
   ],
-  "statements": []
+  "statements": [
+    {
+      "id": "8c41bc97-2bbf-49ff-867c-a6f37edd23b3",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-08-14T04:35:00+00:00",
+      "expires": null,
+      "location": null,
+      "hazard": "Today and tonight. No hazardous weather is expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Saturday through Thursday. There is a marginal-slight risk of excessive rainfall on Saturday and Sunday, with isolated instances of flooding possible."
+        }
+      ],
+      "url": "https://api.weather.gov/products/8c41bc97-2bbf-49ff-867c-a6f37edd23b3"
+    }
+  ]
 }
