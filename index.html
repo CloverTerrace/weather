@@ -4065,8 +4065,11 @@ svg circle, svg polygon, svg line {
   /* ---------- sensor card flip ---------- */
   .card.card-expandable {
     position: relative;
-    perspective: 1200px;
-    -webkit-perspective: 1200px;
+    /* A flatter (larger) perspective distance makes the rotation read as
+       a smooth turn rather than a sharp, foreshortened snap -- part of
+       what made the flip feel "flashy". */
+    perspective: 1800px;
+    -webkit-perspective: 1800px;
     transform-style: preserve-3d;
     overflow: visible !important;
   }
@@ -4078,7 +4081,19 @@ svg circle, svg polygon, svg line {
     height: 100%;
     transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
-    transition: transform 0.46s cubic-bezier(.2,.72,.25,1);
+    /* Promote this to its own GPU compositing layer up front (rather
+       than only once the transition starts) so the animation itself
+       doesn't stall on a layer-creation hitch mid-flip -- the usual
+       cause of a 3D flip looking laggy/janky on less powerful devices. */
+    will-change: transform;
+    /* A same-color backdrop behind both faces means that if the browser
+       ever renders a frame where neither face is fully committed (the
+       exact 90° edge-on instant of the rotation), it shows the card's
+       own color rather than flashing through to whatever sits behind
+       the card on the page. */
+    background: var(--card-color);
+    border-radius: 12px;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .card.card-flipped .card-flip-inner { transform: rotateY(180deg); -webkit-transform: rotateY(180deg); }
@@ -4092,7 +4107,16 @@ svg circle, svg polygon, svg line {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     box-sizing: border-box;
-    border-radius: inherit;
+    /* NOTE: `inherit` here would resolve against this element's own DOM
+       parent (.card-flip-inner), not against .card further up the tree —
+       border-radius isn't an inherited CSS property, so `inherit` only
+       ever pulls from the immediate parent's computed value. Since
+       .card-flip-inner didn't set its own radius, that resolved to 0,
+       which is why the flipped (back) face had sharp corners while the
+       front face -- sitting directly over .card's own rounded background
+       -- visually looked fine. Both faces now match .card's 12px radius
+       explicitly instead of relying on inheritance. */
+    border-radius: 12px;
   }
 
   /* Both faces get an explicit (rather than implicit-zero) rotateY plus a
