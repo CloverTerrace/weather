@@ -407,7 +407,7 @@
   }
 
   /* combo grid system
-     The weather cards use two independent vertical columns rather than a
+     the weather cards use two independent vertical columns rather than a
      conventional CSS grid. That prevents an expanded card from changing the
      vertical position of the card beside it. */
   .grid {
@@ -459,16 +459,16 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 2px var(--accent-color);
   }
 
-  /* Themed press feedback, standing in for the browser's default blue
-     tap-highlight (killed globally above). A full-tile ::after tint is
+  /* themed press feedback, standing in for the browser's default blue
+     tap-highlight (killed globally above). a full-tile ::after tint is
      used rather than changing the tile's own background-color because
      .card-expandable's flip machinery (.card-flip-inner, front/back)
      paints its own opaque var(--card-color) layer on top of the tile --
      a background-color change on the tile itself would be invisible
-     underneath that. The pseudo-element instead paints *above*
+     underneath that. the pseudo-element instead paints *above*
      everything (it's generated content, so it's last in paint order),
      blending the live --accent-color into the tile itself so the flash
-     is always in-theme, whatever theme is active. Opacity-only + a
+     is always in-theme, whatever theme is active. opacity-only + a
      short transition keeps it cheap to composite, same as the flip
      animation above. */
   .card-expandable::after {
@@ -488,9 +488,7 @@
     transition-duration: 0.05s;
   }
 
-  /* Hidden site-wide: the hint text felt repetitive across every card.
-     The cards are still fully tappable/expandable -- click/keyboard
-     handling lives on the card element itself, not this label -- so
+  /* hide site-wide: the hint text
      hiding it purely removes the redundant "tap for X" caption. */
   .card-expand-hint {
     display: none;
@@ -577,7 +575,8 @@
     margin-left: 0.2rem;
     font-family: var(--font-grid-value);
   }
-
+  
+/*-*-*-*- wind compass -*-*-*-*/
   .wind-compass {
     position: relative;
     width: 100%;
@@ -751,22 +750,16 @@
     font-family: var(--font-card-heading);
   }
 
+  /*~*~*~*~ aqi card ~*~*~*~*/
   .aqi-category {
     font-size: 0.44em;
     display: block;
   }
 
-  /* Front-side description text uses the same details font as every
-     other tile's front copy (priority-context, storm-note, etc.) instead
-     of inheriting the page's decorative display font. */
   .aqi-summary {
     font-family: var(--font-details);
   }
 
-  /* Compact AQI scale reference for the back of the tile -- a single-line-
-     per-category list instead of a 2-column grid of boxes, so all six
-     categories fit in the tile's limited back-face height without a
-     scrollbar. */
   .aqi-scale-compact {
     display: flex;
     flex-direction: column;
@@ -798,6 +791,7 @@
     font-weight: 600;
   }
 
+  /*-*-*-*- pressure card *-*-*-*/
   .pressure-trend {
     font-size: 0.85em;
     margin-left: 0.25em;
@@ -873,10 +867,9 @@
 
   .storm-note strong { color: var(--accent-color); }
 
-  /* ---------- expanded detail panels ----------
-     The expanded area is intentionally a small instrument panel rather than
-     a second copy of the card. Native <details> groups make the nerdier
-     data independently collapsible without adding another JS interaction. */
+  /* ----------* expanded detail panels *----------
+     the expanded area is a small instrument with <details> 
+     groups so everything is independently collapsible.  */
 
   .detail-panel {
     display: flex;
@@ -1031,7 +1024,7 @@
 
 
 
-  /* ---------- SPC / NWS live storm desk ---------- */
+  /* ----------🌪️🌩️ SPC / NWS live storm desk 🌪️🌩️---------- */
   .nws-card {
     background: var(--card-color);
     border-radius: 12px;
@@ -1050,7 +1043,7 @@
     text-align: center;
   }
 
-  /* Compact status strip: three related information sources, one visual group. */
+  /* compact status strip: three related information sources, one visual group. */
   .nws-tabs {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1215,9 +1208,9 @@
     line-height: 1.4;
   }
 
-  /* The collapsed storm-desk card is a quick-read instrument panel:
-     location -> hazard -> distance -> issued -> until. Everything else
-     belongs behind the curated-details toggle. */
+  /* the collapsed storm-desk card is a quick-read instrument panel:
+     location -> hazard -> distance -> issued -> until. everything else
+     goes behind the curated-details toggle. */
   .nws-priority-grid {
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -1225,8 +1218,8 @@
     margin-top: 7px;
   }
 
-  /* Keep the long human-readable location/hazard strings horizontal.
-     They get the whole first row; distance/issued/until share the second. */
+  /* keep the readable location/hazard strings horizontal.
+     they should get the whole first row; distance/issued/until share the second. */
   .nws-priority-block.location,
   .nws-priority-block.hazard { grid-column: span 3; }
   .nws-priority-block.distance,
@@ -1408,7 +1401,7 @@
     .outlook-card .outlook-note { font-size: 0.61rem; margin-top: 0.45rem; }
   }
 
-
+/* ---*---*--- historical charts ---*---*--- */
 .charts-dropdown {
     width: 100%;
     max-width: 900px;
@@ -1463,13 +1456,13 @@
 
 
   /* ---------- extreme heat visual refinement ----------
-     Warm terracotta/ember palette: still clearly "hot", but lower in
+     warm terracotta/ember palette: still clearly "hot", but lower in
      saturation and contrast so long viewing is easier on the eyes.
-     Every warm tint below is mixed from var(--accent-color) -- which
+     every warm tint below is mixed from var(--accent-color) -- which
      applyTheme() sets from THEMES.extremeHeat(Night).accent -- instead
      of a separate hardcoded color, so tuning the theme's accent in the
      THEMES block (search for "THEME COLORS") is the only place this
-     ever needs to be touched. Only the neutral black shadows stay
+     ever needs to be touched. only the neutral black shadows stay
      literal, matching the same convention the base .card rule uses. */
   body.theme-extreme-heat .card {
     background:
@@ -1491,7 +1484,7 @@
       0 0 24px color-mix(in srgb, var(--accent-color) 2%, transparent);
   }
 
-  /* Soft ambient warmth rather than a saturated orange glow. */
+  /* soft ambient warmth rather than a saturated orange glow. */
   body.theme-extreme-heat #weather-fx::after,
   body.theme-extreme-heat-night #weather-fx::after {
     content: "";
@@ -1600,6 +1593,7 @@
     top: -6px; right: 18px;
   }
 
+  /* -*-*-*- visitor counter -*-*-* */
   .visitor-cloud {
     position: relative;
     display: inline-flex;
@@ -1624,7 +1618,7 @@
     position: relative;
   }
 
-
+/* -*-*-*-*- camera card -*-*-*-*- */ 
   .camera-card {
     background: var(--card-color);
     border-radius: 12px;
@@ -1652,7 +1646,7 @@
     display: block;
     margin: 0 auto;
   }
-
+/* ~*~*~*~*~ dashboard grid ~*~*~*~*~ */
 .dashboard-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -1686,7 +1680,7 @@
       max-width: 1800px;
     }
   }
-
+/* *-*-*-* ☀️ forecast card 🌩️ *-*-*-* */
 .forecast-periods {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -1733,6 +1727,7 @@
     font-size: 0.85rem;
   }
 
+  /*  🗺️ radar & forecast map 🌧️ */
   .map-tabs {
     display: flex;
     justify-content: center;
@@ -1818,6 +1813,8 @@
     color: var(--bg-color) !important;
   }
 
+  
+/* -*-*-*-*- historical chart data range -*-*-*-*- */ 
 .range-buttons {
     display: flex;
     justify-content: center;
@@ -1865,6 +1862,7 @@
     margin: 0 0 0.55rem;
     opacity: 0.9;
   }
+  
 
   /* ---------- SPC outlook viewer ---------- */
   .outlook-scroll {
@@ -2047,8 +2045,8 @@
   .outlook-category-panel { display: none; }
   .outlook-category-panel.active { display: block; }
 
-  /* Thunderstorm uses the same primary-view + thumbnail-drawer language as
-     Convective. The JS fills these two containers from the live manifest. */
+  /* -*-*-*-*- thunderstorm uses the same primary-view + thumbnail-drawer language as
+     convective. the JS fills these two containers from the live manifest. -*-*-*-*- */
   .thunderstorm-outlook-panel { width: 100%; }
   .thunderstorm-period-grid { display: block; width: 100%; }
   .thunderstorm-primary-scroll { margin: 0; }
@@ -2251,6 +2249,7 @@ html.loading-night .loading-star {
     width: 100%;
   }
 
+  /* 🌧️ fx rain & clouds */
   .fx-rain, .fx-clouds {
     position: absolute;
     inset: 0;
@@ -2258,6 +2257,7 @@ html.loading-night .loading-star {
     transition: opacity 0.8s ease;
   }
 
+  /* 🌙 night stars */
   .fx-stars {
   position: absolute;
   inset: 0;
@@ -2269,7 +2269,7 @@ body.fx-active-stars .fx-stars {
   opacity: 1;
 }
 
-/* bonus star layer — only shows on top of .fx-stars when skies are clear
+/* ✨ bonus star layer — only shows on top of .fx-stars when skies are clear
    with good/excellent stargazing conditions and no aurora. */
 .fx-stars-extra {
   position: absolute;
@@ -2282,7 +2282,7 @@ body.fx-stars-boost .fx-stars-extra {
   opacity: 1;
 }
 
-/* aurora overlay — layered "curtain" bands in the real atomic-oxygen/
+/* 🌌 aurora overlay — layered "curtain" bands in the real atomic-oxygen/
    nitrogen aurora colors (pink-red high altitude, green mid, blue-purple
    low altitude fringe), screened on top of the night sky + stars. */
 .fx-aurora {
@@ -2331,7 +2331,7 @@ body.fx-active-aurora .fx-aurora {
   0%, 100% { opacity: 0.55; }
   50%      { opacity: 0.95; }
 }
-
+/* 💨💨 smoke fx 💨💨 */
 .fx-smoke {
   position: absolute;
   inset: 0;
@@ -2361,7 +2361,8 @@ body.fx-active-smoke .fx-smoke {
   from { transform: translateX(-15vw); }
   to   { transform: translateX(115vw); }
 }
-
+  
+/* ‼️🚨 alerts */
 #alert-banners {
   width: 100%;
   max-width: 900px;
@@ -2376,7 +2377,7 @@ body.fx-active-smoke .fx-smoke {
   padding: 0.85rem 1.1rem;
   color: #fff;
   text-align: left;
-  /* deliberately NOT var(--font-*) -- alerts must stay legible and plain
+  /* default font for alerts - must stay legible and plain
      no matter which theme (and its decorative font choices) is active. */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
@@ -2420,7 +2421,7 @@ body.fx-active-smoke .fx-smoke {
 .alert-banner.alert-severe { background: #b3261e; }   /* matches NWS's own warning red */
 .alert-banner.alert-moderate { background: #d9822b; } /* watch/advisory orange */
 .alert-banner.alert-minor { background: #6b7280; }    /* statement/minor grey */
-
+/* extra rain for heavy rainfall events */
 .raindrop-extra {
   opacity: 0;
 }
@@ -2428,7 +2429,8 @@ body.fx-active-smoke .fx-smoke {
 body.fx-alert-heavy-rain .raindrop-extra {
   opacity: 1;
 }
-
+  
+/* ⚡️lightning fx */
 .fx-lightning {
   position: absolute;
   inset: 0;
@@ -2447,6 +2449,7 @@ body.fx-alert-heavy-rain .raindrop-extra {
   100% { opacity: 0; }
 }
 
+  /* ❄️ snow fx */
 .fx-snow {
   position: absolute;
   inset: 0;
@@ -2472,6 +2475,7 @@ body.fx-active-snow .fx-snow {
   100% { transform: translate(-10px, 120vh); }
 }
 
+  /* 🌪️ tornado fx */
 .fx-tornado-vignette {
   position: absolute;
   inset: 0;
@@ -2489,9 +2493,7 @@ body.fx-alert-tornado .fx-tornado-vignette {
   50%      { box-shadow: inset 0 0 180px 40px rgba(80, 90, 60, 0.45); }
 }
 
-/* extremeHeat -- a warm gradient overlay run through an animated SVG
-   turbulence filter (defined inline near #weather-fx) gives a gentle,
-   continuous heat-shimmer distortion without any per-frame JS. */
+/* 🌡️ extremeHeat */
 .fx-heat-shimmer {
   position: absolute;
   inset: 0;
@@ -2511,8 +2513,7 @@ body.fx-active-heatshimmer .fx-heat-shimmer {
   50%      { opacity: 1; }
 }
 
-/* sunny -- a slow-rotating conic "sunburst" gradient with a gentle
-   opacity pulse, standing in for drifting sun rays. */
+/* ☀️ sunny fx  */
 .fx-sunrays {
   position: absolute;
   inset: -25%;
@@ -2535,7 +2536,7 @@ body.fx-active-sunrays .fx-sunrays {
   0%, 100% { opacity: 0.4; }
   50%      { opacity: 0.7; }
 }
-
+/* rain & cloud falling fx stuff */ 
   body.fx-active-rain .fx-rain {
     opacity: 1;
   }
@@ -2599,7 +2600,7 @@ body.fx-active-sunrays .fx-sunrays {
       display: none !important;
     }
   }
-
+/* 🌌 sky & space skytracking box */
   .sky-box {
     position: relative;
     width: 100%;
@@ -2650,7 +2651,8 @@ body.fx-active-sunrays .fx-sunrays {
     bottom: 20%;
     border-top: 1px dashed rgba(255, 255, 255, 0.3);
   }
-
+  
+/* sky & space card details */
   .sunmoon-details {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -2710,7 +2712,7 @@ svg circle, svg polygon, svg line {
   transition: stroke 0.8s ease, fill 0.8s ease;
 }
 
-
+/* day to night / night to day smooth switcher */
   #day-night-overlay {
   position: fixed;
   inset: 0;
