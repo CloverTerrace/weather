@@ -1,0 +1,21 @@
+name: Deploy to Neocities
+
+on:
+  push:
+    branches:
+      - main # Change this to 'master' if your main branch is called master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Deploy to Neocities
+      uses: bcomnes/deploy-to-neocities@v1
+      with:
+        api_key: ${{ secrets.NEOCITIES_API_TOKEN }}
+        dist_dir: public # Set this to 'public' or 'dist' if your HTML files live in a subfolder
+        cleanup: false # Set to true if you want GitHub to delete old files off Neocities
+        
