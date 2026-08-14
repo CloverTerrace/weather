@@ -5,7 +5,6 @@ on:
     branches:
       - main
 
-# Prevent two deployments from running at the same time
 concurrency:
   group: deploy-to-neocities
   cancel-in-progress: true
@@ -15,11 +14,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Get the files from the GitHub repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Create a temporary copy of the actual website
       - name: Prepare website for Neocities
         run: |
           rm -rf _site
@@ -30,14 +27,12 @@ jobs:
           cp suncalc.js _site/
           cp sw.js _site/
           cp chart.umd.min.js _site/
-          cp .nojekyll _site/
 
           cp -R data _site/
           cp -R fonts _site/
           cp -R icons _site/
           cp -R scripts _site/
 
-      # Send the temporary website copy to Neocities
       - name: Deploy to Neocities
         uses: bcomnes/deploy-to-neocities@v3
         with:
