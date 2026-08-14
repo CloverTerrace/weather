@@ -7,11 +7,6 @@ on:
 
   workflow_dispatch:
 
-  schedule:
-    - cron: '2/5 * * * *'
-
-  workflow_dispatch:
-
 concurrency:
   group: deploy-to-neocities
   cancel-in-progress: true
