@@ -96,6 +96,17 @@
 
   * { box-sizing: border-box; }
 
+  /* Kills the browser's default blue/gray tap-highlight flash on every
+     tappable element, site-wide -- it was never themed and just flashed
+     stock Chrome/Safari blue over the sensor tiles on touch. Global so it
+     can't reappear on any future tappable element either. Themed press
+     feedback for the tiles that actually need touch confirmation lives on
+     .card-expandable and .lightning-map-trigger below instead. */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+
   /* installed fonts below */
 
   /* macondo-regular - latin */
@@ -441,10 +452,40 @@
   .card-expandable {
     cursor: pointer;
     outline: none;
+    position: relative;
   }
 
   .card-expandable:focus-visible {
     box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 2px var(--accent-color);
+  }
+
+  /* Themed press feedback, standing in for the browser's default blue
+     tap-highlight (killed globally above). A full-tile ::after tint is
+     used rather than changing the tile's own background-color because
+     .card-expandable's flip machinery (.card-flip-inner, front/back)
+     paints its own opaque var(--card-color) layer on top of the tile --
+     a background-color change on the tile itself would be invisible
+     underneath that. The pseudo-element instead paints *above*
+     everything (it's generated content, so it's last in paint order),
+     blending the live --accent-color into the tile itself so the flash
+     is always in-theme, whatever theme is active. Opacity-only + a
+     short transition keeps it cheap to composite, same as the flip
+     animation above. */
+  .card-expandable::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--accent-color) 22%, transparent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    z-index: 2;
+  }
+
+  .card-expandable:active::after {
+    opacity: 1;
+    transition-duration: 0.05s;
   }
 
   /* Hidden site-wide: the hint text felt repetitive across every card.
@@ -4178,8 +4219,29 @@ svg circle, svg polygon, svg line {
   /* Lightning map: a compact card-local overlay, deliberately separate
      from the generic flip interaction. The iframe is injected only while
      open, so it cannot create background lag while the tile is closed. */
-  .lightning-card.lightning-map-trigger { cursor: pointer; }
+  .lightning-card.lightning-map-trigger { cursor: pointer; position: relative; }
   .lightning-card.lightning-map-open { overflow: visible !important; }
+
+  /* Same themed press feedback as .card-expandable above, for the other
+     tappable tile shape (the lightning card opens a map overlay instead
+     of flipping). Suppressed once the map is actually open so the tint
+     doesn't sit on top of the live map. */
+  .lightning-card.lightning-map-trigger:not(.lightning-map-open)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--accent-color) 22%, transparent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    z-index: 2;
+  }
+
+  .lightning-card.lightning-map-trigger:not(.lightning-map-open):active::after {
+    opacity: 1;
+    transition-duration: 0.05s;
+  }
 
   .lightning-map-panel {
     position: absolute;
