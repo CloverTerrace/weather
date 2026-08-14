@@ -4062,15 +4062,23 @@ svg circle, svg polygon, svg line {
   }
 
 
-  /* ---------- sensor card flip ---------- */
+  /* ---------- sensor card flip ----------
+     Previously a true 3D rotateY() flip. That's what caused the mirrored-
+     backface bleed-through bug, the border-radius: inherit corner gotcha,
+     and (per feedback) still read as a bit flashy/heavy on a tablet even
+     after tuning the perspective/easing/compositing -- a full 3D rotation
+     is simply a heavier thing to render than a flat crossfade, and no
+     amount of tuning changes that.
+
+     Swapped for a lightweight 2D transition instead: the front slides out
+     to one side like a gust pushing it away while the back arrives from
+     the other side, the way one weather system replaces another moving
+     across the sky. It only animates opacity + translateX -- the two
+     cheapest properties a browser can composite -- so it's lighter than
+     the flip ever was, and it structurally can't mirror or lose its
+     corners since neither face ever turns to face away from the screen. */
   .card.card-expandable {
     position: relative;
-    /* A flatter (larger) perspective distance makes the rotation read as
-       a smooth turn rather than a sharp, foreshortened snap -- part of
-       what made the flip feel "flashy". */
-    perspective: 1800px;
-    -webkit-perspective: 1800px;
-    transform-style: preserve-3d;
     overflow: visible !important;
   }
 
@@ -4079,24 +4087,9 @@ svg circle, svg polygon, svg line {
     inset: 0;
     width: 100%;
     height: 100%;
-    transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
-    /* Promote this to its own GPU compositing layer up front (rather
-       than only once the transition starts) so the animation itself
-       doesn't stall on a layer-creation hitch mid-flip -- the usual
-       cause of a 3D flip looking laggy/janky on less powerful devices. */
-    will-change: transform;
-    /* A same-color backdrop behind both faces means that if the browser
-       ever renders a frame where neither face is fully committed (the
-       exact 90° edge-on instant of the rotation), it shows the card's
-       own color rather than flashing through to whatever sits behind
-       the card on the page. */
     background: var(--card-color);
     border-radius: 12px;
-    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
   }
-
-  .card.card-flipped .card-flip-inner { transform: rotateY(180deg); -webkit-transform: rotateY(180deg); }
 
   .card-flip-front,
   .card-flip-back {
@@ -4104,42 +4097,24 @@ svg circle, svg polygon, svg line {
     inset: 0;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
     box-sizing: border-box;
-    /* NOTE: `inherit` here would resolve against this element's own DOM
-       parent (.card-flip-inner), not against .card further up the tree —
-       border-radius isn't an inherited CSS property, so `inherit` only
-       ever pulls from the immediate parent's computed value. Since
-       .card-flip-inner didn't set its own radius, that resolved to 0,
-       which is why the flipped (back) face had sharp corners while the
-       front face -- sitting directly over .card's own rounded background
-       -- visually looked fine. Both faces now match .card's 12px radius
-       explicitly instead of relying on inheritance. */
     border-radius: 12px;
+    will-change: transform, opacity;
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Both faces get an explicit (rather than implicit-zero) rotateY plus a
-     tiny translateZ nudge. Some WebKit/tablet-Safari builds fail to cull
-     the backface of a preserve-3d child when one face relies on an
-     "unset" transform instead of an explicit one on the same axis as its
-     sibling -- the practical symptom is the front face's content bleeding
-     through, mirrored, behind the back face. Giving both faces their own
-     explicit transform (and their own compositing layer via translateZ)
-     keeps them reliably separated on every engine. */
   .card-flip-front {
     display: flex;
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
     padding: 0;
-    transform: rotateY(0deg) translateZ(0.01px);
-    -webkit-transform: rotateY(0deg) translateZ(0.01px);
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
   }
 
   .card-flip-back {
-    transform: rotateY(180deg) translateZ(0.01px);
-    -webkit-transform: rotateY(180deg) translateZ(0.01px);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -4147,6 +4122,21 @@ svg circle, svg polygon, svg line {
     overflow: hidden;
     background: var(--card-color);
     box-shadow: 0 14px 34px rgba(0,0,0,0.28);
+    opacity: 0;
+    transform: translateX(16px);
+    pointer-events: none;
+  }
+
+  .card.card-flipped .card-flip-front {
+    opacity: 0;
+    transform: translateX(-16px);
+    pointer-events: none;
+  }
+
+  .card.card-flipped .card-flip-back {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
   }
 
   .card-flip-back .card-expand-panel {
