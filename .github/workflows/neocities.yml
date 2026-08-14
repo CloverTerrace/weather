@@ -16,6 +16,6 @@ jobs:
       uses: bcomnes/deploy-to-neocities@v1
       with:
         api_key: ${{ secrets.NEOCITIES_API_TOKEN }}
-        dist_dir: public # Set this to 'public' or 'dist' if your HTML files live in a subfolder
+        dist_dir: '.' # Set this to 'public' or 'dist' if your HTML files live in a subfolder
         cleanup: false # Set to true if you want GitHub to delete old files off Neocities
         
