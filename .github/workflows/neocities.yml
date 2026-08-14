@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+  schedule:
+    - cron: '2/5 * * * *'
+
+  workflow_dispatch:
+
 concurrency:
   group: deploy-to-neocities
   cancel-in-progress: true
@@ -34,11 +39,42 @@ jobs:
 
       - name: Get current weather data
         run: |
-          curl -L "https://raw.githubusercontent.com/CloverTerrace/weather-data/main/data/weather.json" -o _site/data/weather.json
-          curl -L "https://raw.githubusercontent.com/CloverTerrace/weather-data/main/data/history.json" -o _site/data/history.json
+          curl --fail --silent --show-error --location \
+            "https://raw.githubusercontent.com/CloverTerrace/weather-data/main/data/weather.json" \
+            -o _site/data/weather.json
+
+          curl --fail --silent --show-error --location \
+            "https://raw.githubusercontent.com/CloverTerrace/weather-data/main/data/history.json" \
+            -o _site/data/history.json
+
+      - name: Get current USGS river gauge data
+        run: |
+          curl --fail --silent --show-error --location \
+            "https://waterservices.usgs.gov/nwis/iv/?sites=03086000&parameterCd=00065,00060&format=json&period=P10D" \
+            -o _site/data/usgs.json
+
       - name: Make Neocities copy use local weather data
         run: |
           sed -i "s#const DATA_REPO_BASE = 'https://raw.githubusercontent.com/CloverTerrace/weather-data/main/data';#const DATA_REPO_BASE = 'data';#" _site/index.html
+
+      - name: Make Neocities copy use local USGS data
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path("_site/index.html")
+          text = path.read_text()
+
+          old = """const url = `https://waterservices.usgs.gov/nwis/iv/?sites=${USGS_SITE_ID}&parameterCd=00065,00060&format=json&period=P10D`;"""
+
+          new = """const url = 'data/usgs.json';"""
+
+          if old not in text:
+              raise SystemExit("Could not find the USGS URL in the temporary index.html")
+
+          path.write_text(text.replace(old, new, 1))
+          PY
+
       - name: Deploy to Neocities
         uses: bcomnes/deploy-to-neocities@v3
         with:
