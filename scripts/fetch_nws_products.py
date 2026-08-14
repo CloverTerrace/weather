@@ -152,7 +152,11 @@ def normalize_lines(text: str) -> list[str]:
 
 def extract_section(text: str, labels: list[str], max_chars: int = 1400) -> str | None:
     lines = text.splitlines()
-    label_re = r"^(?:" + "|".join(re.escape(x) for x in labels) + r")\.\.\.\s*"
+    # Many NWS product headers (HWO's ".DAY ONE...", AFD's ".SHORT
+    # TERM..."), lead with a literal "." before the label -- allow an
+    # optional leading "." so those sections are actually found instead of
+    # silently falling through to the raw-line fallback in every caller.
+    label_re = r"^\.?(?:" + "|".join(re.escape(x) for x in labels) + r")\.\.\.\s*"
     start = None
     for i, line in enumerate(lines):
         if re.match(label_re, line.strip(), re.I):
@@ -163,7 +167,7 @@ def extract_section(text: str, labels: list[str], max_chars: int = 1400) -> str 
     first = re.sub(label_re, "", lines[start].strip(), flags=re.I)
     body=[first] if first else []
     for line in lines[start+1:]:
-        if re.match(r"^[A-Z][A-Z /&()0-9-]{2,}\.\.\.", line.strip()):
+        if re.match(r"^\.?[A-Z][A-Z /&()0-9-]{2,}\.\.\.", line.strip()):
             break
         body.append(line.strip())
     out=re.sub(r"\s+", " ", " ".join(x for x in body if x)).strip()
@@ -536,7 +540,9 @@ def fetch_mesoscale_discussions(limit: int = MAX_MDS) -> list[dict]:
 
 def extract_nws_location(full_text: str, product_name: str) -> str | None:
     lines = normalize_lines(full_text)
-    # Many PBZ products use: UGC line -> /O.../ line -> county/area line.
+    # VTEC-segmented products (warnings/statements tied to an active
+    # segment): the /O.NEW.KPBZ.SV.W.0091/ line is immediately followed by
+    # the county/area list line.
     for i, line in enumerate(lines):
         if re.match(r"^/[^/]+/$", line) and i + 1 < len(lines):
             candidate = lines[i + 1]
@@ -544,6 +550,41 @@ def extract_nws_location(full_text: str, product_name: str) -> str | None:
             candidate = re.sub(r"\s+\d{3,4}\s+(?:AM|PM)\s+[A-Z]{2,4}.*$", "", candidate, flags=re.I)
             if candidate and not re.match(r"^\d{3,4}\s+(?:AM|PM)\b", candidate, re.I):
                 return candidate.strip(" -")
+    # Routine zone/county products with no VTEC segment at all (HWO, AFD,
+    # PNS, ...): the product opens with a raw UGC header -- one or more
+    # zone codes, dash-separated, ending in a DDHHMM expiration stamp, e.g.
+    #   PAZ021-023>025-029-030-171800-
+    # -- immediately followed by the human-readable county/zone name list
+    # that the header expands to, e.g.
+    #   Beaver-Butler-Allegheny-Fayette-Greene-
+    # NWS product text wraps at ~69 chars, so the header itself is often
+    # split across two or more lines before the expiration stamp appears --
+    # walk forward through continuation lines until the stamped line shows
+    # up, then read the name-list line(s) right after it.
+    ugc_start_re = re.compile(r"^[A-Z]{2,3}[CZ]\d{3}-")
+    ugc_line_re = re.compile(r"^[A-Z0-9>-]+-$")
+    ugc_end_re = re.compile(r"-\d{6}-$")
+    name_list_re = re.compile(r"^(?=.*-)[A-Za-z][A-Za-z .'-]*$")
+    for i, line in enumerate(lines):
+        if not ugc_start_re.match(line):
+            continue
+        end_idx = None
+        for j in range(i, min(i + 5, len(lines))):
+            if ugc_end_re.search(lines[j]):
+                end_idx = j
+                break
+            if not ugc_line_re.match(lines[j]):
+                break
+        if end_idx is None:
+            continue
+        parts = []
+        for candidate in lines[end_idx + 1:end_idx + 4]:
+            if name_list_re.match(candidate):
+                parts.append(candidate.strip(" -"))
+            else:
+                break
+        if parts:
+            return "-".join(parts)[:200]
     return None
 
 
@@ -591,7 +632,9 @@ def fetch_nws_updates(limit: int = MAX_NWS_UPDATES) -> list[dict]:
         for label, labels, limit_chars in [
             ("Overview", ["OVERVIEW", "SUMMARY", "SYNOPSIS"], 1100),
             ("Discussion", ["DISCUSSION"], 1800),
+            ("Today's Hazards", ["DAY ONE"], 1100),
             ("Hazards", ["HAZARDS", "IMPACTS", "IMPACT"], 1100),
+            ("Extended Outlook", ["DAYS TWO THROUGH SEVEN"], 900),
             ("Timing", ["TIMING", "THREAT", "VALID"], 900),
         ]:
             value=extract_section(full_text, labels, limit_chars)
@@ -616,6 +659,15 @@ def fetch_nws_updates(limit: int = MAX_NWS_UPDATES) -> list[dict]:
         if not details and full_text:
             details=[{"label":"Product detail","text":" ".join(normalize_lines(full_text)[:8])[:1800]}]
 
+        # "hazard" is the compact at-a-glance field on the card face. Most
+        # routine products (HWO included) have no structured "headline" --
+        # falling back to product_name there just re-displays the product's
+        # own type ("Hazardous Weather Outlook") instead of what it says.
+        # The extracted summary (real body content) is a far more useful
+        # fallback and is already computed above.
+        hazard_text=props.get("headline") or summary or product_name
+        hazard=hazard_text[:160].rsplit(" ", 1)[0] if len(hazard_text) > 160 else hazard_text
+
         items.append({
             "id": source_id,
             "type": product_name,
@@ -623,7 +675,7 @@ def fetch_nws_updates(limit: int = MAX_NWS_UPDATES) -> list[dict]:
             "issued": props.get("issuanceTime"),
             "expires": props.get("expirationTime") or props.get("expires"),
             "location": props.get("areaDesc") or extract_nws_location(full_text, product_name),
-            "hazard": props.get("headline") or product_name,
+            "hazard": hazard,
             "distanceMiles": None,
             "headline": headline,
             "summary": summary,
