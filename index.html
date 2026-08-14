@@ -1462,14 +1462,14 @@
   }
 
 
-  /* ---------- extreme heat visual refinement ----------
-     Warm terracotta/ember palette: still clearly "hot", but lower in
+  /* ~•~•~• extreme heat visual refinement ~•~•~•~•
+     warm terracotta/ember palette: still clearly "hot", but lower in
      saturation and contrast so long viewing is easier on the eyes.
      Every warm tint below is mixed from var(--accent-color) -- which
      applyTheme() sets from THEMES.extremeHeat(Night).accent -- instead
      of a separate hardcoded color, so tuning the theme's accent in the
      THEMES block (search for "THEME COLORS") is the only place this
-     ever needs to be touched. Only the neutral black shadows stay
+     ever needs to be touched. only the neutral black shadows stay
      literal, matching the same convention the base .card rule uses. */
   body.theme-extreme-heat .card {
     background:
@@ -1491,7 +1491,7 @@
       0 0 24px color-mix(in srgb, var(--accent-color) 2%, transparent);
   }
 
-  /* Soft ambient warmth rather than a saturated orange glow. */
+  /* soft ambient warmth rather than a saturated orange glow. */
   body.theme-extreme-heat #weather-fx::after,
   body.theme-extreme-heat-night #weather-fx::after {
     content: "";
@@ -1526,7 +1526,7 @@
     }
   }
 
-  /* ---------- footer actions area (clouds) ---------- */
+  /*  footer actions area (clouds w counter, refresh button, and share button) ---------- */
   .footer-actions {
     display: flex;
     justify-content: center;
@@ -1600,6 +1600,7 @@
     top: -6px; right: 18px;
   }
 
+  /* visitor counter cloud */
   .visitor-cloud {
     position: relative;
     display: inline-flex;
@@ -1624,7 +1625,7 @@
     position: relative;
   }
 
-
+/* 📷 camera card details  */
   .camera-card {
     background: var(--card-color);
     border-radius: 12px;
@@ -1652,7 +1653,8 @@
     display: block;
     margin: 0 auto;
   }
-
+  
+/* weather station sensor grid tiles 🌨️ */
 .dashboard-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -1686,7 +1688,8 @@
       max-width: 1800px;
     }
   }
-
+  
+/* nws 4 panel forecast card */
 .forecast-periods {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -1732,7 +1735,8 @@
     font-family: var(--font-details);
     font-size: 0.85rem;
   }
-
+  
+/* radar and forecast map card */ 
   .map-tabs {
     display: flex;
     justify-content: center;
@@ -1817,7 +1821,8 @@
     background: var(--accent-color) !important;
     color: var(--bg-color) !important;
   }
-
+  
+/* range buttons for historical graphs */
 .range-buttons {
     display: flex;
     justify-content: center;
