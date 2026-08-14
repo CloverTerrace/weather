@@ -36,7 +36,9 @@ jobs:
         run: |
           curl -L "https://raw.githubusercontent.com/CloverTerrace/weather-data/main/data/weather.json" -o _site/data/weather.json
           curl -L "https://raw.githubusercontent.com/CloverTerrace/weather-data/main/data/history.json" -o _site/data/history.json
-
+      - name: Make Neocities copy use local weather data
+        run: |
+          sed -i "s#const DATA_REPO_BASE = 'https://raw.githubusercontent.com/CloverTerrace/weather-data/main/data';#const DATA_REPO_BASE = 'data';#" _site/index.html
       - name: Deploy to Neocities
         uses: bcomnes/deploy-to-neocities@v3
         with:
