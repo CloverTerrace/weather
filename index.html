@@ -5,12 +5,12 @@
 <script>
   // ~~~~~~~ 🌩️☀️🌈 FOUC prevention 🌈🌤️🌧️ ~~~~~~~
   // runs synchronously, before <body> paints..
-  // if a cached theme exists, apply its CSS variables to the root right
-  // now, before the browser renders anything — so a returning visitor's
-  // very first paint is already correct, no flash, no overlay shown at
+  // if a cached theme exists, apply its CSS variables to the root
+  // before the browser renders anything — so a returning visitor's
+  // first paint is already correct, no flashing, no overlay shown at
   // all. if there's no cache (first visit, or a cleared one), show the
   // clover wx loading overlay instead, in the right day/night mode based
-  // on the clover terrace station clock (checked synchronously too)
+  // on the clover weather station clock (checked synchronously too)
   (function () {
     var CACHE_KEY = 'cloverWeatherThemeCache';
     var cached = null;
@@ -23,11 +23,10 @@
     var hour = new Date().getHours();
     var isNightNow = hour < 6 || hour >= 20;
 
-    // only trust the cached theme if it's still the right time-of-day —
-    // otherwise a returning visitor from last night briefly sees last
-    // night's colors/fonts before fresh data corrects it. if it's stale,
-    // fall back to the neutral loading overlay instead of confidently
-    // showing what we now know is probably the wrong theme.
+    // only trust the cached theme if it's still the right time-of-day  🌤️
+    // so a returning visitor from last night won't see last night's   ☁️  🌧️
+    // colors/fonts before correcting. if it's stale, fall back to the   🌪️
+    // neutral loading overlay instead of showing what is probably the wrong theme.
     if (cached && cached.vars && cached.isNight === isNightNow) {
       var root = document.documentElement.style;
       for (var key in cached.vars) {
@@ -97,10 +96,10 @@
 
   * { box-sizing: border-box; }
 
-  /* changes the default color for the tap-highlight flash on every tappable 
-  thing site-wide. can't reappear on any future tappable element either. themed 
+  /* 💜 changes the default color for the tap-highlight flash on every tappable 
+  thing site-wide. can't reappear on any future tappable element. themed 
   press feedback for the tiles that actually need touch confirmation lives on
-  .card-expandable and .lightning-map-trigger below. */
+  .card-expandable and .lightning-map-trigger below. 💜 */
   * {
     -webkit-tap-highlight-color: transparent;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -277,9 +276,7 @@
     overflow: hidden;
     vertical-align: -6px;
     margin-right: 0.35em;
-    /* shadow lives on the container, not the cropped image inside it --
-       putting it on the (overflow:hidden) img clipped the shadow itself
-       into a harsh little rectangle on one or two sides of the icon */
+    /* shadow lives on the container, not the cropped image inside it */
     filter: var(--icon-shadow);
   }
 
@@ -291,15 +288,12 @@
     transform-origin: center;
   }
 
-  /* NASA's Dial-a-Moon print images (the same source .sky-body-frame /
+  /* 🌙 NASA's dial-a-moon print images (the same source .sky-body-frame /
      .moon-body-img use in the Sky & Space card below) are square photos
-     with a lot of built-in black padding around the actual moon disc --
-     they're made as print-ready posters, not tightly-cropped icons. A
-     plain img at any size just shows that padding scaled up along with
-     it. Same fix as .sky-body-frame: a fixed-size, clipped circular
-     frame with the image scaled up past its edges so only the moon
-     itself is visible -- reusing that pattern's proven scale(1.8) crop
-     rather than guessing a new one. */
+     with a lot of built-in black padding around the actual moon disc.
+     a plain img at any size just shows that padding scaled up along with
+     it. same fix as .sky-body-frame: a fixed-size, clipped circular
+     frame with the image scaled up past its edges. more moon less border 🌙 */
   .weather-icon-moon-frame {
      display: flex;
      align-items: center;
@@ -329,7 +323,6 @@
     font-family: var(--font-body);
   }
 
-  /* ---------- information hierarchy cleanup ---------- */
   .priority-card-head {
     display: flex;
     align-items: center;
@@ -396,24 +389,16 @@
   /* NOTE: flex:1 only belongs here for the two-up row layouts (wind's
      compass pairing, lightning's strikes/nearest pair) where
      .priority-single-value is used as a SIBLING inside a flex row and
-     needs to split that row's width evenly. Precip and AQI reuse the same
+     needs to split that row's width evenly. precip and AQI reuse the same
      .priority-single-value class as a single standalone block (direct
-     child of .card, not inside a row) -- if flex:1 applied there too, its
-     flex-basis:0% would force it to stretch and fill the entire column
-     instead of sizing to its content, which is what was pushing the
-     precip/AQI values to the top of the card and overlapping the label. */
+     child of .card, not inside a row) */
   .wind-priority-metric,
   .lightning-priority-row .priority-single-value {
     flex: 1;
     text-align: center;
   }
 
-  /* Wind's front face shows two kinds of number per column: the current
-     reading (big, primary) and today's peak (secondary, but still a real
-     value -- not just a muted caption like other cards' plain descriptive
-     text). Giving the peak its own small label+value pair with a divider
-     keeps the current reading dominant while making clear the peak is a
-     second, distinct figure rather than a description of the first. */
+  /* wind tile front extra peak values */
   .wind-metric-label {
     display: block;
     font-size: 0.7rem;
@@ -471,10 +456,9 @@
     }
   }
 
-  /* combo grid system
-     the weather cards use two independent vertical columns rather than a
-     conventional CSS grid. That prevents an expanded card from changing the
-     vertical position of the card beside it. */
+  /* combo grid system ☔
+  the weather cards use two independent vertical columns rather than a conventional CSS grid. 
+  prevents an expanded card from changing the vertical position of the card beside it. */
   .grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -506,10 +490,9 @@
     min-width: 0;
     box-sizing: border-box;
     /* lets a tile's own internal layout (wind compass, dual value rows,
-       etc.) react to how wide THAT card actually renders -- not the
-       viewport -- so it stays readable at any tile size the desktop
-       square-tile grid settles on. See the `@container card` rules near
-       the end of the stylesheet. */
+       etc.) react to how wide THAT card actually renders (not the
+       viewport) so it stays readable at any tile size the desktop
+       square-tile grid settles on. see the `@container card` rules */
     container-type: inline-size;
     container-name: card;
   }
@@ -524,18 +507,7 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 2px var(--accent-color);
   }
 
-  /* themed press feedback, standing in for the browser's default blue
-     tap-highlight (killed globally above). a full-tile ::after tint is
-     used rather than changing the tile's own background-color because
-     .card-expandable's flip machinery (.card-flip-inner, front/back)
-     paints its own opaque var(--card-color) layer on top of the tile --
-     a background-color change on the tile itself would be invisible
-     underneath that. the pseudo-element instead paints *above*
-     everything (it's generated content, so it's last in paint order),
-     blending the live --accent-color into the tile itself so the flash
-     is always in-theme, whatever theme is active. opacity-only + a
-     short transition keeps it cheap to composite, same as the flip
-     animation above. */
+  /* themed press feedback, standing in for the browser's default blue tap-highlight. ❄️ */
   .card-expandable::after {
     content: '';
     position: absolute;
@@ -553,8 +525,7 @@
     transition-duration: 0.05s;
   }
 
-  /* hide site-wide: the hint text
-     hiding it purely removes the redundant "tap for X" caption. */
+  /* hide site-wide: the hint text */
   .card-expand-hint {
     display: none;
   }
@@ -587,19 +558,12 @@
 
   .high-arrow { color: #ff8659; font-weight: bold; margin-right: 2px; }
   .low-arrow { color: #4fc3f7; font-weight: bold; margin-right: 2px; }
-  /* the default arrow colors above are tuned for dark cards; on
-     light-card themes (sunny, cloudy) they're too pale to read, so
-     swap in deeper shades of the same hues just for those themes */
+  /* the default arrow colors above are tuned for dark cards;
+     swap in deeper shades of the same hues just for themes marked light*/
   .theme-light-card .high-arrow { color: #C1470F; }
   .theme-light-card .low-arrow  { color: #0E6FA3; }
-  /* every hairline border / subtle panel tint elsewhere in the app is a
-     translucent WHITE overlay (rgba(255,255,255,x)) -- that reads fine on
-     the dark card themes it was designed for, but on a light-card theme
-     (white-ish card) it's nearly invisible: white-on-white. Rather than
-     hand-tune each theme, we flip every one of those to a translucent
-     BLACK overlay of roughly matching strength whenever the light-card
-     class is active, so section boundaries, dividers, and tab/item
-     outlines stay crisp no matter how light the active card color is. */
+  /* every hairline border / subtle panel tint is white, this changes section boundaries, dividers, and tab/item
+     outlines to a darker shade when needed depending on how light the active card color is. */
   .ext-time { font-size: 0.7rem; color: var(--muted-color); opacity: 0.75; margin-top: 1px; line-height: 1; }
   
   .extra-row {
@@ -762,7 +726,7 @@
      same fixed-size, overflow-hidden + scaled-up-image crop trick as
      .card-icon above, so the meteocon's animation padding gets cropped
      away here too -- see the comment on .card-icon for why that's
-     needed. Falls back to plain emoji text (theme.icon) sized/centered
+     needed. falls back to plain emoji text (theme.icon) sized/centered
      to match if a theme has no working image, via loadMeteoconOrFallback(). */
   .theme-preview-icon {
     display: inline-block;
