@@ -3454,6 +3454,61 @@ svg circle, svg polygon, svg line {
     text-align: center;
   }
 
+  /* Two-way switcher between our own GLM map and the Blitzortung embed --
+     tap either tab, or swipe left/right over the map area on touch. GLM is
+     the default view. */
+  .lightning-map-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .lightning-map-tab {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.68rem;
+    font-weight: 600;
+  }
+
+  .lightning-map-tab.active {
+    background: var(--bg-color);
+    color: var(--text-color);
+  }
+
+  .lightning-map-views {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lightning-map-view {
+    display: none;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    gap: 0.35rem;
+  }
+
+  .lightning-map-view.active {
+    display: flex;
+  }
+
+  .lightning-glm-map {
+    display: block;
+    width: 100%;
+    height: 360px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--card-color);
+  }
+
   /* Desktop information rails: constrain text, let visual material be the
      thing that earns the wider canvas. */
   @media (min-width: 1100px) {
@@ -3674,6 +3729,10 @@ svg circle, svg polygon, svg line {
     }
 
     .lightning-map-frame {
+      height: 320px;
+    }
+
+    .lightning-glm-map {
       height: 320px;
     }
 
@@ -4365,6 +4424,15 @@ svg circle, svg polygon, svg line {
   }
 
   .lightning-map-frame {
+    display: block;
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+    border: 0;
+    border-radius: 8px;
+  }
+
+  .lightning-glm-map {
     display: block;
     width: 100%;
     flex: 1 1 auto;
@@ -6015,6 +6083,106 @@ svg circle, svg polygon, svg line {
     setInterval(loadRadarFrames, RADAR_REFRESH_INTERVAL_MS);
   }
 
+  // ---------- lightning card: our own GLM map + Blitzortung, tabbed ----------
+  // fetch_lightning_glm.py (in the weather-data pipeline) writes this from
+  // NOAA's public GOES-19 GLM satellite feed -- see that script for the
+  // schema. Reusing DATA_REPO_BASE keeps this on the same raw.githubusercontent
+  // host as weather.json/history.json.
+  const LIGHTNING_GLM_URL = `${DATA_REPO_BASE}/lightning_glm.json`;
+  const LIGHTNING_GLM_REFRESH_INTERVAL_MS = 5 * 60 * 1000;
+
+  let lightningGlmMap = null;
+  let lightningGlmLayer = null;
+  let lightningGlmTimer = null;
+
+  async function loadLightningGlm() {
+    const caption = document.getElementById('lightning-glm-caption');
+    if (!lightningGlmMap) return;
+    try {
+      const res = await fetch(`${LIGHTNING_GLM_URL}?t=${Date.now()}`);
+      if (!res.ok) throw new Error(`status ${res.status}`);
+      const data = await res.json();
+      const flashes = Array.isArray(data.flashes) ? data.flashes : [];
+      if (lightningGlmLayer) lightningGlmMap.removeLayer(lightningGlmLayer);
+      lightningGlmLayer = L.layerGroup(flashes.map(f => L.circleMarker([f.lat, f.lon], {
+        radius: 5,
+        color: '#ffcc33',
+        weight: 1,
+        fillColor: '#ffcc33',
+        fillOpacity: 0.7,
+      }).bindTooltip(formatShortTime(f.time), { direction: 'top' }))).addTo(lightningGlmMap);
+      if (caption) {
+        const n = flashes.length;
+        const windowMin = data.window_minutes || 15;
+        caption.textContent = n
+          ? `${n} flash${n === 1 ? '' : 'es'} · last ${windowMin} min · NOAA GOES-19 GLM`
+          : `No flashes detected nearby · last ${windowMin} min · NOAA GOES-19 GLM`;
+      }
+    } catch (err) {
+      if (caption) caption.textContent = 'GLM data not available yet';
+    }
+  }
+
+  function initLightningGlmMap() {
+    if (lightningGlmMap) return;
+    const el = document.getElementById('lightning-glm-map');
+    if (!el) return;
+    lightningGlmMap = L.map('lightning-glm-map', {
+      zoomControl: true,
+      attributionControl: false,
+    }).setView([RADAR_LAT, RADAR_LON], 7);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { subdomains: 'abcd', maxZoom: 19 }).addTo(lightningGlmMap);
+    L.marker([RADAR_LAT, RADAR_LON]).addTo(lightningGlmMap);
+    loadLightningGlm();
+    if (!lightningGlmTimer) lightningGlmTimer = setInterval(loadLightningGlm, LIGHTNING_GLM_REFRESH_INTERVAL_MS);
+  }
+
+  // The lightning card's enlarged view has its own small two-tab switcher
+  // (our GLM map vs. the Blitzortung embed) rather than reusing the
+  // page's .map-tab/.map-panel styling, which is sized for the inline
+  // radar/forecast card, not this modal. Swipe is added on top of tap
+  // since the enlarged map is a touch-first overlay.
+  function initLightningMapTabs(lightningCard) {
+    const tabs = lightningCard.querySelectorAll('.lightning-map-tab');
+    const views = lightningCard.querySelectorAll('.lightning-map-view');
+    const order = Array.from(views).map(v => v.id);
+
+    const activate = (target) => {
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.target === target));
+      views.forEach(v => v.classList.toggle('active', v.id === target));
+      if (target === 'lightning-map-panel-glm') {
+        initLightningGlmMap();
+        setTimeout(() => lightningGlmMap && lightningGlmMap.invalidateSize(), 50);
+      } else {
+        const iframe = lightningCard.querySelector('.lightning-map-frame[data-src]');
+        if (iframe) { iframe.src = iframe.dataset.src; iframe.removeAttribute('data-src'); }
+      }
+    };
+
+    tabs.forEach(tab => tab.addEventListener('click', (e) => { e.stopPropagation(); activate(tab.dataset.target); }));
+
+    const viewsWrap = lightningCard.querySelector('.lightning-map-views');
+    if (viewsWrap) {
+      let touchStartX = null;
+      viewsWrap.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      viewsWrap.addEventListener('touchend', (e) => {
+        if (touchStartX === null) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        touchStartX = null;
+        if (Math.abs(dx) < 40) return; // ignore taps/vertical scroll
+        const current = lightningCard.querySelector('.lightning-map-tab.active')?.dataset.target;
+        const idx = order.indexOf(current);
+        if (idx === -1) return;
+        const nextIdx = dx < 0 ? Math.min(idx + 1, order.length - 1) : Math.max(idx - 1, 0);
+        if (nextIdx !== idx) activate(order[nextIdx]);
+      }, { passive: true });
+    }
+
+    // GLM is the default tab -- it's already marked active in the markup,
+    // so just make sure its map actually exists.
+    initLightningGlmMap();
+  }
+
   function initMapTabs() {
     const tabs = document.querySelectorAll('.map-tab');
     const panels = document.querySelectorAll('.map-panel');
@@ -6949,11 +7117,24 @@ const THEMES = {
           lightningCard.insertAdjacentHTML('beforeend', `
             <div class="lightning-map-backdrop"></div>
             <div class="lightning-map-panel">
-              <iframe class="lightning-map-frame" src="https://map.blitzortung.org/#3.7/40.616/-80.274" title="Live lightning map" loading="lazy" frameborder="0" scrolling="no" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
-              <div class="lightning-map-caption">Live lightning activity · Blitzortung.org</div>
+              <div class="lightning-map-tabs">
+                <button type="button" class="lightning-map-tab active" data-target="lightning-map-panel-glm">Our Data (GLM)</button>
+                <button type="button" class="lightning-map-tab" data-target="lightning-map-panel-bo">Blitzortung</button>
+              </div>
+              <div class="lightning-map-views">
+                <div class="lightning-map-view active" id="lightning-map-panel-glm">
+                  <div class="lightning-glm-map" id="lightning-glm-map"></div>
+                  <div class="lightning-map-caption" id="lightning-glm-caption">Loading recent flashes…</div>
+                </div>
+                <div class="lightning-map-view" id="lightning-map-panel-bo">
+                  <iframe class="lightning-map-frame" data-src="https://map.blitzortung.org/#3.7/40.616/-80.274" title="Live lightning map" loading="lazy" frameborder="0" scrolling="no" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
+                  <div class="lightning-map-caption">Live lightning activity · Blitzortung.org</div>
+                </div>
+              </div>
               <button type="button" class="lightning-map-close">close map ×</button>
             </div>`);
           attachLightningMapListeners();
+          initLightningMapTabs(lightningCard);
         }
         // Panel/backdrop now stay in the DOM (hidden via CSS) rather than
         // being destroyed here -- see the .lightning-map-open CSS rules --
@@ -6970,11 +7151,16 @@ const THEMES = {
     if (preservedLightningPanel) {
       // Put the still-live map (relocated above, before this card was
       // rebuilt) back exactly where a freshly opened one would go. Its old
-      // button listeners pointed at the previous render's now-discarded
-      // toggleLightningMap closure, so re-wire them to this one.
+      // button/tab listeners pointed at the previous render's now-discarded
+      // toggleLightningMap closure, so re-wire them to this one. The GLM
+      // Leaflet map instance itself lives in module-level state (not
+      // recreated here), so initLightningMapTabs()'s call into
+      // initLightningGlmMap() is a no-op guard, not a fresh init.
       if (preservedLightningBackdrop) lightningCard.appendChild(preservedLightningBackdrop);
       lightningCard.appendChild(preservedLightningPanel);
       attachLightningMapListeners();
+      initLightningMapTabs(lightningCard);
+      setTimeout(() => lightningGlmMap && lightningGlmMap.invalidateSize(), 50);
       lightningCard.classList.add('lightning-map-open');
       lightningCard.setAttribute('aria-expanded', 'true');
     }
