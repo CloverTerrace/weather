@@ -6436,7 +6436,7 @@ svg circle, svg polygon, svg line {
   }
 
 
-  //* ---------------------- 🌩️🌪️🌧️ ---- WEATHER TRIGGERED THEMES ----🌈⛅️☀️---------------------*//
+  //* 🌈☀️☔💜🌩️🌪️🌧️ ~~~ WEATHER TRIGGERED THEMES ~~~ 🌈⛅️☀️⛈️❄️🍀💜🌙 *//
 
   
   const WINDY_WIND_MPH = 11;           
@@ -6555,13 +6555,10 @@ const THEMES = {
     return 'cloudy';
   }
 
-  // ---------- title-bar weather icon ----------
-  // title-bar icon next to the page heading. Deliberately scoped to the
-  // plain 'night' theme only (clear sky, nothing else going on) -- other
-  // night variants (rainyNight, snowyNight, extremeHeatNight, ...) show
-  // their own weather+moon icon instead, since a plain moon photo would
-  // be less informative than "it's raining right now". If that scope
-  // ever changes, this is the only place it needs to change.
+  //  🌈☀️💜 title-bar weather icon 💜🍀🌪️ 
+  // title-bar icon next to the page heading scoped to the
+  // plain 'night' theme only (clear sky, nothing else going on)
+  // diff night variants (rainyNight, snowyNight, extremeHeatNight, ...)
   function setThemeIcon(theme, themeKey) {
     const el = document.getElementById('weather-icon');
     el.innerHTML = '';
@@ -6685,28 +6682,23 @@ const THEMES = {
     document.body.classList.toggle('fx-active-sunrays', themeKey === 'sunny');
     // 'auroraNight' is only ever reached via the aurora override (see
     // getAuroraOverride, which always pairs it with alertFx.aurora), so
-    // gating on the theme key too is safe -- and it's what lets the
-    // footer preview row show the curtain bands, since previewTheme()
-    // calls this with alertFx = null.
+    // gating on the theme key lets the footer preview row show the curtain bands.
+    // previewTheme() calls this with alertFx = null.
     document.body.classList.toggle('fx-active-aurora', !!(alertFx && alertFx.aurora) || themeKey === 'auroraNight');
     document.body.classList.toggle('fx-active-smoke', aqi !== undefined && aqi !== null && aqi >= AQI_SMOKE_THRESHOLD);
     document.body.classList.toggle('fx-alert-heavy-rain', !!(alertFx && alertFx.extraRain));
     // 'snowy'/'snowyNight' can be reached two ways: via a winter storm/
     // blizzard warning (alertFx.snow = true) or just from locally-observed
     // snow with no active alert (classifyWeather() picks the theme
-    // directly, alertFx is null). snowflakes should fall either way -- a
-    // "snowy" theme with no snow falling was the bug -- so gate on the
-    // theme key too, same as the aurora fix above.
+    // directly, alertFx is null) 
     document.body.classList.toggle('fx-active-snow', !!(alertFx && alertFx.snow) || themeKey === 'snowy' || themeKey === 'snowyNight');
     // 'tornado'/'tornadoNight' are only ever reached via the tornado-warning
     // override (see getAlertOverride), which always sets tornadoVignette,
-    // extraRain, and lightning together -- so gating the vignette and
-    // lightning on the theme key is safe and, like aurora, is what lets
-    // the footer preview show them.
+    // extraRain, and lightning together, so theyre gated like above
     document.body.classList.toggle('fx-alert-tornado', !!(alertFx && alertFx.tornadoVignette) || themeKey === 'tornado' || themeKey === 'tornadoNight');
-    // lightning is different: 'thunderstorm'/'thunderstormNight' can also
+    // lightning: 'thunderstorm'/'thunderstormNight' can also
     // be reached from locally-observed heavy rain + wind with no NWS
-    // warning active (classifyWeather(), alertFx null) -- and a
+    // warning active (classifyWeather(), alertFx null) and a
     // thunderstorm theme with no lightning looked broken, alert or not.
     // tornado always implies lightning too.
     const lightningThemes = ['thunderstorm', 'thunderstormNight', 'tornado', 'tornadoNight'];
@@ -6725,9 +6717,9 @@ const THEMES = {
     }
   }
 
-  // temporarily shows a theme's look (colors/fonts/icon + its matching fx)
-  // then reverts to whatever the real weather data last produced. Used by
-  // the easter-egg preview row in the footer.
+  // shows a brief theme preview (colors/fonts/icon + its matching fx)
+  // then reverts to whatever the real weather data last produced.
+  // controlled by the easter-egg preview row in the footer. 🥚☔
   let previewRevertTimer = null;
   function previewTheme(themeKey, durationMs = 8000) {
     if (previewRevertTimer) clearTimeout(previewRevertTimer);
@@ -6754,23 +6746,12 @@ const THEMES = {
   //*  ------------🌪️ !! HTML FOR ⛅️ECOWITT WEATHER STATION CARDS + 💨PURPLEAIR AQI + 💧USGS FLOOD GAUGE 🌪️----------- *//
   
   function renderCards(data) {
-    // On desktop the live camera tile is temporarily moved into #grid.
-    // Preserve that existing DOM node across the weather-card rebuild so a
-    // refresh cannot silently remove the camera from the desktop layout.
+    // on desktop the live camera tile moves into #grid.
+    // saves existing DOM node across the weather-card rebuild so
+    // a refresh won't remove the camera from the desktop layout.
     const desktopCameraTile = grid.querySelector('.desktop-camera-tile');
 
-    // Same idea for an open lightning map: renderCards() runs on every
-    // ~15s auto-refresh (REFRESH_INTERVAL_MS), which was tearing down and
-    // recreating the whole lightning card -- iframe included -- on every
-    // single cycle. That forced Blitzortung's page to reload (and its own
-    // cookie-consent banner to reappear) far more often than the user was
-    // actually opening the map. appendChild moves an already-attached
-    // element directly from one live parent to another without ever fully
-    // detaching it from the document, so relocating the panel here (out of
-    // the way before the grid below gets wiped) keeps its iframe --
-    // including whatever cookie consent it already has -- alive across the
-    // rebuild. It gets moved back into the rebuilt lightning card further
-    // down.
+    // prevent lightning map from refreshing with page 
     const openLightningCard = grid.querySelector('.lightning-card.lightning-map-open');
     const preservedLightningPanel = openLightningCard?.querySelector('.lightning-map-panel') || null;
     const preservedLightningBackdrop = openLightningCard?.querySelector('.lightning-map-backdrop') || null;
@@ -6915,9 +6896,7 @@ const THEMES = {
       ? `${primaryTrend.deltaPerHour >= 0 ? '+' : ''}${primaryTrend.deltaPerHour.toFixed(3)} inHg/hr`
       : 'trend building…';
 
-    // plain-language read on where the current relative reading sits
-    // against the standard sea-level reference -- gives the raw inHg
-    // number some context instead of just floating on its own.
+    // relative pressure reading
     function getPressureLevelNote(val) {
       if (val === undefined || val === null || isNaN(val)) return null;
       if (val >= 30.20) return 'High';
@@ -7074,10 +7053,8 @@ const THEMES = {
           attachLightningMapListeners();
           initLightningMapTabs(lightningCard);
         }
-        // Panel/backdrop now stay in the DOM (hidden via CSS) rather than
-        // being destroyed here -- see the .lightning-map-open CSS rules --
-        // so re-opening the same session reuses the already-loaded iframe
-        // instead of reloading Blitzortung's page from scratch.
+        // paml/backdrop stay in the DOM (hidden via CSS) rather than being closed every pws reload 
+      
         lightningCard.classList.add('lightning-map-open');
         lightningCard.setAttribute('aria-expanded', 'true');
       } else {
@@ -7087,13 +7064,7 @@ const THEMES = {
     };
 
     if (preservedLightningPanel) {
-      // Put the still-live map (relocated above, before this card was
-      // rebuilt) back exactly where a freshly opened one would go. Its old
-      // button/tab listeners pointed at the previous render's now-discarded
-      // toggleLightningMap closure, so re-wire them to this one. The GLM
-      // Leaflet map instance itself lives in module-level state (not
-      // recreated here), so initLightningMapTabs()'s call into
-      // initLightningGlmMap() is a no-op guard, not a fresh init.
+      // put the still-live map back where a newly opened one would go
       if (preservedLightningBackdrop) lightningCard.appendChild(preservedLightningBackdrop);
       lightningCard.appendChild(preservedLightningPanel);
       attachLightningMapListeners();
