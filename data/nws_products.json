@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T23:10:55.179264Z",
+  "generatedAt": "2026-08-15T23:15:53.876626Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.c401f5dfbf6869d4e004e2c84e02071927dd5dc6.001.1",
@@ -24,6 +24,45 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [],
+  "mesoscaleDiscussions": [
+    {
+      "id": "MD1992",
+      "number": 1992,
+      "issued": "2026-08-15T23:08:00Z",
+      "expires": "2026-08-16T01:15:00Z",
+      "concerning": "Severe Thunderstorm Watch 584",
+      "hazard": "Severe Thunderstorm Watch 584",
+      "areas": "eastern Colorado/Wyoming into western Kansas",
+      "location": "eastern Colorado/Wyoming into western Kansas",
+      "distanceMiles": 3939.6,
+      "summary": "Severe threat continues within WW584",
+      "watchProbability": null,
+      "forecaster": "Thornton/Gleason",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "Severe threat continues within WW584"
+        },
+        {
+          "label": "Discussion",
+          "text": "Several clusters of storms and a few more isolated supercells continue within WW584. A supercell near Denver had reports of 64 mph winds and hail up to 1.75 inches in diameter. Large hail and damaging wind will continue to be possible with supercells through the early evening, given moderate instability and 35-45 kts of effective shear. With cell interactions, mode is gradually shifting to become more clustered/multi-cell this evening. Guidance suggests that one or more clusters may evolve eastward into western Kansas through the evening. Downstream across western Kansas, steep low to mid-level lapse rates, temperatures in the mid 80s to low 90s F, and dew points in the upper 60s to 70s are supporting moderate to strong instability, though lingering inhibition remains. Should a cluster be able to organize along a cold pool and shift eastward, damaging wind potential may increase into the evening. A downstream watch will probably be needed into western Kansas later this evening"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK WIND GUST...65-80 MPH · MOST PROBABLE PEAK HAIL SIZE...1.00-1.75 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Thornton/Gleason"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...LBF...DDC...UNR...GLD...AMA...PUB...BOU...CYS... ABQ"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md1992.html",
+      "office": "SPC"
+    }
+  ],
   "statements": []
 }
