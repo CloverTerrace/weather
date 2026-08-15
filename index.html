@@ -6022,11 +6022,15 @@ svg circle, svg polygon, svg line {
   }
 
   // ---------- lightning card: our own GLM map + Blitzortung, tabbed ----------
-  // fetch_lightning_glm.py (in the weather-data pipeline) writes this from
-  // NOAA's public GOES-19 GLM satellite feed -- see that script for the
-  // schema. Reusing DATA_REPO_BASE keeps this on the same raw.githubusercontent
-  // host as weather.json/history.json.
-  const LIGHTNING_GLM_URL = `${DATA_REPO_BASE}/lightning_glm.json`;
+  // fetch_lightning_glm.py runs in update-weather.yml alongside
+  // fetch_aurora.py / fetch_alerts.py / fetch_nws_products.py, and gets
+  // committed to this same site repo -- so this is a same-origin relative
+  // fetch, same as data/aurora.json and data/alerts.json below, NOT
+  // DATA_REPO_BASE (that constant points at the separate cross-origin
+  // CloverTerrace/weather-data repo, which only weather.json/history.json
+  // use, since those two are written by the home weewx server's own
+  // pipeline rather than this GitHub Actions workflow).
+  const LIGHTNING_GLM_URL = 'data/lightning_glm.json';
   const LIGHTNING_GLM_REFRESH_INTERVAL_MS = 5 * 60 * 1000;
 
   let lightningGlmMap = null;
