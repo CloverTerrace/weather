@@ -3424,9 +3424,9 @@ svg circle, svg polygon, svg line {
     }
   }
 
-  /* Lightning card: the live map is created only after expansion. This is
-     intentionally not an iframe in the closed card, so the sensor grid stays
-     cheap to paint and the external map cannot become a background lag source. */
+  /* lightning card: the live map is created only after expansion. this is.   🌩️ 
+     not an iframe in the closed card, so the sensor grid doesn't add any    ⚡️ 🌧️
+     bulkiness to build and the external map can't become a background lag source. */
   .lightning-map-panel {
     width: 100%;
   }
@@ -3448,9 +3448,9 @@ svg circle, svg polygon, svg line {
     text-align: center;
   }
 
-  /* Two-way switcher between our own GLM map and the Blitzortung embed --
+  /* two-way switcher between our own GLM map and the Blitzortung embed
      tap either tab, or swipe left/right over the map area on touch. GLM is
-     the default view. */
+     the default. */
   .lightning-map-tabs {
     display: flex;
     justify-content: center;
@@ -3503,8 +3503,7 @@ svg circle, svg polygon, svg line {
     background: var(--card-color);
   }
 
-  /* Desktop information rails: constrain text, let visual material be the
-     thing that earns the wider canvas. */
+  /* desktop information guidelimes */
   @media (min-width: 1100px) {
     .forecast-periods {
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -3534,7 +3533,7 @@ svg circle, svg polygon, svg line {
     }
   }
 
-  /* ---------------- Storm Center ---------------- */
+  /* 🌩️~*~*~*~*~🌩️ STORM CENTER 🌩️~*~*~*~*~🌩️ */
   .outlook-card {
     text-align: center;
     overflow: hidden;
@@ -3621,7 +3620,7 @@ svg circle, svg polygon, svg line {
     margin: clamp(1rem, 1.8vw, 1.35rem) 0 clamp(0.85rem, 1.4vw, 1.05rem);
   }
 
-  /* ---------------- SPC Outlooks ---------------- */
+  /* ~*~*~*~*~🌀⛈️⚡️ SPC Outlooks 🌪️❄️🌧️~*~*~*~*~ */
   .outlook-section-label {
     font-family: var(--font-card-heading);
     font-size: clamp(0.74rem, 0.9vw, 0.82rem);
@@ -3691,8 +3690,8 @@ svg circle, svg polygon, svg line {
     font-size: 0.61rem;
   }
 
-  /* Give the live weather-center sections room to breathe without making
-     small screens pay for desktop spacing. */
+  /*  make space for the live weather-center sections without 
+  making it look squished on small or narrow screens.      */
   @media (max-width: 900px) {
     .grid,
     .dashboard-grid,
@@ -3795,8 +3794,8 @@ svg circle, svg polygon, svg line {
   }
 
 
-  /* ================================================================
-     DESKTOP DASHBOARD COMPOSITION
+  /* =================================================================
+     🍀💜 DESKTOP DASHBOARD COMPOSITION ☀️⛅️🌩️🌧️⛈️🌪️🌧️⛅️☀️🌈🌙✨🍀💜
      ================================================================ */
   @media (min-width: 851px) {
     #page-content {
@@ -3824,9 +3823,8 @@ svg circle, svg polygon, svg line {
       align-items: start !important;
     }
 
-    /* Square tiles (matches the "square-tile grid" used elsewhere) sized
-       purely from the tile's own resolved column width via aspect-ratio,
-       instead of a fixed pixel height. A fixed height paired with a rail
+    /* square tiles sized from the tile's own resolved column width via aspect-ratio,
+       instead of a fixed pixel height. a fixed height paired with a rail
        that narrows down toward 851px meant the tiles kept shrinking in
        width while staying just as tall -- reading as noticeably "long"
        skinny rectangles rather than tiles. Aspect-ratio keeps them square
@@ -3862,9 +3860,9 @@ svg circle, svg polygon, svg line {
       z-index: 2;
     }
 
-    /* Reserve room for the absolutely-positioned header above (it sits
+    /* reserve room for the absolutely-positioned header above (it sits
        outside the front face's own flex flow, so the flex centering below
-       has no idea it's there). Without this, a tile's centered front
+       has no idea it's there). without this, a tile's centered front
        content is centered across the *whole* tile height, header
        included -- so on a small enough square tile a tall content block
        (e.g. Temperature's 3-line "Feels Like" column) can get centered up
@@ -3912,18 +3910,9 @@ svg circle, svg polygon, svg line {
       line-height: 1.25;
     }
 
-    /* Every sensor tile's front content -- value row plus whatever
-       secondary stat line follows it (peak wind, peak rain rate, risk
-       category, peak river stage/CFS...) -- centers as a single group via
-       the front face's own flex justify-content, the same way Pressure
-       and AQI's fronts already did. Earlier these rows used competing
-       margin-top:auto/margin-bottom:auto pairs, which don't cooperate:
-       free space gets divided across every auto margin in the flex
-       container, so most of it piled up in the gap *between* the row and
-       its trailing context line instead of centering the pair -- reading
-       as "value up top, tiny caption stranded at the very bottom." Fixed
-       margins throughout keep the whole group together while the parent
-       still centers it as a block. */
+    /* every sensor tile's front content -- value row plus whatever secondary stat line follows it (peak wind, peak rain rate, risk
+       category, peak river stage/CFS...) -- centers as a single group via the front face's own flex justify-content, the same way pressure
+       and AQI's fronts already did. fixed margins throughout keep the whole group together while the parent still centers it as a block. */
     .desktop-left-rail #grid.grid .wind-card .wind-priority-row,
     .desktop-left-rail #grid.grid .lightning-card .lightning-priority-row,
     .desktop-left-rail #grid.grid .solar-card .priority-dual-row,
@@ -3941,16 +3930,6 @@ svg circle, svg polygon, svg line {
       margin-bottom: 0;
     }
 
-    /* Temperature's front content (the feels-like/dew-point row plus the
-       RH/VPD context line) was hugging the header instead of sitting in
-       the middle of the tile. That's the same "stack of independent auto
-       margins" pattern used above, but with three auto margins competing
-       (row-top, row-bottom, context-top) most of the free space ended up
-       in the gap *between* the row and the context line rather than
-       *above* the row -- so the whole block read as top-heavy. Centering
-       the pair as a single block via the front face's own flex
-       justify-content (see .card-flip-front) gives a true vertical
-       center instead. */
     .desktop-left-rail #grid.grid .temp-card .temp-glance-row {
       width: 100%;
       margin-top: 0;
@@ -3999,10 +3978,6 @@ svg circle, svg polygon, svg line {
       gap: 0.5rem;
     }
 
-    /* the base 1.8rem trend arrow (sized for a roomier, non-tile layout)
-       was disproportionately large next to the compacted tile value --
-       scaling it down to roughly match the value's own clamp() keeps the
-       arrow legible without letting it dominate the row or force a wrap. */
     .desktop-left-rail #grid.grid .pressure-card .pressure-trend {
       font-size: clamp(1.05rem, 5.5cqw, 1.4rem) !important;
     }
@@ -4145,9 +4120,9 @@ svg circle, svg polygon, svg line {
       font-size: clamp(0.74rem, 0.82vw, 0.9rem);
     }
 
-    /* Always 4 columns in this rail -- overrides the site-wide
+    /* always 4 columns in this rail -- overrides the site-wide
        auto-fit/minmax(140px,...) sizing (which drops to fewer columns,
-       wrapping Saturday onto its own row, once the rail gets narrower
+       wrapping one day onto its own row, once the rail gets narrower
        than ~4x140px). minmax(0, 1fr) has no per-column floor, so the
        columns just get proportionally narrower/shorter as the rail
        narrows instead of wrapping. */
@@ -4218,13 +4193,9 @@ svg circle, svg polygon, svg line {
 
   @media (min-width: 851px) and (max-width: 1120px) {
     .desktop-dashboard-layout { grid-template-columns: minmax(0, 1.18fr) minmax(390px, 0.95fr) !important; }
-    /* Tile height no longer needs a special-cased override here -- the
-       aspect-ratio: 1/1 on .desktop-left-rail #grid.grid .card above keeps
-       tiles square at this rail width automatically. */
   }
 
   @media (max-width: 850px) {
-    /* Mobile/tablet keeps one-column reading order and uniform closed cards. */
     #grid.grid {
       display: grid !important;
       grid-template-columns: minmax(0, 1fr) !important;
@@ -4253,21 +4224,8 @@ svg circle, svg polygon, svg line {
   }
 
 
-  /* ---------- sensor card flip ----------
-     Previously a true 3D rotateY() flip. That's what caused the mirrored-
-     backface bleed-through bug, the border-radius: inherit corner gotcha,
-     and (per feedback) still read as a bit flashy/heavy on a tablet even
-     after tuning the perspective/easing/compositing -- a full 3D rotation
-     is simply a heavier thing to render than a flat crossfade, and no
-     amount of tuning changes that.
-
-     Swapped for a lightweight 2D transition instead: the front slides out
-     to one side like a gust pushing it away while the back arrives from
-     the other side, the way one weather system replaces another moving
-     across the sky. It only animates opacity + translateX -- the two
-     cheapest properties a browser can composite -- so it's lighter than
-     the flip ever was, and it structurally can't mirror or lose its
-     corners since neither face ever turns to face away from the screen. */
+  /*  🌧️ *~*~* sensor card flip *~*~* ☀️
+      only animates opacity + translateX so there's no added lag/complexity to the data view swap */
   .card.card-expandable {
     position: relative;
     overflow: visible !important;
@@ -4351,8 +4309,7 @@ svg circle, svg polygon, svg line {
     cursor: pointer;
   }
 
-  /* Wind's compass is a back-side instrument, not a front-side layout
-     constraint. */
+  /* 💨 wind compass on tap. */
   .wind-compass-detail-visual {
     justify-content: center;
     align-items: center;
@@ -4366,16 +4323,14 @@ svg circle, svg polygon, svg line {
     margin: 0 auto;
   }
 
-  /* Lightning map: a compact card-local overlay, deliberately separate
-     from the generic flip interaction. The iframe is injected only while
-     open, so it cannot create background lag while the tile is closed. */
+  /* lightning map's compact card-local overlay. the iframe is active only
+  ⚡️ when open, no create background lag while the tile is closed.  ⚡️ */
   .lightning-card.lightning-map-trigger { cursor: pointer; position: relative; }
   .lightning-card.lightning-map-open { overflow: visible !important; }
 
-  /* Same themed press feedback as .card-expandable above, for the other
-     tappable tile shape (the lightning card opens a map overlay instead
-     of flipping). Suppressed once the map is actually open so the tint
-     doesn't sit on top of the live map. */
+  /* same themed press feedback as .card-expandable above, for the other
+  🌩️ tappable tile shape (the lightning card opens a map overlay instead
+  🌈 of swapping active data). deactivates once the map opens. ⛈️✨  */
   .lightning-card.lightning-map-trigger:not(.lightning-map-open)::after {
     content: '';
     position: absolute;
@@ -4407,12 +4362,7 @@ svg circle, svg polygon, svg line {
     gap: 0.35rem;
   }
 
-  /* The panel (and its iframe) now stay in the DOM across opens/closes --
-     see toggleLightningMap() -- so this is what actually shows/hides it.
-     Keeping the iframe alive means Blitzortung's own cookie-consent
-     banner only has to be dismissed once per page load instead of on
-     every single open, since a fresh iframe no longer reloads their site
-     from scratch each time. */
+  /* the panel (and its iframe) stay in the DOM across opens/closes */
   .lightning-card.lightning-map-open .lightning-map-panel {
     display: flex;
   }
@@ -4453,7 +4403,7 @@ svg circle, svg polygon, svg line {
     cursor: pointer;
   }
 
-  /* Only meaningful on desktop (see the enlarged-modal rules below) --
+  /* only meaningful on desktop (see the enlarged-modal rules below) --
      on mobile the map stays inline in the tile, so the backdrop is
      inert there. */
   .lightning-map-backdrop {
@@ -4468,17 +4418,12 @@ svg circle, svg polygon, svg line {
     .lightning-map-panel { inset: 0.1rem; }
   }
 
-  /* Desktop only: the lightning map was confined to the same ~220px tile
-     footprint as every other sensor card, which is far too small to read
-     strike activity on. Break it out into a large centered overlay
-     instead of resizing the grid (resizing would reflow every other
-     tile). Mobile keeps its original inset:0 in-tile behavior above.
-
-     z-index note: Leaflet's own panes/controls (used by the radar map
+  /* 🌩️ DESKTOP ONLY: make the lightning map full screen on desktop. mobile keeps its original inset:0 in-tile behavior above.
+  z-index note: Leaflet's own panes/controls (used by the radar map
      elsewhere on the page) go up to z-index:1000, and a modest z-index
      on an ancestor here (.lightning-card) creates its own local stacking
      context that traps a fixed descendant's z-index for comparison
-     against THAT ancestor's level, not the whole document -- so both
+     against THAT ancestor's level, not the whole document. so, both
      values here are set well clear of 1000 to guarantee the enlarged
      map (and its dimmed backdrop) always paints above the radar card
      rather than clipping underneath it. */
