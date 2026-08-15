@@ -4535,6 +4535,23 @@ svg circle, svg polygon, svg line {
       box-shadow: 0 24px 64px rgba(0,0,0,0.45);
     }
   }
+
+  /* Several earlier breakpoints (520px / 700px / 851-1120px) redefine
+     .nws-priority-grid and .nws-priority-block column spans, and because
+     CSS resolves ties by source order (not by which media query is
+     "narrowest"), the Issued/Until/Distance columns can end up collapsing
+     to a sliver of their intended width -- with nowrap lost along the way,
+     that squeezes "9:57 am" onto one character per line. This rule sits
+     last in the sheet at the same selector specificity as those, so it
+     wins outright and keeps the time values readable at every width. */
+  .nws-priority-block.time,
+  .nws-priority-block.distance {
+    min-width: 84px;
+  }
+  .nws-priority-block.time .nws-priority-value,
+  .nws-priority-block.distance .nws-priority-value {
+    white-space: nowrap;
+  }
 </style>
 
 
