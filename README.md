@@ -1,4 +1,4 @@
-# Clover Terrace Weather Dashboard 🍀
+# Clover Terrace Weather Center 🍀
 
 a live weather page for Clover Terrace, a higher-elevation micro-climate within Aliquippa, PA. conditions come from a home weather station (Ecowitt gateway → WeeWX) running on-site, with Weather Underground's cloud API connected to the same weather station as an automatic backup whenever the home server is unreachable/when just one sensor reading drops out.
 
