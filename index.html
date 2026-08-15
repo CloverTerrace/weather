@@ -88,9 +88,7 @@
     --font-grid-label: Figtree, Tahoma, sans-serif;    /* dashboard tile labels — "TEMPERATURE", "WIND SPEED", etc. */
     --font-grid-value: var(--font-family);             /* dashboard tile big numbers — "68", "°F", etc. */
 
-    /* one soft, ambient shadow shared by the page title and every
-       meteocon icon, so they all sit on the page with the same gentle
-       lift instead of each spot inventing its own harsher shadow. */
+    /* soft ambient shadow shared by the page title and all icons */
     --icon-shadow: drop-shadow(0 1px 2px rgba(0,0,0,0.16));
   }
 
@@ -213,8 +211,6 @@
   font-weight: 400;
   src: url('fonts/Tornado Serif Font - Demo.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
-
-  /* installed fonts above */
   
   body {
     margin: 0;
@@ -233,9 +229,7 @@
     font-weight: 600;
     font-family: var(--font-page-title);
     color: var(--title-color);
-    /* soft, ambient lift instead of a hard directional shadow -- keeps
-       the title from clashing with the meteocons' own gentle look */
-    text-shadow: 0 2px 6px rgba(0,0,0,0.16);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.14);
   }
 
   .weather-icon-img {
