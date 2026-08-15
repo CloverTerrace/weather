@@ -2823,8 +2823,8 @@ svg circle, svg polygon, svg line {
  
 
   /* ---------- mobile card flow ----------
-     Desktop/tablet use independent columns so expanded cards don't stretch
-     their neighbors. On phones, a single normal-flow column is safer and
+     desktop/tablet use independent columns so expanded cards don't stretch
+     their neighbors. on phones, a single normal-flow column is safer and
      easier to scan/tap. */
   @media (min-width: 851px) and (max-width: 1120px) {
     .nws-priority-grid {
@@ -2846,7 +2846,7 @@ svg circle, svg polygon, svg line {
     /* .dashboard-grid's spacing normally comes from `gap` (grid-only) plus
        `margin-top: 0 !important` on every child (see base rule above) --
        that combo goes to zero once this media query forces block layout,
-       since `gap` has no effect outside grid/flex. Without this, cards
+       since `gap` has no effect outside grid/flex. without this, cards
        stack flush against each other, and any card whose real rendered
        height differs even slightly from initial layout (async-loaded
        images, the Leaflet radar map, JS-injected product lists) visually
@@ -2888,12 +2888,12 @@ svg circle, svg polygon, svg line {
 
 
   /* ---------- final responsive weather-card layout ----------
-     The live weather cards are rendered inside #grid (.grid). Keep the
+     the live weather cards are rendered inside #grid (.grid). keep the
      independent two-column architecture when there is room, but collapse the
      actual weather-card grid to one full-width flow on phones and compact
      portrait devices.
 
-     The two .grid-column wrappers are populated independently in JS (left:
+     the two .grid-column wrappers are populated independently in JS (left:
      temp, pressure, lightning, aqi -- right: wind, precip, solar/uv, river),
      so simply stacking each column in full (flex column) puts them in DOM
      order, not the preferred reading order. display: contents drops each
@@ -2939,12 +2939,12 @@ svg circle, svg polygon, svg line {
   }
 
   /* ---------- desktop weather-card layout ----------
-     Same trick as the mobile block above, aimed the other direction: the
+     same as the mobile block above, aimed the other direction: the
      two .grid-column wrappers (still populated by the same JS, still in
      the same left/right groups) are dropped from layout with
      display:contents so each card becomes a direct item of #grid.grid.
      With room to work with, that lets the tiles wrap into a real
-     multi-column grid instead of two tall stretched columns. Each card's
+     multi-column grid instead of two tall stretched columns. each card's
      width is capped so it stays close to square and readable instead of
      stretching to fill the row, and `order` keeps the same temp -> wind ->
      pressure -> ... reading sequence used on mobile. align-self is pinned
@@ -2984,10 +2984,10 @@ svg circle, svg polygon, svg line {
     #grid.grid .card.river-card     { order: 8; }
   }
 
-  /* Whatever width the square-tile grid above settles a card into, keep
-     the wind compass / dual-value rows from ever feeling cramped -- this
+  /* whatever width the square-tile grid above settles a card into, keep
+     the wind compass / dual-value rows from ever feeling cramped. this
      reacts to the card's own rendered width, so it works no matter how
-     many columns the grid happens to be showing. */
+     many columns the grid is showing. */
   @container card (max-width: 300px) {
     .wind-priority-row,
     .pressure-priority-row,
@@ -3001,7 +3001,7 @@ svg circle, svg polygon, svg line {
 
   /* .pressure-priority-row is deliberately left OUT of this stack-to-column
      rule (unlike wind/lightning, which genuinely need the extra vertical
-     room for a compass or a second metric). Pressure is just a value next
+     room for a compass or a second metric). pressure is just a value next
      to a trend arrow -- stacking it broke the "arrow next to the value"
      layout on every card narrower than 250px, which is the normal tile
      width on the desktop grid, so the arrow was dropping onto its own line
@@ -3076,7 +3076,7 @@ svg circle, svg polygon, svg line {
 
   /* ================================================================
      DESKTOP WEATHER-CENTER COMPOSITION
-     851px+ only. The mobile/tablet flow below 851px is intentionally left
+     851px+ only ~ the mobile/under 851px is intentionally left
      on the existing responsive architecture.
      ================================================================ */
   .desktop-dashboard-layout,
@@ -3315,14 +3315,8 @@ svg circle, svg polygon, svg line {
     .web-tools-grid > .charts-dropdown .chart-card:last-child { margin-bottom: 0; }
   }
 
-  /* ================================================================
-     PHASE 1 — LOCAL WEATHER CENTER REFINEMENT
-     Keep the existing data/features/effects; improve hierarchy, breathing
-     room, responsive behavior, and the relationship between the analytical
-     dashboard and the larger-screen weather-center layout.
-     ================================================================ */
 
-  /* Larger screens get a deliberate web-page composition rather than a
+  /* larger screens web-page composition rather than a
      horizontally stretched phone/dashboard. The viewport may grow freely,
      but the information itself stays at a comfortable reading width. */
   #page-content {
