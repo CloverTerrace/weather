@@ -42,6 +42,27 @@ ALERTS_URL = f"https://api.weather.gov/alerts/active?point={LAT},{LON}"
 NWS_PRODUCTS_URL = "https://api.weather.gov/products"
 SPC_MD_INDEX = "https://www.spc.noaa.gov/products/md/"
 
+# Standard NWS boilerplate that opens the DAY ONE section of nearly every
+# Hazardous Weather Outlook, regardless of what's actually happening. It's
+# fine inside the full "curated details" text, but it must not be allowed to
+# eat the whole hazard/summary preview budget -- otherwise the at-a-glance
+# card shows this disclaimer instead of the specific hazard that follows it.
+GENERIC_HWO_BOILERPLATE_RE = re.compile(
+    r"Please listen to NOAA Weather Radio or go to weather\.gov(?: on the Internet)? "
+    r"for more information about the following hazards\.\s*",
+    re.I,
+)
+
+
+def strip_generic_lead(text: str) -> str:
+    """Remove the generic NOAA-radio disclaimer sentence so summary/hazard
+    previews lead with the actual, product-specific content instead."""
+    if not text:
+        return text
+    stripped = GENERIC_HWO_BOILERPLATE_RE.sub("", text)
+    return re.sub(r"\s+", " ", stripped).strip()
+
+
 # Keep the local feed focused on products a spotter actually benefits from.
 NWS_UPDATE_CODES = {
     "AFD": "Area Forecast Discussion",
@@ -651,11 +672,11 @@ def fetch_nws_updates(limit: int = MAX_NWS_UPDATES) -> list[dict]:
         summary=props.get("headline") or ""
         if not summary or summary == product_name:
             if details:
-                summary=details[0]["text"][:420]
+                summary=strip_generic_lead(details[0]["text"])[:420]
             else:
                 banner_re=re.compile(rf"^(?:{re.escape(product_name)}|\d{{3,4}}\s+(?:AM|PM)\s+[A-Z]{{2,4}}\s+\w{{3}}\s+\w{{3}}\s+\d{{1,2}}\s+\d{{4}})$", re.I)
                 lines=[x for x in normalize_lines(full_text) if len(x) > 8 and not banner_re.match(x)]
-                summary=" ".join(lines[:2])[:420] if lines else product_name
+                summary=strip_generic_lead(" ".join(lines[:2]))[:420] if lines else product_name
         if not details and full_text:
             details=[{"label":"Product detail","text":" ".join(normalize_lines(full_text)[:8])[:1800]}]
 
@@ -674,7 +695,15 @@ def fetch_nws_updates(limit: int = MAX_NWS_UPDATES) -> list[dict]:
             "office": props.get("issuingOffice") or WFO,
             "issued": props.get("issuanceTime"),
             "expires": props.get("expirationTime") or props.get("expires"),
-            "location": props.get("areaDesc") or extract_nws_location(full_text, product_name),
+            "location": (
+                props.get("areaDesc")
+                or extract_nws_location(full_text, product_name)
+                # Some products (HWO, AFD, ...) apply to the whole County
+                # Warning Area rather than a specific zone list, so there's
+                # nothing to extract -- fall back to the office's coverage
+                # area instead of leaving this blank.
+                or "NWS Pittsburgh PA (PBZ) coverage area"
+            ),
             "hazard": hazard,
             "distanceMiles": None,
             "headline": headline,
