@@ -1832,6 +1832,91 @@
     text-align: center;
   }
 
+  /* 🌍 earthquakes tab — reuses .rainviewer-map for map sizing and
+     .radar-frame-time for the caption line, same as the radar panel. */
+  .quake-range-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .quake-range-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    padding: 0.35rem 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .quake-range-btn.active {
+    background: var(--bg-color);
+    color: #e4e8eb;
+  }
+
+  .quake-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    font-family: var(--font-details);
+    font-size: 0.72rem;
+    color: var(--muted-color);
+  }
+
+  .quake-legend-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.3rem;
+    vertical-align: middle;
+  }
+
+  .quake-popup-mag {
+    font-family: var(--font-grid-value);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-color);
+  }
+
+  .quake-popup-place {
+    font-family: var(--font-details);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 2px 0 4px;
+  }
+
+  .quake-popup-meta {
+    font-family: var(--font-details);
+    font-size: 0.75rem;
+    color: var(--muted-color);
+    line-height: 1.5;
+  }
+
+  /* themed leaflet popups — only the quake map uses popups so far, the
+     radar/lightning maps don't, hence no existing rule to build on. */
+  .leaflet-popup-content-wrapper {
+    background: var(--card-color);
+    color: var(--text-color);
+    border-radius: 8px;
+  }
+
+  .leaflet-popup-tip {
+    background: var(--card-color);
+  }
+
+  .leaflet-popup-content a {
+    color: var(--accent-color);
+  }
+
   /* leaflet zoom control — reskinned to follow the active theme instead
      of its default white-box look, so it stays legible across both the
      light and dark card themes. */
@@ -4701,6 +4786,7 @@ svg circle, svg polygon, svg line {
   <div class="map-tabs">
     <button class="map-tab active" data-target="map-panel-radar">Live Radar</button>
     <button class="map-tab" data-target="map-panel-forecast">Forecast Map</button>
+    <button class="map-tab" data-target="map-panel-quakes">Earthquakes</button>
   </div>
 
   <div class="map-panel active" id="map-panel-radar">
@@ -4712,6 +4798,23 @@ svg circle, svg polygon, svg line {
   <div class="map-panel" id="map-panel-forecast">
     <iframe data-src="https://www.meteoblue.com/en/weather/maps/widget/40.616N-80.274E339_America%2FNew_York?windAnimation=1&gust=1&satellite=1&cloudsAndPrecipitation=1&temperature=1&sunshine=1&extremeForecastIndex=1&geoloc=fixed&tempunit=F&lengthunit=imperial&windunit=mph&zoom=6&autowidth=auto&user_key=8134bd0af0541cef&embed_key=d66f82d141afbc64&sig=6603f082f9b0195f2a320cd4d879ab45b1976f9a06721ed0592e3de0900955bb" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
     <div class="map-attribution"><a href="https://www.meteoblue.com/en/weather/week/index" target="_blank" rel="noopener">meteoblue</a></div>
+  </div>
+
+  <div class="map-panel" id="map-panel-quakes">
+    <div class="quake-range-buttons">
+      <button class="quake-range-btn active" data-feed="2.5_day">Past Day</button>
+      <button class="quake-range-btn" data-feed="2.5_week">Past Week</button>
+      <button class="quake-range-btn" data-feed="4.5_week">M4.5+</button>
+      <button class="quake-range-btn" data-feed="significant_month">Significant</button>
+    </div>
+    <div class="rainviewer-map" id="quake-map"></div>
+    <div class="radar-frame-time" id="quake-caption">Loading&hellip;</div>
+    <div class="quake-legend">
+      <span><span class="quake-legend-dot" style="background:#ff8a3d"></span>Shallow &lt;33km</span>
+      <span><span class="quake-legend-dot" style="background:#ff5f3d"></span>Mid 33&ndash;150km</span>
+      <span><span class="quake-legend-dot" style="background:#3ddbff"></span>Deep &gt;150km</span>
+    </div>
+    <div class="map-attribution"><a href="https://earthquake.usgs.gov/earthquakes/feed/" target="_blank" rel="noopener">USGS Earthquake Hazards Program</a></div>
   </div>
 </div>
 
@@ -4806,6 +4909,7 @@ svg circle, svg polygon, svg line {
     <a href="https://www2.purpleair.com/" target="_blank" rel="noopener">PurpleAir</a>,
     <a href="https://www.rainviewer.com/" target="_blank" rel="noopener">RainViewer</a>,
     <a href="https://www.blitzortung.org/" target="_blank" rel="noopener">Blitzortung.org</a>,
+    <a href="https://earthquake.usgs.gov/" target="_blank" rel="noopener">USGS</a>,
     <a href="https://www.meteoblue.com/" target="_blank" rel="noopener">meteoblue</a>,
     <a href="https://meteocons.com/icons/" target="_blank" rel="noopener">Meteocons (icons)</a>
     and <a href="https://www.ecowitt.com/" target="_blank" rel="noopener">Ecowitt PWS (WS90)</a>.
@@ -6021,6 +6125,101 @@ svg circle, svg polygon, svg line {
     setInterval(loadRadarFrames, RADAR_REFRESH_INTERVAL_MS);
   }
 
+  // ---------- earthquakes tab: USGS GeoJSON summary feeds, no API key ----------
+  // https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php — these feeds
+  // are regenerated by USGS every 1-5 minutes depending on which one, so polling
+  // more often than a few minutes wouldn't actually see new data.
+  const QUAKE_FEED_BASE = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/';
+  const QUAKE_REFRESH_INTERVAL_MS = 5 * 60 * 1000;
+
+  let quakeMap = null;
+  let quakeLayer = null;
+  let quakeTimer = null;
+  let quakeFeedKey = '2.5_day';
+
+  function quakeDepthColor(depthKm) {
+    if (depthKm < 33) return '#ff8a3d';
+    if (depthKm < 150) return '#ff5f3d';
+    return '#3ddbff';
+  }
+
+  function quakeMagRadius(mag) {
+    const m = Math.max(mag || 0.5, 0.5);
+    return Math.max(4, Math.pow(m, 1.9) * 1.3);
+  }
+
+  async function loadQuakeFeed() {
+    const caption = document.getElementById('quake-caption');
+    if (!quakeMap) return;
+    try {
+      const res = await fetch(`${QUAKE_FEED_BASE}${quakeFeedKey}.geojson`, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`status ${res.status}`);
+      const data = await res.json();
+      const features = Array.isArray(data.features) ? data.features : [];
+
+      if (quakeLayer) quakeMap.removeLayer(quakeLayer);
+      quakeLayer = L.layerGroup(features.map(f => {
+        const [lon, lat, depth] = f.geometry.coordinates;
+        const mag = f.properties.mag ?? 0;
+        const color = quakeDepthColor(depth);
+        return L.circleMarker([lat, lon], {
+          radius: quakeMagRadius(mag),
+          color,
+          weight: 1.5,
+          fillColor: color,
+          fillOpacity: 0.55,
+        }).bindPopup(`
+          <div class="quake-popup-mag">M ${mag.toFixed(1)}</div>
+          <div class="quake-popup-place">${f.properties.place || 'Unknown location'}</div>
+          <div class="quake-popup-meta">
+            Depth ${depth.toFixed(1)} km · ${formatShortTime(new Date(f.properties.time).toISOString())}<br>
+            <a href="${f.properties.url}" target="_blank" rel="noopener">USGS event page &rarr;</a>
+          </div>
+        `);
+      })).addTo(quakeMap);
+
+      if (caption) {
+        if (features.length) {
+          const maxF = features.reduce((a, b) => (b.properties.mag ?? -Infinity) > (a.properties.mag ?? -Infinity) ? b : a);
+          caption.textContent = `${features.length} event${features.length === 1 ? '' : 's'} · largest M${(maxF.properties.mag ?? 0).toFixed(1)} · USGS`;
+        } else {
+          caption.textContent = 'No events in this window · USGS';
+        }
+      }
+    } catch (err) {
+      console.warn('Could not load USGS earthquake feed:', err.message);
+      if (caption) caption.textContent = 'Earthquake feed unavailable';
+    }
+  }
+
+  function setQuakeFeed(key) {
+    if (quakeFeedKey === key) return;
+    quakeFeedKey = key;
+    document.querySelectorAll('.quake-range-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.feed === key);
+    });
+    loadQuakeFeed();
+  }
+
+  function initQuakeMap() {
+    if (quakeMap) return;
+    const el = document.getElementById('quake-map');
+    if (!el) return;
+    quakeMap = L.map('quake-map', {
+      zoomControl: true,
+      attributionControl: false,
+      worldCopyJump: true,
+      minZoom: 2,
+    }).setView([RADAR_LAT, RADAR_LON], 3);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { subdomains: 'abcd', maxZoom: 19 }).addTo(quakeMap);
+    L.marker([RADAR_LAT, RADAR_LON]).addTo(quakeMap);
+    document.querySelectorAll('.quake-range-btn').forEach(btn => {
+      btn.addEventListener('click', () => setQuakeFeed(btn.dataset.feed));
+    });
+    loadQuakeFeed();
+    if (!quakeTimer) quakeTimer = setInterval(loadQuakeFeed, QUAKE_REFRESH_INTERVAL_MS);
+  }
+
   // ---------- lightning card: our own GLM map + Blitzortung, tabbed ----------
   // fetch_lightning_glm.py runs in update-weather.yml alongside
   // fetch_aurora.py / fetch_alerts.py / fetch_nws_products.py, and gets
@@ -6140,6 +6339,10 @@ svg circle, svg polygon, svg line {
         }
         if (tab.dataset.target === 'map-panel-radar') {
           setTimeout(() => radarMap && radarMap.invalidateSize(), 50);
+        }
+        if (tab.dataset.target === 'map-panel-quakes') {
+          initQuakeMap();
+          setTimeout(() => quakeMap && quakeMap.invalidateSize(), 50);
         }
       });
     });
