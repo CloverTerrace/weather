@@ -291,16 +291,35 @@
     transform-origin: center;
   }
 
-  .weather-icon-moon {
-     display: block;
+  /* NASA's Dial-a-Moon print images (the same source .sky-body-frame /
+     .moon-body-img use in the Sky & Space card below) are square photos
+     with a lot of built-in black padding around the actual moon disc --
+     they're made as print-ready posters, not tightly-cropped icons. A
+     plain img at any size just shows that padding scaled up along with
+     it. Same fix as .sky-body-frame: a fixed-size, clipped circular
+     frame with the image scaled up past its edges so only the moon
+     itself is visible -- reusing that pattern's proven scale(1.8) crop
+     rather than guessing a new one. */
+  .weather-icon-moon-frame {
+     display: flex;
+     align-items: center;
+     justify-content: center;
      width: 1.25em;
      height: 1.25em;
      border-radius: 50%;
-     object-fit: cover;
+     overflow: hidden;
      object-position: center;
      margin-right: 0.15em;
      background: #050505;
      box-shadow: 0 2px 8px rgba(0,0,0,0.24);
+   }
+
+  .weather-icon-moon-img {
+     display: block;
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     transform: scale(1.8);
    }
 
   #subtitle {
@@ -1777,9 +1796,20 @@
   .map-tabs {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    flex-wrap: nowrap;
+    gap: clamp(0.3rem, 1.5vw, 0.5rem);
     margin-bottom: 1rem;
+    /* Safety net, not the primary fix -- the clamp() sizing below is
+       meant to let all tabs fit on one row on their own. This just means
+       an extra tab (or a very narrow/zoomed device) scrolls instead of
+       wrapping onto a second row and breaking the card's height. */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .map-tabs::-webkit-scrollbar {
+    display: none;
   }
 
   .map-tab {
@@ -1787,11 +1817,13 @@
     border: none;
     color: var(--muted-color);
     font-family: var(--font-details);
-    padding: 0.5rem 1rem;
+    padding: 0.5rem clamp(0.55rem, 3vw, 1rem);
     border-radius: 8px;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: clamp(0.72rem, 3vw, 0.85rem);
     font-weight: 600;
+    white-space: nowrap;
+    flex: 0 0 auto;
   }
 
   .map-tab.active {
@@ -3256,7 +3288,8 @@ svg circle, svg polygon, svg line {
     }
 
     h1 .weather-icon-img,
-    h1 .meteocon {
+    h1 .meteocon,
+    h1 .weather-icon-moon-frame {
       width: 100%;
       height: 100%;
       max-width: 100%;
@@ -3345,6 +3378,13 @@ svg circle, svg polygon, svg line {
     }
 
     .desktop-left-rail .forecast-card {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+
+    .desktop-left-rail > .desktop-charts-dropdown {
+      order: 4;
       width: 100%;
       max-width: none;
       margin: 0;
@@ -6773,15 +6813,18 @@ const THEMES = {
       const phase = SunCalc.getMoonIllumination(new Date()).phase;
       const imageUrl = getMoonPhaseImageUrl(phase);
       if (imageUrl) {
+        const frame = document.createElement('span');
+        frame.className = 'weather-icon-moon-frame';
         const img = document.createElement('img');
         img.src = `${imageUrl}?v=2`;
         img.alt = 'Tonight\u2019s moon phase';
-        img.className = 'weather-icon-img weather-icon-moon';
+        img.className = 'weather-icon-moon-img';
         img.loading = 'eager';
         img.decoding = 'async';
         img.referrerPolicy = 'no-referrer';
         img.onerror = () => loadMeteoconOrFallback(theme, el);
-        el.appendChild(img);
+        frame.appendChild(img);
+        el.appendChild(frame);
         return;
       }
     }
@@ -7890,12 +7933,14 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
     const stormCard = document.querySelector('.dashboard-grid > .outlook-card');
     const webToolsGrid = document.querySelector('.web-tools-grid');
     const radarCard = document.querySelector('.web-tools-grid > .weather-map-card');
+    const chartsDropdown = document.querySelector('.web-tools-grid > .charts-dropdown');
     if (!dashboardGrid || !weatherGrid || !leftRail || !forecastCard || !cameraCard || !skyCard || !stormCard) return;
 
     const desktopQuery = window.matchMedia('(min-width: 851px)');
     const originalCameraNextSibling = cameraCard.nextElementSibling;
     const originalSkyNextSibling = skyCard.nextElementSibling;
     const originalRadarNextSibling = radarCard ? radarCard.nextElementSibling : null;
+    const originalChartsDropdownNextSibling = chartsDropdown ? chartsDropdown.nextElementSibling : null;
 
     function syncDesktopComposition() {
       if (desktopQuery.matches) {
@@ -7910,6 +7955,15 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
         if (radarCard && rightRail && radarCard.parentElement !== rightRail) {
           radarCard.classList.add('desktop-radar-card');
           rightRail.appendChild(radarCard);
+        }
+        if (chartsDropdown && chartsDropdown.parentElement !== leftRail) {
+          // Appended last, so it lands right after Sky & Space (which
+          // insertBefore above places right after Forecast) -- and picks
+          // up the left rail's own flex width instead of the ~900px cap
+          // .charts-dropdown carries for its original full-width mobile
+          // placement.
+          chartsDropdown.classList.add('desktop-charts-dropdown');
+          leftRail.appendChild(chartsDropdown);
         }
       } else {
         cameraCard.classList.remove('desktop-camera-tile');
@@ -7937,6 +7991,17 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
               webToolsGrid.insertBefore(radarCard, originalRadarNextSibling);
             } else {
               webToolsGrid.insertBefore(radarCard, webToolsGrid.firstElementChild);
+            }
+          }
+        }
+
+        if (chartsDropdown && webToolsGrid) {
+          chartsDropdown.classList.remove('desktop-charts-dropdown');
+          if (chartsDropdown.parentElement !== webToolsGrid) {
+            if (originalChartsDropdownNextSibling && originalChartsDropdownNextSibling.parentElement === webToolsGrid) {
+              webToolsGrid.insertBefore(chartsDropdown, originalChartsDropdownNextSibling);
+            } else {
+              webToolsGrid.appendChild(chartsDropdown);
             }
           }
         }
