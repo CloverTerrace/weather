@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <script>
-  // ~~~~~~ 🌩️☀️🌈 FOUC prevention — runs synchronously, before <body> paints
+  // ~~~~~~~ 🌩️☀️🌈 FOUC prevention 🌈🌤️🌧️ ~~~~~~~
+  // runs synchronously, before <body> paints..
   // if a cached theme exists, apply its CSS variables to the root right
   // now, before the browser renders anything — so a returning visitor's
   // very first paint is already correct, no flash, no overlay shown at
@@ -79,8 +80,8 @@
     --font-family: Macondo, system-ui, -apple-system, sans-serif;
 
     /* ---------- font customization ---------- */
-    /* defaults to --font-family above, so nothing changes
-       visually until you override one.*/
+    /* defaults to --font-family above. nothing changes
+       visually until overriding one.*/
     --font-page-title: Macondo, Palatino, serif;       /* "Clover Terrace Weather Station" at the very top */
     --font-card-heading: Figtree, Tahoma, serif;       /* every card's section header — "Sky & Space", "SPC Convective Outlook", chart titles, etc. */
     --font-body: Figtree, Tahoma, sans-serif;          /* numerical data values within cards */
@@ -96,20 +97,18 @@
 
   * { box-sizing: border-box; }
 
-  /* Kills the browser's default blue/gray tap-highlight flash on every
-     tappable element, site-wide -- it was never themed and just flashed
-     stock Chrome/Safari blue over the sensor tiles on touch. Global so it
-     can't reappear on any future tappable element either. Themed press
-     feedback for the tiles that actually need touch confirmation lives on
-     .card-expandable and .lightning-map-trigger below instead. */
+  /* changes the default color for the tap-highlight flash on every tappable 
+  thing site-wide. can't reappear on any future tappable element either. themed 
+  press feedback for the tiles that actually need touch confirmation lives on
+  .card-expandable and .lightning-map-trigger below. */
   * {
     -webkit-tap-highlight-color: transparent;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
   }
 
-  /* installed fonts below */
+  /* 🍀💜🌙 installed fonts (from dafont and google fonts) ❄️☔🌩️ */
 
-  /* macondo-regular - latin */
+  /* macondo-regular - latin 🌈*/
 @font-face {
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Macondo';
@@ -118,7 +117,7 @@
   src: url('fonts/macondo-v27-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-    /* groovy clouds - latin */
+    /* groovy clouds - latin  🌥️*/
 @font-face {
   font-display: swap;
   font-family: 'Groovy Clouds';
@@ -127,7 +126,7 @@
   src: url('fonts/Groovy Clouds.woff2') format('woff2'); 
 }
 
-  /* jelly choco - latin */
+  /* jelly choco - latin ☁️ */ 
 @font-face {
   font-display: swap;
   font-family: 'Jelly Choco';
@@ -136,7 +135,7 @@
   src: url('fonts/jellychoco.woff2') format('woff2'); 
 }
   
-  /* figtree-regular - latin */
+  /* figtree-regular - latin 🍀*/
 @font-face {
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Figtree';
@@ -144,7 +143,7 @@
   font-weight: 400;
   src: url('fonts/figtree-v9-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
-  /* lavishly-yours-regular - latin */
+  /* lavishly-yours-regular - latin 🌙*/
 @font-face {
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Lavishly Yours';
@@ -153,7 +152,7 @@
   src: url('fonts/lavishly-yours-v7-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-  /* letter magic - latin */
+  /* letter magic - latin ☀️*/
 @font-face {
   font-display: swap;
   font-family: 'Letter Magic';
@@ -162,7 +161,7 @@
   src: url('fonts/Letter Magic.woff2') format('woff2'); 
 }
 
-    /* Monas - latin */
+    /* Monas - latin ☀️*/
 @font-face {
   font-display: swap;
   font-family: 'Monas';
@@ -171,7 +170,7 @@
   src: url('fonts/Monas.woff2') format('woff2'); 
 }
 
-    /* nightwindsent - latin */
+    /* nightwindsent - latin 🌙💨*/
 @font-face {
   font-display: swap;
   font-family: 'NightWindSent';
@@ -180,7 +179,7 @@
   src: url('fonts/NightWindSent.woff2') format('woff2'); 
 }
 
-/* sunny love - latin */
+/* sunny love - latin 🍀💜*/
 @font-face {
   font-display: swap;
   font-family: 'Sunny Love';
@@ -189,7 +188,7 @@
   src: url('fonts/Sunny Love.woff2') format('woff2'); 
 }
   
-    /* snowby - latin */
+    /* snowby - latin ❄️*/
 @font-face {
   font-display: swap;
   font-family: 'Snowby';
@@ -198,7 +197,7 @@
   src: url('fonts/Snowby.woff2') format('woff2'); 
 }
   
-  /* eagle-lake-regular - latin */
+  /* eagle-lake-regular - latin ☔*/
 @font-face {
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Eagle Lake';
@@ -207,7 +206,7 @@
   src: url('fonts/eagle-lake-v26-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-/* tornado-regular - latin */
+/* tornado-regular - latin 🌪️*/
 @font-face {
   font-display: swap;
   font-family: 'Tornado';
