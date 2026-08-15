@@ -6675,7 +6675,7 @@ const THEMES = {
     sunny:             { bg: '#FBBF24', card: '#FFFFFF', accent: '#D97706', muted: '#B45309', text: '#78350F', title: '#ffffff', icon: '☀️', meteocon: 'clear-day.svg', iconImg: 'icons/themes/sunny.png', lightCard: true, fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
     extremeHeat:       { bg: '#351a13', card: '#5f2d1d', accent: '#e9895d', muted: '#d7a07e', text: '#fff4ec', title: '#fff8f2', icon: '🔥☀️', meteocon: 'thermometer-sun.svg', iconImg: 'icons/themes/extremeHeat.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
     extremeHeatNight:  { bg: '#201416', card: '#3d2522', accent: '#dc8977', muted: '#d2a095', text: '#fff2ed', title: '#fff8f5', icon: '🔥🌙', meteocon: 'thermometer-moon.svg', iconImg: 'icons/themes/extremeHeatNight.png', fonts: { title: "NightWindSent, Papyrus, serif", cardHeading: "Monas" } },
-    cloudy:            { bg: '#6FA3D6', card: '#F3F6FA', accent: '#1D6FA5', muted: '#5F7A93', text: '#33455A', title: '#ffffff', icon: '⛅️', meteocon: 'partly-cloudy-day.svg', iconImg: 'icons/themes/cloudy.png', lightCard: true, fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Jelly Choco" } },
+    cloudy:            { bg: '#6FA3D6', card: '#F3F6FA', accent: '#1D6FA5', muted: '#5F7A93', text: '#33455A', title: '#ffffff', icon: '⛅️', meteocon: 'partly-cloudy-day.svg', iconImg: 'icons/themes/cloudy.png', lightCard: true, fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Figtree" } },
     rainy:             { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️', meteocon: 'rain.svg', iconImg: 'icons/themes/rainy.png', fonts: { title: "Letter Magic, Tahoma" } },
     rainyNight:        { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️🌙', meteocon: 'mostly-clear-night-rain.svg', iconImg: 'icons/themes/rainyNight.png', fonts: { title: "Lavishly Yours, cursive" } },
     snowy:             { bg: '#1b2430', card: '#25313f', accent: '#dff3ff', muted: '#d5d4e6', text: '#ffffff', title: '#ffffff', icon: '❄️', meteocon: 'snow.svg', iconImg: 'icons/themes/snowy.png', fonts: { title: "Snowby, sans-serif" } },
@@ -6925,7 +6925,7 @@ const THEMES = {
     }
   }
 
-  // shows a brief theme preview (colors/fonts/icon + its matching fx)
+  // shows a quick theme preview (colors/fonts/icon + its matching fx)
   // then reverts to whatever the real weather data last produced.
   // controlled by the easter-egg preview row in the footer. 🥚☔
   let previewRevertTimer = null;
@@ -7092,10 +7092,7 @@ const THEMES = {
     });
 
 
-    // 3. pressure card -- relative (elevation-corrected) pressure only.
-    // Absolute/station-corrected pressure isn't shown here: it's the raw,
-    // un-corrected station reading and duplicates relative pressure for
-    // at-a-glance/storm-tracking purposes.
+    // 3. pressure card -- relative (elevation-corrected) pressure only
     const pExt = extSafe('pressure');
     const pTrend = getPressureTrend(fullHistory, 'pressure');
 
@@ -7104,7 +7101,6 @@ const THEMES = {
       ? `${primaryTrend.deltaPerHour >= 0 ? '+' : ''}${primaryTrend.deltaPerHour.toFixed(3)} inHg/hr`
       : 'trend building…';
 
-    // relative pressure reading
     function getPressureLevelNote(val) {
       if (val === undefined || val === null || isNaN(val)) return null;
       if (val >= 30.20) return 'High';
@@ -7228,7 +7224,7 @@ const THEMES = {
 
     const attachLightningMapListeners = () => {
       lightningCard.querySelector('.lightning-map-close')?.addEventListener('click', (e) => { e.stopPropagation(); toggleLightningMap(false); });
-      // Desktop only (the backdrop is invisible/inert on mobile via CSS):
+      // desktop only (the backdrop is invisible/inert on mobile via CSS):
       // clicking the dimmed area outside the enlarged map closes it
       // immediately, same as scrolling the page away from it.
       lightningCard.querySelector('.lightning-map-backdrop')?.addEventListener('click', (e) => { e.stopPropagation(); toggleLightningMap(false); });
