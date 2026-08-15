@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T14:51:02.234983Z",
+  "generatedAt": "2026-08-15T14:56:01.746894Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.c401f5dfbf6869d4e004e2c84e02071927dd5dc6.001.1",
@@ -25,5 +25,29 @@
     }
   ],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "f0a7234a-0750-40a2-9773-755bf6f2c192",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-08-15T14:51:00+00:00",
+      "expires": null,
+      "location": null,
+      "hazard": "Today and tonight. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Flood Watch.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Flood Watch. Though timing and path of thunderstorm clusters could change, latest model guidance suggests one such cluster crosses the area this evening and into the overnight Saturday. Flash flooding is the main risk with a lower probability of isolated instances of damaging w",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Flood Watch. Though timing and path of thunderstorm clusters could change, latest model guidance suggests one such cluster crosses the area this evening and into the overnight Saturday. Flash flooding is the main risk with a lower probability of isolated instances of damaging wind."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Sunday through Friday. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Flood Watch."
+        }
+      ],
+      "url": "https://api.weather.gov/products/f0a7234a-0750-40a2-9773-755bf6f2c192"
+    }
+  ]
 }
