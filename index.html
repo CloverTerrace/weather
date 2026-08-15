@@ -390,6 +390,53 @@
     text-align: center;
   }
 
+  /* Wind's front face shows two kinds of number per column: the current
+     reading (big, primary) and today's peak (secondary, but still a real
+     value -- not just a muted caption like other cards' plain descriptive
+     text). Giving the peak its own small label+value pair with a divider
+     keeps the current reading dominant while making clear the peak is a
+     second, distinct figure rather than a description of the first. */
+  .wind-metric-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--muted-color);
+    margin-top: 2px;
+    font-family: var(--font-details);
+  }
+
+  .wind-metric-peak {
+    margin-top: 0.45rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+  }
+
+  .wind-metric-peak-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted-color);
+    opacity: 0.85;
+    font-family: var(--font-grid-label);
+  }
+
+  .wind-metric-peak-value {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-color);
+    font-family: var(--font-grid-value);
+  }
+
+  .wind-metric-peak-value .unit {
+    font-size: 0.7rem;
+    font-weight: 500;
+    margin-left: 1px;
+    color: var(--muted-color);
+  }
+
   .priority-compass { flex: 0 0 112px; }
   .priority-dual-row .combo-col { flex: 1; text-align: center; }
   .compact-storm-note { margin-top: 0.7rem; font-size: 0.76rem; }
@@ -3762,6 +3809,19 @@ svg circle, svg polygon, svg line {
       z-index: 2;
     }
 
+    /* Reserve room for the absolutely-positioned header above (it sits
+       outside the front face's own flex flow, so the flex centering below
+       has no idea it's there). Without this, a tile's centered front
+       content is centered across the *whole* tile height, header
+       included -- so on a small enough square tile a tall content block
+       (e.g. Temperature's 3-line "Feels Like" column) can get centered up
+       underneath/behind the header instead of clearing it, and can also
+       throw off how consistent its label looks next to a shorter sibling
+       column that isn't colliding with the header. */
+    .desktop-left-rail #grid.grid .card-flip-front {
+      padding-top: 2.4rem;
+    }
+
     .desktop-left-rail #grid.grid .priority-heading,
     .desktop-left-rail #grid.grid .glance-col .label {
       font-size: clamp(0.62rem, 2.45cqw, 0.76rem) !important;
@@ -3851,9 +3911,26 @@ svg circle, svg polygon, svg line {
 
     .desktop-left-rail #grid.grid .wind-card .wind-priority-row {
       flex-direction: row !important;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: clamp(0.45rem, 1.2cqw, 0.8rem);
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-metric-label {
+      font-size: clamp(0.66rem, 2.7cqw, 0.8rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-metric-peak {
+      margin-top: clamp(0.3rem, 1.3cqw, 0.45rem);
+      padding-top: clamp(0.28rem, 1.1cqw, 0.4rem);
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-metric-peak-label {
+      font-size: clamp(0.54rem, 2.1cqw, 0.62rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-metric-peak-value {
+      font-size: clamp(0.74rem, 3.1cqw, 0.92rem) !important;
     }
 
     .desktop-left-rail #grid.grid .wind-card .wind-priority-metric {
@@ -4272,9 +4349,19 @@ svg circle, svg polygon, svg line {
     border-radius: inherit;
     background: var(--card-color);
     box-shadow: 0 12px 30px rgba(0,0,0,0.28);
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 0.35rem;
+  }
+
+  /* The panel (and its iframe) now stay in the DOM across opens/closes --
+     see toggleLightningMap() -- so this is what actually shows/hides it.
+     Keeping the iframe alive means Blitzortung's own cookie-consent
+     banner only has to be dismissed once per page load instead of on
+     every single open, since a fresh iframe no longer reloads their site
+     from scratch each time. */
+  .lightning-card.lightning-map-open .lightning-map-panel {
+    display: flex;
   }
 
   .lightning-map-frame {
@@ -4337,7 +4424,7 @@ svg circle, svg polygon, svg line {
     .desktop-left-rail #grid.grid .lightning-card.lightning-map-open {
       z-index: 5000 !important;
     }
-    .desktop-left-rail #grid.grid .lightning-card .lightning-map-backdrop {
+    .desktop-left-rail #grid.grid .lightning-card.lightning-map-open .lightning-map-backdrop {
       display: block;
       position: fixed !important;
       inset: 0 !important;
@@ -5290,11 +5377,11 @@ svg circle, svg polygon, svg line {
       if (hint) hint.textContent = `tap for ${card.dataset.expandHint || 'more data'} ↗`;
     });
     document.querySelectorAll('.lightning-card.lightning-map-open').forEach(card => {
+      // Just hide -- don't remove -- the panel/iframe here too. Removing
+      // it would force a fresh reload of Blitzortung's page (and its
+      // cookie-consent banner) the next time it's opened; see
+      // toggleLightningMap() below.
       card.classList.remove('lightning-map-open');
-      const map = card.querySelector('.lightning-map-panel');
-      if (map) map.remove();
-      const backdrop = card.querySelector('.lightning-map-backdrop');
-      if (backdrop) backdrop.remove();
       card.setAttribute('aria-expanded', 'false');
     });
   }
@@ -6565,6 +6652,25 @@ const THEMES = {
     // Preserve that existing DOM node across the weather-card rebuild so a
     // refresh cannot silently remove the camera from the desktop layout.
     const desktopCameraTile = grid.querySelector('.desktop-camera-tile');
+
+    // Same idea for an open lightning map: renderCards() runs on every
+    // ~15s auto-refresh (REFRESH_INTERVAL_MS), which was tearing down and
+    // recreating the whole lightning card -- iframe included -- on every
+    // single cycle. That forced Blitzortung's page to reload (and its own
+    // cookie-consent banner to reappear) far more often than the user was
+    // actually opening the map. appendChild moves an already-attached
+    // element directly from one live parent to another without ever fully
+    // detaching it from the document, so relocating the panel here (out of
+    // the way before the grid below gets wiped) keeps its iframe --
+    // including whatever cookie consent it already has -- alive across the
+    // rebuild. It gets moved back into the rebuilt lightning card further
+    // down.
+    const openLightningCard = grid.querySelector('.lightning-card.lightning-map-open');
+    const preservedLightningPanel = openLightningCard?.querySelector('.lightning-map-panel') || null;
+    const preservedLightningBackdrop = openLightningCard?.querySelector('.lightning-map-backdrop') || null;
+    if (preservedLightningPanel) document.body.appendChild(preservedLightningPanel);
+    if (preservedLightningBackdrop) document.body.appendChild(preservedLightningBackdrop);
+
     grid.innerHTML = `
       <div class="grid-column" id="grid-column-left"></div>
       <div class="grid-column" id="grid-column-right"></div>
@@ -6663,11 +6769,13 @@ const THEMES = {
       <div class="wind-priority-row">
         <div class="wind-priority-metric">
           <div class="value priority-value">${formatVal(data.windSpeed, 1)}<span class="unit">mph</span></div>
-          <span class="glance-sub">sustained · peak ${formatVal(wsExt.max.val, 1)}</span>
+          <span class="wind-metric-label">Sustained</span>
+          <div class="wind-metric-peak"><span class="wind-metric-peak-label">Peak</span><span class="wind-metric-peak-value">${formatVal(wsExt.max.val, 1)}<span class="unit">mph</span></span></div>
         </div>
         <div class="wind-priority-metric">
           <div class="value priority-value">${formatVal(data.windGust, 1)}<span class="unit">mph</span></div>
-          <span class="glance-sub">gust · peak ${formatVal(wgExt.max.val, 1)}</span>
+          <span class="wind-metric-label">Gust</span>
+          <div class="wind-metric-peak"><span class="wind-metric-peak-label">Peak</span><span class="wind-metric-peak-value">${formatVal(wgExt.max.val, 1)}<span class="unit">mph</span></span></div>
         </div>
       </div>
       <div class="priority-context">${degreesToCardinal16(data.winddir || 0)} · ${getBeaufortLabel(data.windSpeed)}</div>
@@ -6824,6 +6932,15 @@ const THEMES = {
     lightningCard.setAttribute('tabindex', '0');
     lightningCard.setAttribute('role', 'button');
     lightningCard.setAttribute('aria-expanded', 'false');
+
+    const attachLightningMapListeners = () => {
+      lightningCard.querySelector('.lightning-map-close')?.addEventListener('click', (e) => { e.stopPropagation(); toggleLightningMap(false); });
+      // Desktop only (the backdrop is invisible/inert on mobile via CSS):
+      // clicking the dimmed area outside the enlarged map closes it
+      // immediately, same as scrolling the page away from it.
+      lightningCard.querySelector('.lightning-map-backdrop')?.addEventListener('click', (e) => { e.stopPropagation(); toggleLightningMap(false); });
+    };
+
     const toggleLightningMap = (open) => {
       const current = lightningCard.querySelector('.lightning-map-panel');
       if (open) {
@@ -6836,21 +6953,32 @@ const THEMES = {
               <div class="lightning-map-caption">Live lightning activity · Blitzortung.org</div>
               <button type="button" class="lightning-map-close">close map ×</button>
             </div>`);
-          lightningCard.querySelector('.lightning-map-close')?.addEventListener('click', (e) => { e.stopPropagation(); toggleLightningMap(false); });
-          // Desktop only (the backdrop is invisible/inert on mobile via CSS):
-          // clicking the dimmed area outside the enlarged map closes it
-          // immediately, same as scrolling the page away from it.
-          lightningCard.querySelector('.lightning-map-backdrop')?.addEventListener('click', (e) => { e.stopPropagation(); toggleLightningMap(false); });
+          attachLightningMapListeners();
         }
+        // Panel/backdrop now stay in the DOM (hidden via CSS) rather than
+        // being destroyed here -- see the .lightning-map-open CSS rules --
+        // so re-opening the same session reuses the already-loaded iframe
+        // instead of reloading Blitzortung's page from scratch.
         lightningCard.classList.add('lightning-map-open');
         lightningCard.setAttribute('aria-expanded', 'true');
       } else {
         lightningCard.classList.remove('lightning-map-open');
-        lightningCard.querySelector('.lightning-map-panel')?.remove();
-        lightningCard.querySelector('.lightning-map-backdrop')?.remove();
         lightningCard.setAttribute('aria-expanded', 'false');
       }
     };
+
+    if (preservedLightningPanel) {
+      // Put the still-live map (relocated above, before this card was
+      // rebuilt) back exactly where a freshly opened one would go. Its old
+      // button listeners pointed at the previous render's now-discarded
+      // toggleLightningMap closure, so re-wire them to this one.
+      if (preservedLightningBackdrop) lightningCard.appendChild(preservedLightningBackdrop);
+      lightningCard.appendChild(preservedLightningPanel);
+      attachLightningMapListeners();
+      lightningCard.classList.add('lightning-map-open');
+      lightningCard.setAttribute('aria-expanded', 'true');
+    }
+
     lightningCard.addEventListener('click', (e) => {
       if (e.target.closest('button, a, iframe')) return;
       toggleLightningMap(!lightningCard.classList.contains('lightning-map-open'));
