@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T23:25:54.689791Z",
+  "generatedAt": "2026-08-16T23:30:57.005731Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.4938d1ea4ce899c339e52307da5119bea822a3db.001.1",
@@ -25,44 +25,6 @@
     }
   ],
   "mesoscaleDiscussions": [
-    {
-      "id": "MD2005",
-      "number": 2005,
-      "issued": "2026-08-16T23:00:00Z",
-      "expires": "2026-08-17T00:00:00Z",
-      "concerning": "Severe Thunderstorm Watch 588",
-      "hazard": "Severe Thunderstorm Watch 588",
-      "areas": "portions of far south-central Pennsylvania into Maryland...D.C....and northern and central Virginia",
-      "location": "portions of far south-central Pennsylvania into Maryland...D.C....and northern and central Virginia",
-      "distanceMiles": 155.1,
-      "summary": "A few damaging gusts may occur with ongoing storms over the next few hours. The severe threat should remain relatively more isolated",
-      "watchProbability": null,
-      "forecaster": "Squitieri",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "A few damaging gusts may occur with ongoing storms over the next few hours. The severe threat should remain relatively more isolated"
-        },
-        {
-          "label": "Discussion",
-          "text": "A loosely organized cold-pool-driven MCS, with a history of numerous damaging gusts, is cresting the Blue Ridge Mountains and is poised to approach the Chesapeake Bay over the next few hours. Surface temperatures remain in the 80s F, with low-level lapse rates still around 7 C/km per 22Z mesoanalysis. Nonetheless, nocturnal cooling will begin soon along the East Coast, which will further reduce instability. In the near-term a few damaging gusts remain possible with storms along the leading edge of a cold pool. The best chance for a damaging or even severe gust will be with storms propagating toward central VA, where boundary-layer instability is strongest"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Squitieri"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...AKQ...CTP...LWX...RNK"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md2005.html",
-      "office": "SPC"
-    },
     {
       "id": "MD2004",
       "number": 2004,
@@ -138,7 +100,49 @@
       ],
       "url": "https://www.spc.noaa.gov/products/md/md2002.html",
       "office": "SPC"
+    },
+    {
+      "id": "MD2005",
+      "number": 2005,
+      "issued": null,
+      "expires": null,
+      "concerning": null,
+      "hazard": null,
+      "areas": null,
+      "location": null,
+      "distanceMiles": null,
+      "summary": "Latest SPC mesoscale discussion",
+      "watchProbability": null,
+      "forecaster": null,
+      "details": [
+        {
+          "label": "Summary",
+          "text": "Latest SPC mesoscale discussion"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2005.html",
+      "office": "SPC"
     }
   ],
-  "statements": []
+  "statements": [
+    {
+      "id": "aca57ff9-502d-404b-bcb4-a0ae0c5eb447",
+      "type": "Flood Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T23:28:00+00:00",
+      "expires": null,
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "WGUS81 KPBZ 162328 OHC111-119-121-162338-",
+      "distanceMiles": null,
+      "headline": "Flood Statement",
+      "summary": "WGUS81 KPBZ 162328 OHC111-119-121-162338-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 WGUS81 KPBZ 162328 FLSPBZ Flood Statement 728 PM EDT Sun Aug 16 2026 OHC111-119-121-162338- /O.CAN.KPBZ.FA.W.0034.000000T0000Z-260817T0400Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
+        }
+      ],
+      "url": "https://api.weather.gov/products/aca57ff9-502d-404b-bcb4-a0ae0c5eb447"
+    }
+  ]
 }
