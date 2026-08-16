@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T17:45:52.151697Z",
+  "generatedAt": "2026-08-16T17:50:52.545886Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7c1dd4af6aea046cd5f89defec468e65842c1467.001.1",
@@ -91,6 +91,25 @@
     }
   ],
   "statements": [
+    {
+      "id": "5760ea1b-4abe-418c-8ac7-4362df02e038",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T17:49:00+00:00",
+      "expires": null,
+      "location": "Coshocton OH-Guernsey OH-Muskingum OH-Tuscarawas OH",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Coshocton, Newcomerstown, New Concord, West Lafayette, South Zanesville,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Coshocton, Newcomerstown, New Concord, West Lafayette, South Zanesville, North Zanesville, Dresden, Frazeysburg, Philo, Warsaw, Pleasant Grove, Conesville, Fultonham, Plainfield, Nellie, Norwich, Drake, Bridgeville and Otsego.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Zanesville, Coshocton, Newcomerstown, New Concord, West Lafayette, South Zanesville, North Zanesville, Dresden, Frazeysburg, Philo, Warsaw, Pleasant Grove, Conesville, Fultonham, Plainfield, Nellie, Norwich, Drake, Bridgeville and Otsego."
+        }
+      ],
+      "url": "https://api.weather.gov/products/5760ea1b-4abe-418c-8ac7-4362df02e038"
+    },
     {
       "id": "916efffc-5563-4fea-b13e-10922d6ce217",
       "type": "Special Weather Statement",
