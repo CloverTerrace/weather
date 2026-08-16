@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T19:55:54.614504Z",
+  "generatedAt": "2026-08-16T20:01:02.594923Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.4488b00f976aad49867179428393ec67eb3084dd.002.1",
@@ -214,6 +214,44 @@
   ],
   "statements": [
     {
+      "id": "332cb033-1847-4d43-8ce4-9208be0fa65e",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T20:00:00+00:00",
+      "expires": null,
+      "location": "Marshall WV-Ohio WV-Wetzel WV",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Waynesburg, Mannington, Jefferson Boro, Barrackville, Monongah, Fairview, Cassville,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Waynesburg, Mannington, Jefferson Boro, Barrackville, Monongah, Fairview, Cassville, Ellsworth, Rogersville, Deemston, Cokeburg, Grant Town, Marianna, Beallsville, Farmington, Scenery Hill and Blacksville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Waynesburg, Mannington, Jefferson Boro, Barrackville, Monongah, Fairview, Cassville, Ellsworth, Rogersville, Deemston, Cokeburg, Grant Town, Marianna, Beallsville, Farmington, Scenery Hill and Blacksville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/332cb033-1847-4d43-8ce4-9208be0fa65e"
+    },
+    {
+      "id": "d967357b-7270-486f-81bb-fea481bffb6a",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T19:53:00+00:00",
+      "expires": null,
+      "location": "Beaver PA-Lawrence PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Monroeville, Greensburg,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Monroeville, Greensburg, McKeesport, Butler, Jeannette, Vandergrift, Kittanning, Apollo, Shaler Township, Plum, West Mifflin, North Side Pittsburgh, Baldwin, Upper St. Clair and Murrysville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Monroeville, Greensburg, McKeesport, Butler, Jeannette, Vandergrift, Kittanning, Apollo, Shaler Township, Plum, West Mifflin, North Side Pittsburgh, Baldwin, Upper St. Clair and Murrysville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/d967357b-7270-486f-81bb-fea481bffb6a"
+    },
+    {
       "id": "7032ef78-c649-4a51-9926-3c820c2e7d7b",
       "type": "Hazardous Weather Outlook",
       "office": "KPBZ",
@@ -292,63 +330,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/f7ddbdb0-3b1e-4ff4-8bca-f58312890aa4"
-    },
-    {
-      "id": "a823988e-be21-464f-a007-29a4b849984f",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T19:35:00+00:00",
-      "expires": null,
-      "location": "Butler PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Nixon and Callery.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Nixon and Callery."
-        }
-      ],
-      "url": "https://api.weather.gov/products/a823988e-be21-464f-a007-29a4b849984f"
-    },
-    {
-      "id": "9e30cd8d-2cc0-4eae-bfd3-b20508a52ae9",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T19:31:00+00:00",
-      "expires": null,
-      "location": "Beaver PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Cranberry, Seven Fields, Evans City, Mars, Nixon and Callery.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Cranberry, Seven Fields, Evans City, Mars, Nixon and Callery."
-        }
-      ],
-      "url": "https://api.weather.gov/products/9e30cd8d-2cc0-4eae-bfd3-b20508a52ae9"
-    },
-    {
-      "id": "cf19d8c7-3108-4da0-9054-437d8ad9e5ef",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T19:31:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA-Beaver PA-Butler PA-Lawrence PA-Washington PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Moon Township, McKeesport, Butler, Franklin Park, Shaler Township, Plum, West Mifflin, North Side Pittsburgh, Baldwin, Upper St. Clair, Hampton Township and Scott Township.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Moon Township, McKeesport, Butler, Franklin Park, Shaler Township, Plum, West Mifflin, North Side Pittsburgh, Baldwin, Upper St. Clair, Hampton Township and Scott Township."
-        }
-      ],
-      "url": "https://api.weather.gov/products/cf19d8c7-3108-4da0-9054-437d8ad9e5ef"
     }
   ]
 }
