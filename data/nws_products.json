@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T17:51:54.099550Z",
+  "generatedAt": "2026-08-16T17:55:53.755197Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7c1dd4af6aea046cd5f89defec468e65842c1467.001.1",
@@ -91,6 +91,25 @@
     }
   ],
   "statements": [
+    {
+      "id": "878d8e61-8a17-4bf9-92e6-442b8442e711",
+      "type": "Flood Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T17:51:00+00:00",
+      "expires": null,
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "WGUS81 KPBZ 161751 OHC111-119-121-162230-",
+      "distanceMiles": null,
+      "headline": "Flood Statement",
+      "summary": "WGUS81 KPBZ 161751 OHC111-119-121-162230-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 WGUS81 KPBZ 161751 FLSPBZ Flood Statement 151 PM EDT Sun Aug 16 2026 OHC111-119-121-162230- /O.CON.KPBZ.FA.W.0034.000000T0000Z-260816T2230Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
+        }
+      ],
+      "url": "https://api.weather.gov/products/878d8e61-8a17-4bf9-92e6-442b8442e711"
+    },
     {
       "id": "5760ea1b-4abe-418c-8ac7-4362df02e038",
       "type": "Severe Weather Statement",
