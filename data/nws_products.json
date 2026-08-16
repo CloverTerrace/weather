@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T21:25:56.852215Z",
+  "generatedAt": "2026-08-16T21:31:05.946063Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.8cd748587a421fc96cebdd08b5ff943473295808.002.1",
@@ -88,51 +88,28 @@
       ],
       "url": "https://www.spc.noaa.gov/products/md/md2001.html",
       "office": "SPC"
-    },
-    {
-      "id": "MD2000",
-      "number": 2000,
-      "issued": "2026-08-16T19:28:00Z",
-      "expires": "2026-08-16T21:30:00Z",
-      "concerning": "Severe potential...Watch likely",
-      "hazard": "Severe potential...Watch likely",
-      "areas": "south-central Pennsylvania...the Maryland and West Virginia Panhandles...and northern Virginia",
-      "location": "south-central Pennsylvania...the Maryland and West Virginia Panhandles...and northern Virginia",
-      "distanceMiles": 74.0,
-      "summary": "The threat for severe storms capable of mainly damaging wind gusts is expected to increase late this afternoon into evening. A severe thunderstorm watch is likely",
-      "watchProbability": "80 percent",
-      "forecaster": "Mead/Guyer",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "The threat for severe storms capable of mainly damaging wind gusts is expected to increase late this afternoon into evening. A severe thunderstorm watch is likely"
-        },
-        {
-          "label": "Discussion",
-          "text": "In the wake of an MCV moving from south-central into southeast PA, clouds are gradually clearing, allowing for increased diabatic heating this afternoon. When coupled with a moist boundary layer characterized by boundary-layer dewpoints in the upper 60s to mid 70s F, latest objective analysis indicates MLCAPE of 1000-1500 J/kg with decreasing convective inhibition. Additional air mass destabilization is expected through the remainder of the afternoon, allowing ongoing QLCSs to spread east into the discussion area. Damaging wind gusts will be the primary hazard with the most intense storms, especially in the vicinity of any embedded bowing structures that may persist. A brief tornado or two is possible in areas that can maintain more of a southerly wind component, where low-level shear is locally enhanced"
-        },
-        {
-          "label": "Watch probability",
-          "text": "80 percent"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...55-70 MPH"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Mead/Guyer"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...AKQ...CTP...LWX...RNK...PBZ"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md2000.html",
-      "office": "SPC"
     }
   ],
   "statements": [
+    {
+      "id": "777e3a64-6b06-4eeb-af36-11c0a213b6cf",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T21:29:00+00:00",
+      "expires": null,
+      "location": "Tucker WV",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Davis, Thomas, Canaan Hgts, Cortland and Blackwater Falls.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Davis, Thomas, Canaan Hgts, Cortland and Blackwater Falls.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Davis, Thomas, Canaan Hgts, Cortland and Blackwater Falls."
+        }
+      ],
+      "url": "https://api.weather.gov/products/777e3a64-6b06-4eeb-af36-11c0a213b6cf"
+    },
     {
       "id": "5b048bd5-99ab-4ddd-901c-bf8c189e2740",
       "type": "Severe Weather Statement",
@@ -151,29 +128,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/5b048bd5-99ab-4ddd-901c-bf8c189e2740"
-    },
-    {
-      "id": "64240aed-c6e1-4a2f-8ef1-f291debcd016",
-      "type": "Hazardous Weather Outlook",
-      "office": "KPBZ",
-      "issued": "2026-08-16T21:07:00+00:00",
-      "expires": null,
-      "location": "Beaver-Allegheny-Washington-Greene-Westmoreland-Higher Elevations of Westmoreland-Fayette-Higher Elevations of Fayette-Marion-Monongalia",
-      "hazard": "Tonight. Flood Watch. Severe Thunderstorm Watch.",
-      "distanceMiles": null,
-      "headline": "Hazardous Weather Outlook",
-      "summary": "Tonight. Flood Watch. Severe Thunderstorm Watch.",
-      "details": [
-        {
-          "label": "Today's Hazards",
-          "text": "Tonight. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Flood Watch. Severe Thunderstorm Watch."
-        },
-        {
-          "label": "Extended Outlook",
-          "text": "Monday through Saturday. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Flood Watch."
-        }
-      ],
-      "url": "https://api.weather.gov/products/64240aed-c6e1-4a2f-8ef1-f291debcd016"
     }
   ]
 }
