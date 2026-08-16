@@ -1468,10 +1468,9 @@
     margin-top: 1.5rem;
   }
 
-  /* summary + body are one continuous card: no gap, and the seam between
+  /* header + body are one continuous card: no gap, and the seam between
      them is a hairline divider rather than two separately-rounded boxes
-     floating apart. Corners only round on the outside of the whole shape;
-     when open, the summary's bottom corners square off to meet the body. */
+     floating apart. Corners only round on the outside of the whole shape. */
   .charts-dropdown-body {
     background: var(--card-color);
     border-radius: 0 0 12px 12px;
@@ -1479,38 +1478,16 @@
     border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  .charts-dropdown summary {
+  .charts-dropdown-header {
     background: var(--card-color);
-    border-radius: 12px;
+    border-radius: 12px 12px 0 0;
     padding: 1rem 1.25rem;
-    cursor: pointer;
     font-weight: 600;
     color: var(--muted-color);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     font-size: 0.9rem;
-    list-style: none;
     font-family: var(--font-card-heading);
-  }
-
-  .charts-dropdown[open] summary {
-    border-radius: 12px 12px 0 0;
-  }
-
-  .charts-dropdown summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .charts-dropdown summary::before {
-    content: '▶';
-    display: inline-block;
-    margin-right: 0.6rem;
-    transition: transform 0.2s ease;
-    font-size: 0.7rem;
-  }
-
-  .charts-dropdown[open] summary::before {
-    transform: rotate(90deg);
   }
 
   /* one chart visible at a time -- switched via .chart-tabs, styled to
@@ -2625,21 +2602,41 @@ body.fx-active-smoke .fx-smoke {
 .alert-banner.nws-badge-winter { --hz: #cfe8ff; }
 .alert-banner.nws-badge-other  { --hz: var(--muted-color); }
 
-/* warning: filled, high urgency -- should be impossible to skim past */
+/* --hz-safe is what text/borders actually use. On dark-card themes it's
+   just --hz at full strength -- these hazard colors were picked to pop
+   against a dark card. On light-card themes (sunny, cloudy: body carries
+   .theme-light-card) the same pale/mid-tone hz colors sit close in
+   lightness to the card itself (worst case: pale-ice "winter" #cfe8ff on
+   an already-near-white card), so it's darkened here to hold contrast --
+   the hue stays intact, only the lightness drops. */
+.alert-banner { --hz-safe: var(--hz); }
+body.theme-light-card .alert-banner {
+  --hz-safe: color-mix(in srgb, var(--hz) 60%, #12202c 40%);
+}
+
+/* warning: filled, high urgency -- should be impossible to skim past.
+   Tinting --hz into the theme's own --card-color (rather than a
+   hardcoded dark base) means this automatically becomes a light pastel
+   card with dark text on light-card themes, and a dark tinted card with
+   light text everywhere else -- always the theme's own guaranteed-
+   readable pairing, just with a hazard tint over it. */
 .alert-banner.kind-warning {
-  background: color-mix(in srgb, var(--hz) 32%, #1a1408 68%);
-  border-left: 4px solid var(--hz);
+  background: color-mix(in srgb, var(--hz) 30%, var(--card-color) 70%);
+  border-left: 4px solid var(--hz-safe);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
 }
 
 /* watch / advisory / statement: outlined, lower urgency -- a heads-up,
-   not an order to act */
+   not an order to act. Previously a near-invisible white-glass overlay,
+   which assumed a dark card underneath to read against -- on a light-card
+   theme sitting directly on a colored page background that overlay adds
+   no contrast at all. Same --card-color-based tint as above, just lighter. */
 .alert-banner.kind-watch,
 .alert-banner.kind-advisory,
 .alert-banner.kind-statement {
-  background: rgba(255,255,255,0.035);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-left: 4px solid var(--hz);
+  background: color-mix(in srgb, var(--hz) 10%, var(--card-color) 90%);
+  border: 1px solid color-mix(in srgb, var(--hz-safe) 30%, var(--card-color) 70%);
+  border-left: 4px solid var(--hz-safe);
 }
 
 .alert-banner-icon {
@@ -2665,8 +2662,14 @@ body.fx-active-smoke .fx-smoke {
   font-size: 0.68rem;
   margin-bottom: 0.35rem;
   font-family: inherit;
-  color: var(--hz);
-  opacity: 0.95;
+  /* not --hz-safe: at this size the label needs 4.5:1 text contrast, and
+     a hazard-colored label against its own hazard-tinted background falls
+     well short of that on several themes. The border stripe, background
+     tint, and icon already carry the color identity at the more forgiving
+     3:1 UI-component bar, so the label just inherits the same
+     guaranteed-legible color as the rest of the banner's text. */
+  color: var(--text-color);
+  opacity: 0.8;
 }
 
 .alert-banner .alert-event {
@@ -2681,7 +2684,13 @@ body.fx-active-smoke .fx-smoke {
   font-size: 0.85rem;
   line-height: 1.4;
   font-family: inherit;
-  color: var(--muted-color);
+  /* not --muted-color: it's tuned for contrast against the plain
+     --card-color, and a warning's more heavily hz-tinted background pulls
+     it below 4.5:1 on light-card themes. --text-color's contrast is
+     guaranteed regardless of tint; de-emphasis still reads through the
+     smaller, non-bold weight relative to the event line above it. */
+  color: var(--text-color);
+  opacity: 0.85;
 }
 
 /* soft, single-pulse flash -- no strobing, epilepsy-safe -- used to guide
@@ -2993,7 +3002,7 @@ body.fx-active-sunrays .fx-sunrays {
   .sky-badge-active    { color: #ff9f6b; }
 
   /* add smooth transitions to all theme-affected elements */
-body, .card, .chart-card, .camera-card, .charts-dropdown summary, 
+body, .card, .chart-card, .camera-card, .charts-dropdown-header, 
 .map-panel iframe, .rainviewer-map, .sky-box, .sky-badge, 
 h1, .label, .value, .unit, .forecast-period, 
 .outlook-thumb, .thunderstorm-thumb, .map-tab, .range-btn, .chart-tab {
@@ -3556,8 +3565,6 @@ svg circle, svg polygon, svg line {
     .web-tools-grid > .weather-map-card .map-panel iframe {
       height: clamp(360px, 35vw, 560px);
     }
-
-    .web-tools-grid > .charts-dropdown .charts-dropdown-body { display: block; }
   }
 
 
@@ -3593,9 +3600,12 @@ svg circle, svg polygon, svg line {
   .grid-column { gap: clamp(0.95rem, 1.35vw, 1.35rem); }
 
   .card,
-  .camera-card,
-  .charts-dropdown summary {
+  .camera-card {
     border-radius: 14px;
+  }
+
+  .charts-dropdown-header {
+    border-radius: 14px 14px 0 0;
   }
 
   .camera-card {
@@ -4942,8 +4952,8 @@ svg circle, svg polygon, svg line {
 </div>
 
   
-<details class="charts-dropdown">
-    <summary>Historical Data</summary>
+<div class="charts-dropdown">
+    <div class="charts-dropdown-header">Historical Data</div>
   <div class="charts-dropdown-body">
     <div class="chart-tabs">
       <button class="chart-tab active" data-target="chart-card-temp">Temp &amp; Humidity</button>
@@ -5004,7 +5014,7 @@ svg circle, svg polygon, svg line {
       </div>
     </div>
   </div>
-  </details>
+  </div>
 
  </div> <!-- .web-tools-grid -->
 
@@ -8345,15 +8355,6 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
   initNwsTabs();
   loadNwsProducts();
   setInterval(loadNwsProducts, 5 * 60 * 1000);
-  
-  const chartsDropdown = document.querySelector('.charts-dropdown');
-  chartsDropdown.addEventListener('toggle', () => {
-    if (chartsDropdown.open) {
-      [historyChart, windChart, windRoseChart, pressureChart, solarChart, riverChart].forEach(c => c?.destroy());
-      historyChart = windChart = windRoseChart = pressureChart = solarChart = riverChart = null;
-      renderAllCharts();
-    }
-  });
   
   refreshBtn.addEventListener('click', handleRefreshClick);
 
