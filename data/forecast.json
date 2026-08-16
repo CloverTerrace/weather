@@ -1,6 +1,16 @@
 [
   {
-    "name": "Today",
+    "name": "Overnight",
+    "temperature": 70,
+    "temperatureUnit": "F",
+    "windSpeed": "3 mph",
+    "windDirection": "SE",
+    "shortForecast": "Showers And Thunderstorms",
+    "detailedForecast": "Showers and thunderstorms. Cloudy, with a low around 70. Southeast wind around 3 mph. Chance of precipitation is 80%. New rainfall amounts less than a tenth of an inch possible.",
+    "isDaytime": false
+  },
+  {
+    "name": "Sunday",
     "temperature": 82,
     "temperatureUnit": "F",
     "windSpeed": "3 to 8 mph",
@@ -10,7 +20,7 @@
     "isDaytime": true
   },
   {
-    "name": "Tonight",
+    "name": "Sunday Night",
     "temperature": 70,
     "temperatureUnit": "F",
     "windSpeed": "5 to 8 mph",
@@ -28,15 +38,5 @@
     "shortForecast": "Chance Rain Showers then Slight Chance Showers And Thunderstorms",
     "detailedForecast": "A chance of rain showers between 10am and 2pm, then a slight chance of showers and thunderstorms between 2pm and 3pm. Partly sunny, with a high near 80. West wind 5 to 9 mph. Chance of precipitation is 40%. New rainfall amounts less than a tenth of an inch possible.",
     "isDaytime": true
-  },
-  {
-    "name": "Monday Night",
-    "temperature": 60,
-    "temperatureUnit": "F",
-    "windSpeed": "0 to 8 mph",
-    "windDirection": "NW",
-    "shortForecast": "Mostly Clear then Areas Of Fog",
-    "detailedForecast": "Areas of fog after 3am. Mostly clear, with a low around 60. Northwest wind 0 to 8 mph.",
-    "isDaytime": false
   }
 ]
