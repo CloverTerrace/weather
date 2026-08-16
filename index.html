@@ -83,10 +83,19 @@
        visually until overriding one.*/
     --font-page-title: Macondo, Palatino, serif;       /* "Clover Terrace Weather Station" at the very top */
     --font-card-heading: Figtree, Tahoma, serif;       /* every card's section header — "Sky & Space", "SPC Convective Outlook", chart titles, etc. */
-    --font-body: Figtree, Tahoma, sans-serif;          /* numerical data values within cards */
-    --font-details: Figtree, Tahoma, sans-serif;       /* general text within cards — subtitle, status line, forecast periods, alert banners, sun/moon details, sky badges */
-    --font-grid-label: Figtree, Tahoma, sans-serif;    /* dashboard tile labels — "TEMPERATURE", "WIND SPEED", etc. */
-    --font-grid-value: var(--font-family);             /* dashboard tile big numbers — "68", "°F", etc. */
+    --font-body: Figtree, Tahoma, sans-serif;          /* general prose within cards outside the dashboard grid — subtitle, status line, forecast periods, alert banners, sun/moon details, sky badges */
+    --font-details: Figtree, Tahoma, sans-serif;       /* same tier as --font-body; secondary/finer print outside the dashboard grid */
+    --font-grid-label: Figtree, Tahoma, sans-serif;    /* ALL descriptive text inside the dashboard grid tiles — tile headers ("TEMPERATURE"), column labels ("FEELS LIKE"), captions ("actual 73.9°F", "strikes today"), context lines, peak/unit captions */
+    --font-grid-value: Figtree, Tahoma, sans-serif;    /* ALL numeric readouts inside the dashboard grid tiles — both the large "current" number and the smaller "peak"/secondary number beneath it. size is the only thing that differs between the two tiers; font + color stay the same */
+
+    /* ---------- grid tile color roles ---------- */
+    /* every dashboard tile (#grid.grid) draws its numbers from --value-color
+       and its descriptive text from --label-color, so both stay consistent
+       across every tile and every size tier (current vs. peak, heading vs.
+       caption) without needing per-card overrides. both default to existing
+       theme colors, so nothing changes visually until a theme overrides them. */
+    --value-color: var(--accent-color);                /* dashboard tile numbers — current value AND the smaller peak/secondary value beneath it */
+    --label-color: var(--muted-color);                  /* dashboard tile descriptive text — headings, column labels, captions, context lines */
 
     /* soft ambient shadow shared by the page title and all icons */
     --icon-shadow: drop-shadow(0 1px 2px rgba(0,0,0,0.16));
@@ -341,7 +350,7 @@
   }
 
   .priority-heading {
-    color: var(--muted-color);
+    color: var(--label-color);
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -359,10 +368,10 @@
   .priority-context {
     margin-top: 0.8rem;
     text-align: center;
-    color: var(--muted-color);
+    color: var(--label-color);
     font-size: 0.76rem;
     line-height: 1.35;
-    font-family: var(--font-details);
+    font-family: var(--font-grid-label);
   }
 
   .priority-context span { opacity: 0.55; margin: 0 0.2rem; }
@@ -396,9 +405,9 @@
   .wind-metric-label {
     display: block;
     font-size: 0.7rem;
-    color: var(--muted-color);
+    color: var(--label-color);
     margin-top: 2px;
-    font-family: var(--font-details);
+    font-family: var(--font-grid-label);
   }
 
   .wind-metric-peak {
@@ -415,15 +424,18 @@
     font-size: 0.6rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--muted-color);
+    color: var(--label-color);
     opacity: 0.85;
     font-family: var(--font-grid-label);
   }
 
+  /* peak values are the same value font + color as the tile's main
+     "current" number above (--font-grid-value / --value-color) — just
+     smaller, since that's the only thing distinguishing the two tiers. */
   .wind-metric-peak-value {
     font-size: 0.92rem;
     font-weight: 600;
-    color: var(--text-color);
+    color: var(--value-color);
     font-family: var(--font-grid-value);
   }
 
@@ -431,7 +443,7 @@
     font-size: 0.7rem;
     font-weight: 500;
     margin-left: 1px;
-    color: var(--muted-color);
+    color: var(--label-color);
   }
 
   .priority-compass { flex: 0 0 112px; }
@@ -575,7 +587,7 @@
   }
 
   .card .label {
-    color: var(--muted-color);
+    color: var(--label-color);
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -587,14 +599,14 @@
   .card .value {
     font-size: 1.8rem;
     font-weight: 600;
-    color: var(--accent-color);
+    color: var(--value-color);
     font-family: var(--font-grid-value);
     text-align: center;
   }
 
   .card .unit {
     font-size: 1rem;
-    color: var(--muted-color);
+    color: var(--label-color);
     margin-left: 0.2rem;
     font-family: var(--font-grid-value);
   }
@@ -632,7 +644,7 @@
   .wind-compass-degrees {
     font-size: 1.4rem;
     font-weight: 600;
-    color: var(--accent-color);
+    color: var(--value-color);
     font-family: var(--font-grid-value);
     line-height: 1;
   }
@@ -644,7 +656,7 @@
   .wind-compass-cardinal {
     font-size: 0.85rem;
     font-weight: 700;
-    color: var(--muted-color);
+    color: var(--label-color);
     margin-top: 0.3rem;
     letter-spacing: 0.03em;
     font-family: var(--font-grid-label);
@@ -780,7 +792,8 @@
   }
 
   .aqi-summary {
-    font-family: var(--font-details);
+    font-family: var(--font-grid-label);
+    color: var(--label-color);
   }
 
   .aqi-scale-compact {
@@ -862,19 +875,17 @@
     white-space: nowrap;
   }
 
-  .glance-col .value {
-    font-size: 1.55rem;
-  }
-
-  .glance-col.glance-primary .value {
-    font-size: 1.85rem;
-  }
+  /* glance-row columns (currently just the temperature tile's Feels
+     Like / Dew Point pair) are peer "current" values, not a current/peak
+     pair — every column carries the .priority-value class alongside
+     .value so they all share the same size via that single rule instead
+     of a second, competing size system here. */
 
   .glance-sub {
     font-size: 0.7rem;
-    color: var(--muted-color);
+    color: var(--label-color);
     margin-top: 2px;
-    font-family: var(--font-details);
+    font-family: var(--font-grid-label);
   }
 
   .storm-note {
@@ -4111,17 +4122,15 @@ svg circle, svg polygon, svg line {
       line-height: 1.05;
     }
 
-    .desktop-left-rail #grid.grid .glance-col .value {
-      font-size: clamp(1.05rem, 6.8cqw, 1.42rem);
-    }
-
-    .desktop-left-rail #grid.grid .glance-col.glance-primary .value {
-      font-size: clamp(1.18rem, 8cqw, 1.65rem);
-    }
+    /* glance-row columns (temperature's Feels Like / Dew Point) are
+       peer "current" values -- every column carries .priority-value
+       alongside .value, so they inherit the rule directly above and
+       stay the same size as each other; no separate glance-col size
+       rule needed here anymore. */
 
     .desktop-left-rail #grid.grid .glance-sub,
     .desktop-left-rail #grid.grid .priority-context {
-      font-size: clamp(0.78rem, 3.1cqw, 0.95rem) !important;
+      font-size: clamp(0.62rem, 2.3cqw, 0.76rem) !important;
       line-height: 1.25;
     }
 
@@ -6836,7 +6845,7 @@ const FONT_ROLES = {
   body:        { cssVar: '--font-body',         fallback: "Figtree, Tahoma, sans-serif" },
   details:     { cssVar: '--font-details',      fallback: "Figtree, Tahoma, sans-serif" },
   gridLabel:   { cssVar: '--font-grid-label',   fallback: "Figtree, Yahoma, sans-serif" },
-  gridValue:   { cssVar: '--font-grid-value',   fallback: "var(--font-family)" },
+  gridValue:   { cssVar: '--font-grid-value',   fallback: "Figtree, Tahoma, sans-serif" },
 };
 
 // * ☀️ ------- THEME COLORS, TEXT STYLES, AND ICONS HERE ------- 🌙 * //
@@ -7173,7 +7182,7 @@ const THEMES = {
          </div>
          <div class="glance-col">
             <div class="label">Dew Point</div>
-            <div class="value">${formatVal(data.dewpt, 1)}<span class="unit">°F</span></div>
+            <div class="value priority-value">${formatVal(data.dewpt, 1)}<span class="unit">°F</span></div>
             <span class="glance-sub">${dewptComfort}</span>
          </div>
       </div>
