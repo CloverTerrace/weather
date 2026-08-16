@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T19:20:53.777677Z",
+  "generatedAt": "2026-08-16T19:25:51.483937Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7c1dd4af6aea046cd5f89defec468e65842c1467.001.1",
@@ -172,23 +172,42 @@
   ],
   "statements": [
     {
-      "id": "3f282206-4177-4382-b0e1-6b04106e658b",
+      "id": "5fb41e08-206e-4275-aee7-64ed713f8d6b",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
-      "issued": "2026-08-16T19:14:00+00:00",
+      "issued": "2026-08-16T19:21:00+00:00",
       "expires": null,
-      "location": "Columbiana OH-Harrison OH-Jefferson OH-Beaver PA-Lawrence PA",
-      "hazard": "OHC029-067-081-PAC007-073-125-WVC009-029-161924- /O.EXP.KPBZ.SV.W.0281.000000T0000Z-260816T1915Z/",
+      "location": "Allegheny PA-Beaver PA-Butler PA-Lawrence PA-Washington PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless",
       "distanceMiles": null,
       "headline": "Severe Weather Statement",
-      "summary": "OHC029-067-081-PAC007-073-125-WVC009-029-161924- /O.EXP.KPBZ.SV.W.0281.000000T0000Z-260816T1915Z/",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Moon Township, McKeesport, Butler, Franklin Park, Aliquippa, Beaver Falls, Monaca, Shaler Township, Plum, West Mifflin, North Side Pittsburgh and Baldwin.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Moon Township, McKeesport, Butler, Franklin Park, Aliquippa, Beaver Falls, Monaca, Shaler Township, Plum, West Mifflin, North Side Pittsburgh and Baldwin."
+        }
+      ],
+      "url": "https://api.weather.gov/products/5fb41e08-206e-4275-aee7-64ed713f8d6b"
+    },
+    {
+      "id": "ffab2a54-0d4f-4b7b-bb49-00a8957ff68b",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T19:18:00+00:00",
+      "expires": null,
+      "location": "Beaver PA",
+      "hazard": "PAC007-161928- /O.CAN.KPBZ.TO.W.0053.000000T0000Z-260816T1930Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC007-161928- /O.CAN.KPBZ.TO.W.0053.000000T0000Z-260816T1930Z/",
       "details": [
         {
           "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 314 PM EDT Sun Aug 16 2026 OHC029-067-081-PAC007-073-125-WVC009-029-161924- /O.EXP.KPBZ.SV.W.0281.000000T0000Z-260816T1915Z/ Columbiana OH-Harrison OH-Jefferson OH-Beaver PA-Lawrence PA- Washington PA-Brooke WV-Hancock WV-"
+          "text": "000 SVSPBZ Severe Weather Statement 318 PM EDT Sun Aug 16 2026 PAC007-161928- /O.CAN.KPBZ.TO.W.0053.000000T0000Z-260816T1930Z/ Beaver PA- 318 PM EDT Sun Aug 16 2026"
         }
       ],
-      "url": "https://api.weather.gov/products/3f282206-4177-4382-b0e1-6b04106e658b"
+      "url": "https://api.weather.gov/products/ffab2a54-0d4f-4b7b-bb49-00a8957ff68b"
     },
     {
       "id": "190c6a27-2fcb-4e0b-9b33-d5ea2f8deeab",
@@ -208,6 +227,25 @@
         }
       ],
       "url": "https://api.weather.gov/products/190c6a27-2fcb-4e0b-9b33-d5ea2f8deeab"
+    },
+    {
+      "id": "3f282206-4177-4382-b0e1-6b04106e658b",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T19:14:00+00:00",
+      "expires": null,
+      "location": "Columbiana OH-Harrison OH-Jefferson OH-Beaver PA-Lawrence PA",
+      "hazard": "OHC029-067-081-PAC007-073-125-WVC009-029-161924- /O.EXP.KPBZ.SV.W.0281.000000T0000Z-260816T1915Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC029-067-081-PAC007-073-125-WVC009-029-161924- /O.EXP.KPBZ.SV.W.0281.000000T0000Z-260816T1915Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 314 PM EDT Sun Aug 16 2026 OHC029-067-081-PAC007-073-125-WVC009-029-161924- /O.EXP.KPBZ.SV.W.0281.000000T0000Z-260816T1915Z/ Columbiana OH-Harrison OH-Jefferson OH-Beaver PA-Lawrence PA- Washington PA-Brooke WV-Hancock WV-"
+        }
+      ],
+      "url": "https://api.weather.gov/products/3f282206-4177-4382-b0e1-6b04106e658b"
     },
     {
       "id": "40d80dad-8086-464c-8b25-c847d219a3e0",
@@ -265,44 +303,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/f1aa11ef-7d8c-4ad0-8815-ddddf56d4351"
-    },
-    {
-      "id": "fa584640-2ba4-42e5-bd1e-f4d6349edb39",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T18:59:00+00:00",
-      "expires": null,
-      "location": "Guernsey OH-Harrison OH-Noble OH-Tuscarawas OH",
-      "hazard": "OHC059-067-121-157-161909- /O.EXP.KPBZ.SV.W.0280.000000T0000Z-260816T1900Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC059-067-121-157-161909- /O.EXP.KPBZ.SV.W.0280.000000T0000Z-260816T1900Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 259 PM EDT Sun Aug 16 2026 OHC059-067-121-157-161909- /O.EXP.KPBZ.SV.W.0280.000000T0000Z-260816T1900Z/ Guernsey OH-Harrison OH-Noble OH-Tuscarawas OH- 259 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/fa584640-2ba4-42e5-bd1e-f4d6349edb39"
-    },
-    {
-      "id": "f6d953ac-d961-46c6-acbc-dcf661f4324d",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T18:58:00+00:00",
-      "expires": null,
-      "location": "Columbiana OH-Harrison OH-Jefferson OH-Beaver PA-Lawrence PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine, Wellsville, Cadiz, Wellsburg, Toronto, Calcutta, Wintersville, Ohioville, Mingo Junction, Follansbee, Lisbon, Midland, Hooverson Heights and Chester.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine, Wellsville, Cadiz, Wellsburg, Toronto, Calcutta, Wintersville, Ohioville, Mingo Junction, Follansbee, Lisbon, Midland, Hooverson Heights and Chester."
-        }
-      ],
-      "url": "https://api.weather.gov/products/f6d953ac-d961-46c6-acbc-dcf661f4324d"
     }
   ]
 }
