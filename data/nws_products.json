@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T21:15:52.789047Z",
+  "generatedAt": "2026-08-16T21:20:54.035753Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.8cd748587a421fc96cebdd08b5ff943473295808.002.1",
@@ -92,20 +92,40 @@
     {
       "id": "MD2000",
       "number": 2000,
-      "issued": null,
-      "expires": null,
-      "concerning": null,
-      "hazard": null,
-      "areas": null,
-      "location": null,
-      "distanceMiles": null,
-      "summary": "Latest SPC mesoscale discussion",
-      "watchProbability": null,
-      "forecaster": null,
+      "issued": "2026-08-16T19:28:00Z",
+      "expires": "2026-08-16T21:30:00Z",
+      "concerning": "Severe potential...Watch likely",
+      "hazard": "Severe potential...Watch likely",
+      "areas": "south-central Pennsylvania...the Maryland and West Virginia Panhandles...and northern Virginia",
+      "location": "south-central Pennsylvania...the Maryland and West Virginia Panhandles...and northern Virginia",
+      "distanceMiles": 74.0,
+      "summary": "The threat for severe storms capable of mainly damaging wind gusts is expected to increase late this afternoon into evening. A severe thunderstorm watch is likely",
+      "watchProbability": "80 percent",
+      "forecaster": "Mead/Guyer",
       "details": [
         {
           "label": "Summary",
-          "text": "Latest SPC mesoscale discussion"
+          "text": "The threat for severe storms capable of mainly damaging wind gusts is expected to increase late this afternoon into evening. A severe thunderstorm watch is likely"
+        },
+        {
+          "label": "Discussion",
+          "text": "In the wake of an MCV moving from south-central into southeast PA, clouds are gradually clearing, allowing for increased diabatic heating this afternoon. When coupled with a moist boundary layer characterized by boundary-layer dewpoints in the upper 60s to mid 70s F, latest objective analysis indicates MLCAPE of 1000-1500 J/kg with decreasing convective inhibition. Additional air mass destabilization is expected through the remainder of the afternoon, allowing ongoing QLCSs to spread east into the discussion area. Damaging wind gusts will be the primary hazard with the most intense storms, especially in the vicinity of any embedded bowing structures that may persist. A brief tornado or two is possible in areas that can maintain more of a southerly wind component, where low-level shear is locally enhanced"
+        },
+        {
+          "label": "Watch probability",
+          "text": "80 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...55-70 MPH"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Mead/Guyer"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...AKQ...CTP...LWX...RNK...PBZ"
         }
       ],
       "url": "https://www.spc.noaa.gov/products/md/md2000.html",
@@ -192,63 +212,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/aca45761-7c2f-461a-b5a6-f05470628129"
-    },
-    {
-      "id": "1bbb41f7-369e-4ee5-b8b6-8d0936968451",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T20:57:00+00:00",
-      "expires": null,
-      "location": "Armstrong PA-Indiana PA-Westmoreland PA",
-      "hazard": "PAC005-063-129-162107- /O.EXP.KPBZ.SV.W.0288.000000T0000Z-260816T2100Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC005-063-129-162107- /O.EXP.KPBZ.SV.W.0288.000000T0000Z-260816T2100Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 457 PM EDT Sun Aug 16 2026 PAC005-063-129-162107- /O.EXP.KPBZ.SV.W.0288.000000T0000Z-260816T2100Z/ Armstrong PA-Indiana PA-Westmoreland PA- 457 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/1bbb41f7-369e-4ee5-b8b6-8d0936968451"
-    },
-    {
-      "id": "5119b334-02d1-4248-b1af-0d59596b37fc",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T20:56:00+00:00",
-      "expires": null,
-      "location": "Fayette PA-Westmoreland PA",
-      "hazard": "PAC051-129-162106- /O.EXP.KPBZ.SV.W.0290.000000T0000Z-260816T2100Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC051-129-162106- /O.EXP.KPBZ.SV.W.0290.000000T0000Z-260816T2100Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 456 PM EDT Sun Aug 16 2026 PAC051-129-162106- /O.EXP.KPBZ.SV.W.0290.000000T0000Z-260816T2100Z/ Fayette PA-Westmoreland PA- 456 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/5119b334-02d1-4248-b1af-0d59596b37fc"
-    },
-    {
-      "id": "ac91d023-93ce-4fb8-b16c-591ef1083185",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T20:56:00+00:00",
-      "expires": null,
-      "location": "Preston WV",
-      "hazard": "WVC077-162106- /O.EXP.KPBZ.SV.W.0289.000000T0000Z-260816T2100Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "WVC077-162106- /O.EXP.KPBZ.SV.W.0289.000000T0000Z-260816T2100Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 456 PM EDT Sun Aug 16 2026 WVC077-162106- /O.EXP.KPBZ.SV.W.0289.000000T0000Z-260816T2100Z/ Preston WV- 456 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/ac91d023-93ce-4fb8-b16c-591ef1083185"
     }
   ]
 }
