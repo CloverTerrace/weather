@@ -1,28 +1,6 @@
 {
-  "generatedAt": "2026-08-16T22:05:56.316949Z",
+  "generatedAt": "2026-08-16T22:11:02.523557Z",
   "watches": [
-    {
-      "id": "urn:oid:2.49.0.1.840.0.8cd748587a421fc96cebdd08b5ff943473295808.002.1",
-      "type": "Severe Thunderstorm Watch",
-      "number": null,
-      "issued": "2026-08-16T17:02:00-04:00",
-      "expires": "2026-08-16T20:00:00-04:00",
-      "location": "Allegheny, PA; Beaver, PA; Fayette, PA; Greene, PA; Washington, PA; Westmoreland, PA; Marion, WV; Monongalia, WV; Preston, WV; Tucker, WV",
-      "distanceMiles": null,
-      "summary": "Severe Thunderstorm Watch issued August 16 at 5:02PM EDT until August 16 at 8:00PM EDT by NWS Pittsburgh PA",
-      "details": [
-        {
-          "label": "Areas",
-          "text": "Allegheny, PA; Beaver, PA; Fayette, PA; Greene, PA; Washington, PA; Westmoreland, PA; Marion, WV; Monongalia, WV; Preston, WV; Tucker, WV"
-        },
-        {
-          "label": "Alert detail",
-          "text": "SEVERE THUNDERSTORM WATCH 586 REMAINS VALID UNTIL 8 PM EDT THIS\nEVENING FOR THE FOLLOWING AREAS\n\nIN PENNSYLVANIA THIS WATCH INCLUDES 6 COUNTIES\n\nIN SOUTHWEST PENNSYLVANIA\n\nALLEGHENY             FAYETTE               GREENE\nWASHINGTON            WESTMORELAND\n\nIN WESTERN PENNSYLVANIA\n\nBEAVER\n\nIN WEST VIRGINIA THIS WATCH INCLUDES 4 COUNTIES\n\nIN NORTHEAST WEST VIRGINIA\n\nPRESTON               TUCKER\n\nIN NORTHERN WEST VIRGINIA\n\nMARION                MONONGALIA\n\nTHIS INCLUDES THE CITIES OF ALIQUIPPA, AMBRIDGE, BEAVER FALLS,\nCANONSBURG, CONNELLSVILLE, DAVIS, FAIRMONT, GREENSBURG, KINGWOOD,\nLATROBE, MASONTOWN, MONACA, MORGANTOWN, MURRYSVILLE,\nNEW KENSINGTON, PARSONS, PITTSBURGH METRO AREA, TERRA ALTA,\nTHOMAS, UNIONTOWN, WASHINGTON, AND WAYNESBURG."
-        }
-      ],
-      "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8cd748587a421fc96cebdd08b5ff943473295808.002.1",
-      "office": "NWS Pittsburgh PA"
-    },
     {
       "id": "urn:oid:2.49.0.1.840.0.4938d1ea4ce899c339e52307da5119bea822a3db.001.1",
       "type": "Flood Watch",
@@ -166,25 +144,5 @@
       "office": "SPC"
     }
   ],
-  "statements": [
-    {
-      "id": "94d4a135-dbe4-49a1-87fc-ffc4973442d4",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T21:40:00+00:00",
-      "expires": null,
-      "location": "Tucker WV",
-      "hazard": "WVC093-162150- /O.EXP.KPBZ.SV.W.0292.000000T0000Z-260816T2145Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "WVC093-162150- /O.EXP.KPBZ.SV.W.0292.000000T0000Z-260816T2145Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 540 PM EDT Sun Aug 16 2026 WVC093-162150- /O.EXP.KPBZ.SV.W.0292.000000T0000Z-260816T2145Z/ Tucker WV- 540 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/94d4a135-dbe4-49a1-87fc-ffc4973442d4"
-    }
-  ]
+  "statements": []
 }
