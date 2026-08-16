@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T19:25:51.483937Z",
+  "generatedAt": "2026-08-16T19:30:57.362170Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7c1dd4af6aea046cd5f89defec468e65842c1467.001.1",
@@ -172,6 +172,25 @@
   ],
   "statements": [
     {
+      "id": "78c2757a-a4a8-4710-8bd3-cc1523fd7e6e",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T19:27:00+00:00",
+      "expires": null,
+      "location": "Belmont OH-Harrison OH-Jefferson OH-Monroe OH-Marshall WV-Ohio WV",
+      "hazard": "OHC013-067-081-111-WVC051-069-103-161937- /O.EXP.KPBZ.SV.W.0283.000000T0000Z-260816T1930Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC013-067-081-111-WVC051-069-103-161937- /O.EXP.KPBZ.SV.W.0283.000000T0000Z-260816T1930Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 327 PM EDT Sun Aug 16 2026 OHC013-067-081-111-WVC051-069-103-161937- /O.EXP.KPBZ.SV.W.0283.000000T0000Z-260816T1930Z/ Belmont OH-Harrison OH-Jefferson OH-Monroe OH-Marshall WV-Ohio WV- Wetzel WV-"
+        }
+      ],
+      "url": "https://api.weather.gov/products/78c2757a-a4a8-4710-8bd3-cc1523fd7e6e"
+    },
+    {
       "id": "5fb41e08-206e-4275-aee7-64ed713f8d6b",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -210,25 +229,6 @@
       "url": "https://api.weather.gov/products/ffab2a54-0d4f-4b7b-bb49-00a8957ff68b"
     },
     {
-      "id": "190c6a27-2fcb-4e0b-9b33-d5ea2f8deeab",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T19:14:00+00:00",
-      "expires": null,
-      "location": "Monroe OH-Noble OH",
-      "hazard": "OHC111-121-161924- /O.EXP.KPBZ.SV.W.0282.000000T0000Z-260816T1915Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC111-121-161924- /O.EXP.KPBZ.SV.W.0282.000000T0000Z-260816T1915Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 314 PM EDT Sun Aug 16 2026 OHC111-121-161924- /O.EXP.KPBZ.SV.W.0282.000000T0000Z-260816T1915Z/ Monroe OH-Noble OH- 314 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/190c6a27-2fcb-4e0b-9b33-d5ea2f8deeab"
-    },
-    {
       "id": "3f282206-4177-4382-b0e1-6b04106e658b",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -246,6 +246,25 @@
         }
       ],
       "url": "https://api.weather.gov/products/3f282206-4177-4382-b0e1-6b04106e658b"
+    },
+    {
+      "id": "190c6a27-2fcb-4e0b-9b33-d5ea2f8deeab",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T19:14:00+00:00",
+      "expires": null,
+      "location": "Monroe OH-Noble OH",
+      "hazard": "OHC111-121-161924- /O.EXP.KPBZ.SV.W.0282.000000T0000Z-260816T1915Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC111-121-161924- /O.EXP.KPBZ.SV.W.0282.000000T0000Z-260816T1915Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 314 PM EDT Sun Aug 16 2026 OHC111-121-161924- /O.EXP.KPBZ.SV.W.0282.000000T0000Z-260816T1915Z/ Monroe OH-Noble OH- 314 PM EDT Sun Aug 16 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/190c6a27-2fcb-4e0b-9b33-d5ea2f8deeab"
     },
     {
       "id": "40d80dad-8086-464c-8b25-c847d219a3e0",
@@ -284,25 +303,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/4de73588-3e44-4259-aa75-7d931c68e4a6"
-    },
-    {
-      "id": "f1aa11ef-7d8c-4ad0-8815-ddddf56d4351",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T19:05:00+00:00",
-      "expires": null,
-      "location": "Beaver PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Aliquippa, Ambridge and Harmony Township.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Aliquippa, Ambridge and Harmony Township."
-        }
-      ],
-      "url": "https://api.weather.gov/products/f1aa11ef-7d8c-4ad0-8815-ddddf56d4351"
     }
   ]
 }
