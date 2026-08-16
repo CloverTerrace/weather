@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T16:25:54.174287Z",
+  "generatedAt": "2026-08-16T16:30:56.985703Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.4938d1ea4ce899c339e52307da5119bea822a3db.001.1",
@@ -69,6 +69,25 @@
     }
   ],
   "statements": [
+    {
+      "id": "050b7dda-01d5-4c40-b989-49fc3f0bf688",
+      "type": "Flood Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T16:28:00+00:00",
+      "expires": null,
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "WGUS81 KPBZ 161628 OHC119-161638-",
+      "distanceMiles": null,
+      "headline": "Flood Statement",
+      "summary": "WGUS81 KPBZ 161628 OHC119-161638-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 WGUS81 KPBZ 161628 FLSPBZ Flood Statement 1228 PM EDT Sun Aug 16 2026 OHC119-161638- /O.EXP.KPBZ.FA.W.0033.000000T0000Z-260816T1630Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
+        }
+      ],
+      "url": "https://api.weather.gov/products/050b7dda-01d5-4c40-b989-49fc3f0bf688"
+    },
     {
       "id": "6be38ef9-8f58-437c-902f-96f293fd407e",
       "type": "Area Forecast Discussion",
