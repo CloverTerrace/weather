@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T18:56:00.147902Z",
+  "generatedAt": "2026-08-16T19:01:01.172170Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7c1dd4af6aea046cd5f89defec468e65842c1467.001.1",
@@ -130,6 +130,82 @@
   ],
   "statements": [
     {
+      "id": "fa584640-2ba4-42e5-bd1e-f4d6349edb39",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T18:59:00+00:00",
+      "expires": null,
+      "location": "Guernsey OH-Harrison OH-Noble OH-Tuscarawas OH",
+      "hazard": "OHC059-067-121-157-161909- /O.EXP.KPBZ.SV.W.0280.000000T0000Z-260816T1900Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC059-067-121-157-161909- /O.EXP.KPBZ.SV.W.0280.000000T0000Z-260816T1900Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 259 PM EDT Sun Aug 16 2026 OHC059-067-121-157-161909- /O.EXP.KPBZ.SV.W.0280.000000T0000Z-260816T1900Z/ Guernsey OH-Harrison OH-Noble OH-Tuscarawas OH- 259 PM EDT Sun Aug 16 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/fa584640-2ba4-42e5-bd1e-f4d6349edb39"
+    },
+    {
+      "id": "f6d953ac-d961-46c6-acbc-dcf661f4324d",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T18:58:00+00:00",
+      "expires": null,
+      "location": "Columbiana OH-Harrison OH-Jefferson OH-Beaver PA-Lawrence PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine, Wellsville, Cadiz, Wellsburg, Toronto, Calcutta, Wintersville, Ohioville, Mingo Junction, Follansbee, Lisbon, Midland, Hooverson Heights and Chester.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine, Wellsville, Cadiz, Wellsburg, Toronto, Calcutta, Wintersville, Ohioville, Mingo Junction, Follansbee, Lisbon, Midland, Hooverson Heights and Chester."
+        }
+      ],
+      "url": "https://api.weather.gov/products/f6d953ac-d961-46c6-acbc-dcf661f4324d"
+    },
+    {
+      "id": "3ac4e3eb-9cb1-4f72-9b5a-f1c50635a2e6",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T18:55:00+00:00",
+      "expires": null,
+      "location": "Monroe OH-Noble OH",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Dudley, Dexter City, Graysville, Harriettsville and Rinard Mills.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Dudley, Dexter City, Graysville, Harriettsville and Rinard Mills.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Dudley, Dexter City, Graysville, Harriettsville and Rinard Mills."
+        }
+      ],
+      "url": "https://api.weather.gov/products/3ac4e3eb-9cb1-4f72-9b5a-f1c50635a2e6"
+    },
+    {
+      "id": "bd3fdd07-e9f8-4f62-9f4a-f7bc03882d45",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T18:52:00+00:00",
+      "expires": null,
+      "location": "Guernsey OH-Harrison OH-Noble OH-Tuscarawas OH",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Caldwell, Freeport, Antrim, Quaker City, Senecaville, Lore City, Old Washington,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Caldwell, Freeport, Antrim, Quaker City, Senecaville, Lore City, Old Washington, Summerfield, Sarahsville, Salesville, Piedmont, Fairview, Batesville, Birmingham, Seneca Lake Park, Salt Fork State Park and Piedmont Lake.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Caldwell, Freeport, Antrim, Quaker City, Senecaville, Lore City, Old Washington, Summerfield, Sarahsville, Salesville, Piedmont, Fairview, Batesville, Birmingham, Seneca Lake Park, Salt Fork State Park and Piedmont Lake."
+        }
+      ],
+      "url": "https://api.weather.gov/products/bd3fdd07-e9f8-4f62-9f4a-f7bc03882d45"
+    },
+    {
       "id": "7c931358-4ebf-46fe-bc5e-2125f423eb8a",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -185,82 +261,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/45cc421b-1e65-4e5d-ad5a-8fc0b2010722"
-    },
-    {
-      "id": "bf5ace81-0e60-4add-b9dd-8dc72f535b9c",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T18:41:00+00:00",
-      "expires": null,
-      "location": "Harrison OH-Tuscarawas OH",
-      "hazard": "OHC067-157-161851- /O.EXP.KPBZ.SV.W.0279.000000T0000Z-260816T1845Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC067-157-161851- /O.EXP.KPBZ.SV.W.0279.000000T0000Z-260816T1845Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 241 PM EDT Sun Aug 16 2026 OHC067-157-161851- /O.EXP.KPBZ.SV.W.0279.000000T0000Z-260816T1845Z/ Harrison OH-Tuscarawas OH- 241 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/bf5ace81-0e60-4add-b9dd-8dc72f535b9c"
-    },
-    {
-      "id": "a3ba7bb5-d62c-4e30-a644-f9417f099792",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T18:40:00+00:00",
-      "expires": null,
-      "location": "Coshocton OH-Muskingum OH",
-      "hazard": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Cambridge, Caldwell, Freeport,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Cambridge, Caldwell, Freeport, Newcomerstown, Byesville, Antrim, Quaker City, Senecaville, Pleasant City, Cumberland, Lore City, Old Washington, Summerfield, Belle Valley, Sarahsville, Salesville, Piedmont, Fairview and Batesville.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Cambridge, Caldwell, Freeport, Newcomerstown, Byesville, Antrim, Quaker City, Senecaville, Pleasant City, Cumberland, Lore City, Old Washington, Summerfield, Belle Valley, Sarahsville, Salesville, Piedmont, Fairview and Batesville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/a3ba7bb5-d62c-4e30-a644-f9417f099792"
-    },
-    {
-      "id": "fef3f502-9bac-4a40-920a-bcd1dfc83464",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T18:34:00+00:00",
-      "expires": null,
-      "location": "Coshocton OH-Guernsey OH-Harrison OH-Muskingum OH-Noble OH",
-      "hazard": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Cambridge, Caldwell, Freeport,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Cambridge, Caldwell, Freeport, Newcomerstown, New Concord, Byesville, Antrim, Quaker City, Senecaville, Pleasant City, Cumberland, Lore City, Old Washington, Summerfield, Belle Valley, Sarahsville, Plainfield, Salesville and High Hill.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Cambridge, Caldwell, Freeport, Newcomerstown, New Concord, Byesville, Antrim, Quaker City, Senecaville, Pleasant City, Cumberland, Lore City, Old Washington, Summerfield, Belle Valley, Sarahsville, Plainfield, Salesville and High Hill."
-        }
-      ],
-      "url": "https://api.weather.gov/products/fef3f502-9bac-4a40-920a-bcd1dfc83464"
-    },
-    {
-      "id": "bb5741c0-1904-4521-8f86-f1a9ce086088",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T18:32:00+00:00",
-      "expires": null,
-      "location": "Carroll OH-Columbiana OH-Jefferson OH-Hancock WV",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... East Liverpool, Wellsville, Calcutta, Chester, New Cumberland, Salineville, Newell, Irondale, New Manchester, Stratton, Summitville, Hammondsville, Mechanicstown, Glenmoor, La Croft, Beaver Creek State Park, L",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... East Liverpool, Wellsville, Calcutta, Chester, New Cumberland, Salineville, Newell, Irondale, New Manchester, Stratton, Summitville, Hammondsville, Mechanicstown, Glenmoor, La Croft, Beaver Creek State Park, Lake Tomahawk and Tomlinson Run State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/bb5741c0-1904-4521-8f86-f1a9ce086088"
     }
   ]
 }
