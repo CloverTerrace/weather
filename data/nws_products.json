@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-08-16T15:40:57.049836Z",
+  "generatedAt": "2026-08-16T15:45:57.043496Z",
   "watches": [
     {
-      "id": "urn:oid:2.49.0.1.840.0.05034864b9e1f101a867752bd38808b3642fc38d.001.1",
+      "id": "urn:oid:2.49.0.1.840.0.4938d1ea4ce899c339e52307da5119bea822a3db.001.1",
       "type": "Flood Watch",
       "number": null,
-      "issued": "2026-08-16T04:37:00-04:00",
-      "expires": "2026-08-16T12:00:00-04:00",
+      "issued": "2026-08-16T11:45:00-04:00",
+      "expires": "2026-08-16T20:00:00-04:00",
       "location": "Tuscarawas; Carroll; Columbiana; Coshocton; Harrison; Jefferson; Muskingum; Guernsey; Belmont; Noble; Monroe; Beaver; Allegheny; Washington; Greene; Westmoreland; Westmoreland Ridges; Fayette; Fayette Ridges; Hancock; Brooke; Ohio; Marshall; Wetzel; Marion; Monongalia; Ridges of Eastern Monongalia and Northwestern Preston; Preston; Eastern Preston; Western Tucker; Eastern Tucker",
       "distanceMiles": null,
-      "summary": "Flood Watch issued August 16 at 4:37AM EDT until August 17 at 8:00AM EDT by NWS Pittsburgh PA",
+      "summary": "Flood Watch issued August 16 at 11:45AM EDT until August 17 at 8:00AM EDT by NWS Pittsburgh PA",
       "details": [
         {
           "label": "Areas",
@@ -20,12 +20,31 @@
           "text": "You should monitor later forecasts and be prepared to take action\nshould Flash Flood Warnings be issued."
         }
       ],
-      "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.05034864b9e1f101a867752bd38808b3642fc38d.001.1",
+      "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4938d1ea4ce899c339e52307da5119bea822a3db.001.1",
       "office": "NWS Pittsburgh PA"
     }
   ],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "0d06c947-c640-4c8a-8277-0d6d0bef4e52",
+      "type": "Flash Flood Watch",
+      "office": "KPBZ",
+      "issued": "2026-08-16T15:45:00+00:00",
+      "expires": null,
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "WGUS61 KPBZ 161545 Flood Watch",
+      "distanceMiles": null,
+      "headline": "Flash Flood Watch",
+      "summary": "WGUS61 KPBZ 161545 Flood Watch",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 WGUS61 KPBZ 161545 FFAPBZ Flood Watch 1145 AM EDT Sun Aug 16 2026 OHZ039>041-048>050-057>059-068-069-PAZ020-021-029-031-073>076- WVZ001>004-012-021-509>514-170000- /O.CON.KPBZ.FA.A.0016.000000T0000Z-260817T1200Z/"
+        }
+      ],
+      "url": "https://api.weather.gov/products/0d06c947-c640-4c8a-8277-0d6d0bef4e52"
+    },
     {
       "id": "5553896d-1bf8-4692-999a-e42c73757369",
       "type": "Public Information Statement",
