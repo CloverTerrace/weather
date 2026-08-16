@@ -6825,9 +6825,11 @@ svg circle, svg polygon, svg line {
   
   const WINDY_WIND_MPH = 11;           
   const THUNDERSTORM_WIND_MPH = 15;    
-  const THUNDERSTORM_PRECIP_INHR = 0.1; 
+  const RAIN_PRECIP_INHR = 0.01;
   const EXTREME_HEAT_TEMP_F = 90;      
   const AQI_SMOKE_THRESHOLD = 150;
+  const LIGHTNING_NEARBY_MI = 15;      // our own sensor's typical CG detection range
+  const LIGHTNING_RECENT_MIN = 15;     // how fresh a strike has to be to count as "active" nearby
 
 function getAqiColor(aqi) {
   if (aqi === undefined || aqi === null) return null;
@@ -6922,15 +6924,31 @@ const THEMES = {
     else clearTimeout(lightningTimer);
   }
 
+  // "nearby" lightning for theme purposes = our own sensor's most recent
+  // strike is both close (within LIGHTNING_NEARBY_MI) and fresh (within
+  // LIGHTNING_RECENT_MIN) -- lightningStrikeCount is a today-so-far total
+  // and isn't useful on its own for "is it happening right now".
+  function isLightningNearby(data) {
+    if (data.lightningDistance == null || data.lightningDistance > LIGHTNING_NEARBY_MI) return false;
+    if (!data.lightningLastStrike) return false;
+    const lastStrikeMs = new Date(data.lightningLastStrike).getTime();
+    if (!Number.isFinite(lastStrikeMs)) return false;
+    const ageMin = (Date.now() - lastStrikeMs) / 60000;
+    return ageMin >= 0 && ageMin <= LIGHTNING_RECENT_MIN;
+  }
+
   function classifyWeather(data) {
     const isNight = isNightTime(data);
     const precip = data.precipRate || 0;
     const wind = Math.max(data.windSpeed || 0, data.windGust || 0);
     const feelsLike = Math.max(data.temp || 0, data.heatIndex || 0);
+    const isRaining = precip > RAIN_PRECIP_INHR;
     let condition = null;
-    if (precip >= THUNDERSTORM_PRECIP_INHR && wind >= THUNDERSTORM_WIND_MPH) condition = 'thunderstorm';
-    else if (precip > 0.01 && data.temp <= 32) condition = 'snowy';
-    else if (precip > 0.01) condition = 'rainy';
+    // thunderstorm = raining AND (windy OR lightning nearby) -- rain alone,
+    // even heavy rain, never triggers it on its own.
+    if (isRaining && (wind >= THUNDERSTORM_WIND_MPH || isLightningNearby(data))) condition = 'thunderstorm';
+    else if (isRaining && data.temp <= 32) condition = 'snowy';
+    else if (isRaining) condition = 'rainy';
     else if (wind >= WINDY_WIND_MPH) condition = 'windy';
     else if (feelsLike >= EXTREME_HEAT_TEMP_F) condition = 'extremeHeat';
     if (condition) return isNight ? `${condition}Night` : condition;
