@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T20:15:14.969312Z",
+  "generatedAt": "2026-08-16T20:16:01.408578Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.4488b00f976aad49867179428393ec67eb3084dd.002.1",
@@ -256,6 +256,25 @@
   ],
   "statements": [
     {
+      "id": "c73ba9f2-480a-4324-85c3-42439881e817",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T20:11:00+00:00",
+      "expires": null,
+      "location": "Greene PA-Washington PA-Marion WV-Monongalia WV",
+      "hazard": "PAC059-125-WVC049-061-162021- /O.EXP.KPBZ.SV.W.0285.000000T0000Z-260816T2015Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC059-125-WVC049-061-162021- /O.EXP.KPBZ.SV.W.0285.000000T0000Z-260816T2015Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 411 PM EDT Sun Aug 16 2026 PAC059-125-WVC049-061-162021- /O.EXP.KPBZ.SV.W.0285.000000T0000Z-260816T2015Z/ Greene PA-Washington PA-Marion WV-Monongalia WV- 411 PM EDT Sun Aug 16 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/c73ba9f2-480a-4324-85c3-42439881e817"
+    },
+    {
       "id": "2559061b-6038-44bf-8e50-df1522fe051a",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -334,44 +353,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/7032ef78-c649-4a51-9926-3c820c2e7d7b"
-    },
-    {
-      "id": "543b0225-497d-454a-92a0-aee4d60d8010",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T19:47:00+00:00",
-      "expires": null,
-      "location": "Belmont OH-Monroe OH",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Waynesburg, Mannington, Triadelphia, Valley Grove, Jefferson Boro, Barrackville,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Waynesburg, Mannington, Triadelphia, Valley Grove, Jefferson Boro, Barrackville, Monongah, Cameron, Fairview, Hundred, Cassville, Jacksonburg, Ellsworth, Rogersville, West Finley, Claysville and Deemston.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Waynesburg, Mannington, Triadelphia, Valley Grove, Jefferson Boro, Barrackville, Monongah, Cameron, Fairview, Hundred, Cassville, Jacksonburg, Ellsworth, Rogersville, West Finley, Claysville and Deemston."
-        }
-      ],
-      "url": "https://api.weather.gov/products/543b0225-497d-454a-92a0-aee4d60d8010"
-    },
-    {
-      "id": "dc1ed123-7983-420f-ad18-46646048dced",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T19:44:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA-Armstrong PA-Beaver PA-Butler PA-Lawrence PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Greensburg, McKeesport, Butler, Franklin Park, Jeannette, Vandergrift, Kittanning, Apollo, Shaler Township, Plum, West Mifflin and North Side Pittsburgh.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Greensburg, McKeesport, Butler, Franklin Park, Jeannette, Vandergrift, Kittanning, Apollo, Shaler Township, Plum, West Mifflin and North Side Pittsburgh."
-        }
-      ],
-      "url": "https://api.weather.gov/products/dc1ed123-7983-420f-ad18-46646048dced"
     }
   ]
 }
