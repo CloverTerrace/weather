@@ -5145,13 +5145,13 @@ svg circle, svg polygon, svg line {
   <!-- retro 90s-style "link back" badges. hrefs are placeholders --
        swap in your real link-back URLs once you have them. -->
   <div class="footer-badges">
-    <a class="footer-badge-link" href="#" target="_blank" rel="noopener" aria-label="CoCoRaHS">
+    <a class="footer-badge-link" href="https://www.cocorahs.org/" target="_blank" rel="noopener" aria-label="CoCoRaHS">
       <img src="icons/badges/cocorahsbadge.png" alt="CoCoRaHS">
     </a>
-    <a class="footer-badge-link" href="#" target="_blank" rel="noopener" aria-label="CWOP">
+    <a class="footer-badge-link" href="http://wxqa.com/" target="_blank" rel="noopener" aria-label="CWOP">
       <img src="icons/badges/cwopbadge.png" alt="CWOP">
     </a>
-    <a class="footer-badge-link" href="#" target="_blank" rel="noopener" aria-label="SKYWARN">
+    <a class="footer-badge-link" href="https://www.weather.gov/skywarn/" target="_blank" rel="noopener" aria-label="SKYWARN">
       <img src="icons/badges/skywarnbadge.png" alt="SKYWARN">
     </a>
   </div>
@@ -5257,7 +5257,7 @@ svg circle, svg polygon, svg line {
   }
 
   // the station is fixed in Aliquippa, PA -- this page is meant to show
-  // conditions AT THE STATION, so anything comparing "now" against a
+  // conditions here, so anything comparing "now" against a
   // station reading needs to use the station's own clock, never the
   // visitor's browser timezone.
   const STATION_TIMEZONE = 'America/New_York';
@@ -5435,7 +5435,7 @@ svg circle, svg polygon, svg line {
     return 'miserable';
   }
 
-  // Beaufort scale label for a wind speed in mph -- the classic
+  // beaufort scale label for a wind speed in mph -- the classic
   // enthusiast shorthand for "what does this wind actually feel/look
   // like outside".
   function getBeaufortLabel(mph) {
@@ -5667,7 +5667,7 @@ svg circle, svg polygon, svg line {
     return history.filter(entry => new Date(entry.time).getTime() >= cutoff);
   }
 
-  // Generic sensor-card interaction: a clean front/back flip. The card's
+  // generic sensor-card interaction: a clean front/back flip. the card's
   // footprint never changes; the back is rendered only when opened.
   function makeCardExpandable(cardEl, key, title, renderPanel) {
     cardEl.classList.add('card-expandable');
@@ -5702,7 +5702,7 @@ svg circle, svg polygon, svg line {
 
     const setOpen = (open) => {
       if (open) {
-        // Only one ordinary flip card should be open at a time.
+        // only one ordinary card should be open at a time.
         document.querySelectorAll('.card.card-flipped').forEach(other => {
           if (other === cardEl) return;
           other.classList.remove('card-flipped');
@@ -5747,7 +5747,7 @@ svg circle, svg polygon, svg line {
       if (hint) hint.textContent = `tap for ${card.dataset.expandHint || 'more data'} ↗`;
     });
     document.querySelectorAll('.lightning-card.lightning-map-open').forEach(card => {
-      // Just hide -- don't remove -- the panel/iframe here too. Removing
+      // just hide -- don't remove -- the panel/iframe here too. removing
       // it would force a fresh reload of Blitzortung's page (and its
       // cookie-consent banner) the next time it's opened; see
       // toggleLightningMap() below.
@@ -5756,7 +5756,7 @@ svg circle, svg polygon, svg line {
     });
   }
 
-  // Detail overlays should never linger over the dashboard after the user
+  // detail overlays should never linger over the dashboard after the user
   // moves on. Scroll and outside taps close them; specialized Storm Center,
   // camera, radar and outlook interactions are intentionally excluded.
   let sensorDismissTimer = null;
@@ -6090,7 +6090,7 @@ svg circle, svg polygon, svg line {
       day48.src = `data/outlook-day4-8.gif?t=${t}`;
     }
 
-    // Keep the compact preview drawer synchronized with the live images.
+    // keep the compact preview drawer synchronized with the live images.
     document.querySelectorAll('#outlook-thumbnails img').forEach(img => {
       const src = img.getAttribute('src') || '';
       img.src = src.split('?')[0] + `?t=${t}`;
@@ -6133,8 +6133,8 @@ svg circle, svg polygon, svg line {
         const isActive = i === activeIndex;
         thumb.classList.toggle('active', isActive);
         thumb.setAttribute('aria-current', isActive ? 'true' : 'false');
-        // Keep the compact drawer focused on the alternatives to the large
-        // image. The currently open product is intentionally not duplicated.
+        // keep the compact drawer focused on the alternatives to the large
+        // image. the currently open product is intentionally not duplicated.
         thumb.hidden = isActive;
       });
     };
@@ -6150,7 +6150,7 @@ svg circle, svg polygon, svg line {
           label.textContent = activeIndex === 0 ? `Right now · ${slideLabel}` : `${labelPrefix} · ${slideLabel}`;
         }
       }
-      // Thunderstorm slides carry their own compact period label. Keep the
+      // thunderstorm slides carry their own compact period label. keep the
       // same "right now" / "viewing" language synchronized after a swipe.
       slides.forEach((slide, i) => {
         const periodLabel = slide.querySelector('.thunderstorm-period-label');
@@ -6199,7 +6199,7 @@ svg circle, svg polygon, svg line {
         return;
       }
 
-      // Prefer the period valid right now. If the current clock falls between
+      // prefer the period valid right now. if the current clock falls between
       // SPC blocks, fall back to the first live period in the manifest.
       let currentIndex = periods.findIndex(thunderstormPeriodIsCurrent);
       if (currentIndex < 0) currentIndex = 0;
@@ -6508,13 +6508,7 @@ svg circle, svg polygon, svg line {
 
   // ---------- lightning card: our own GLM map + Blitzortung, tabbed ----------
   // fetch_lightning_glm.py runs in update-weather.yml alongside
-  // fetch_aurora.py / fetch_alerts.py / fetch_nws_products.py, and gets
-  // committed to this same site repo -- so this is a same-origin relative
-  // fetch, same as data/aurora.json and data/alerts.json below, NOT
-  // DATA_REPO_BASE (that constant points at the separate cross-origin
-  // CloverTerrace/weather-data repo, which only weather.json/history.json
-  // use, since those two are written by the home weewx server's own
-  // pipeline rather than this GitHub Actions workflow).
+  // fetch_aurora.py / fetch_alerts.py / fetch_nws_products.py
   const LIGHTNING_GLM_URL = 'data/lightning_glm.json';
   const LIGHTNING_GLM_REFRESH_INTERVAL_MS = 5 * 60 * 1000;
 
@@ -6564,7 +6558,7 @@ svg circle, svg polygon, svg line {
     if (!lightningGlmTimer) lightningGlmTimer = setInterval(loadLightningGlm, LIGHTNING_GLM_REFRESH_INTERVAL_MS);
   }
 
-  // The lightning card's enlarged view has its own small two-tab switcher
+  // the lightning card's enlarged view has its own small two-tab switcher
   // (our GLM map vs. the Blitzortung embed) rather than reusing the
   // page's .map-tab/.map-panel styling, which is sized for the inline
   // radar/forecast card, not this modal. Swipe is added on top of tap
@@ -6654,7 +6648,7 @@ svg circle, svg polygon, svg line {
     });
   }
 
-  // wires up the hidden 🌈 corner button that reveals/hides the theme
+  // hidden 🌈 corner button that reveals/hides the theme
   // preview panel. click-outside and the trigger itself both toggle it;
   // aria-expanded kept in sync for screen reader users even though the
   // button is visually near-invisible at rest.
@@ -7862,9 +7856,8 @@ const THEMES = {
           return true;
         });
     }
-    // Older feeds sometimes expose one large fullText field. Split it into
-    // readable blocks, remove repeated page chrome, and cap each block so a
-    // raw product page can never become the warning headline.
+    // older feeds sometimes expose one large fullText field. split into
+    // readable blocks, remove repeated page chrome, and cap each block
     const raw = cleanNwsDetailText(item.fullText || '');
     if (!raw) return [];
     const chunks = raw.split(/\n\s*\n/).map(x => x.trim()).filter(Boolean);
@@ -8122,10 +8115,9 @@ const THEMES = {
     }
   }
 
-  // plain-text eyebrow per kind -- registers without relying on hue, and
+  // plain-text-registers without relying on hue, and
   // pairs with the structural filled-vs-outlined treatment in CSS so
-  // warning vs watch/advisory/statement reads as two different shapes of
-  // urgency, not just two colors.
+  // warning vs watch/advisory/statement reads as two diff types of urgency
   const ALERT_KIND_LABELS = {
     warning:   'Warning \u2014 act now',
     watch:     'Watch \u2014 conditions possible',
@@ -8356,10 +8348,10 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
     startCooldownCountdown();
   }
 
-  // Desktop-only composition: move the existing live camera tile into the
+  // desktop-only composition: move the existing live camera tile into the
   // 3x3 weather grid and move the non-urgent Sky & Space card below Forecast.
-  // Below 851px both cards return to their original DOM locations so the
-  // existing mobile/tablet layout remains unchanged.
+  // below 851px both cards return to their original DOM locations so the
+  // mobile/tablet remains unchanged.
   (function initDesktopComposition() {
     const dashboardGrid = document.querySelector('.dashboard-grid');
     const weatherGrid = document.getElementById('grid');
@@ -8395,7 +8387,7 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
           rightRail.appendChild(radarCard);
         }
         if (chartsDropdown && chartsDropdown.parentElement !== leftRail) {
-          // Appended last, so it lands right after Sky & Space (which
+          // appended last, so it lands right after Sky & Space (which
           // insertBefore above places right after Forecast) -- and picks
           // up the left rail's own flex width instead of the ~900px cap
           // .charts-dropdown carries for its original full-width mobile
