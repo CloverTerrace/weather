@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T19:40:55.679458Z",
+  "generatedAt": "2026-08-16T19:45:53.878036Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7c1dd4af6aea046cd5f89defec468e65842c1467.001.1",
@@ -214,6 +214,44 @@
   ],
   "statements": [
     {
+      "id": "dc1ed123-7983-420f-ad18-46646048dced",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T19:44:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Armstrong PA-Beaver PA-Butler PA-Lawrence PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Greensburg, McKeesport, Butler, Franklin Park, Jeannette, Vandergrift, Kittanning, Apollo, Shaler Township, Plum, West Mifflin and North Side Pittsburgh.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Greensburg, McKeesport, Butler, Franklin Park, Jeannette, Vandergrift, Kittanning, Apollo, Shaler Township, Plum, West Mifflin and North Side Pittsburgh."
+        }
+      ],
+      "url": "https://api.weather.gov/products/dc1ed123-7983-420f-ad18-46646048dced"
+    },
+    {
+      "id": "f7ddbdb0-3b1e-4ff4-8bca-f58312890aa4",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T19:42:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Beaver PA-Butler PA-Lawrence PA-Washington PA",
+      "hazard": "PAC003-007-019-073-125-161952- /O.EXP.KPBZ.SV.W.0284.000000T0000Z-260816T1945Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC003-007-019-073-125-161952- /O.EXP.KPBZ.SV.W.0284.000000T0000Z-260816T1945Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 342 PM EDT Sun Aug 16 2026 PAC003-007-019-073-125-161952- /O.EXP.KPBZ.SV.W.0284.000000T0000Z-260816T1945Z/ Allegheny PA-Beaver PA-Butler PA-Lawrence PA-Washington PA- 342 PM EDT Sun Aug 16 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/f7ddbdb0-3b1e-4ff4-8bca-f58312890aa4"
+    },
+    {
       "id": "a823988e-be21-464f-a007-29a4b849984f",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -307,44 +345,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/5fb41e08-206e-4275-aee7-64ed713f8d6b"
-    },
-    {
-      "id": "ffab2a54-0d4f-4b7b-bb49-00a8957ff68b",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T19:18:00+00:00",
-      "expires": null,
-      "location": "Beaver PA",
-      "hazard": "PAC007-161928- /O.CAN.KPBZ.TO.W.0053.000000T0000Z-260816T1930Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC007-161928- /O.CAN.KPBZ.TO.W.0053.000000T0000Z-260816T1930Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 318 PM EDT Sun Aug 16 2026 PAC007-161928- /O.CAN.KPBZ.TO.W.0053.000000T0000Z-260816T1930Z/ Beaver PA- 318 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/ffab2a54-0d4f-4b7b-bb49-00a8957ff68b"
-    },
-    {
-      "id": "3f282206-4177-4382-b0e1-6b04106e658b",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T19:14:00+00:00",
-      "expires": null,
-      "location": "Columbiana OH-Harrison OH-Jefferson OH-Beaver PA-Lawrence PA",
-      "hazard": "OHC029-067-081-PAC007-073-125-WVC009-029-161924- /O.EXP.KPBZ.SV.W.0281.000000T0000Z-260816T1915Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC029-067-081-PAC007-073-125-WVC009-029-161924- /O.EXP.KPBZ.SV.W.0281.000000T0000Z-260816T1915Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 314 PM EDT Sun Aug 16 2026 OHC029-067-081-PAC007-073-125-WVC009-029-161924- /O.EXP.KPBZ.SV.W.0281.000000T0000Z-260816T1915Z/ Columbiana OH-Harrison OH-Jefferson OH-Beaver PA-Lawrence PA- Washington PA-Brooke WV-Hancock WV-"
-        }
-      ],
-      "url": "https://api.weather.gov/products/3f282206-4177-4382-b0e1-6b04106e658b"
     }
   ]
 }
