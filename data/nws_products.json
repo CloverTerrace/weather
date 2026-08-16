@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T17:10:51.763902Z",
+  "generatedAt": "2026-08-16T17:15:57.154804Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7c1dd4af6aea046cd5f89defec468e65842c1467.001.1",
@@ -46,7 +46,50 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [],
+  "mesoscaleDiscussions": [
+    {
+      "id": "MD1996",
+      "number": 1996,
+      "issued": "2026-08-16T17:12:00Z",
+      "expires": "2026-08-16T18:45:00Z",
+      "concerning": "Severe potential...Watch unlikely",
+      "hazard": "Severe potential...Watch unlikely",
+      "areas": "west-central into central Illinois",
+      "location": "west-central into central Illinois",
+      "distanceMiles": 453.2,
+      "summary": "Locally damaging wind gusts are possible for the next 1-2 hours. A watch is not currently anticipated due to the limited areal coverage",
+      "watchProbability": "20 percent",
+      "forecaster": "Mead/Guyer",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "Locally damaging wind gusts are possible for the next 1-2 hours. A watch is not currently anticipated due to the limited areal coverage"
+        },
+        {
+          "label": "Discussion",
+          "text": "A thunderstorm has recently intensified over Pike County, IL, on the southern flank of a long-lived convective system. Latest objective analysis suggests that a narrow corridor of moderate instability (MLCAPE of 1500-2000 J/kg) has developed immediately ahead of the storm. However, earlier storms in the St. Louis vicinity have at least temporarily stabilized the air mass from east-central MO into southwest IL, which may limit a longer-duration severe weather threat with the above-mentioned storm. As such, a watch is not currently expected. However, KLSX does show some base velocity enhancement, suggesting the potential for locally damaging wind gusts in the near term"
+        },
+        {
+          "label": "Watch probability",
+          "text": "20 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Mead/Guyer"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...ILX...LSX...DVN"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md1996.html",
+      "office": "SPC"
+    }
+  ],
   "statements": [
     {
       "id": "e51cc13f-804f-4319-a77a-0e7c207312e1",
