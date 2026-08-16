@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T17:40:56.831539Z",
+  "generatedAt": "2026-08-16T17:45:52.151697Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7c1dd4af6aea046cd5f89defec468e65842c1467.001.1",
@@ -90,5 +90,25 @@
       "office": "SPC"
     }
   ],
-  "statements": []
+  "statements": [
+    {
+      "id": "916efffc-5563-4fea-b13e-10922d6ce217",
+      "type": "Special Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T17:36:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "OHZ039>041-048>050-057>059-068-069-PAZ007-008-013-014-020-021-029- 031-WVZ001>004-012-021-509-162000-",
+      "distanceMiles": null,
+      "headline": "Special Weather Statement",
+      "summary": "OHZ039>041-048>050-057>059-068-069-PAZ007-008-013-014-020-021-029- 031-WVZ001>004-012-021-509-162000-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SPSPBZ Special Weather Statement 136 PM EDT Sun Aug 16 2026 OHZ039>041-048>050-057>059-068-069-PAZ007-008-013-014-020-021-029- 031-WVZ001>004-012-021-509-162000- Tuscarawas-Carroll-Columbiana-Coshocton-Harrison-Jefferson OH- Muskingum-Guernsey-Belmont-Noble-Monroe-Mercer-Venango-Lawrence-"
+        }
+      ],
+      "url": "https://api.weather.gov/products/916efffc-5563-4fea-b13e-10922d6ce217"
+    }
+  ]
 }
