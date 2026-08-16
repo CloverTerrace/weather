@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T04:15:54.395529Z",
+  "generatedAt": "2026-08-16T04:20:55.874867Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.2b6457c07344a6b2f125cd5570df6868114bb8ca.001.1",
@@ -25,5 +25,29 @@
     }
   ],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "791abea3-4600-4a3a-864d-4c3389c377bc",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-08-16T04:11:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Today and tonight. Flood Watch. A complex of showers and thunderstorms will move through the area on Sunday morning. Flash flooding is the main risk with a",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. Flood Watch. A complex of showers and thunderstorms will move through the area on Sunday morning. Flash flooding is the main risk with a lower probability of isolated instances of damaging wind. Another round of showers and thunderstorms is expected this afternoon and evening. These storms could be severe with damaging winds and heavy downpours that could lead to flooding.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Flood Watch. A complex of showers and thunderstorms will move through the area on Sunday morning. Flash flooding is the main risk with a lower probability of isolated instances of damaging wind. Another round of showers and thunderstorms is expected this afternoon and evening. These storms could be severe with damaging winds and heavy downpours that could lead to flooding."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Monday through Saturday. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Flood Watch. A few showers and thunderstorms could produce some heavy rainfall on Monday morning."
+        }
+      ],
+      "url": "https://api.weather.gov/products/791abea3-4600-4a3a-864d-4c3389c377bc"
+    }
+  ]
 }
