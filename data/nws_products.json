@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T18:45:56.167317Z",
+  "generatedAt": "2026-08-16T18:51:18.645400Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7c1dd4af6aea046cd5f89defec468e65842c1467.001.1",
@@ -130,6 +130,44 @@
   ],
   "statements": [
     {
+      "id": "7c931358-4ebf-46fe-bc5e-2125f423eb8a",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T18:50:00+00:00",
+      "expires": null,
+      "location": "Belmont OH-Guernsey OH-Noble OH",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Barnesville, Bethesda, Antrim, Quaker City, Belmont, Morristown, Salesville, Somerton, Fairview, Batesville, Piedmont Lake and Barkcamp State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Barnesville, Bethesda, Antrim, Quaker City, Belmont, Morristown, Salesville, Somerton, Fairview, Batesville, Piedmont Lake and Barkcamp State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/7c931358-4ebf-46fe-bc5e-2125f423eb8a"
+    },
+    {
+      "id": "2647f521-a3ae-473a-887f-22150a766dcb",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T18:49:00+00:00",
+      "expires": null,
+      "location": "Carroll OH-Tuscarawas OH",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine, Wellsville, Cadiz, Wellsburg, Toronto, Calcutta, Wintersville, Ohioville, Mingo Junction, Follansbee, Lisbon, Midland, Hooverson Heights and Chester.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine, Wellsville, Cadiz, Wellsburg, Toronto, Calcutta, Wintersville, Ohioville, Mingo Junction, Follansbee, Lisbon, Midland, Hooverson Heights and Chester."
+        }
+      ],
+      "url": "https://api.weather.gov/products/2647f521-a3ae-473a-887f-22150a766dcb"
+    },
+    {
       "id": "45cc421b-1e65-4e5d-ad5a-8fc0b2010722",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -223,44 +261,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/bb5741c0-1904-4521-8f86-f1a9ce086088"
-    },
-    {
-      "id": "6c2e176d-7074-4ee7-a35a-1199152779f8",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T18:31:00+00:00",
-      "expires": null,
-      "location": "Coshocton OH",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Freeport, Gnadenhutten, Tuscarawas, Port Washington, Stillwater, Tippecanoe, Gilmore,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Freeport, Gnadenhutten, Tuscarawas, Port Washington, Stillwater, Tippecanoe, Gilmore, Deersville and Clendening Lake.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Freeport, Gnadenhutten, Tuscarawas, Port Washington, Stillwater, Tippecanoe, Gilmore, Deersville and Clendening Lake."
-        }
-      ],
-      "url": "https://api.weather.gov/products/6c2e176d-7074-4ee7-a35a-1199152779f8"
-    },
-    {
-      "id": "a8da6864-995a-43ca-b966-46ebed404058",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T18:29:00+00:00",
-      "expires": null,
-      "location": "Carroll OH-Harrison OH-Jefferson OH-Tuscarawas OH",
-      "hazard": "OHC019-067-081-157-161839- /O.EXP.KPBZ.SV.W.0277.000000T0000Z-260816T1830Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC019-067-081-157-161839- /O.EXP.KPBZ.SV.W.0277.000000T0000Z-260816T1830Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 229 PM EDT Sun Aug 16 2026 OHC019-067-081-157-161839- /O.EXP.KPBZ.SV.W.0277.000000T0000Z-260816T1830Z/ Carroll OH-Harrison OH-Jefferson OH-Tuscarawas OH- 229 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/a8da6864-995a-43ca-b966-46ebed404058"
     }
   ]
 }
