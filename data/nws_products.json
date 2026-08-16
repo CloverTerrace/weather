@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T20:45:57.826679Z",
+  "generatedAt": "2026-08-16T20:51:00.024979Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.4488b00f976aad49867179428393ec67eb3084dd.002.1",
@@ -175,6 +175,44 @@
     }
   ],
   "statements": [
+    {
+      "id": "e960cfb1-67fe-4581-ae74-4aaf9e88cd20",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T20:48:00+00:00",
+      "expires": null,
+      "location": "Armstrong PA-Indiana PA-Westmoreland PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Homer City, Derry, Black Lick, Clymer, Rural Valley, New Florence, Chevy",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Homer City, Derry, Black Lick, Clymer, Rural Valley, New Florence, Chevy Chase Heights, Seward, Bolivar, Ernest, Marion Center, Cherry Tree, Elderton, Creekside, Plumville, Glen Campbell, Shelocta, Armagh and Atwood.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Homer City, Derry, Black Lick, Clymer, Rural Valley, New Florence, Chevy Chase Heights, Seward, Bolivar, Ernest, Marion Center, Cherry Tree, Elderton, Creekside, Plumville, Glen Campbell, Shelocta, Armagh and Atwood."
+        }
+      ],
+      "url": "https://api.weather.gov/products/e960cfb1-67fe-4581-ae74-4aaf9e88cd20"
+    },
+    {
+      "id": "541b2f74-4336-4de9-b523-9afc17e378d6",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T20:44:00+00:00",
+      "expires": null,
+      "location": "Fayette PA-Greene PA-Monongalia WV-Preston WV",
+      "hazard": "PAC051-059-WVC061-077-162054- /O.EXP.KPBZ.SV.W.0287.000000T0000Z-260816T2045Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC051-059-WVC061-077-162054- /O.EXP.KPBZ.SV.W.0287.000000T0000Z-260816T2045Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 444 PM EDT Sun Aug 16 2026 PAC051-059-WVC061-077-162054- /O.EXP.KPBZ.SV.W.0287.000000T0000Z-260816T2045Z/ Fayette PA-Greene PA-Monongalia WV-Preston WV- 444 PM EDT Sun Aug 16 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/541b2f74-4336-4de9-b523-9afc17e378d6"
+    },
     {
       "id": "fc70b2f0-eb28-445f-89c2-0aa7fba03349",
       "type": "Severe Weather Statement",
