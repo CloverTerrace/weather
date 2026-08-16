@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T20:35:55.529470Z",
+  "generatedAt": "2026-08-16T20:41:14.774591Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.4488b00f976aad49867179428393ec67eb3084dd.002.1",
@@ -176,6 +176,44 @@
   ],
   "statements": [
     {
+      "id": "fc70b2f0-eb28-445f-89c2-0aa7fba03349",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T20:38:00+00:00",
+      "expires": null,
+      "location": "Monongalia WV",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Reedsville, Masontown, Albright, Tunnelton and Cranesville.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Reedsville, Masontown, Albright, Tunnelton and Cranesville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Reedsville, Masontown, Albright, Tunnelton and Cranesville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/fc70b2f0-eb28-445f-89c2-0aa7fba03349"
+    },
+    {
+      "id": "38857b61-3d97-4ed6-9f8e-30ad5fc8d659",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T20:33:00+00:00",
+      "expires": null,
+      "location": "Butler PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Kittanning, Homer City, Blairsville, Ford City, Derry, Black Lick, West",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Kittanning, Homer City, Blairsville, Ford City, Derry, Black Lick, West Kittanning, Clymer, Avonmore, Rural Valley, Saltsburg, West Lebanon, New Florence, New Alexandria, Chevy Chase Heights, West Hills, Seward, Bolivar and Ernest.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Kittanning, Homer City, Blairsville, Ford City, Derry, Black Lick, West Kittanning, Clymer, Avonmore, Rural Valley, Saltsburg, West Lebanon, New Florence, New Alexandria, Chevy Chase Heights, West Hills, Seward, Bolivar and Ernest."
+        }
+      ],
+      "url": "https://api.weather.gov/products/38857b61-3d97-4ed6-9f8e-30ad5fc8d659"
+    },
+    {
       "id": "7cddc7c4-11f9-443c-a93b-bcbf697b55e4",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -212,44 +250,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/3953f06d-de13-4952-bd1f-dacee2533e81"
-    },
-    {
-      "id": "c73ba9f2-480a-4324-85c3-42439881e817",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T20:11:00+00:00",
-      "expires": null,
-      "location": "Greene PA-Washington PA-Marion WV-Monongalia WV",
-      "hazard": "PAC059-125-WVC049-061-162021- /O.EXP.KPBZ.SV.W.0285.000000T0000Z-260816T2015Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC059-125-WVC049-061-162021- /O.EXP.KPBZ.SV.W.0285.000000T0000Z-260816T2015Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 411 PM EDT Sun Aug 16 2026 PAC059-125-WVC049-061-162021- /O.EXP.KPBZ.SV.W.0285.000000T0000Z-260816T2015Z/ Greene PA-Washington PA-Marion WV-Monongalia WV- 411 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/c73ba9f2-480a-4324-85c3-42439881e817"
-    },
-    {
-      "id": "2559061b-6038-44bf-8e50-df1522fe051a",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T20:07:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA-Armstrong PA-Butler PA-Westmoreland PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Penn Hills, Monroeville, Greensburg, McKeesport, Butler, Jeannette, Vandergrift,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Penn Hills, Monroeville, Greensburg, McKeesport, Butler, Jeannette, Vandergrift, Kittanning, Apollo, Plum, Murrysville, New Kensington, Lower Burrell, Harrison Township, North Versailles, White Oak, Homeacre-Lyndora, Wilkins Township, Turtle Creek and Arnold.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Penn Hills, Monroeville, Greensburg, McKeesport, Butler, Jeannette, Vandergrift, Kittanning, Apollo, Plum, Murrysville, New Kensington, Lower Burrell, Harrison Township, North Versailles, White Oak, Homeacre-Lyndora, Wilkins Township, Turtle Creek and Arnold."
-        }
-      ],
-      "url": "https://api.weather.gov/products/2559061b-6038-44bf-8e50-df1522fe051a"
     }
   ]
 }
