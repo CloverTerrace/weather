@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T23:40:51.868740Z",
+  "generatedAt": "2026-08-16T23:46:03.560135Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.c6c29641d706fc238c10bc66fe7ab5b61f41e988.001.1",
@@ -25,6 +25,48 @@
     }
   ],
   "mesoscaleDiscussions": [
+    {
+      "id": "MD2006",
+      "number": 2006,
+      "issued": "2026-08-16T23:34:00Z",
+      "expires": "2026-08-17T01:00:00Z",
+      "concerning": "Severe potential...Watch unlikely",
+      "hazard": "Severe potential...Watch unlikely",
+      "areas": "portions of central and eastern Kentucky",
+      "location": "portions of central and eastern Kentucky",
+      "distanceMiles": 224.6,
+      "summary": "A couple of damaging gusts are possible with the stronger storms this evening. The severe threat is expected to remain isolated, so a WW issuance is not expected",
+      "watchProbability": "20 percent",
+      "forecaster": "Squitieri/Gleason",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "A couple of damaging gusts are possible with the stronger storms this evening. The severe threat is expected to remain isolated, so a WW issuance is not expected"
+        },
+        {
+          "label": "Discussion",
+          "text": "Thunderstorms have intensified over the past few hours along a convective outflow boundary from earlier storms, with a 49 kt gust recently noted with the KLOU ASOS. These storms are impinging on a well-heated airmass, with surface temperatures still at or near 90 F, amid 0-3 km lapse rates approaching 7 C/km. While the boundary layer remains mixed, a few of the stronger storms may produce damaging gusts. However, given the lack of stronger vertical wind shear and the anticipated onset of nocturnal cooling, the severe threat should remain limited, precluding a WW issuance"
+        },
+        {
+          "label": "Watch probability",
+          "text": "20 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Squitieri/Gleason"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...RLX...MRX...JKL...LMK"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2006.html",
+      "office": "SPC"
+    },
     {
       "id": "MD2005",
       "number": 2005,
@@ -100,47 +142,28 @@
       ],
       "url": "https://www.spc.noaa.gov/products/md/md2004.html",
       "office": "SPC"
-    },
-    {
-      "id": "MD2002",
-      "number": 2002,
-      "issued": "2026-08-16T21:50:00Z",
-      "expires": "2026-08-16T23:45:00Z",
-      "concerning": "Severe Thunderstorm Watch 587",
-      "hazard": "Severe Thunderstorm Watch 587",
-      "areas": "eastern Colorado",
-      "location": "eastern Colorado",
-      "distanceMiles": 3966.1,
-      "summary": "Large hail and damaging wind threat continues within WW587",
-      "watchProbability": null,
-      "forecaster": "Thornton",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "Large hail and damaging wind threat continues within WW587"
-        },
-        {
-          "label": "Discussion",
-          "text": "A cluster of storms south of the Denver Metro has produced severe gusts up to 62 mph. Mode remains fairly mixed, with multi-cell clusters and supercells ongoing across portions of eastern Colorado. The environment remains moderately unstable with around 30-35 kts of deep layer shear. Severe potential will likely increase with movement eastward into more available 60 F degree dew points. Supercells with large hail potential will continue over the next couple of hours before eventual transition to one or more linear clusters. An increase in the damaging wind threat is expected eastward into the lower Plains by the evening"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH · MOST PROBABLE PEAK HAIL SIZE...1.00-1.75 IN"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Thornton"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...GLD...PUB...BOU...ABQ"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md2002.html",
-      "office": "SPC"
     }
   ],
   "statements": [
+    {
+      "id": "6a98599f-e31b-4073-b629-205ca22e0160",
+      "type": "Flash Flood Watch",
+      "office": "KPBZ",
+      "issued": "2026-08-16T23:38:00+00:00",
+      "expires": null,
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "WGUS61 KPBZ 162338 Flood Watch",
+      "distanceMiles": null,
+      "headline": "Flash Flood Watch",
+      "summary": "WGUS61 KPBZ 162338 Flood Watch",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 WGUS61 KPBZ 162338 FFAPBZ Flood Watch 738 PM EDT Sun Aug 16 2026 OHZ039>041-048>050-057>059-068-069-PAZ020-021-029-031-073>076- WVZ001>004-012-021-509>514-170645- /O.CON.KPBZ.FA.A.0016.000000T0000Z-260817T1200Z/"
+        }
+      ],
+      "url": "https://api.weather.gov/products/6a98599f-e31b-4073-b629-205ca22e0160"
+    },
     {
       "id": "aca57ff9-502d-404b-bcb4-a0ae0c5eb447",
       "type": "Flood Statement",
