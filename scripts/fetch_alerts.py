@@ -32,6 +32,17 @@ def main():
     alerts = []
     for feature in payload.get("features", []):
         p = feature.get("properties", {})
+        area_desc = p.get("areaDesc")
+        description = p.get("description") or ""
+        instruction = p.get("instruction") or ""
+        details = []
+        if area_desc:
+            details.append({"label": "Areas", "text": area_desc})
+        if instruction.strip():
+            details.append({"label": "Instructions", "text": instruction.strip()})
+        elif description.strip():
+            details.append({"label": "Alert detail", "text": description.strip()})
+
         alerts.append({
             "id": p.get("id"),
             "event": p.get("event"),
@@ -41,6 +52,9 @@ def main():
             "effective": p.get("effective"),
             "expires": p.get("expires"),
             "senderName": p.get("senderName"),
+            "areaDesc": area_desc,
+            "details": details,
+            "url": p.get("@id") or p.get("id"),
         })
 
     alerts.sort(key=lambda a: SEVERITY_RANK.get(a["severity"], 4))
