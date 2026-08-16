@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T19:06:00.923904Z",
+  "generatedAt": "2026-08-16T19:10:53.317244Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7c1dd4af6aea046cd5f89defec468e65842c1467.001.1",
@@ -46,89 +46,46 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [
+  "mesoscaleDiscussions": [],
+  "statements": [
     {
-      "id": "MD1998",
-      "number": 1998,
-      "issued": "2026-08-16T18:33:00Z",
-      "expires": "2026-08-16T20:30:00Z",
-      "concerning": "Severe potential...Watch possible",
-      "hazard": "Severe potential...Watch possible",
-      "areas": "portions of the central High Plains",
-      "location": "portions of the central High Plains",
-      "distanceMiles": 3947.3,
-      "summary": "Widely scattered thunderstorms will develop along the Colorado Front Range and Raton Mesa vicinity this afternoon, bringing a risk for large hail and damaging wind gusts to portions of the central High Plains",
-      "watchProbability": "60 percent",
-      "forecaster": "Chalmers/Guyer",
+      "id": "4de73588-3e44-4259-aa75-7d931c68e4a6",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T19:07:00+00:00",
+      "expires": null,
+      "location": "Columbiana OH-Harrison OH-Jefferson OH-Beaver PA-Lawrence PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine, Cadiz, Wellsburg, Toronto, Calcutta, Wintersville, Ohioville, Mingo Junction, Follansbee, Midland, Hooverson Heights, Chester, Industry, New Waterford and New Cumberland.",
       "details": [
         {
-          "label": "Summary",
-          "text": "Widely scattered thunderstorms will develop along the Colorado Front Range and Raton Mesa vicinity this afternoon, bringing a risk for large hail and damaging wind gusts to portions of the central High Plains"
-        },
-        {
-          "label": "Discussion",
-          "text": "Aided by strong diurnal heating and easterly, upslope flow with dewpoints near 60 F, widely scattered thunderstorm formation is expected this afternoon along the CO Front Range and Raton Mesa vicinity of the central High Plains, with some lightning activity already noted within deeper updrafts as of 1830 UTC. Around 1500 J/kg MLCAPE (increasing to 2000 J/kg locally by peak heating this afternoon) and 25-35+ kts of effective shear amid modestly strong westerly flow aloft will aid in the organization of updrafts and should support at least a couple of supercells. These storms will pose a risk for primarily large hail owing to the presence of steep mid-level lapse rates exceeding 7-7.5 C/km, with a few damaging/severe wind gusts also possible. A more outflow-dominant/cluster storm mode, and proportionally greater damaging/severe wind gust risk, should be increasingly favored with southward extent as objective analysis indicates effective shear decreases to 20-25 kts across southeastern Colorado and areas farther south. A Severe Thunderstorm Watch may be needed for at least a portion of the discussion area to cover these threats"
-        },
-        {
-          "label": "Watch probability",
-          "text": "60 percent"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH · MOST PROBABLE PEAK HAIL SIZE...1.00-1.75 IN"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Chalmers/Guyer"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...GLD...AMA...PUB...BOU...CYS...ABQ"
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine, Cadiz, Wellsburg, Toronto, Calcutta, Wintersville, Ohioville, Mingo Junction, Follansbee, Midland, Hooverson Heights, Chester, Industry, New Waterford and New Cumberland."
         }
       ],
-      "url": "https://www.spc.noaa.gov/products/md/md1998.html",
-      "office": "SPC"
+      "url": "https://api.weather.gov/products/4de73588-3e44-4259-aa75-7d931c68e4a6"
     },
     {
-      "id": "MD1997",
-      "number": 1997,
-      "issued": "2026-08-16T18:28:00Z",
-      "expires": "2026-08-16T20:30:00Z",
-      "concerning": "Severe Thunderstorm Watch 586",
-      "hazard": "Severe Thunderstorm Watch 586",
-      "areas": "eastern Ohio...western Pennsylvania...western and northern West Virginia",
-      "location": "eastern Ohio...western Pennsylvania...western and northern West Virginia",
-      "distanceMiles": 0.0,
-      "summary": "The threat for mainly damaging wind gusts is expected to spread east across the watch area through the remainder of the afternoon",
-      "watchProbability": null,
-      "forecaster": "Mead",
+      "id": "f1aa11ef-7d8c-4ad0-8815-ddddf56d4351",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T19:05:00+00:00",
+      "expires": null,
+      "location": "Beaver PA",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Aliquippa, Ambridge and Harmony Township.",
       "details": [
         {
-          "label": "Summary",
-          "text": "The threat for mainly damaging wind gusts is expected to spread east across the watch area through the remainder of the afternoon"
-        },
-        {
-          "label": "Discussion",
-          "text": "A QLCS with two distinct bowing segments has evolved over eastern OH as of 1815Z, with the TCMH terminal Doppler radar indicating outbound velocities up to 60 kt in the 0.5-1 kft layer near and east of Zanesville. Decreasing clouds downstream from the QLCS over western PA will support further destabilization, allowing the convective system to continue east through the remainder of the afternoon. The ILN VWP has shown a steady increase in westerly winds in the 1-6 km AGL layer since late morning, which will sustain the ongoing bowing structures and related, organized cold pools. As such, expect the threat for damaging winds to progressively spread east across the watch area this afternoon, particularly in the vicinity of the embedded bows. Around 30 kt of 0-3 km shear oriented largely perpendicular to the QLCS may support some brief tornado potential, especially near and north of the apexes of the bows. Farther south, a separate line segment has evolved over northwest WV within a similar environment, suggesting a damaging wind risk with that activity as well"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...55-70 MPH"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Mead"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...RNK...PBZ...RLX...CLE...ILN"
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Aliquippa, Ambridge and Harmony Township."
         }
       ],
-      "url": "https://www.spc.noaa.gov/products/md/md1997.html",
-      "office": "SPC"
-    }
-  ],
-  "statements": [
+      "url": "https://api.weather.gov/products/f1aa11ef-7d8c-4ad0-8815-ddddf56d4351"
+    },
     {
       "id": "fa584640-2ba4-42e5-bd1e-f4d6349edb39",
       "type": "Severe Weather Statement",
@@ -223,44 +180,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/7c931358-4ebf-46fe-bc5e-2125f423eb8a"
-    },
-    {
-      "id": "2647f521-a3ae-473a-887f-22150a766dcb",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T18:49:00+00:00",
-      "expires": null,
-      "location": "Carroll OH-Tuscarawas OH",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine, Wellsville, Cadiz, Wellsburg, Toronto, Calcutta, Wintersville, Ohioville, Mingo Junction, Follansbee, Lisbon, Midland, Hooverson Heights and Chester.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, East Liverpool, Beaver Falls, Columbiana, East Palestine, Wellsville, Cadiz, Wellsburg, Toronto, Calcutta, Wintersville, Ohioville, Mingo Junction, Follansbee, Lisbon, Midland, Hooverson Heights and Chester."
-        }
-      ],
-      "url": "https://api.weather.gov/products/2647f521-a3ae-473a-887f-22150a766dcb"
-    },
-    {
-      "id": "45cc421b-1e65-4e5d-ad5a-8fc0b2010722",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T18:43:00+00:00",
-      "expires": null,
-      "location": "Carroll OH-Columbiana OH-Jefferson OH",
-      "hazard": "OHC019-029-081-161853- /O.EXP.KPBZ.SV.W.0278.000000T0000Z-260816T1845Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC019-029-081-161853- /O.EXP.KPBZ.SV.W.0278.000000T0000Z-260816T1845Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 243 PM EDT Sun Aug 16 2026 OHC019-029-081-161853- /O.EXP.KPBZ.SV.W.0278.000000T0000Z-260816T1845Z/ Carroll OH-Columbiana OH-Jefferson OH- 243 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/45cc421b-1e65-4e5d-ad5a-8fc0b2010722"
     }
   ]
 }
