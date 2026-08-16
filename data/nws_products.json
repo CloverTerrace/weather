@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T20:55:57.828514Z",
+  "generatedAt": "2026-08-16T21:01:13.520382Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.4488b00f976aad49867179428393ec67eb3084dd.002.1",
@@ -130,51 +130,104 @@
       ],
       "url": "https://www.spc.noaa.gov/products/md/md2000.html",
       "office": "SPC"
-    },
-    {
-      "id": "MD1999",
-      "number": 1999,
-      "issued": "2026-08-16T19:03:00Z",
-      "expires": "2026-08-16T21:00:00Z",
-      "concerning": "Severe potential...Watch unlikely",
-      "hazard": "Severe potential...Watch unlikely",
-      "areas": "portions of the Black Hills in southwestern South Dakota into far northern Nebraska",
-      "location": "portions of the Black Hills in southwestern South Dakota into far northern Nebraska",
-      "distanceMiles": 4009.2,
-      "summary": "Isolated thunderstorms are forecast to evolve southeastward out of the Black Hills through this evening. The primary hazards will be isolated large hail and damaging wind gusts",
-      "watchProbability": "20 percent",
-      "forecaster": "Chalmers/Guyer",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "Isolated thunderstorms are forecast to evolve southeastward out of the Black Hills through this evening. The primary hazards will be isolated large hail and damaging wind gusts"
-        },
-        {
-          "label": "Discussion",
-          "text": "Convective development is ongoing across portions the Black Hills in southwestern South Dakota and adjacent areas of Montana/Wyoming. Expectation is for at least an isolated thunderstorm or two to eventually evolve southeastward out of the Black Hills. While available buoyancy remains weak as of 1900 UTC, further insolation should result in additional destabilization through the afternoon to around 1000-1500 J/kg MLCAPE. Effective shear of 30-40 kts and steepening mid-level lapse rates may promote a supercell or two capable of isolated large hail, with steep low-level lapse rates and the possibility of eventual clustering also supporting a risk for occasional damaging/severe wind gusts. Current expectations are for thunderstorm/severe coverage to remain too isolated for watch issuance; however, a targeted Severe Thunderstorm Watch could be considered should convective coverage/severe risk trend greater than anticipated"
-        },
-        {
-          "label": "Watch probability",
-          "text": "20 percent"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH · MOST PROBABLE PEAK HAIL SIZE...1.00-1.75 IN"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Chalmers/Guyer"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...LBF...UNR"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md1999.html",
-      "office": "SPC"
     }
   ],
   "statements": [
+    {
+      "id": "3c1a8999-afa1-41a9-ba42-fd42e89cf2ca",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T21:00:00+00:00",
+      "expires": null,
+      "location": "Indiana PA-Westmoreland PA",
+      "hazard": "PAC063-129-162110- /O.EXP.KPBZ.TO.W.0055.000000T0000Z-260816T2100Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC063-129-162110- /O.EXP.KPBZ.TO.W.0055.000000T0000Z-260816T2100Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 500 PM EDT Sun Aug 16 2026 PAC063-129-162110- /O.EXP.KPBZ.TO.W.0055.000000T0000Z-260816T2100Z/ Indiana PA-Westmoreland PA- 500 PM EDT Sun Aug 16 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/3c1a8999-afa1-41a9-ba42-fd42e89cf2ca"
+    },
+    {
+      "id": "aca45761-7c2f-461a-b5a6-f05470628129",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T20:58:00+00:00",
+      "expires": null,
+      "location": "Fayette PA-Preston WV",
+      "hazard": "PAC051-WVC077-162108- /O.EXP.KPBZ.SV.W.0291.000000T0000Z-260816T2100Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC051-WVC077-162108- /O.EXP.KPBZ.SV.W.0291.000000T0000Z-260816T2100Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 458 PM EDT Sun Aug 16 2026 PAC051-WVC077-162108- /O.EXP.KPBZ.SV.W.0291.000000T0000Z-260816T2100Z/ Fayette PA-Preston WV- 458 PM EDT Sun Aug 16 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/aca45761-7c2f-461a-b5a6-f05470628129"
+    },
+    {
+      "id": "1bbb41f7-369e-4ee5-b8b6-8d0936968451",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T20:57:00+00:00",
+      "expires": null,
+      "location": "Armstrong PA-Indiana PA-Westmoreland PA",
+      "hazard": "PAC005-063-129-162107- /O.EXP.KPBZ.SV.W.0288.000000T0000Z-260816T2100Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC005-063-129-162107- /O.EXP.KPBZ.SV.W.0288.000000T0000Z-260816T2100Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 457 PM EDT Sun Aug 16 2026 PAC005-063-129-162107- /O.EXP.KPBZ.SV.W.0288.000000T0000Z-260816T2100Z/ Armstrong PA-Indiana PA-Westmoreland PA- 457 PM EDT Sun Aug 16 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/1bbb41f7-369e-4ee5-b8b6-8d0936968451"
+    },
+    {
+      "id": "ac91d023-93ce-4fb8-b16c-591ef1083185",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T20:56:00+00:00",
+      "expires": null,
+      "location": "Preston WV",
+      "hazard": "WVC077-162106- /O.EXP.KPBZ.SV.W.0289.000000T0000Z-260816T2100Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "WVC077-162106- /O.EXP.KPBZ.SV.W.0289.000000T0000Z-260816T2100Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 456 PM EDT Sun Aug 16 2026 WVC077-162106- /O.EXP.KPBZ.SV.W.0289.000000T0000Z-260816T2100Z/ Preston WV- 456 PM EDT Sun Aug 16 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/ac91d023-93ce-4fb8-b16c-591ef1083185"
+    },
+    {
+      "id": "5119b334-02d1-4248-b1af-0d59596b37fc",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T20:56:00+00:00",
+      "expires": null,
+      "location": "Fayette PA-Westmoreland PA",
+      "hazard": "PAC051-129-162106- /O.EXP.KPBZ.SV.W.0290.000000T0000Z-260816T2100Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC051-129-162106- /O.EXP.KPBZ.SV.W.0290.000000T0000Z-260816T2100Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 456 PM EDT Sun Aug 16 2026 PAC051-129-162106- /O.EXP.KPBZ.SV.W.0290.000000T0000Z-260816T2100Z/ Fayette PA-Westmoreland PA- 456 PM EDT Sun Aug 16 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/5119b334-02d1-4248-b1af-0d59596b37fc"
+    },
     {
       "id": "e960cfb1-67fe-4581-ae74-4aaf9e88cd20",
       "type": "Severe Weather Statement",
@@ -212,82 +265,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/541b2f74-4336-4de9-b523-9afc17e378d6"
-    },
-    {
-      "id": "fc70b2f0-eb28-445f-89c2-0aa7fba03349",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T20:38:00+00:00",
-      "expires": null,
-      "location": "Monongalia WV",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Reedsville, Masontown, Albright, Tunnelton and Cranesville.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Reedsville, Masontown, Albright, Tunnelton and Cranesville.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Reedsville, Masontown, Albright, Tunnelton and Cranesville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/fc70b2f0-eb28-445f-89c2-0aa7fba03349"
-    },
-    {
-      "id": "38857b61-3d97-4ed6-9f8e-30ad5fc8d659",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T20:33:00+00:00",
-      "expires": null,
-      "location": "Butler PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Kittanning, Homer City, Blairsville, Ford City, Derry, Black Lick, West",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Kittanning, Homer City, Blairsville, Ford City, Derry, Black Lick, West Kittanning, Clymer, Avonmore, Rural Valley, Saltsburg, West Lebanon, New Florence, New Alexandria, Chevy Chase Heights, West Hills, Seward, Bolivar and Ernest.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Kittanning, Homer City, Blairsville, Ford City, Derry, Black Lick, West Kittanning, Clymer, Avonmore, Rural Valley, Saltsburg, West Lebanon, New Florence, New Alexandria, Chevy Chase Heights, West Hills, Seward, Bolivar and Ernest."
-        }
-      ],
-      "url": "https://api.weather.gov/products/38857b61-3d97-4ed6-9f8e-30ad5fc8d659"
-    },
-    {
-      "id": "7cddc7c4-11f9-443c-a93b-bcbf697b55e4",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T20:30:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA-Armstrong PA-Butler PA-Westmoreland PA",
-      "hazard": "PAC003-005-019-129-162040- /O.EXP.KPBZ.SV.W.0286.000000T0000Z-260816T2030Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC003-005-019-129-162040- /O.EXP.KPBZ.SV.W.0286.000000T0000Z-260816T2030Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 430 PM EDT Sun Aug 16 2026 PAC003-005-019-129-162040- /O.EXP.KPBZ.SV.W.0286.000000T0000Z-260816T2030Z/ Allegheny PA-Armstrong PA-Butler PA-Westmoreland PA- 430 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/7cddc7c4-11f9-443c-a93b-bcbf697b55e4"
-    },
-    {
-      "id": "3953f06d-de13-4952-bd1f-dacee2533e81",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T20:29:00+00:00",
-      "expires": null,
-      "location": "Fayette PA-Greene PA-Monongalia WV-Preston WV",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Uniontown, Masontown, Farmington, Fairdale, Point Marion, Brookhaven, Fairchance,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Uniontown, Masontown, Farmington, Fairdale, Point Marion, Brookhaven, Fairchance, Smithfield, Nemacolin, Carmichaels, New Salem, Markleysburg, Greensboro, Brandonville, Chalkhill, Bruceton Mills, Ohiopyle, Clifton Mills and Laurel Run.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Uniontown, Masontown, Farmington, Fairdale, Point Marion, Brookhaven, Fairchance, Smithfield, Nemacolin, Carmichaels, New Salem, Markleysburg, Greensboro, Brandonville, Chalkhill, Bruceton Mills, Ohiopyle, Clifton Mills and Laurel Run."
-        }
-      ],
-      "url": "https://api.weather.gov/products/3953f06d-de13-4952-bd1f-dacee2533e81"
     }
   ]
 }
