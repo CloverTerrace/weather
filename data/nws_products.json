@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T21:10:58.056058Z",
+  "generatedAt": "2026-08-16T21:15:52.789047Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.8cd748587a421fc96cebdd08b5ff943473295808.002.1",
@@ -92,40 +92,20 @@
     {
       "id": "MD2000",
       "number": 2000,
-      "issued": "2026-08-16T19:28:00Z",
-      "expires": "2026-08-16T21:30:00Z",
-      "concerning": "Severe potential...Watch likely",
-      "hazard": "Severe potential...Watch likely",
-      "areas": "south-central Pennsylvania...the Maryland and West Virginia Panhandles...and northern Virginia",
-      "location": "south-central Pennsylvania...the Maryland and West Virginia Panhandles...and northern Virginia",
-      "distanceMiles": 74.0,
-      "summary": "The threat for severe storms capable of mainly damaging wind gusts is expected to increase late this afternoon into evening. A severe thunderstorm watch is likely",
-      "watchProbability": "80 percent",
-      "forecaster": "Mead/Guyer",
+      "issued": null,
+      "expires": null,
+      "concerning": null,
+      "hazard": null,
+      "areas": null,
+      "location": null,
+      "distanceMiles": null,
+      "summary": "Latest SPC mesoscale discussion",
+      "watchProbability": null,
+      "forecaster": null,
       "details": [
         {
           "label": "Summary",
-          "text": "The threat for severe storms capable of mainly damaging wind gusts is expected to increase late this afternoon into evening. A severe thunderstorm watch is likely"
-        },
-        {
-          "label": "Discussion",
-          "text": "In the wake of an MCV moving from south-central into southeast PA, clouds are gradually clearing, allowing for increased diabatic heating this afternoon. When coupled with a moist boundary layer characterized by boundary-layer dewpoints in the upper 60s to mid 70s F, latest objective analysis indicates MLCAPE of 1000-1500 J/kg with decreasing convective inhibition. Additional air mass destabilization is expected through the remainder of the afternoon, allowing ongoing QLCSs to spread east into the discussion area. Damaging wind gusts will be the primary hazard with the most intense storms, especially in the vicinity of any embedded bowing structures that may persist. A brief tornado or two is possible in areas that can maintain more of a southerly wind component, where low-level shear is locally enhanced"
-        },
-        {
-          "label": "Watch probability",
-          "text": "80 percent"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...55-70 MPH"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Mead/Guyer"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...AKQ...CTP...LWX...RNK...PBZ"
+          "text": "Latest SPC mesoscale discussion"
         }
       ],
       "url": "https://www.spc.noaa.gov/products/md/md2000.html",
@@ -133,6 +113,48 @@
     }
   ],
   "statements": [
+    {
+      "id": "5b048bd5-99ab-4ddd-901c-bf8c189e2740",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T21:10:00+00:00",
+      "expires": null,
+      "location": "Preston WV",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Davis, Thomas, Blackwater Falls, Canaan Hgts, Cortland, Benbush, Canaan Valley State",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Davis, Thomas, Blackwater Falls, Canaan Hgts, Cortland, Benbush, Canaan Valley State Park, Lead Mine and Saint George.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Davis, Thomas, Blackwater Falls, Canaan Hgts, Cortland, Benbush, Canaan Valley State Park, Lead Mine and Saint George."
+        }
+      ],
+      "url": "https://api.weather.gov/products/5b048bd5-99ab-4ddd-901c-bf8c189e2740"
+    },
+    {
+      "id": "64240aed-c6e1-4a2f-8ef1-f291debcd016",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-08-16T21:07:00+00:00",
+      "expires": null,
+      "location": "Beaver-Allegheny-Washington-Greene-Westmoreland-Higher Elevations of Westmoreland-Fayette-Higher Elevations of Fayette-Marion-Monongalia",
+      "hazard": "Tonight. Flood Watch. Severe Thunderstorm Watch.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Tonight. Flood Watch. Severe Thunderstorm Watch.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Tonight. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Flood Watch. Severe Thunderstorm Watch."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Monday through Saturday. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Flood Watch."
+        }
+      ],
+      "url": "https://api.weather.gov/products/64240aed-c6e1-4a2f-8ef1-f291debcd016"
+    },
     {
       "id": "3c1a8999-afa1-41a9-ba42-fd42e89cf2ca",
       "type": "Severe Weather Statement",
@@ -227,44 +249,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/ac91d023-93ce-4fb8-b16c-591ef1083185"
-    },
-    {
-      "id": "e960cfb1-67fe-4581-ae74-4aaf9e88cd20",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T20:48:00+00:00",
-      "expires": null,
-      "location": "Armstrong PA-Indiana PA-Westmoreland PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Homer City, Derry, Black Lick, Clymer, Rural Valley, New Florence, Chevy",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Homer City, Derry, Black Lick, Clymer, Rural Valley, New Florence, Chevy Chase Heights, Seward, Bolivar, Ernest, Marion Center, Cherry Tree, Elderton, Creekside, Plumville, Glen Campbell, Shelocta, Armagh and Atwood.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Homer City, Derry, Black Lick, Clymer, Rural Valley, New Florence, Chevy Chase Heights, Seward, Bolivar, Ernest, Marion Center, Cherry Tree, Elderton, Creekside, Plumville, Glen Campbell, Shelocta, Armagh and Atwood."
-        }
-      ],
-      "url": "https://api.weather.gov/products/e960cfb1-67fe-4581-ae74-4aaf9e88cd20"
-    },
-    {
-      "id": "541b2f74-4336-4de9-b523-9afc17e378d6",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T20:44:00+00:00",
-      "expires": null,
-      "location": "Fayette PA-Greene PA-Monongalia WV-Preston WV",
-      "hazard": "PAC051-059-WVC061-077-162054- /O.EXP.KPBZ.SV.W.0287.000000T0000Z-260816T2045Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC051-059-WVC061-077-162054- /O.EXP.KPBZ.SV.W.0287.000000T0000Z-260816T2045Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 444 PM EDT Sun Aug 16 2026 PAC051-059-WVC061-077-162054- /O.EXP.KPBZ.SV.W.0287.000000T0000Z-260816T2045Z/ Fayette PA-Greene PA-Monongalia WV-Preston WV- 444 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/541b2f74-4336-4de9-b523-9afc17e378d6"
     }
   ]
 }
