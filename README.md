@@ -1,6 +1,6 @@
 # Clover Terrace Weather Center 🍀
 
-a live weather page for Clover Terrace, a higher-elevation micro-climate within Aliquippa, PA. conditions come from a home weather station (Ecowitt gateway → WeeWX) running on-site, with Weather Underground's cloud API connected to the same weather station as an automatic backup whenever the home server is unreachable/when just one sensor reading drops out.
+a live weather page for Clover Terrace, a higher-elevation micro-climate within Aliquippa, PA. conditions come from a home weather station (Ecowitt gateway → WeeWX) running on-site, with Weather Underground's cloud API connected to the same weather station as an automatic backup whenever the home server is unreachable/when just one sensor reading drops out. I built this as a personal project to practice and experiment with coding and data. If you like the look, this readme should be enough to help you build it out yourself. 
 
 **live at:** <https://cloverterrace.github.io/weather/>
 
