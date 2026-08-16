@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T20:05:59.026973Z",
+  "generatedAt": "2026-08-16T20:10:55.786098Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.4488b00f976aad49867179428393ec67eb3084dd.002.1",
@@ -214,6 +214,25 @@
   ],
   "statements": [
     {
+      "id": "2559061b-6038-44bf-8e50-df1522fe051a",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T20:07:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Armstrong PA-Butler PA-Westmoreland PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Penn Hills, Monroeville, Greensburg, McKeesport, Butler, Jeannette, Vandergrift,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Penn Hills, Monroeville, Greensburg, McKeesport, Butler, Jeannette, Vandergrift, Kittanning, Apollo, Plum, Murrysville, New Kensington, Lower Burrell, Harrison Township, North Versailles, White Oak, Homeacre-Lyndora, Wilkins Township, Turtle Creek and Arnold.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Penn Hills, Monroeville, Greensburg, McKeesport, Butler, Jeannette, Vandergrift, Kittanning, Apollo, Plum, Murrysville, New Kensington, Lower Burrell, Harrison Township, North Versailles, White Oak, Homeacre-Lyndora, Wilkins Township, Turtle Creek and Arnold."
+        }
+      ],
+      "url": "https://api.weather.gov/products/2559061b-6038-44bf-8e50-df1522fe051a"
+    },
+    {
       "id": "332cb033-1847-4d43-8ce4-9208be0fa65e",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -311,25 +330,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/dc1ed123-7983-420f-ad18-46646048dced"
-    },
-    {
-      "id": "f7ddbdb0-3b1e-4ff4-8bca-f58312890aa4",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T19:42:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA-Beaver PA-Butler PA-Lawrence PA-Washington PA",
-      "hazard": "PAC003-007-019-073-125-161952- /O.EXP.KPBZ.SV.W.0284.000000T0000Z-260816T1945Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC003-007-019-073-125-161952- /O.EXP.KPBZ.SV.W.0284.000000T0000Z-260816T1945Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 342 PM EDT Sun Aug 16 2026 PAC003-007-019-073-125-161952- /O.EXP.KPBZ.SV.W.0284.000000T0000Z-260816T1945Z/ Allegheny PA-Beaver PA-Butler PA-Lawrence PA-Washington PA- 342 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/f7ddbdb0-3b1e-4ff4-8bca-f58312890aa4"
     }
   ]
 }
