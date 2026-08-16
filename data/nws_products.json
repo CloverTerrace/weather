@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T21:35:53.599161Z",
+  "generatedAt": "2026-08-16T21:41:00.317014Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.8cd748587a421fc96cebdd08b5ff943473295808.002.1",
@@ -92,6 +92,25 @@
   ],
   "statements": [
     {
+      "id": "94d4a135-dbe4-49a1-87fc-ffc4973442d4",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T21:40:00+00:00",
+      "expires": null,
+      "location": "Tucker WV",
+      "hazard": "WVC093-162150- /O.EXP.KPBZ.SV.W.0292.000000T0000Z-260816T2145Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "WVC093-162150- /O.EXP.KPBZ.SV.W.0292.000000T0000Z-260816T2145Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 540 PM EDT Sun Aug 16 2026 WVC093-162150- /O.EXP.KPBZ.SV.W.0292.000000T0000Z-260816T2145Z/ Tucker WV- 540 PM EDT Sun Aug 16 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/94d4a135-dbe4-49a1-87fc-ffc4973442d4"
+    },
+    {
       "id": "777e3a64-6b06-4eeb-af36-11c0a213b6cf",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -109,25 +128,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/777e3a64-6b06-4eeb-af36-11c0a213b6cf"
-    },
-    {
-      "id": "5b048bd5-99ab-4ddd-901c-bf8c189e2740",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T21:10:00+00:00",
-      "expires": null,
-      "location": "Preston WV",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Davis, Thomas, Blackwater Falls, Canaan Hgts, Cortland, Benbush, Canaan Valley State",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Davis, Thomas, Blackwater Falls, Canaan Hgts, Cortland, Benbush, Canaan Valley State Park, Lead Mine and Saint George.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Davis, Thomas, Blackwater Falls, Canaan Hgts, Cortland, Benbush, Canaan Valley State Park, Lead Mine and Saint George."
-        }
-      ],
-      "url": "https://api.weather.gov/products/5b048bd5-99ab-4ddd-901c-bf8c189e2740"
     }
   ]
 }
