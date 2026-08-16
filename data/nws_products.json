@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T16:55:55.093734Z",
+  "generatedAt": "2026-08-16T17:00:56.512020Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.4938d1ea4ce899c339e52307da5119bea822a3db.001.1",
@@ -24,50 +24,7 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [
-    {
-      "id": "MD1995",
-      "number": 1995,
-      "issued": "2026-08-16T15:56:00Z",
-      "expires": "2026-08-16T17:00:00Z",
-      "concerning": "Severe potential...Watch likely",
-      "hazard": "Severe potential...Watch likely",
-      "areas": "central and eastern Ohio into western Pennsylvania and northwest West Virginia",
-      "location": "central and eastern Ohio into western Pennsylvania and northwest West Virginia",
-      "distanceMiles": 0.0,
-      "summary": "The threat for severe weather is expected to increase by early to mid afternoon with damaging wind gusts being the primary hazard. A severe thunderstorm watch is likely",
-      "watchProbability": "80 percent",
-      "forecaster": "Mead/Guyer",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "The threat for severe weather is expected to increase by early to mid afternoon with damaging wind gusts being the primary hazard. A severe thunderstorm watch is likely"
-        },
-        {
-          "label": "Discussion",
-          "text": "Ahead of an MCV moving through far southeast lower MI, clusters of thunderstorms have persisted this morning over northwest into west-central OH. Downstream from that convection, a corridor of relatively fewer clouds should allow for stronger daytime heating to occur this afternoon. When coupled with boundary-layer dew points in the low to mid-70s F, daytime heating is expected to erode remaining convective inhibition, with MLCAPE increasing to 1500-2500+ J/kg. That destabilization process should allow the ongoing storms to intensify by early to mid afternoon from eastern OH into western PA and northwest WV. The current IND VWP is sampling a belt of 30-40 kt westerly winds in the 1-5 km layer, which will conditionally support cold pool organization with an attendant damaging wind risk. A brief tornado is possible, though the veered low-level winds are expected to limit the magnitude of low-level shear and a resultant greater risk"
-        },
-        {
-          "label": "Watch probability",
-          "text": "80 percent"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...55-70 MPH"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Mead/Guyer"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...PBZ...RLX...CLE...ILN"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md1995.html",
-      "office": "SPC"
-    }
-  ],
+  "mesoscaleDiscussions": [],
   "statements": [
     {
       "id": "e51cc13f-804f-4319-a77a-0e7c207312e1",
@@ -106,25 +63,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/050b7dda-01d5-4c40-b989-49fc3f0bf688"
-    },
-    {
-      "id": "6be38ef9-8f58-437c-902f-96f293fd407e",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-08-16T16:23:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... There is higher confidence in the potential for severe",
-      "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... There is higher confidence in the potential for severe",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 1223 PM EDT Sun Aug 16 2026 .WHAT HAS CHANGED... There is higher confidence in the potential for severe thunderstorms this afternoon, given clearing skies to the west allowing for increased instability. Beyond this evening, little"
-        }
-      ],
-      "url": "https://api.weather.gov/products/6be38ef9-8f58-437c-902f-96f293fd407e"
     }
   ]
 }
