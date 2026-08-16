@@ -1468,11 +1468,15 @@
     margin-top: 1.5rem;
   }
 
+  /* summary + body are one continuous card: no gap, and the seam between
+     them is a hairline divider rather than two separately-rounded boxes
+     floating apart. Corners only round on the outside of the whole shape;
+     when open, the summary's bottom corners square off to meet the body. */
   .charts-dropdown-body {
-  background: var(--card-color);
-  border-radius: 12px;
-  padding: 1.25rem;
-  margin-top: 1rem;
+    background: var(--card-color);
+    border-radius: 0 0 12px 12px;
+    padding: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .charts-dropdown summary {
@@ -1487,6 +1491,10 @@
     font-size: 0.9rem;
     list-style: none;
     font-family: var(--font-card-heading);
+  }
+
+  .charts-dropdown[open] summary {
+    border-radius: 12px 12px 0 0;
   }
 
   .charts-dropdown summary::-webkit-details-marker {
@@ -1505,10 +1513,62 @@
     transform: rotate(90deg);
   }
 
-  .charts-dropdown .chart-card {
-    margin-top: 1rem;
+  /* one chart visible at a time -- switched via .chart-tabs, styled to
+     match the existing .map-tabs / .map-tab pattern used by the radar
+     card so this doesn't read as a separate, bolted-on control. */
+  .chart-tabs {
+    display: flex;
+    /* left-aligned, not centered: with 6 tabs this row overflows at
+       mobile widths, and centering overflowing flex content leaves
+       scrollLeft:0 already past the true start -- the first tab stays
+       clipped with no way to scroll back to it. flex-start keeps the
+       scrollable range's zero point at the actual first tab. */
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: clamp(0.3rem, 1.5vw, 0.5rem);
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
-  
+
+  .chart-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chart-tab {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    padding: 0.5rem clamp(0.5rem, 3vw, 0.9rem);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: clamp(0.68rem, 3vw, 0.8rem);
+    font-weight: 600;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+
+  .chart-tab.active {
+    background: var(--bg-color);
+    font-family: var(--font-body);
+    color: #e4e8eb;
+  }
+
+  .charts-dropdown .chart-card {
+    display: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    margin-top: 0;
+    max-width: none;
+  }
+
+  .charts-dropdown .chart-card.active {
+    display: block;
+  }
+
   .chart-wrap {
     position: relative;
     height: 300px;
@@ -2936,7 +2996,7 @@ body.fx-active-sunrays .fx-sunrays {
 body, .card, .chart-card, .camera-card, .charts-dropdown summary, 
 .map-panel iframe, .rainviewer-map, .sky-box, .sky-badge, 
 h1, .label, .value, .unit, .forecast-period, 
-.outlook-thumb, .thunderstorm-thumb, .map-tab, .range-btn {
+.outlook-thumb, .thunderstorm-thumb, .map-tab, .range-btn, .chart-tab {
   transition: background-color 0.8s ease, background 0.8s ease, color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
 }
 
@@ -3498,8 +3558,6 @@ svg circle, svg polygon, svg line {
     }
 
     .web-tools-grid > .charts-dropdown .charts-dropdown-body { display: block; }
-    .web-tools-grid > .charts-dropdown .chart-card { width: 100%; margin-bottom: 1rem; }
-    .web-tools-grid > .charts-dropdown .chart-card:last-child { margin-bottom: 0; }
   }
 
 
@@ -4887,6 +4945,15 @@ svg circle, svg polygon, svg line {
 <details class="charts-dropdown">
     <summary>Historical Data</summary>
   <div class="charts-dropdown-body">
+    <div class="chart-tabs">
+      <button class="chart-tab active" data-target="chart-card-temp">Temp &amp; Humidity</button>
+      <button class="chart-tab" data-target="chart-card-wind">Wind</button>
+      <button class="chart-tab" data-target="chart-card-windrose">Wind Dir</button>
+      <button class="chart-tab" data-target="chart-card-pressure">Pressure</button>
+      <button class="chart-tab" data-target="chart-card-river">River</button>
+      <button class="chart-tab" data-target="chart-card-solar">Solar</button>
+    </div>
+
     <div class="range-buttons">
       <button class="range-btn active" data-hours="24">24 Hours</button>
       <button class="range-btn" data-hours="48">2 Days</button>
@@ -4895,42 +4962,42 @@ svg circle, svg polygon, svg line {
       <button class="range-btn" data-hours="240">10 Days</button>
     </div>
 
-    <div class="chart-card">
+    <div class="chart-card active" id="chart-card-temp">
       <h2 id="historyChart-title">Temperature &amp; Humidity — Last 24 Hours</h2>
       <div class="chart-wrap">
         <canvas id="historyChart"></canvas>
       </div>
     </div>
 
-    <div class="chart-card">
+    <div class="chart-card" id="chart-card-wind">
       <h2 id="windChart-title">Wind Speed &amp; Gusts — Last 24 Hours</h2>
       <div class="chart-wrap">
         <canvas id="windChart"></canvas>
       </div>
     </div>
 
-    <div class="chart-card">
+    <div class="chart-card" id="chart-card-windrose">
       <h2 id="windRoseChart-title">Wind Direction — Last 24 Hours</h2>
       <div class="chart-wrap">
         <canvas id="windRoseChart"></canvas>
       </div>
     </div>
 
-    <div class="chart-card">
+    <div class="chart-card" id="chart-card-pressure">
       <h2 id="pressureChart-title">Barometric Pressure — Last 24 Hours</h2>
       <div class="chart-wrap">
         <canvas id="pressureChart"></canvas>
       </div>
     </div>
 
-    <div class="chart-card">
+    <div class="chart-card" id="chart-card-river">
       <h2 id="riverChart-title">River Gauge — Last 24 Hours</h2>
       <div class="chart-wrap">
         <canvas id="riverChart"></canvas>
       </div>
     </div>
 
-    <div class="chart-card">
+    <div class="chart-card" id="chart-card-solar">
       <h2 id="solarChart-title">Solar Illumination — Last 24 Hours</h2>
       <div class="chart-wrap">
         <canvas id="solarChart"></canvas>
@@ -5768,6 +5835,32 @@ svg circle, svg polygon, svg line {
     }
     const filteredRiver = (usgsHistory || []).filter(entry => new Date(entry.dateTime).getTime() >= (Date.now() - currentRangeHours * 60 * 60 * 1000));
     if (filteredRiver.length > 0) renderRiverChart(filteredRiver);
+  }
+
+  function initChartTabs() {
+    const tabs = document.querySelectorAll('.chart-tab');
+    const cards = document.querySelectorAll('.charts-dropdown .chart-card');
+    // maps each panel's id to its live Chart.js instance so we can nudge
+    // it to recompute its size right after becoming visible -- a chart
+    // created (or last updated) while its canvas was display:none can
+    // otherwise render at 0 size the first time its tab is opened.
+    const chartsByTarget = {
+      'chart-card-temp': () => historyChart,
+      'chart-card-wind': () => windChart,
+      'chart-card-windrose': () => windRoseChart,
+      'chart-card-pressure': () => pressureChart,
+      'chart-card-river': () => riverChart,
+      'chart-card-solar': () => solarChart,
+    };
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        if (tab.classList.contains('active')) return;
+        tabs.forEach(t => t.classList.toggle('active', t === tab));
+        cards.forEach(c => c.classList.toggle('active', c.id === tab.dataset.target));
+        const chart = chartsByTarget[tab.dataset.target]?.();
+        if (chart) setTimeout(() => chart.resize(), 50);
+      });
+    });
   }
 
   function initRangeButtons() {
@@ -8239,6 +8332,7 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
   setInterval(refreshOutlookImages, 30 * 60 * 1000);
   initOutlookCarousel();
   initOutlookCategoryTabs();
+  initChartTabs();
   initRangeButtons();
   initWeatherFx();
   populateThemePreviewRow();
