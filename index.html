@@ -2520,10 +2520,18 @@ body.fx-active-smoke .fx-smoke {
   to   { transform: translateX(115vw); }
 }
   
-/* ‼️🚨 alerts */
+/* ‼️🚨 alerts
+   layout: width:100% with no max-width so this sits flush with the
+   #page-content/desktop-dashboard-layout edges instead of floating as an
+   isolated, narrower, centered card above the grid on wide screens.
+   visual language: reuses the same hazard icon + left-border color coding
+   already established by .nws-badge-* in Storm Center (getNwsHazardVisual),
+   so the top banner and the Storm Center card read as one consistent
+   system instead of two. Distinguishing warning vs watch/advisory/statement
+   is structural (filled vs outlined), not just a color swap -- and no
+   emoji, so it doesn't depend on the OS/browser's emoji font. */
 #alert-banners {
   width: 100%;
-  max-width: 900px;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
@@ -2531,54 +2539,121 @@ body.fx-active-smoke .fx-smoke {
 }
 
 .alert-banner {
-  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: 0 10px 10px 0;
   padding: 0.85rem 1.1rem;
-  color: #fff;
   text-align: left;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  background: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
   /* default font for alerts - must stay legible and plain
      no matter which theme (and its decorative font choices) is active. */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* non-color severity cue -- an icon + plain-text label so the message
-   still registers for anyone who can't or doesn't rely on hue (color
-   vision differences, quick glances, grayscale displays, etc). */
+.alert-banner:hover { transform: translateY(-1px); }
+.alert-banner:focus-visible { outline: 2px solid var(--accent-color); outline-offset: 2px; }
+
+/* hazard-type color, shared with .nws-badge-* in Storm Center */
+.alert-banner.nws-badge-tor    { --hz: #ff5b5b; }
+.alert-banner.nws-badge-severe { --hz: #ffb347; }
+.alert-banner.nws-badge-flood  { --hz: #5ba8ff; }
+.alert-banner.nws-badge-winter { --hz: #cfe8ff; }
+.alert-banner.nws-badge-other  { --hz: var(--muted-color); }
+
+/* warning: filled, high urgency -- should be impossible to skim past */
+.alert-banner.kind-warning {
+  background: color-mix(in srgb, var(--hz) 32%, #1a1408 68%);
+  border-left: 4px solid var(--hz);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* watch / advisory / statement: outlined, lower urgency -- a heads-up,
+   not an order to act */
+.alert-banner.kind-watch,
+.alert-banner.kind-advisory,
+.alert-banner.kind-statement {
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-left: 4px solid var(--hz);
+}
+
+.alert-banner-icon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  margin-top: 1px;
+  filter: var(--icon-shadow);
+}
+
+.alert-banner-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.alert-banner-body { flex: 1; min-width: 0; color: var(--text-color); }
+
 .alert-banner .alert-label {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   margin-bottom: 0.35rem;
   font-family: inherit;
-  opacity: 0.92;
-}
-
-.alert-banner .alert-icon {
-  font-size: 0.9rem;
-  line-height: 1;
+  color: var(--hz);
+  opacity: 0.95;
 }
 
 .alert-banner .alert-event {
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   margin-bottom: 0.3rem;
   font-family: inherit;
+  color: var(--text-color);
 }
 
 .alert-banner .alert-headline {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   line-height: 1.4;
   font-family: inherit;
+  color: var(--muted-color);
 }
 
-.alert-banner.alert-severe { background: #b3261e; }   /* matches NWS's own warning red */
-.alert-banner.alert-moderate { background: #d9822b; } /* watch/advisory orange */
-.alert-banner.alert-minor { background: #6b7280; }    /* statement/minor grey */
+/* soft, single-pulse flash -- no strobing, epilepsy-safe -- used to guide
+   the eye to the matching item in Storm Center after a banner is clicked */
+@keyframes nws-item-flash {
+  0%   { box-shadow: 0 0 0 0 rgba(255,255,255,0); background: rgba(255,255,255,0.035); }
+  35%  { box-shadow: 0 0 0 7px rgba(255,255,255,0.14); background: rgba(255,255,255,0.09); }
+  100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); background: rgba(255,255,255,0.035); }
+}
+
+.nws-item.flash-once { animation: nws-item-flash 1.8s ease-out 1; }
+
+/* persistent marker on whichever item is currently the closest + most
+   severe active alert -- distinct from the one-shot flash above */
+.nws-item.primary-alert {
+  border-color: rgba(255,255,255,0.2);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.nws-primary-chip {
+  flex: 0 0 auto;
+  background: rgba(255,255,255,0.1);
+  color: var(--text-color);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 9px;
+  padding: 1px 6px;
+  font-family: var(--font-details);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
 /* extra rain for heavy rainfall events */
 .raindrop-extra {
   opacity: 0;
@@ -7417,6 +7492,16 @@ const THEMES = {
   // yanking the user back to the Watches tab if they've since clicked away.
   let nwsPrevHasTornadoWatch = false;
 
+  // the raw point-alert feed (data/alerts.json) -- warnings, watches,
+  // advisories, statements issued for the station's exact point. Kept at
+  // module scope so it can be merged with nwsProducts.watches (the SPC/NWS
+  // watch products, a different feed) whenever either one refreshes.
+  let currentPointAlerts = [];
+  // only auto-switch Storm Center to the closest/most-severe item once per
+  // page load, same precedent as nwsPrevHasTornadoWatch above -- after
+  // that, respect wherever the user has manually navigated to.
+  let primaryAlertAutoSelected = false;
+
   // maps a product's hazard type to a meteocon + a left-border color class,
   // so watches/MDs/statements get an instant at-a-glance visual cue for
   // what kind of hazard they're about.
@@ -7524,7 +7609,7 @@ const THEMES = {
     }));
   }
 
-  function buildNwsItemHtml(item, typeLabel) {
+  function buildNwsItemHtml(item, typeLabel, isPrimary) {
     const visual = getNwsHazardVisual(item.type || typeLabel);
     const issuedStr = item.issued ? formatShortTime(item.issued) : '';
     const expiresStr = item.expires ? formatShortTime(item.expires) : '';
@@ -7561,13 +7646,14 @@ const THEMES = {
     `).join('');
 
     return `
-      <div class="nws-item ${visual.badge}" data-id="${escapeNwsHtml(item.id || '')}">
+      <div class="nws-item ${visual.badge}${isPrimary ? ' primary-alert' : ''}" data-id="${escapeNwsHtml(item.id || '')}">
         <div class="nws-item-header">
           <span class="nws-item-icon"><img src="icons/${visual.icon}" alt="" onerror="this.parentElement.style.display='none'"></span>
           <div class="nws-item-body">
             <div class="nws-item-title-row">
               <div class="nws-item-title">${title}</div>
               <div class="nws-item-title-tags">
+                ${isPrimary ? `<span class="nws-primary-chip">Closest active</span>` : ''}
                 ${probBadge ? `<span class="nws-prob-badge" title="SPC probability of watch issuance">${probBadge} watch prob</span>` : ''}
                 ${age ? `<div class="nws-item-age">${age}</div>` : ''}
               </div>
@@ -7603,7 +7689,7 @@ const THEMES = {
     return issued ? now - issued <= 18 * 3600000 : true;
   }
 
-  function renderNwsList(containerId, items, emptyText, typeLabel, kind) {
+  function renderNwsList(containerId, items, emptyText, typeLabel, kind, primary) {
     const container = document.getElementById(containerId);
     const liveItems = (items || []).filter(item => isNwsItemLive(item, kind));
     if (!liveItems.length) {
@@ -7611,7 +7697,7 @@ const THEMES = {
       return liveItems;
     }
     const sortedItems = [...liveItems].sort((a, b) => new Date(b.issued || 0) - new Date(a.issued || 0));
-    container.innerHTML = sortedItems.map(item => buildNwsItemHtml(item, typeLabel)).join('');
+    container.innerHTML = sortedItems.map(item => buildNwsItemHtml(item, typeLabel, primary && item.id === primary.id)).join('');
     container.querySelectorAll('.nws-item').forEach(el => {
       el.addEventListener('click', (event) => {
         if (event.target.closest('a')) return;
@@ -7622,10 +7708,79 @@ const THEMES = {
     return sortedItems;
   }
 
+  // data/alerts.json and nws_products.json's "watches" section both query
+  // the same NWS point-alerts endpoint for the station's exact coordinates
+  // -- so anything in either one is already guaranteed to cover the
+  // station (that's what a point query means). Any item with "watch" in
+  // its event name can legitimately show up in *both* feeds with the same
+  // id; this adapts + dedupes them into one list for the Storm Center tab.
+  const ALERT_KIND_RANK = { warning: 0, watch: 1, advisory: 2, statement: 3 };
+  const ALERT_SEVERITY_RANK = { extreme: 0, severe: 1, moderate: 2, minor: 3, unknown: 4 };
+
+  function getAlertKind(eventText) {
+    const e = (eventText || '').toLowerCase();
+    if (e.includes('warning')) return 'warning';
+    if (e.includes('watch')) return 'watch';
+    if (e.includes('advisory')) return 'advisory';
+    return 'statement';
+  }
+
+  // reshapes a raw data/alerts.json entry into the same shape
+  // buildNwsItemHtml() already knows how to render.
+  function adaptPointAlert(alert) {
+    return {
+      id: alert.id,
+      type: alert.event,
+      issued: alert.effective,
+      expires: alert.expires,
+      location: alert.areaDesc || null,
+      hazard: alert.headline || alert.event,
+      distanceMiles: null, // point-queried -- always local to the station, not a "distance away"
+      details: alert.details || [],
+      url: alert.url || null,
+      office: alert.senderName,
+      _severity: alert.severity,
+    };
+  }
+
+  function buildCombinedWatchesList() {
+    const byId = new Map();
+    (currentPointAlerts || []).forEach(a => { if (a && a.id) byId.set(a.id, adaptPointAlert(a)); });
+    (nwsProducts.watches || []).forEach(w => { if (w && w.id && !byId.has(w.id)) byId.set(w.id, w); });
+    const combined = [...byId.values()];
+    combined.sort((a, b) => {
+      const kindDiff = (ALERT_KIND_RANK[getAlertKind(a.type)] ?? 4) - (ALERT_KIND_RANK[getAlertKind(b.type)] ?? 4);
+      if (kindDiff !== 0) return kindDiff;
+      const sevDiff = (ALERT_SEVERITY_RANK[(a._severity || '').toLowerCase()] ?? 4) - (ALERT_SEVERITY_RANK[(b._severity || '').toLowerCase()] ?? 4);
+      if (sevDiff !== 0) return sevDiff;
+      return new Date(b.issued || 0) - new Date(a.issued || 0);
+    });
+    return combined;
+  }
+
+  // the single closest + most severe thing worth a user's attention right
+  // now: a local warning/watch/advisory always wins (guaranteed to cover
+  // the station), falling back to the nearest still-live Mesoscale
+  // Discussion (which is NOT point-queried and can be states away) only
+  // when there's no local alert at all.
+  function computePrimaryAlert(watches, mds) {
+    if (watches.length) return { id: watches[0].id, tab: 'nws-panel-watches' };
+    const liveMds = (mds || []).filter(m => isNwsItemLive(m, 'md'));
+    if (liveMds.length) {
+      const closest = [...liveMds].sort((a, b) => (a.distanceMiles ?? Infinity) - (b.distanceMiles ?? Infinity))[0];
+      return { id: closest.id, tab: 'nws-panel-md' };
+    }
+    return null;
+  }
+
   function renderNwsProducts() {
-    const watches = renderNwsList('nws-list-watches', nwsProducts.watches || [], 'No active watches.', 'Watch', 'watch');
-    const mds = renderNwsList('nws-list-md', nwsProducts.mesoscaleDiscussions || [], 'No active or very recent mesoscale discussions.', 'Mesoscale Discussion', 'md');
-    const statements = renderNwsList('nws-list-statements', nwsProducts.statements || [], 'No recent NWS updates.', 'NWS Update', 'statement');
+    const combinedWatches = buildCombinedWatchesList();
+    const mdsRaw = nwsProducts.mesoscaleDiscussions || [];
+    const primary = computePrimaryAlert(combinedWatches.filter(w => isNwsItemLive(w, 'watch')), mdsRaw);
+
+    const watches = renderNwsList('nws-list-watches', combinedWatches, 'No active watches or warnings.', 'Watch', 'watch', primary);
+    const mds = renderNwsList('nws-list-md', mdsRaw, 'No active or very recent mesoscale discussions.', 'Mesoscale Discussion', 'md', primary);
+    const statements = renderNwsList('nws-list-statements', nwsProducts.statements || [], 'No recent NWS updates.', 'NWS Update', 'statement', primary);
 
     const countWatches = document.getElementById('nws-count-watches');
     const countMd = document.getElementById('nws-count-md');
@@ -7634,9 +7789,9 @@ const THEMES = {
     if (countMd) countMd.textContent = mds.length;
     if (countStatements) countStatements.textContent = statements.length;
 
-    // a tornado watch deserves to be seen without opening a tab: pulse the
-    // watches tab for as long as one is live, and jump to it automatically
-    // the moment one appears (only on that transition -- see
+    // a tornado watch/warning deserves to be seen without opening a tab:
+    // pulse the watches tab for as long as one is live, and jump to it
+    // automatically the moment one appears (only on that transition -- see
     // nwsPrevHasTornadoWatch above -- so it doesn't fight the user later).
     const hasTornadoWatch = watches.some(w => (w.type || '').toLowerCase().includes('tornado'));
     const watchTab = document.querySelector('#nws-tabs .nws-tab[data-target="nws-panel-watches"]');
@@ -7647,6 +7802,15 @@ const THEMES = {
       }
     }
     nwsPrevHasTornadoWatch = hasTornadoWatch;
+
+    // on first load only, make sure the closest + most severe item's own
+    // tab is the one showing -- after that, leave tab navigation to the
+    // user (matches the tornado-watch precedent above).
+    if (primary && !primaryAlertAutoSelected) {
+      const primaryTab = document.querySelector(`#nws-tabs .nws-tab[data-target="${primary.tab}"]`);
+      if (primaryTab && !primaryTab.classList.contains('active')) primaryTab.click();
+      primaryAlertAutoSelected = true;
+    }
 
     const updated = document.getElementById('storm-desk-updated');
     const generated = nwsProducts.generatedAt ? formatShortTime(nwsProducts.generatedAt) : '';
@@ -7687,35 +7851,61 @@ const THEMES = {
     }
   }
 
-  function getSeverityClass(severity) {
-    const s = (severity || '').toLowerCase();
-    if (s === 'extreme' || s === 'severe') return 'alert-severe';
-    if (s === 'moderate') return 'alert-moderate';
-    return 'alert-minor';
-  }
-
-  // non-color cues for each severity tier -- icon + plain-text label,
-  // shown above the event name so severity registers without relying on
-  // the banner's background hue.
-  const SEVERITY_CUES = {
-    'alert-severe':   { icon: '⛔', label: 'Warning' },
-    'alert-moderate': { icon: '⚠️', label: 'Watch / Advisory' },
-    'alert-minor':    { icon: 'ℹ️', label: 'Statement' },
+  // plain-text eyebrow per kind -- registers without relying on hue, and
+  // pairs with the structural filled-vs-outlined treatment in CSS so
+  // warning vs watch/advisory/statement reads as two different shapes of
+  // urgency, not just two colors.
+  const ALERT_KIND_LABELS = {
+    warning:   'Warning \u2014 act now',
+    watch:     'Watch \u2014 conditions possible',
+    advisory:  'Advisory',
+    statement: 'Statement',
   };
+
+  // clicking a banner scrolls Storm Center into view, switches to the tab
+  // holding the matching item (same id, since data/alerts.json is one of
+  // the two feeds merged into buildCombinedWatchesList), and gives it a
+  // single soft flash. If no live match is found (e.g. the alert expired
+  // between renders) it still scrolls to Storm Center as a fallback.
+  function goToStormCenterAlert(alertId) {
+    const stormCard = document.querySelector('.outlook-card');
+    let targetEl = document.querySelector(`.nws-item[data-id="${CSS.escape(alertId)}"]`);
+    let targetTab = null;
+    if (targetEl) {
+      const panel = targetEl.closest('.nws-panel');
+      if (panel) targetTab = document.querySelector(`#nws-tabs .nws-tab[data-target="${panel.id}"]`);
+    }
+    if (targetTab && !targetTab.classList.contains('active')) targetTab.click();
+    if (stormCard) stormCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (targetEl) {
+      setTimeout(() => {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        targetEl.classList.remove('flash-once');
+        void targetEl.offsetWidth; // restart the animation if it's already mid-flash
+        targetEl.classList.add('flash-once');
+        targetEl.addEventListener('animationend', () => targetEl.classList.remove('flash-once'), { once: true });
+      }, targetTab ? 350 : 0);
+    }
+  }
 
   function renderAlertBanners(alerts) {
     const container = document.getElementById('alert-banners');
     container.innerHTML = '';
-    alerts.forEach(alert => {
-      const severityClass = getSeverityClass(alert.severity);
-      const cue = SEVERITY_CUES[severityClass];
-      const banner = document.createElement('div');
-      banner.className = `alert-banner ${severityClass}`;
+    (alerts || []).forEach(alert => {
+      const kind = getAlertKind(alert.event);
+      const visual = getNwsHazardVisual(alert.event);
+      const banner = document.createElement('button');
+      banner.type = 'button';
+      banner.className = `alert-banner kind-${kind} ${visual.badge}`;
       banner.innerHTML = `
-        <div class="alert-label"><span class="alert-icon" aria-hidden="true">${cue.icon}</span><span>${cue.label}</span></div>
-        <div class="alert-event">${alert.event || 'Weather Alert'}</div>
-        <div class="alert-headline">${alert.headline || ''}</div>
+        <span class="alert-banner-icon"><img src="icons/${visual.icon}" alt="" onerror="this.style.display='none'"></span>
+        <span class="alert-banner-body">
+          <span class="alert-label">${escapeNwsHtml(ALERT_KIND_LABELS[kind] || kind)}</span>
+          <span class="alert-event">${escapeNwsHtml(alert.event || 'Weather Alert')}</span>
+          <span class="alert-headline">${escapeNwsHtml(alert.headline || '')}</span>
+        </span>
       `;
+      banner.addEventListener('click', () => goToStormCenterAlert(alert.id));
       container.appendChild(banner);
     });
   }
@@ -7773,6 +7963,8 @@ const THEMES = {
     }
     
     renderAlertBanners(alerts);
+    currentPointAlerts = alerts;
+    renderNwsProducts(); // recompute the merged watches/warnings list -- alerts.json refreshes on a different cadence than nws_products.json
     lastWeatherData = data;
     renderCards(data);
     const isNight = isNightTime(data);
@@ -8030,6 +8222,7 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
         if (cached.usgs) currentUsgs = cached.usgs;
         renderCards(cached.data);
         renderAlertBanners(cached.alerts || []);
+        currentPointAlerts = cached.alerts || [];
       }
     } catch (e) {
     }
