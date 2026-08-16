@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T19:50:53.556652Z",
+  "generatedAt": "2026-08-16T19:52:24.556255Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.4488b00f976aad49867179428393ec67eb3084dd.002.1",
@@ -214,6 +214,48 @@
   ],
   "statements": [
     {
+      "id": "7032ef78-c649-4a51-9926-3c820c2e7d7b",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-08-16T19:51:00+00:00",
+      "expires": null,
+      "location": "Beaver-Allegheny-Washington-Greene-Westmoreland-Higher Elevations of Westmoreland-Fayette-Higher Elevations of Fayette-Marion-Monongalia",
+      "hazard": "This afternoon and tonight. Flood Watch. Severe Thunderstorm Watch.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "This afternoon and tonight. Flood Watch. Severe Thunderstorm Watch.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "This afternoon and tonight. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Flood Watch. Severe Thunderstorm Watch."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Monday through Saturday. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Flood Watch. A few showers and thunderstorms could produce some heavy rainfall on Monday morning."
+        }
+      ],
+      "url": "https://api.weather.gov/products/7032ef78-c649-4a51-9926-3c820c2e7d7b"
+    },
+    {
+      "id": "543b0225-497d-454a-92a0-aee4d60d8010",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T19:47:00+00:00",
+      "expires": null,
+      "location": "Belmont OH-Monroe OH",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Waynesburg, Mannington, Triadelphia, Valley Grove, Jefferson Boro, Barrackville,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Waynesburg, Mannington, Triadelphia, Valley Grove, Jefferson Boro, Barrackville, Monongah, Cameron, Fairview, Hundred, Cassville, Jacksonburg, Ellsworth, Rogersville, West Finley, Claysville and Deemston.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Waynesburg, Mannington, Triadelphia, Valley Grove, Jefferson Boro, Barrackville, Monongah, Cameron, Fairview, Hundred, Cassville, Jacksonburg, Ellsworth, Rogersville, West Finley, Claysville and Deemston."
+        }
+      ],
+      "url": "https://api.weather.gov/products/543b0225-497d-454a-92a0-aee4d60d8010"
+    },
+    {
       "id": "dc1ed123-7983-420f-ad18-46646048dced",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -271,25 +313,6 @@
       "url": "https://api.weather.gov/products/a823988e-be21-464f-a007-29a4b849984f"
     },
     {
-      "id": "cf19d8c7-3108-4da0-9054-437d8ad9e5ef",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T19:31:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA-Beaver PA-Butler PA-Lawrence PA-Washington PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Moon Township, McKeesport, Butler, Franklin Park, Shaler Township, Plum, West Mifflin, North Side Pittsburgh, Baldwin, Upper St. Clair, Hampton Township and Scott Township.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Moon Township, McKeesport, Butler, Franklin Park, Shaler Township, Plum, West Mifflin, North Side Pittsburgh, Baldwin, Upper St. Clair, Hampton Township and Scott Township."
-        }
-      ],
-      "url": "https://api.weather.gov/products/cf19d8c7-3108-4da0-9054-437d8ad9e5ef"
-    },
-    {
       "id": "9e30cd8d-2cc0-4eae-bfd3-b20508a52ae9",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -309,42 +332,23 @@
       "url": "https://api.weather.gov/products/9e30cd8d-2cc0-4eae-bfd3-b20508a52ae9"
     },
     {
-      "id": "78c2757a-a4a8-4710-8bd3-cc1523fd7e6e",
+      "id": "cf19d8c7-3108-4da0-9054-437d8ad9e5ef",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
-      "issued": "2026-08-16T19:27:00+00:00",
-      "expires": null,
-      "location": "Belmont OH-Harrison OH-Jefferson OH-Monroe OH-Marshall WV-Ohio WV",
-      "hazard": "OHC013-067-081-111-WVC051-069-103-161937- /O.EXP.KPBZ.SV.W.0283.000000T0000Z-260816T1930Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC013-067-081-111-WVC051-069-103-161937- /O.EXP.KPBZ.SV.W.0283.000000T0000Z-260816T1930Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 327 PM EDT Sun Aug 16 2026 OHC013-067-081-111-WVC051-069-103-161937- /O.EXP.KPBZ.SV.W.0283.000000T0000Z-260816T1930Z/ Belmont OH-Harrison OH-Jefferson OH-Monroe OH-Marshall WV-Ohio WV- Wetzel WV-"
-        }
-      ],
-      "url": "https://api.weather.gov/products/78c2757a-a4a8-4710-8bd3-cc1523fd7e6e"
-    },
-    {
-      "id": "5fb41e08-206e-4275-aee7-64ed713f8d6b",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T19:21:00+00:00",
+      "issued": "2026-08-16T19:31:00+00:00",
       "expires": null,
       "location": "Allegheny PA-Beaver PA-Butler PA-Lawrence PA-Washington PA",
       "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless",
       "distanceMiles": null,
       "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Moon Township, McKeesport, Butler, Franklin Park, Aliquippa, Beaver Falls, Monaca, Shaler Township, Plum, West Mifflin, North Side Pittsburgh and Baldwin.",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Moon Township, McKeesport, Butler, Franklin Park, Shaler Township, Plum, West Mifflin, North Side Pittsburgh, Baldwin, Upper St. Clair, Hampton Township and Scott Township.",
       "details": [
         {
           "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Moon Township, McKeesport, Butler, Franklin Park, Aliquippa, Beaver Falls, Monaca, Shaler Township, Plum, West Mifflin, North Side Pittsburgh and Baldwin."
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Moon Township, McKeesport, Butler, Franklin Park, Shaler Township, Plum, West Mifflin, North Side Pittsburgh, Baldwin, Upper St. Clair, Hampton Township and Scott Township."
         }
       ],
-      "url": "https://api.weather.gov/products/5fb41e08-206e-4275-aee7-64ed713f8d6b"
+      "url": "https://api.weather.gov/products/cf19d8c7-3108-4da0-9054-437d8ad9e5ef"
     }
   ]
 }
