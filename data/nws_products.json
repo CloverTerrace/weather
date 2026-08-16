@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T18:20:58.974204Z",
+  "generatedAt": "2026-08-16T18:25:56.387380Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7c1dd4af6aea046cd5f89defec468e65842c1467.001.1",
@@ -92,6 +92,25 @@
   ],
   "statements": [
     {
+      "id": "c042df61-441f-42e0-bbfe-78c7831dd2e1",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T18:23:00+00:00",
+      "expires": null,
+      "location": "Carroll OH-Columbiana OH-Jefferson OH",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Salem, Lisbon, Leetonia, Augusta, Salineville, Hanoverton, Summitville, Mechanicstown,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Salem, Lisbon, Leetonia, Augusta, Salineville, Hanoverton, Summitville, Mechanicstown, New Garden, Guilford Lake State Park, Winona, East Rochester, North Georgetown and Homeworth.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Salem, Lisbon, Leetonia, Augusta, Salineville, Hanoverton, Summitville, Mechanicstown, New Garden, Guilford Lake State Park, Winona, East Rochester, North Georgetown and Homeworth."
+        }
+      ],
+      "url": "https://api.weather.gov/products/c042df61-441f-42e0-bbfe-78c7831dd2e1"
+    },
+    {
       "id": "0bd98e2b-c94a-4429-8413-36583444d104",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -128,44 +147,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/442d1655-8996-4647-adeb-55df3be675e5"
-    },
-    {
-      "id": "22fa8a5f-07db-4d9d-8ec6-c20ab150d581",
-      "type": "Flood Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T17:59:00+00:00",
-      "expires": null,
-      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
-      "hazard": "WGUS81 KPBZ 161759 WVC093-161809-",
-      "distanceMiles": null,
-      "headline": "Flood Statement",
-      "summary": "WGUS81 KPBZ 161759 WVC093-161809-",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 WGUS81 KPBZ 161759 FLSPBZ Flood Statement 159 PM EDT Sun Aug 16 2026 WVC093-161809- /O.EXP.KPBZ.FA.W.0035.000000T0000Z-260816T1800Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
-        }
-      ],
-      "url": "https://api.weather.gov/products/22fa8a5f-07db-4d9d-8ec6-c20ab150d581"
-    },
-    {
-      "id": "8ab36efc-db6c-40c1-a732-19347e8311d6",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T17:58:00+00:00",
-      "expires": null,
-      "location": "Coshocton OH-Guernsey OH-Muskingum OH-Tuscarawas OH",
-      "hazard": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Zanesville, Coshocton, Newcomerstown,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Zanesville, Coshocton, Newcomerstown, New Concord, West Lafayette, South Zanesville, North Zanesville, Dresden, Frazeysburg, Philo, Warsaw, Pleasant Grove, Conesville, Fultonham, Plainfield, Nellie, Norwich, Drake, Bridgeville and Otsego.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Zanesville, Coshocton, Newcomerstown, New Concord, West Lafayette, South Zanesville, North Zanesville, Dresden, Frazeysburg, Philo, Warsaw, Pleasant Grove, Conesville, Fultonham, Plainfield, Nellie, Norwich, Drake, Bridgeville and Otsego."
-        }
-      ],
-      "url": "https://api.weather.gov/products/8ab36efc-db6c-40c1-a732-19347e8311d6"
     }
   ]
 }
