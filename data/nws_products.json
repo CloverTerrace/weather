@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T18:40:55.506505Z",
+  "generatedAt": "2026-08-16T18:45:56.167317Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.7c1dd4af6aea046cd5f89defec468e65842c1467.001.1",
@@ -126,51 +126,66 @@
       ],
       "url": "https://www.spc.noaa.gov/products/md/md1997.html",
       "office": "SPC"
-    },
-    {
-      "id": "MD1996",
-      "number": 1996,
-      "issued": "2026-08-16T17:12:00Z",
-      "expires": "2026-08-16T18:45:00Z",
-      "concerning": "Severe potential...Watch unlikely",
-      "hazard": "Severe potential...Watch unlikely",
-      "areas": "west-central into central Illinois",
-      "location": "west-central into central Illinois",
-      "distanceMiles": 453.2,
-      "summary": "Locally damaging wind gusts are possible for the next 1-2 hours. A watch is not currently anticipated due to the limited areal coverage",
-      "watchProbability": "20 percent",
-      "forecaster": "Mead/Guyer",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "Locally damaging wind gusts are possible for the next 1-2 hours. A watch is not currently anticipated due to the limited areal coverage"
-        },
-        {
-          "label": "Discussion",
-          "text": "A thunderstorm has recently intensified over Pike County, IL, on the southern flank of a long-lived convective system. Latest objective analysis suggests that a narrow corridor of moderate instability (MLCAPE of 1500-2000 J/kg) has developed immediately ahead of the storm. However, earlier storms in the St. Louis vicinity have at least temporarily stabilized the air mass from east-central MO into southwest IL, which may limit a longer-duration severe weather threat with the above-mentioned storm. As such, a watch is not currently expected. However, KLSX does show some base velocity enhancement, suggesting the potential for locally damaging wind gusts in the near term"
-        },
-        {
-          "label": "Watch probability",
-          "text": "20 percent"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Mead/Guyer"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...ILX...LSX...DVN"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md1996.html",
-      "office": "SPC"
     }
   ],
   "statements": [
+    {
+      "id": "45cc421b-1e65-4e5d-ad5a-8fc0b2010722",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T18:43:00+00:00",
+      "expires": null,
+      "location": "Carroll OH-Columbiana OH-Jefferson OH",
+      "hazard": "OHC019-029-081-161853- /O.EXP.KPBZ.SV.W.0278.000000T0000Z-260816T1845Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC019-029-081-161853- /O.EXP.KPBZ.SV.W.0278.000000T0000Z-260816T1845Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 243 PM EDT Sun Aug 16 2026 OHC019-029-081-161853- /O.EXP.KPBZ.SV.W.0278.000000T0000Z-260816T1845Z/ Carroll OH-Columbiana OH-Jefferson OH- 243 PM EDT Sun Aug 16 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/45cc421b-1e65-4e5d-ad5a-8fc0b2010722"
+    },
+    {
+      "id": "bf5ace81-0e60-4add-b9dd-8dc72f535b9c",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T18:41:00+00:00",
+      "expires": null,
+      "location": "Harrison OH-Tuscarawas OH",
+      "hazard": "OHC067-157-161851- /O.EXP.KPBZ.SV.W.0279.000000T0000Z-260816T1845Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC067-157-161851- /O.EXP.KPBZ.SV.W.0279.000000T0000Z-260816T1845Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 241 PM EDT Sun Aug 16 2026 OHC067-157-161851- /O.EXP.KPBZ.SV.W.0279.000000T0000Z-260816T1845Z/ Harrison OH-Tuscarawas OH- 241 PM EDT Sun Aug 16 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/bf5ace81-0e60-4add-b9dd-8dc72f535b9c"
+    },
+    {
+      "id": "a3ba7bb5-d62c-4e30-a644-f9417f099792",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T18:40:00+00:00",
+      "expires": null,
+      "location": "Coshocton OH-Muskingum OH",
+      "hazard": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Cambridge, Caldwell, Freeport,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Cambridge, Caldwell, Freeport, Newcomerstown, Byesville, Antrim, Quaker City, Senecaville, Pleasant City, Cumberland, Lore City, Old Washington, Summerfield, Belle Valley, Sarahsville, Salesville, Piedmont, Fairview and Batesville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Cambridge, Caldwell, Freeport, Newcomerstown, Byesville, Antrim, Quaker City, Senecaville, Pleasant City, Cumberland, Lore City, Old Washington, Summerfield, Belle Valley, Sarahsville, Salesville, Piedmont, Fairview and Batesville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/a3ba7bb5-d62c-4e30-a644-f9417f099792"
+    },
     {
       "id": "fef3f502-9bac-4a40-920a-bcd1dfc83464",
       "type": "Severe Weather Statement",
@@ -246,63 +261,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/a8da6864-995a-43ca-b966-46ebed404058"
-    },
-    {
-      "id": "c042df61-441f-42e0-bbfe-78c7831dd2e1",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T18:23:00+00:00",
-      "expires": null,
-      "location": "Carroll OH-Columbiana OH-Jefferson OH",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Salem, Lisbon, Leetonia, Augusta, Salineville, Hanoverton, Summitville, Mechanicstown,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Salem, Lisbon, Leetonia, Augusta, Salineville, Hanoverton, Summitville, Mechanicstown, New Garden, Guilford Lake State Park, Winona, East Rochester, North Georgetown and Homeworth.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Salem, Lisbon, Leetonia, Augusta, Salineville, Hanoverton, Summitville, Mechanicstown, New Garden, Guilford Lake State Park, Winona, East Rochester, North Georgetown and Homeworth."
-        }
-      ],
-      "url": "https://api.weather.gov/products/c042df61-441f-42e0-bbfe-78c7831dd2e1"
-    },
-    {
-      "id": "0bd98e2b-c94a-4429-8413-36583444d104",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T18:18:00+00:00",
-      "expires": null,
-      "location": "Carroll OH-Harrison OH-Jefferson OH-Tuscarawas OH",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... New Philadelphia, Dover, Uhrichsville, Carrollton, Dennison, Sugarcreek, Malvern,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... New Philadelphia, Dover, Uhrichsville, Carrollton, Dennison, Sugarcreek, Malvern, Tuscarawas, Scio, Midvale, Mineral City, Jewett, Bergholz, Amsterdam, Bowerston, Barnhill, Dellroy, Sherrodsville, Roswell and Parral.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... New Philadelphia, Dover, Uhrichsville, Carrollton, Dennison, Sugarcreek, Malvern, Tuscarawas, Scio, Midvale, Mineral City, Jewett, Bergholz, Amsterdam, Bowerston, Barnhill, Dellroy, Sherrodsville, Roswell and Parral."
-        }
-      ],
-      "url": "https://api.weather.gov/products/0bd98e2b-c94a-4429-8413-36583444d104"
-    },
-    {
-      "id": "442d1655-8996-4647-adeb-55df3be675e5",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T18:15:00+00:00",
-      "expires": null,
-      "location": "Coshocton OH-Guernsey OH-Muskingum OH-Tuscarawas OH",
-      "hazard": "OHC031-059-119-157-161825- /O.EXP.KPBZ.SV.W.0276.000000T0000Z-260816T1815Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC031-059-119-157-161825- /O.EXP.KPBZ.SV.W.0276.000000T0000Z-260816T1815Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 215 PM EDT Sun Aug 16 2026 OHC031-059-119-157-161825- /O.EXP.KPBZ.SV.W.0276.000000T0000Z-260816T1815Z/ Coshocton OH-Guernsey OH-Muskingum OH-Tuscarawas OH- 215 PM EDT Sun Aug 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/442d1655-8996-4647-adeb-55df3be675e5"
     }
   ]
 }
