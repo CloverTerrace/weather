@@ -6518,6 +6518,13 @@ svg circle, svg polygon, svg line {
           tileSize: 256,
           opacity: 0,
           zIndex: 10,
+          // RainViewer's free tile API tops out at zoom 7 -- past that it
+          // serves a "Zoom Level Not Supported" placeholder image instead
+          // of a 404, which otherwise shows up baked right into the map.
+          // maxNativeZoom tells Leaflet to stop requesting tiles above z7
+          // and upscale the z7 tile instead, so zooming in further still
+          // works (just blurrier past that point, a real data ceiling).
+          maxNativeZoom: 7,
         }).addTo(radarMap)
       );
 
@@ -6544,7 +6551,11 @@ svg circle, svg polygon, svg line {
   // NOTE: URL format and layer name confirmed from IEM's own OGC service
   // docs (https://mesonet.agron.iastate.edu/ogc/) but not execution-tested
   // in this sandbox (no network access here) -- verify tiles actually
-  // render on first live load.
+  // render on first live load. If zooming in on Velocity shows the same
+  // kind of "not supported" placeholder RainViewer used to (see the
+  // maxNativeZoom fix on the reflectivity layers above), IEM's single-site
+  // tiles likely have a native zoom ceiling too -- add a matching
+  // maxNativeZoom here once you find where it actually cuts off.
   function buildVelocityLayer() {
     return L.tileLayer(
       `https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/ridge::${RADAR_SITE_ID}-N0U-0/{z}/{x}/{y}.png`,
