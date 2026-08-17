@@ -6497,7 +6497,7 @@ svg circle, svg polygon, svg line {
   async function loadRadarFrames() {
     try {
       const res = await fetch(
-  'https://neocities-trigger.cloverwx.deno.net/rainviewer',
+  'https://api.rainviewer.com/public/weather-maps.json',
   { cache: 'no-store' }
 );
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -6842,7 +6842,7 @@ svg circle, svg polygon, svg line {
     if (!quakeMap) return;
     try {
       const res = await fetch(
-  `https://neocities-trigger.cloverwx.deno.net/usgs?feed=${quakeFeedKey}`,
+  `${QUAKE_FEED_BASE}${quakeFeedKey}.geojson`,
   { cache: 'no-store' }
 );
       if (!res.ok) throw new Error(`status ${res.status}`);
