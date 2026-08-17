@@ -6503,7 +6503,10 @@ svg circle, svg polygon, svg line {
 
   async function loadRadarFrames() {
     try {
-      const res = await fetch('https://api.rainviewer.com/public/weather-maps.json', { cache: 'no-store' });
+      const res = await fetch(
+  'https://neocities-trigger.cloverwx.deno.net/rainviewer',
+  { cache: 'no-store' }
+);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       const past = (data.radar && data.radar.past) || [];
@@ -6845,7 +6848,10 @@ svg circle, svg polygon, svg line {
     const caption = document.getElementById('quake-caption');
     if (!quakeMap) return;
     try {
-      const res = await fetch(`${QUAKE_FEED_BASE}${quakeFeedKey}.geojson`, { cache: 'no-store' });
+      const res = await fetch(
+  `https://neocities-trigger.cloverwx.deno.net/usgs?feed=${quakeFeedKey}`,
+  { cache: 'no-store' }
+);
       if (!res.ok) throw new Error(`status ${res.status}`);
       const data = await res.json();
       const features = Array.isArray(data.features) ? data.features : [];
