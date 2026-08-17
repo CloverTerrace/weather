@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T01:55:53.367836Z",
+  "generatedAt": "2026-08-17T02:00:58.752116Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.c6c29641d706fc238c10bc66fe7ab5b61f41e988.001.1",
@@ -24,6 +24,87 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [],
+  "mesoscaleDiscussions": [
+    {
+      "id": "MD2008",
+      "number": 2008,
+      "issued": "2026-08-17T01:46:00Z",
+      "expires": "2026-08-17T03:45:00Z",
+      "concerning": "Severe Thunderstorm Watch 587",
+      "hazard": "Severe Thunderstorm Watch 587",
+      "areas": "eastern Colorado into western Kansas",
+      "location": "eastern Colorado into western Kansas",
+      "distanceMiles": 4062.0,
+      "summary": "Damaging wind potential may extend downstream of WW587",
+      "watchProbability": null,
+      "forecaster": "Thornton/Gleason",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "Damaging wind potential may extend downstream of WW587"
+        },
+        {
+          "label": "Discussion",
+          "text": "A loosely organized cluster continues to drift southeastward out of eastern Colorado this evening. There is some uncertainty to the maintenance of this cluster downstream into Kansas. Temperatures across western Kansas remain warm in the upper 70s to 80s with dew points in the low to mid 60s. 00z RAOB from DDC sampled MLCAPE around 1100 J/kg but also fairly warm air around 700 mb. It is possible that with the loss of daytime heating, storms may struggle with eastward extent given the warmer air aloft. This area will be monitored but downstream watch issuance remains low confidence at this time. Local watch extension of WW587 may be needed"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Thornton/Gleason"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...DDC...GLD...PUB"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2008.html",
+      "office": "SPC"
+    },
+    {
+      "id": "MD2007",
+      "number": 2007,
+      "issued": "2026-08-17T01:27:00Z",
+      "expires": "2026-08-17T03:00:00Z",
+      "concerning": "Severe potential...Watch unlikely",
+      "hazard": "Severe potential...Watch unlikely",
+      "areas": "portions of eastern Missouri into western Illinois",
+      "location": "portions of eastern Missouri into western Illinois",
+      "distanceMiles": 473.6,
+      "summary": "A few instances of damaging gusts or hail may accompany the stronger storms this evening. The severe threat is expected to be isolated, so a WW issuance is not currently anticipated",
+      "watchProbability": "20 percent",
+      "forecaster": "Squitieri/Gleason",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "A few instances of damaging gusts or hail may accompany the stronger storms this evening. The severe threat is expected to be isolated, so a WW issuance is not currently anticipated"
+        },
+        {
+          "label": "Discussion",
+          "text": "Thunderstorms have been gradually intensifying across central and eastern MO along remnant outflow boundaries with the peak of PBL mixing/destabilization. Despite this fact, nocturnal cooling is underway, with MLCINH on the increase per 01Z mesoanalysis. Still, residual buoyancy, driven by rich low-level moisture (i.e. mid 70s F surface dewpoints) yields over 3000 J/kg MLCAPE amid 30-40 kts of effective bulk shear. This parameter space would support multicells and transient supercells capable of some damaging gusts and hail. This threat is quite conditional on the large scale given the aforementioned stabilization underway, though a locally greater severe threat exists with storms that can anchor along a boundary that roughly bisects the St. Louis metro. Nonetheless, given the overall expected sparse nature of the severe threat, a Severe Thunderstorm Watch issuance is not expected"
+        },
+        {
+          "label": "Watch probability",
+          "text": "20 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK WIND GUST...UP TO 60 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Squitieri/Gleason"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...PAH...LSX...SGF"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2007.html",
+      "office": "SPC"
+    }
+  ],
   "statements": []
 }
