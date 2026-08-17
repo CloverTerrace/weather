@@ -3,14 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <script>
-  // ~~~~~~~ 🌩️☀️🌈 FOUC prevention 🌈🌤️🌧️ ~~~~~~~
-  // runs synchronously, before <body> paints..
-  // if a cached theme exists, apply its CSS variables to the root
-  // before the browser renders anything — so a returning visitor's
-  // first paint is already correct, no flashing, no overlay shown at
-  // all. if there's no cache (first visit, or a cleared one), show the
-  // clover wx loading overlay instead, in the right day/night mode based
-  // on the clover weather station clock (checked synchronously too)
+  // ~~~~~~~ 🌩️☀️🌈 FOUC prevention 🌈🌤️🌧️ ~~~~~~~ //
   (function () {
     var CACHE_KEY = 'cloverWeatherThemeCache';
     var cached = null;
