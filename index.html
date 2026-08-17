@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <script>
-  // ~~~~~~~ 🌩️☀️🌈 FOUC prevention 🌈🌤️🌧️ ~~~~~~~ //
+  // ~~~~~~~ 🌩️☀️🌈 FOUC prevention 🌈🌤️🌧️ ~~~~~~~
+  // runs synchronously, before <body> paints..
+  // if a cached theme exists, apply its CSS variables to the root
+  // before the browser renders anything — so a returning visitor's
+  // first paint is already correct, no flashing, no overlay shown at
+  // all. if there's no cache (first visit, or a cleared one), show the
+  // clover wx loading overlay instead, in the right day/night mode based
+  // on the clover weather station clock (checked synchronously too)
   (function () {
     var CACHE_KEY = 'cloverWeatherThemeCache';
     var cached = null;
@@ -6469,16 +6476,31 @@ svg circle, svg polygon, svg line {
   let radarTimer = null;
   let radarScrubbing = false;        // true while the user drags the scrubber -- pauses the auto-loop
   let radarProduct = 'reflectivity'; // 'reflectivity' | 'velocity'
-  let radarVelocityLayer = null;
+
+  function activeRadarFrames() {
+    return radarProduct === 'velocity' ? radarVelocityFrames : radarFrames;
+  }
+  function activeRadarLayers() {
+    return radarProduct === 'velocity' ? radarVelocityLayers : radarLayers;
+  }
+
+  function updateScrubberBounds() {
+    const scrubber = document.getElementById('radar-scrubber');
+    if (scrubber) scrubber.max = Math.max(activeRadarFrames().length - 1, 0);
+  }
 
   function showRadarFrame(index) {
-    radarLayers.forEach((layer, i) => layer.setOpacity(i === index ? radarLayerOpacity : 0));
-    const frame = radarFrames[index];
+    activeRadarLayers().forEach((layer, i) => layer.setOpacity(i === index ? radarLayerOpacity : 0));
+    const frame = activeRadarFrames()[index];
     const label = document.getElementById('radar-frame-time');
     if (frame && label) {
-      const isForecast = frame.time * 1000 > Date.now();
-      const time = new Date(frame.time * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-      label.textContent = `${isForecast ? 'Forecast' : 'Observed'}: ${time}`;
+      const time = new Date(frame.time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      if (radarProduct === 'velocity') {
+        label.textContent = `Base Velocity — Observed: ${time}`;
+      } else {
+        const isForecast = frame.time > Date.now();
+        label.textContent = `${isForecast ? 'Forecast' : 'Observed'}: ${time}`;
+      }
     }
     const scrubber = document.getElementById('radar-scrubber');
     if (scrubber && !radarScrubbing) scrubber.value = index;
@@ -6486,20 +6508,18 @@ svg circle, svg polygon, svg line {
 
   function startRadarLoop() {
     clearInterval(radarTimer);
-    if (radarProduct !== 'reflectivity') return; // loop/scrubber only apply to the animated reflectivity frames
+    const frameCount = activeRadarFrames().length;
+    if (!frameCount) return;
     radarTimer = setInterval(() => {
-      if (!radarFrames.length || radarScrubbing) return;
-      radarFrameIndex = (radarFrameIndex + 1) % radarFrames.length;
+      if (radarScrubbing) return;
+      radarFrameIndex = (radarFrameIndex + 1) % activeRadarFrames().length;
       showRadarFrame(radarFrameIndex);
     }, RADAR_FRAME_MS);
   }
 
   async function loadRadarFrames() {
     try {
-      const res = await fetch(
-  'https://api.rainviewer.com/public/weather-maps.json',
-  { cache: 'no-store' }
-);
+      const res = await fetch('https://api.rainviewer.com/public/weather-maps.json', { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       const past = (data.radar && data.radar.past) || [];
@@ -6508,8 +6528,8 @@ svg circle, svg polygon, svg line {
       if (!frames.length) throw new Error('No radar frames returned');
 
       radarLayers.forEach(layer => radarMap.removeLayer(layer));
-      radarFrames = frames;
-      radarLayers = radarFrames.map(frame =>
+      radarFrames = frames.map(f => ({ time: f.time * 1000 }));
+      radarLayers = frames.map(frame =>
         L.tileLayer(`${data.host}${frame.path}/256/{z}/{x}/{y}/4/1_1.png`, {
           tileSize: 256,
           opacity: 0,
@@ -6524,39 +6544,87 @@ svg circle, svg polygon, svg line {
         }).addTo(radarMap)
       );
 
-      const scrubber = document.getElementById('radar-scrubber');
-      if (scrubber) scrubber.max = radarFrames.length - 1;
-
       radarFrameIndex = past.length > 0 ? past.length - 1 : 0;
       if (radarProduct === 'reflectivity') {
+        updateScrubberBounds();
         showRadarFrame(radarFrameIndex);
         startRadarLoop();
       }
     } catch (err) {
       console.warn('Could not load RainViewer radar frames:', err.message);
-      const label = document.getElementById('radar-frame-time');
-      if (label) label.textContent = 'Radar unavailable';
+      if (radarProduct === 'reflectivity') {
+        const label = document.getElementById('radar-frame-time');
+        if (label) label.textContent = 'Radar unavailable';
+      }
     }
   }
 
-  // Single-site base velocity (N0U) from Iowa Environmental Mesonet's RIDGE
-  // tile cache for the KPBZ radar. This is a *static* latest-scan image, not
-  // an animated loop like the RainViewer reflectivity frames -- the
-  // scrubber/play-loop only apply to Reflectivity, and switching to
-  // Velocity disables the scrubber.
-  // NOTE: URL format and layer name confirmed from IEM's own OGC service
-  // docs (https://mesonet.agron.iastate.edu/ogc/) but not execution-tested
-  // in this sandbox (no network access here) -- verify tiles actually
-  // render on first live load. If zooming in on Velocity shows the same
-  // kind of "not supported" placeholder RainViewer used to (see the
-  // maxNativeZoom fix on the reflectivity layers above), IEM's single-site
-  // tiles likely have a native zoom ceiling too -- add a matching
-  // maxNativeZoom here once you find where it actually cuts off.
-  function buildVelocityLayer() {
-    return L.tileLayer(
-      `https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/ridge::${RADAR_SITE_ID}-N0U-0/{z}/{x}/{y}.png`,
-      { tileSize: 256, opacity: radarLayerOpacity, zIndex: 10, maxZoom: 10 }
-    );
+  // Animated single-site base velocity (N0U) loop from Iowa Environmental
+  // Mesonet's RIDGE archive, for the KPBZ radar -- built the same way the
+  // RainViewer reflectivity loop works, just from a different data source.
+  // IEM doesn't serve a ready-made list of frames like RainViewer does, so
+  // this is a 2-step fetch: first ask its scan-time index which volume
+  // scans exist for KPBZ/N0U in the last ~90 min (NEXRAD volume scans
+  // aren't on a fixed interval -- they speed up in severe weather/VCP mode,
+  // so frame count and spacing will vary run to run, that's expected), then
+  // request each one as an archived tile layer using its own UTC timestamp
+  // instead of "0" (which only ever gives the single latest scan).
+  // Endpoints verified live via a direct fetch during development (unlike
+  // most of this feature, which could only be checked against docs) --
+  // confirmed the scan-list JSON shape is `{ scans: [{ ts: "...Z" }, ...] }`
+  // and the archived tile URL pattern is
+  // `ridge::PBZ-N0U-YYYYMMDDHHMI` (UTC, no separators).
+  const RADAR_VELOCITY_LOOKBACK_MIN = 90;
+  let radarVelocityFrames = []; // [{ time (ms) }], oldest first
+  let radarVelocityLayers = [];
+  let radarVelocityLoaded = false;
+  let radarVelocityTimer = null;
+
+  function isoToRidgeTimestamp(iso) {
+    // "2026-08-17T02:07Z" -> "202608170207"
+    return iso.replace(/[-:TZ]/g, '');
+  }
+
+  async function loadRadarVelocityFrames() {
+    if (!radarMap) return;
+    try {
+      const end = new Date();
+      const start = new Date(end.getTime() - RADAR_VELOCITY_LOOKBACK_MIN * 60000);
+      const fmt = (d) => `${d.toISOString().slice(0, 16)}Z`; // YYYY-mm-ddTHH:MMZ
+      const url = `https://mesonet.agron.iastate.edu/json/radar.py?operation=list&radar=${RADAR_SITE_ID}&product=N0U&start=${fmt(start)}&end=${fmt(end)}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      const scans = data.scans || [];
+      if (!scans.length) throw new Error('No velocity scans returned');
+
+      radarVelocityLayers.forEach(layer => radarMap.removeLayer(layer));
+      radarVelocityFrames = scans.map(s => ({ time: new Date(s.ts).getTime() }));
+      radarVelocityLayers = scans.map(s =>
+        L.tileLayer(
+          `https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/ridge::${RADAR_SITE_ID}-N0U-${isoToRidgeTimestamp(s.ts)}/{z}/{x}/{y}.png`,
+          { tileSize: 256, opacity: 0, zIndex: 10, maxZoom: 10 } // see the maxNativeZoom note on the reflectivity layers above if this needs the same fix
+        ).addTo(radarMap)
+      );
+      radarVelocityLoaded = true;
+
+      if (!radarVelocityTimer) {
+        radarVelocityTimer = setInterval(loadRadarVelocityFrames, RADAR_REFRESH_INTERVAL_MS);
+      }
+
+      if (radarProduct === 'velocity') {
+        radarFrameIndex = radarVelocityFrames.length - 1;
+        updateScrubberBounds();
+        showRadarFrame(radarFrameIndex);
+        startRadarLoop();
+      }
+    } catch (err) {
+      console.warn('Could not load IEM velocity frames:', err.message);
+      if (radarProduct === 'velocity') {
+        const label = document.getElementById('radar-frame-time');
+        if (label) label.textContent = 'Velocity unavailable';
+      }
+    }
   }
 
   function setRadarProduct(product) {
@@ -6567,26 +6635,21 @@ svg circle, svg polygon, svg line {
       btn.classList.toggle('active', btn.dataset.product === product);
     });
 
-    const scrubber = document.getElementById('radar-scrubber');
+    clearInterval(radarTimer);
+    radarLayers.forEach(layer => layer.setOpacity(0));
+    radarVelocityLayers.forEach(layer => layer.setOpacity(0));
 
-    if (product === 'velocity') {
-      clearInterval(radarTimer);
-      radarLayers.forEach(layer => layer.setOpacity(0));
-      if (!radarVelocityLayer) {
-        radarVelocityLayer = buildVelocityLayer().addTo(radarMap);
-      } else {
-        radarVelocityLayer.setOpacity(radarLayerOpacity);
-        if (!radarMap.hasLayer(radarVelocityLayer)) radarVelocityLayer.addTo(radarMap);
-      }
-      if (scrubber) scrubber.disabled = true;
+    if (product === 'velocity' && !radarVelocityLoaded) {
       const label = document.getElementById('radar-frame-time');
-      if (label) label.textContent = 'Base Velocity — latest scan (KPBZ)';
-    } else {
-      if (radarVelocityLayer && radarMap.hasLayer(radarVelocityLayer)) radarMap.removeLayer(radarVelocityLayer);
-      if (scrubber) scrubber.disabled = false;
-      showRadarFrame(radarFrameIndex);
-      startRadarLoop();
+      if (label) label.textContent = 'Loading velocity scans…';
+      loadRadarVelocityFrames(); // async -- shows the first frame and starts the loop itself once loaded
+      return;
     }
+
+    radarFrameIndex = Math.min(radarFrameIndex, activeRadarFrames().length - 1);
+    updateScrubberBounds();
+    showRadarFrame(radarFrameIndex);
+    startRadarLoop();
   }
 
   // ---------- radar overlay: active NWS warnings/watches polygons ----------
@@ -6733,7 +6796,7 @@ svg circle, svg polygon, svg line {
     if (speedSlider) {
       speedSlider.addEventListener('input', () => {
         RADAR_FRAME_MS = Number(speedSlider.value);
-        if (radarProduct === 'reflectivity') startRadarLoop();
+        startRadarLoop();
       });
     }
 
@@ -6741,11 +6804,7 @@ svg circle, svg polygon, svg line {
     if (opacitySlider) {
       opacitySlider.addEventListener('input', () => {
         radarLayerOpacity = Number(opacitySlider.value) / 100;
-        if (radarProduct === 'velocity' && radarVelocityLayer) {
-          radarVelocityLayer.setOpacity(radarLayerOpacity);
-        } else {
-          showRadarFrame(radarFrameIndex);
-        }
+        showRadarFrame(radarFrameIndex);
       });
     }
 
@@ -6841,10 +6900,7 @@ svg circle, svg polygon, svg line {
     const caption = document.getElementById('quake-caption');
     if (!quakeMap) return;
     try {
-      const res = await fetch(
-  `${QUAKE_FEED_BASE}${quakeFeedKey}.geojson`,
-  { cache: 'no-store' }
-);
+      const res = await fetch(`${QUAKE_FEED_BASE}${quakeFeedKey}.geojson`, { cache: 'no-store' });
       if (!res.ok) throw new Error(`status ${res.status}`);
       const data = await res.json();
       const features = Array.isArray(data.features) ? data.features : [];
