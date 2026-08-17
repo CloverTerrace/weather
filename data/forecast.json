@@ -1,16 +1,6 @@
 [
   {
-    "name": "Overnight",
-    "temperature": 70,
-    "temperatureUnit": "F",
-    "windSpeed": "5 mph",
-    "windDirection": "W",
-    "shortForecast": "Slight Chance Showers And Thunderstorms",
-    "detailedForecast": "A slight chance of showers and thunderstorms. Mostly cloudy, with a low around 70. West wind around 5 mph. Chance of precipitation is 20%.",
-    "isDaytime": false
-  },
-  {
-    "name": "Monday",
+    "name": "Today",
     "temperature": 80,
     "temperatureUnit": "F",
     "windSpeed": "6 mph",
@@ -20,7 +10,7 @@
     "isDaytime": true
   },
   {
-    "name": "Monday Night",
+    "name": "Tonight",
     "temperature": 62,
     "temperatureUnit": "F",
     "windSpeed": "1 to 5 mph",
@@ -38,5 +28,15 @@
     "shortForecast": "Areas Of Fog then Mostly Sunny",
     "detailedForecast": "Areas of fog before 9am. Mostly sunny, with a high near 80. Northwest wind 0 to 6 mph.",
     "isDaytime": true
+  },
+  {
+    "name": "Tuesday Night",
+    "temperature": 63,
+    "temperatureUnit": "F",
+    "windSpeed": "0 to 5 mph",
+    "windDirection": "W",
+    "shortForecast": "Mostly Clear",
+    "detailedForecast": "Mostly clear, with a low around 63. West wind 0 to 5 mph.",
+    "isDaytime": false
   }
 ]
