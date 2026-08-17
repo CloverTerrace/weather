@@ -1997,6 +1997,125 @@
     text-align: center;
   }
 
+  /* live radar controls -- product toggle (reflectivity/velocity), overlay
+     toggles (warnings/lightning/settings), and the frame scrubber. Reuses
+     the .quake-range-btn look for visual consistency with the other tab. */
+  .radar-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .radar-product-toggle {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .radar-product-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    padding: 0.35rem 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .radar-product-btn.active {
+    background: var(--bg-color);
+    color: #e4e8eb;
+  }
+
+  .radar-overlay-toggles {
+    display: flex;
+    gap: 0.35rem;
+    position: relative;
+  }
+
+  .radar-overlay-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: var(--muted-color);
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    line-height: 1;
+  }
+
+  .radar-overlay-btn[aria-pressed="true"] {
+    background: var(--bg-color);
+    color: #e4e8eb;
+  }
+
+  .radar-settings-panel {
+    display: none;
+    position: absolute;
+    top: 2.2rem;
+    right: 0;
+    z-index: 20;
+    background: var(--card-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.6rem 0.8rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    min-width: 160px;
+  }
+
+  .radar-settings-panel.open {
+    display: block;
+  }
+
+  .radar-settings-panel label {
+    display: block;
+    font-family: var(--font-details);
+    font-size: 0.7rem;
+    color: var(--muted-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .radar-settings-panel label:last-child {
+    margin-bottom: 0;
+  }
+
+  .radar-settings-panel input[type="range"] {
+    width: 100%;
+    margin-top: 0.3rem;
+  }
+
+  .radar-scrubber {
+    width: 100%;
+    margin-top: 0.5rem;
+    cursor: pointer;
+  }
+
+  .radar-scrubber:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .radar-site-marker-icon {
+    font-size: 1.1rem;
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.7));
+  }
+
+  .radar-warning-popup {
+    font-family: var(--font-details);
+    font-size: 0.8rem;
+    max-width: 220px;
+  }
+
+  .radar-warning-popup strong {
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
   /* 🌍 earthquakes tab — reuses .rainviewer-map for map sizing and
      .radar-frame-time for the caption line, same as the radar panel. */
   .quake-range-buttons {
@@ -5020,9 +5139,29 @@ svg circle, svg polygon, svg line {
   </div>
 
   <div class="map-panel active" id="map-panel-radar">
+    <div class="radar-controls">
+      <div class="radar-product-toggle">
+        <button class="radar-product-btn active" data-product="reflectivity" type="button">Reflectivity</button>
+        <button class="radar-product-btn" data-product="velocity" type="button">Velocity</button>
+      </div>
+      <div class="radar-overlay-toggles">
+        <button class="radar-overlay-btn" id="radar-toggle-warnings" type="button" aria-pressed="false" title="NWS warnings &amp; watches">⚠️</button>
+        <button class="radar-overlay-btn" id="radar-toggle-lightning" type="button" aria-pressed="false" title="Recent lightning">⚡</button>
+        <button class="radar-overlay-btn" id="radar-toggle-settings" type="button" aria-pressed="false" title="Playback settings">⚙️</button>
+        <div class="radar-settings-panel" id="radar-settings-panel">
+          <label>Playback speed
+            <input type="range" id="radar-speed-slider" min="200" max="1500" step="50" value="700">
+          </label>
+          <label>Layer opacity
+            <input type="range" id="radar-opacity-slider" min="20" max="100" step="5" value="75">
+          </label>
+        </div>
+      </div>
+    </div>
     <div class="rainviewer-map" id="rainviewer-map"></div>
+    <input type="range" class="radar-scrubber" id="radar-scrubber" min="0" max="0" value="0" step="1" title="Drag to scrub through recent radar frames">
     <div class="radar-frame-time" id="radar-frame-time"></div>
-    <div class="map-attribution"><a href="https://www.rainviewer.com/" target="_blank" rel="noopener">RainViewer</a></div>
+    <div class="map-attribution"><a href="https://www.rainviewer.com/" target="_blank" rel="noopener">RainViewer</a> &middot; <a href="https://mesonet.agron.iastate.edu/" target="_blank" rel="noopener">IEM</a> &middot; <a href="https://www.weather.gov/" target="_blank" rel="noopener">NWS</a></div>
   </div>
 
   <div class="map-panel" id="map-panel-forecast">
@@ -6319,17 +6458,28 @@ svg circle, svg polygon, svg line {
   // ---------- maps card ----------
   const RADAR_LAT = 40.616;
   const RADAR_LON = -80.274;
-  const RADAR_FRAME_MS = 700;              
-  const RADAR_REFRESH_INTERVAL_MS = 10 * 60 * 1000; 
+  // KPBZ NEXRAD tower's own coordinates (Moon Twp/Pittsburgh) -- distinct
+  // from RADAR_LAT/RADAR_LON above, which is the station's location used
+  // to center the map view, not the radar site itself.
+  const RADAR_SITE_LAT = 40.5317;
+  const RADAR_SITE_LON = -80.2180;
+  const RADAR_SITE_ID = 'PBZ'; // IEM/ridge site id -- drops the leading "K"
+  const RADAR_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
+
+  let RADAR_FRAME_MS = 700;
+  let radarLayerOpacity = 0.75;
 
   let radarMap = null;
-  let radarLayers = [];
+  let radarLayers = [];      // animated RainViewer reflectivity frames
   let radarFrames = [];
   let radarFrameIndex = 0;
   let radarTimer = null;
+  let radarScrubbing = false;        // true while the user drags the scrubber -- pauses the auto-loop
+  let radarProduct = 'reflectivity'; // 'reflectivity' | 'velocity'
+  let radarVelocityLayer = null;
 
   function showRadarFrame(index) {
-    radarLayers.forEach((layer, i) => layer.setOpacity(i === index ? 0.75 : 0));
+    radarLayers.forEach((layer, i) => layer.setOpacity(i === index ? radarLayerOpacity : 0));
     const frame = radarFrames[index];
     const label = document.getElementById('radar-frame-time');
     if (frame && label) {
@@ -6337,12 +6487,15 @@ svg circle, svg polygon, svg line {
       const time = new Date(frame.time * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
       label.textContent = `${isForecast ? 'Forecast' : 'Observed'}: ${time}`;
     }
+    const scrubber = document.getElementById('radar-scrubber');
+    if (scrubber && !radarScrubbing) scrubber.value = index;
   }
 
   function startRadarLoop() {
     clearInterval(radarTimer);
+    if (radarProduct !== 'reflectivity') return; // loop/scrubber only apply to the animated reflectivity frames
     radarTimer = setInterval(() => {
-      if (!radarFrames.length) return;
+      if (!radarFrames.length || radarScrubbing) return;
       radarFrameIndex = (radarFrameIndex + 1) % radarFrames.length;
       showRadarFrame(radarFrameIndex);
     }, RADAR_FRAME_MS);
@@ -6368,13 +6521,237 @@ svg circle, svg polygon, svg line {
         }).addTo(radarMap)
       );
 
+      const scrubber = document.getElementById('radar-scrubber');
+      if (scrubber) scrubber.max = radarFrames.length - 1;
+
       radarFrameIndex = past.length > 0 ? past.length - 1 : 0;
-      showRadarFrame(radarFrameIndex);
-      startRadarLoop();
+      if (radarProduct === 'reflectivity') {
+        showRadarFrame(radarFrameIndex);
+        startRadarLoop();
+      }
     } catch (err) {
       console.warn('Could not load RainViewer radar frames:', err.message);
       const label = document.getElementById('radar-frame-time');
       if (label) label.textContent = 'Radar unavailable';
+    }
+  }
+
+  // Single-site base velocity (N0U) from Iowa Environmental Mesonet's RIDGE
+  // tile cache for the KPBZ radar. This is a *static* latest-scan image, not
+  // an animated loop like the RainViewer reflectivity frames -- the
+  // scrubber/play-loop only apply to Reflectivity, and switching to
+  // Velocity disables the scrubber.
+  // NOTE: URL format and layer name confirmed from IEM's own OGC service
+  // docs (https://mesonet.agron.iastate.edu/ogc/) but not execution-tested
+  // in this sandbox (no network access here) -- verify tiles actually
+  // render on first live load.
+  function buildVelocityLayer() {
+    return L.tileLayer(
+      `https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/ridge::${RADAR_SITE_ID}-N0U-0/{z}/{x}/{y}.png`,
+      { tileSize: 256, opacity: radarLayerOpacity, zIndex: 10, maxZoom: 10 }
+    );
+  }
+
+  function setRadarProduct(product) {
+    if (!radarMap || radarProduct === product) return;
+    radarProduct = product;
+
+    document.querySelectorAll('.radar-product-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.product === product);
+    });
+
+    const scrubber = document.getElementById('radar-scrubber');
+
+    if (product === 'velocity') {
+      clearInterval(radarTimer);
+      radarLayers.forEach(layer => layer.setOpacity(0));
+      if (!radarVelocityLayer) {
+        radarVelocityLayer = buildVelocityLayer().addTo(radarMap);
+      } else {
+        radarVelocityLayer.setOpacity(radarLayerOpacity);
+        if (!radarMap.hasLayer(radarVelocityLayer)) radarVelocityLayer.addTo(radarMap);
+      }
+      if (scrubber) scrubber.disabled = true;
+      const label = document.getElementById('radar-frame-time');
+      if (label) label.textContent = 'Base Velocity — latest scan (KPBZ)';
+    } else {
+      if (radarVelocityLayer && radarMap.hasLayer(radarVelocityLayer)) radarMap.removeLayer(radarVelocityLayer);
+      if (scrubber) scrubber.disabled = false;
+      showRadarFrame(radarFrameIndex);
+      startRadarLoop();
+    }
+  }
+
+  // ---------- radar overlay: active NWS warnings/watches polygons ----------
+  // Queries api.weather.gov directly (not data/alerts.json, which is a
+  // point-query scoped to the station only and may lack geometry) so the
+  // map can show polygons anywhere in the visible region. Re-queried on
+  // toggle-on and every 5 min while the overlay stays active.
+  const RADAR_WARNINGS_STATES = ['PA', 'OH', 'WV', 'MD', 'NY'];
+  const RADAR_WARNINGS_REFRESH_MS = 5 * 60 * 1000;
+
+  let radarWarningsLayer = null;
+  let radarWarningsOn = false;
+  let radarWarningsTimer = null;
+
+  function hazardColorFor(eventText) {
+    const badge = getNwsHazardVisual(eventText).badge;
+    const colors = {
+      'nws-badge-tor': '#ff5b5b',
+      'nws-badge-severe': '#ffb347',
+      'nws-badge-flood': '#5ba8ff',
+      'nws-badge-winter': '#cfe8ff',
+      'nws-badge-other': '#9aa5ad',
+    };
+    return colors[badge] || colors['nws-badge-other'];
+  }
+
+  async function loadRadarWarnings() {
+    if (!radarMap) return;
+    try {
+      const query = RADAR_WARNINGS_STATES.map(s => `area=${s}`).join('&');
+      const res = await fetch(`https://api.weather.gov/alerts/active?${query}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      const features = (data.features || []).filter(f => f.geometry);
+
+      if (radarWarningsLayer) radarMap.removeLayer(radarWarningsLayer);
+      radarWarningsLayer = L.geoJSON(features, {
+        style: (feature) => {
+          const color = hazardColorFor(feature.properties.event);
+          return { color, weight: 2, fillColor: color, fillOpacity: 0.15 };
+        },
+        onEachFeature: (feature, layer) => {
+          const p = feature.properties || {};
+          layer.bindPopup(
+            `<div class="radar-warning-popup"><strong>${escapeNwsHtml(p.event || 'Alert')}</strong>${escapeNwsHtml(p.headline || '')}</div>`
+          );
+        },
+      });
+      if (radarWarningsOn) radarWarningsLayer.addTo(radarMap);
+    } catch (err) {
+      console.warn('Could not load radar warnings overlay:', err.message);
+    }
+  }
+
+  function setRadarWarningsOn(on) {
+    radarWarningsOn = on;
+    const btn = document.getElementById('radar-toggle-warnings');
+    if (btn) btn.setAttribute('aria-pressed', String(on));
+    clearInterval(radarWarningsTimer);
+    if (on) {
+      loadRadarWarnings();
+      radarWarningsTimer = setInterval(loadRadarWarnings, RADAR_WARNINGS_REFRESH_MS);
+    } else if (radarWarningsLayer && radarMap.hasLayer(radarWarningsLayer)) {
+      radarMap.removeLayer(radarWarningsLayer);
+    }
+  }
+
+  // ---------- radar overlay: recent lightning ----------
+  // Reuses the same data/lightning_glm.json feed that already powers the
+  // separate Lightning card's GLM tab, rather than fetching it twice.
+  let radarLightningOverlayLayer = null;
+  let radarLightningOverlayOn = false;
+  let radarLightningOverlayTimer = null;
+
+  async function loadRadarLightningOverlay() {
+    if (!radarMap) return;
+    try {
+      const res = await fetch(`${LIGHTNING_GLM_URL}?t=${Date.now()}`);
+      if (!res.ok) throw new Error(`status ${res.status}`);
+      const data = await res.json();
+      const flashes = Array.isArray(data.flashes) ? data.flashes : [];
+
+      if (radarLightningOverlayLayer) radarMap.removeLayer(radarLightningOverlayLayer);
+      radarLightningOverlayLayer = L.layerGroup(flashes.map(f => L.circleMarker([f.lat, f.lon], {
+        radius: 4,
+        color: '#ffcc33',
+        weight: 1,
+        fillColor: '#ffcc33',
+        fillOpacity: 0.7,
+      }).bindTooltip(formatShortTime(f.time), { direction: 'top' })));
+      if (radarLightningOverlayOn) radarLightningOverlayLayer.addTo(radarMap);
+    } catch (err) {
+      console.warn('Could not load radar lightning overlay:', err.message);
+    }
+  }
+
+  function setRadarLightningOverlayOn(on) {
+    radarLightningOverlayOn = on;
+    const btn = document.getElementById('radar-toggle-lightning');
+    if (btn) btn.setAttribute('aria-pressed', String(on));
+    clearInterval(radarLightningOverlayTimer);
+    if (on) {
+      loadRadarLightningOverlay();
+      radarLightningOverlayTimer = setInterval(loadRadarLightningOverlay, LIGHTNING_GLM_REFRESH_INTERVAL_MS);
+    } else if (radarLightningOverlayLayer && radarMap.hasLayer(radarLightningOverlayLayer)) {
+      radarMap.removeLayer(radarLightningOverlayLayer);
+    }
+  }
+
+  // ---------- radar controls wiring (product toggle, overlay toggles,
+  // settings panel, scrubber) ----------
+  function initRadarControls() {
+    document.querySelectorAll('.radar-product-btn').forEach(btn => {
+      btn.addEventListener('click', () => setRadarProduct(btn.dataset.product));
+    });
+
+    const warningsBtn = document.getElementById('radar-toggle-warnings');
+    if (warningsBtn) {
+      warningsBtn.addEventListener('click', () => setRadarWarningsOn(warningsBtn.getAttribute('aria-pressed') !== 'true'));
+    }
+
+    const lightningBtn = document.getElementById('radar-toggle-lightning');
+    if (lightningBtn) {
+      lightningBtn.addEventListener('click', () => setRadarLightningOverlayOn(lightningBtn.getAttribute('aria-pressed') !== 'true'));
+    }
+
+    const settingsBtn = document.getElementById('radar-toggle-settings');
+    const settingsPanel = document.getElementById('radar-settings-panel');
+    if (settingsBtn && settingsPanel) {
+      settingsBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const open = settingsPanel.classList.toggle('open');
+        settingsBtn.setAttribute('aria-pressed', String(open));
+      });
+      document.addEventListener('click', (event) => {
+        if (settingsPanel.classList.contains('open') && !settingsPanel.contains(event.target) && event.target !== settingsBtn) {
+          settingsPanel.classList.remove('open');
+          settingsBtn.setAttribute('aria-pressed', 'false');
+        }
+      });
+    }
+
+    const speedSlider = document.getElementById('radar-speed-slider');
+    if (speedSlider) {
+      speedSlider.addEventListener('input', () => {
+        RADAR_FRAME_MS = Number(speedSlider.value);
+        if (radarProduct === 'reflectivity') startRadarLoop();
+      });
+    }
+
+    const opacitySlider = document.getElementById('radar-opacity-slider');
+    if (opacitySlider) {
+      opacitySlider.addEventListener('input', () => {
+        radarLayerOpacity = Number(opacitySlider.value) / 100;
+        if (radarProduct === 'velocity' && radarVelocityLayer) {
+          radarVelocityLayer.setOpacity(radarLayerOpacity);
+        } else {
+          showRadarFrame(radarFrameIndex);
+        }
+      });
+    }
+
+    const scrubber = document.getElementById('radar-scrubber');
+    if (scrubber) {
+      scrubber.addEventListener('input', () => {
+        radarScrubbing = true;
+        radarFrameIndex = Number(scrubber.value);
+        showRadarFrame(radarFrameIndex);
+      });
+      scrubber.addEventListener('change', () => {
+        radarScrubbing = false; // resumes the auto-loop from wherever the user left it
+      });
     }
   }
 
@@ -6404,8 +6781,30 @@ svg circle, svg polygon, svg line {
     radarBaseLight = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { subdomains: 'abcd', maxZoom: 19, zIndex: 1 });
     setRadarBaseLayer(false); 
     L.marker([RADAR_LAT, RADAR_LON]).addTo(radarMap);
+
+    // KPBZ radar tower marker + a rough range ring for context -- useful
+    // context once a single-site product (Velocity) is in play, since that
+    // one is centered on the tower rather than on Clover Terrace.
+    const radarTowerIcon = L.divIcon({
+      className: 'radar-site-marker-icon',
+      html: '📡',
+      iconSize: [20, 20],
+    });
+    L.marker([RADAR_SITE_LAT, RADAR_SITE_LON], { icon: radarTowerIcon })
+      .bindTooltip('KPBZ — Pittsburgh/Moon Twp NEXRAD', { direction: 'top' })
+      .addTo(radarMap);
+    L.circle([RADAR_SITE_LAT, RADAR_SITE_LON], {
+      radius: 80 * 1609.34, // ~80mi in meters -- roughly the useful range for base velocity
+      color: '#9aa5ad',
+      weight: 1,
+      dashArray: '4 6',
+      fill: false,
+      opacity: 0.5,
+    }).addTo(radarMap);
+
     loadRadarFrames();
     setInterval(loadRadarFrames, RADAR_REFRESH_INTERVAL_MS);
+    initRadarControls();
   }
 
   // ---------- earthquakes tab: USGS GeoJSON summary feeds, no API key ----------
