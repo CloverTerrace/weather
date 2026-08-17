@@ -1,68 +1,26 @@
 {
-  "generatedAt": "2026-08-17T03:35:54.422179Z",
-  "watches": [
+  "generatedAt": "2026-08-17T03:40:56.072738Z",
+  "watches": [],
+  "mesoscaleDiscussions": [],
+  "statements": [
     {
-      "id": "urn:oid:2.49.0.1.840.0.c6c29641d706fc238c10bc66fe7ab5b61f41e988.001.1",
-      "type": "Flood Watch",
-      "number": null,
-      "issued": "2026-08-16T19:38:00-04:00",
-      "expires": "2026-08-17T02:45:00-04:00",
-      "location": "Tuscarawas; Carroll; Columbiana; Coshocton; Harrison; Jefferson; Muskingum; Guernsey; Belmont; Noble; Monroe; Beaver; Allegheny; Washington; Greene; Westmoreland; Westmoreland Ridges; Fayette; Fayette Ridges; Hancock; Brooke; Ohio; Marshall; Wetzel; Marion; Monongalia; Ridges of Eastern Monongalia and Northwestern Preston; Preston; Eastern Preston; Western Tucker; Eastern Tucker",
+      "id": "5fe4dd87-631c-4b5e-a109-ba663fc92c54",
+      "type": "Flash Flood Watch",
+      "office": "KPBZ",
+      "issued": "2026-08-17T03:38:00+00:00",
+      "expires": null,
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "WGUS61 KPBZ 170338 Flood Watch",
       "distanceMiles": null,
-      "summary": "Flood Watch issued August 16 at 7:38PM EDT until August 17 at 8:00AM EDT by NWS Pittsburgh PA",
+      "headline": "Flash Flood Watch",
+      "summary": "WGUS61 KPBZ 170338 Flood Watch",
       "details": [
         {
-          "label": "Areas",
-          "text": "Tuscarawas; Carroll; Columbiana; Coshocton; Harrison; Jefferson; Muskingum; Guernsey; Belmont; Noble; Monroe; Beaver; Allegheny; Washington; Greene; Westmoreland; Westmoreland Ridges; Fayette; Fayette Ridges; Hancock; Brooke; Ohio; Marshall; Wetzel; Marion; Monongalia; Ridges of Eastern Monongalia and Northwestern Preston; Preston; Eastern Preston; Western Tucker; Eastern Tucker"
-        },
-        {
-          "label": "Instructions",
-          "text": "You should monitor later forecasts and be prepared to take action\nshould Flash Flood Warnings be issued."
+          "label": "Product detail",
+          "text": "000 WGUS61 KPBZ 170338 FFAPBZ Flood Watch 1138 PM EDT Sun Aug 16 2026 OHZ039>041-048>050-057>059-068-069-PAZ020-021-029-031-073>076- WVZ001>004-012-021-509>514-170445- /O.CAN.KPBZ.FA.A.0016.000000T0000Z-260817T1200Z/"
         }
       ],
-      "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c6c29641d706fc238c10bc66fe7ab5b61f41e988.001.1",
-      "office": "NWS Pittsburgh PA"
+      "url": "https://api.weather.gov/products/5fe4dd87-631c-4b5e-a109-ba663fc92c54"
     }
-  ],
-  "mesoscaleDiscussions": [
-    {
-      "id": "MD2008",
-      "number": 2008,
-      "issued": "2026-08-17T01:46:00Z",
-      "expires": "2026-08-17T03:45:00Z",
-      "concerning": "Severe Thunderstorm Watch 587",
-      "hazard": "Severe Thunderstorm Watch 587",
-      "areas": "eastern Colorado into western Kansas",
-      "location": "eastern Colorado into western Kansas",
-      "distanceMiles": 4062.0,
-      "summary": "Damaging wind potential may extend downstream of WW587",
-      "watchProbability": null,
-      "forecaster": "Thornton/Gleason",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "Damaging wind potential may extend downstream of WW587"
-        },
-        {
-          "label": "Discussion",
-          "text": "A loosely organized cluster continues to drift southeastward out of eastern Colorado this evening. There is some uncertainty to the maintenance of this cluster downstream into Kansas. Temperatures across western Kansas remain warm in the upper 70s to 80s with dew points in the low to mid 60s. 00z RAOB from DDC sampled MLCAPE around 1100 J/kg but also fairly warm air around 700 mb. It is possible that with the loss of daytime heating, storms may struggle with eastward extent given the warmer air aloft. This area will be monitored but downstream watch issuance remains low confidence at this time. Local watch extension of WW587 may be needed"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Thornton/Gleason"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...DDC...GLD...PUB"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md2008.html",
-      "office": "SPC"
-    }
-  ],
-  "statements": []
+  ]
 }
