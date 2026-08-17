@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T23:56:00.604200Z",
+  "generatedAt": "2026-08-17T00:01:03.495609Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.c6c29641d706fc238c10bc66fe7ab5b61f41e988.001.1",
@@ -66,85 +66,28 @@
       ],
       "url": "https://www.spc.noaa.gov/products/md/md2006.html",
       "office": "SPC"
-    },
-    {
-      "id": "MD2005",
-      "number": 2005,
-      "issued": "2026-08-16T23:00:00Z",
-      "expires": "2026-08-17T00:00:00Z",
-      "concerning": "Severe Thunderstorm Watch 588",
-      "hazard": "Severe Thunderstorm Watch 588",
-      "areas": "portions of far south-central Pennsylvania into Maryland...D.C....and northern and central Virginia",
-      "location": "portions of far south-central Pennsylvania into Maryland...D.C....and northern and central Virginia",
-      "distanceMiles": 155.1,
-      "summary": "A few damaging gusts may occur with ongoing storms over the next few hours. The severe threat should remain relatively more isolated",
-      "watchProbability": null,
-      "forecaster": "Squitieri",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "A few damaging gusts may occur with ongoing storms over the next few hours. The severe threat should remain relatively more isolated"
-        },
-        {
-          "label": "Discussion",
-          "text": "A loosely organized cold-pool-driven MCS, with a history of numerous damaging gusts, is cresting the Blue Ridge Mountains and is poised to approach the Chesapeake Bay over the next few hours. Surface temperatures remain in the 80s F, with low-level lapse rates still around 7 C/km per 22Z mesoanalysis. Nonetheless, nocturnal cooling will begin soon along the East Coast, which will further reduce instability. In the near-term a few damaging gusts remain possible with storms along the leading edge of a cold pool. The best chance for a damaging or even severe gust will be with storms propagating toward central VA, where boundary-layer instability is strongest"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Squitieri"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...AKQ...CTP...LWX...RNK"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md2005.html",
-      "office": "SPC"
-    },
-    {
-      "id": "MD2004",
-      "number": 2004,
-      "issued": "2026-08-16T22:31:00Z",
-      "expires": "2026-08-17T00:00:00Z",
-      "concerning": "Severe Thunderstorm Watch 586",
-      "hazard": "Severe Thunderstorm Watch 586",
-      "areas": "portions of central and southern West Virginia",
-      "location": "portions of central and southern West Virginia",
-      "distanceMiles": 119.4,
-      "summary": "A few damaging gusts are possible over the next few hours. The best chance for severe storms will be with storms moving along the leading edge of outflow from earlier storms",
-      "watchProbability": null,
-      "forecaster": "Squitieri",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "A few damaging gusts are possible over the next few hours. The best chance for severe storms will be with storms moving along the leading edge of outflow from earlier storms"
-        },
-        {
-          "label": "Discussion",
-          "text": "Multicell storms continue to propagate southeastward amid 2000-3000 J/kg MLCAPE, supported mainly by 7-7.5 C/km boundary-layer lapse rates and 70s F surface dewpoints. These favorable thermodynamic conditions are prevalent along and south of an outflow boundary left behind by earlier thunderstorms. Storms traversing this boundary will have the best chance for producing a damaging or severe gust, and a brief tornado cannot be completely ruled out"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...55-70 MPH"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Squitieri"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...RNK...RLX...JKL...ILN"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md2004.html",
-      "office": "SPC"
     }
   ],
   "statements": [
+    {
+      "id": "21b2e42e-a805-4da5-b2f0-20a2402b1bcf",
+      "type": "Public Information Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-16T23:54:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-031-073>078- WVZ001>004-012-021-509>514-171154-",
+      "distanceMiles": null,
+      "headline": "Public Information Statement",
+      "summary": "OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-031-073>078- WVZ001>004-012-021-509>514-171154-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 PNSPBZ OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-031-073>078- WVZ001>004-012-021-509>514-171154- Public Information Statement 754 PM EDT Sun Aug 16 2026 ...PRECIPITATION REPORTS... Location Amount Time/Date Lat/Lon"
+        }
+      ],
+      "url": "https://api.weather.gov/products/21b2e42e-a805-4da5-b2f0-20a2402b1bcf"
+    },
     {
       "id": "6a98599f-e31b-4073-b629-205ca22e0160",
       "type": "Flash Flood Watch",
@@ -163,25 +106,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/6a98599f-e31b-4073-b629-205ca22e0160"
-    },
-    {
-      "id": "aca57ff9-502d-404b-bcb4-a0ae0c5eb447",
-      "type": "Flood Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-16T23:28:00+00:00",
-      "expires": null,
-      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
-      "hazard": "WGUS81 KPBZ 162328 OHC111-119-121-162338-",
-      "distanceMiles": null,
-      "headline": "Flood Statement",
-      "summary": "WGUS81 KPBZ 162328 OHC111-119-121-162338-",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 WGUS81 KPBZ 162328 FLSPBZ Flood Statement 728 PM EDT Sun Aug 16 2026 OHC111-119-121-162338- /O.CAN.KPBZ.FA.W.0034.000000T0000Z-260817T0400Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
-        }
-      ],
-      "url": "https://api.weather.gov/products/aca57ff9-502d-404b-bcb4-a0ae0c5eb447"
     }
   ]
 }
