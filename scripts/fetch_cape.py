@@ -12,23 +12,27 @@ one). There's no clean "just give me the single current value" shortcut,
 so this pulls the hourly series for today and picks the entry matching
 (or closest to) the current UTC hour.
 
+Uses only the standard library (urllib) rather than `requests` -- this
+repo's GitHub Actions workflow doesn't install `requests` for any of the
+other fetch scripts (pillow/boto3/netCDF4 are the only pip installs),
+which suggests the rest of the pipeline is written against urllib too.
+Matching that avoids adding a dependency the workflow doesn't already have.
+
 NOTE: this script was written to spec but NOT execution-tested against
-the live API -- this dev environment has no outbound network access.
-Things worth checking on the first real run:
+the live API -- the dev environment this was written in has no outbound
+network access to Open-Meteo specifically. Things worth checking on the
+first real run:
   - that `hourly.cape` never comes back null for the current hour (fall
     back to '--' on the frontend if so -- the tile already handles that)
   - that CAPE values look sane for a clear day (should be near 0) vs an
     unstable summer afternoon (four digits is normal ahead of storms)
-  - add `requests` to whatever this repo's Python dependency list is if
-    it isn't already there (fetch_lightning_glm.py likely already needs
-    an HTTP client, so this may already be covered)
 """
 import json
 import sys
+import urllib.parse
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
-
-import requests
 
 LAT = 40.616
 LON = -80.274
@@ -37,9 +41,10 @@ LON = -80.274
 # scripts' outputs (data/alerts.json, data/aurora.json, etc.)
 OUTPUT_PATH = Path(__file__).resolve().parent.parent / "data" / "cape.json"
 
+REQUEST_TIMEOUT_S = 15
+
 
 def fetch_cape():
-    url = "https://api.open-meteo.com/v1/forecast"
     params = {
         "latitude": LAT,
         "longitude": LON,
@@ -47,9 +52,13 @@ def fetch_cape():
         "forecast_days": 1,
         "timezone": "UTC",
     }
-    resp = requests.get(url, params=params, timeout=15)
-    resp.raise_for_status()
-    payload = resp.json()
+    url = f"https://api.open-meteo.com/v1/forecast?{urllib.parse.urlencode(params)}"
+
+    req = urllib.request.Request(url, headers={"User-Agent": "clover-terrace-weather-dashboard"})
+    with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT_S) as resp:
+        if resp.status != 200:
+            raise RuntimeError(f"HTTP {resp.status}")
+        payload = json.loads(resp.read().decode("utf-8"))
 
     times = payload["hourly"]["time"]
     values = payload["hourly"]["cape"]
