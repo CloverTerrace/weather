@@ -3540,14 +3540,6 @@ svg circle, svg polygon, svg line {
     }
   }
 
-  .priority-subheading {
-    font-size: 0.62rem;
-    color: var(--muted-color);
-    letter-spacing: 0.04em;
-    font-family: var(--font-grid-label);
-    white-space: nowrap;
-  }
-
   .pressure-glance-row {
     gap: 0.85rem;
     margin-top: 0.3rem;
@@ -3560,6 +3552,29 @@ svg circle, svg polygon, svg line {
 
   .pressure-glance-row .glance-col + .glance-col {
     padding-left: 1rem;
+  }
+
+  /* keeps the Pressure column's value vertically aligned with CAPE's
+     (which has a real "CAPE" label above it) without actually showing a
+     second "Pressure" label -- redundant with the card's own heading. */
+  .pressure-glance-row .glance-label-spacer {
+    visibility: hidden;
+  }
+
+  /* CAPE pairs a 4-digit value with a longer unit ("J/kg" vs inHg's
+     shorter neighbors elsewhere on the grid) inside a half-width column --
+     at the site-wide .priority-value size that combination doesn't fit on
+     one line and the unit wraps underneath, breaking the two-column
+     layout and misaligning it against Pressure's own value. Sized down
+     specifically for this row (not a global .priority-value change) and
+     pinned to one line as a hard guarantee. */
+  .pressure-glance-row .priority-value {
+    font-size: clamp(1.35rem, 7.5vw, 1.85rem) !important;
+    white-space: nowrap;
+  }
+
+  .pressure-glance-row .unit {
+    font-size: 0.78em;
   }
 
   .cape-badge {
@@ -7986,11 +8001,10 @@ const THEMES = {
       <div class="priority-card-head">
         <div class="priority-icon"><img src="icons/barometer.svg" alt=""></div>
         <div class="priority-heading">Pressure</div>
-        <span class="priority-subheading">Storm potential</span>
       </div>
       <div class="glance-row priority-glance-row pressure-glance-row">
          <div class="glance-col glance-primary">
-            <div class="label">Pressure</div>
+            <div class="label glance-label-spacer" aria-hidden="true">Pressure</div>
             <div class="value priority-value">${formatVal(data.pressure, 2)}<span class="unit">inHg</span>${primaryTrend ? `<span class="pressure-trend ${primaryTrend.className}">${primaryTrend.arrow}</span>` : ''}</div>
          </div>
          <div class="glance-col">
