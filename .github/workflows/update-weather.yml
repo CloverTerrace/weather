@@ -72,6 +72,10 @@ jobs:
         continue-on-error: true
         run: python scripts/fetch_nws_products.py
 
+      - name: Fetch CAPE (storm instability)
+        continue-on-error: true
+        run: python scripts/fetch_cape.py
+
       - name: Fetch aurora/Kp data
         continue-on-error: true
         run: python scripts/fetch_aurora.py
