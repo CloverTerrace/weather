@@ -90,7 +90,7 @@ jobs:
           # repo now, so this Action has no reason to touch them. Home-server
           # staleness is detected client-side (PRIMARY_STALE_MS in
           # index.html) against weather_wu.json below, not by this workflow.
-          for f in data/weather_wu.json data/camera.jpg data/forecast.json data/outlook-day1.png data/outlook-day2.png data/outlook-day3.png data/outlook-day4.png data/outlook-day5.png data/outlook-day6.png data/outlook-day7.png data/outlook-day8.png data/outlook-day4-8.gif data/outlook-day4-8.png data/air_quality.json data/alerts.json data/nws_products.json data/aurora.json data/lightning_glm.json; do
+          for f in data/weather_wu.json data/camera.jpg data/forecast.json data/outlook-day1.png data/outlook-day2.png data/outlook-day3.png data/outlook-day4.png data/outlook-day5.png data/outlook-day6.png data/outlook-day7.png data/outlook-day8.png data/outlook-day4-8.gif data/outlook-day4-8.png data/air_quality.json data/alerts.json data/nws_products.json data/aurora.json data/lightning_glm.json data/cape.json; do
             [ -f "$f" ] && git add "$f"
           done
 
