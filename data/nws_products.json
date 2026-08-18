@@ -1,7 +1,45 @@
 {
-  "generatedAt": "2026-08-18T01:00:59.323604Z",
+  "generatedAt": "2026-08-18T01:06:00.679567Z",
   "watches": [],
   "mesoscaleDiscussions": [
+    {
+      "id": "MD2020",
+      "number": 2020,
+      "issued": "2026-08-18T01:02:00Z",
+      "expires": "2026-08-18T02:00:00Z",
+      "concerning": "Severe Thunderstorm Watch 592",
+      "hazard": "Severe Thunderstorm Watch 592",
+      "areas": "much of central and northern Nebraska",
+      "location": "much of central and northern Nebraska",
+      "distanceMiles": 6.3,
+      "summary": "Severe wind gusts and hail should continue to accompany ongoing supercells for at least a few more hours. Some supercells may exit the eastern bounds of Severe Thunderstorm Watch 592",
+      "watchProbability": null,
+      "forecaster": "Squitieri/Gleason",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "Severe wind gusts and hail should continue to accompany ongoing supercells for at least a few more hours. Some supercells may exit the eastern bounds of Severe Thunderstorm Watch 592"
+        },
+        {
+          "label": "Discussion",
+          "text": "Multiple supercells are in progress across much of central and northern NE, with a severe-wind producing supercell also poised to cross into Cherry County, NE from SD. The 00Z LBF observed sounding showed minimal capping in place, with near 8 C/km mid-level lapse rates overspreading a well-mixed boundary layer amid an elongated straight hodograph (and 30+ kts of effective bulk shear). These conditions will support continued severe wind/hail potential for at least a few more hours, until boundary layer stabilization sets in. An instance of 2+ inch diameter hail or a 75+ mph gust cannot be ruled out. Some of the latest HRRR runs also depict upscale growth into an MCS in central NE. However, confidence in this scenario remains uncertain given the resistance of storms to grow upscale thus far. Some of the supercells in central NE are splitting and approaching counties outside of the ongoing Severe Thunderstorm Watch. A WW issuance may be needed farther to the east if confidence increases in a longer-term severe threat for eastern NE"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...65-80 MPH · MOST PROBABLE PEAK HAIL SIZE...1.50-2.50 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Squitieri/Gleason"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...FSD...OAX...GID...LBF...BOU...CYS"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2020.html",
+      "office": "SPC"
+    },
     {
       "id": "MD2019",
       "number": 2019,
@@ -45,5 +83,29 @@
       "office": "SPC"
     }
   ],
-  "statements": []
+  "statements": [
+    {
+      "id": "3f78dbe6-974c-42a9-b869-cdb3b5d785a2",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-08-18T01:03:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Tonight. No hazardous weather is expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Tuesday through Sunday. The probability for widespread hazardous weather is low."
+        }
+      ],
+      "url": "https://api.weather.gov/products/3f78dbe6-974c-42a9-b869-cdb3b5d785a2"
+    }
+  ]
 }
