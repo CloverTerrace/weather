@@ -941,33 +941,6 @@
   .trend-falling { color: #ff7e67; }
   .trend-steady  { color: var(--muted-color); }
 
-  /* two-metric row pairing pressure with CAPE -- same "two values side by
-     side, each with a value + secondary label" shape wind/lightning use,
-     but on its own classes rather than reusing .pressure-priority-row,
-     since that class is shared with the river gauge card (always a single
-     value + arrow there) and can't take on a two-metric layout without
-     changing river's card too. */
-  .pressure-metrics-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  .pressure-metric {
-    flex: 1;
-    min-width: 0;
-    text-align: center;
-  }
-
-  .pressure-metric-label {
-    display: block;
-    font-size: 0.7rem;
-    color: var(--label-color);
-    margin-top: 2px;
-    font-family: var(--font-grid-label);
-  }
-
   /* ---------- "at a glance" priority row (temp / feels like / dew point) ---------- */
   .glance-row {
     display: flex;
@@ -3486,7 +3459,6 @@ svg circle, svg polygon, svg line {
   @container card (max-width: 300px) {
     .wind-priority-row,
     .pressure-priority-row,
-    .pressure-metrics-row,
     .lightning-priority-row {
       gap: 0.5rem;
     }
@@ -3495,18 +3467,15 @@ svg circle, svg polygon, svg line {
     .priority-value { font-size: 1.7rem !important; }
   }
 
-  /* .pressure-priority-row itself is deliberately left OUT of this
-     stack-to-column rule (unlike wind/lightning, which genuinely need the
-     extra vertical room for a compass or a second metric). it's still just
-     a value next to a trend arrow -- stacking it broke the "arrow next to
-     the value" layout on every card narrower than 250px, which is the
-     normal tile width on the desktop grid, so the arrow was dropping onto
-     its own line and pushing the value off-center on essentially every
-     desktop view. .pressure-metrics-row is the actual second-metric row
-     (pairs pressure with CAPE) and belongs in this list same as wind/lightning. */
+  /* .pressure-priority-row is deliberately left OUT of this stack-to-column
+     rule (unlike wind/lightning, which genuinely need the extra vertical
+     room for a compass or a second metric). pressure is just a value next
+     to a trend arrow -- stacking it broke the "arrow next to the value"
+     layout on every card narrower than 250px, which is the normal tile
+     width on the desktop grid, so the arrow was dropping onto its own line
+     and pushing the value off-center on essentially every desktop view. */
   @container card (max-width: 250px) {
     .wind-priority-row,
-    .pressure-metrics-row,
     .lightning-priority-row {
       flex-direction: column;
       gap: 0.6rem;
@@ -3567,6 +3536,48 @@ svg circle, svg polygon, svg line {
     }
 
     .temp-glance-row .glance-col + .glance-col {
+      padding-left: 0.65rem;
+    }
+  }
+
+  .priority-subheading {
+    font-size: 0.62rem;
+    color: var(--muted-color);
+    letter-spacing: 0.04em;
+    font-family: var(--font-grid-label);
+    white-space: nowrap;
+  }
+
+  .pressure-glance-row {
+    gap: 0.85rem;
+    margin-top: 0.3rem;
+  }
+
+  .pressure-glance-row .glance-col {
+    min-width: 0;
+    padding: 0 0.35rem;
+  }
+
+  .pressure-glance-row .glance-col + .glance-col {
+    padding-left: 1rem;
+  }
+
+  .cape-badge {
+    display: inline-block;
+    margin-top: 0.25rem;
+    font-size: 0.62rem;
+    font-weight: 600;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 480px) {
+    .pressure-glance-row {
+      gap: 0.5rem;
+    }
+
+    .pressure-glance-row .glance-col + .glance-col {
       padding-left: 0.65rem;
     }
   }
@@ -4403,6 +4414,12 @@ svg circle, svg polygon, svg line {
       margin-bottom: 0;
     }
 
+    .desktop-left-rail #grid.grid .pressure-card .pressure-glance-row {
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
     .desktop-left-rail #grid.grid .wind-card .wind-priority-row {
       flex-direction: row !important;
       align-items: flex-start;
@@ -4433,17 +4450,6 @@ svg circle, svg polygon, svg line {
     }
 
     .desktop-left-rail #grid.grid .wind-card .priority-compass { display: none; }
-
-    .desktop-left-rail #grid.grid .pressure-card .pressure-metrics-row {
-      flex-direction: row !important;
-      margin-top: auto;
-      margin-bottom: 0.25rem;
-      gap: clamp(0.45rem, 1.2cqw, 0.8rem);
-    }
-
-    .desktop-left-rail #grid.grid .pressure-card .pressure-metric-label {
-      font-size: clamp(0.6rem, 2.4cqw, 0.72rem) !important;
-    }
 
     .desktop-left-rail #grid.grid .pressure-card .pressure-trend {
       font-size: clamp(1.05rem, 5.5cqw, 1.4rem) !important;
@@ -5561,48 +5567,6 @@ svg circle, svg polygon, svg line {
     renderAllCharts();
   }
 
-  // Open-Meteo -- modeled CAPE (Convective Available Potential Energy) for
-  // the station's location. Unlike every other number on this dashboard,
-  // this is NOT read from the Ecowitt sensor -- it's the nearest-gridpoint
-  // estimate from Open-Meteo's weather model (interpolated from
-  // 15-minutely model data), the best "local" CAPE available without a
-  // radiosonde launch. Refreshed far less often than the live sensor feed
-  // since model output doesn't change on a 15-second cadence. See the
-  // pressure card's expanded panel for the "modeled, not measured" note.
-  const CAPE_LAT = 40.616;
-  const CAPE_LON = -80.274;
-  const CAPE_REFRESH_INTERVAL_MS = 20 * 60 * 1000;
-  let currentCape = null;
-
-  async function fetchOpenMeteoCape() {
-    try {
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${CAPE_LAT}&longitude=${CAPE_LON}&current=cape`;
-      const res = await fetch(url, { cache: 'no-store' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
-      const val = json?.current?.cape;
-      if (val === undefined || val === null || isNaN(val)) throw new Error('No CAPE value returned');
-      currentCape = { value: val, time: json.current.time };
-    } catch (err) {
-      console.warn('Could not load Open-Meteo CAPE data:', err.message);
-    }
-    if (lastWeatherData) renderCards(lastWeatherData);
-  }
-
-  // plain-language read on a CAPE value -- same shape as getUvRiskCategory,
-  // used to translate the raw J/kg number into a word + color for casual
-  // readers while the number itself stays on-screen for enthusiasts.
-  // thresholds follow common SPC-style CAPE bucketing.
-  function getCapeRiskCategory(cape) {
-    if (cape === undefined || cape === null || isNaN(cape)) return { label: '--', color: 'var(--muted-color)' };
-    if (cape < 300) return { label: 'Calm', color: 'var(--muted-color)' };
-    if (cape < 1000) return { label: 'Marginal', color: '#8fd6a8' };
-    if (cape < 2500) return { label: 'Slight', color: '#ffe27a' };
-    if (cape < 3500) return { label: 'Moderate', color: '#ffb347' };
-    if (cape < 4000) return { label: 'High', color: '#ff7e67' };
-    return { label: 'Extreme', color: '#c792ff' };
-  }
-
 
   const grid = document.getElementById('grid');
   const subtitle = document.getElementById('subtitle');
@@ -5679,27 +5643,61 @@ svg circle, svg polygon, svg line {
     return { label: 'Extreme', color: '#c792ff' };
   }
 
-  // plain-language storm-development read on a 3h pressure trend --
-  // this is the classic "what does a falling barometer mean" cue. Takes the
-  // *same* trend object getPressureTrend() produces (and that drives the
-  // card's arrow/label) rather than re-deriving Rising/Falling/Steady from
-  // deltaPerHour against a separate threshold -- two independent thresholds
-  // could disagree right at the boundary, showing a rising arrow next to
-  // "steady" text. Reading trend.label keeps the note and the arrow in sync.
-  function getStormPotentialNote(trend, rateHtml) {
+  // plain-language read on CAPE (Convective Available Potential Energy) --
+  // standard SPC breakpoints, so this means the same thing to a met-school
+  // grad as it does to a casual visitor reading just the badge.
+  function getCapeCategory(cape) {
+    if (cape === undefined || cape === null || isNaN(cape)) return { label: '--', color: 'var(--muted-color)' };
+    if (cape < 100) return { label: 'Stable', color: 'var(--muted-color)' };
+    if (cape < 1000) return { label: 'Weak', color: '#8fd6a8' };
+    if (cape < 2500) return { label: 'Moderate', color: '#ffe27a' };
+    if (cape < 4000) return { label: 'Strong', color: '#ffb347' };
+    return { label: 'Extreme', color: '#ff5b5b' };
+  }
+
+  // plain-language storm-development read combining the 3h pressure trend
+  // (the classic "what does a falling barometer mean" cue) with CAPE
+  // (instability -- "is there fuel for a storm at all"). Falling pressure
+  // without instability is just an approaching system; falling pressure
+  // WITH instability is a real thunderstorm setup -- the two signals mean
+  // more together than either alone, which is the whole point of pairing
+  // them on one tile. Takes the *same* trend object getPressureTrend()
+  // produces (and that drives the card's arrow/label) rather than
+  // re-deriving Rising/Falling/Steady from deltaPerHour against a separate
+  // threshold -- two independent thresholds could disagree right at the
+  // boundary, showing a rising arrow next to "steady" text. Reading
+  // trend.label keeps the note and the arrow in sync. `cape` is optional --
+  // omitting it (or passing null, e.g. while data/cape.json hasn't loaded
+  // yet) falls back to the original pressure-only note.
+  function getStormPotentialNote(trend, rateHtml, cape) {
     const rateSuffix = rateHtml ? ` · ${rateHtml}` : '';
+    const hasCape = cape !== undefined && cape !== null && !isNaN(cape);
+    const unstable = hasCape && cape >= 1000;      // Moderate CAPE or higher
+    const veryUnstable = hasCape && cape >= 2500;  // Strong CAPE or higher
+    const capeLabel = hasCape ? getCapeCategory(cape).label.toLowerCase() : '';
+
     if (!trend || trend.deltaPerHour === null || trend.deltaPerHour === undefined || isNaN(trend.deltaPerHour)) {
+      if (veryUnstable) return `Not enough recent pressure history yet to read a trend, but the atmosphere is <strong>${capeLabel}ly unstable</strong> (${formatVal(cape, 0)} J/kg) — worth watching this afternoon.`;
       return 'Not enough recent pressure history yet to read a trend.';
     }
+
     const rate = Math.abs(trend.deltaPerHour);
+
     if (trend.label === 'Falling') {
-      if (rate >= 0.06) return `<strong>Rapid fall</strong>${rateSuffix} — often signals an approaching storm system or strengthening low pressure nearby.`;
+      if (rate >= 0.06) {
+        if (unstable) return `<strong>Rapid fall</strong>${rateSuffix} with <strong>${capeLabel}</strong> instability — a good setup for thunderstorm development.`;
+        return `<strong>Rapid fall</strong>${rateSuffix} — often signals an approaching storm system or strengthening low pressure nearby.`;
+      }
+      if (unstable) return `<strong>Steady fall</strong>${rateSuffix} with <strong>${capeLabel}</strong> instability in place — watch for afternoon storms.`;
       return `<strong>Steady fall</strong>${rateSuffix} — conditions are trending toward more unsettled weather.`;
     }
     if (trend.label === 'Rising') {
+      const risePrefix = rate >= 0.06 ? 'Rapid rise' : 'Steady rise';
+      if (veryUnstable) return `<strong>${risePrefix}</strong>${rateSuffix} — but strong instability remains (${capeLabel} CAPE), so isolated storms are still possible before it fully clears.`;
       if (rate >= 0.06) return `<strong>Rapid rise</strong>${rateSuffix} — usually means a system is clearing out and skies should improve.`;
       return `<strong>Steady rise</strong>${rateSuffix} — fair weather building in.`;
     }
+    if (veryUnstable) return `<strong>Steady</strong>${rateSuffix} pressure, but <strong>${capeLabel}</strong> instability is in place — afternoon storms possible if a trigger arrives.`;
     return `<strong>Steady</strong>${rateSuffix} — no major pressure-driven change expected in the short term.`;
   }
 
@@ -7981,40 +7979,27 @@ const THEMES = {
     }
     const pLevel = getPressureLevelNote(data.pressure);
 
-    // CAPE (from Open-Meteo, see fetchOpenMeteoCape) -- a model estimate,
-    // not a station sensor reading, so it's kept as its own currentCape
-    // variable rather than folded into `data`.
-    const capeVal = currentCape ? currentCape.value : null;
-    const capeCat = getCapeRiskCategory(capeVal);
-    // a falling barometer *and* meaningful instability together is a
-    // stronger storm-development signal than either alone -- surface that
-    // combo, but only when both are actually saying something, so a calm
-    // day doesn't get a noisy note.
-    const capeStormHint = (primaryTrend && primaryTrend.label === 'Falling' && capeVal !== null && capeVal >= 1000)
-      ? ' Falling pressure with rising instability — watch for thunderstorm development.'
-      : '';
-
     const pressureCard = document.createElement('div');
     pressureCard.className = 'card combo-card pressure-card';
+    const capeCat = getCapeCategory(data.cape);
     pressureCard.innerHTML = `
       <div class="priority-card-head">
         <div class="priority-icon"><img src="icons/barometer.svg" alt=""></div>
         <div class="priority-heading">Pressure</div>
+        <span class="priority-subheading">Storm potential</span>
       </div>
-      <div class="pressure-metrics-row">
-        <div class="pressure-metric">
-          <div class="pressure-priority-row">
-            <div class="value priority-value">${formatVal(data.pressure, 2)}<span class="unit">inHg</span></div>
-            ${primaryTrend ? `<span class="pressure-trend ${primaryTrend.className}">${primaryTrend.arrow}</span>` : ''}
-          </div>
-          <span class="pressure-metric-label">${primaryTrend ? primaryTrend.label : 'Pressure'}</span>
-        </div>
-        <div class="pressure-metric">
-          <div class="value priority-value">${capeVal !== null ? formatVal(capeVal, 0) : '--'}<span class="unit">J/kg</span></div>
-          <span class="pressure-metric-label" style="color: ${capeCat.color};">CAPE · ${capeCat.label}</span>
-        </div>
+      <div class="glance-row priority-glance-row pressure-glance-row">
+         <div class="glance-col glance-primary">
+            <div class="label">Pressure</div>
+            <div class="value priority-value">${formatVal(data.pressure, 2)}<span class="unit">inHg</span>${primaryTrend ? `<span class="pressure-trend ${primaryTrend.className}">${primaryTrend.arrow}</span>` : ''}</div>
+         </div>
+         <div class="glance-col">
+            <div class="label">CAPE</div>
+            <div class="value priority-value">${data.cape != null ? formatVal(data.cape, 0) : '--'}<span class="unit">J/kg</span></div>
+            <span class="cape-badge" style="background:${capeCat.color}26; color:${capeCat.color};">${capeCat.label}</span>
+         </div>
       </div>
-      <div class="storm-note compact-storm-note">${getStormPotentialNote(primaryTrend, trendRateHtml)}${capeStormHint}</div>
+      <div class="storm-note compact-storm-note">${getStormPotentialNote(primaryTrend, trendRateHtml, data.cape)}</div>
     `;
     gridLeft.appendChild(pressureCard);
     makeCardExpandable(pressureCard, 'pressure', 'more pressure data', (panel) => {
@@ -8037,17 +8022,16 @@ const THEMES = {
           ]
         },
         {
-          title: 'CAPE (modeled, not sensor-measured)',
+          title: 'CAPE (instability)',
           rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">Current</span><span class="extra-data-value">${capeVal !== null ? formatVal(capeVal, 0) + ' J/kg' : '--'}</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Category</span><span class="extra-data-value" style="color: ${capeCat.color};">${capeCat.label}</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Marginal</span><span class="extra-data-value">300 – 1,000 J/kg</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Slight</span><span class="extra-data-value">1,000 – 2,500 J/kg</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Moderate</span><span class="extra-data-value">2,500 – 3,500 J/kg</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">High / Extreme</span><span class="extra-data-value">3,500+ J/kg</span></div>`
+            `<div class="extra-data-row"><span class="extra-data-label">Current</span><span class="extra-data-value">${data.cape != null ? formatVal(data.cape, 0) + ' J/kg' : '--'}</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Weak</span><span class="extra-data-value">100 – 1,000 J/kg</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Moderate</span><span class="extra-data-value">1,000 – 2,500 J/kg</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Strong</span><span class="extra-data-value">2,500 – 4,000 J/kg</span></div>`,
+            `<div class="extra-data-row"><span class="extra-data-label">Extreme</span><span class="extra-data-value">4,000+ J/kg</span></div>`
           ]
         }
-      ], "CAPE is a modeled estimate from Open-Meteo for the nearest forecast grid cell — not a direct sensor measurement like the pressure reading above.");
+      ], 'CAPE is modeled (HRRR via Open-Meteo, updated hourly), not sensor-measured — it estimates how much energy is available for updrafts if a storm gets triggered, not whether one will.');
     });
 
     // 4. precipitation card -- same card slot either way (unlike the
@@ -8752,13 +8736,15 @@ const THEMES = {
     const aqUrl = `data/air_quality.json?t=${Date.now()}`;
     const alertUrl = `data/alerts.json?t=${Date.now()}`;
     const auroraUrl = `data/aurora.json?t=${Date.now()}`;
+    const capeUrl = `data/cape.json?t=${Date.now()}`;
     const wuUrl = `${WU_BACKUP_URL}?t=${Date.now()}`;
 
-    const [res, aqRes, alertRes, auroraRes, wuRes] = await Promise.all([
+    const [res, aqRes, alertRes, auroraRes, capeRes, wuRes] = await Promise.all([
       fetch(url, { cache: 'no-store' }),
       fetch(aqUrl, { cache: 'no-store' }).catch(() => null),
       fetch(alertUrl, { cache: 'no-store' }).catch(() => null),
       fetch(auroraUrl, { cache: 'no-store' }).catch(() => null),
+      fetch(capeUrl, { cache: 'no-store' }).catch(() => null),
       fetch(wuUrl, { cache: 'no-store' }).catch(() => null),
     ]);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -8792,6 +8778,16 @@ const THEMES = {
     if (auroraRes && auroraRes.ok) {
       currentAurora = await auroraRes.json();
       updateSkyBadges();
+    }
+    if (capeRes && capeRes.ok) {
+      try {
+        const capeData = await capeRes.json();
+        // only pull the one field the tile uses -- same reasoning as the
+        // AQI merge above, avoid a blanket Object.assign in case future
+        // fields in cape.json (model run time, lat/lon, etc.) ever collide
+        // with an existing data.* key.
+        if (capeData.cape !== undefined) data.cape = capeData.cape;
+      } catch (e) { /* leave data.cape unset -- card falls back to '--' */ }
     }
     let alerts = [];
     if (alertRes && alertRes.ok) {
@@ -8833,7 +8829,6 @@ const THEMES = {
         },
         usgs: currentUsgs,
         riverMax: getTodayMaxRiver(usgsHistory),
-        cape: currentCape,
         savedAt: Date.now(),
       }));
     } catch (e) {}
@@ -9057,7 +9052,6 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
         cachedTodaysExtremes = cached.todaysExtremes || null;
         cachedRiverMax = cached.riverMax || null;
         if (cached.usgs) currentUsgs = cached.usgs;
-        if (cached.cape) currentCape = cached.cape;
         renderCards(cached.data);
         renderAlertBanners(cached.alerts || []);
         currentPointAlerts = cached.alerts || [];
@@ -9087,8 +9081,6 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
   initRadarMap();
   fetchUsgsGauge();
   setInterval(fetchUsgsGauge, USGS_REFRESH_INTERVAL_MS);
-  fetchOpenMeteoCape();
-  setInterval(fetchOpenMeteoCape, CAPE_REFRESH_INTERVAL_MS);
   loadVisitorCount();
   initNwsTabs();
   loadNwsProducts();
