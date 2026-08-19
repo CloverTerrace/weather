@@ -5060,7 +5060,7 @@ svg circle, svg polygon, svg line {
 
   <div class="camera-card">
     <h2>Station Camera</h2>
-    <img id="camera-img" src="data/camera.jpg" alt="Latest snapshot from the weather station camera">
+    <img id="camera-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
   </div>
     
   <div class="camera-card">
@@ -5313,7 +5313,7 @@ svg circle, svg polygon, svg line {
 
   <div id="camera-lightbox" class="camera-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Station camera photo">
     <button id="camera-lightbox-close" class="camera-lightbox-close" type="button" aria-label="Close station camera photo">&times;</button>
-    <img id="camera-lightbox-img" src="data/camera.jpg" alt="Latest snapshot from the weather station camera">
+    <img id="camera-lightbox-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
   </div>
 
   <div id="status" aria-live="polite"></div>
@@ -8310,7 +8310,7 @@ const THEMES = {
 
     // renderCards() rebuilds the weather grid every refresh. If the camera was
     // already living in that grid on desktop, put the same node back after
-    // the sensor cards are rebuilt. This preserves its event listeners and
+    // the sensor cards are rebuilt. this preserves its event listeners and
     // prevents the desktop camera from disappearing until a breakpoint
     // resize happens.
     if (desktopCameraTile && window.matchMedia('(min-width: 851px)').matches) {
@@ -8849,7 +8849,7 @@ const THEMES = {
 
     const cameraImg = document.getElementById('camera-img');
     if (cameraImg) {
-      cameraImg.src = `data/camera.jpg?t=${Date.now()}`;
+      cameraImg.src = `https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg?t=${Date.now()}`;
     }
   } catch (err) {
     errorBanner.textContent = `Couldn't load weather data: ${err.message}`;
