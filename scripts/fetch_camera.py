@@ -23,6 +23,8 @@ import urllib.error
 APP_KEY = os.environ.get("ECOWITT_APP_KEY")
 API_KEY = os.environ.get("ECOWITT_API_KEY")
 MAC = os.environ.get("ECOWITT_MAC")
+CLOUDRUN_URL = os.environ.get("CLOUDRUN_CAMERA_URL")
+CAMERA_UPLOAD_TOKEN = os.environ.get("CAMERA_UPLOAD_TOKEN")
 
 if not APP_KEY or not API_KEY or not MAC:
     print("ERROR: ECOWITT_APP_KEY, ECOWITT_API_KEY, and ECOWITT_MAC must be set.", file=sys.stderr)
@@ -98,6 +100,31 @@ def main():
 
     print(f"Saved data/camera.jpg ({len(image_bytes)} bytes)")
 
+    # Upload the same camera image to Cloud Run
+    if not CLOUDRUN_URL or not CAMERA_UPLOAD_TOKEN:
+        print("WARNING: Cloud Run camera secrets are not configured; skipping Cloud Run upload.")
+    else:
+        upload_url = CLOUDRUN_URL.rstrip("/") + "/camera/upload"
+
+        try:
+            upload_req = urllib.request.Request(
+                upload_url,
+                data=image_bytes,
+                method="PUT",
+                headers={
+                    "Authorization": f"Bearer {CAMERA_UPLOAD_TOKEN}",
+                    "Content-Type": "image/jpeg",
+                },
+            )
+
+            with urllib.request.urlopen(upload_req, timeout=20) as upload_resp:
+                upload_result = upload_resp.read().decode("utf-8", errors="replace")
+
+            print(f"Cloud Run upload successful: {upload_result}")
+
+        except Exception as e:
+            print(f"ERROR uploading camera image to Cloud Run: {e}", file=sys.stderr)
+            sys.exit(1)
 
 if __name__ == "__main__":
     main()
