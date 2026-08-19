@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T05:41:02.107590Z",
+  "generatedAt": "2026-08-19T05:45:58.706261Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -41,5 +41,48 @@
       "office": "SPC"
     }
   ],
-  "statements": []
+  "statements": [
+    {
+      "id": "51923a75-d036-455f-986c-a71dd32084ce",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-08-19T05:38:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... The combination of still saturated grounds and higher",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... The combination of still saturated grounds and higher",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 138 AM EDT Wed Aug 19 2026 .WHAT HAS CHANGED... The combination of still saturated grounds and higher probabilities for heavy rain has raised the risk for localized Flash Flooding overnight tonight into Thursday."
+        }
+      ],
+      "url": "https://api.weather.gov/products/51923a75-d036-455f-986c-a71dd32084ce"
+    },
+    {
+      "id": "8f2f85d5-a4cf-4f72-a8eb-ee132f5c2da7",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-08-19T05:37:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Today and tonight. There is potential for a narrow corridor of training storms producing locally heavy rain overnight tonight that could result in flash",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. There is potential for a narrow corridor of training storms producing locally heavy rain overnight tonight that could result in flash flooding, especially if it occurs over areas with still saturated grounds. If confidence increases in a more widespread flash flood threat and confidence in location of that corridor, a Flood Watch may be needed.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. There is potential for a narrow corridor of training storms producing locally heavy rain overnight tonight that could result in flash flooding, especially if it occurs over areas with still saturated grounds. If confidence increases in a more widespread flash flood threat and confidence in location of that corridor, a Flood Watch may be needed."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Thursday through Tuesday. Lingering heavy rain Thursday morning could maintain the marginal Flood Risk before exiting the region by Thursday evening. The probability for widespread hazardous weather thereafter is low."
+        }
+      ],
+      "url": "https://api.weather.gov/products/8f2f85d5-a4cf-4f72-a8eb-ee132f5c2da7"
+    }
+  ]
 }
