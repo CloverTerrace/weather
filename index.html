@@ -4542,18 +4542,18 @@ svg circle, svg polygon, svg line {
 
     .desktop-left-rail #grid.grid .pressure-card .storm-note {
       margin-top: 0;
-      margin-bottom: auto;
+      margin-bottom: 0;
       max-width: 92%;
-      font-size: clamp(0.58rem, 2.05cqw, 0.68rem);
-      line-height: 1.18;
+      font-size: clamp(0.56rem, 2cqw, 0.64rem);
+      line-height: 1.16;
     }
 
     .desktop-left-rail #grid.grid .pressure-card .pressure-cape-spark {
-      margin-top: clamp(0.35rem, 1.6cqw, 0.55rem);
+      margin-top: clamp(0.3rem, 1.4cqw, 0.5rem);
     }
 
     .desktop-left-rail #grid.grid .pressure-card .pc-sparkline {
-      height: clamp(22px, 8cqw, 30px);
+      height: clamp(18px, 7cqw, 28px);
     }
 
     /* the card-level "Pressure & CAPE" title is redundant on desktop --
@@ -4573,8 +4573,30 @@ svg circle, svg polygon, svg line {
       display: none;
     }
 
+    /* .storm-note used to carry `margin-bottom: auto` to push itself to
+       the bottom of the tile. Auto margins only claim POSITIVE free
+       space, though, so that one rule was silently doing two different
+       (and both wrong) things depending on how much room was left:
+       - plenty of room (typical desktop): the auto margin soaked up
+         all of it and dumped it below the note, which left the block
+         flush against the tile's top edge with no breathing room --
+         that's why the pressure value looked like it was falling off
+         the top of the tile.
+       - not enough room (narrow desktop): free space goes negative,
+         so the auto margin collapses to 0 and .card-flip-front's base
+         `justify-content: center` takes back over, centering a
+         too-tall block inside a fixed-height box -- clipped evenly off
+         the top AND bottom by overflow: hidden. That's the sliced-off
+         "PRESSURE" label and the vanished last line of the note.
+       Replacing that with a real, fixed anchor fixes both: top-align
+       the block (justify-content: flex-start) at a small offset that
+       lines up with the title row on every other tile, and let that
+       offset itself ease down as the tile narrows (cqw) so the
+       narrowest tiles hand the space back to the content instead of
+       burning it on alignment they don't have room for. */
     .desktop-left-rail #grid.grid .pressure-card .card-flip-front {
-      padding-top: 0;
+      justify-content: flex-start;
+      padding-top: clamp(0.5rem, 3cqw, 0.8rem);
     }
 
     .desktop-left-rail #grid.grid .precip-card .label {
@@ -5792,28 +5814,28 @@ svg circle, svg polygon, svg line {
     const capeLabel = hasCape ? getCapeCategory(cape).label.toLowerCase() : '';
 
     if (!trend || trend.deltaPerHour === null || trend.deltaPerHour === undefined || isNaN(trend.deltaPerHour)) {
-      if (veryUnstable) return `Not enough recent pressure history yet to read a trend, but the atmosphere is <strong>${capeLabel}ly unstable</strong> (${formatVal(cape, 0)} J/kg) — worth watching this afternoon.`;
-      return 'Not enough recent pressure history yet to read a trend.';
+      if (veryUnstable) return `No trend yet, but <strong>${capeLabel}ly unstable</strong> air (${formatVal(cape, 0)} J/kg) — worth watching.`;
+      return 'Not enough pressure history yet for a trend.';
     }
 
     const rate = Math.abs(trend.deltaPerHour);
 
     if (trend.label === 'Falling') {
       if (rate >= 0.06) {
-        if (unstable) return `<strong>Rapid fall</strong>${rateSuffix} with <strong>${capeLabel}</strong> instability — a good setup for thunderstorm development.`;
-        return `<strong>Rapid fall</strong>${rateSuffix} — often signals an approaching storm system or strengthening low pressure nearby.`;
+        if (unstable) return `<strong>Rapid fall</strong>${rateSuffix} + <strong>${capeLabel}</strong> instability — good storm setup.`;
+        return `<strong>Rapid fall</strong>${rateSuffix} — storm system likely approaching.`;
       }
-      if (unstable) return `<strong>Steady fall</strong>${rateSuffix} with <strong>${capeLabel}</strong> instability in place — watch for afternoon storms.`;
-      return `<strong>Steady fall</strong>${rateSuffix} — conditions are trending toward more unsettled weather.`;
+      if (unstable) return `<strong>Falling</strong>${rateSuffix} + <strong>${capeLabel}</strong> instability — watch for storms.`;
+      return `<strong>Falling</strong>${rateSuffix} — turning more unsettled.`;
     }
     if (trend.label === 'Rising') {
-      const risePrefix = rate >= 0.06 ? 'Rapid rise' : 'Steady rise';
-      if (veryUnstable) return `<strong>${risePrefix}</strong>${rateSuffix} — but strong instability remains (${capeLabel} CAPE), so isolated storms are still possible before it fully clears.`;
-      if (rate >= 0.06) return `<strong>Rapid rise</strong>${rateSuffix} — usually means a system is clearing out and skies should improve.`;
-      return `<strong>Steady rise</strong>${rateSuffix} — fair weather building in.`;
+      const risePrefix = rate >= 0.06 ? 'Rapid rise' : 'Rising';
+      if (veryUnstable) return `<strong>${risePrefix}</strong>${rateSuffix} — but <strong>${capeLabel}</strong> CAPE remains, isolated storms possible.`;
+      if (rate >= 0.06) return `<strong>Rapid rise</strong>${rateSuffix} — system clearing, skies improving.`;
+      return `<strong>Rising</strong>${rateSuffix} — fair weather building.`;
     }
-    if (veryUnstable) return `<strong>Steady</strong>${rateSuffix} pressure, but <strong>${capeLabel}</strong> instability is in place — afternoon storms possible if a trigger arrives.`;
-    return `<strong>Steady</strong>${rateSuffix} — no major pressure-driven change expected in the short term.`;
+    if (veryUnstable) return `<strong>Steady</strong>${rateSuffix}, but <strong>${capeLabel}</strong> instability — storms possible with a trigger.`;
+    return `<strong>Steady</strong>${rateSuffix} — no major change expected.`;
   }
 
   // gets official descriptive text for AQI
