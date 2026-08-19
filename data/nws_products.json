@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T17:46:10.710209Z",
+  "generatedAt": "2026-08-19T17:51:03.637139Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -41,5 +41,67 @@
       "office": "SPC"
     }
   ],
-  "statements": []
+  "statements": [
+    {
+      "id": "01d2002f-1202-4e02-a18b-a8acf3d9f678",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-08-19T17:49:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Saturated grounds and higher probabilities for heavy rain have",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Saturated grounds and higher probabilities for heavy rain have",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 149 PM EDT Wed Aug 19 2026 .WHAT HAS CHANGED... Saturated grounds and higher probabilities for heavy rain have raised the risk for localized flash flooding tonight into Thursday. A Flood Watch is now in effect."
+        }
+      ],
+      "url": "https://api.weather.gov/products/01d2002f-1202-4e02-a18b-a8acf3d9f678"
+    },
+    {
+      "id": "c4875830-f356-4fce-9ab5-33e88f1f73cc",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-08-19T17:48:00+00:00",
+      "expires": null,
+      "location": "Columbiana-Mercer-Venango-Forest-Lawrence-Butler-Clarion-Jefferson PA-Beaver-Allegheny-Armstrong-Westmoreland-Higher Elevations of Westmoreland-Fayette",
+      "hazard": "This afternoon and tonight. The probability for widespread hazardous weather is low.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "This afternoon and tonight. The probability for widespread hazardous weather is low.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "This afternoon and tonight. The probability for widespread hazardous weather is low."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Thursday through Tuesday. The probability for widespread hazardous weather is low."
+        }
+      ],
+      "url": "https://api.weather.gov/products/c4875830-f356-4fce-9ab5-33e88f1f73cc"
+    },
+    {
+      "id": "c9c4fd92-8b14-4bb9-becb-ec3683f0ceb5",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-08-19T17:46:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Saturated grounds and higher probabilities for heavy rain have",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Saturated grounds and higher probabilities for heavy rain have",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 146 PM EDT Wed Aug 19 2026 .WHAT HAS CHANGED... Saturated grounds and higher probabilities for heavy rain have raised the risk for localized flash flooding tonight into Thursday. A Flood Watch is now in effect."
+        }
+      ],
+      "url": "https://api.weather.gov/products/c9c4fd92-8b14-4bb9-becb-ec3683f0ceb5"
+    }
+  ]
 }
