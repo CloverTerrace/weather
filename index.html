@@ -6181,6 +6181,17 @@ svg circle, svg polygon, svg line {
         plugins: { legend: { labels: { color: '#4c4f4f' } } },
       },
     });
+
+    // every other chart tab gets this same nudge the moment its tab is
+    // first clicked (see initChartTabs() below) -- because Chart.js can
+    // render at the wrong size if its container's layout hasn't fully
+    // settled at the exact moment it's constructed. Temp & Humidity is
+    // the one tab that's active by default, so it never receives a
+    // click, and until now never got the nudge either -- it just stayed
+    // stuck at whatever size it happened to measure on page load until
+    // the user switched tabs and back (which triggers this exact same
+    // fix, just accidentally, via the click handler on the OTHER tab).
+    setTimeout(() => historyChart.resize(), 50);
   }
 
   function renderWindChart(history) {
