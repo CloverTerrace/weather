@@ -4589,14 +4589,57 @@ svg circle, svg polygon, svg line {
          the top AND bottom by overflow: hidden. That's the sliced-off
          "PRESSURE" label and the vanished last line of the note.
        Replacing that with a real, fixed anchor fixes both: top-align
-       the block (justify-content: flex-start) at a small offset that
-       lines up with the title row on every other tile, and let that
-       offset itself ease down as the tile narrows (cqw) so the
-       narrowest tiles hand the space back to the content instead of
-       burning it on alignment they don't have room for. */
+       the block (justify-content: flex-start) at a fixed offset. The
+       1.1rem here isn't arbitrary -- it's what actually lines the
+       "PRESSURE" label's text up with the OTHER tiles' title text:
+       their .priority-card-head sits at top: 0.8rem with a 1.35rem
+       min-height row, so its text sits vertically centered around
+       ~1.475rem from the card's top edge; the label here (a shorter,
+       single line of the same font) needs roughly 1.1rem of top
+       offset for its own text to land at that same line. This offset
+       is only safe to use once there's enough height to spare --
+       see the @container override below for what happens when there
+       isn't. */
     .desktop-left-rail #grid.grid .pressure-card .card-flip-front {
       justify-content: flex-start;
-      padding-top: clamp(0.5rem, 3cqw, 0.8rem);
+      padding-top: 1.1rem;
+    }
+
+    /* below ~250px the Pressure/CAPE columns stack into two full
+       label+value rows instead of sitting side by side (see the
+       un-scoped @container rule above) -- which roughly doubles that
+       section's height. Below this width there just isn't room to
+       both line the label up with the other tiles' titles AND fit
+       the sparkline + full storm note without clipping, so this tier
+       prioritizes actually fitting the content: the top offset eases
+       most of the way back down, and the stacked rows' own spacing
+       (label margins, row gap, sparkline margin, note's divider
+       padding) all get tightened too, since at this width every one
+       of those small paddings is competing directly with the storm
+       note for the same shrinking budget. */
+    @container card (max-width: 250px) {
+      .desktop-left-rail #grid.grid .pressure-card .card-flip-front {
+        padding-top: 0.5rem;
+      }
+
+      .desktop-left-rail #grid.grid .pressure-card .pressure-glance-row {
+        gap: 0.2rem;
+      }
+
+      .desktop-left-rail #grid.grid .pressure-card .glance-col .label {
+        margin-bottom: 0.1rem;
+      }
+
+      .desktop-left-rail #grid.grid .pressure-card .pressure-cape-spark {
+        margin-top: 0.25rem;
+      }
+
+      .desktop-left-rail #grid.grid .pressure-card .storm-note {
+        padding-top: 0.3rem;
+        border-top: none;
+        font-size: 0.53rem;
+        line-height: 1.1;
+      }
     }
 
     .desktop-left-rail #grid.grid .precip-card .label {
