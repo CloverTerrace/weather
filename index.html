@@ -927,8 +927,8 @@
   }
 
   .pressure-card .pressure-trend {
-    font-size: 1.8rem;
-    margin-left: 0;
+    font-size: 1.3rem;
+    margin-left: 0.15em;
   }
 
   .pressure-card .pressure-trend .meteocon {
@@ -940,6 +940,31 @@
   .trend-rising  { color: #6fcf97; }
   .trend-falling { color: #ff7e67; }
   .trend-steady  { color: var(--muted-color); }
+
+  /* shared pressure+CAPE sparkline strip, replacing the old per-column
+     CAPE category badge -- both metrics' recent trend now reads off
+     this one strip instead of separate text. */
+  .pressure-cape-spark {
+    width: 100%;
+    margin-top: 0.55rem;
+  }
+
+  .pc-sparkline {
+    display: block;
+    width: 100%;
+    height: 32px;
+  }
+
+  .pc-spark-line {
+    fill: none;
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .pc-spark-pressure { stroke: var(--accent-color); }
+  .pc-spark-cape { stroke: #ffb347; opacity: 0.85; }
 
   /* ---------- "at a glance" priority row (temp / feels like / dew point) ---------- */
   .glance-row {
@@ -3467,13 +3492,20 @@ svg circle, svg polygon, svg line {
     .priority-value { font-size: 1.7rem !important; }
   }
 
-  /* .pressure-priority-row is deliberately left OUT of this stack-to-column
-     rule (unlike wind/lightning, which genuinely need the extra vertical
-     room for a compass or a second metric). pressure is just a value next
-     to a trend arrow -- stacking it broke the "arrow next to the value"
-     layout on every card narrower than 250px, which is the normal tile
-     width on the desktop grid, so the arrow was dropping onto its own line
-     and pushing the value off-center on essentially every desktop view. */
+  /* .pressure-priority-row (the old single-value pressure layout, still
+     used elsewhere in this stylesheet's history/comments below) is
+     deliberately left OUT of this stack-to-column rule -- unlike
+     wind/lightning, that row is just a value next to a trend arrow, and
+     stacking it broke the "arrow next to the value" layout on every card
+     narrower than 250px, which is the normal tile width on the desktop
+     grid. .pressure-glance-row is a different element (the newer
+     Pressure+CAPE combo row) and does NOT carry that exemption -- it's
+     two full value+unit+arrow blocks fighting for half-width columns,
+     which is exactly what was going cut off/clipped on narrow desktop
+     tiles (confirmed: at a 131px-wide tile the two-column layout needed
+     ~155px+ just for the pressure side alone). Stacking it here, the
+     same way wind/lightning already do, gives each value the tile's
+     full width instead of a half. */
   @container card (max-width: 250px) {
     .wind-priority-row,
     .lightning-priority-row {
@@ -3482,6 +3514,39 @@ svg circle, svg polygon, svg line {
     }
 
     .priority-compass { flex-basis: auto; }
+
+    .pressure-glance-row {
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .pressure-glance-row .glance-col {
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .pressure-glance-row .glance-col + .glance-col {
+      border-left: none;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-left: 0;
+      padding-top: 0.4rem;
+    }
+  }
+
+  /* below ~190px the combo tile has both a card-level heading ("Pressure
+     & CAPE") and a per-column "Pressure" label directly beneath it --
+     redundant and, at this size, close enough vertically to visually
+     run together. The per-column labels already identify each value on
+     their own at this width, so the heading text (not the icon) is
+     dropped here to give the two stacked values more breathing room. */
+  @container card (max-width: 190px) {
+    .pressure-card .priority-heading {
+      display: none;
+    }
+
+    .pressure-card .priority-card-head {
+      margin-bottom: 0.3rem;
+    }
   }
 
   @media (max-width: 480px) {
@@ -3504,6 +3569,13 @@ svg circle, svg polygon, svg line {
 
     #grid.grid .priority-value {
       font-size: 1.85rem !important;
+    }
+
+    /* same reasoning as the desktop override above -- the Pressure/CAPE
+       combo tile needs a smaller floor than a single-value card at this
+       width, or the stacked values overflow a narrow phone's tile. */
+    #grid.grid .pressure-card .pressure-glance-row .priority-value {
+      font-size: 1.5rem !important;
     }
   }
 
@@ -3542,7 +3614,7 @@ svg circle, svg polygon, svg line {
 
   .pressure-glance-row {
     gap: 0.85rem;
-    margin-top: 0.3rem;
+    margin-top: 0.1rem;
   }
 
   .pressure-glance-row .glance-col {
@@ -3554,37 +3626,24 @@ svg circle, svg polygon, svg line {
     padding-left: 1rem;
   }
 
-  /* keeps the Pressure column's value vertically aligned with CAPE's
-     (which has a real "CAPE" label above it) without actually showing a
-     second "Pressure" label -- redundant with the card's own heading. */
-  .pressure-glance-row .glance-label-spacer {
-    visibility: hidden;
-  }
-
   /* CAPE pairs a 4-digit value with a longer unit ("J/kg" vs inHg's
      shorter neighbors elsewhere on the grid) inside a half-width column --
      at the site-wide .priority-value size that combination doesn't fit on
      one line and the unit wraps underneath, breaking the two-column
      layout and misaligning it against Pressure's own value. Sized down
      specifically for this row (not a global .priority-value change) and
-     pinned to one line as a hard guarantee. */
+     pinned to one line as a hard guarantee. Also given breathing room on
+     the right (the trend arrow used to be the widest element in this
+     column, forcing font-size down further than the digits alone need)
+     now that the arrow itself is smaller.
+  */
   .pressure-glance-row .priority-value {
-    font-size: clamp(1.35rem, 7.5vw, 1.85rem) !important;
+    font-size: clamp(1.4rem, 6.8vw, 1.85rem) !important;
     white-space: nowrap;
   }
 
   .pressure-glance-row .unit {
     font-size: 0.78em;
-  }
-
-  .cape-badge {
-    display: inline-block;
-    margin-top: 0.25rem;
-    font-size: 0.62rem;
-    font-weight: 600;
-    padding: 0.1rem 0.5rem;
-    border-radius: 999px;
-    white-space: nowrap;
   }
 
   @media (max-width: 480px) {
@@ -4386,6 +4445,17 @@ svg circle, svg polygon, svg line {
       line-height: 1.05;
     }
 
+    /* the site-wide rule right above sizes off the whole card's width,
+       which is exactly right for a card with one value taking the full
+       tile -- but the Pressure/CAPE combo tile has two, so it needs its
+       own smaller floor/ceiling here to actually fit (this is what was
+       still clipping in narrow desktop tiles: the rule above was winning
+       on specificity over the card-local one, and 8.5cqw hits a much
+       higher floor than 132px-wide tiles actually have room for). */
+    .desktop-left-rail #grid.grid .pressure-card .pressure-glance-row .priority-value {
+      font-size: clamp(1.05rem, 7.5cqw, 1.55rem) !important;
+    }
+
     /* glance-row columns (temperature's Feels Like / Dew Point) are
        peer "current" values -- every column carries .priority-value
        alongside .value, so they inherit the rule directly above and
@@ -4467,7 +4537,7 @@ svg circle, svg polygon, svg line {
     .desktop-left-rail #grid.grid .wind-card .priority-compass { display: none; }
 
     .desktop-left-rail #grid.grid .pressure-card .pressure-trend {
-      font-size: clamp(1.05rem, 5.5cqw, 1.4rem) !important;
+      font-size: clamp(0.8rem, 3.4cqw, 1rem) !important;
     }
 
     .desktop-left-rail #grid.grid .pressure-card .storm-note {
@@ -4476,6 +4546,14 @@ svg circle, svg polygon, svg line {
       max-width: 92%;
       font-size: clamp(0.58rem, 2.05cqw, 0.68rem);
       line-height: 1.18;
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .pressure-cape-spark {
+      margin-top: clamp(0.35rem, 1.6cqw, 0.55rem);
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .pc-sparkline {
+      height: clamp(22px, 8cqw, 30px);
     }
 
     .desktop-left-rail #grid.grid .precip-card .label {
@@ -5597,6 +5675,7 @@ svg circle, svg polygon, svg line {
   let riverChart = null;
   let isRefreshing = false;
   let fullHistory = [];
+  let capeHistory = [];
 
   // cards the user has tapped open -- renderCards() rebuilds the whole
   // grid every refresh cycle, so this tracks expand state across that
@@ -5885,6 +5964,81 @@ svg circle, svg polygon, svg line {
     if (delta >= PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-high.svg" class="meteocon" alt="Rising">', label: 'Rising', className: 'trend-rising', delta, deltaPerHour };
     if (delta <= -PRESSURE_TREND_THRESHOLD) return { arrow: '<img src="icons/pressure-low.svg" class="meteocon" alt="Falling">', label: 'Falling', className: 'trend-falling', delta, deltaPerHour };
     return { arrow: '→', label: 'Steady', className: 'trend-steady', delta, deltaPerHour };
+  }
+
+  // CAPE's own trend arrow -- same windowed-delta approach as pressure's
+  // trend above (reuses that function's shape, just a CAPE-scaled
+  // threshold and plain arrow glyphs instead of the pressure meteocons,
+  // since there's no "rising/falling instability" icon set to reach for).
+  const CAPE_TREND_WINDOW_HOURS = 3;
+  const CAPE_TREND_THRESHOLD = 250; // J/kg change over the window
+
+  function getCapeTrend(history) {
+    if (!history || history.length < 2) return null;
+    const latest = history[history.length - 1];
+    if (!latest || latest.cape === undefined || latest.cape === null) return null;
+
+    const targetTime = Date.now() - CAPE_TREND_WINDOW_HOURS * 60 * 60 * 1000;
+    let closest = null;
+    let closestDiff = Infinity;
+    history.forEach(entry => {
+      if (entry.cape === undefined || entry.cape === null) return;
+      const diff = Math.abs(new Date(entry.time).getTime() - targetTime);
+      if (diff < closestDiff) {
+        closestDiff = diff;
+        closest = entry;
+      }
+    });
+    if (!closest) return null;
+
+    const delta = latest.cape - closest.cape;
+    const deltaPerHour = delta / CAPE_TREND_WINDOW_HOURS;
+    if (delta >= CAPE_TREND_THRESHOLD) return { arrow: '↑', label: 'Rising', className: 'trend-rising', delta, deltaPerHour };
+    if (delta <= -CAPE_TREND_THRESHOLD) return { arrow: '↓', label: 'Falling', className: 'trend-falling', delta, deltaPerHour };
+    return { arrow: '→', label: 'Steady', className: 'trend-steady', delta, deltaPerHour };
+  }
+
+  // shared pressure+CAPE sparkline strip on the front of the combined tile,
+  // replacing the old per-column CAPE category badge -- both series are
+  // normalized independently (different units/scales) onto the same
+  // height, so each line shows its own recent shape rather than one
+  // series flattening the other out.
+  const PC_SPARK_WINDOW_HOURS = 6;
+
+  function sparklinePoints(history, valueKey, hours) {
+    if (!history || !history.length) return [];
+    const cutoff = Date.now() - hours * 60 * 60 * 1000;
+    return history
+      .filter(e => e[valueKey] !== undefined && e[valueKey] !== null && new Date(e.time).getTime() >= cutoff)
+      .map(e => ({ t: new Date(e.time).getTime(), v: e[valueKey] }))
+      .sort((a, b) => a.t - b.t);
+  }
+
+  function sparklinePath(points, width, height, padding) {
+    if (points.length < 2) return null;
+    const times = points.map(p => p.t);
+    const vals = points.map(p => p.v);
+    const minT = Math.min(...times), maxT = Math.max(...times);
+    const minV = Math.min(...vals), maxV = Math.max(...vals);
+    const spanT = (maxT - minT) || 1;
+    const spanV = (maxV - minV) || 1;
+    const usableH = height - padding * 2;
+    return points.map(p => {
+      const x = ((p.t - minT) / spanT) * width;
+      const y = padding + usableH - ((p.v - minV) / spanV) * usableH;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+  }
+
+  function buildPressureCapeSparkline(pressureHistory, capeHistory) {
+    const W = 300, H = 32, PAD = 3;
+    const pPath = sparklinePath(sparklinePoints(pressureHistory, 'pressure', PC_SPARK_WINDOW_HOURS), W, H, PAD);
+    const cPath = sparklinePath(sparklinePoints(capeHistory, 'cape', PC_SPARK_WINDOW_HOURS), W, H, PAD);
+    if (!pPath && !cPath) return '';
+    return `<svg class="pc-sparkline" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">` +
+      (cPath ? `<polyline points="${cPath}" class="pc-spark-line pc-spark-cape"></polyline>` : '') +
+      (pPath ? `<polyline points="${pPath}" class="pc-spark-line pc-spark-pressure"></polyline>` : '') +
+      `</svg>`;
   }
   
   let currentRangeHours = 24; 
@@ -6242,6 +6396,25 @@ svg circle, svg polygon, svg line {
       }
     } catch (err) {
       console.warn('Could not load history data:', err.message);
+    }
+  }
+
+  // rolling CAPE history (written by fetch_cape.py each workflow run) --
+  // same shape/consumer pattern as loadHistory()/fullHistory above, just
+  // a separate file+array since CAPE refreshes on its own model-run
+  // cadence rather than the station's own sensor cadence.
+  async function loadCapeHistory() {
+    try {
+      const url = `data/cape_history.json?t=${Date.now()}`;
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const history = await res.json();
+      if (Array.isArray(history) && history.length > 0) {
+        capeHistory = history;
+        if (lastWeatherData) renderCards(lastWeatherData);
+      }
+    } catch (err) {
+      console.warn('Could not load CAPE history:', err.message);
     }
   }
 
@@ -7996,23 +8169,24 @@ const THEMES = {
 
     const pressureCard = document.createElement('div');
     pressureCard.className = 'card combo-card pressure-card';
-    const capeCat = getCapeCategory(data.cape);
+    const capeTrend = getCapeTrend(capeHistory);
+    const sparklineHtml = buildPressureCapeSparkline(fullHistory, capeHistory);
     pressureCard.innerHTML = `
       <div class="priority-card-head">
         <div class="priority-icon"><img src="icons/barometer.svg" alt=""></div>
-        <div class="priority-heading">Pressure</div>
+        <div class="priority-heading">Pressure &amp; CAPE</div>
       </div>
       <div class="glance-row priority-glance-row pressure-glance-row">
          <div class="glance-col glance-primary">
-            <div class="label glance-label-spacer" aria-hidden="true">Pressure</div>
+            <div class="label">Pressure</div>
             <div class="value priority-value">${formatVal(data.pressure, 2)}<span class="unit">inHg</span>${primaryTrend ? `<span class="pressure-trend ${primaryTrend.className}">${primaryTrend.arrow}</span>` : ''}</div>
          </div>
          <div class="glance-col">
             <div class="label">CAPE</div>
-            <div class="value priority-value">${data.cape != null ? formatVal(data.cape, 0) : '--'}<span class="unit">J/kg</span></div>
-            <span class="cape-badge" style="background:${capeCat.color}26; color:${capeCat.color};">${capeCat.label}</span>
+            <div class="value priority-value">${data.cape != null ? formatVal(data.cape, 0) : '--'}<span class="unit">J/kg</span>${capeTrend ? `<span class="pressure-trend ${capeTrend.className}">${capeTrend.arrow}</span>` : ''}</div>
          </div>
       </div>
+      ${sparklineHtml ? `<div class="pressure-cape-spark">${sparklineHtml}</div>` : ''}
       <div class="storm-note compact-storm-note">${getStormPotentialNote(primaryTrend, trendRateHtml, data.cape)}</div>
     `;
     gridLeft.appendChild(pressureCard);
@@ -8310,7 +8484,7 @@ const THEMES = {
 
     // renderCards() rebuilds the weather grid every refresh. If the camera was
     // already living in that grid on desktop, put the same node back after
-    // the sensor cards are rebuilt. this preserves its event listeners and
+    // the sensor cards are rebuilt. This preserves its event listeners and
     // prevents the desktop camera from disappearing until a breakpoint
     // resize happens.
     if (desktopCameraTile && window.matchMedia('(min-width: 851px)').matches) {
@@ -8911,6 +9085,7 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
 
     await loadData(true);
     await loadHistory(true);
+    await loadCapeHistory();
     await loadForecast(true);
     refreshOutlookImages();
 
@@ -9075,11 +9250,13 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
 
   loadData();
   loadHistory();
+  loadCapeHistory();
   loadForecast();
   loadThunderstormOutlooks();
   setInterval(loadData, REFRESH_INTERVAL_MS);
   setInterval(updateStatusLine, 15000); 
   setInterval(loadHistory, 5 * 60 * 1000);
+  setInterval(loadCapeHistory, 5 * 60 * 1000);
   setInterval(loadForecast, 30 * 60 * 1000);
   setInterval(refreshOutlookImages, 30 * 60 * 1000);
   initOutlookCarousel();
