@@ -4556,6 +4556,27 @@ svg circle, svg polygon, svg line {
       height: clamp(22px, 8cqw, 30px);
     }
 
+    /* the card-level "Pressure & CAPE" title is redundant on desktop --
+       both values below already carry their own "Pressure"/"CAPE"
+       labels. The title is absolutely positioned, so .card-flip-front
+       (see the shared padding-top: 2.4rem rule above) has no way to
+       know it's there and manually reserves room for it. On the
+       narrower columns of the 3-up desktop rail, that reserved header
+       space on top of two label+value rows, the sparkline, and the
+       storm note added up to more than the square tile actually had
+       height for -- and the overflow was getting silently clipped by
+       .card-flip-front's overflow: hidden (this is what was cutting
+       the storm note off mid-sentence). Dropping the redundant title
+       here and giving its reserved space back to the content fixes the
+       actual overflow instead of just shrinking things further. */
+    .desktop-left-rail #grid.grid .pressure-card .priority-card-head {
+      display: none;
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .card-flip-front {
+      padding-top: 0;
+    }
+
     .desktop-left-rail #grid.grid .precip-card .label {
       position: absolute;
       top: 0.8rem;
