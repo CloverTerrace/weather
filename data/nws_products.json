@@ -1,26 +1,175 @@
 {
-  "generatedAt": "2026-08-19T21:45:58.242457Z",
+  "generatedAt": "2026-08-19T21:51:05.416658Z",
   "watches": [],
-  "mesoscaleDiscussions": [],
-  "statements": [
+  "mesoscaleDiscussions": [
     {
-      "id": "00b626e4-cbcd-4e64-bb02-c331114a8c79",
-      "type": "Flash Flood Watch",
-      "office": "KPBZ",
-      "issued": "2026-08-19T21:16:00+00:00",
-      "expires": null,
-      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
-      "hazard": "WGUS61 KPBZ 192116 Flood Watch",
-      "distanceMiles": null,
-      "headline": "Flash Flood Watch",
-      "summary": "WGUS61 KPBZ 192116 Flood Watch",
+      "id": "MD2044",
+      "number": 2044,
+      "issued": "2026-08-19T20:42:00Z",
+      "expires": "2026-08-19T22:45:00Z",
+      "concerning": "Severe potential...Watch unlikely",
+      "hazard": "Severe potential...Watch unlikely",
+      "areas": "Northwest Kansas",
+      "location": "Northwest Kansas",
+      "distanceMiles": 4123.7,
+      "summary": "An isolated supercell appears possible based on recent satellite trends. Isolated large hail and severe winds are possible should a storm develop. A watch is not likely",
+      "watchProbability": "5 percent",
+      "forecaster": "Wendt/Smith",
       "details": [
         {
-          "label": "Product detail",
-          "text": "000 WGUS61 KPBZ 192116 FFAPBZ Flood Watch 516 PM EDT Wed Aug 19 2026 OHZ039-040-048>050-057>059-068-069-PAZ029-031-WVZ001>004-012-021-509- 200700- /O.CON.KPBZ.FA.A.0017.000000T0000Z-260820T1800Z/"
+          "label": "Summary",
+          "text": "An isolated supercell appears possible based on recent satellite trends. Isolated large hail and severe winds are possible should a storm develop. A watch is not likely"
+        },
+        {
+          "label": "Discussion",
+          "text": "An area of agitated cumulus has developed in northwest Kansas over the last hour along a weak surface cold front. Very weak ascent aloft from a glancing shortwave trough in the central Plains could allow an isolated supercell to develop. Visible satellite trends and some recent CAM guidance would suggest storm initiation is probable, though not certain. The environment would support isolated large hail and severe winds. Given the lack of greater upper-level support, coverage and duration of severe intensity will likely be limited"
+        },
+        {
+          "label": "Watch probability",
+          "text": "5 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH · MOST PROBABLE PEAK HAIL SIZE...1.00-1.75 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Wendt/Smith"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...DDC...GLD"
         }
       ],
-      "url": "https://api.weather.gov/products/00b626e4-cbcd-4e64-bb02-c331114a8c79"
+      "url": "https://www.spc.noaa.gov/products/md/md2044.html",
+      "office": "SPC"
+    },
+    {
+      "id": "MD2043",
+      "number": 2043,
+      "issued": "2026-08-19T20:08:00Z",
+      "expires": "2026-08-19T22:45:00Z",
+      "concerning": "Severe potential...Watch possible",
+      "hazard": "Severe potential...Watch possible",
+      "areas": "parts of east central and southeastern Arizona",
+      "location": "parts of east central and southeastern Arizona",
+      "distanceMiles": 3622.9,
+      "summary": "Thunderstorm activity will continue to slowly increase and spread westward off the higher terrain through 2-4 PM MST. A severe weather watch may be needed at some point, once storms begin to consolidate into an evolving cluster, but this may not be until later this evening",
+      "watchProbability": "40 percent",
+      "forecaster": "Kerr/Smith",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "Thunderstorm activity will continue to slowly increase and spread westward off the higher terrain through 2-4 PM MST. A severe weather watch may be needed at some point, once storms begin to consolidate into an evolving cluster, but this may not be until later this evening"
+        },
+        {
+          "label": "Discussion",
+          "text": "Substantive destabilization is ongoing across much of central and southern Arizona, within a seasonably moist air mass boosted by a recent surge from the Gulf of California. Latest objective analysis indicates that strongest potential instability has become focused to immediate southwest and west of the higher terrain of east central into southeastern Arizona, where inhibition has been eroding most appreciably. As this continues over the next few hours, a slow propagation off the higher terrain straddling the southern Arizona/New Mexico border may commence by 21-23Z, with strong downbursts posing increasing potential for strong to severe surface gusts within a strongly heated and deep mixed boundary-layer. Increasing thunderstorm development closer to the southeastern Arizona international border may also begin to impact the Tucson vicinity"
+        },
+        {
+          "label": "Watch probability",
+          "text": "40 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK WIND GUST...65-80 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Kerr/Smith"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...EPZ...TWC...FGZ...PSR"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2043.html",
+      "office": "SPC"
+    },
+    {
+      "id": "MD2042",
+      "number": 2042,
+      "issued": "2026-08-19T20:00:00Z",
+      "expires": "2026-08-19T22:00:00Z",
+      "concerning": "Severe potential...Watch possible",
+      "hazard": "Severe potential...Watch possible",
+      "areas": "Portions of southern Missouri into far northern Arkansas",
+      "location": "Portions of southern Missouri into far northern Arkansas",
+      "distanceMiles": 580.5,
+      "summary": "The threat for damaging winds, isolated large hail, and perhaps a tornado or two will eventually increase within parts of the Ozarks this afternoon. Timing of storm initiation is not certain, but a watch may eventually be needed",
+      "watchProbability": "60 percent",
+      "forecaster": "Wendt/Smith",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "The threat for damaging winds, isolated large hail, and perhaps a tornado or two will eventually increase within parts of the Ozarks this afternoon. Timing of storm initiation is not certain, but a watch may eventually be needed"
+        },
+        {
+          "label": "Discussion",
+          "text": "As cloud cover from earlier convection has cleared, cumulus agitation is noted in southwest Missouri along a quasi-dryline-like feature. Temperatures to the southwest of this boundary have risen into the low 100s F. Destabilization has occurred to the east of the boundary as well, though some MLCIN is still evident. 35-40 kt of effective shear across this boundary will promote eventual supercell development. Given the majority of the shear exists within the lower half of the troposphere, it is not certain how long a supercell mode will be maintained. Damaging winds, isolated large hail, and perhaps a tornado or two will be possible. A very modest increase in low-level flow during the evening will mean a modest increase in tornado potential should supercell modes exist beyond 00Z. A watch is possible this afternoon, though timing remains uncertain"
+        },
+        {
+          "label": "Watch probability",
+          "text": "60 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...55-70 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Wendt/Smith"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...PAH...MEG...LSX...LZK...SGF...TSA"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2042.html",
+      "office": "SPC"
+    },
+    {
+      "id": "MD2040",
+      "number": 2040,
+      "issued": "2026-08-19T19:29:00Z",
+      "expires": "2026-08-19T22:00:00Z",
+      "concerning": "Severe potential...Watch unlikely",
+      "hazard": "Severe potential...Watch unlikely",
+      "areas": "parts of eastern Mississippi into southern Alabama",
+      "location": "parts of eastern Mississippi into southern Alabama",
+      "distanceMiles": 608.5,
+      "summary": "Increasing thunderstorm development is likely through 5-7 PM CDT, accompanied by localized damaging downbursts and at least a bit more widespread strong, but generally sub-severe, wind gusts. Due to the disorganized and generally localized nature of the more intense gusts, a severe weather watch is not currently anticipated, but trends will be monitored",
+      "watchProbability": "20 percent",
+      "forecaster": "Kerr/Smith",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "Increasing thunderstorm development is likely through 5-7 PM CDT, accompanied by localized damaging downbursts and at least a bit more widespread strong, but generally sub-severe, wind gusts. Due to the disorganized and generally localized nature of the more intense gusts, a severe weather watch is not currently anticipated, but trends will be monitored"
+        },
+        {
+          "label": "Discussion",
+          "text": "Forcing for thunderstorm development remains unclear, but perhaps aided by weak near-surface warm advection, initiation of widely scattered thunderstorms appears underway within a broadly confluent low-level regime across eastern Mississippi into southern Alabama. This is occurring in the presence of light (10 kt or less) north-northwesterly deep-layer mean flow, but thermodynamic profiles characterized by a strongly heated, seasonably high moisture content boundary layer, with steep lower/mid-tropospheric lapse rates of potential wet-bulb temperature. Heavy precipitation loading, coupled with evaporative cooling, may contribute to localized damaging downbursts in the initially more widely scattered strongest storms. Gradually, colliding/intersecting outflow may contribute to increasing thunderstorm development with continuing potential for strong surface gusts into early evening"
+        },
+        {
+          "label": "Watch probability",
+          "text": "20 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Kerr/Smith"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...TAE...BMX...MOB...MEG...JAN"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2040.html",
+      "office": "SPC"
     }
-  ]
+  ],
+  "statements": []
 }
