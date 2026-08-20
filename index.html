@@ -6888,12 +6888,7 @@ svg circle, svg polygon, svg line {
           tileSize: 256,
           opacity: 0,
           zIndex: 10,
-          // RainViewer's free tile API tops out at zoom 7 -- past that it
-          // serves a "Zoom Level Not Supported" placeholder image instead
-          // of a 404, which otherwise shows up baked right into the map.
-          // maxNativeZoom tells Leaflet to stop requesting tiles above z7
-          // and upscale the z7 tile instead, so zooming in further still
-          // works (just blurrier past that point, a real data ceiling).
+          // rainViewer's free tile API tops out at zoom 7, this adds support for further (blurry) zooming
           maxNativeZoom: 7,
         }).addTo(radarMap)
       );
@@ -6913,21 +6908,8 @@ svg circle, svg polygon, svg line {
     }
   }
 
-  // Animated single-site base velocity (N0U) loop from Iowa Environmental
-  // Mesonet's RIDGE archive, for the KPBZ radar -- built the same way the
-  // RainViewer reflectivity loop works, just from a different data source.
-  // IEM doesn't serve a ready-made list of frames like RainViewer does, so
-  // this is a 2-step fetch: first ask its scan-time index which volume
-  // scans exist for KPBZ/N0U in the last ~90 min (NEXRAD volume scans
-  // aren't on a fixed interval -- they speed up in severe weather/VCP mode,
-  // so frame count and spacing will vary run to run, that's expected), then
-  // request each one as an archived tile layer using its own UTC timestamp
-  // instead of "0" (which only ever gives the single latest scan).
-  // Endpoints verified live via a direct fetch during development (unlike
-  // most of this feature, which could only be checked against docs) --
-  // confirmed the scan-list JSON shape is `{ scans: [{ ts: "...Z" }, ...] }`
-  // and the archived tile URL pattern is
-  // `ridge::PBZ-N0U-YYYYMMDDHHMI` (UTC, no separators).
+  // animated single-site base velocity (N0U) loop from Iowa Environmental
+  // Mesonet's RIDGE archive, for the KPBZ radar 
   const RADAR_VELOCITY_LOOKBACK_MIN = 90;
   let radarVelocityFrames = []; // [{ time (ms) }], oldest first
   let radarVelocityLayers = [];
@@ -7007,10 +6989,6 @@ svg circle, svg polygon, svg line {
   }
 
   // ---------- radar overlay: active NWS warnings/watches polygons ----------
-  // Queries api.weather.gov directly (not data/alerts.json, which is a
-  // point-query scoped to the station only and may lack geometry) so the
-  // map can show polygons anywhere in the visible region. Re-queried on
-  // toggle-on and every 5 min while the overlay stays active.
   const RADAR_WARNINGS_STATES = ['PA', 'OH', 'WV', 'MD', 'NY'];
   const RADAR_WARNINGS_REFRESH_MS = 5 * 60 * 1000;
 
@@ -7072,8 +7050,6 @@ svg circle, svg polygon, svg line {
   }
 
   // ---------- radar overlay: recent lightning ----------
-  // Reuses the same data/lightning_glm.json feed that already powers the
-  // separate Lightning card's GLM tab, rather than fetching it twice.
   let radarLightningOverlayLayer = null;
   let radarLightningOverlayOn = false;
   let radarLightningOverlayTimer = null;
@@ -7113,8 +7089,8 @@ svg circle, svg polygon, svg line {
     }
   }
 
-  // ---------- radar controls wiring (product toggle, overlay toggles,
-  // settings panel, scrubber) ----------
+  // ---------- radar controls wiring -------------------------
+  // (product toggle, overlay toggles, settings panel, scrubber)
   function initRadarControls() {
     document.querySelectorAll('.radar-product-btn').forEach(btn => {
       btn.addEventListener('click', () => setRadarProduct(btn.dataset.product));
@@ -7202,9 +7178,7 @@ svg circle, svg polygon, svg line {
     setRadarBaseLayer(false); 
     L.marker([RADAR_LAT, RADAR_LON]).addTo(radarMap);
 
-    // KPBZ radar tower marker + a rough range ring for context -- useful
-    // context once a single-site product (Velocity) is in play, since that
-    // one is centered on the tower rather than on Clover Terrace.
+    // KPBZ radar tower marker + a rough range ring for context
     const radarTowerIcon = L.divIcon({
       className: 'radar-site-marker-icon',
       html: '📡',
@@ -7375,10 +7349,6 @@ svg circle, svg polygon, svg line {
   }
 
   // the lightning card's enlarged view has its own small two-tab switcher
-  // (our GLM map vs. the Blitzortung embed) rather than reusing the
-  // page's .map-tab/.map-panel styling, which is sized for the inline
-  // radar/forecast card, not this modal. Swipe is added on top of tap
-  // since the enlarged map is a touch-first overlay.
   function initLightningMapTabs(lightningCard) {
     const tabs = lightningCard.querySelectorAll('.lightning-map-tab');
     const views = lightningCard.querySelectorAll('.lightning-map-view');
@@ -8358,10 +8328,8 @@ const THEMES = {
       ]);
     });
 
-    // 4.5 lightning card -- always present. The station may not expose the
-    // lightning sensor on every backend/fallback, so unavailable fields stay
-    // as em dashes rather than making the whole card disappear. The live
-    // Blitzortung map is created only when the card is expanded.
+    // 4.5 lightning card 
+    // the live maps are created when the card is expanded
     const lightningHasData = data.lightningStrikeCount !== undefined && data.lightningStrikeCount !== null;
     const lastStrikeMs = data.lightningLastStrike ? new Date(data.lightningLastStrike).getTime() : null;
     const lightningCard = document.createElement('div');
