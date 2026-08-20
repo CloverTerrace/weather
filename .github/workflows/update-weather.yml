@@ -42,16 +42,6 @@ jobs:
           WU_API_KEY: ${{ secrets.WU_API_KEY }}
         run: python scripts/fetch_weather_backup.py
 
-      - name: Fetch latest camera snapshot
-        continue-on-error: true
-        env:
-          ECOWITT_APP_KEY: ${{ secrets.ECOWITT_APP_KEY }}
-          ECOWITT_API_KEY: ${{ secrets.ECOWITT_API_KEY }}
-          ECOWITT_MAC: ${{ secrets.ECOWITT_MAC }}
-          CLOUDRUN_CAMERA_URL: ${{ secrets.CLOUDRUN_CAMERA_URL }}
-          CAMERA_UPLOAD_TOKEN: ${{ secrets.CAMERA_UPLOAD_TOKEN }}
-        run: python scripts/fetch_camera.py
-
       - name: Fetch local forecast
         continue-on-error: true
         run: python scripts/fetch_forecast.py
@@ -91,7 +81,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # weather.json / history.json are no longer committed here -- the
+          # weather.json / history.json are not committed here -- the
           # dashboard reads those straight from the CloverTerrace/weather-data
           # repo now, so this Action has no reason to touch them. Home-server
           # staleness is detected client-side (PRIMARY_STALE_MS in
