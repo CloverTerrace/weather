@@ -1,6 +1,88 @@
 {
-  "generatedAt": "2026-08-20T19:40:55.874017Z",
+  "generatedAt": "2026-08-20T19:45:55.375171Z",
   "watches": [],
-  "mesoscaleDiscussions": [],
-  "statements": []
+  "mesoscaleDiscussions": [
+    {
+      "id": "MD2052",
+      "number": 2052,
+      "issued": "2026-08-20T17:53:00Z",
+      "expires": "2026-08-20T20:00:00Z",
+      "concerning": "Severe potential...Watch likely",
+      "hazard": "Severe potential...Watch likely",
+      "areas": "parts of southeastern Pennsylvania...central and southern New Jersey...north central and eastern Virginia...much of Delaware and Maryland",
+      "location": "parts of southeastern Pennsylvania...central and southern New Jersey...north central and eastern Virginia...much of Delaware and Maryland",
+      "distanceMiles": 172.6,
+      "summary": "Thunderstorms are likely to develop and intensify through 4-6 PM EDT, accompanied by the risk for a couple of tornadoes initially and increasing potential for strong to severe gusts spreading toward coastal areas into early evening",
+      "watchProbability": "80 percent",
+      "forecaster": "Kerr/Smith",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "Thunderstorms are likely to develop and intensify through 4-6 PM EDT, accompanied by the risk for a couple of tornadoes initially and increasing potential for strong to severe gusts spreading toward coastal areas into early evening"
+        },
+        {
+          "label": "Discussion",
+          "text": "Moderate to strong boundary-layer destabilization is ongoing across much of the northern Mid Atlantic, particularly within seasonably high moisture content air advecting northward through the coastal plain, to the east of deepening (albeit weak) surface troughing to the lee of the Blue Ridge. This is occurring downstream of mid-level troughing, with at least a couple of convectively generated perturbations and belt of augmented westerly flow (30-50 kt in the 700-500 mb layer). It appears that associated forcing for ascent may increasingly begin to impact a corridor from central Maryland through southeastern Pennsylvania by 20-22Z, if not a bit earlier, supporting the initiation of intensifying thunderstorm development. At least initially, this may include a few evolving supercell structures in the presence of strong deep-layer shear. Downstream of a developing wave along a weak low-level baroclinic zone strengthened by differential heating, low-level hodographs are forecast to remain modest to weak. However, they may still be sufficient to contribute to potential for a couple of tornadoes, aided by appreciable near-surface buoyancy developing in associated with insolation, warm advection and dew point increases into the lower 70s F. Otherwise, at least some upscale growth of initial storms will contribute to increasing potential for damaging surface gusts, with additional thunderstorm development southward along and east of the deeper lee surface troughing"
+        },
+        {
+          "label": "Watch probability",
+          "text": "80 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...100-125 MPH · MOST PROBABLE PEAK WIND GUST...55-70 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Kerr/Smith"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...PHI...AKQ...CTP...LWX"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2052.html",
+      "office": "SPC"
+    }
+  ],
+  "statements": [
+    {
+      "id": "df6a58ce-211c-4796-9d7f-5c437032c61c",
+      "type": "Flood Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-20T19:36:00+00:00",
+      "expires": null,
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "WGUS81 KPBZ 201936 PAC003-007-051-059-125-129-WVC009-029-201946-",
+      "distanceMiles": null,
+      "headline": "Flood Statement",
+      "summary": "WGUS81 KPBZ 201936 PAC003-007-051-059-125-129-WVC009-029-201946-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 WGUS81 KPBZ 201936 FLSPBZ Flood Statement 336 PM EDT Thu Aug 20 2026 PAC003-007-051-059-125-129-WVC009-029-201946- /O.EXP.KPBZ.FA.W.0045.000000T0000Z-260820T1945Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
+        }
+      ],
+      "url": "https://api.weather.gov/products/df6a58ce-211c-4796-9d7f-5c437032c61c"
+    },
+    {
+      "id": "ee2e47b6-6b99-49c5-99e7-352b613f1d60",
+      "type": "Flood Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-20T19:35:00+00:00",
+      "expires": null,
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "WGUS81 KPBZ 201935 PAC059-125-WVC009-051-069-201945-",
+      "distanceMiles": null,
+      "headline": "Flood Statement",
+      "summary": "WGUS81 KPBZ 201935 PAC059-125-WVC009-051-069-201945-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 WGUS81 KPBZ 201935 FLSPBZ Flood Statement 335 PM EDT Thu Aug 20 2026 PAC059-125-WVC009-051-069-201945- /O.EXP.KPBZ.FA.W.0044.000000T0000Z-260820T1945Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
+        }
+      ],
+      "url": "https://api.weather.gov/products/ee2e47b6-6b99-49c5-99e7-352b613f1d60"
+    }
+  ]
 }
