@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T20:05:56.183601Z",
+  "generatedAt": "2026-08-20T20:11:00.816142Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -47,6 +47,25 @@
   ],
   "statements": [
     {
+      "id": "c27bb52b-611e-4002-a13d-786392e276e5",
+      "type": "Public Information Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-20T20:08:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-031-073>078- WVZ001>004-012-021-509>514-210808-",
+      "distanceMiles": null,
+      "headline": "Public Information Statement",
+      "summary": "OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-031-073>078- WVZ001>004-012-021-509>514-210808-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 PNSPBZ OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-031-073>078- WVZ001>004-012-021-509>514-210808- Public Information Statement 408 PM EDT Thu Aug 20 2026 ...PRECIPITATION REPORTS OVER THE LAST 24 HOURS >= 0.75 INCHES... Location Amount Time/Date Provider"
+        }
+      ],
+      "url": "https://api.weather.gov/products/c27bb52b-611e-4002-a13d-786392e276e5"
+    },
+    {
       "id": "df6a58ce-211c-4796-9d7f-5c437032c61c",
       "type": "Flood Statement",
       "office": "KPBZ",
@@ -64,25 +83,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/df6a58ce-211c-4796-9d7f-5c437032c61c"
-    },
-    {
-      "id": "ee2e47b6-6b99-49c5-99e7-352b613f1d60",
-      "type": "Flood Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-20T19:35:00+00:00",
-      "expires": null,
-      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
-      "hazard": "WGUS81 KPBZ 201935 PAC059-125-WVC009-051-069-201945-",
-      "distanceMiles": null,
-      "headline": "Flood Statement",
-      "summary": "WGUS81 KPBZ 201935 PAC059-125-WVC009-051-069-201945-",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 WGUS81 KPBZ 201935 FLSPBZ Flood Statement 335 PM EDT Thu Aug 20 2026 PAC059-125-WVC009-051-069-201945- /O.EXP.KPBZ.FA.W.0044.000000T0000Z-260820T1945Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
-        }
-      ],
-      "url": "https://api.weather.gov/products/ee2e47b6-6b99-49c5-99e7-352b613f1d60"
     }
   ]
 }
