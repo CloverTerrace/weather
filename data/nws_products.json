@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T18:05:59.569728Z",
+  "generatedAt": "2026-08-20T18:10:56.905407Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -47,6 +47,29 @@
   ],
   "statements": [
     {
+      "id": "ee752ec7-c837-4d4b-9389-214ffe3529b4",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-08-20T18:04:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "This afternoon and tonight. The probability for widespread hazardous weather is low.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "This afternoon and tonight. The probability for widespread hazardous weather is low.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "This afternoon and tonight. The probability for widespread hazardous weather is low."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Friday through Wednesday. A few thunderstorms Saturday afternoon and evening may produce strong to marginally severe wind gusts, although uncertainty remains on the level of the threat."
+        }
+      ],
+      "url": "https://api.weather.gov/products/ee752ec7-c837-4d4b-9389-214ffe3529b4"
+    },
+    {
       "id": "d34ec2b5-8411-4504-b98b-9a7fb516c5b2",
       "type": "Flash Flood Watch",
       "office": "KPBZ",
@@ -64,25 +87,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/d34ec2b5-8411-4504-b98b-9a7fb516c5b2"
-    },
-    {
-      "id": "3bde71d7-6e85-4a93-81fb-2fcc55b5bf20",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-08-20T17:38:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... The Flood Watch will be allowed to expire at 2 PM. The potential",
-      "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... The Flood Watch will be allowed to expire at 2 PM. The potential",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 138 PM EDT Thu Aug 20 2026 .WHAT HAS CHANGED... The Flood Watch will be allowed to expire at 2 PM. The potential coverage area of showers/storms on Friday has shrunk a bit. Uncertainty regarding severe storm potential on Saturday"
-        }
-      ],
-      "url": "https://api.weather.gov/products/3bde71d7-6e85-4a93-81fb-2fcc55b5bf20"
     }
   ]
 }
