@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T21:30:54.121195Z",
+  "generatedAt": "2026-08-20T21:35:55.196473Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -127,23 +127,27 @@
   ],
   "statements": [
     {
-      "id": "200cb2b9-8c52-4cbb-b262-93093d99a20a",
-      "type": "Flood Statement",
+      "id": "8fbb21d6-8065-4053-96c4-f92f02f9602e",
+      "type": "Hazardous Weather Outlook",
       "office": "KPBZ",
-      "issued": "2026-08-20T21:05:00+00:00",
+      "issued": "2026-08-20T21:30:00+00:00",
       "expires": null,
-      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
-      "hazard": "WGUS81 KPBZ 202105 PAC005-063-065-129-202115-",
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Tonight. No hazardous weather is expected at this time.",
       "distanceMiles": null,
-      "headline": "Flood Statement",
-      "summary": "WGUS81 KPBZ 202105 PAC005-063-065-129-202115-",
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Tonight. No hazardous weather is expected at this time.",
       "details": [
         {
-          "label": "Product detail",
-          "text": "000 WGUS81 KPBZ 202105 FLSPBZ Flood Statement 505 PM EDT Thu Aug 20 2026 PAC005-063-065-129-202115- /O.EXP.KPBZ.FA.W.0047.000000T0000Z-260820T2115Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
+          "label": "Today's Hazards",
+          "text": "Tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Friday through Wednesday. There may a few strong to severe storms Saturday evening."
         }
       ],
-      "url": "https://api.weather.gov/products/200cb2b9-8c52-4cbb-b262-93093d99a20a"
+      "url": "https://api.weather.gov/products/8fbb21d6-8065-4053-96c4-f92f02f9602e"
     }
   ]
 }
