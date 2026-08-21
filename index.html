@@ -4498,6 +4498,28 @@ svg circle, svg polygon, svg line {
       margin-bottom: 0;
     }
 
+    /* the @container(max-width:190px) rule further up the sheet
+       pre-dates the desktop tile system and was written for the old
+       mobile combo-card layout, where dropping the redundant "Pressure &
+       CAPE" title text below 190px made sense. On desktop the title is
+       meant to stay visible at every tile width (see the big comment
+       below on .pressure-glance-row .priority-value) -- but that old
+       rule is unscoped, so it still fires on narrow desktop tiles too,
+       leaving the icon absolutely positioned alone up top with nothing
+       beside it and no reserved gap before the "Pressure" column label
+       that lands right underneath it. Restore the title here. */
+    .desktop-left-rail #grid.grid .pressure-card .priority-heading {
+      display: block !important;
+    }
+
+    /* breathing room between each column's label ("Pressure"/"CAPE") and
+       its value, matching the gap the Wind tile already has between its
+       value and "Sustained"/"Gust". Tightened again below 250px so the
+       stacked two-row layout still has room for the sparkline + note. */
+    .desktop-left-rail #grid.grid .pressure-card .glance-col .label {
+      margin-bottom: 0.3rem;
+    }
+
     .desktop-left-rail #grid.grid .wind-card .wind-priority-row {
       flex-direction: row !important;
       align-items: flex-start;
@@ -4673,6 +4695,15 @@ svg circle, svg polygon, svg line {
       justify-content: flex-start;
       align-items: stretch;
       cursor: zoom-in;
+      /* .camera-card never picks up the shared .card rule's
+         container-type: inline-size (it isn't a .card), so its h2's
+         cqw clamp below had nothing to measure against and fell back to
+         the viewport -- effectively pinning it at its max size no matter
+         how narrow the tile itself got, which is what let "STATION
+         CAMERA" overflow to two lines on narrow desktops instead of
+         shrinking like every other tile's label. */
+      container-type: inline-size;
+      container-name: card;
     }
 
     #grid.grid .desktop-camera-tile h2 {
@@ -4691,6 +4722,12 @@ svg circle, svg polygon, svg line {
       text-transform: uppercase;
       letter-spacing: 0.05em;
       line-height: 1.15;
+      /* every other tile's label is a lone flex item that's free to
+         overflow its (visible-overflow) card into the grid gap rather
+         than wrap -- this tile can't do that since it needs overflow:
+         hidden to keep the photo's corners clipped, so force it onto
+         one line explicitly instead. */
+      white-space: nowrap;
     }
 
     #grid.grid .desktop-camera-tile h2::before {
@@ -4698,6 +4735,24 @@ svg circle, svg polygon, svg line {
       font-family: system-ui, sans-serif;
       font-size: 0.95rem;
       line-height: 1;
+    }
+
+    /* "STATION CAMERA" is longer than any other tile's label, so at the
+       narrowest supported desktop tile widths the shared clamp's floor
+       (0.62rem, same as every other label) is still too wide to fit on
+       one line even with nowrap. This tier only fires once the tile is
+       genuinely cramped -- at every width above it, this label renders
+       identically to the rest. */
+    @container card (max-width: 145px) {
+      #grid.grid .desktop-camera-tile h2 {
+        font-size: 0.5rem !important;
+        letter-spacing: 0.02em;
+        gap: 0.2rem;
+      }
+
+      #grid.grid .desktop-camera-tile h2::before {
+        font-size: 0.68rem;
+      }
     }
 
     #grid.grid .desktop-camera-tile img {
