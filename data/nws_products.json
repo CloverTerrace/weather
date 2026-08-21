@@ -1,6 +1,45 @@
 {
-  "generatedAt": "2026-08-21T06:00:55.873537Z",
+  "generatedAt": "2026-08-21T06:02:18.806285Z",
   "watches": [],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "f0551257-c5fa-4226-966f-9950db83270a",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-08-21T05:52:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... A dense fog advisory was issued covering portions of the region",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... A dense fog advisory was issued covering portions of the region",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 152 AM EDT Fri Aug 21 2026 .WHAT HAS CHANGED... A dense fog advisory was issued covering portions of the region through 9am this morning. The rest of the forecast messaging is unchanged."
+        }
+      ],
+      "url": "https://api.weather.gov/products/f0551257-c5fa-4226-966f-9950db83270a"
+    },
+    {
+      "id": "405f9cbd-5554-4415-a7c6-dadf9c7da498",
+      "type": "Non-Precipitation Warnings / Watches / Advisories",
+      "office": "KPBZ",
+      "issued": "2026-08-21T05:50:00+00:00",
+      "expires": null,
+      "location": "Harrison-Jefferson OH-Guernsey-Belmont-Monroe-Forest-Butler",
+      "hazard": "URGENT - WEATHER MESSAGE OHZ049-050-058-059-069-PAZ009-014>016-020>022-029-031-073>078-",
+      "distanceMiles": null,
+      "headline": "Non-Precipitation Warnings / Watches / Advisories",
+      "summary": "URGENT - WEATHER MESSAGE OHZ049-050-058-059-069-PAZ009-014>016-020>022-029-031-073>078-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 NPWPBZ URGENT - WEATHER MESSAGE 150 AM EDT Fri Aug 21 2026 OHZ049-050-058-059-069-PAZ009-014>016-020>022-029-031-073>078- WVZ001>004-012-021-509-211300- /O.NEW.KPBZ.FG.Y.0010.260821T0600Z-260821T1300Z/ Harrison-Jefferson OH-Guernsey-Belmont-Monroe-Forest-Butler-"
+        }
+      ],
+      "url": "https://api.weather.gov/products/405f9cbd-5554-4415-a7c6-dadf9c7da498"
+    }
+  ]
 }
