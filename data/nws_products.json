@@ -1,6 +1,49 @@
 {
-  "generatedAt": "2026-08-21T05:20:57.970389Z",
+  "generatedAt": "2026-08-21T05:25:56.782127Z",
   "watches": [],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "ce216816-63dd-428a-a719-74d79d2afaa9",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-08-21T05:21:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Today and tonight. Hazardous weather is not expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. Hazardous weather is not expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. Hazardous weather is not expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Saturday through Thursday. Dependent on an afternoon to early evening arrival, showers and thunderstorms could pose an isolated damaging wind threat Saturday afternoon and evening."
+        }
+      ],
+      "url": "https://api.weather.gov/products/ce216816-63dd-428a-a719-74d79d2afaa9"
+    },
+    {
+      "id": "565fac24-fae7-4eeb-b4ac-374fcfda9bac",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-08-21T05:20:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Monitoring of fog develop continues this morning, but the",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Monitoring of fog develop continues this morning, but the",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 120 AM EDT Fri Aug 21 2026 .WHAT HAS CHANGED... Monitoring of fog develop continues this morning, but the overall messaging is unchanged from the previous forecast period."
+        }
+      ],
+      "url": "https://api.weather.gov/products/565fac24-fae7-4eeb-b4ac-374fcfda9bac"
+    }
+  ]
 }
