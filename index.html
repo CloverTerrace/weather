@@ -8513,10 +8513,18 @@ const THEMES = {
           }</div>`;
           panel.innerHTML = detailPanelHtml([
             {
+              title: 'Particulate matter',
+              rows: [
+                `<div class="extra-data-row"><span class="extra-data-label">PM1.0</span><span class="extra-data-value">${data.pm1 != null ? formatVal(data.pm1, 1) + ' µg/m³' : '--'}</span></div>`,
+                `<div class="extra-data-row"><span class="extra-data-label">PM2.5</span><span class="extra-data-value">${data.pm25 != null ? formatVal(data.pm25, 1) + ' µg/m³' : '--'}</span></div>`,
+                `<div class="extra-data-row"><span class="extra-data-label">PM10.0</span><span class="extra-data-value">${data.pm10 != null ? formatVal(data.pm10, 1) + ' µg/m³' : '--'}</span></div>`
+              ]
+            },
+            {
               title: 'AQI scale reference',
               rows: [aqiScaleHtml]
             }
-          ], 'AQI is driven by the pollutant with the worst reading at the moment — usually fine particulates (PM2.5) or ground-level ozone, depending on conditions.');
+          ], 'AQI is driven by the pollutant with the worst reading at the moment — usually fine particulates (PM2.5) or ground-level ozone, depending on conditions. PM1.0 and PM10.0 are shown for reference; AQI here is calculated from PM2.5 only.');
         });
     }
 
@@ -9037,6 +9045,9 @@ const THEMES = {
       // weewx/WU merge above.
       if (aqData.aqi !== undefined) data.aqi = aqData.aqi;
       if (aqData.aqiDisplay !== undefined) data.aqiDisplay = aqData.aqiDisplay;
+      if (aqData.pm1 !== undefined) data.pm1 = aqData.pm1;
+      if (aqData.pm25 !== undefined) data.pm25 = aqData.pm25;
+      if (aqData.pm10 !== undefined) data.pm10 = aqData.pm10;
     }
     if (auroraRes && auroraRes.ok) {
       currentAurora = await auroraRes.json();
