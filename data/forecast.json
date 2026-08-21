@@ -1,16 +1,6 @@
 [
   {
-    "name": "Overnight",
-    "temperature": 60,
-    "temperatureUnit": "F",
-    "windSpeed": "2 mph",
-    "windDirection": "NE",
-    "shortForecast": "Patchy Fog",
-    "detailedForecast": "Patchy fog. Mostly clear, with a low around 60. Northeast wind around 2 mph.",
-    "isDaytime": false
-  },
-  {
-    "name": "Friday",
+    "name": "Today",
     "temperature": 80,
     "temperatureUnit": "F",
     "windSpeed": "5 mph",
@@ -20,7 +10,7 @@
     "isDaytime": true
   },
   {
-    "name": "Friday Night",
+    "name": "Tonight",
     "temperature": 60,
     "temperatureUnit": "F",
     "windSpeed": "3 mph",
@@ -38,5 +28,15 @@
     "shortForecast": "Sunny",
     "detailedForecast": "Sunny, with a high near 82. South wind 1 to 7 mph.",
     "isDaytime": true
+  },
+  {
+    "name": "Saturday Night",
+    "temperature": 62,
+    "temperatureUnit": "F",
+    "windSpeed": "6 mph",
+    "windDirection": "SW",
+    "shortForecast": "Chance Showers And Thunderstorms then Showers And Thunderstorms",
+    "detailedForecast": "A chance of showers and thunderstorms before 7pm, then showers and thunderstorms between 7pm and 2am. Mostly cloudy, with a low around 62. Southwest wind around 6 mph. Chance of precipitation is 80%. New rainfall amounts between a quarter and half of an inch possible.",
+    "isDaytime": false
   }
 ]
