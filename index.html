@@ -3655,12 +3655,6 @@ svg circle, svg polygon, svg line {
   }
 
 
-
-  /* ================================================================
-     DESKTOP WEATHER-CENTER COMPOSITION
-     851px+ only ~ the mobile/under 851px is intentionally left
-     on the existing responsive architecture.
-     ================================================================ */
   .desktop-dashboard-layout,
   .desktop-left-rail,
   .desktop-right-rail {
@@ -3705,6 +3699,37 @@ svg circle, svg polygon, svg line {
     object-fit: contain;
     border-radius: 10px;
     box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+  }
+
+    .camera-lightbox video {
+    display: none;
+    max-width: min(94vw, 1800px);
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .camera-timelapse-btn {
+    position: absolute;
+    bottom: clamp(1rem, 3vw, 2rem);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.65rem 1rem;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+  }
+
+  .camera-timelapse-btn:hover,
+  .camera-timelapse-btn:focus-visible {
+    background: rgba(255,255,255,0.22);
+    outline: none;
   }
 
   .camera-lightbox-close {
@@ -5518,8 +5543,10 @@ svg circle, svg polygon, svg line {
  </div> <!-- .web-tools-grid -->
 
   <div id="camera-lightbox" class="camera-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Station camera photo">
-    <button id="camera-lightbox-close" class="camera-lightbox-close" type="button" aria-label="Close station camera photo">&times;</button>
-    <img id="camera-lightbox-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
+  <button id="camera-lightbox-close" class="camera-lightbox-close" type="button" aria-label="Close station camera photo">&times;</button>
+  <img id="camera-lightbox-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
+  <video id="camera-lightbox-video" controls playsinline preload="metadata" aria-label="Yesterday's station camera time lapse"></video>
+  <button id="camera-timelapse-btn" class="camera-timelapse-btn" type="button">Yesterday's Time Lapse</button>
   </div>
 
   <div id="status" aria-live="polite"></div>
@@ -9317,15 +9344,29 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
     desktopQuery.addEventListener?.('change', syncDesktopComposition);
 
     const lightbox = document.getElementById('camera-lightbox');
-    const lightboxImg = document.getElementById('camera-lightbox-img');
-    const closeBtn = document.getElementById('camera-lightbox-close');
+const lightboxImg = document.getElementById('camera-lightbox-img');
+const lightboxVideo = document.getElementById('camera-lightbox-video');
+const timelapseBtn = document.getElementById('camera-timelapse-btn');
+const closeBtn = document.getElementById('camera-lightbox-close');
+
+function resetLightboxMedia() {
+  if (lightboxImg) lightboxImg.style.display = '';
+  if (lightboxVideo) {
+    lightboxVideo.pause();
+    lightboxVideo.removeAttribute('src');
+    lightboxVideo.load();
+    lightboxVideo.style.display = 'none';
+  }
+  if (timelapseBtn) timelapseBtn.style.display = '';
+}
 
     function closeLightbox() {
-      if (!lightbox) return;
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
+  if (!lightbox) return;
+  resetLightboxMedia();
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
 
     function openLightbox() {
       if (!desktopQuery.matches || !lightbox || !lightboxImg) return;
@@ -9337,6 +9378,23 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
       document.body.style.overflow = 'hidden';
       closeBtn?.focus({ preventScroll: true });
     }
+
+    timelapseBtn?.addEventListener('click', () => {
+  if (!lightboxVideo || !lightboxImg) return;
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  const dayString =
+    `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
+
+  lightboxImg.style.display = 'none';
+  lightboxVideo.src =
+    `https://clover-wx-camera-1028879236258.us-central1.run.app/camera/timelapse/${dayString}`;
+  lightboxVideo.style.display = 'block';
+  timelapseBtn.style.display = 'none';
+  lightboxVideo.play().catch(() => {});
+});
 
     cameraCard.addEventListener('click', (event) => {
       if (desktopQuery.matches && !event.target.closest('a, button')) openLightbox();
