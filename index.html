@@ -1153,12 +1153,13 @@
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.09), transparent);
   }
 
-  @media (max-width: 520px) {
-    .extra-data-list {
-      grid-template-columns: 1fr;
-    }
-  }
-
+  /* mobile tile-back density: an auto-fit grid packs 2 (sometimes 3, on
+     wider phones) columns of backside stats into the space that used to
+     render one tall column per value -- graceful, not a hard breakpoint,
+     so it only drops to a single column on genuinely narrow phones where
+     108px isn't enough room. see the max-width:850px block below (near
+     .wind-compass-detail-visual) for the density tuning that goes with
+     this on mobile specifically. */
 
 
   /* ----------🌪️🌩️ SPC / NWS live storm desk 🌪️🌩️---------- */
@@ -3357,14 +3358,18 @@ svg circle, svg polygon, svg line {
     }
 
     .extra-data-list {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
     }
   }
 
   @media (max-width: 460px) {
-    .extra-data-list {
-      grid-template-columns: 1fr;
-    }
+    /* previously forced back to a single column here, which is what
+       produced the tall/skinny tile backs with a lot of unused space
+       (this was the narrowest, and therefore most commonly hit, of the
+       three breakpoints touching .extra-data-list -- see the comment
+       above the removed 520px rule). the auto-fit rule above already
+       degrades to 1 column on its own once a phone is too narrow for
+       two 108px columns, so no override is needed here anymore. */
 
     .card {
       padding: 1rem;
@@ -4983,6 +4988,33 @@ svg circle, svg polygon, svg line {
     width: clamp(72px, 28cqw, 104px);
     height: clamp(72px, 28cqw, 104px);
     margin: 0 auto;
+  }
+
+  /* mobile-only tile-back polish: now that .extra-data-list packs 2+
+     columns on phones instead of 1 (see the auto-fit rule above), the
+     compass visual needs to explicitly span both columns or it gets
+     squeezed into a half-width cell next to nothing. also tightens row
+     height/gaps slightly so the extra breathing room from going wider
+     goes toward less scrolling rather than just bigger empty boxes.
+     scoped to max-width:850px (this file's existing mobile/tablet cutoff)
+     so desktop's tile-back layout is untouched. */
+  @media (max-width: 850px) {
+    .wind-compass-detail-visual {
+      grid-column: 1 / -1;
+    }
+
+    .extra-data-row {
+      min-height: 38px;
+      padding: 6px 8px;
+    }
+
+    .detail-panel {
+      gap: 8px;
+    }
+
+    .detail-section-body {
+      padding: 0 8px 7px;
+    }
   }
 
   /* lightning map's compact card-local overlay. the iframe is active only
