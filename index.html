@@ -1864,6 +1864,16 @@
     margin: 0 auto;
   }
 
+  .camera-mobile-timelapse-video {
+    display: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: 8px;
+    background: #000;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+  }
+
   .camera-mobile-timelapse-btn {
     display: none;
     width: min(100%, 22rem);
@@ -5322,6 +5332,7 @@ svg circle, svg polygon, svg line {
   <div class="camera-card">
     <h2>Station Camera</h2>
     <img id="camera-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
+    <video id="camera-mobile-timelapse-video" class="camera-mobile-timelapse-video" controls playsinline preload="metadata" aria-label="Yesterday's station camera time lapse"></video>
     <button id="camera-mobile-timelapse-btn" class="camera-mobile-timelapse-btn" type="button">Yesterday's Time Lapse</button>
   </div>
     
@@ -9379,6 +9390,7 @@ const lightboxImg = document.getElementById('camera-lightbox-img');
 const lightboxVideo = document.getElementById('camera-lightbox-video');
 const timelapseBtn = document.getElementById('camera-timelapse-btn');
 const mobileTimelapseBtn = document.getElementById('camera-mobile-timelapse-btn');
+const mobileTimelapseVideo = document.getElementById('camera-mobile-timelapse-video');
 const closeBtn = document.getElementById('camera-lightbox-close');
 
 function resetLightboxMedia() {
@@ -9411,18 +9423,19 @@ function resetLightboxMedia() {
       closeBtn?.focus({ preventScroll: true });
     }
 
-    function openTimelapse() {
-  if (!lightbox || !lightboxVideo || !lightboxImg) return;
-
+    function getYesterdayTimelapseUrl() {
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
-
   const dayString =
     `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
+  return `https://clover-wx-camera-1028879236258.us-central1.run.app/camera/timelapse/${dayString}`;
+}
+
+function openTimelapse() {
+  if (!lightbox || !lightboxVideo || !lightboxImg) return;
 
   lightboxImg.style.display = 'none';
-  lightboxVideo.src =
-    `https://clover-wx-camera-1028879236258.us-central1.run.app/camera/timelapse/${dayString}`;
+  lightboxVideo.src = getYesterdayTimelapseUrl();
   lightboxVideo.style.display = 'block';
   if (timelapseBtn) timelapseBtn.style.display = 'none';
   lightbox.classList.add('open');
@@ -9431,8 +9444,32 @@ function resetLightboxMedia() {
   lightboxVideo.play().catch(() => {});
 }
 
+function toggleMobileTimelapse() {
+  if (!mobileTimelapseBtn || !mobileTimelapseVideo) return;
+
+  const showing = mobileTimelapseVideo.style.display === 'block';
+
+  if (showing) {
+    mobileTimelapseVideo.pause();
+    mobileTimelapseVideo.removeAttribute('src');
+    mobileTimelapseVideo.load();
+    mobileTimelapseVideo.style.display = 'none';
+    const source = document.getElementById('camera-img');
+    if (source) source.style.display = '';
+    mobileTimelapseBtn.textContent = "Yesterday's Time Lapse";
+    return;
+  }
+
+  const source = document.getElementById('camera-img');
+  if (source) source.style.display = 'none';
+  mobileTimelapseVideo.src = getYesterdayTimelapseUrl();
+  mobileTimelapseVideo.style.display = 'block';
+  mobileTimelapseBtn.textContent = 'Show Live Camera';
+  mobileTimelapseVideo.play().catch(() => {});
+}
+
     timelapseBtn?.addEventListener('click', openTimelapse);
-    mobileTimelapseBtn?.addEventListener('click', openTimelapse);
+    mobileTimelapseBtn?.addEventListener('click', toggleMobileTimelapse);
 
     cameraCard.addEventListener('click', (event) => {
       if (desktopQuery.matches && !event.target.closest('a, button')) openLightbox();
