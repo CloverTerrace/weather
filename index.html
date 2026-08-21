@@ -1863,6 +1863,28 @@
     display: block;
     margin: 0 auto;
   }
+
+  .camera-mobile-timelapse-btn {
+    display: none;
+    width: min(100%, 22rem);
+    margin: 0.85rem auto 0;
+    padding: 0.8rem 1.1rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--accent-color, #6b8fb3);
+    color: #fff;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+  }
+
+  .camera-mobile-timelapse-btn:hover,
+  .camera-mobile-timelapse-btn:focus-visible {
+    filter: brightness(1.06);
+    outline: none;
+  }
 /* ~*~*~*~*~ dashboard grid ~*~*~*~*~ */
 .dashboard-grid {
     display: grid;
@@ -3674,6 +3696,7 @@ svg circle, svg polygon, svg line {
     inset: 0;
     z-index: 10000;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: clamp(1rem, 3vw, 3rem);
@@ -3712,18 +3735,19 @@ svg circle, svg polygon, svg line {
   }
 
   .camera-timelapse-btn {
-    position: absolute;
-    bottom: clamp(1rem, 3vw, 2rem);
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 0.65rem 1rem;
+    position: static;
+    transform: none;
+    margin-top: 0.9rem;
+    padding: 0.8rem 1.35rem;
     border: 0;
     border-radius: 999px;
-    background: rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.16);
     color: #fff;
     font: inherit;
+    font-size: 1rem;
     cursor: pointer;
     backdrop-filter: blur(6px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   }
 
   .camera-timelapse-btn:hover,
@@ -4290,6 +4314,12 @@ svg circle, svg polygon, svg line {
     .dashboard-grid,
     .camera-card {
       width: 100%;
+    }
+  }
+
+  @media (max-width: 850px) {
+    .camera-mobile-timelapse-btn {
+      display: block;
     }
   }
 
@@ -5292,6 +5322,7 @@ svg circle, svg polygon, svg line {
   <div class="camera-card">
     <h2>Station Camera</h2>
     <img id="camera-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
+    <button id="camera-mobile-timelapse-btn" class="camera-mobile-timelapse-btn" type="button">Yesterday's Time Lapse</button>
   </div>
     
   <div class="camera-card">
@@ -9347,6 +9378,7 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
 const lightboxImg = document.getElementById('camera-lightbox-img');
 const lightboxVideo = document.getElementById('camera-lightbox-video');
 const timelapseBtn = document.getElementById('camera-timelapse-btn');
+const mobileTimelapseBtn = document.getElementById('camera-mobile-timelapse-btn');
 const closeBtn = document.getElementById('camera-lightbox-close');
 
 function resetLightboxMedia() {
@@ -9379,8 +9411,8 @@ function resetLightboxMedia() {
       closeBtn?.focus({ preventScroll: true });
     }
 
-    timelapseBtn?.addEventListener('click', () => {
-  if (!lightboxVideo || !lightboxImg) return;
+    function openTimelapse() {
+  if (!lightbox || !lightboxVideo || !lightboxImg) return;
 
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
@@ -9392,9 +9424,15 @@ function resetLightboxMedia() {
   lightboxVideo.src =
     `https://clover-wx-camera-1028879236258.us-central1.run.app/camera/timelapse/${dayString}`;
   lightboxVideo.style.display = 'block';
-  timelapseBtn.style.display = 'none';
+  if (timelapseBtn) timelapseBtn.style.display = 'none';
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
   lightboxVideo.play().catch(() => {});
-});
+}
+
+    timelapseBtn?.addEventListener('click', openTimelapse);
+    mobileTimelapseBtn?.addEventListener('click', openTimelapse);
 
     cameraCard.addEventListener('click', (event) => {
       if (desktopQuery.matches && !event.target.closest('a, button')) openLightbox();
