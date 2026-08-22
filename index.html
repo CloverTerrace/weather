@@ -2221,6 +2221,97 @@
     font-size: 0.85rem;
   }
 
+  .forecast-period .period-pop {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: #5b9fd9;
+    font-family: var(--font-details);
+    font-size: 0.8rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .forecast-period .period-pop .pop-icon { width: 13px; height: 13px; opacity: 0.9; }
+
+  /* ---------- hourly strip + flip-to-4-day-outlook ----------
+     the forecast card lives outside #grid and is full-width, so this
+     mirrors the sensor-tile tap-to-flip pattern (see "sensor card flip"
+     above) with its own classes rather than reusing .card/.card-flipped,
+     which are tied to grid-specific sizing rules elsewhere in this file. */
+  .forecast-card.forecast-expandable {
+    cursor: pointer;
+    border-radius: 12px;
+  }
+
+  .forecast-card.forecast-expandable:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+  }
+
+  .forecast-flip-back { display: none; }
+  .forecast-card.forecast-flipped .forecast-flip-front { display: none; }
+  .forecast-card.forecast-flipped .forecast-flip-back { display: block; }
+
+  .forecast-flip-hint {
+    text-align: center;
+    font-family: var(--font-details);
+    color: var(--muted-color);
+    font-size: 0.72rem;
+    opacity: 0.7;
+    margin-top: 0.6rem;
+    cursor: pointer;
+  }
+
+  .forecast-hourly-strip {
+    display: flex;
+    gap: 0.6rem;
+    overflow-x: auto;
+    padding: 0.1rem 0.1rem 0.5rem;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .forecast-hour {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: 62px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    padding: 0.55rem 0.3rem 0.5rem;
+  }
+
+  .forecast-hour .hour-label {
+    font-family: var(--font-details);
+    color: var(--muted-color);
+    font-size: 0.68rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .forecast-hour .card-icon img { width: 26px; height: 26px; }
+
+  .forecast-hour .hour-temp {
+    font-family: var(--font-grid-value);
+    color: var(--accent-color);
+    font-weight: 700;
+    font-size: 1rem;
+    margin: 0.25rem 0 0.15rem;
+  }
+
+  .forecast-hour .hour-pop {
+    font-family: var(--font-details);
+    color: var(--muted-color);
+    font-size: 0.66rem;
+    min-height: 1em;
+  }
+
+  .forecast-hour .hour-pop.has-pop { color: #5b9fd9; font-weight: 600; }
+
+  @media (max-width: 850px) {
+    .forecast-hour { width: 56px; }
+  }
+
   /*  🗺️ radar & forecast map 🌧️ */
   .map-tabs {
     display: flex;
@@ -5440,10 +5531,17 @@ svg circle, svg polygon, svg line {
       <div class="grid" id="grid">
       </div>
 
-      <div class="camera-card forecast-card">
+      <div class="camera-card forecast-card" id="forecast-card">
         <h2>Forecast</h2>
-        <div class="forecast-periods" id="forecast-periods">
+        <div class="forecast-flip-inner">
+          <div class="forecast-flip-front">
+            <div class="forecast-hourly-strip" id="forecast-hourly-strip"></div>
+          </div>
+          <div class="forecast-flip-back">
+            <div class="forecast-periods" id="forecast-periods"></div>
+          </div>
         </div>
+        <div class="forecast-flip-hint" id="forecast-flip-hint">tap for 4-day outlook ↗</div>
       </div>
     </div>
 
@@ -5718,7 +5816,8 @@ svg circle, svg polygon, svg line {
   <!-- top row of clouds -->
   <div style="display: flex; gap: 12px; z-index: 2;">
     <button id="refresh-btn" class="cloud-btn">refresh</button>
-    <button id="share-btn" class="cloud-btn" style="display:none;">share</button> 
+    <button id="share-btn" class="cloud-btn" style="display:none;">share</button>
+    <button id="push-alerts-btn" class="cloud-btn" type="button" aria-pressed="false">Enable Alerts</button>
   </div>
 
   <!-- bottom offset cloud -->
@@ -6705,36 +6804,195 @@ svg circle, svg polygon, svg line {
     return `partly-cloudy-${dn}.svg`; // sensible default for anything unmatched
   }
   
+  // e.g. "2026-08-22T14:00:00-04:00" -> "2PM". Used for the hourly strip labels.
+  function formatHourLabel(isoString) {
+    const d = new Date(isoString);
+    let h = d.getHours();
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12;
+    if (h === 0) h = 12;
+    return `${h}${ampm}`;
+  }
+
   async function loadForecast(forceRefresh = false) {
-    const container = document.getElementById('forecast-periods');
+    const periodsContainer = document.getElementById('forecast-periods');
+    const hourlyContainer = document.getElementById('forecast-hourly-strip');
     try {
       const url = `data/forecast.json?t=${Date.now()}`;
       const res = await fetch(url, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const periods = await res.json();
+      const forecastData = await res.json();
+      // backwards-compatible with the old bare-array shape, in case a
+      // stale data/forecast.json is still lying around on first deploy.
+      const periods = Array.isArray(forecastData) ? forecastData : (forecastData.periods || []);
+      const hourly = Array.isArray(forecastData) ? [] : (forecastData.hourly || []);
       currentForecastPeriods = periods;
+      currentForecastHourly = hourly;
       updateSkyBadges();
 
-      container.innerHTML = '';
+      periodsContainer.innerHTML = '';
       periods.forEach(period => {
         const card = document.createElement('div');
         card.className = 'forecast-period';
         const iconFile = forecastMeteocon(period.shortForecast, period.isDaytime);
+        const pop = period.probabilityOfPrecipitation;
         card.innerHTML = `
           <div class="period-name">${period.name}</div>
           <div class="period-temp-row">
             <span class="period-temp">${period.temperature}°${period.temperatureUnit}</span>
             <span class="card-icon"><img src="icons/${iconFile}" alt="${period.shortForecast}" onerror="this.parentElement.style.display='none'"></span>
           </div>
+          ${pop != null ? `<div class="period-pop"><img class="pop-icon" src="icons/raindrop-measure.svg" alt="">${pop}% chance</div>` : ''}
           <div class="period-short">${period.shortForecast}</div>
           <div class="period-wind">${period.windSpeed} ${period.windDirection}</div>
         `;
-        container.appendChild(card);
+        periodsContainer.appendChild(card);
       });
+
+      if (hourlyContainer) {
+        hourlyContainer.innerHTML = '';
+        if (!hourly.length) {
+          hourlyContainer.innerHTML = '<div class="forecast-hour">Hourly unavailable</div>';
+        } else {
+          hourly.slice(0, 24).forEach((hour, idx) => {
+            const cell = document.createElement('div');
+            cell.className = 'forecast-hour';
+            const iconFile = forecastMeteocon(hour.shortForecast, hour.isDaytime);
+            const pop = hour.probabilityOfPrecipitation;
+            const showPop = pop != null && pop > 0;
+            cell.innerHTML = `
+              <div class="hour-label">${idx === 0 ? 'Now' : formatHourLabel(hour.startTime)}</div>
+              <span class="card-icon"><img src="icons/${iconFile}" alt="${hour.shortForecast || ''}" onerror="this.parentElement.style.display='none'"></span>
+              <div class="hour-temp">${hour.temperature}°</div>
+              <div class="hour-pop${showPop ? ' has-pop' : ''}">${showPop ? pop + '%' : ''}</div>
+            `;
+            hourlyContainer.appendChild(cell);
+          });
+        }
+      }
     } catch (err) {
       console.warn('Could not load forecast data:', err.message);
-      container.innerHTML = '<div class="forecast-period">Forecast unavailable</div>';
+      if (periodsContainer) periodsContainer.innerHTML = '<div class="forecast-period">Forecast unavailable</div>';
+      if (hourlyContainer) hourlyContainer.innerHTML = '<div class="forecast-hour">Forecast unavailable</div>';
     }
+  }
+
+  // ---------- push notifications for severe alerts ----------
+  // Subscribes the browser to Web Push via a small Cloudflare Worker
+  // (see /push-worker in the repo). The worker just stores subscriptions
+  // in KV and fans out a send when the weather-data Action detects a new
+  // Watch/Warning/Mesoscale Discussion; VAPID keys and the send secret
+  // never touch this file.
+  const PUSH_WORKER_URL = 'REPLACE_WITH_YOUR_DEPLOYED_WORKER_URL'; // e.g. https://clover-weather-push.<you>.workers.dev
+  const VAPID_PUBLIC_KEY = 'REPLACE_WITH_YOUR_VAPID_PUBLIC_KEY';
+
+  function urlBase64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+    const rawData = atob(base64);
+    return Uint8Array.from([...rawData].map(c => c.charCodeAt(0)));
+  }
+
+  function initPushAlerts() {
+    const btn = document.getElementById('push-alerts-btn');
+    if (!btn) return;
+
+    const notSupported = !('serviceWorker' in navigator) || !('PushManager' in window) || typeof Notification === 'undefined';
+    const notConfigured = PUSH_WORKER_URL.startsWith('REPLACE_') || VAPID_PUBLIC_KEY.startsWith('REPLACE_');
+    if (notSupported || notConfigured) {
+      btn.style.display = 'none';
+      if (notConfigured) console.warn('Push alerts: set PUSH_WORKER_URL and VAPID_PUBLIC_KEY before enabling the button.');
+      return;
+    }
+
+    async function refreshButtonState() {
+      try {
+        const reg = await navigator.serviceWorker.ready;
+        const existing = await reg.pushManager.getSubscription();
+        btn.textContent = existing ? 'Alerts On' : 'Enable Alerts';
+        btn.setAttribute('aria-pressed', String(!!existing));
+      } catch (e) {
+        // service worker not ready yet -- leave the default label
+      }
+    }
+
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      try {
+        const reg = await navigator.serviceWorker.ready;
+        const existing = await reg.pushManager.getSubscription();
+
+        if (existing) {
+          await fetch(`${PUSH_WORKER_URL}/unsubscribe`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ endpoint: existing.endpoint }),
+          }).catch(() => {});
+          await existing.unsubscribe();
+          await refreshButtonState();
+          return;
+        }
+
+        if (Notification.permission === 'denied') {
+          alert('Notifications are blocked for this site in your browser settings. Enable them there, then try again.');
+          return;
+        }
+
+        const permission = await Notification.requestPermission();
+        if (permission !== 'granted') return;
+
+        const sub = await reg.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
+        });
+
+        await fetch(`${PUSH_WORKER_URL}/subscribe`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(sub.toJSON()),
+        });
+
+        await refreshButtonState();
+      } catch (err) {
+        console.warn('Push subscribe/unsubscribe failed:', err);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    refreshButtonState();
+  }
+
+  // tap-to-flip between the hourly strip (front) and the 4-day outlook
+  // (back), same interaction pattern as makeCardExpandable() above, but
+  // standalone since this card lives outside #grid.
+  function initForecastCardFlip() {
+    const card = document.getElementById('forecast-card');
+    const hint = document.getElementById('forecast-flip-hint');
+    if (!card) return;
+    card.classList.add('forecast-expandable');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-expanded', 'false');
+
+    const setOpen = (open) => {
+      card.classList.toggle('forecast-flipped', open);
+      card.setAttribute('aria-expanded', String(open));
+      if (hint) hint.textContent = open ? 'tap to return to hourly ↩' : 'tap for 4-day outlook ↗';
+    };
+
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a, button, details, summary')) return;
+      setOpen(!card.classList.contains('forecast-flipped'));
+    });
+    card.addEventListener('keydown', (e) => {
+      if (e.target.closest('input, textarea, select')) return;
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        setOpen(!card.classList.contains('forecast-flipped'));
+      }
+      if (e.key === 'Escape' && card.classList.contains('forecast-flipped')) setOpen(false);
+    });
   }
 
   async function refreshOutlookImages() {
@@ -7812,6 +8070,7 @@ svg circle, svg polygon, svg line {
   }
 
   let currentForecastPeriods = [];
+  let currentForecastHourly = [];
   let currentAurora = null;
   const AURORA_KP_THRESHOLD = 7;
   
@@ -8592,6 +8851,9 @@ const THEMES = {
         { label: 'Year', val: data.precipTotalYear }
       ];
       const maxTotal = Math.max(...totals.map(t => (typeof t.val === 'number' ? t.val : 0)), 0.01);
+      const hourPop = currentForecastHourly && currentForecastHourly[0] && currentForecastHourly[0].probabilityOfPrecipitation != null
+        ? `${currentForecastHourly[0].probabilityOfPrecipitation}%`
+        : '--';
       panel.innerHTML = `
         <div class="detail-panel">
           <div class="bar-compare-list">
@@ -8600,6 +8862,7 @@ const THEMES = {
           <div class="stat-chip-row">
             ${statChip('Current Rate', data.precipRate != null ? formatVal(data.precipRate, 2) + ' in/hr' : '--')}
             ${statChip('Peak Rate Today', `${formatVal(prExt.max.val, 2)} in/hr`)}
+            ${statChip('Rain Chance (this hr)', hourPop, '#5b9fd9')}
           </div>
           ${likelyFrozen ? `<div class="extra-data-note">Temps at/below ~34°F — today's precipitation may be frozen or mixed.</div>` : ''}
         </div>`;
@@ -9717,6 +9980,7 @@ function toggleMobileTimelapse() {
   populateThemePreviewRow();
   initThemeEasterEgg();
   initSunMoonTracker();
+  initForecastCardFlip();
   initMapTabs();
   initRadarMap();
   fetchUsgsGauge();
@@ -9740,6 +10004,8 @@ function toggleMobileTimelapse() {
       });
     });
   }
+
+  initPushAlerts();
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
