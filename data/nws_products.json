@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T23:20:32.868613Z",
+  "generatedAt": "2026-08-22T23:25:37.007180Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.33425f7b477ae097e90c24a1c93ab6838e60ed40.001.1",
@@ -150,6 +150,25 @@
   ],
   "statements": [
     {
+      "id": "089acf3c-83cd-4301-b4bd-6f7b5368bb1b",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T23:21:00+00:00",
+      "expires": null,
+      "location": "Jefferson PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Brookville, Reynoldsville, Brockway, Sykesville, Falls Creek, Big Run, Knox-Dale and",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Brookville, Reynoldsville, Brockway, Sykesville, Falls Creek, Big Run, Knox-Dale and Anita.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Brookville, Reynoldsville, Brockway, Sykesville, Falls Creek, Big Run, Knox-Dale and Anita."
+        }
+      ],
+      "url": "https://api.weather.gov/products/089acf3c-83cd-4301-b4bd-6f7b5368bb1b"
+    },
+    {
       "id": "a62e3da8-9741-40f1-80e6-0c46a9d068a6",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -167,25 +186,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/a62e3da8-9741-40f1-80e6-0c46a9d068a6"
-    },
-    {
-      "id": "236bc802-5737-4e61-a1cb-d83f28d910dc",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-22T23:03:00+00:00",
-      "expires": null,
-      "location": "Monroe OH",
-      "hazard": "OHC111-222313- /O.EXP.KPBZ.SV.W.0300.000000T0000Z-260822T2300Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC111-222313- /O.EXP.KPBZ.SV.W.0300.000000T0000Z-260822T2300Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 703 PM EDT Sat Aug 22 2026 OHC111-222313- /O.EXP.KPBZ.SV.W.0300.000000T0000Z-260822T2300Z/ Monroe OH- 703 PM EDT Sat Aug 22 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/236bc802-5737-4e61-a1cb-d83f28d910dc"
     }
   ]
 }
