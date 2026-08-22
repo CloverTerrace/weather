@@ -1149,16 +1149,7 @@
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.09), transparent);
   }
 
-  /* ---------- tile-back visual components ----------
-     a shared vocabulary for card backs beyond plain label/value boxes:
-     a horizontal range gauge (current value against a colored scale --
-     comfort ranges, storm thresholds, flood stages...), a small
-     comparison bar chart for like-quantities (week/month/year totals,
-     PM1/2.5/10), and a compact chip for a single reference stat. all three
-     size off the card's own container width (cqw / clamp), the same
-     pattern the rest of the tile-back system already uses, so they hold
-     up from a 3-column narrow-desktop rail tile up through a full-width
-     mobile card without overlapping or needing their own breakpoints. */
+  /* ---------- tile-back visual components ----------*/
 
   .gauge-bar { padding: 2px 2px 0; }
   .gauge-bar + .gauge-bar { margin-top: 10px; }
@@ -1382,14 +1373,6 @@
     }
   }
 
-  /* mobile tile-back density: an auto-fit grid packs 2 (sometimes 3, on
-     wider phones) columns of backside stats into the space that used to
-     render one tall column per value -- graceful, not a hard breakpoint,
-     so it only drops to a single column on genuinely narrow phones where
-     108px isn't enough room. see the max-width:850px block below (near
-     .wind-compass-detail-visual) for the density tuning that goes with
-     this on mobile specifically. */
-
 
   /* ----------🌪️🌩️ SPC / NWS live storm desk 🌪️🌩️---------- */
   .nws-card {
@@ -1575,13 +1558,6 @@
     line-height: 1.4;
   }
 
-  /* the collapsed storm-desk card is a quick-read instrument panel, built
-     as left-aligned flowing content instead of boxed grid cells: a colored
-     hazard headline (the one thing worth scanning for first), a compact
-     one-line meta strip (distance / issued / countdown), a live time-left
-     bar, then the location as ordinary wrapping prose -- long county lists
-     need room to run, not a narrow centered box. everything else (the
-     forecaster discussion/summary) goes behind the curated-details toggle. */
   .nws-item { text-align: left; }
 
   .nws-headline {
@@ -1900,16 +1876,6 @@
     height: 300px;
   }
 
-
-  /* ---------- extreme heat visual refinement ----------
-     warm terracotta/ember palette: still clearly "hot", but lower in
-     saturation and contrast so long viewing is easier on the eyes.
-     every warm tint below is mixed from var(--accent-color) -- which
-     applyTheme() sets from THEMES.extremeHeat(Night).accent -- instead
-     of a separate hardcoded color, so tuning the theme's accent in the
-     THEMES block (search for "THEME COLORS") is the only place this
-     ever needs to be touched. only the neutral black shadows stay
-     literal, matching the same convention the base .card rule uses. */
   body.theme-extreme-heat .card {
     background:
       linear-gradient(145deg, color-mix(in srgb, var(--accent-color) 5.5%, transparent), transparent 58%),
@@ -2026,7 +1992,7 @@
   #refresh-btn::after {
     width: 24px; height: 24px;
     top: -8px; right: 24px;
-    box-shadow: -20px -8px 0 -2px #ffffff; /* Adds a tiny third puff */
+    box-shadow: -20px -8px 0 -2px #ffffff; /* tiny third puff */
   }
 
   /* share button cloud shape */
@@ -2217,11 +2183,7 @@
 
   .forecast-period .period-pop .pop-icon { width: 13px; height: 13px; opacity: 0.9; }
 
-  /* ---------- hourly strip + flip-to-4-day-outlook ----------
-     the forecast card lives outside #grid and is full-width, so this
-     mirrors the sensor-tile tap-to-flip pattern (see "sensor card flip"
-     above) with its own classes rather than reusing .card/.card-flipped,
-     which are tied to grid-specific sizing rules elsewhere in this file. */
+  /* ---------- ☀️ hourly strip + flip-to-4-panel-outlook 🌧️ ----------*/
   .forecast-card.forecast-expandable {
     cursor: pointer;
     border-radius: 12px;
