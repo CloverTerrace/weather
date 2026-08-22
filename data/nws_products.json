@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T17:25:32.104924Z",
+  "generatedAt": "2026-08-22T17:30:33.513278Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.33425f7b477ae097e90c24a1c93ab6838e60ed40.001.1",
@@ -70,23 +70,27 @@
   ],
   "statements": [
     {
-      "id": "224f90eb-d9da-452d-b5e5-73d12d1a6fe5",
-      "type": "Area Forecast Discussion",
+      "id": "95a6e21e-5fc7-4298-afb2-7b0dcb65f8a6",
+      "type": "Hazardous Weather Outlook",
       "office": "KPBZ",
-      "issued": "2026-08-22T16:49:00+00:00",
+      "issued": "2026-08-22T17:24:00+00:00",
       "expires": null,
       "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... No major changes have been made to the forecast overall. There",
+      "hazard": "This afternoon and tonight. Severe Thunderstorm Watch.",
       "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... No major changes have been made to the forecast overall. There",
+      "headline": "Hazardous Weather Outlook",
+      "summary": "This afternoon and tonight. Severe Thunderstorm Watch.",
       "details": [
         {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 1249 PM EDT Sat Aug 22 2026 .WHAT HAS CHANGED... No major changes have been made to the forecast overall. There is still decent confidence in the timing and scope of thunderstorm activity this afternoon and evening. Still, there"
+          "label": "Today's Hazards",
+          "text": "This afternoon and tonight. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Severe Thunderstorm Watch."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Sunday through Friday. No hazardous weather is expected at this time."
         }
       ],
-      "url": "https://api.weather.gov/products/224f90eb-d9da-452d-b5e5-73d12d1a6fe5"
+      "url": "https://api.weather.gov/products/95a6e21e-5fc7-4298-afb2-7b0dcb65f8a6"
     }
   ]
 }
