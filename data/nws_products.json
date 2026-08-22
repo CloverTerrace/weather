@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T21:10:35.100640Z",
+  "generatedAt": "2026-08-22T21:15:32.883089Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.33425f7b477ae097e90c24a1c93ab6838e60ed40.001.1",
@@ -230,6 +230,63 @@
   ],
   "statements": [
     {
+      "id": "9920b41d-4342-4a67-9de4-8b7e78156f7e",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T21:15:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Beaver PA-Butler PA",
+      "hazard": "PAC003-007-019-222125- /O.EXP.KPBZ.SV.W.0296.000000T0000Z-260822T2115Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC003-007-019-222125- /O.EXP.KPBZ.SV.W.0296.000000T0000Z-260822T2115Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 515 PM EDT Sat Aug 22 2026 PAC003-007-019-222125- /O.EXP.KPBZ.SV.W.0296.000000T0000Z-260822T2115Z/ Allegheny PA-Beaver PA-Butler PA- 515 PM EDT Sat Aug 22 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/9920b41d-4342-4a67-9de4-8b7e78156f7e"
+    },
+    {
+      "id": "8c7993e4-d942-42cd-ad0c-6e54f3171c17",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T21:07:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Beaver PA-Butler PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Ross Township, McCandless Township, Cranberry, Moon Township, Franklin Park,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Ross Township, McCandless Township, Cranberry, Moon Township, Franklin Park, Aliquippa, Monaca, Hampton Township, Robinson Township, Economy, Kennedy Township, Ambridge, Wexford, Coraopolis, Baden, Sewickley, Rochester, Harmony Township and Seven Fields.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Ross Township, McCandless Township, Cranberry, Moon Township, Franklin Park, Aliquippa, Monaca, Hampton Township, Robinson Township, Economy, Kennedy Township, Ambridge, Wexford, Coraopolis, Baden, Sewickley, Rochester, Harmony Township and Seven Fields."
+        }
+      ],
+      "url": "https://api.weather.gov/products/8c7993e4-d942-42cd-ad0c-6e54f3171c17"
+    },
+    {
+      "id": "07db0c6c-60ce-473e-a682-ca4edeab6a89",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T21:06:00+00:00",
+      "expires": null,
+      "location": "Butler PA-Mercer PA",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Sugarcreek, Hasson Heights,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Sugarcreek, Hasson Heights, Seneca, Rouseville, Cooperstown, Kennerdell, Woodland Heights, Cranberry Township and Oil Creek State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Sugarcreek, Hasson Heights, Seneca, Rouseville, Cooperstown, Kennerdell, Woodland Heights, Cranberry Township and Oil Creek State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/07db0c6c-60ce-473e-a682-ca4edeab6a89"
+    },
+    {
       "id": "1c6337f9-a393-4dba-bda3-2a74d4f40f55",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -285,44 +342,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/8b1193dc-4f54-4715-aa77-f2f6d8da76f8"
-    },
-    {
-      "id": "cc7350a9-315e-47f6-89e9-798390f81d98",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-22T20:45:00+00:00",
-      "expires": null,
-      "location": "Butler PA-Clarion PA-Mercer PA-Venango PA",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Grove City, Franklin, Sugarcreek,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Grove City, Franklin, Sugarcreek, Hasson Heights, Seneca, Polk, Sandy Lake, Emlenton, Rouseville, Clintonville, Cooperstown, St. Petersburg, Kennerdell, Barkeyville, Woodland Heights, Utica, New Lebanon and Cherry Valley.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Grove City, Franklin, Sugarcreek, Hasson Heights, Seneca, Polk, Sandy Lake, Emlenton, Rouseville, Clintonville, Cooperstown, St. Petersburg, Kennerdell, Barkeyville, Woodland Heights, Utica, New Lebanon and Cherry Valley."
-        }
-      ],
-      "url": "https://api.weather.gov/products/cc7350a9-315e-47f6-89e9-798390f81d98"
-    },
-    {
-      "id": "95242772-c1dd-4706-b6a4-82cb861703e8",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-22T20:37:00+00:00",
-      "expires": null,
-      "location": "Mercer PA",
-      "hazard": "PAC085-222047- /O.EXP.KPBZ.SV.W.0293.000000T0000Z-260822T2045Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC085-222047- /O.EXP.KPBZ.SV.W.0293.000000T0000Z-260822T2045Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 437 PM EDT Sat Aug 22 2026 PAC085-222047- /O.EXP.KPBZ.SV.W.0293.000000T0000Z-260822T2045Z/ Mercer PA- 437 PM EDT Sat Aug 22 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/95242772-c1dd-4706-b6a4-82cb861703e8"
     }
   ]
 }
