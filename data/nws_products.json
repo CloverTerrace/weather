@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T21:35:35.282228Z",
+  "generatedAt": "2026-08-22T21:39:50.084183Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.33425f7b477ae097e90c24a1c93ab6838e60ed40.001.1",
@@ -230,23 +230,23 @@
   ],
   "statements": [
     {
-      "id": "9920b41d-4342-4a67-9de4-8b7e78156f7e",
+      "id": "8316b1e9-9392-41f9-ab3d-33b05546df19",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
-      "issued": "2026-08-22T21:15:00+00:00",
+      "issued": "2026-08-22T21:37:00+00:00",
       "expires": null,
-      "location": "Allegheny PA-Beaver PA-Butler PA",
-      "hazard": "PAC003-007-019-222125- /O.EXP.KPBZ.SV.W.0296.000000T0000Z-260822T2115Z/",
+      "location": "Allegheny PA-Armstrong PA-Butler PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Butler, Harrison Township, Homeacre-Lyndora, Shanor-Northvue, Meridian, Meadowood, Oak",
       "distanceMiles": null,
       "headline": "Severe Weather Statement",
-      "summary": "PAC003-007-019-222125- /O.EXP.KPBZ.SV.W.0296.000000T0000Z-260822T2115Z/",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Butler, Harrison Township, Homeacre-Lyndora, Shanor-Northvue, Meridian, Meadowood, Oak Hills, Sarver, Evans City, Freeport, Saxonburg, Russellton, Nixon, Curtisville, East Butler, Connoquenessing and Crooked Creek Lake Park.",
       "details": [
         {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 515 PM EDT Sat Aug 22 2026 PAC003-007-019-222125- /O.EXP.KPBZ.SV.W.0296.000000T0000Z-260822T2115Z/ Allegheny PA-Beaver PA-Butler PA- 515 PM EDT Sat Aug 22 2026"
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Butler, Harrison Township, Homeacre-Lyndora, Shanor-Northvue, Meridian, Meadowood, Oak Hills, Sarver, Evans City, Freeport, Saxonburg, Russellton, Nixon, Curtisville, East Butler, Connoquenessing and Crooked Creek Lake Park."
         }
       ],
-      "url": "https://api.weather.gov/products/9920b41d-4342-4a67-9de4-8b7e78156f7e"
+      "url": "https://api.weather.gov/products/8316b1e9-9392-41f9-ab3d-33b05546df19"
     },
     {
       "id": "07b04386-21c1-4220-9bd0-9742fa610f90",
@@ -268,42 +268,23 @@
       "url": "https://api.weather.gov/products/07b04386-21c1-4220-9bd0-9742fa610f90"
     },
     {
-      "id": "8c7993e4-d942-42cd-ad0c-6e54f3171c17",
+      "id": "9920b41d-4342-4a67-9de4-8b7e78156f7e",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
-      "issued": "2026-08-22T21:07:00+00:00",
+      "issued": "2026-08-22T21:15:00+00:00",
       "expires": null,
       "location": "Allegheny PA-Beaver PA-Butler PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Ross Township, McCandless Township, Cranberry, Moon Township, Franklin Park,",
+      "hazard": "PAC003-007-019-222125- /O.EXP.KPBZ.SV.W.0296.000000T0000Z-260822T2115Z/",
       "distanceMiles": null,
       "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Ross Township, McCandless Township, Cranberry, Moon Township, Franklin Park, Aliquippa, Monaca, Hampton Township, Robinson Township, Economy, Kennedy Township, Ambridge, Wexford, Coraopolis, Baden, Sewickley, Rochester, Harmony Township and Seven Fields.",
+      "summary": "PAC003-007-019-222125- /O.EXP.KPBZ.SV.W.0296.000000T0000Z-260822T2115Z/",
       "details": [
         {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Ross Township, McCandless Township, Cranberry, Moon Township, Franklin Park, Aliquippa, Monaca, Hampton Township, Robinson Township, Economy, Kennedy Township, Ambridge, Wexford, Coraopolis, Baden, Sewickley, Rochester, Harmony Township and Seven Fields."
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 515 PM EDT Sat Aug 22 2026 PAC003-007-019-222125- /O.EXP.KPBZ.SV.W.0296.000000T0000Z-260822T2115Z/ Allegheny PA-Beaver PA-Butler PA- 515 PM EDT Sat Aug 22 2026"
         }
       ],
-      "url": "https://api.weather.gov/products/8c7993e4-d942-42cd-ad0c-6e54f3171c17"
-    },
-    {
-      "id": "07db0c6c-60ce-473e-a682-ca4edeab6a89",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-22T21:06:00+00:00",
-      "expires": null,
-      "location": "Butler PA-Mercer PA",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Sugarcreek, Hasson Heights,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Sugarcreek, Hasson Heights, Seneca, Rouseville, Cooperstown, Kennerdell, Woodland Heights, Cranberry Township and Oil Creek State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Sugarcreek, Hasson Heights, Seneca, Rouseville, Cooperstown, Kennerdell, Woodland Heights, Cranberry Township and Oil Creek State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/07db0c6c-60ce-473e-a682-ca4edeab6a89"
+      "url": "https://api.weather.gov/products/9920b41d-4342-4a67-9de4-8b7e78156f7e"
     }
   ]
 }
