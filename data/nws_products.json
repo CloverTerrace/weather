@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T20:45:32.308250Z",
+  "generatedAt": "2026-08-22T20:50:49.417179Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.33425f7b477ae097e90c24a1c93ab6838e60ed40.001.1",
@@ -230,6 +230,44 @@
   ],
   "statements": [
     {
+      "id": "8b1193dc-4f54-4715-aa77-f2f6d8da76f8",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T20:50:00+00:00",
+      "expires": null,
+      "location": "Belmont OH-Greene PA-Washington PA-Marshall WV-Monongalia WV",
+      "hazard": "OHC013-PAC059-125-WVC051-061-103-222100- /O.EXP.KPBZ.SV.W.0294.000000T0000Z-260822T2100Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC013-PAC059-125-WVC051-061-103-222100- /O.EXP.KPBZ.SV.W.0294.000000T0000Z-260822T2100Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 450 PM EDT Sat Aug 22 2026 OHC013-PAC059-125-WVC051-061-103-222100- /O.EXP.KPBZ.SV.W.0294.000000T0000Z-260822T2100Z/ Belmont OH-Greene PA-Washington PA-Marshall WV-Monongalia WV- Wetzel WV-"
+        }
+      ],
+      "url": "https://api.weather.gov/products/8b1193dc-4f54-4715-aa77-f2f6d8da76f8"
+    },
+    {
+      "id": "cc7350a9-315e-47f6-89e9-798390f81d98",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T20:45:00+00:00",
+      "expires": null,
+      "location": "Butler PA-Clarion PA-Mercer PA-Venango PA",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Grove City, Franklin, Sugarcreek,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Grove City, Franklin, Sugarcreek, Hasson Heights, Seneca, Polk, Sandy Lake, Emlenton, Rouseville, Clintonville, Cooperstown, St. Petersburg, Kennerdell, Barkeyville, Woodland Heights, Utica, New Lebanon and Cherry Valley.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Grove City, Franklin, Sugarcreek, Hasson Heights, Seneca, Polk, Sandy Lake, Emlenton, Rouseville, Clintonville, Cooperstown, St. Petersburg, Kennerdell, Barkeyville, Woodland Heights, Utica, New Lebanon and Cherry Valley."
+        }
+      ],
+      "url": "https://api.weather.gov/products/cc7350a9-315e-47f6-89e9-798390f81d98"
+    },
+    {
       "id": "95242772-c1dd-4706-b6a4-82cb861703e8",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -304,25 +342,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/4570ea60-d092-4554-8efd-146552ca432d"
-    },
-    {
-      "id": "a26d7b5b-d4cd-46cc-8a50-f859da0bac95",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-22T20:21:00+00:00",
-      "expires": null,
-      "location": "Mercer PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Hermitage, Grove City, Mercer, Stoneboro, West Middlesex, Sandy Lake, Clark, Fredonia,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Hermitage, Grove City, Mercer, Stoneboro, West Middlesex, Sandy Lake, Clark, Fredonia, Jackson Center, New Lebanon and Maurice K Goddard State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Hermitage, Grove City, Mercer, Stoneboro, West Middlesex, Sandy Lake, Clark, Fredonia, Jackson Center, New Lebanon and Maurice K Goddard State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/a26d7b5b-d4cd-46cc-8a50-f859da0bac95"
     }
   ]
 }
