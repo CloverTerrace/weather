@@ -234,12 +234,6 @@
     height: 1.1em;
     width: auto;
     vertical-align: -0.15em;
-    /* Meteocons are drawn light/pale by design (meant to float on dark
-       backgrounds), so on the white-ish "sunny" card they lose their
-       edges. A soft, shared drop-shadow gives every icon a consistent
-       outline no matter how light the card behind it is -- barely
-       visible on dark cards, but it quietly rescues legibility on the
-       light ones. */
     filter: var(--icon-shadow);
   }
 
@@ -251,16 +245,6 @@
     object-fit: contain;
   }
 
-  /* meteocons' animated SVGs are drawn with a lot of built-in canvas
-     padding (space reserved for the animation's motion -- bouncing
-     raindrops, drifting clouds, etc.), so a plain <img> at a fixed size
-     shows mostly empty space around a small glyph. this wrapper crops
-     that padding away: overflow is hidden on a fixed-size box, and the
-     image inside is scaled up past the box's edges so only the dense,
-     central part of the artwork is visible. */
-  /* meteocons appear as a small leading badge in front of each card's
-     label text (e.g. "🌡 TEMPERATURE") for one consistent size and
-     position everywhere */
   .card-icon {
     display: inline-block;
     width: 22px;
@@ -5541,7 +5525,7 @@ svg circle, svg polygon, svg line {
             <div class="forecast-periods" id="forecast-periods"></div>
           </div>
         </div>
-        <div class="forecast-flip-hint" id="forecast-flip-hint">tap for 4-day outlook ↗</div>
+        <div class="forecast-flip-hint" id="forecast-flip-hint">tap for forecast summary ↗</div>
       </div>
     </div>
 
@@ -5556,7 +5540,7 @@ svg circle, svg polygon, svg line {
   </div>
     
   <div class="camera-card">
-    <h2>Sky &amp; Space</h2>
+    <h2>Skytracker</h2>
     <div class="sky-box" id="sky-box">
       <div class="sky-body" id="sun-body">
         <div class="sky-body-frame">
