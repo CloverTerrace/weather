@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T23:15:32.818109Z",
+  "generatedAt": "2026-08-22T23:20:32.868613Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.33425f7b477ae097e90c24a1c93ab6838e60ed40.001.1",
@@ -150,6 +150,25 @@
   ],
   "statements": [
     {
+      "id": "a62e3da8-9741-40f1-80e6-0c46a9d068a6",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T23:12:00+00:00",
+      "expires": null,
+      "location": "Clarion PA-Indiana PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Punxsutawney, Brookville, Reynoldsville, Brockway, Sykesville, Falls Creek, Big Run,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Punxsutawney, Brookville, Reynoldsville, Brockway, Sykesville, Falls Creek, Big Run, Summerville, Knox-Dale and Anita.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Punxsutawney, Brookville, Reynoldsville, Brockway, Sykesville, Falls Creek, Big Run, Summerville, Knox-Dale and Anita."
+        }
+      ],
+      "url": "https://api.weather.gov/products/a62e3da8-9741-40f1-80e6-0c46a9d068a6"
+    },
+    {
       "id": "236bc802-5737-4e61-a1cb-d83f28d910dc",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -167,63 +186,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/236bc802-5737-4e61-a1cb-d83f28d910dc"
-    },
-    {
-      "id": "3c73684d-2924-468d-b788-122c975cc8de",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-22T22:52:00+00:00",
-      "expires": null,
-      "location": "Armstrong PA-Indiana PA",
-      "hazard": "PAC005-063-222302- /O.EXP.KPBZ.SV.W.0299.000000T0000Z-260822T2300Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC005-063-222302- /O.EXP.KPBZ.SV.W.0299.000000T0000Z-260822T2300Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 652 PM EDT Sat Aug 22 2026 PAC005-063-222302- /O.EXP.KPBZ.SV.W.0299.000000T0000Z-260822T2300Z/ Armstrong PA-Indiana PA- 652 PM EDT Sat Aug 22 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/3c73684d-2924-468d-b788-122c975cc8de"
-    },
-    {
-      "id": "881ec4bf-529c-4b14-94e7-d64fedc64971",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-22T22:48:00+00:00",
-      "expires": null,
-      "location": "Noble OH",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Woodsfield, Beallsville, Lewisville, Jerusalem, Wilson, Antioch, Stafford, Graysville,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Woodsfield, Beallsville, Lewisville, Jerusalem, Wilson, Antioch, Stafford, Graysville, Miltonsburg and Rinard Mills.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Woodsfield, Beallsville, Lewisville, Jerusalem, Wilson, Antioch, Stafford, Graysville, Miltonsburg and Rinard Mills."
-        }
-      ],
-      "url": "https://api.weather.gov/products/881ec4bf-529c-4b14-94e7-d64fedc64971"
-    },
-    {
-      "id": "ec0cf53c-a77e-496d-bc06-15796a645111",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-22T22:45:00+00:00",
-      "expires": null,
-      "location": "Armstrong PA-Indiana PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Rural Valley, Dayton, Plumville, Smicksburg, Mahoning Creek Lake and Rochester Mills.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Rural Valley, Dayton, Plumville, Smicksburg, Mahoning Creek Lake and Rochester Mills.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Rural Valley, Dayton, Plumville, Smicksburg, Mahoning Creek Lake and Rochester Mills."
-        }
-      ],
-      "url": "https://api.weather.gov/products/ec0cf53c-a77e-496d-bc06-15796a645111"
     }
   ]
 }
