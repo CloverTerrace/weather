@@ -2,7 +2,7 @@
 """
 Fetches the local forecast from the National Weather Service (NWS) API
 for zip code 15001 (Aliquippa, PA) and saves a simplified version to
-data/forecast.json.
+data/forecast.json — both the day/night periods and an hourly breakdown.
 
 No API key needed — the NWS API is free and public. It does require a
 descriptive User-Agent identifying the calling app/site (their usage
@@ -31,6 +31,19 @@ POINTS_URL = f"https://api.weather.gov/points/{LATITUDE},{LONGITUDE}"
 # night — e.g. "Today", "Tonight", "Tuesday", "Tuesday Night" ...).
 MAX_PERIODS = 4
 
+# How many hourly entries to keep for the hourly strip (24 = full day ahead).
+MAX_HOURS = 24
+
+
+def extract_pop(period):
+    """NWS periods carry probabilityOfPrecipitation as {value, unitCode}
+    (value is already a plain percent — unitCode is just 'wmoUnit:percent').
+    Missing/None values are common overnight or far out — keep None rather
+    than coercing to 0, so the frontend can omit the chip instead of
+    showing a misleading "0%"."""
+    pop = period.get("probabilityOfPrecipitation") or {}
+    return pop.get("value")
+
 
 def fetch_json(url):
     try:
@@ -47,7 +60,9 @@ def fetch_json(url):
 
 def main():
     points = fetch_json(POINTS_URL)
-    forecast_url = points.get("properties", {}).get("forecast")
+    props = points.get("properties", {})
+    forecast_url = props.get("forecast")
+    hourly_url = props.get("forecastHourly")
 
     if not forecast_url:
         print("ERROR: Could not find a forecast URL in the NWS points response.", file=sys.stderr)
@@ -61,9 +76,9 @@ def main():
         print("ERROR: No forecast periods returned.", file=sys.stderr)
         sys.exit(1)
 
-    simplified = []
+    simplified_periods = []
     for period in periods[:MAX_PERIODS]:
-        simplified.append({
+        simplified_periods.append({
             "name": period.get("name"),
             "temperature": period.get("temperature"),
             "temperatureUnit": period.get("temperatureUnit"),
@@ -72,13 +87,46 @@ def main():
             "shortForecast": period.get("shortForecast"),
             "detailedForecast": period.get("detailedForecast"),
             "isDaytime": period.get("isDaytime"),
+            "probabilityOfPrecipitation": extract_pop(period),
         })
+
+    # Hourly is a separate NWS product (forecastHourly) -- fetched
+    # independently so a hiccup here doesn't take down the daily periods.
+    simplified_hourly = []
+    if hourly_url:
+        try:
+            hourly_forecast = fetch_json(hourly_url)
+            hourly_periods = hourly_forecast.get("properties", {}).get("periods", [])
+            for period in hourly_periods[:MAX_HOURS]:
+                simplified_hourly.append({
+                    "startTime": period.get("startTime"),
+                    "temperature": period.get("temperature"),
+                    "temperatureUnit": period.get("temperatureUnit"),
+                    "windSpeed": period.get("windSpeed"),
+                    "windDirection": period.get("windDirection"),
+                    "shortForecast": period.get("shortForecast"),
+                    "isDaytime": period.get("isDaytime"),
+                    "probabilityOfPrecipitation": extract_pop(period),
+                })
+        except SystemExit:
+            # fetch_json calls sys.exit on failure -- catch it here so a
+            # broken hourly fetch doesn't take the whole script (and the
+            # daily periods) down with it.
+            print("WARNING: Hourly forecast fetch failed; continuing with daily periods only.", file=sys.stderr)
+            simplified_hourly = []
+    else:
+        print("WARNING: No forecastHourly URL in the NWS points response; skipping hourly.", file=sys.stderr)
+
+    output = {
+        "periods": simplified_periods,
+        "hourly": simplified_hourly,
+    }
 
     os.makedirs("data", exist_ok=True)
     with open("data/forecast.json", "w") as f:
-        json.dump(simplified, f, indent=2)
+        json.dump(output, f, indent=2)
 
-    print(f"Wrote data/forecast.json with {len(simplified)} periods.")
+    print(f"Wrote data/forecast.json with {len(simplified_periods)} periods and {len(simplified_hourly)} hourly entries.")
 
 
 if __name__ == "__main__":
