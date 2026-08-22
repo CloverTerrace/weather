@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T20:35:33.697492Z",
+  "generatedAt": "2026-08-22T20:40:46.255492Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.33425f7b477ae097e90c24a1c93ab6838e60ed40.001.1",
@@ -25,6 +25,44 @@
     }
   ],
   "mesoscaleDiscussions": [
+    {
+      "id": "MD2089",
+      "number": 2089,
+      "issued": "2026-08-22T20:33:00Z",
+      "expires": "2026-08-22T22:30:00Z",
+      "concerning": "Severe Thunderstorm Watch 615",
+      "hazard": "Severe Thunderstorm Watch 615",
+      "areas": "Northeast Arkansas into western Tennessee and far northwest Mississippi",
+      "location": "Northeast Arkansas into western Tennessee and far northwest Mississippi",
+      "distanceMiles": 573.1,
+      "summary": "The early signs up upscale growth are noted across northeast Arkansas, hinting that the potential for severe winds is likely increasing downstream into western Tennessee and far northwest Mississippi",
+      "watchProbability": null,
+      "forecaster": "Moore",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "The early signs up upscale growth are noted across northeast Arkansas, hinting that the potential for severe winds is likely increasing downstream into western Tennessee and far northwest Mississippi"
+        },
+        {
+          "label": "Discussion",
+          "text": "Over the past 40-45 minutes, reflectivity and velocity data from KLZK and KNQA have shown the early stages of semi-discrete cells merging and growing upscale into a more cohesive convective cluster. Cold pool amalgamation appears to be ongoing with embedded swaths of more intense wind now evident in KNQA velocity imagery. Downstream of this developing cluster, low-level lapse rates have steepened to 8-9 C/km as temperatures climb into the upper 90s. Additionally, the KNQA VWP is sampling 0-6 km BWD values on the order of 30-35 knots. Both of these factors will continue to favor organization and intensification of the emerging cluster (possibly into a more coherent linear structure) as it spreads southeast into western TN and far northwest MS over the next two hours. Based on recent convective trends, the downstream environment, and output from recent CAM guidance (which appear to be capturing ongoing trends well) the potential for 60-80 mph winds will likely increase as the cluster/line approaches the I-40 corridor"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK WIND GUST...65-80 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Moore"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...MEG...LZK"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2089.html",
+      "office": "SPC"
+    },
     {
       "id": "MD2088",
       "number": 2088,
@@ -188,51 +226,28 @@
       ],
       "url": "https://www.spc.noaa.gov/products/md/md2085.html",
       "office": "SPC"
-    },
-    {
-      "id": "MD2084",
-      "number": 2084,
-      "issued": "2026-08-22T19:15:00Z",
-      "expires": "2026-08-22T21:45:00Z",
-      "concerning": "Severe potential...Watch unlikely",
-      "hazard": "Severe potential...Watch unlikely",
-      "areas": "portions of central and eastern Wyoming into the western Nebraska Panhandle and northeast Colorado",
-      "location": "portions of central and eastern Wyoming into the western Nebraska Panhandle and northeast Colorado",
-      "distanceMiles": 3862.9,
-      "summary": "The threat for isolated occurrences of large hail and severe wind gusts is expected to increase by mid-afternoon and continue through this evening. A watch is currently not anticipated due to the limited coverage of the threat",
-      "watchProbability": "20 percent",
-      "forecaster": "Mead/Smith",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "The threat for isolated occurrences of large hail and severe wind gusts is expected to increase by mid-afternoon and continue through this evening. A watch is currently not anticipated due to the limited coverage of the threat"
-        },
-        {
-          "label": "Discussion",
-          "text": "Recent trends in visible satellite imagery show deepening moist convection along the Laramie Mountains and CO Front Range with additional development likely ahead of a well-defined MCV moving through central WY. Beneath a plume of steep mid-level lapse rates, current surface observations indicate a moist boundary layer characterized by dewpoints in the mid 50s to low 60s, yielding MLCAPE of 1000-1500 J/kg. Latest objective analysis suggests the air mass across the adjacent High Plains remains capped; however, continued daytime heating and the glancing influence of the WY MCV should allow initial terrain-anchored storms to move into lower elevations later this afternoon into evening. Current VWPs and RAP-based forecast soundings indicate vertically veering wind profiles with around 30 kt of deep-layer shear, which will be supportive of at least episodic supercell structures capable of large hail. The potential for isolated severe wind gusts may become more likely by early evening, especially if storms can merge into clusters"
-        },
-        {
-          "label": "Watch probability",
-          "text": "20 percent"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH · MOST PROBABLE PEAK HAIL SIZE...1.00-1.75 IN"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Mead/Smith"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...UNR...BOU...CYS...RIW"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md2084.html",
-      "office": "SPC"
     }
   ],
   "statements": [
+    {
+      "id": "95242772-c1dd-4706-b6a4-82cb861703e8",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T20:37:00+00:00",
+      "expires": null,
+      "location": "Mercer PA",
+      "hazard": "PAC085-222047- /O.EXP.KPBZ.SV.W.0293.000000T0000Z-260822T2045Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC085-222047- /O.EXP.KPBZ.SV.W.0293.000000T0000Z-260822T2045Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 437 PM EDT Sat Aug 22 2026 PAC085-222047- /O.EXP.KPBZ.SV.W.0293.000000T0000Z-260822T2045Z/ Mercer PA- 437 PM EDT Sat Aug 22 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/95242772-c1dd-4706-b6a4-82cb861703e8"
+    },
     {
       "id": "c75e9adc-c99a-4564-877c-b94ea01aa92f",
       "type": "Severe Weather Statement",
