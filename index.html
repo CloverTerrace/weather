@@ -2112,6 +2112,38 @@
     display: block;
     margin: 0 auto;
   }
+
+  .camera-mobile-timelapse-video {
+    display: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: 8px;
+    background: #000;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+  }
+
+  .camera-mobile-timelapse-btn {
+    display: none;
+    width: min(100%, 22rem);
+    margin: 0.85rem auto 0;
+    padding: 0.8rem 1.1rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--accent-color, #6b8fb3);
+    color: #fff;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+  }
+
+  .camera-mobile-timelapse-btn:hover,
+  .camera-mobile-timelapse-btn:focus-visible {
+    filter: brightness(1.06);
+    outline: none;
+  }
 /* ~*~*~*~*~ dashboard grid ~*~*~*~*~ */
 .dashboard-grid {
     display: grid;
@@ -3956,6 +3988,38 @@ svg circle, svg polygon, svg line {
     box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
   }
 
+  .camera-lightbox video {
+    display: none;
+    max-width: min(94vw, 1800px);
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .camera-timelapse-btn {
+    position: static;
+    transform: none;
+    margin-top: 0.9rem;
+    padding: 0.8rem 1.35rem;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.16);
+    color: #fff;
+    font: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+
+  .camera-timelapse-btn:hover,
+  .camera-timelapse-btn:focus-visible {
+    background: rgba(255,255,255,0.22);
+    outline: none;
+  }
+
   .camera-lightbox-close {
     position: absolute;
     top: clamp(0.75rem, 2vw, 1.5rem);
@@ -4337,6 +4401,12 @@ svg circle, svg polygon, svg line {
     border: 0;
     border-radius: 10px;
     background: var(--card-color);
+  }
+
+  @media (max-width: 850px) {
+    .camera-mobile-timelapse-btn {
+      display: block;
+    }
   }
 
   /* desktop information guidelimes */
@@ -5516,6 +5586,8 @@ svg circle, svg polygon, svg line {
   <div class="camera-card">
     <h2>Station Camera</h2>
     <img id="camera-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
+    <video id="camera-mobile-timelapse-video" class="camera-mobile-timelapse-video" controls playsinline preload="metadata" aria-label="Yesterday's station camera time lapse"></video>
+    <button id="camera-mobile-timelapse-btn" class="camera-mobile-timelapse-btn" type="button">Yesterday's Time Lapse</button>
   </div>
     
   <div class="camera-card">
@@ -5769,6 +5841,8 @@ svg circle, svg polygon, svg line {
   <div id="camera-lightbox" class="camera-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Station camera photo">
     <button id="camera-lightbox-close" class="camera-lightbox-close" type="button" aria-label="Close station camera photo">&times;</button>
     <img id="camera-lightbox-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
+    <video id="camera-lightbox-video" controls playsinline preload="metadata" aria-label="Yesterday's station camera time lapse"></video>
+    <button id="camera-timelapse-btn" class="camera-timelapse-btn" type="button">Yesterday's Time Lapse</button>
   </div>
 
   <div id="status" aria-live="polite"></div>
@@ -9708,15 +9782,31 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
     desktopQuery.addEventListener?.('change', syncDesktopComposition);
 
     const lightbox = document.getElementById('camera-lightbox');
-    const lightboxImg = document.getElementById('camera-lightbox-img');
-    const closeBtn = document.getElementById('camera-lightbox-close');
+const lightboxImg = document.getElementById('camera-lightbox-img');
+const lightboxVideo = document.getElementById('camera-lightbox-video');
+const timelapseBtn = document.getElementById('camera-timelapse-btn');
+const mobileTimelapseBtn = document.getElementById('camera-mobile-timelapse-btn');
+const mobileTimelapseVideo = document.getElementById('camera-mobile-timelapse-video');
+const closeBtn = document.getElementById('camera-lightbox-close');
+
+function resetLightboxMedia() {
+  if (lightboxImg) lightboxImg.style.display = '';
+  if (lightboxVideo) {
+    lightboxVideo.pause();
+    lightboxVideo.removeAttribute('src');
+    lightboxVideo.load();
+    lightboxVideo.style.display = 'none';
+  }
+  if (timelapseBtn) timelapseBtn.style.display = '';
+}
 
     function closeLightbox() {
-      if (!lightbox) return;
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
+  if (!lightbox) return;
+  resetLightboxMedia();
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
 
     function openLightbox() {
       if (!desktopQuery.matches || !lightbox || !lightboxImg) return;
@@ -9728,6 +9818,54 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
       document.body.style.overflow = 'hidden';
       closeBtn?.focus({ preventScroll: true });
     }
+
+    function getYesterdayTimelapseUrl() {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const dayString =
+    `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
+  return `https://clover-wx-camera-1028879236258.us-central1.run.app/camera/timelapse/${dayString}`;
+}
+
+function openTimelapse() {
+  if (!lightbox || !lightboxVideo || !lightboxImg) return;
+
+  lightboxImg.style.display = 'none';
+  lightboxVideo.src = getYesterdayTimelapseUrl();
+  lightboxVideo.style.display = 'block';
+  if (timelapseBtn) timelapseBtn.style.display = 'none';
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  lightboxVideo.play().catch(() => {});
+}
+
+function toggleMobileTimelapse() {
+  if (!mobileTimelapseBtn || !mobileTimelapseVideo) return;
+
+  const showing = mobileTimelapseVideo.style.display === 'block';
+
+  if (showing) {
+    mobileTimelapseVideo.pause();
+    mobileTimelapseVideo.removeAttribute('src');
+    mobileTimelapseVideo.load();
+    mobileTimelapseVideo.style.display = 'none';
+    const source = document.getElementById('camera-img');
+    if (source) source.style.display = '';
+    mobileTimelapseBtn.textContent = "Yesterday's Time Lapse";
+    return;
+  }
+
+  const source = document.getElementById('camera-img');
+  if (source) source.style.display = 'none';
+  mobileTimelapseVideo.src = getYesterdayTimelapseUrl();
+  mobileTimelapseVideo.style.display = 'block';
+  mobileTimelapseBtn.textContent = 'Show Live Camera';
+  mobileTimelapseVideo.play().catch(() => {});
+}
+
+    timelapseBtn?.addEventListener('click', openTimelapse);
+    mobileTimelapseBtn?.addEventListener('click', toggleMobileTimelapse);
 
     cameraCard.addEventListener('click', (event) => {
       if (desktopQuery.matches && !event.target.closest('a, button')) openLightbox();
