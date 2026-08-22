@@ -159,7 +159,7 @@ class JsonExportService(StdService):
             "humidity": g("outHumidity"),
             "winddir": g("windDir"),
             "uv": g("UV"),
-            "solarRadiation": g("radiation"),
+            "solarRadiation": g("uvradiation"),
             "temp": g("outTemp"),
             "heatIndex": g("heatindex"),
             "windChill": g("windchill"),
