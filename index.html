@@ -3901,17 +3901,6 @@ svg circle, svg polygon, svg line {
     padding-left: 1rem;
   }
 
-  /* CAPE pairs a 4-digit value with a longer unit ("J/kg" vs inHg's
-     shorter neighbors elsewhere on the grid) inside a half-width column --
-     at the site-wide .priority-value size that combination doesn't fit on
-     one line and the unit wraps underneath, breaking the two-column
-     layout and misaligning it against Pressure's own value. Sized down
-     specifically for this row (not a global .priority-value change) and
-     pinned to one line as a hard guarantee. Also given breathing room on
-     the right (the trend arrow used to be the widest element in this
-     column, forcing font-size down further than the digits alone need)
-     now that the arrow itself is smaller.
-  */
   .pressure-glance-row .priority-value {
     font-size: clamp(1.4rem, 6.8vw, 1.85rem) !important;
     white-space: nowrap;
@@ -3935,8 +3924,7 @@ svg circle, svg polygon, svg line {
 
   /* ================================================================
      DESKTOP WEATHER-CENTER COMPOSITION
-     851px+ only ~ the mobile/under 851px is intentionally left
-     on the existing responsive architecture.
+     851px+ only ~ 
      ================================================================ */
   .desktop-dashboard-layout,
   .desktop-left-rail,
@@ -4232,8 +4220,6 @@ svg circle, svg polygon, svg line {
     max-width: none;
   }
 
-  /* 85vw gives a little more breathing room as a monitor grows, while the
-     1320px ceiling prevents the page from ever becoming a giant dashboard. */
   .grid {
     width: min(82vw, 1320px);
     gap: clamp(0.95rem, 1.35vw, 1.35rem);
@@ -4320,9 +4306,7 @@ svg circle, svg polygon, svg line {
     }
   }
 
-  /* lightning card: the live map is created only after expansion. this is.   🌩️ 
-     not an iframe in the closed card, so the sensor grid doesn't add any    ⚡️ 🌧️
-     bulkiness to build and the external map can't become a background lag source. */
+  /* lightning card: the live map is created only after expansion */
   .lightning-map-panel {
     width: 100%;
   }
@@ -4344,7 +4328,7 @@ svg circle, svg polygon, svg line {
     text-align: center;
   }
 
-  /* two-way switcher between our own GLM map and the Blitzortung embed
+  /* two-way switcher between my GLM map and the Blitzortung embed
      tap either tab, or swipe left/right over the map area on touch. GLM is
      the default. */
   .lightning-map-tabs {
@@ -4572,9 +4556,7 @@ svg circle, svg polygon, svg line {
     margin-top: 0.45rem;
     font-size: 0.61rem;
   }
-
-  /*  make space for the live weather-center sections without 
-  making it look squished on small or narrow screens.      */
+  
   @media (max-width: 900px) {
     .grid,
     .dashboard-grid,
@@ -4685,13 +4667,6 @@ svg circle, svg polygon, svg line {
       align-items: start !important;
     }
 
-    /* square tiles sized from the tile's own resolved column width via aspect-ratio,
-       instead of a fixed pixel height. a fixed height paired with a rail
-       that narrows down toward 851px meant the tiles kept shrinking in
-       width while staying just as tall -- reading as noticeably "long"
-       skinny rectangles rather than tiles. Aspect-ratio keeps them square
-       at every rail width automatically, so the old 851-1120px-specific
-       height override a bit further down is no longer needed either. */
     .desktop-left-rail #grid.grid .card,
     #grid.grid .desktop-camera-tile {
       width: 100% !important;
@@ -4947,13 +4922,6 @@ svg circle, svg polygon, svg line {
       justify-content: flex-start;
       align-items: stretch;
       cursor: zoom-in;
-      /* .camera-card never picks up the shared .card rule's
-         container-type: inline-size (it isn't a .card), so its h2's
-         cqw clamp below had nothing to measure against and fell back to
-         the viewport -- effectively pinning it at its max size no matter
-         how narrow the tile itself got, which is what let "STATION
-         CAMERA" overflow to two lines on narrow desktops instead of
-         shrinking like every other tile's label. */
       container-type: inline-size;
       container-name: card;
     }
@@ -5865,21 +5833,12 @@ svg circle, svg polygon, svg line {
   // universal formatting function to enforce specific decimal places
   const formatVal = (v, dec = 1) => v !== undefined && v !== null && !isNaN(v) ? Number(v).toFixed(dec) : '--';
 
-  // the station scripts write timestamps like "2026-08-05 15:45:46" --
-  // space-separated, no timezone. V8 (Chrome/Edge) parses that leniently
-  // as local time, but that format isn't part of the spec Safari/WebKit
-  // actually follows, and returns Invalid Date for it -- silently breaking
-  // any .getHours()/.getTime() call downstream. Normalizing to a real ISO
-  // string (space -> "T") makes it parse consistently everywhere.
   function parseStationTime(str) {
     if (!str) return new Date(NaN);
     return new Date(str.includes('T') ? str : str.replace(' ', 'T'));
   }
 
-  // the station is fixed in Aliquippa, PA -- this page is meant to show
-  // conditions here, so anything comparing "now" against a
-  // station reading needs to use the station's own clock, never the
-  // visitor's browser timezone.
+  // the station timezone
   const STATION_TIMEZONE = 'America/New_York';
 
   // returns the current moment as a naive "YYYY-MM-DD HH:MM:SS" string in
@@ -6040,10 +5999,7 @@ svg circle, svg polygon, svg line {
     return (es - ea).toFixed(3);
   }
 
-  // plain-language comfort read on dew point -- this is what most
-  // weather enthusiasts actually use to judge "how muggy does it feel"
-  // rather than relative humidity, which is temperature-dependent and
-  // misleading on its own.
+  // plain-language comfort read on dew point
   function getDewpointComfort(dewpt) {
     if (dewpt === undefined || dewpt === null || isNaN(dewpt)) return '';
     if (dewpt < 50) return 'dry';
@@ -6057,8 +6013,6 @@ svg circle, svg polygon, svg line {
   }
 
   // beaufort scale label for a wind speed in mph -- the classic
-  // enthusiast shorthand for "what does this wind actually feel/look
-  // like outside".
   function getBeaufortLabel(mph) {
     if (mph === undefined || mph === null || isNaN(mph)) return '--';
     if (mph < 1) return 'Calm';
@@ -6086,9 +6040,7 @@ svg circle, svg polygon, svg line {
     return { label: 'Extreme', color: '#c792ff' };
   }
 
-  // plain-language read on CAPE (Convective Available Potential Energy) --
-  // standard SPC breakpoints, so this means the same thing to a met-school
-  // grad as it does to a casual visitor reading just the badge.
+  // plain-language read on CAPE (Convective Available Potential Energy)
   function getCapeCategory(cape) {
     if (cape === undefined || cape === null || isNaN(cape)) return { label: '--', color: 'var(--muted-color)' };
     if (cape < 100) return { label: 'Stable', color: 'var(--muted-color)' };
@@ -6099,19 +6051,6 @@ svg circle, svg polygon, svg line {
   }
 
   // plain-language storm-development read combining the 3h pressure trend
-  // (the classic "what does a falling barometer mean" cue) with CAPE
-  // (instability -- "is there fuel for a storm at all"). Falling pressure
-  // without instability is just an approaching system; falling pressure
-  // WITH instability is a real thunderstorm setup -- the two signals mean
-  // more together than either alone, which is the whole point of pairing
-  // them on one tile. Takes the *same* trend object getPressureTrend()
-  // produces (and that drives the card's arrow/label) rather than
-  // re-deriving Rising/Falling/Steady from deltaPerHour against a separate
-  // threshold -- two independent thresholds could disagree right at the
-  // boundary, showing a rising arrow next to "steady" text. Reading
-  // trend.label keeps the note and the arrow in sync. `cape` is optional --
-  // omitting it (or passing null, e.g. while data/cape.json hasn't loaded
-  // yet) falls back to the original pressure-only note.
   function getStormPotentialNote(trend, rateHtml, cape) {
     const rateSuffix = rateHtml ? ` · ${rateHtml}` : '';
     const hasCape = cape !== undefined && cape !== null && !isNaN(cape);
@@ -6315,10 +6254,7 @@ svg circle, svg polygon, svg line {
     return { arrow: '→', label: 'Steady', className: 'trend-steady', delta, deltaPerHour };
   }
 
-  // CAPE's own trend arrow -- same windowed-delta approach as pressure's
-  // trend above (reuses that function's shape, just a CAPE-scaled
-  // threshold and plain arrow glyphs instead of the pressure meteocons,
-  // since there's no "rising/falling instability" icon set to reach for).
+  // CAPE's trend arrow
   const CAPE_TREND_WINDOW_HOURS = 3;
   const CAPE_TREND_THRESHOLD = 250; // J/kg change over the window
 
@@ -6347,11 +6283,7 @@ svg circle, svg polygon, svg line {
     return { arrow: '→', label: 'Steady', className: 'trend-steady', delta, deltaPerHour };
   }
 
-  // shared pressure+CAPE sparkline strip on the front of the combined tile,
-  // replacing the old per-column CAPE category badge -- both series are
-  // normalized independently (different units/scales) onto the same
-  // height, so each line shows its own recent shape rather than one
-  // series flattening the other out.
+  // shared pressure+CAPE sparkline strip on the fronttile
   const PC_SPARK_WINDOW_HOURS = 6;
 
   function sparklinePoints(history, valueKey, hours) {
@@ -6397,8 +6329,7 @@ svg circle, svg polygon, svg line {
     return history.filter(entry => new Date(entry.time).getTime() >= cutoff);
   }
 
-  // generic sensor-card interaction: a clean front/back flip. the card's
-  // footprint never changes; the back is rendered only when opened.
+  // sensor-card interaction
   function makeCardExpandable(cardEl, key, title, renderPanel) {
     cardEl.classList.add('card-expandable');
     cardEl.setAttribute('tabindex', '0');
@@ -6477,18 +6408,11 @@ svg circle, svg polygon, svg line {
       if (hint) hint.textContent = `tap for ${card.dataset.expandHint || 'more data'} ↗`;
     });
     document.querySelectorAll('.lightning-card.lightning-map-open').forEach(card => {
-      // just hide -- don't remove -- the panel/iframe here too. removing
-      // it would force a fresh reload of Blitzortung's page (and its
-      // cookie-consent banner) the next time it's opened; see
-      // toggleLightningMap() below.
       card.classList.remove('lightning-map-open');
       card.setAttribute('aria-expanded', 'false');
     });
   }
 
-  // detail overlays should never linger over the dashboard after the user
-  // moves on. Scroll and outside taps close them; specialized Storm Center,
-  // camera, radar and outlook interactions are intentionally excluded.
   let sensorDismissTimer = null;
   document.addEventListener('click', (event) => {
     if (event.target.closest('#grid .card.card-expandable, #grid .lightning-card')) return;
@@ -6531,15 +6455,6 @@ svg circle, svg polygon, svg line {
       },
     });
 
-    // every other chart tab gets this same nudge the moment its tab is
-    // first clicked (see initChartTabs() below) -- because Chart.js can
-    // render at the wrong size if its container's layout hasn't fully
-    // settled at the exact moment it's constructed. Temp & Humidity is
-    // the one tab that's active by default, so it never receives a
-    // click, and until now never got the nudge either -- it just stayed
-    // stuck at whatever size it happened to measure on page load until
-    // the user switched tabs and back (which triggers this exact same
-    // fix, just accidentally, via the click handler on the OTHER tab).
     setTimeout(() => historyChart.resize(), 50);
   }
 
@@ -6709,10 +6624,6 @@ svg circle, svg polygon, svg line {
   function initChartTabs() {
     const tabs = document.querySelectorAll('.chart-tab');
     const cards = document.querySelectorAll('.charts-dropdown .chart-card');
-    // maps each panel's id to its live Chart.js instance so we can nudge
-    // it to recompute its size right after becoming visible -- a chart
-    // created (or last updated) while its canvas was display:none can
-    // otherwise render at 0 size the first time its tab is opened.
     const chartsByTarget = {
       'chart-card-temp': () => historyChart,
       'chart-card-wind': () => windChart,
@@ -6759,10 +6670,7 @@ svg circle, svg polygon, svg line {
     }
   }
 
-  // rolling CAPE history (written by fetch_cape.py each workflow run) --
-  // same shape/consumer pattern as loadHistory()/fullHistory above, just
-  // a separate file+array since CAPE refreshes on its own model-run
-  // cadence rather than the station's own sensor cadence.
+  // rolling CAPE history (written by fetch_cape.py each workflow run)
   async function loadCapeHistory() {
     try {
       const url = `data/cape_history.json?t=${Date.now()}`;
@@ -6779,8 +6687,7 @@ svg circle, svg polygon, svg line {
   }
 
   // maps an NWS shortForecast string (+ day/night) to a Meteocons filename.
-  // more specific/severe conditions are checked first so
-  // "thunderstorms" doesn't fall through to the generic rain icon.
+  // more specific/severe conditions are checked first
   function forecastMeteocon(shortForecast, isDaytime) {
     const s = (shortForecast || '').toLowerCase();
     const dn = isDaytime === false ? 'night' : 'day';
@@ -6893,8 +6800,6 @@ svg circle, svg polygon, svg line {
         const isActive = i === activeIndex;
         thumb.classList.toggle('active', isActive);
         thumb.setAttribute('aria-current', isActive ? 'true' : 'false');
-        // keep the compact drawer focused on the alternatives to the large
-        // image. the currently open product is intentionally not duplicated.
         thumb.hidden = isActive;
       });
     };
@@ -6910,8 +6815,7 @@ svg circle, svg polygon, svg line {
           label.textContent = activeIndex === 0 ? `Right now · ${slideLabel}` : `${labelPrefix} · ${slideLabel}`;
         }
       }
-      // thunderstorm slides carry their own compact period label. keep the
-      // same "right now" / "viewing" language synchronized after a swipe.
+      // thunderstorm slides carry their own compact period label.
       slides.forEach((slide, i) => {
         const periodLabel = slide.querySelector('.thunderstorm-period-label');
         if (!periodLabel) return;
@@ -8050,7 +7954,7 @@ const THEMES = {
     cloudy:            { bg: '#6FA3D6', card: '#F3F6FA', accent: '#1D6FA5', muted: '#5F7A93', text: '#33455A', title: '#ffffff', icon: '⛅️', meteocon: 'partly-cloudy-day.svg', iconImg: 'icons/themes/cloudy.png', lightCard: true, fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Figtree" } },
     rainy:             { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️', meteocon: 'rain.svg', iconImg: 'icons/themes/rainy.png', fonts: { title: "Letter Magic, Tahoma" } },
     rainyNight:        { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️🌙', meteocon: 'mostly-clear-night-rain.svg', iconImg: 'icons/themes/rainyNight.png', fonts: { title: "Lavishly Yours, cursive" } },
-    snowy:             { bg: '#1b2430', card: '#25313f', accent: '#dff3ff', muted: '#d5d4e6', text: '#ffffff', title: '#ffffff', icon: '❄️', meteocon: 'snow.svg', iconImg: 'icons/themes/snowy.png', fonts: { title: "Snowby, sans-serif" } },
+    snowy:             { bg: "#ABE9FF", card: "#EBF9FF", accent: "#9EA9FF", muted: "#73B0FF", text: "#537499", title: "#E3F4FF", icon: '❄️', meteocon: 'snow.svg', iconImg: 'icons/themes/snowy.png', fonts: { title: "Snowby, sans-serif" } },
     snowyNight:        { bg: '#0f151c', card: '#182530', accent: '#a8d8f0', muted: '#dcf0f7', text: '#ffffff', title: '#ffffff', icon: '❄️🌙', meteocon: 'partly-cloudy-night-snow.svg', iconImg: 'icons/themes/snowyNight.png', fonts: { title: "Snowby, sans-serif" } },
     night:             { bg: '#14112F', card: '#41406a', accent: '#9F86C0', muted: '#f0eff6', text: '#ffffff', title: '#ffffff', icon: '🌙', meteocon: 'starry-night.svg', iconImg: 'icons/themes/night.png', fonts: { title: "Lavishly Yours, cursive", details: "Figtree" } },
     auroraNight:       { bg: '#05060f', card: '#141a33', accent: '#7CFFB2', muted: '#eae6ff', text: '#ffffff', title: '#ffffff', icon: '🌌', meteocon: 'aurora.svg', iconImg: 'icons/themes/auroraNight.png',  fonts: { title: "Lavishly Yours, cursive" } },
