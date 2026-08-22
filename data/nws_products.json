@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T22:20:33.985158Z",
+  "generatedAt": "2026-08-22T22:25:33.395072Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.33425f7b477ae097e90c24a1c93ab6838e60ed40.001.1",
@@ -234,6 +234,25 @@
   ],
   "statements": [
     {
+      "id": "f8dd58c6-345a-459e-b91e-c2ac0bcd66d6",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T22:20:00+00:00",
+      "expires": null,
+      "location": "Armstrong PA-Indiana PA-Westmoreland PA",
+      "hazard": "PAC005-063-129-222230- /O.EXP.KPBZ.SV.W.0298.000000T0000Z-260822T2230Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC005-063-129-222230- /O.EXP.KPBZ.SV.W.0298.000000T0000Z-260822T2230Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 620 PM EDT Sat Aug 22 2026 PAC005-063-129-222230- /O.EXP.KPBZ.SV.W.0298.000000T0000Z-260822T2230Z/ Armstrong PA-Indiana PA-Westmoreland PA- 620 PM EDT Sat Aug 22 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/f8dd58c6-345a-459e-b91e-c2ac0bcd66d6"
+    },
+    {
       "id": "09ae3df5-62c9-46e0-8cad-0ddea8f6e867",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -289,25 +308,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/a7b75ae0-7619-4ef3-96ec-2c24f93a3081"
-    },
-    {
-      "id": "6080e9dc-b624-4892-8977-d4c3eee1ad36",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-22T22:01:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA-Armstrong PA-Butler PA",
-      "hazard": "PAC003-005-019-222211- /O.EXP.KPBZ.SV.W.0297.000000T0000Z-260822T2200Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC003-005-019-222211- /O.EXP.KPBZ.SV.W.0297.000000T0000Z-260822T2200Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 601 PM EDT Sat Aug 22 2026 PAC003-005-019-222211- /O.EXP.KPBZ.SV.W.0297.000000T0000Z-260822T2200Z/ Allegheny PA-Armstrong PA-Butler PA- 601 PM EDT Sat Aug 22 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/6080e9dc-b624-4892-8977-d4c3eee1ad36"
     }
   ]
 }
