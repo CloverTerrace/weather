@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T23:31:29.416528Z",
+  "generatedAt": "2026-08-22T23:35:43.856901Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.33425f7b477ae097e90c24a1c93ab6838e60ed40.001.1",
@@ -149,6 +149,25 @@
     }
   ],
   "statements": [
+    {
+      "id": "b316ad0a-eb84-435f-b028-393249c95fe0",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T23:35:00+00:00",
+      "expires": null,
+      "location": "Jefferson PA",
+      "hazard": "PAC065-222345- /O.CAN.KPBZ.SV.W.0301.000000T0000Z-260823T0000Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC065-222345- /O.CAN.KPBZ.SV.W.0301.000000T0000Z-260823T0000Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 735 PM EDT Sat Aug 22 2026 PAC065-222345- /O.CAN.KPBZ.SV.W.0301.000000T0000Z-260823T0000Z/ Jefferson PA- 735 PM EDT Sat Aug 22 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/b316ad0a-eb84-435f-b028-393249c95fe0"
+    },
     {
       "id": "089acf3c-83cd-4301-b4bd-6f7b5368bb1b",
       "type": "Severe Weather Statement",
