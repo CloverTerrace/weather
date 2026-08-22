@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T20:30:33.623833Z",
+  "generatedAt": "2026-08-22T20:35:33.697492Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.33425f7b477ae097e90c24a1c93ab6838e60ed40.001.1",
@@ -25,6 +25,48 @@
     }
   ],
   "mesoscaleDiscussions": [
+    {
+      "id": "MD2088",
+      "number": 2088,
+      "issued": "2026-08-22T20:30:00Z",
+      "expires": "2026-08-22T22:30:00Z",
+      "concerning": "Severe potential...Watch possible",
+      "hazard": "Severe potential...Watch possible",
+      "areas": "portions of central and eastern Kentucky into northern middle Tennessee",
+      "location": "portions of central and eastern Kentucky into northern middle Tennessee",
+      "distanceMiles": 207.8,
+      "summary": "The threat for at least isolated severe storms is expected to persist through this evening. Convective trends are being monitored for a possible severe thunderstorm watch",
+      "watchProbability": "60 percent",
+      "forecaster": "Mead/Smith",
+      "details": [
+        {
+          "label": "Summary",
+          "text": "The threat for at least isolated severe storms is expected to persist through this evening. Convective trends are being monitored for a possible severe thunderstorm watch"
+        },
+        {
+          "label": "Discussion",
+          "text": "Over the past hour, thunderstorms have gradually increased in areal coverage from northeast into central KY, ahead of a cold front advancing into the northern part of the state. The inflow air mass to these storms is relatively hot and moist, leading to steep low-level lapse rates and MLCAPE ranging from around 1000 J/kg in northeast KY to as high as 2500-3000 J/kg near the confluence of the Mississippi and Ohio Rivers. Regional VWPs indicate gradually strengthening mid and upper-level winds this afternoon with deep-layer shear vectors oriented largely perpendicular to the surface front, especially over western and central KY. That is resulting in a semi-discrete storm mode with recent reports of hail up to one inch. Further strengthening of deep-layer shear is forecast through the remainder of the afternoon, potentially leading to a greater supercell and associated large-hail threat. Damaging wind potential may tend to increase by early evening, especially if some clustering of storms can occur"
+        },
+        {
+          "label": "Watch probability",
+          "text": "60 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH · MOST PROBABLE PEAK HAIL SIZE...1.00-1.75 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Mead/Smith"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...RLX...MRX...JKL...ILN...LMK...OHX...PAH"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2088.html",
+      "office": "SPC"
+    },
     {
       "id": "MD2087",
       "number": 2087,
@@ -191,6 +233,44 @@
     }
   ],
   "statements": [
+    {
+      "id": "c75e9adc-c99a-4564-877c-b94ea01aa92f",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T20:35:00+00:00",
+      "expires": null,
+      "location": "Belmont OH-Greene PA-Washington PA-Marshall WV-Monongalia WV",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Moundsville, Shadyside, McMechen, Glen Dale, Cameron, Hundred, Rogersville, West",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Moundsville, Shadyside, McMechen, Glen Dale, Cameron, Hundred, Rogersville, West Finley, Aleppo, New Freeport, Rocklick, Beelers Station, Littleton, Lone Oak, Glen Easton, Burton, Knob Fork and Dallas.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Moundsville, Shadyside, McMechen, Glen Dale, Cameron, Hundred, Rogersville, West Finley, Aleppo, New Freeport, Rocklick, Beelers Station, Littleton, Lone Oak, Glen Easton, Burton, Knob Fork and Dallas."
+        }
+      ],
+      "url": "https://api.weather.gov/products/c75e9adc-c99a-4564-877c-b94ea01aa92f"
+    },
+    {
+      "id": "d1155501-e64f-480a-9642-73da527f2278",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T20:33:00+00:00",
+      "expires": null,
+      "location": "Mercer PA",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Grove City, Mercer, Stoneboro, Sandy Lake,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Grove City, Mercer, Stoneboro, Sandy Lake, Fredonia, Jackson Center, New Lebanon and Maurice K Goddard State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Grove City, Mercer, Stoneboro, Sandy Lake, Fredonia, Jackson Center, New Lebanon and Maurice K Goddard State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/d1155501-e64f-480a-9642-73da527f2278"
+    },
     {
       "id": "4570ea60-d092-4554-8efd-146552ca432d",
       "type": "Severe Weather Statement",
