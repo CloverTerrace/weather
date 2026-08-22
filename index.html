@@ -17,9 +17,6 @@
     var isNightNow = hour < 6 || hour >= 20;
 
     // only trust the cached theme if it's still the right time-of-day  🌤️
-    // so a returning visitor from last night won't see last night's   ☁️  🌧️
-    // colors/fonts before correcting. if it's stale, fall back to the   🌪️
-    // neutral loading overlay instead of showing what is probably the wrong theme.
     if (cached && cached.vars && cached.isNight === isNightNow) {
       var root = document.documentElement.style;
       for (var key in cached.vars) {
@@ -48,7 +45,7 @@
 <meta property="og:url" content="https://cloverterrace.github.io/weather/">
 <meta property="og:image" content="https://cloverterrace.github.io/weather/icons/icon-512.png">
 
-<!-- twitter/x card -->
+<!-- twitter card -->
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Clover Terrace Weather Station">
 <meta name="twitter:description" content="Live weather conditions, forecast, radar, air quality, and severe weather alerts for Clover Terrace, Aliquippa, PA.">
@@ -72,8 +69,7 @@
     --font-family: Macondo, system-ui, -apple-system, sans-serif;
 
     /* ---------- font customization ---------- */
-    /* defaults to --font-family above. nothing changes
-       visually until overriding one.*/
+    /* defaults to --font-family above.*/
     --font-page-title: Macondo, Palatino, serif;       /* "Clover Terrace Weather Station" at the very top */
     --font-card-heading: Figtree, Tahoma, serif;       /* every card's section header — "Sky & Space", "SPC Convective Outlook", chart titles, etc. */
     --font-body: Figtree, Tahoma, sans-serif;          /* general prose within cards outside the dashboard grid — subtitle, status line, forecast periods, alert banners, sun/moon details, sky badges */
@@ -4726,15 +4722,6 @@ svg circle, svg polygon, svg line {
       z-index: 2;
     }
 
-    /* reserve room for the absolutely-positioned header above (it sits
-       outside the front face's own flex flow, so the flex centering below
-       has no idea it's there). without this, a tile's centered front
-       content is centered across the *whole* tile height, header
-       included -- so on a small enough square tile a tall content block
-       (e.g. Temperature's 3-line "Feels Like" column) can get centered up
-       underneath/behind the header instead of clearing it, and can also
-       throw off how consistent its label looks next to a shorter sibling
-       column that isn't colliding with the header. */
     .desktop-left-rail #grid.grid .card-flip-front {
       padding-top: 2.4rem;
     }
@@ -4762,22 +4749,9 @@ svg circle, svg polygon, svg line {
       line-height: 1.05;
     }
 
-    /* the site-wide rule right above sizes off the whole card's width,
-       which is exactly right for a card with one value taking the full
-       tile -- but the Pressure/CAPE combo tile has two, so it needs its
-       own smaller floor/ceiling here to actually fit (this is what was
-       still clipping in narrow desktop tiles: the rule above was winning
-       on specificity over the card-local one, and 8.5cqw hits a much
-       higher floor than 132px-wide tiles actually have room for). */
     .desktop-left-rail #grid.grid .pressure-card .pressure-glance-row .priority-value {
       font-size: clamp(1.05rem, 7.5cqw, 1.55rem) !important;
     }
-
-    /* glance-row columns (temperature's Feels Like / Dew Point) are
-       peer "current" values -- every column carries .priority-value
-       alongside .value, so they inherit the rule directly above and
-       stay the same size as each other; no separate glance-col size
-       rule needed here anymore. */
 
     .desktop-left-rail #grid.grid .glance-sub,
     .desktop-left-rail #grid.grid .priority-context {
@@ -4785,9 +4759,6 @@ svg circle, svg polygon, svg line {
       line-height: 1.25;
     }
 
-    /* every sensor tile's front content -- value row plus whatever secondary stat line follows it (peak wind, peak rain rate, risk
-       category, peak river stage/CFS...) -- centers as a single group via the front face's own flex justify-content, the same way pressure
-       and AQI's fronts already did. fixed margins throughout keep the whole group together while the parent still centers it as a block. */
     .desktop-left-rail #grid.grid .wind-card .wind-priority-row,
     .desktop-left-rail #grid.grid .lightning-card .lightning-priority-row,
     .desktop-left-rail #grid.grid .solar-card .priority-dual-row,
@@ -4821,25 +4792,9 @@ svg circle, svg polygon, svg line {
       margin-top: 0;
       margin-bottom: 0;
     }
-
-    /* the @container(max-width:190px) rule further up the sheet
-       pre-dates the desktop tile system and was written for the old
-       mobile combo-card layout, where dropping the redundant "Pressure &
-       CAPE" title text below 190px made sense. On desktop the title is
-       meant to stay visible at every tile width (see the big comment
-       below on .pressure-glance-row .priority-value) -- but that old
-       rule is unscoped, so it still fires on narrow desktop tiles too,
-       leaving the icon absolutely positioned alone up top with nothing
-       beside it and no reserved gap before the "Pressure" column label
-       that lands right underneath it. Restore the title here. */
     .desktop-left-rail #grid.grid .pressure-card .priority-heading {
       display: block !important;
     }
-
-    /* breathing room between each column's label ("Pressure"/"CAPE") and
-       its value, matching the gap the Wind tile already has between its
-       value and "Sustained"/"Gust". Tightened again below 250px so the
-       stacked two-row layout still has room for the sparkline + note. */
     .desktop-left-rail #grid.grid .pressure-card .glance-col .label {
       margin-bottom: 0.3rem;
     }
@@ -4879,10 +4834,6 @@ svg circle, svg polygon, svg line {
       font-size: clamp(0.55rem, 2.1cqw, 0.7rem) !important;
     }
 
-    /* font-size trimmed slightly (was 0.56-0.64rem) to help make room
-       for the restored title below -- paired with a matching small trim
-       on the narrower @container tier further down so the two share the
-       load instead of one absorbing it all. */
     .desktop-left-rail #grid.grid .pressure-card .storm-note {
       margin-top: 0;
       margin-bottom: 0;
@@ -4899,29 +4850,6 @@ svg circle, svg polygon, svg line {
       height: clamp(18px, 7cqw, 28px);
     }
 
-    /* the card-level "Pressure & CAPE" title now stays visible on desktop,
-       same as every other tile's title -- it previously got hidden here
-       and the "Pressure" column label was left to stand in as a fake
-       title instead, but that label only centers within its own half of
-       the two-column row (not the full tile), so it read as hugging the
-       top-left instead of sitting centered at the same height as
-       "TEMPERATURE"/"WIND"/etc. Letting the real title show (it inherits
-       the shared .priority-card-head absolute-position/centering rule
-       above) fixes both the centering and the vertical alignment in one
-       move, and the shared .card-flip-front padding-top: 2.4rem rule
-       reserves room for it exactly like it does for every other tile.
-       The old override that hid this and hand-tuned a smaller top offset
-       is gone -- the trend arrows are scaled down considerably (see
-       .pressure-trend above) and the storm note's two size tiers (see
-       above and below) are both trimmed a touch further, splitting the
-       space savings between them so neither has to shrink drastically
-       on its own, to keep this from clipping. */
-
-    /* below ~250px the Pressure/CAPE columns stack into two full
-       label+value rows instead of sitting side by side (see the
-       un-scoped @container rule above) -- which roughly doubles that
-       section's height, so spacing gets tightened at this width to keep
-       the sparkline + full storm note from clipping. */
     @container card (max-width: 250px) {
       .desktop-left-rail #grid.grid .pressure-card .pressure-glance-row {
         gap: 0.2rem;
@@ -5046,11 +4974,6 @@ svg circle, svg polygon, svg line {
       text-transform: uppercase;
       letter-spacing: 0.05em;
       line-height: 1.15;
-      /* every other tile's label is a lone flex item that's free to
-         overflow its (visible-overflow) card into the grid gap rather
-         than wrap -- this tile can't do that since it needs overflow:
-         hidden to keep the photo's corners clipped, so force it onto
-         one line explicitly instead. */
       white-space: nowrap;
     }
 
@@ -5061,12 +4984,6 @@ svg circle, svg polygon, svg line {
       line-height: 1;
     }
 
-    /* "STATION CAMERA" is longer than any other tile's label, so at the
-       narrowest supported desktop tile widths the shared clamp's floor
-       (0.62rem, same as every other label) is still too wide to fit on
-       one line even with nowrap. This tier only fires once the tile is
-       genuinely cramped -- at every width above it, this label renders
-       identically to the rest. */
     @container card (max-width: 145px) {
       #grid.grid .desktop-camera-tile h2 {
         font-size: 0.5rem !important;
@@ -5106,12 +5023,6 @@ svg circle, svg polygon, svg line {
       font-size: clamp(0.74rem, 0.82vw, 0.9rem);
     }
 
-    /* always 4 columns in this rail -- overrides the site-wide
-       auto-fit/minmax(140px,...) sizing (which drops to fewer columns,
-       wrapping one day onto its own row, once the rail gets narrower
-       than ~4x140px). minmax(0, 1fr) has no per-column floor, so the
-       columns just get proportionally narrower/shorter as the rail
-       narrows instead of wrapping. */
     .desktop-left-rail .forecast-periods {
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 0.3rem;
@@ -5309,14 +5220,6 @@ svg circle, svg polygon, svg line {
     margin: 0 auto;
   }
 
-  /* mobile-only tile-back polish: now that .extra-data-list packs 2+
-     columns on phones instead of 1 (see the auto-fit rule above), the
-     compass visual needs to explicitly span both columns or it gets
-     squeezed into a half-width cell next to nothing. also tightens row
-     height/gaps slightly so the extra breathing room from going wider
-     goes toward less scrolling rather than just bigger empty boxes.
-     scoped to max-width:850px (this file's existing mobile/tablet cutoff)
-     so desktop's tile-back layout is untouched. */
   @media (max-width: 850px) {
     .wind-compass-detail-visual {
       grid-column: 1 / -1;
@@ -5416,9 +5319,7 @@ svg circle, svg polygon, svg line {
     cursor: pointer;
   }
 
-  /* only meaningful on desktop (see the enlarged-modal rules below) --
-     on mobile the map stays inline in the tile, so the backdrop is
-     inert there. */
+  /* only meaningful on desktop (see the enlarged-modal rules below) */
   .lightning-map-backdrop {
     display: none;
   }
@@ -5432,14 +5333,11 @@ svg circle, svg polygon, svg line {
   }
 
   /* 🌩️ DESKTOP ONLY: make the lightning map full screen on desktop. mobile keeps its original inset:0 in-tile behavior above.
-  z-index note: Leaflet's own panes/controls (used by the radar map
+  z-index note: leaflet's own panes/controls (used by the radar map
      elsewhere on the page) go up to z-index:1000, and a modest z-index
      on an ancestor here (.lightning-card) creates its own local stacking
      context that traps a fixed descendant's z-index for comparison
-     against THAT ancestor's level, not the whole document. so, both
-     values here are set well clear of 1000 to guarantee the enlarged
-     map (and its dimmed backdrop) always paints above the radar card
-     rather than clipping underneath it. */
+     against THAT ancestor's level, not the whole page */
   @media (min-width: 851px) {
     .desktop-left-rail #grid.grid .lightning-card.lightning-map-open {
       z-index: 5000 !important;
@@ -5584,7 +5482,7 @@ svg circle, svg polygon, svg line {
       <div class="dashboard-grid">
 
   <div class="camera-card">
-    <h2>Station Camera</h2>
+    <h2>Camera</h2>
     <img id="camera-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
     <video id="camera-mobile-timelapse-video" class="camera-mobile-timelapse-video" controls playsinline preload="metadata" aria-label="Yesterday's station camera time lapse"></video>
     <button id="camera-mobile-timelapse-btn" class="camera-mobile-timelapse-btn" type="button">Yesterday's Time Lapse</button>
