@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T22:30:38.794333Z",
+  "generatedAt": "2026-08-22T22:35:48.258293Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.33425f7b477ae097e90c24a1c93ab6838e60ed40.001.1",
@@ -154,6 +154,25 @@
   ],
   "statements": [
     {
+      "id": "4ebb6c3f-d67f-4837-a864-e93d14306ce7",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T22:34:00+00:00",
+      "expires": null,
+      "location": "Monroe OH-Noble OH",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Woodsfield, Beallsville, Summerfield, Lewisville, Sarahsville, Jerusalem, Wilson,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Woodsfield, Beallsville, Summerfield, Lewisville, Sarahsville, Jerusalem, Wilson, Antioch, Stafford, Graysville, Harriettsville, Miltonsburg and Rinard Mills.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Woodsfield, Beallsville, Summerfield, Lewisville, Sarahsville, Jerusalem, Wilson, Antioch, Stafford, Graysville, Harriettsville, Miltonsburg and Rinard Mills."
+        }
+      ],
+      "url": "https://api.weather.gov/products/4ebb6c3f-d67f-4837-a864-e93d14306ce7"
+    },
+    {
       "id": "f8dd58c6-345a-459e-b91e-c2ac0bcd66d6",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -190,25 +209,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/09ae3df5-62c9-46e0-8cad-0ddea8f6e867"
-    },
-    {
-      "id": "34b88d7b-e8cd-40d7-9fe9-e7294a270a05",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-22T22:07:00+00:00",
-      "expires": null,
-      "location": "Armstrong PA-Indiana PA-Westmoreland PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Vandergrift, Apollo, Murrysville, New Kensington, Lower Burrell, Arnold, Leechburg,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Vandergrift, Apollo, Murrysville, New Kensington, Lower Burrell, Arnold, Leechburg, North Apollo, West Leechburg, Avonmore, Orchard Hills, Export, Saltsburg, Oklahoma, West Lebanon and East Vandergrift.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Vandergrift, Apollo, Murrysville, New Kensington, Lower Burrell, Arnold, Leechburg, North Apollo, West Leechburg, Avonmore, Orchard Hills, Export, Saltsburg, Oklahoma, West Lebanon and East Vandergrift."
-        }
-      ],
-      "url": "https://api.weather.gov/products/34b88d7b-e8cd-40d7-9fe9-e7294a270a05"
     }
   ]
 }
