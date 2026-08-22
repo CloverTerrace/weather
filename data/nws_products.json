@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T20:20:39.260586Z",
+  "generatedAt": "2026-08-22T20:25:34.916428Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.33425f7b477ae097e90c24a1c93ab6838e60ed40.001.1",
@@ -232,5 +232,44 @@
       "office": "SPC"
     }
   ],
-  "statements": []
+  "statements": [
+    {
+      "id": "4570ea60-d092-4554-8efd-146552ca432d",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T20:22:00+00:00",
+      "expires": null,
+      "location": "Monroe OH",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Moundsville, Shadyside, McMechen, Powhatan Point, Glen Dale, Cameron, Hundred,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Moundsville, Shadyside, McMechen, Powhatan Point, Glen Dale, Cameron, Hundred, Rogersville, West Finley, Aleppo, New Freeport, Rocklick, Beelers Station, Glen Easton, Lone Oak, Littleton, Lynn Camp, Knob Fork and Grove Oak.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Moundsville, Shadyside, McMechen, Powhatan Point, Glen Dale, Cameron, Hundred, Rogersville, West Finley, Aleppo, New Freeport, Rocklick, Beelers Station, Glen Easton, Lone Oak, Littleton, Lynn Camp, Knob Fork and Grove Oak."
+        }
+      ],
+      "url": "https://api.weather.gov/products/4570ea60-d092-4554-8efd-146552ca432d"
+    },
+    {
+      "id": "a26d7b5b-d4cd-46cc-8a50-f859da0bac95",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T20:21:00+00:00",
+      "expires": null,
+      "location": "Mercer PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Hermitage, Grove City, Mercer, Stoneboro, West Middlesex, Sandy Lake, Clark, Fredonia,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Hermitage, Grove City, Mercer, Stoneboro, West Middlesex, Sandy Lake, Clark, Fredonia, Jackson Center, New Lebanon and Maurice K Goddard State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Hermitage, Grove City, Mercer, Stoneboro, West Middlesex, Sandy Lake, Clark, Fredonia, Jackson Center, New Lebanon and Maurice K Goddard State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/a26d7b5b-d4cd-46cc-8a50-f859da0bac95"
+    }
+  ]
 }
