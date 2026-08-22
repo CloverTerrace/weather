@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T21:50:38.456512Z",
+  "generatedAt": "2026-08-22T21:55:38.047436Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.33425f7b477ae097e90c24a1c93ab6838e60ed40.001.1",
@@ -149,6 +149,44 @@
     }
   ],
   "statements": [
+    {
+      "id": "5f73be6f-c570-497c-8a2d-e6bc37a86382",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T21:52:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Armstrong PA-Indiana PA-Westmoreland PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Penn Hills, Monroeville, Vandergrift, Apollo, Plum, Murrysville, New Kensington, Lower",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Penn Hills, Monroeville, Vandergrift, Apollo, Plum, Murrysville, New Kensington, Lower Burrell, Harrison Township, Arnold, Tarentum, Natrona Heights, Springdale, Pitcairn, Brackenridge, Leechburg, Cheswick and Russellton.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Penn Hills, Monroeville, Vandergrift, Apollo, Plum, Murrysville, New Kensington, Lower Burrell, Harrison Township, Arnold, Tarentum, Natrona Heights, Springdale, Pitcairn, Brackenridge, Leechburg, Cheswick and Russellton."
+        }
+      ],
+      "url": "https://api.weather.gov/products/5f73be6f-c570-497c-8a2d-e6bc37a86382"
+    },
+    {
+      "id": "454cb634-ce79-4d23-adab-b8446c7b8467",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-22T21:50:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Armstrong PA-Butler PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Butler, Harrison Township, Homeacre-Lyndora, Shanor-Northvue, Meridian, Meadowood, Oak",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Butler, Harrison Township, Homeacre-Lyndora, Shanor-Northvue, Meridian, Meadowood, Oak Hills, Sarver, Freeport, Saxonburg, Russellton, Nixon, Curtisville, East Butler and Crooked Creek Lake Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Butler, Harrison Township, Homeacre-Lyndora, Shanor-Northvue, Meridian, Meadowood, Oak Hills, Sarver, Freeport, Saxonburg, Russellton, Nixon, Curtisville, East Butler and Crooked Creek Lake Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/454cb634-ce79-4d23-adab-b8446c7b8467"
+    },
     {
       "id": "d283d387-c89d-42b8-b9b4-8be1ffcf6f2a",
       "type": "Severe Weather Statement",
