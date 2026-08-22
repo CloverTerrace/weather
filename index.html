@@ -910,6 +910,22 @@
     font-weight: 600;
   }
 
+  .aqi-scale-legend {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+  }
+
+  .aqi-legend-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: clamp(0.56rem, 2.2cqw, 0.64rem);
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    white-space: nowrap;
+  }
+
   /*-*-*-*- pressure card *-*-*-*/
   .pressure-trend {
     font-size: 0.85em;
@@ -1151,6 +1167,239 @@
     height: 1px;
     margin: 1px 3px;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.09), transparent);
+  }
+
+  /* ---------- tile-back visual components ----------
+     a shared vocabulary for card backs beyond plain label/value boxes:
+     a horizontal range gauge (current value against a colored scale --
+     comfort ranges, storm thresholds, flood stages...), a small
+     comparison bar chart for like-quantities (week/month/year totals,
+     PM1/2.5/10), and a compact chip for a single reference stat. all three
+     size off the card's own container width (cqw / clamp), the same
+     pattern the rest of the tile-back system already uses, so they hold
+     up from a 3-column narrow-desktop rail tile up through a full-width
+     mobile card without overlapping or needing their own breakpoints. */
+
+  .gauge-bar { padding: 2px 2px 0; }
+  .gauge-bar + .gauge-bar { margin-top: 10px; }
+
+  .gauge-bar-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+
+  .gauge-bar-label {
+    font-size: clamp(0.58rem, 2.4cqw, 0.66rem);
+    color: var(--muted-color);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-family: var(--font-details);
+    line-height: 1.2;
+  }
+
+  .gauge-bar-value {
+    font-size: clamp(0.68rem, 3cqw, 0.8rem);
+    font-weight: 700;
+    font-family: var(--font-body);
+    color: var(--value-color);
+    line-height: 1.2;
+    text-align: right;
+  }
+
+  .gauge-bar-track {
+    position: relative;
+    height: 8px;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.07);
+  }
+
+  .gauge-bar-marker {
+    position: absolute;
+    top: 50%;
+    width: 3px;
+    height: 16px;
+    background: #fff;
+    border-radius: 2px;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.55), 0 0 5px rgba(0,0,0,0.55);
+  }
+
+  .gauge-bar-scale {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+    font-size: clamp(0.52rem, 2.1cqw, 0.6rem);
+    color: var(--muted-color);
+    opacity: 0.85;
+    font-family: var(--font-details);
+    line-height: 1.2;
+  }
+
+  .bar-compare-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .bar-compare-row {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .bar-compare-label {
+    flex: 0 0 auto;
+    width: clamp(2.6rem, 15cqw, 3.7rem);
+    font-size: clamp(0.56rem, 2.3cqw, 0.64rem);
+    color: var(--muted-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: var(--font-details);
+  }
+
+  .bar-compare-track {
+    flex: 1 1 auto;
+    height: 9px;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.065);
+    overflow: hidden;
+    min-width: 18px;
+  }
+
+  .bar-compare-fill {
+    height: 100%;
+    border-radius: 5px;
+    min-width: 3px;
+  }
+
+  .bar-compare-value {
+    flex: 0 0 auto;
+    font-size: clamp(0.6rem, 2.6cqw, 0.7rem);
+    font-weight: 700;
+    color: var(--accent-color);
+    min-width: clamp(2.6rem, 15cqw, 3.6rem);
+    text-align: right;
+    font-family: var(--font-body);
+  }
+
+  .stat-chip-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .stat-chip {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    border-radius: 7px;
+    border: 1px solid rgba(255,255,255,0.055);
+    background: rgba(0,0,0,0.055);
+  }
+
+  .stat-chip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex: 0 0 8px;
+  }
+
+  .stat-chip-text {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .stat-chip-label {
+    display: block;
+    font-size: clamp(0.54rem, 2.2cqw, 0.6rem);
+    color: var(--muted-color);
+    line-height: 1.15;
+    font-family: var(--font-details);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .stat-chip-value {
+    display: block;
+    font-size: clamp(0.66rem, 2.8cqw, 0.78rem);
+    font-weight: 700;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+    color: var(--value-color);
+  }
+
+  .wind-back-layout {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.5rem, 3cqw, 0.8rem);
+    margin-bottom: 10px;
+  }
+
+  .wind-back-compass {
+    flex: 0 0 auto;
+    width: clamp(56px, 30cqw, 88px);
+  }
+
+  .wind-back-compass .wind-compass {
+    max-width: 100%;
+  }
+
+  .wind-back-compass .wind-compass-degrees {
+    font-size: clamp(0.68rem, 8.5cqw, 1rem);
+  }
+
+  .wind-back-compass .wind-compass-cardinal {
+    font-size: clamp(0.5rem, 6cqw, 0.68rem);
+    margin-top: 0.15rem;
+  }
+
+  .wind-back-stats {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  @container card (max-width: 190px) {
+    .bar-compare-row {
+      flex-wrap: wrap;
+      row-gap: 2px;
+    }
+    .bar-compare-label {
+      width: auto;
+      flex: 1 1 auto;
+      order: 1;
+    }
+    .bar-compare-value {
+      order: 2;
+      min-width: auto;
+    }
+    .bar-compare-track {
+      order: 3;
+      flex: 1 1 100%;
+    }
+    .gauge-bar-head { gap: 0.2rem; }
+    .stat-chip-row { gap: 4px; }
+    .wind-back-layout {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+    .wind-back-compass {
+      width: clamp(50px, 45cqw, 76px);
+      margin: 0 auto;
+    }
   }
 
   /* mobile tile-back density: an auto-fit grid packs 2 (sometimes 3, on
@@ -1862,38 +2111,6 @@
     border-radius: 8px;
     display: block;
     margin: 0 auto;
-  }
-
-  .camera-mobile-timelapse-video {
-    display: none;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    border-radius: 8px;
-    background: #000;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.18);
-  }
-
-  .camera-mobile-timelapse-btn {
-    display: none;
-    width: min(100%, 22rem);
-    margin: 0.85rem auto 0;
-    padding: 0.8rem 1.1rem;
-    border: 0;
-    border-radius: 999px;
-    background: var(--accent-color, #6b8fb3);
-    color: #fff;
-    font: inherit;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.18);
-  }
-
-  .camera-mobile-timelapse-btn:hover,
-  .camera-mobile-timelapse-btn:focus-visible {
-    filter: brightness(1.06);
-    outline: none;
   }
 /* ~*~*~*~*~ dashboard grid ~*~*~*~*~ */
 .dashboard-grid {
@@ -3687,6 +3904,12 @@ svg circle, svg polygon, svg line {
   }
 
 
+
+  /* ================================================================
+     DESKTOP WEATHER-CENTER COMPOSITION
+     851px+ only ~ the mobile/under 851px is intentionally left
+     on the existing responsive architecture.
+     ================================================================ */
   .desktop-dashboard-layout,
   .desktop-left-rail,
   .desktop-right-rail {
@@ -3706,7 +3929,6 @@ svg circle, svg polygon, svg line {
     inset: 0;
     z-index: 10000;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: clamp(1rem, 3vw, 3rem);
@@ -3732,38 +3954,6 @@ svg circle, svg polygon, svg line {
     object-fit: contain;
     border-radius: 10px;
     box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
-  }
-
-    .camera-lightbox video {
-    display: none;
-    max-width: min(94vw, 1800px);
-    max-height: 90vh;
-    width: auto;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
-  }
-
-  .camera-timelapse-btn {
-    position: static;
-    transform: none;
-    margin-top: 0.9rem;
-    padding: 0.8rem 1.35rem;
-    border: 0;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.16);
-    color: #fff;
-    font: inherit;
-    font-size: 1rem;
-    cursor: pointer;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-  }
-
-  .camera-timelapse-btn:hover,
-  .camera-timelapse-btn:focus-visible {
-    background: rgba(255,255,255,0.22);
-    outline: none;
   }
 
   .camera-lightbox-close {
@@ -4324,12 +4514,6 @@ svg circle, svg polygon, svg line {
     .dashboard-grid,
     .camera-card {
       width: 100%;
-    }
-  }
-
-  @media (max-width: 850px) {
-    .camera-mobile-timelapse-btn {
-      display: block;
     }
   }
 
@@ -5332,8 +5516,6 @@ svg circle, svg polygon, svg line {
   <div class="camera-card">
     <h2>Station Camera</h2>
     <img id="camera-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
-    <video id="camera-mobile-timelapse-video" class="camera-mobile-timelapse-video" controls playsinline preload="metadata" aria-label="Yesterday's station camera time lapse"></video>
-    <button id="camera-mobile-timelapse-btn" class="camera-mobile-timelapse-btn" type="button">Yesterday's Time Lapse</button>
   </div>
     
   <div class="camera-card">
@@ -5585,10 +5767,8 @@ svg circle, svg polygon, svg line {
  </div> <!-- .web-tools-grid -->
 
   <div id="camera-lightbox" class="camera-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Station camera photo">
-  <button id="camera-lightbox-close" class="camera-lightbox-close" type="button" aria-label="Close station camera photo">&times;</button>
-  <img id="camera-lightbox-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
-  <video id="camera-lightbox-video" controls playsinline preload="metadata" aria-label="Yesterday's station camera time lapse"></video>
-  <button id="camera-timelapse-btn" class="camera-timelapse-btn" type="button">Yesterday's Time Lapse</button>
+    <button id="camera-lightbox-close" class="camera-lightbox-close" type="button" aria-label="Close station camera photo">&times;</button>
+    <img id="camera-lightbox-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
   </div>
 
   <div id="status" aria-live="polite"></div>
@@ -8247,27 +8427,92 @@ const THEMES = {
     `;
     gridLeft.appendChild(tempHumCard);
     makeCardExpandable(tempHumCard, 'tempHum', 'more temperature & humidity data', (panel) => {
-      panel.innerHTML = detailPanelHtml([
-        {
-          title: 'Comfort & moisture',
-          rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">Heat Index</span><span class="extra-data-value">${data.heatIndex != null ? formatVal(data.heatIndex, 1) + '°F' : '--'}</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Wind Chill</span><span class="extra-data-value">${data.windChill != null ? formatVal(data.windChill, 1) + '°F' : '--'}</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Dew Point Depression</span><span class="extra-data-value">${(data.temp != null && data.dewpt != null) ? formatVal(data.temp - data.dewpt, 1) + '°F' : '--'}</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Vapor Pressure Deficit</span><span class="extra-data-value">${vpd} kPa</span></div>`
-          ]
-        },
-        {
-          title: 'Humidity today',
-          rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">High</span><span class="extra-data-value">${formatVal(hExt.max.val, 1)}% <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(hExt.max.time)}</span></span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Low</span><span class="extra-data-value">${formatVal(hExt.min.val, 1)}% <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(hExt.min.time)}</span></span></div>`
-          ]
-        }
-      ], 'VPD below ~0.4 kPa tends to feel muggy/stagnant; above ~1.6 kPa the air is pulling moisture quickly and feels drier.') ;
+      const vpdNum = parseFloat(vpd);
+      const vpdColor = isNaN(vpdNum) ? 'var(--muted-color)' : (vpdNum < 0.4 ? '#7ab8ff' : vpdNum > 1.6 ? '#e2a355' : '#6fbf8f');
+      const vpdGauge = gaugeBarHtml({
+        label: 'Vapor Pressure Deficit',
+        valueText: `${vpd} kPa${dewptComfort ? ' · ' + dewptComfort : ''}`,
+        value: isNaN(vpdNum) ? null : vpdNum, min: 0, max: 2.4,
+        zones: [
+          { from: 0, to: 0.4, color: '#5b8fd9' },
+          { from: 0.4, to: 1.6, color: '#54ab7c' },
+          { from: 1.6, to: 2.4, color: '#c98a3d' }
+        ],
+        scaleLeft: 'Muggy', scaleRight: 'Dry',
+        markerColor: vpdColor
+      });
+      const humGauge = gaugeBarHtml({
+        label: 'Humidity Today',
+        valueText: `${formatVal(data.humidity, 0)}%`,
+        value: data.humidity, min: 0, max: 100,
+        zones: [{ from: 0, to: 100, color: '#3d6b8f' }],
+        scaleLeft: `Low ${formatVal(hExt.min.val, 0)}%`,
+        scaleRight: `High ${formatVal(hExt.max.val, 0)}%`
+      });
+      panel.innerHTML = `
+        <div class="detail-panel">
+          ${vpdGauge}
+          <div class="stat-chip-row">
+            ${statChip('Heat Index', data.heatIndex != null ? formatVal(data.heatIndex, 1) + '°F' : '--')}
+            ${statChip('Wind Chill', data.windChill != null ? formatVal(data.windChill, 1) + '°F' : '--')}
+            ${statChip('Dew Pt. Depr.', (data.temp != null && data.dewpt != null) ? formatVal(data.temp - data.dewpt, 1) + '°F' : '--')}
+          </div>
+          ${humGauge}
+          <div class="extra-data-note">VPD below ~0.4 kPa tends to feel muggy/stagnant; above ~1.6 kPa the air is pulling moisture quickly and feels drier.</div>
+        </div>`;
     });
 
+
   
+    // horizontal range gauge: current value plotted against a colored
+    // scale (comfort ranges, storm thresholds, flood stages...) instead of
+    // a plain label/value box. `zones` is a list of {from, to, color}
+    // spans across [min, max] -- rendered as hard-stop gradient segments
+    // -- with a marker dropped at `value`'s position along that same
+    // scale. valueText carries the number the marker represents (plus
+    // any short qualifier, e.g. "1.29 kPa · a bit sticky"); scaleLeft/
+    // scaleRight are the two end labels under the track.
+    function gaugeBarHtml({ label, valueText, value, min, max, zones, scaleLeft, scaleRight, markerColor }) {
+      const pct = (v) => Math.max(0, Math.min(100, ((v - min) / (max - min)) * 100));
+      const stops = zones.map(z => `${z.color} ${pct(z.from)}%, ${z.color} ${pct(z.to)}%`).join(', ');
+      const markerPct = (value === undefined || value === null || isNaN(value)) ? null : pct(value);
+      return `
+        <div class="gauge-bar">
+          <div class="gauge-bar-head">
+            <span class="gauge-bar-label">${label}</span>
+            <span class="gauge-bar-value"${markerColor ? ` style="color:${markerColor};"` : ''}>${valueText}</span>
+          </div>
+          <div class="gauge-bar-track" style="background: linear-gradient(90deg, ${stops});">
+            ${markerPct !== null ? `<div class="gauge-bar-marker" style="left:${markerPct}%;"></div>` : ''}
+          </div>
+          ${(scaleLeft || scaleRight) ? `<div class="gauge-bar-scale"><span>${scaleLeft || ''}</span><span>${scaleRight || ''}</span></div>` : ''}
+        </div>`;
+    }
+
+    // one row of a small comparison bar chart -- for like-quantities that
+    // read better side by side (week/month/year totals, PM1/2.5/10) than
+    // as identical boxes with no relative sense of scale.
+    function barCompareRow(label, value, maxValue, unit, color, dec = 2) {
+      const v = (value === undefined || value === null || isNaN(value)) ? 0 : value;
+      const pct = maxValue > 0 ? Math.max(3, Math.min(100, (v / maxValue) * 100)) : 3;
+      return `
+        <div class="bar-compare-row">
+          <span class="bar-compare-label">${label}</span>
+          <div class="bar-compare-track"><div class="bar-compare-fill" style="width:${pct}%; background:${color};"></div></div>
+          <span class="bar-compare-value">${formatVal(value, dec)} ${unit}</span>
+        </div>`;
+    }
+
+    // a single reference stat as a small bordered chip (optionally with a
+    // color dot) -- for secondary data that doesn't need its own gauge.
+    function statChip(label, value, dotColor) {
+      return `
+        <div class="stat-chip">
+          ${dotColor ? `<span class="stat-chip-dot" style="background:${dotColor};"></span>` : ''}
+          <span class="stat-chip-text"><span class="stat-chip-label">${label}</span><span class="stat-chip-value">${value}</span></span>
+        </div>`;
+    }
+
     function detailPanelHtml(groups, note = '') {
       const groupsHtml = groups.map(group => `
         <details class="detail-section" open>
@@ -8314,18 +8559,32 @@ const THEMES = {
     gridRight.appendChild(windCard);
     makeCardExpandable(windCard, 'wind', 'more wind data', (panel) => {
       const gustFactor = (data.windSpeed && data.windGust) ? (data.windGust / Math.max(data.windSpeed, 0.1)) : null;
-      panel.innerHTML = detailPanelHtml([
-        {
-          title: 'Current wind',
-          rows: [
-            `<div class="extra-data-row wind-compass-detail"><span class="extra-data-label">Direction</span><span class="extra-data-value">${degreesToCardinal16(data.winddir || 0)} · ${formatVal(data.winddir, 0)}°</span></div>`,
-            `<div class="extra-data-row wind-compass-detail-visual"><div class="compass-container">${buildWindCompassHtml(false, data.winddir || 0)}</div></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Beaufort</span><span class="extra-data-value">${getBeaufortLabel(data.windSpeed)}</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Gust Factor</span><span class="extra-data-value">${gustFactor ? gustFactor.toFixed(2) + '×' : '--'}</span></div>`
-          ]
-        }
-      ], 'A gust factor above ~1.5× indicates increasingly gusty flow; elevated ratios during storms can be a useful downburst clue.') ;
+      const gustGauge = gaugeBarHtml({
+        label: 'Gust Factor',
+        valueText: gustFactor ? `${gustFactor.toFixed(2)}×` : '--',
+        value: gustFactor, min: 1, max: 2.2,
+        zones: [
+          { from: 1, to: 1.3, color: '#54ab7c' },
+          { from: 1.3, to: 1.6, color: '#d9c34a' },
+          { from: 1.6, to: 2.0, color: '#e2913f' },
+          { from: 2.0, to: 2.2, color: '#e2593f' }
+        ],
+        scaleLeft: 'Steady', scaleRight: 'Extreme'
+      });
+      panel.innerHTML = `
+        <div class="detail-panel">
+          <div class="wind-back-layout">
+            <div class="wind-back-compass">${buildWindCompassHtml(false, data.winddir || 0)}</div>
+            <div class="wind-back-stats">
+              ${statChip('Direction', `${degreesToCardinal16(data.winddir || 0)} · ${formatVal(data.winddir, 0)}°`)}
+              ${statChip('Beaufort', getBeaufortLabel(data.windSpeed))}
+            </div>
+          </div>
+          ${gustGauge}
+          <div class="extra-data-note">A gust factor above ~1.5× indicates increasingly gusty flow; elevated ratios during storms can be a useful downburst clue.</div>
+        </div>`;
     });
+
 
 
     // 3. pressure card -- relative (elevation-corrected) pressure only
@@ -8369,36 +8628,51 @@ const THEMES = {
     `;
     gridLeft.appendChild(pressureCard);
     makeCardExpandable(pressureCard, 'pressure', 'more pressure data', (panel) => {
-      panel.innerHTML = detailPanelHtml([
-        {
-          title: "Today's relative pressure",
-          rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">High</span><span class="extra-data-value">${formatVal(pExt.max.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(pExt.max.time)}</span></span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Low</span><span class="extra-data-value">${formatVal(pExt.min.val, 2)} inHg <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(pExt.min.time)}</span></span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">3h Change</span><span class="extra-data-value">${pTrend && pTrend.delta !== undefined ? (pTrend.delta >= 0 ? '+' : '') + pTrend.delta.toFixed(3) + ' inHg' : '--'}</span></div>`
-          ]
-        },
-        {
-          title: 'Reading the barometer',
-          rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">Current Level</span><span class="extra-data-value">${pLevel || '--'}</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Standard Sea-Level</span><span class="extra-data-value">29.92 inHg</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Typical Fair-Weather</span><span class="extra-data-value">30.00 – 30.20 inHg</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Low / Unsettled Below</span><span class="extra-data-value">29.80 inHg</span></div>`
-          ]
-        },
-        {
-          title: 'CAPE (instability)',
-          rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">Current</span><span class="extra-data-value">${data.cape != null ? formatVal(data.cape, 0) + ' J/kg' : '--'}</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Weak</span><span class="extra-data-value">100 – 1,000 J/kg</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Moderate</span><span class="extra-data-value">1,000 – 2,500 J/kg</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Strong</span><span class="extra-data-value">2,500 – 4,000 J/kg</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Extreme</span><span class="extra-data-value">4,000+ J/kg</span></div>`
-          ]
-        }
-      ], 'CAPE is modeled (HRRR via Open-Meteo, updated hourly), not sensor-measured — it estimates how much energy is available for updrafts if a storm gets triggered, not whether one will.');
+      const pressGauge = gaugeBarHtml({
+        label: 'Barometer',
+        valueText: `${formatVal(data.pressure, 2)} inHg${pLevel ? ' · ' + pLevel : ''}`,
+        value: data.pressure, min: 29.5, max: 30.5,
+        zones: [
+          { from: 29.5, to: 29.8, color: '#e2593f' },
+          { from: 29.8, to: 30.0, color: '#d9c34a' },
+          { from: 30.0, to: 30.2, color: '#54ab7c' },
+          { from: 30.2, to: 30.5, color: '#5b8fd9' }
+        ],
+        scaleLeft: 'Low', scaleRight: 'High'
+      });
+      const capeVal = data.cape;
+      const capeColor = (capeVal == null) ? 'var(--muted-color)'
+        : capeVal < 100 ? 'var(--muted-color)'
+        : capeVal < 1000 ? '#54ab7c'
+        : capeVal < 2500 ? '#d9c34a'
+        : capeVal < 4000 ? '#e2913f' : '#e2593f';
+      const capeGauge = gaugeBarHtml({
+        label: 'CAPE (Instability)',
+        valueText: `${capeVal != null ? formatVal(capeVal, 0) + ' J/kg' : '--'}`,
+        value: capeVal, min: 0, max: 4200,
+        zones: [
+          { from: 0, to: 100, color: 'rgba(255,255,255,0.12)' },
+          { from: 100, to: 1000, color: '#54ab7c' },
+          { from: 1000, to: 2500, color: '#d9c34a' },
+          { from: 2500, to: 4000, color: '#e2913f' },
+          { from: 4000, to: 4200, color: '#e2593f' }
+        ],
+        scaleLeft: 'Stable', scaleRight: 'Extreme',
+        markerColor: capeColor
+      });
+      panel.innerHTML = `
+        <div class="detail-panel">
+          ${pressGauge}
+          <div class="stat-chip-row">
+            ${statChip('High', `${formatVal(pExt.max.val, 2)}`)}
+            ${statChip('Low', `${formatVal(pExt.min.val, 2)}`)}
+            ${statChip('Δ3h', pTrend && pTrend.delta !== undefined ? (pTrend.delta >= 0 ? '+' : '') + pTrend.delta.toFixed(3) : '--')}
+          </div>
+          ${capeGauge}
+          <div class="extra-data-note">CAPE is modeled (HRRR, hourly), not sensor-measured — it's storm fuel available, not a forecast that one will fire.</div>
+        </div>`;
     });
+
 
     // 4. precipitation card -- same card slot either way (unlike the
     // lightning card, this one never disappears), just different contents
@@ -8434,16 +8708,24 @@ const THEMES = {
     }
     gridRight.appendChild(precipCard);
     makeCardExpandable(precipCard, 'precip', 'more precipitation data', (panel) => {
-      panel.innerHTML = detailPanelHtml([
-        {
-          title: 'Rainfall totals',
-          rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">This Week</span><span class="extra-data-value">${formatVal(data.precipTotalWeek, 2)} in</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">This Month</span><span class="extra-data-value">${formatVal(data.precipTotalMonth, 2)} in</span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">This Year</span><span class="extra-data-value">${formatVal(data.precipTotalYear, 2)} in</span></div>`
-          ]
-        }
-      ]);
+      const totals = [
+        { label: 'Today', val: data.precipTotal },
+        { label: 'Week', val: data.precipTotalWeek },
+        { label: 'Month', val: data.precipTotalMonth },
+        { label: 'Year', val: data.precipTotalYear }
+      ];
+      const maxTotal = Math.max(...totals.map(t => (typeof t.val === 'number' ? t.val : 0)), 0.01);
+      panel.innerHTML = `
+        <div class="detail-panel">
+          <div class="bar-compare-list">
+            ${totals.map(t => barCompareRow(t.label, t.val, maxTotal, 'in', '#5b9fd9')).join('')}
+          </div>
+          <div class="stat-chip-row">
+            ${statChip('Current Rate', data.precipRate != null ? formatVal(data.precipRate, 2) + ' in/hr' : '--')}
+            ${statChip('Peak Rate Today', `${formatVal(prExt.max.val, 2)} in/hr`)}
+          </div>
+          ${likelyFrozen ? `<div class="extra-data-note">Temps at/below ~34°F — today's precipitation may be frozen or mixed.</div>` : ''}
+        </div>`;
     });
 
     // 4.5 lightning card 
@@ -8565,15 +8847,28 @@ const THEMES = {
     `;
     gridRight.appendChild(solarUvCard);
     makeCardExpandable(solarUvCard, 'solarUv', 'more solar & UV data', (panel) => {
-      panel.innerHTML = detailPanelHtml([
-        {
-          title: "Today's peaks",
-          rows: [
-            `<div class="extra-data-row"><span class="extra-data-label">Peak UV</span><span class="extra-data-value">${formatVal(uExt.max.val, 1)} <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(uExt.max.time)}</span></span></div>`,
-            `<div class="extra-data-row"><span class="extra-data-label">Peak Radiation</span><span class="extra-data-value">${formatVal(sExt.max.val, 0)} W/m² <span style="color: var(--muted-color); font-weight: 400;">· ${formatShortTime(sExt.max.time)}</span></span></div>`
-          ]
-        }
-      ]);
+      const uvGauge = gaugeBarHtml({
+        label: 'UV Index',
+        valueText: `${formatVal(data.uv, 1)} · ${uvCat.label}`,
+        value: data.uv, min: 0, max: 12,
+        zones: [
+          { from: 0, to: 3, color: '#8fd6a8' },
+          { from: 3, to: 6, color: '#ffe27a' },
+          { from: 6, to: 8, color: '#ffb347' },
+          { from: 8, to: 11, color: '#ff7e67' },
+          { from: 11, to: 12, color: '#c792ff' }
+        ],
+        scaleLeft: 'Low', scaleRight: 'Extreme',
+        markerColor: uvCat.color
+      });
+      panel.innerHTML = `
+        <div class="detail-panel">
+          ${uvGauge}
+          <div class="stat-chip-row">
+            ${statChip('Peak UV Today', `${formatVal(uExt.max.val, 1)} · ${formatShortTime(uExt.max.time)}`)}
+            ${statChip('Peak Radiation', `${formatVal(sExt.max.val, 0)} W/m² · ${formatShortTime(sExt.max.time)}`)}
+          </div>
+        </div>`;
     });
 
     // 6. AQI card
@@ -8603,29 +8898,41 @@ const THEMES = {
             ['201–300', 'Very Unhealthy', '#8f3f97'],
             ['301+', 'Hazardous', '#7e0023'],
           ];
-          const aqiScaleHtml = `<div class="aqi-scale-compact" style="grid-column: 1 / -1;">${
+          const aqiGauge = gaugeBarHtml({
+            label: 'Air Quality Index',
+            valueText: data.aqiDisplay,
+            value: data.aqi, min: 0, max: 310,
+            zones: [
+              { from: 0, to: 50, color: '#54ab7c' },
+              { from: 50, to: 100, color: '#c9a800' },
+              { from: 100, to: 150, color: '#ff7e00' },
+              { from: 150, to: 200, color: '#ff4136' },
+              { from: 200, to: 300, color: '#8f3f97' },
+              { from: 300, to: 310, color: '#7e0023' }
+            ],
+            scaleLeft: 'Good', scaleRight: 'Hazardous',
+            markerColor: aqiColor
+          });
+          const pmVals = [
+            { label: 'PM1.0', val: data.pm1 },
+            { label: 'PM2.5', val: data.pm25 },
+            { label: 'PM10.0', val: data.pm10 }
+          ];
+          const pmMax = Math.max(...pmVals.map(p => (typeof p.val === 'number' ? p.val : 0)), 1);
+          const aqiLegendHtml = `<div class="aqi-scale-compact aqi-scale-legend">${
             aqiScaleRows.map(([range, label, color]) => `
-              <div class="aqi-scale-row">
-                <span class="aqi-scale-dot" style="background:${color};"></span>
-                <span class="aqi-scale-range">${range}</span>
-                <span class="aqi-scale-label" style="color:${color};">${label}</span>
-              </div>
+              <span class="aqi-legend-chip"><span class="aqi-scale-dot" style="background:${color};"></span>${label}</span>
             `).join('')
           }</div>`;
-          panel.innerHTML = detailPanelHtml([
-            {
-              title: 'Particulate matter',
-              rows: [
-                `<div class="extra-data-row"><span class="extra-data-label">PM1.0</span><span class="extra-data-value">${data.pm1 != null ? formatVal(data.pm1, 1) + ' µg/m³' : '--'}</span></div>`,
-                `<div class="extra-data-row"><span class="extra-data-label">PM2.5</span><span class="extra-data-value">${data.pm25 != null ? formatVal(data.pm25, 1) + ' µg/m³' : '--'}</span></div>`,
-                `<div class="extra-data-row"><span class="extra-data-label">PM10.0</span><span class="extra-data-value">${data.pm10 != null ? formatVal(data.pm10, 1) + ' µg/m³' : '--'}</span></div>`
-              ]
-            },
-            {
-              title: 'AQI scale reference',
-              rows: [aqiScaleHtml]
-            }
-          ], 'AQI is driven by the pollutant with the worst reading at the moment — usually fine particulates (PM2.5) or ground-level ozone, depending on conditions. PM1.0 and PM10.0 are shown for reference; AQI here is calculated from PM2.5 only.');
+          panel.innerHTML = `
+            <div class="detail-panel">
+              ${aqiGauge}
+              <div class="bar-compare-list">
+                ${pmVals.map(p => barCompareRow(p.label, p.val, pmMax, 'µg/m³', aqiColor || '#8fa6bf', 1)).join('')}
+              </div>
+              ${aqiLegendHtml}
+              <div class="extra-data-note">AQI here is calculated from PM2.5 only — PM1.0/PM10.0 shown for reference.</div>
+            </div>`;
         });
     }
 
@@ -8655,14 +8962,29 @@ const THEMES = {
        gridRight.appendChild(usgsCard);
        makeCardExpandable(usgsCard, 'river', 'more river gauge data', (panel) => {
          const stageNote = getDashieldsStageNote(currentUsgs.gageHeight);
-         panel.innerHTML = detailPanelHtml([
-           {
-             title: 'Flood stages · Dashields L&D',
-             rows: DASHIELDS_STAGES.map(s =>
-               `<div class="extra-data-row"><span class="extra-data-label">${s.label}</span><span class="extra-data-value" style="color:${s.color};">${s.ft.toFixed(1)} ft</span></div>`
-             )
-           }
-         ], stageNote ? `Current: ${currentUsgs.gageHeight.toFixed(2)} ft — <span style="color:${stageNote.color};">${stageNote.text}</span>` : '');
+         const gh = currentUsgs.gageHeight;
+         const gaugeMax = DASHIELDS_STAGES[DASHIELDS_STAGES.length - 1].ft + 4;
+         const zones = [{ from: 0, to: DASHIELDS_STAGES[0].ft, color: '#3d6b8f' }];
+         DASHIELDS_STAGES.forEach((s, i) => {
+           const next = DASHIELDS_STAGES[i + 1] ? DASHIELDS_STAGES[i + 1].ft : gaugeMax;
+           zones.push({ from: s.ft, to: next, color: s.color });
+         });
+         const riverGauge = gaugeBarHtml({
+           label: 'Gage Height vs. Flood Stages',
+           valueText: `${gh.toFixed(2)} ft`,
+           value: gh, min: 0, max: gaugeMax,
+           zones,
+           scaleLeft: '0 ft', scaleRight: `${gaugeMax.toFixed(0)} ft`,
+           markerColor: stageNote ? stageNote.color : undefined
+         });
+         panel.innerHTML = `
+           <div class="detail-panel">
+             ${riverGauge}
+             <div class="stat-chip-row">
+               ${DASHIELDS_STAGES.map(s => statChip(s.label, `${s.ft.toFixed(1)} ft`, s.color)).join('')}
+             </div>
+             ${stageNote ? `<div class="extra-data-note">Current: ${gh.toFixed(2)} ft — <span style="color:${stageNote.color};">${stageNote.text}</span></div>` : ''}
+           </div>`;
        });
     }
 
@@ -9386,31 +9708,15 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
     desktopQuery.addEventListener?.('change', syncDesktopComposition);
 
     const lightbox = document.getElementById('camera-lightbox');
-const lightboxImg = document.getElementById('camera-lightbox-img');
-const lightboxVideo = document.getElementById('camera-lightbox-video');
-const timelapseBtn = document.getElementById('camera-timelapse-btn');
-const mobileTimelapseBtn = document.getElementById('camera-mobile-timelapse-btn');
-const mobileTimelapseVideo = document.getElementById('camera-mobile-timelapse-video');
-const closeBtn = document.getElementById('camera-lightbox-close');
-
-function resetLightboxMedia() {
-  if (lightboxImg) lightboxImg.style.display = '';
-  if (lightboxVideo) {
-    lightboxVideo.pause();
-    lightboxVideo.removeAttribute('src');
-    lightboxVideo.load();
-    lightboxVideo.style.display = 'none';
-  }
-  if (timelapseBtn) timelapseBtn.style.display = '';
-}
+    const lightboxImg = document.getElementById('camera-lightbox-img');
+    const closeBtn = document.getElementById('camera-lightbox-close');
 
     function closeLightbox() {
-  if (!lightbox) return;
-  resetLightboxMedia();
-  lightbox.classList.remove('open');
-  lightbox.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-}
+      if (!lightbox) return;
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
 
     function openLightbox() {
       if (!desktopQuery.matches || !lightbox || !lightboxImg) return;
@@ -9422,54 +9728,6 @@ function resetLightboxMedia() {
       document.body.style.overflow = 'hidden';
       closeBtn?.focus({ preventScroll: true });
     }
-
-    function getYesterdayTimelapseUrl() {
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  const dayString =
-    `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
-  return `https://clover-wx-camera-1028879236258.us-central1.run.app/camera/timelapse/${dayString}`;
-}
-
-function openTimelapse() {
-  if (!lightbox || !lightboxVideo || !lightboxImg) return;
-
-  lightboxImg.style.display = 'none';
-  lightboxVideo.src = getYesterdayTimelapseUrl();
-  lightboxVideo.style.display = 'block';
-  if (timelapseBtn) timelapseBtn.style.display = 'none';
-  lightbox.classList.add('open');
-  lightbox.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-  lightboxVideo.play().catch(() => {});
-}
-
-function toggleMobileTimelapse() {
-  if (!mobileTimelapseBtn || !mobileTimelapseVideo) return;
-
-  const showing = mobileTimelapseVideo.style.display === 'block';
-
-  if (showing) {
-    mobileTimelapseVideo.pause();
-    mobileTimelapseVideo.removeAttribute('src');
-    mobileTimelapseVideo.load();
-    mobileTimelapseVideo.style.display = 'none';
-    const source = document.getElementById('camera-img');
-    if (source) source.style.display = '';
-    mobileTimelapseBtn.textContent = "Yesterday's Time Lapse";
-    return;
-  }
-
-  const source = document.getElementById('camera-img');
-  if (source) source.style.display = 'none';
-  mobileTimelapseVideo.src = getYesterdayTimelapseUrl();
-  mobileTimelapseVideo.style.display = 'block';
-  mobileTimelapseBtn.textContent = 'Show Live Camera';
-  mobileTimelapseVideo.play().catch(() => {});
-}
-
-    timelapseBtn?.addEventListener('click', openTimelapse);
-    mobileTimelapseBtn?.addEventListener('click', toggleMobileTimelapse);
 
     cameraCard.addEventListener('click', (event) => {
       if (desktopQuery.matches && !event.target.closest('a, button')) openLightbox();
