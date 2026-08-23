@@ -1,26 +1,49 @@
 {
-  "generatedAt": "2026-08-23T16:05:32.957277Z",
+  "generatedAt": "2026-08-23T16:10:36.051213Z",
   "watches": [],
-  "mesoscaleDiscussions": [],
-  "statements": [
+  "mesoscaleDiscussions": [
     {
-      "id": "343ee0bc-7aad-45f7-b678-d26791449001",
-      "type": "Flood Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-23T15:36:00+00:00",
-      "expires": null,
-      "location": "/CDIO1.1.ER.000000T0000Z.260822T1845Z.260823T2248Z.NO/",
-      "hazard": "WGUS81 KPBZ 231536 ...The Flood Warning is extended for the following rivers in Ohio...",
-      "distanceMiles": null,
-      "headline": "Flood Statement",
-      "summary": "WGUS81 KPBZ 231536 ...The Flood Warning is extended for the following rivers in Ohio...",
+      "id": "MD2096",
+      "number": 2096,
+      "issued": "2026-08-23T16:03:00Z",
+      "expires": "2026-08-23T18:30:00Z",
+      "concerning": "Severe potential...Watch unlikely",
+      "hazard": "Severe potential...Watch unlikely",
+      "areas": "northern Mid-Atlantic into western New England",
+      "location": "northern Mid-Atlantic into western New England",
+      "distanceMiles": 144.2,
+      "summary": "A gradual increase in thunderstorm coverage is expected this afternoon along with a corresponding risk for isolated severe weather. A severe thunderstorm watch is not currently expected due to the limited nature of the threat",
+      "watchProbability": "20 percent",
+      "forecaster": "Mead/Smith",
       "details": [
         {
-          "label": "Product detail",
-          "text": "000 WGUS81 KPBZ 231536 FLSPBZ Flood Statement 1136 AM EDT Sun Aug 23 2026 ...The Flood Warning is extended for the following rivers in Ohio... Wills Creek At Cambridge affecting Guernsey County. PRECAUTIONARY/PREPAREDNESS ACTIONS..."
+          "label": "Summary",
+          "text": "A gradual increase in thunderstorm coverage is expected this afternoon along with a corresponding risk for isolated severe weather. A severe thunderstorm watch is not currently expected due to the limited nature of the threat"
+        },
+        {
+          "label": "Discussion",
+          "text": "Ahead of a vorticity maximum pivoting from the lower Great Lakes into Hudson Valley, visible satellite and radar imagery indicate several areas of deepening moist convection. The 12Z Buffalo and Pittsburgh soundings indicate little to no capping with MLCAPE increasing to 1000-1500 J/kg by afternoon in areas that receive stronger heating. Accordingly, expect a gradual increase in thunderstorm coverage over the next few hours with the 12Z HREF calibrated thunder and paintball plots indicating the highest concentration of storms across the Hudson Valley this afternoon along a persistent zone of low-level confluence. Current VWPs and RAP-based forecast data indicate 30-35 kt of southwesterly deep-layer shear across the region; however, the vector orientation is expected to largely parallel that of the evolving convective bands, limiting the potential for a more organized damaging wind threat. Nonetheless, isolated occurrences of damaging wind gusts appear possible in areas where steeper low-level lapse rates can develop. Additionally, relatively cool mid-level temperatures will be supportive of a marginally severe hail risk with the strongest updrafts"
+        },
+        {
+          "label": "Watch probability",
+          "text": "20 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK WIND GUST...UP TO 60 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Mead/Smith"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...BTV...OKX...ALY...PHI...BGM...BUF...CTP"
         }
       ],
-      "url": "https://api.weather.gov/products/343ee0bc-7aad-45f7-b678-d26791449001"
+      "url": "https://www.spc.noaa.gov/products/md/md2096.html",
+      "office": "SPC"
     }
-  ]
+  ],
+  "statements": []
 }
