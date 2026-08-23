@@ -8831,6 +8831,13 @@ const THEMES = {
       
         lightningCard.classList.add('lightning-map-open');
         lightningCard.setAttribute('aria-expanded', 'true');
+        // the panel (and therefore the GLM map's container) has only just
+        // become visible via the class above -- if the map was created
+        // moments ago while still hidden (first-ever open, !current branch),
+        // Leaflet sized its tiles against a hidden/zero-size container and
+        // needs a nudge now that real dimensions exist. Harmless no-op on
+        // subsequent opens where the map's already correctly sized.
+        setTimeout(() => lightningGlmMap && lightningGlmMap.invalidateSize(), 50);
       } else {
         lightningCard.classList.remove('lightning-map-open');
         lightningCard.setAttribute('aria-expanded', 'false');
