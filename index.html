@@ -8224,7 +8224,7 @@ const THEMES = {
     else if (feelsLike >= EXTREME_HEAT_TEMP_F) condition = 'extremeHeat';
     if (condition) return isNight ? `${condition}Night` : condition;
     if (isNight) return 'night';
-    if ((data.solarRadiation || 0) > 650) return 'sunny';
+    if ((data.solarRadiation || 0) > 680) return 'sunny';
     return 'cloudy';
   }
 
@@ -8256,17 +8256,7 @@ const THEMES = {
     }
     loadMeteoconOrFallback(theme, el);
   }
-
-  // el gets the theme's icon, in whichever form is available: an SVG
-  // meteocon (icons/<file>.svg), falling back to a themed PNG
-  // (theme.iconImg), falling back to the plain emoji.
-
-  // a parallel "static" export (see @meteocons/svg-static, or the
-  // static-style toggle at meteocons.com/icons/); staticOnly points at
-  // icons/static/<file>.svg instead of icons/<file>.svg, using the same
-  // filename already set in theme.meteocon below. until those static
-  // files are actually added to the icons/static/ folder,
-  // falls back to the theme's PNG instead
+// static icons for use in busy areas
   function loadMeteoconOrFallback(theme, el, options = {}) {
     if (options.staticOnly && theme.meteocon) {
       const img = document.createElement('img');
@@ -9426,11 +9416,7 @@ const THEMES = {
     statement: 'Statement',
   };
 
-  // clicking a banner scrolls Storm Center into view, switches to the tab
-  // holding the matching item (same id, since data/alerts.json is one of
-  // the two feeds merged into buildCombinedWatchesList), and gives it a
-  // single soft flash. If no live match is found (e.g. the alert expired
-  // between renders) it still scrolls to Storm Center as a fallback.
+  // clicking an alert brings you to storm center
   function goToStormCenterAlert(alertId) {
     const stormCard = document.querySelector('.outlook-card');
     let targetEl = document.querySelector(`.nws-item[data-id="${CSS.escape(alertId)}"]`);
@@ -9507,15 +9493,8 @@ const THEMES = {
 
     if (aqRes && aqRes.ok) {
       const aqData = await aqRes.json();
-      // only pull in the specific AQI fields the UI actually uses.
-      // NOTE: purposely NOT a blanket Object.assign(data, aqData) --
-      // PurpleAir's payload includes its own on-sensor `humidity` (and
-      // potentially other overlapping field names like temp/pressure)
-      // used for its PM2.5 correction factor. that reading comes from
-      // inside the sensor's heated housing. it is not representative
-      // of ambient conditions, and merging it blocks
-      // the correct humidity/temp/sensor readings from the
-      // weewx/WU merge above.
+      // only pull in the specific AQI fields the UI actually uses, so inaccurate purpleair
+      // sensor array values dont end up replacing the weather station's real data
       if (aqData.aqi !== undefined) data.aqi = aqData.aqi;
       if (aqData.aqiDisplay !== undefined) data.aqiDisplay = aqData.aqiDisplay;
       if (aqData.pm1 !== undefined) data.pm1 = aqData.pm1;
@@ -9529,10 +9508,6 @@ const THEMES = {
     if (capeRes && capeRes.ok) {
       try {
         const capeData = await capeRes.json();
-        // only pull the one field the tile uses -- same reasoning as the
-        // AQI merge above, avoid a blanket Object.assign in case future
-        // fields in cape.json (model run time, lat/lon, etc.) ever collide
-        // with an existing data.* key.
         if (capeData.cape !== undefined) data.cape = capeData.cape;
       } catch (e) { /* leave data.cape unset -- card falls back to '--' */ }
     }
@@ -9543,7 +9518,7 @@ const THEMES = {
     
     renderAlertBanners(alerts);
     currentPointAlerts = alerts;
-    renderNwsProducts(); // recompute the merged watches/warnings list -- alerts.json refreshes on a different cadence than nws_products.json
+    renderNwsProducts(); // recompute the merged watches/warnings list. alerts.json refreshes on a different schedule than nws_products.json
     lastWeatherData = data;
     renderCards(data);
     const isNight = isNightTime(data);
