@@ -41,7 +41,7 @@ OUTPUT_PATH = "data/air_quality.json"
 PRIMARY_NAME = "UORV-066"
 SENSORS = [
     {"index": 308482, "name": "UORV-066", "weight": 2},
-    {"index": 300707, "name": "UORV-053", "weight": 1},
+    #{"index": 300707, "name": "UORV-053", "weight": 1},## commenting this out until the weird high 300aqi readings subside#
     {"index": 189215, "name": "UORV-001", "weight": 1},
     {"index": 94479,  "name": "CMP09",    "weight": 1},
 ]
