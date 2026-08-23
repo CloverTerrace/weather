@@ -3691,22 +3691,6 @@ svg circle, svg polygon, svg line {
     }
   }
 
-
-  /* ---------- final responsive weather-card layout ----------
-     the live weather cards are rendered inside #grid (.grid). keep the
-     independent two-column architecture when there is room, but collapse the
-     actual weather-card grid to one full-width flow on phones and compact
-     portrait devices.
-
-     the two .grid-column wrappers are populated independently in JS (left:
-     temp, pressure, lightning, aqi -- right: wind, precip, solar/uv, river),
-     so simply stacking each column in full (flex column) puts them in DOM
-     order, not the preferred reading order. display: contents drops each
-     wrapper from layout so its cards become direct items of #grid.grid's
-     single-column grid, then `order` puts them in the preferred sequence:
-     temp, wind, pressure, precip, lightning, solar/uv, air quality, river --
-     all without touching the DOM structure the expand/collapse logic relies
-     on. */
   @media (max-width: 850px) {
     #grid.grid {
       display: grid !important;
@@ -3743,18 +3727,7 @@ svg circle, svg polygon, svg line {
     }
   }
 
-  /* ---------- desktop weather-card layout ----------
-     same as the mobile block above, aimed the other direction: the
-     two .grid-column wrappers (still populated by the same JS, still in
-     the same left/right groups) are dropped from layout with
-     display:contents so each card becomes a direct item of #grid.grid.
-     With room to work with, that lets the tiles wrap into a real
-     multi-column grid instead of two tall stretched columns. each card's
-     width is capped so it stays close to square and readable instead of
-     stretching to fill the row, and `order` keeps the same temp -> wind ->
-     pressure -> ... reading sequence used on mobile. align-self is pinned
-     to `start` so an expanded card (tap-to-open extra data) only grows
-     itself, never the row it happens to share with other tiles. */
+  /* ---------- desktop weather-card layout --------*/
   @media (min-width: 851px) {
     #grid.grid {
       display: grid !important;
@@ -3804,20 +3777,6 @@ svg circle, svg polygon, svg line {
     .priority-value { font-size: 1.7rem !important; }
   }
 
-  /* .pressure-priority-row (the old single-value pressure layout, still
-     used elsewhere in this stylesheet's history/comments below) is
-     deliberately left OUT of this stack-to-column rule -- unlike
-     wind/lightning, that row is just a value next to a trend arrow, and
-     stacking it broke the "arrow next to the value" layout on every card
-     narrower than 250px, which is the normal tile width on the desktop
-     grid. .pressure-glance-row is a different element (the newer
-     Pressure+CAPE combo row) and does NOT carry that exemption -- it's
-     two full value+unit+arrow blocks fighting for half-width columns,
-     which is exactly what was going cut off/clipped on narrow desktop
-     tiles (confirmed: at a 131px-wide tile the two-column layout needed
-     ~155px+ just for the pressure side alone). Stacking it here, the
-     same way wind/lightning already do, gives each value the tile's
-     full width instead of a half. */
   @container card (max-width: 250px) {
     .wind-priority-row,
     .lightning-priority-row {
@@ -3845,12 +3804,6 @@ svg circle, svg polygon, svg line {
     }
   }
 
-  /* below ~190px the combo tile has both a card-level heading ("Pressure
-     & CAPE") and a per-column "Pressure" label directly beneath it --
-     redundant and, at this size, close enough vertically to visually
-     run together. The per-column labels already identify each value on
-     their own at this width, so the heading text (not the icon) is
-     dropped here to give the two stacked values more breathing room. */
   @container card (max-width: 190px) {
     .pressure-card .priority-heading {
       display: none;
@@ -3883,9 +3836,6 @@ svg circle, svg polygon, svg line {
       font-size: 1.85rem !important;
     }
 
-    /* same reasoning as the desktop override above -- the Pressure/CAPE
-       combo tile needs a smaller floor than a single-value card at this
-       width, or the stacked values overflow a narrow phone's tile. */
     #grid.grid .pressure-card .pressure-glance-row .priority-value {
       font-size: 1.5rem !important;
     }
@@ -3956,8 +3906,6 @@ svg circle, svg polygon, svg line {
       padding-left: 0.65rem;
     }
   }
-
-
 
   /* ================================================================
      DESKTOP WEATHER-CENTER COMPOSITION
@@ -5487,7 +5435,7 @@ svg circle, svg polygon, svg line {
             <div class="forecast-periods" id="forecast-periods"></div>
           </div>
         </div>
-        <div class="forecast-flip-hint" id="forecast-flip-hint">tap for forecast summary ↗</div>
+        <div class="forecast-flip-hint" id="forecast-flip-hint">tap for forecast summary</div>
       </div>
     </div>
 
@@ -8546,14 +8494,7 @@ const THEMES = {
 
 
   
-    // horizontal range gauge: current value plotted against a colored
-    // scale (comfort ranges, storm thresholds, flood stages...) instead of
-    // a plain label/value box. `zones` is a list of {from, to, color}
-    // spans across [min, max] -- rendered as hard-stop gradient segments
-    // -- with a marker dropped at `value`'s position along that same
-    // scale. valueText carries the number the marker represents (plus
-    // any short qualifier, e.g. "1.29 kPa · a bit sticky"); scaleLeft/
-    // scaleRight are the two end labels under the track.
+    // horizontal range gauge
     function gaugeBarHtml({ label, valueText, value, min, max, zones, scaleLeft, scaleRight, markerColor }) {
       const pct = (v) => Math.max(0, Math.min(100, ((v - min) / (max - min)) * 100));
       const stops = zones.map(z => `${z.color} ${pct(z.from)}%, ${z.color} ${pct(z.to)}%`).join(', ');
@@ -8572,8 +8513,7 @@ const THEMES = {
     }
 
     // one row of a small comparison bar chart -- for like-quantities that
-    // read better side by side (week/month/year totals, PM1/2.5/10) than
-    // as identical boxes with no relative sense of scale.
+    // read better side by side (week/month/year totals, PM1/2.5/10)
     function barCompareRow(label, value, maxValue, unit, color, dec = 2) {
       const v = (value === undefined || value === null || isNaN(value)) ? 0 : value;
       const pct = maxValue > 0 ? Math.max(3, Math.min(100, (v / maxValue) * 100)) : 3;
@@ -8585,8 +8525,7 @@ const THEMES = {
         </div>`;
     }
 
-    // a single reference stat as a small bordered chip (optionally with a
-    // color dot) -- for secondary data that doesn't need its own gauge.
+    // a single reference stat as a small bordered chip
     function statChip(label, value, dotColor) {
       return `
         <div class="stat-chip">
@@ -8669,7 +8608,7 @@ const THEMES = {
 
 
 
-    // 3. pressure card -- relative (elevation-corrected) pressure only
+    // 3. pressure/cape card -- relative (elevation-corrected) pressure only
     const pExt = extSafe('pressure');
     const pTrend = getPressureTrend(fullHistory, 'pressure');
 
@@ -8693,7 +8632,7 @@ const THEMES = {
     pressureCard.innerHTML = `
       <div class="priority-card-head">
         <div class="priority-icon"><img src="icons/barometer.svg" alt=""></div>
-        <div class="priority-heading">Pressure &amp; CAPE</div>
+        <div class="priority-heading">STORM POTENTIAL</div>
       </div>
       <div class="glance-row priority-glance-row pressure-glance-row">
          <div class="glance-col glance-primary">
@@ -8751,7 +8690,7 @@ const THEMES = {
             ${statChip('Δ3h', pTrend && pTrend.delta !== undefined ? (pTrend.delta >= 0 ? '+' : '') + pTrend.delta.toFixed(3) : '--')}
           </div>
           ${capeGauge}
-          <div class="extra-data-note">CAPE is modeled (HRRR, hourly), not sensor-measured — it's storm fuel available, not a forecast that one will fire.</div>
+          <div class="extra-data-note">CAPE is modeled (HRRR, hourly), not sensor-measured — it's storm fuel available, not a forecast that one will occur.</div>
         </div>`;
     });
 
