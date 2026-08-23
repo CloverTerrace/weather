@@ -3644,14 +3644,6 @@ svg circle, svg polygon, svg line {
       width: 100%;
     }
 
-    /* .dashboard-grid's spacing normally comes from `gap` (grid-only) plus
-       `margin-top: 0 !important` on every child (see base rule above) --
-       that combo goes to zero once this media query forces block layout,
-       since `gap` has no effect outside grid/flex. without this, cards
-       stack flush against each other, and any card whose real rendered
-       height differs even slightly from initial layout (async-loaded
-       images, the Leaflet radar map, JS-injected product lists) visually
-       overlaps its neighbor instead of just looking cramped. */
     .dashboard-grid > * {
       margin-bottom: 1.5rem !important;
     }
@@ -3659,12 +3651,6 @@ svg circle, svg polygon, svg line {
     .dashboard-grid > *:last-child {
       margin-bottom: 0 !important;
     }
-
-    /* .grid-column layout itself is handled by the "final responsive
-       weather-card layout" rules below (display: contents + explicit
-       `order`, scoped to #grid.grid) -- not duplicated here, since a plain
-       margin-based stack would fight with that grid's `gap` and produce
-       uneven spacing between reordered cards. */
 
     .card-expand-panel {
       width: 100%;
@@ -3677,13 +3663,6 @@ svg circle, svg polygon, svg line {
   }
 
   @media (max-width: 460px) {
-    /* previously forced back to a single column here, which is what
-       produced the tall/skinny tile backs with a lot of unused space
-       (this was the narrowest, and therefore most commonly hit, of the
-       three breakpoints touching .extra-data-list -- see the comment
-       above the removed 520px rule). the auto-fit rule above already
-       degrades to 1 column on its own once a phone is too narrow for
-       two 108px columns, so no override is needed here anymore. */
 
     .card {
       padding: 1rem;
@@ -5553,13 +5532,13 @@ svg circle, svg polygon, svg line {
           <span class="outlook-thumb-label">Day 4–8</span>
         </button>
       </div>
-      <div class="outlook-nav-hint">Swipe the large outlook or tap a preview to switch days</div>
+      <div class="outlook-nav-hint">swipe the large outlook or tap a preview to switch days</div>
     </div>
 
     <div class="outlook-category-panel" id="outlook-panel-thunderstorm" role="tabpanel">
       <div class="thunderstorm-outlook-panel">
         <div class="thunderstorm-period-grid" id="thunderstorm-period-grid">
-          <div class="thunderstorm-empty">Loading current thunderstorm outlook periods…</div>
+          <div class="thunderstorm-empty">loading current thunderstorm outlook periods…</div>
         </div>
       </div>
       <div class="outlook-nav-hint" id="thunderstorm-outlook-hint">Swipe the large outlook or tap a preview to switch periods</div>
