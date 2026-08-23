@@ -412,22 +412,17 @@
     font-family: var(--font-grid-value);
   }
 
-  .wind-metric-peak-value .unit {
-    font-size: 0.52rem;
+  /* Peak's own value (0.92rem) is already smaller than the tile's main
+     number, so its "mph" needs to scale down with it. Three classes
+     deep on purpose -- same specificity as the base .card .unit rule
+     would leave this order-dependent and silently lose (that was the
+     bug: peak's mph was rendering at the base 1rem despite this rule
+     existing, because .card .unit happened to sit later in the file). */
+  .wind-card .wind-metric-peak-value .unit {
+    font-size: 0.44rem;
     font-weight: 500;
     margin-left: 1px;
     color: var(--label-color);
-  }
-
-  /* the front-tile Sustained/Gust "mph" units -- scoped so it doesn't
-     touch peak's own (already small) unit, or units on other tiles */
-  .wind-priority-metric .value.priority-value .unit {
-    font-size: 0.55rem;
-  }
-
-  /* solar tile's "W/m²" unit -- scoped to this card only */
-  .solar-card .combo-col .unit {
-    font-size: 0.6rem;
   }
 
   .priority-compass { flex: 0 0 112px; }
@@ -588,10 +583,18 @@
     text-align: center;
   }
 
+  /* units are a caption on the value, not a peer of it -- kept
+     uniformly small everywhere in the tile grid so they never compete
+     with the number for size/attention. Individual tiles only deviate
+     from this when their value itself is smaller than the standard
+     1.8rem (e.g. wind's Peak row), and those overrides are boosted to
+     3+ classes of specificity on purpose, so they win predictably
+     regardless of source order instead of relying on cascade position. */
   .card .unit {
-    font-size: 1rem;
+    font-size: 0.6rem;
+    font-weight: 500;
     color: var(--label-color);
-    margin-left: 0.2rem;
+    margin-left: 0.15rem;
     font-family: var(--font-grid-value);
   }
   
@@ -3891,8 +3894,12 @@ svg circle, svg polygon, svg line {
     white-space: nowrap;
   }
 
-  .pressure-glance-row .unit {
-    font-size: 0.78em;
+  /* was 0.78em, which computes against the *inherited* (parent) font
+     size -- on this tile that's the 1.4-1.85rem clamped value size, so
+     it was actually rendering around 1.1-1.4rem, bigger than the base
+     unit style it was meant to shrink from. Fixed rem value instead. */
+  .glance-row.pressure-glance-row .unit {
+    font-size: 0.58rem;
   }
 
   @media (max-width: 480px) {
