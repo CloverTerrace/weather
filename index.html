@@ -8224,7 +8224,7 @@ const THEMES = {
     else if (feelsLike >= EXTREME_HEAT_TEMP_F) condition = 'extremeHeat';
     if (condition) return isNight ? `${condition}Night` : condition;
     if (isNight) return 'night';
-    if ((data.solarRadiation || 0) > 680) return 'sunny';
+    if ((data.solarRadiation || 0) > 850) return 'sunny';
     return 'cloudy';
   }
 
