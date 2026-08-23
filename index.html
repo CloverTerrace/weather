@@ -9571,16 +9571,14 @@ const THEMES = {
       localStorage.setItem('cloverWeatherDataCache', JSON.stringify({
         data,
         alerts,
-        todaysExtremes: {
-          temp: getTodayExtremes(fullHistory, 'temp'),
-          humidity: getTodayExtremes(fullHistory, 'humidity'),
-          windSpeed: getTodayExtremes(fullHistory, 'windSpeed'),
-          windGust: getTodayExtremes(fullHistory, 'windGust'),
-          pressure: getTodayExtremes(fullHistory, 'pressure'),
-          precipRate: getTodayExtremes(fullHistory, 'precipRate'),
-          solarRadiation: getTodayExtremes(fullHistory, 'solarRadiation'),
-          uv: getTodayExtremes(fullHistory, 'uv'),
-        },
+        // renderCards() (above) already ran getExtremesSafe for every field
+        // this tick, so cachedTodaysExtremes holds the merged/live-extended
+        // peaks -- persist that directly. Recomputing from fullHistory here
+        // would silently throw away any live-value extension and write a
+        // weaker snapshot, which then gets replayed by hydrateFromCache()
+        // on the next reload (e.g. a backgrounded mobile tab getting
+        // reclaimed and reloaded), undoing the accumulated peak.
+        todaysExtremes: cachedTodaysExtremes,
         usgs: currentUsgs,
         riverMax: getTodayMaxRiver(usgsHistory),
         savedAt: Date.now(),
@@ -9867,7 +9865,7 @@ function toggleMobileTimelapse() {
       const cached = JSON.parse(localStorage.getItem('cloverWeatherDataCache') || 'null');
       if (cached && cached.data) {
         lastWeatherData = cached.data;
-        cachedTodaysExtremes = cached.todaysExtremes || null;
+        cachedTodaysExtremes = cached.todaysExtremes || {};
         cachedRiverMax = cached.riverMax || null;
         if (cached.usgs) currentUsgs = cached.usgs;
         renderCards(cached.data);
