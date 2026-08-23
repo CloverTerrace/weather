@@ -9,7 +9,7 @@
       "shortForecast": "Sunny",
       "detailedForecast": "Sunny, with a high near 73. West wind around 12 mph.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 3
+      "probabilityOfPrecipitation": 4
     },
     {
       "name": "Tonight",
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-08-23T15:00:00-04:00",
+      "temperature": 73,
+      "temperatureUnit": "F",
+      "windSpeed": "12 mph",
+      "windDirection": "W",
+      "shortForecast": "Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 4
+    },
     {
       "startTime": "2026-08-23T16:00:00-04:00",
       "temperature": 73,
@@ -275,16 +285,6 @@
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 1
-    },
-    {
-      "startTime": "2026-08-24T15:00:00-04:00",
-      "temperature": 70,
-      "temperatureUnit": "F",
-      "windSpeed": "10 mph",
-      "windDirection": "W",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 2
     }
   ]
 }
