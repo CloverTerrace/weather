@@ -6656,6 +6656,11 @@ svg circle, svg polygon, svg line {
       if (Array.isArray(history) && history.length > 0) {
         fullHistory = history;
         renderAllCharts();
+        // fullHistory just went from empty to populated -- re-render the grid
+        // so anything derived from it (pressure/CAPE trend, extremes) reflects
+        // real data on this same load instead of waiting for the next
+        // periodic loadData() tick. Same pattern loadCapeHistory() uses below.
+        if (lastWeatherData) renderCards(lastWeatherData);
       }
     } catch (err) {
       console.warn('Could not load history data:', err.message);
