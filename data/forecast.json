@@ -1,15 +1,15 @@
 {
   "periods": [
     {
-      "name": "Overnight",
+      "name": "Tonight",
       "temperature": 61,
       "temperatureUnit": "F",
-      "windSpeed": "7 mph",
+      "windSpeed": "3 to 7 mph",
       "windDirection": "SW",
-      "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 61. Southwest wind around 7 mph.",
+      "shortForecast": "Slight Chance Showers And Thunderstorms then Mostly Cloudy",
+      "detailedForecast": "A slight chance of showers and thunderstorms before midnight. Mostly cloudy, with a low around 61. Southwest wind 3 to 7 mph. Chance of precipitation is 20%.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 14
+      "probabilityOfPrecipitation": 22
     },
     {
       "name": "Sunday",
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-08-22T23:00:00-04:00",
+      "temperature": 67,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "S",
+      "shortForecast": "Slight Chance Showers And Thunderstorms",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 22
+    },
     {
       "startTime": "2026-08-23T00:00:00-04:00",
       "temperature": 66,
@@ -275,16 +285,6 @@
       "shortForecast": "Partly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 10
-    },
-    {
-      "startTime": "2026-08-23T23:00:00-04:00",
-      "temperature": 62,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "W",
-      "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 16
     }
   ]
 }
