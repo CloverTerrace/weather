@@ -1340,7 +1340,7 @@
   }
 
   .wind-back-compass {
-    width: clamp(92px, 52cqw, 128px);
+    width: clamp(100px, 58cqw, 140px);
   }
 
   .wind-back-compass .wind-compass {
@@ -1348,27 +1348,12 @@
   }
 
   .wind-back-compass .wind-compass-degrees {
-    font-size: clamp(0.85rem, 7cqw, 1.15rem);
+    font-size: clamp(0.9rem, 7.5cqw, 1.25rem);
   }
 
   .wind-back-compass .wind-compass-cardinal {
-    font-size: clamp(0.58rem, 4.5cqw, 0.76rem);
+    font-size: clamp(0.6rem, 4.8cqw, 0.8rem);
     margin-top: 0.15rem;
-  }
-
-  .wind-compass-beaufort {
-    margin-top: 8px;
-    display: inline-block;
-    font-size: clamp(0.62rem, 2.8cqw, 0.74rem);
-    font-weight: 700;
-    color: var(--value-color);
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.09);
-    padding: 3px 12px;
-    border-radius: 999px;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-    font-family: var(--font-grid-label);
   }
 
   @container card (max-width: 190px) {
@@ -1392,7 +1377,7 @@
     .gauge-bar-head { gap: 0.2rem; }
     .stat-chip-row { gap: 4px; }
     .wind-back-compass {
-      width: clamp(78px, 46cqw, 104px);
+      width: clamp(84px, 52cqw, 112px);
     }
   }
 
@@ -8608,7 +8593,7 @@ const THEMES = {
       panel.innerHTML = `
         <div class="detail-panel">
           <div class="wind-back-layout">
-            <div class="wind-back-compass">${buildWindCompassHtml(false, data.winddir || 0, getBeaufortLabel(data.windSpeed))}</div>
+            <div class="wind-back-compass">${buildWindCompassHtml(false, data.winddir || 0)}</div>
           </div>
           ${gustGauge}
           <div class="extra-data-note">A gust factor above ~1.5× indicates increasingly gusty flow; elevated ratios during storms can be a useful downburst clue.</div>
