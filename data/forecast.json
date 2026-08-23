@@ -4,12 +4,12 @@
       "name": "This Afternoon",
       "temperature": 73,
       "temperatureUnit": "F",
-      "windSpeed": "12 mph",
+      "windSpeed": "10 mph",
       "windDirection": "W",
       "shortForecast": "Sunny",
-      "detailedForecast": "Sunny, with a high near 73. West wind around 12 mph.",
+      "detailedForecast": "Sunny, with a high near 73. West wind around 10 mph, with gusts as high as 21 mph.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 4
+      "probabilityOfPrecipitation": 2
     },
     {
       "name": "Tonight",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-08-23T16:00:00-04:00",
-      "temperature": 73,
-      "temperatureUnit": "F",
-      "windSpeed": "12 mph",
-      "windDirection": "W",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 3
-    },
     {
       "startTime": "2026-08-23T17:00:00-04:00",
       "temperature": 72,
@@ -283,6 +273,16 @@
       "windSpeed": "10 mph",
       "windDirection": "W",
       "shortForecast": "Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 2
+    },
+    {
+      "startTime": "2026-08-24T16:00:00-04:00",
+      "temperature": 70,
+      "temperatureUnit": "F",
+      "windSpeed": "9 mph",
+      "windDirection": "W",
+      "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 2
     }
