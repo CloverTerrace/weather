@@ -1361,7 +1361,20 @@
     min-width: 0;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 6px;
+  }
+
+  .wind-back-stats .stat-chip {
+    padding: 10px 12px;
+  }
+
+  .wind-back-stats .stat-chip-label {
+    font-size: clamp(0.62rem, 2.4cqw, 0.7rem);
+  }
+
+  .wind-back-stats .stat-chip-value {
+    font-size: clamp(0.82rem, 3.4cqw, 1rem);
   }
 
   @container card (max-width: 190px) {
@@ -5445,7 +5458,7 @@ svg circle, svg polygon, svg line {
             <div class="forecast-periods" id="forecast-periods"></div>
           </div>
         </div>
-        <div class="forecast-flip-hint" id="forecast-flip-hint">tap for forecast summary</div>
+        <div class="forecast-flip-hint" id="forecast-flip-hint">tap for 48 hour forecast summary</div>
       </div>
     </div>
 
@@ -6882,7 +6895,7 @@ svg circle, svg polygon, svg line {
     const setOpen = (open) => {
       card.classList.toggle('forecast-flipped', open);
       card.setAttribute('aria-expanded', String(open));
-      if (hint) hint.textContent = open ? 'tap to return to hourly ↩' : 'tap for 4-day outlook ↗';
+      if (hint) hint.textContent = open ? 'tap to return to hourly ↩' : 'tap for 48 hour forecast summary ↗';
     };
 
     card.addEventListener('click', (e) => {
@@ -8607,7 +8620,6 @@ const THEMES = {
           <div class="wind-back-layout">
             <div class="wind-back-compass">${buildWindCompassHtml(false, data.winddir || 0)}</div>
             <div class="wind-back-stats">
-              ${statChip('Direction', `${degreesToCardinal16(data.winddir || 0)} · ${formatVal(data.winddir, 0)}°`)}
               ${statChip('Beaufort', getBeaufortLabel(data.windSpeed))}
             </div>
           </div>
