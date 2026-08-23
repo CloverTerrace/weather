@@ -6113,7 +6113,26 @@ svg circle, svg polygon, svg line {
             ext = { max: {val, time: new Date().toISOString()}, min: {val, time: new Date().toISOString()} };
         }
     }
-    return ext || { max: {val: '--', time: null}, min: {val: '--', time: null} };
+    if (!ext) return { max: {val: '--', time: null}, min: {val: '--', time: null} };
+
+    // history.json only gains a new entry once per weewx archive interval,
+    // and we only re-fetch it every 5 min (loadHistory) -- so a fresh spike
+    // already visible in the live "current" tile can be well ahead of
+    // whatever history/cache last captured. fold the live reading into the
+    // extremes here so peak/low never visibly lags behind what's already
+    // on screen; this self-corrects again once the real history entry
+    // catches up on the next fetch.
+    const liveVal = data[fieldKey];
+    if (liveVal !== undefined && liveVal !== null && !isNaN(liveVal)) {
+        const liveTime = data.obsTimeLocal || new Date().toISOString();
+        if (ext.max.val === undefined || ext.max.val === null || liveVal > ext.max.val) {
+            ext = { ...ext, max: { val: liveVal, time: liveTime } };
+        }
+        if (ext.min.val === undefined || ext.min.val === null || liveVal < ext.min.val) {
+            ext = { ...ext, min: { val: liveVal, time: liveTime } };
+        }
+    }
+    return ext;
   }
 
   // fields eligible for WU backfill -- the numeric station readings. Not
