@@ -4,10 +4,10 @@
       "name": "Overnight",
       "temperature": 61,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 7 mph",
+      "windSpeed": "7 mph",
       "windDirection": "W",
       "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 61. West wind 3 to 7 mph.",
+      "detailedForecast": "Mostly cloudy, with a low around 61. West wind around 7 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 13
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-08-23T04:00:00-04:00",
-      "temperature": 63,
-      "temperatureUnit": "F",
-      "windSpeed": "7 mph",
-      "windDirection": "W",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 1
-    },
     {
       "startTime": "2026-08-23T05:00:00-04:00",
       "temperature": 62,
@@ -283,6 +273,16 @@
       "windSpeed": "5 mph",
       "windDirection": "W",
       "shortForecast": "Partly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-08-24T04:00:00-04:00",
+      "temperature": 58,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "W",
+      "shortForecast": "Mostly Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
