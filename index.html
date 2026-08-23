@@ -5815,7 +5815,7 @@ svg circle, svg polygon, svg line {
     return { text: `${toAction.toFixed(1)} ft below Action Stage`, color: 'var(--muted-color)' };
   }
 
-  let cachedTodaysExtremes = null;
+  let cachedTodaysExtremes = {};
   let cachedRiverMax = null;
   let lastWeatherData = null;
   let lastSuccessfulLoadTime = null;
@@ -6103,10 +6103,37 @@ svg circle, svg polygon, svg line {
 
   // safely grab cached or calculated extremes, falling back to current values if needed
   function getExtremesSafe(history, cached, data, fieldKey) {
-    let ext = getTodayExtremes(history, fieldKey);
-    if (!ext && cached && cached[fieldKey]) {
-        ext = cached[fieldKey];
+    const todayStr = new Date().toDateString();
+
+    // if the running store is left over from a previous day, drop it --
+    // otherwise a stale peak/low would carry over into today forever via
+    // the merge below.
+    if (cached._day !== todayStr) {
+        Object.keys(cached).forEach(k => delete cached[k]);
+        cached._day = todayStr;
     }
+
+    let ext = getTodayExtremes(history, fieldKey);
+
+    // merge in whatever we've already locked in this session, so a live
+    // spike folded into the extremes on an earlier tick isn't lost just
+    // because the instantaneous reading has since dropped back down.
+    if (cached[fieldKey]) {
+        const c = cached[fieldKey];
+        if (!ext) {
+            ext = c;
+        } else {
+            if (c.max && c.max.val !== undefined && c.max.val !== null &&
+                (ext.max.val === undefined || ext.max.val === null || c.max.val > ext.max.val)) {
+                ext = { ...ext, max: c.max };
+            }
+            if (c.min && c.min.val !== undefined && c.min.val !== null &&
+                (ext.min.val === undefined || ext.min.val === null || c.min.val < ext.min.val)) {
+                ext = { ...ext, min: c.min };
+            }
+        }
+    }
+
     if (!ext) {
         const val = data[fieldKey];
         if (val !== undefined && val !== null) {
@@ -6132,6 +6159,11 @@ svg circle, svg polygon, svg line {
             ext = { ...ext, min: { val: liveVal, time: liveTime } };
         }
     }
+
+    // persist the merged result so the next tick builds on it instead of
+    // restarting from just the (possibly stale) history snapshot.
+    cached[fieldKey] = ext;
+
     return ext;
   }
 
