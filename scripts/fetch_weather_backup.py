@@ -1,20 +1,16 @@
 #!/usr/bin/env python3
 """
-Always-on WU backup fetch -- writes data/weather_wu.json on every run,
+always-on WU backup fetch. writes data/weather_wu.json on every run,
 regardless of whether the home weewx feed is currently stale, so the
 dashboard always has a fresh WU reading on hand to backfill individual
 fields weewx's feed leaves blank (see index.html's mergeWithWuBackup()).
 
-This is deliberately separate from fetch_weather.py, which remains the
+separate from fetch_weather.py, which remains the
 staleness-gated FULL failover (it overwrites weather.json + appends to
-history.json outright when weewx looks down). This script never touches
-those two files -- it only ever writes weather_wu.json -- so it's safe to
-run every cycle without any risk of clobbering weewx's live data or its
-history while weewx is healthy.
+history.json outright when weewx looks down)
 
-Requires the same two secrets as fetch_weather.py:
-  WU_STATION_ID  - e.g. KPASOMEW3
-  WU_API_KEY     - your Weather Underground API key
+requires the same two secrets as fetch_weather.py:
+  WU_STATION_ID & WU_API_KEY
 """
 
 import json
@@ -30,7 +26,7 @@ if not STATION_ID or not API_KEY:
     print("ERROR: WU_STATION_ID and WU_API_KEY must be set as environment variables.", file=sys.stderr)
     sys.exit(1)
 
-# Adding &numericPrecision=decimal forces the WU API to return exact floating
+# adding &numericPrecision=decimal forces the WU API to return exact floating
 # point numbers (e.g. 74.8) instead of aggressively rounding to the nearest integer.
 URL = (
     "https://api.weather.com/v2/pws/observations/current"
@@ -62,8 +58,8 @@ def main():
     obs = observations[0]
     imperial = obs.get("imperial", {})
 
-    # Same field names/shape as weather.json (and weewx's exporter) on
-    # purpose -- the dashboard merge logic matches fields by key, so this
+    # same field names/shape as weather.json (and weewx's exporter) 
+    # the dashboard merge logic matches fields by key, this
     # has to stay in sync with that schema if either one ever changes.
     output = {
         "stationID": obs.get("stationID"),
