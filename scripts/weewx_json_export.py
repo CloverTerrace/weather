@@ -1,30 +1,10 @@
 #!/usr/bin/env python3
 """
-WeeWX service that exports weather.json (on every loop packet -- as fast as
+WeeWX service that exports weather.json (on every loop packet, as fast as
 the interceptor driver receives pushes from the gateway) and appends to
 history.json (on every archive record) in the schema your site already
 reads.
 
-Install:
-  1. Copy this file to your WeeWX user directory (commonly
-     ~/weewx-data/bin/user/ for pip installs, or /etc/weewx/bin/user/ for
-     package installs -- run `find / -name weewx.conf 2>/dev/null` if unsure).
-  2. Add to weewx.conf:
-
-        [JsonExport]
-            data_dir = /home/weather/weather-site/data
-            station_id = KPASOMEW3
-            neighborhood = YourNeighborhoodName
-            max_history_entries = 14400
-
-        [Engine]
-            [[Services]]
-                data_services = user.weewx_json_export.JsonExportService
-
-     (append to the existing data_services list rather than replacing it,
-     if you already have other data_services entries.)
-
-  3. Restart weewx: sudo systemctl restart weewx
 """
 
 import json
