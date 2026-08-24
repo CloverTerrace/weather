@@ -3848,10 +3848,10 @@ svg circle, svg polygon, svg line {
     }
   }
 
-  /* ================================================================
+  /* ================================================
      DESKTOP WEATHER-CENTER COMPOSITION
      851px+ only ~ 
-     ================================================================ */
+     ================================================ */
   .desktop-dashboard-layout,
   .desktop-left-rail,
   .desktop-right-rail {
@@ -4182,8 +4182,6 @@ svg circle, svg polygon, svg line {
     margin-top: clamp(1rem, 1.8vw, 1.5rem);
   }
 
-  /* at desktop widths the camera and sky/space become companion tools &
-      Storm Center remains a full-width situation desk. */
   @media (min-width: 1100px) {
     .dashboard-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4205,8 +4203,6 @@ svg circle, svg polygon, svg line {
     }
   }
 
-  /* the desktop lower half is composed as a tools rail: the map uses the visual weight, 
-     while historical data uses a narrower analytical column. */
   .web-tools-grid {
     width: min(82vw, 1320px);
     display: grid;
@@ -4316,7 +4312,7 @@ svg circle, svg polygon, svg line {
     }
   }
 
-  /* desktop information guidelimes */
+  /* desktop information guidelines */
   @media (min-width: 1100px) {
     .forecast-periods {
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -5727,12 +5723,7 @@ svg circle, svg polygon, svg line {
   // REFRESH_INTERVAL_MS and however often the WU worker itself runs.
   const PRIMARY_STALE_MS = 15 * 60 * 1000;
 
-  // fixed station identity for the header. Deliberately NOT pulled from
-  // data.stationID/data.neighborhood -- those reflect whichever backend
-  // happens to be active (weewx's configured station_id, or WU's own
-  // internal PWS ID like "KPAALIQU74"), which isn't the same as your
-  // actual CWOP callsign. This stays constant no matter which source
-  // is currently feeding the dashboard.
+  // fixed station identity for the header
   const STATION_CALLSIGN = 'GW7673';
   const STATION_CITY = 'Aliquippa';
 
@@ -5751,9 +5742,6 @@ svg circle, svg polygon, svg line {
     { label: 'Major Flood Stage',    ft: 32.0, color: '#8f3f97' },
   ];
 
-  // plain-language read on where the current gage height sits relative to
-  // the flood stage ladder above -- mirrors getPressureLevelNote()'s
-  // approach of turning a raw number into a quick "where do I stand" line.
   function getDashieldsStageNote(gageHeight) {
     if (gageHeight === undefined || gageHeight === null || isNaN(gageHeight)) return null;
     for (let i = DASHIELDS_STAGES.length - 1; i >= 0; i--) {
@@ -5781,13 +5769,12 @@ svg circle, svg polygon, svg line {
   // the station timezone
   const STATION_TIMEZONE = 'America/New_York';
 
-  // returns the current moment as a naive "YYYY-MM-DD HH:MM:SS" string in
+  // returns the time "YYYY-MM-DD HH:MM:SS" string in
   // the station's timezone -- the same shape weewx/WU already write to
-  // obsTimeLocal. Diffing two values built this way (this function and a
+  // obsTimeLocal. two values built this way (this function and a
   // station reading) through parseStationTime() cancels out the visitor's
-  // own timezone entirely, because both sides get interpreted the same
-  // way in the same runtime -- so the result is always the true elapsed
-  // time at the station, regardless of where the page is being viewed.
+  // own timezone entirely, the result is always the true elapsed
+  // time at the station
   function stationNowNaive() {
     const parts = new Intl.DateTimeFormat('en-US', {
       timeZone: STATION_TIMEZONE,
@@ -5812,7 +5799,7 @@ svg circle, svg polygon, svg line {
     return `updated ${hours} hours ago`;
   }
 
-  // helper for small times in standard format e.g. "10:07 am"
+  // helper for small times in standard format
   function formatShortTime(isoString) {
     if (!isoString) return '--:--';
     const d = new Date(isoString);
@@ -5925,8 +5912,8 @@ svg circle, svg polygon, svg line {
   let fullHistory = [];
   let capeHistory = [];
 
-  // cards the user has tapped open -- renderCards() rebuilds the whole
-  // grid every refresh cycle, so this tracks expand state across that
+  // cards the user has tapped open. renderCards() rebuilds the whole
+  // grid every refresh cycle, this tracks expand state across that
   // rebuild instead of losing it every 60s.
   const expandedCards = new Set();
 
@@ -5939,7 +5926,7 @@ svg circle, svg polygon, svg line {
     return (es - ea).toFixed(3);
   }
 
-  // plain-language comfort read on dew point
+  // comfort read on dew point
   function getDewpointComfort(dewpt) {
     if (dewpt === undefined || dewpt === null || isNaN(dewpt)) return '';
     if (dewpt < 50) return 'dry';
@@ -5952,7 +5939,7 @@ svg circle, svg polygon, svg line {
     return 'miserable';
   }
 
-  // beaufort scale label for a wind speed in mph -- the classic
+  // beaufort scale label for a wind speed in mph
   function getBeaufortLabel(mph) {
     if (mph === undefined || mph === null || isNaN(mph)) return '--';
     if (mph < 1) return 'Calm';
