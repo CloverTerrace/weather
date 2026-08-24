@@ -1,30 +1,29 @@
 #!/usr/bin/env python3
 """
-Download the current SPC outlook graphics.
+download the current SPC outlook graphics.
 
-Convective Outlooks remain the existing single-file products:
+convective outlooks in single-file products:
   data/outlook-day1.png
   data/outlook-day2.png
   data/outlook-day3.png
   data/outlook-day4-8.gif   (animated SPC product, when available)
   data/outlook-day4-8.png   (static fallback)
 
-SPC's Enhanced Thunderstorm Outlook is different: one issuance can expose
-multiple 4-hour-period graphics.  The live filenames are keyed only by the
-period start time (enh_HHMM.gif), so we probe the six fixed UTC boundaries
+for SPC's Enhanced Thunderstorm Outlook one issuance can expose
+multiple 4-hour-period graphics. live filenames are keyed only by the
+period start time (enh_HHMM.gif), so try the six fixed UTC boundaries
 and keep whichever products currently exist:
   00Z, 04Z, 08Z, 12Z, 16Z, 20Z
 
-Each successful period is saved separately as:
+each successful period is saved separately as:
   data/outlook-thunderstorm-HH-HH.png
 
-A manifest is written to:
+a manifest is written to:
   data/outlook-thunderstorm.json
 
-The manifest tells the dashboard which periods are currently live and what
-human-readable label belongs above each image.  Old period files and the
-previous single-file data/outlook-thunderstorm.png are removed after a new
-set has been discovered, so expired periods do not become stale UI cards.
+the manifest tells the dashboard which periods are currently live and what 
+label belongs above each image.  old period files and previous single-file 
+data/outlook-thunderstorm.png are removed after a new set is discovered.
 """
 
 import io
@@ -52,10 +51,6 @@ USER_AGENT = "(home-weather-station-dashboard, https://cloverterrace.github.io/W
 EXTENSIONS = ("gif", "png")
 TSTM_BOUNDARIES = (0, 4, 8, 12, 16, 20)
 
-# Authoritative SPC Enhanced Thunderstorm Outlook schedule.  The filenames
-# themselves only contain the valid-period start time, so we use the current
-# issuance cycle to distinguish the live products from older files that SPC
-# may still leave accessible (HTTP 200).
 TSTM_ISSUANCE_SCHEDULE = (
     (1, 0, (4,)),             # 01Z: 04Z-12Z
     (6, 0, (12, 16, 20)),     # 06Z: 12Z-16Z, 16Z-20Z, 20Z-00Z
@@ -90,8 +85,7 @@ def save_image_as_png(image_bytes, out_path):
     """Decode an SPC image and save it as a normal PNG."""
     try:
         with Image.open(io.BytesIO(image_bytes)) as source:
-            # SPC graphics are static map frames. Converting here gives the
-            # dashboard a consistent local PNG regardless of source format.
+            # SPC graphics are static map frames
             image = source.convert("RGB")
             image.save(out_path, format="PNG")
         return True
@@ -132,8 +126,8 @@ def fetch_day4_8():
         print(f"[day4-8] Saved {gif_path}")
         print(f"[day4-8] Source: {gif_url}")
 
-        # Also keep a PNG fallback for browsers/environments that cannot
-        # display the animated source. This does not replace the GIF.
+        # also keep a PNG fallback for browsers/environments that cannot
+        # display the animated source. this does not replace the GIF.
         save_image_as_png(gif_data, png_path)
         return True
 
@@ -321,7 +315,7 @@ def main():
     if not fetch_day4_8():
         any_failed = True
 
-    # Remove the old static/animated alternate if the current fetch mode
+    # remove the old static/animated alternate if the current fetch mode
     # changed. The GIF is canonical when available; PNG is only its fallback.
     if (DATA_DIR / "outlook-day4-8.gif").exists():
         pass
