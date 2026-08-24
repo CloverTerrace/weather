@@ -402,9 +402,6 @@
     font-family: var(--font-grid-label);
   }
 
-  /* peak values are the same value font + color as the tile's main
-     "current" number above (--font-grid-value / --value-color) — just
-     smaller, since that's the only thing distinguishing the two tiers. */
   .wind-metric-peak-value {
     font-size: 0.92rem;
     font-weight: 600;
@@ -412,12 +409,7 @@
     font-family: var(--font-grid-value);
   }
 
-  /* Peak's own value (0.92rem) is already smaller than the tile's main
-     number, so its "mph" needs to scale down with it. Three classes
-     deep on purpose -- same specificity as the base .card .unit rule
-     would leave this order-dependent and silently lose (that was the
-     bug: peak's mph was rendering at the base 1rem despite this rule
-     existing, because .card .unit happened to sit later in the file). */
+  
   .wind-card .wind-metric-peak-value .unit {
     font-size: 0.44rem;
     font-weight: 500;
@@ -474,10 +466,6 @@
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
-    /* lets a tile's own internal layout (wind compass, dual value rows,
-       etc.) react to how wide THAT card actually renders (not the
-       viewport) so it stays readable at any tile size the desktop
-       square-tile grid settles on. see the `@container card` rules */
     container-type: inline-size;
     container-name: card;
   }
@@ -492,7 +480,6 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 2px var(--accent-color);
   }
 
-  /* themed press feedback, standing in for the browser's default blue tap-highlight. ❄️ */
   .card-expandable::after {
     content: '';
     position: absolute;
