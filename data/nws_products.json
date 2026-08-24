@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T16:40:36.401403Z",
+  "generatedAt": "2026-08-24T16:45:34.047497Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -43,49 +43,50 @@
       ],
       "url": "https://www.spc.noaa.gov/products/md/md2112.html",
       "office": "SPC"
-    },
-    {
-      "id": "MD2111",
-      "number": 2111,
-      "issued": "2026-08-24T14:12:00Z",
-      "expires": "2026-08-24T16:45:00Z",
-      "concerning": "Severe potential...Watch likely",
-      "hazard": "Severe potential...Watch likely",
-      "areas": "southern Mississippi...east-central and southeast Louisiana...and far southwest Alabama",
-      "location": "southern Mississippi...east-central and southeast Louisiana...and far southwest Alabama",
-      "distanceMiles": 732.7,
-      "summary": "The threat for damaging winds with gusts up to 60-65 mph is expected to increase by late morning into early afternoon. A severe thunderstorm watch will be required by 16Z or 17z",
-      "watchProbability": "80 percent",
-      "forecaster": "Mead/Smith",
-      "details": [
-        {
-          "label": "Summary",
-          "text": "The threat for damaging winds with gusts up to 60-65 mph is expected to increase by late morning into early afternoon. A severe thunderstorm watch will be required by 16Z or 17z"
-        },
-        {
-          "label": "Discussion",
-          "text": "Recent trends in volumetric radar and IR satellite data indicate at least a temporary deepening of convective updrafts from west through north of Yazoo City, along the leading edge of an elongated MCS that extends into central AR. The 12Z Jackson, MS and Slidell, LA soundings sampled the presence of a very moist inflow air mass, characterized by boundary-layer dewpoints in the mid to upper 70s, yielding MUCAPE of 3000-4000 J/kg. That instability will fuel a gradual increase in storm coverage and intensity through the remainder of the morning along and slightly ahead of the system cold pool as temperatures warm and low-level lapse rates steepen. The instability in conjunction with some enhancement of northwest winds above 3 km AGL per the current Little Rock, AR and Memphis, TN VWPs will support the development of a potentially intense cold pool with some explicit CAM wind gust data indicating wind gusts up to 60-65 mph"
-        },
-        {
-          "label": "Watch probability",
-          "text": "80 percent"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Mead/Smith"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...MOB...JAN...LIX...LCH"
-        }
-      ],
-      "url": "https://www.spc.noaa.gov/products/md/md2111.html",
-      "office": "SPC"
     }
   ],
-  "statements": []
+  "statements": [
+    {
+      "id": "98ead9c8-1098-44ac-a540-a0a8a73dc1c7",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-08-24T16:43:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Few changes to the previous forecast package. Calm and largely",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Few changes to the previous forecast package. Calm and largely",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 1243 PM EDT Mon Aug 24 2026 .WHAT HAS CHANGED... Few changes to the previous forecast package. Calm and largely dry weather is expected through Wednesday. &&"
+        }
+      ],
+      "url": "https://api.weather.gov/products/98ead9c8-1098-44ac-a540-a0a8a73dc1c7"
+    },
+    {
+      "id": "4172b5fd-6800-4d8d-9402-3e5f0016dac3",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-08-24T16:41:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "This afternoon and tonight. No hazardous weather is expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "This afternoon and tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "This afternoon and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Tuesday through Sunday. The probability for widespread hazardous weather is low with the potential for thunderstorms Thursday and Thursday night."
+        }
+      ],
+      "url": "https://api.weather.gov/products/4172b5fd-6800-4d8d-9402-3e5f0016dac3"
+    }
+  ]
 }
