@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Pulls active NWS alerts (watches/warnings/advisories) for Clover Terrace
-and saves them to data/alerts.json. Uses the National Weather Service's
-free, keyless API.
+pulls active NWS alerts (watches/warnings/advisories) for Clover Terrace
+and saves them to data/alerts.json. uses the National Weather Service's
+free API.
 """
 import json
 import os
@@ -16,7 +16,7 @@ API_URL = f"https://api.weather.gov/alerts/active?point={LAT},{LON}"
 # NWS requires a real identifying User-Agent on every request.
 USER_AGENT = "(clover-terrace-weather-station, https://cloverterrace.github.io/weather/)"
 
-# Rough severity ranking so the most urgent alert renders first.
+# rough severity ranking so the most urgent alert renders first.
 SEVERITY_RANK = {"Extreme": 0, "Severe": 1, "Moderate": 2, "Minor": 3, "Unknown": 4}
 
 
