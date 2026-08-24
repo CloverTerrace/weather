@@ -4,10 +4,10 @@
       "name": "Today",
       "temperature": 72,
       "temperatureUnit": "F",
-      "windSpeed": "5 to 10 mph",
+      "windSpeed": "10 mph",
       "windDirection": "W",
       "shortForecast": "Mostly Sunny",
-      "detailedForecast": "Mostly sunny, with a high near 72. West wind 5 to 10 mph.",
+      "detailedForecast": "Mostly sunny, with a high near 72. West wind around 10 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 2
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-08-24T10:00:00-04:00",
+      "temperature": 62,
+      "temperatureUnit": "F",
+      "windSpeed": "8 mph",
+      "windDirection": "W",
+      "shortForecast": "Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-08-24T11:00:00-04:00",
       "temperature": 65,
@@ -269,16 +279,6 @@
     {
       "startTime": "2026-08-25T09:00:00-04:00",
       "temperature": 61,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "W",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-08-25T10:00:00-04:00",
-      "temperature": 66,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "W",
