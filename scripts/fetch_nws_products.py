@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
 """
-Build the merged SPC/NWS product feed used by the weather dashboard.
+build the merged SPC/NWS product feed used by the weather dashboard.
 
-Sources:
+sources:
   * NWS active alerts at the Clover Terrace point (watches)
   * SPC current Mesoscale Discussion index/products
   * NWS API recent products for WFO Pittsburgh (PBZ)
 
-Output:
+output:
   data/nws_products.json
 
-The script intentionally keeps the payload small: the dashboard gets a concise summary first and only curated product sections
-when a user expands a product. Source-page navigation/chrome is never stored.
 """
 
 from __future__ import annotations
@@ -76,14 +74,13 @@ NWS_UPDATE_CODES = {
     "RFW": "Red Flag Warning",
 }
 
-# Keep the storm desk intentionally "live": active watches, active/recent SPC
+# keep the storm desk updated with active watches, active/recent SPC
 # mesoscale discussions, and only the newest local NWS products.
 MD_RECENT_HOURS = 8
 NWS_RECENT_HOURS = 18
 MAX_MDS = 5
 MAX_NWS_UPDATES = 7
 
-# Product boilerplate that belongs to the source page rather than the dashboard.
 BOILERPLATE_PATTERNS = [
     r"^\s*WEATHER SERVICE.*$",
     r"^\s*NATIONAL WEATHER SERVICE.*$",
@@ -136,18 +133,15 @@ def clean_product_text(value: str) -> str:
     if not value:
         return ""
     value = html.unescape(value).replace("\r", "")
-    # Drop common ASCII framing and repeated blank lines.
+    # drop common ASCII framing and repeated blank lines.
     value = re.sub(r"^\s*\[?\s*Product:.*$", "", value, flags=re.I | re.M)
-    # NOTE: "$$" here must be escaped -- an unescaped "$" is a regex anchor,
-    # not a literal dollar sign, so this now actually matches the literal
-    # "$$" end-of-product marker NWS/SPC bulletins terminate with.
     value = re.sub(r"^\s*\$\$\s*$", "", value, flags=re.M)
     lines = [line.rstrip() for line in value.splitlines()]
     while lines and not lines[0].strip():
         lines.pop(0)
     while lines and not lines[-1].strip():
         lines.pop()
-    # Remove source-page boilerplate when it appears around a product body.
+     
     cleaned=[]
     for line in lines:
         stripped=line.strip()
@@ -173,10 +167,6 @@ def normalize_lines(text: str) -> list[str]:
 
 def extract_section(text: str, labels: list[str], max_chars: int = 1400) -> str | None:
     lines = text.splitlines()
-    # Many NWS product headers (HWO's ".DAY ONE...", AFD's ".SHORT
-    # TERM..."), lead with a literal "." before the label -- allow an
-    # optional leading "." so those sections are actually found instead of
-    # silently falling through to the raw-line fallback in every caller.
     label_re = r"^\.?(?:" + "|".join(re.escape(x) for x in labels) + r")\.\.\.\s*"
     start = None
     for i, line in enumerate(lines):
@@ -198,7 +188,6 @@ def extract_section(text: str, labels: list[str], max_chars: int = 1400) -> str 
 def clean_nws_product_text(text: str) -> str:
     text=clean_product_text(text)
     lines=normalize_lines(text)
-    # Strip WMO headers / product IDs / leading office timestamps.
     kept=[]
     for line in lines:
         if re.match(r"^(?:FXUS|WWUS|WUUS|ABUS|FLUS|SXUS|NOUS|NZUS|WWUS|ACUS)\d{2}", line):
@@ -249,7 +238,7 @@ def distance_to_geometry_miles(geometry: dict | None, lat: float, lon: float) ->
         return None
     best = None
     for polygon in polygons:
-        # Use the outer ring; holes do not materially affect a nearest-distance
+        # use the outer ring; holes do not materially affect a nearest-distance
         # readout for this small station-focused dashboard.
         if not polygon:
             continue
@@ -348,18 +337,13 @@ def parse_valid_window(text: str, issued_iso: str | None):
         day = int(raw[:2])
         hour = int(raw[2:4])
         minute = int(raw[4:6])
-        # MD valid windows can cross UTC midnight; choose the date nearest the
-        # issuance date, then allow a one-day rollover.
+        
         candidate = issued.replace(day=day, hour=hour, minute=minute, second=0, microsecond=0)
         if candidate < issued - timedelta(hours=6):
             candidate += timedelta(days=1)
         vals.append(candidate)
     return vals[0].isoformat().replace("+00:00", "Z"), vals[1].isoformat().replace("+00:00", "Z")
 
-
-# SPC MD text products are commonly a single flowing paragraph.  Parse by
-# label position rather than relying on line breaks, and explicitly stop at the
-# non-narrative tail (forecaster/ATTN/LAT...LON/peak-threat lines).
 MD_SECTION_LABELS = [
     "Areas affected",
     "Concerning",
@@ -389,7 +373,6 @@ def split_md_sections(text: str, max_chars: int = 1800) -> dict[str, str]:
         start = m.end()
         end = len(text)
         for nxt in matches[i + 1:]:
-            # A later labeled section, Valid line, or the narrative tail ends this field.
             end = nxt.start()
             break
         value = text[start:end]
@@ -416,7 +399,7 @@ def parse_md_polygon(text: str) -> list[tuple[float, float]]:
     for token in re.findall(r"\d{8}", m.group(1)):
         lat = int(token[:4]) / 100.0
         lon = int(token[4:]) / 100.0
-        # SPC's CONUS coordinates are conventionally west longitudes unless
+        # SPC's CONUS coordinates are west longitudes unless
         # explicitly outside the CONUS convention.
         if lon > 0:
             lon = -lon
@@ -428,8 +411,8 @@ def parse_md_polygon(text: str) -> list[tuple[float, float]]:
 def distance_to_md_polygon_miles(lat: float, lon: float, polygon: list[tuple[float, float]]) -> float | None:
     if len(polygon) < 2:
         return None
-    # Local tangent-plane approximation is more than adequate for a weather
-    # discussion-scale polygon and lets us report distance without a GIS dependency.
+    # local tangent-plane approximation for discussion-scale polygon.
+    # lets us report distance without a GIS dependency.
     r = 3958.7613
     lat0 = math.radians(lat)
     def xy(p):
@@ -489,7 +472,7 @@ def parse_md(url: str, raw_html: str, number: int) -> dict:
         if re.match(r"^MOST\s+PROBABLE\b", line, re.I):
             threats.append(line)
     if not threats:
-        # The HTML/pre extraction can flatten these into one line.
+        # the HTML/pre extraction can flatten these into one line.
         threats = [re.sub(r"\s+", " ", m.group(1)).strip() for m in MD_PEAK_RE.finditer(text)]
 
     if not summary:
@@ -571,17 +554,7 @@ def extract_nws_location(full_text: str, product_name: str) -> str | None:
             candidate = re.sub(r"\s+\d{3,4}\s+(?:AM|PM)\s+[A-Z]{2,4}.*$", "", candidate, flags=re.I)
             if candidate and not re.match(r"^\d{3,4}\s+(?:AM|PM)\b", candidate, re.I):
                 return candidate.strip(" -")
-    # Routine zone/county products with no VTEC segment at all (HWO, AFD,
-    # PNS, ...): the product opens with a raw UGC header -- one or more
-    # zone codes, dash-separated, ending in a DDHHMM expiration stamp, e.g.
-    #   PAZ021-023>025-029-030-171800-
-    # -- immediately followed by the human-readable county/zone name list
-    # that the header expands to, e.g.
-    #   Beaver-Butler-Allegheny-Fayette-Greene-
-    # NWS product text wraps at ~69 chars, so the header itself is often
-    # split across two or more lines before the expiration stamp appears --
-    # walk forward through continuation lines until the stamped line shows
-    # up, then read the name-list line(s) right after it.
+    
     ugc_start_re = re.compile(r"^[A-Z]{2,3}[CZ]\d{3}-")
     ugc_line_re = re.compile(r"^[A-Z0-9>-]+-$")
     ugc_end_re = re.compile(r"-\d{6}-$")
@@ -661,13 +634,6 @@ def fetch_nws_updates(limit: int = MAX_NWS_UPDATES) -> list[dict]:
             value=extract_section(full_text, labels, limit_chars)
             if value: details.append({"label":label,"text":value})
 
-        # Prefer official structured metadata; most plain-text products (SVS,
-        # SPS, etc.) have no "headline" field at all, so this falls through
-        # to real content -- prefer an already-extracted detail section
-        # (Hazards/Overview/...) over raw body lines, since the first lines
-        # of full_text are usually just the product's own name + issuance
-        # timestamp banner (e.g. "Severe Weather Statement 805 PM EDT..."),
-        # not anything a spotter would find useful as a summary.
         headline=props.get("headline") or product_name
         summary=props.get("headline") or ""
         if not summary or summary == product_name:
@@ -680,12 +646,6 @@ def fetch_nws_updates(limit: int = MAX_NWS_UPDATES) -> list[dict]:
         if not details and full_text:
             details=[{"label":"Product detail","text":" ".join(normalize_lines(full_text)[:8])[:1800]}]
 
-        # "hazard" is the compact at-a-glance field on the card face. Most
-        # routine products (HWO included) have no structured "headline" --
-        # falling back to product_name there just re-displays the product's
-        # own type ("Hazardous Weather Outlook") instead of what it says.
-        # The extracted summary (real body content) is a far more useful
-        # fallback and is already computed above.
         hazard_text=props.get("headline") or summary or product_name
         hazard=hazard_text[:160].rsplit(" ", 1)[0] if len(hazard_text) > 160 else hazard_text
 
@@ -698,10 +658,6 @@ def fetch_nws_updates(limit: int = MAX_NWS_UPDATES) -> list[dict]:
             "location": (
                 props.get("areaDesc")
                 or extract_nws_location(full_text, product_name)
-                # Some products (HWO, AFD, ...) apply to the whole County
-                # Warning Area rather than a specific zone list, so there's
-                # nothing to extract -- fall back to the office's coverage
-                # area instead of leaving this blank.
                 or "NWS Pittsburgh PA (PBZ) coverage area"
             ),
             "hazard": hazard,
@@ -720,8 +676,7 @@ def main():
     os.makedirs("data", exist_ok=True)
     output_path = "data/nws_products.json"
 
-    # Preserve the last good section if one upstream source has a transient
-    # outage. A complete failure leaves the existing file untouched.
+    # preserve the last good section if one upstream source has a blip 
     previous = {
         "generatedAt": None,
         "watches": [],
