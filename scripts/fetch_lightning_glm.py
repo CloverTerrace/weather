@@ -1,33 +1,33 @@
 """
 fetch_lightning_glm.py
 
-Fetches recent lightning flash data from NOAA's GOES-19 Geostationary
-Lightning Mapper (GLM) and writes a small, already-filtered JSON file for
+fetches recent lightning flash data from NOAA's GOES-19 Geostationary
+Lightning Mapper (GLM) and writes a small filtered JSON file for
 the dashboard's "Our Data (GLM)" lightning map tab.
 
-Why this exists / how it fits the pipeline
+why this exists / how it fits the pipeline
 -------------------------------------------
-This is meant to run on the same GitHub Actions cron as the rest of the
+runs on the same GitHub Actions cron as the rest of the
 weather-data pipeline (update-weather.yml), writing into the same
 data/ directory that gets committed to the CloverTerrace/weather-data
-repo. The frontend reads it from:
+repo. the page reads it from:
 
     {DATA_REPO_BASE}/lightning_glm.json
 
 ...the same raw.githubusercontent.com host as weather.json/history.json.
 
-Data source
+data source
 -----------
 GOES-19 has been the operational GOES-East satellite (and therefore the
 one that actually covers Pennsylvania) since April 2025. Its GLM Level 2
 "Lightning Detection" product (flashes/groups/events) is published
 continuously to a PUBLIC, UNSIGNED S3 bucket as part of NOAA's Big Data
-Program -- no AWS account, API key, or cost involved:
+Program
 
     https://registry.opendata.aws/noaa-goes/
     s3://noaa-goes19/GLM-L2-LCFA/{year}/{day_of_year:03d}/{hour:02d}/...
 
-Each object covers a ~20-second scan window and is named like:
+each object covers a ~20-second scan window and is named like:
 
     OR_GLM-L2-LCFA_G19_s20221950037000_e20221950037200_c20221950037223.nc
 
@@ -36,31 +36,19 @@ shape, just G16 instead of G19 -- see
 https://noaa-goes16.s3.amazonaws.com/GLM-L2-LCFA/2022/195/00/OR_GLM-L2-LCFA_G16_s20221950037000_e20221950037200_c20221950037223.nc
 which is where this key format was confirmed against a real object).
 
-This is satellite-based OPTICAL flash detection (in-cloud, cloud-to-cloud,
+this is satellite-based OPTICAL flash detection (in-cloud, cloud-to-cloud,
 and cloud-to-ground activity all show up as "flashes"), not Blitzortung's
 ground-based radio time-of-flight triangulation of individual strikes --
 so don't expect the two map tabs to show identical dots. That's the whole
 point of having both tabs to compare.
 
-Requirements
+requirements
 ------------
     pip install boto3 netCDF4
 
-Both are pure-Python-installable via pip (netCDF4 ships prebuilt wheels
+both are pure-Python-installable via pip (netCDF4 ships prebuilt wheels
 for Linux/macOS on PyPI, which is what GitHub Actions runners use, so no
 system library install step should be needed).
-
-NOTE ON VERIFICATION
----------------------
-The S3 bucket name, key layout, and the GLM L2 variable names below
-(flash_lat, flash_lon, flash_energy, flash_time_offset_of_first_event)
-match NOAA's published GLM L2 product spec and the conventions used by
-community tools (goes2go, glmtools, satpy). They have NOT been verified
-by actually running this script against live data in this environment
-(no network access here). Before wiring this into the cron, run it once
-by hand and sanity-check data/lightning_glm.json -- if any variable name
-is slightly off, `ncdump -h <file>.nc` on one downloaded file will show
-the real names immediately.
 """
 
 import datetime
