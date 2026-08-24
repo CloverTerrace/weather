@@ -4,12 +4,12 @@
       "name": "Overnight",
       "temperature": 55,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 15 mph",
-      "windDirection": "W",
-      "shortForecast": "Chance Rain Showers",
-      "detailedForecast": "A chance of rain showers before 1am. Partly cloudy, with a low around 55. West wind 3 to 15 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
+      "windSpeed": "5 mph",
+      "windDirection": "SW",
+      "shortForecast": "Partly Cloudy",
+      "detailedForecast": "Partly cloudy, with a low around 55. Southwest wind around 5 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 26
+      "probabilityOfPrecipitation": 8
     },
     {
       "name": "Monday",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-08-24T00:00:00-04:00",
-      "temperature": 59,
-      "temperatureUnit": "F",
-      "windSpeed": "15 mph",
-      "windDirection": "N",
-      "shortForecast": "Chance Rain Showers",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 26
-    },
     {
       "startTime": "2026-08-24T01:00:00-04:00",
       "temperature": 60,
@@ -283,6 +273,16 @@
       "windSpeed": "2 mph",
       "windDirection": "SW",
       "shortForecast": "Mostly Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 1
+    },
+    {
+      "startTime": "2026-08-25T00:00:00-04:00",
+      "temperature": 60,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "SW",
+      "shortForecast": "Partly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 1
     }
