@@ -4,9 +4,6 @@ fetch_lightning_glm.py
 fetches recent lightning flash data from NOAA's GOES-19 Geostationary
 Lightning Mapper (GLM) and writes a small filtered JSON file for
 the dashboard's "Our Data (GLM)" lightning map tab.
-
-why this exists / how it fits the pipeline
--------------------------------------------
 runs on the same GitHub Actions cron as the rest of the
 weather-data pipeline (update-weather.yml), writing into the same
 data/ directory that gets committed to the CloverTerrace/weather-data
