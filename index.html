@@ -8409,10 +8409,6 @@ const THEMES = {
     let feelsLike = data.temp;
     if (data.temp >= 80 && data.heatIndex) feelsLike = data.heatIndex;
     else if (data.temp <= 50 && data.windChill) feelsLike = data.windChill;
-
-    // keep the glance view focused on comfort: the feels-like value is the
-    // primary temperature, while the actual sensor temperature sits directly
-    // beneath it instead of consuming a separate column.
     const dewptComfort = getDewpointComfort(data.dewpt);
 
     const tempHumCard = document.createElement('div');
@@ -8493,8 +8489,7 @@ const THEMES = {
         </div>`;
     }
 
-    // one row of a small comparison bar chart -- for like-quantities that
-    // read better side by side (week/month/year totals, PM1/2.5/10)
+    // one row of a small comparison bar chart
     function barCompareRow(label, value, maxValue, unit, color, dec = 2) {
       const v = (value === undefined || value === null || isNaN(value)) ? 0 : value;
       const pct = maxValue > 0 ? Math.max(3, Math.min(100, (v / maxValue) * 100)) : 3;
@@ -8672,13 +8667,7 @@ const THEMES = {
     });
 
 
-    // 4. precipitation card -- same card slot either way (unlike the
-    // lightning card, this one never disappears), just different contents
-    // depending on whether it's currently raining. Rate matters while it's
-    // actively raining; cumulative totals are more useful the rest of the
-    // time. Week/month/year totals only come from weewx (WU has no
-    // equivalent), so those three simply show '--' via formatVal when
-    // running on the WU fallback -- no extra handling needed.
+    // 4. precipitation card
     const prExt = extSafe('precipRate');
     const isCurrentlyRaining = data.precipRate !== undefined && data.precipRate !== null && data.precipRate > 0;
     const likelyFrozen = data.temp !== null && data.temp !== undefined && data.temp <= 34;
@@ -8761,9 +8750,6 @@ const THEMES = {
 
     const attachLightningMapListeners = () => {
       lightningCard.querySelector('.lightning-map-close')?.addEventListener('click', (e) => { e.stopPropagation(); toggleLightningMap(false); });
-      // desktop only (the backdrop is invisible/inert on mobile via CSS):
-      // clicking the dimmed area outside the enlarged map closes it
-      // immediately, same as scrolling the page away from it.
       lightningCard.querySelector('.lightning-map-backdrop')?.addEventListener('click', (e) => { e.stopPropagation(); toggleLightningMap(false); });
     };
 
@@ -8794,16 +8780,9 @@ const THEMES = {
           attachLightningMapListeners();
           initLightningMapTabs(lightningCard);
         }
-        // paml/backdrop stay in the DOM (hidden via CSS) rather than being closed every pws reload 
       
         lightningCard.classList.add('lightning-map-open');
         lightningCard.setAttribute('aria-expanded', 'true');
-        // the panel (and therefore the GLM map's container) has only just
-        // become visible via the class above -- if the map was created
-        // moments ago while still hidden (first-ever open, !current branch),
-        // Leaflet sized its tiles against a hidden/zero-size container and
-        // needs a nudge now that real dimensions exist. Harmless no-op on
-        // subsequent opens where the map's already correctly sized.
         setTimeout(() => lightningGlmMap && lightningGlmMap.invalidateSize(), 50);
       } else {
         lightningCard.classList.remove('lightning-map-open');
@@ -8812,7 +8791,6 @@ const THEMES = {
     };
 
     if (preservedLightningPanel) {
-      // put the still-live map back where a newly opened one would go
       if (preservedLightningBackdrop) lightningCard.appendChild(preservedLightningBackdrop);
       lightningCard.appendChild(preservedLightningPanel);
       attachLightningMapListeners();
@@ -8997,11 +8975,7 @@ const THEMES = {
        });
     }
 
-    // renderCards() rebuilds the weather grid every refresh. If the camera was
-    // already living in that grid on desktop, put the same node back after
-    // the sensor cards are rebuilt. This preserves its event listeners and
-    // prevents the desktop camera from disappearing until a breakpoint
-    // resize happens.
+    // protect camera from grid reload 
     if (desktopCameraTile && window.matchMedia('(min-width: 851px)').matches) {
       desktopCameraTile.classList.add('desktop-camera-tile');
       grid.appendChild(desktopCameraTile);
@@ -9011,25 +8985,15 @@ const THEMES = {
   //*  ------------ 🌪️ NWS / SPC ISSUANCES (watches, mesoscale discussions, statements) 🌪️ ----------- *//
   //
   let nwsProducts = { watches: [], mesoscaleDiscussions: [], statements: [] };
-  // tracks the previous render's tornado-watch state so the tab auto-switch
-  // (below) only fires on the moment a tornado watch newly appears, not on
-  // every 10-min refresh while it's still active -- so it doesn't keep
-  // yanking the user back to the Watches tab if they've since clicked away.
+  // tracks the previous render's tornado-watch state so to avoid repeat switching
   let nwsPrevHasTornadoWatch = false;
 
-  // the raw point-alert feed (data/alerts.json) -- warnings, watches,
-  // advisories, statements issued for the station's exact point. Kept at
-  // module scope so it can be merged with nwsProducts.watches (the SPC/NWS
-  // watch products, a different feed) whenever either one refreshes.
+  // the raw point-alert feed (data/alerts.json)
   let currentPointAlerts = [];
-  // only auto-switch Storm Center to the closest/most-severe item once per
-  // page load, same precedent as nwsPrevHasTornadoWatch above -- after
-  // that, respect wherever the user has manually navigated to.
+  // only auto-switch Storm Center to the closest/most-severe item once per load
   let primaryAlertAutoSelected = false;
 
-  // maps a product's hazard type to a meteocon + a left-border color class,
-  // so watches/MDs/statements get an instant at-a-glance visual cue for
-  // what kind of hazard they're about.
+  // maps a product's hazard type to a meteocon + a left-border color class
   function escapeNwsHtml(value) {
     return String(value ?? '')
       .replace(/&/g, '&amp;')
@@ -9039,9 +9003,7 @@ const THEMES = {
       .replace(/'/g, '&#39;');
   }
 
-  // turns issued/expires timestamps into a scannable "time left" chip plus
-  // a 0-100 fill percentage for the countdown bar, so urgency reads at a
-  // glance instead of requiring the reader to do clock math on two times.
+
   function nwsRemainingInfo(issuedIso, expiresIso) {
     if (!expiresIso) return null;
     const now = Date.now();
@@ -9146,9 +9108,6 @@ const THEMES = {
     const titleBase = item.type || typeLabel || 'Weather product';
     const title = `${escapeNwsHtml(titleBase)}${item.number ? ` #${escapeNwsHtml(item.number)}` : ''}`;
     const remaining = nwsRemainingInfo(item.issued, item.expires);
-
-    // one compact left-to-right line of the secondary facts, instead of
-    // three separate boxes -- distance / issued / expires-or-countdown.
     const metaParts = [];
     if (distance) metaParts.push(`<span class="nws-meta-item">${escapeNwsHtml(distance)} away</span>`);
     if (issuedStr) metaParts.push(`<span class="nws-meta-item">Issued <strong>${escapeNwsHtml(issuedStr)}</strong></span>`);
@@ -9510,10 +9469,10 @@ const THEMES = {
         alerts,
         // renderCards() (above) already ran getExtremesSafe for every field
         // this tick, so cachedTodaysExtremes holds the merged/live-extended
-        // peaks -- persist that directly. Recomputing from fullHistory here
+        // peaks, persist that directly. recomputing from fullHistory here
         // would silently throw away any live-value extension and write a
         // weaker snapshot, which then gets replayed by hydrateFromCache()
-        // on the next reload (e.g. a backgrounded mobile tab getting
+        // on the next reload (like a backgrounded mobile tab getting
         // reclaimed and reloaded), undoing the accumulated peak.
         todaysExtremes: cachedTodaysExtremes,
         usgs: currentUsgs,
@@ -9645,11 +9604,6 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
           rightRail.appendChild(radarCard);
         }
         if (chartsDropdown && chartsDropdown.parentElement !== leftRail) {
-          // appended last, so it lands right after Sky & Space (which
-          // insertBefore above places right after Forecast) -- and picks
-          // up the left rail's own flex width instead of the ~900px cap
-          // .charts-dropdown carries for its original full-width mobile
-          // placement.
           chartsDropdown.classList.add('desktop-charts-dropdown');
           leftRail.appendChild(chartsDropdown);
         }
