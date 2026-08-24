@@ -16,9 +16,9 @@ repo. the page reads it from:
 data source
 -----------
 GOES-19 has been the operational GOES-East satellite (and therefore the
-one that actually covers Pennsylvania) since April 2025. Its GLM Level 2
+one that actually covers Pennsylvania) since April 2025. its GLM Level 2
 "Lightning Detection" product (flashes/groups/events) is published
-continuously to a PUBLIC, UNSIGNED S3 bucket as part of NOAA's Big Data
+continuously to a public bucket as part of NOAA's Big Data
 Program
 
     https://registry.opendata.aws/noaa-goes/
