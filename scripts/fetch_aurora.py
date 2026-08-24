@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """
-Pulls the latest planetary Kp-index from NOAA's Space Weather Prediction
-Center (free, keyless, public data) and saves a simplified aurora-chance
+pulls the latest planetary Kp-index from NOAA's Space Weather Prediction
+Center's free public data and saves an aurora-chance
 read to data/aurora.json.
 
-Kp visibility thresholds below are tuned loosely for Clover Terrace's
-latitude (~40.6N) — at this latitude, aurora is normally only visible
-during genuinely strong geomagnetic storms, not routine activity.
+Kp visibility thresholds below are tuned loosely for the station's
+latitude (~40.6N)  aurora is only visible during strong geomagnetic storms. 
 """
 import json
 import os
