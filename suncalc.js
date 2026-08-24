@@ -1,11 +1,11 @@
 /*
  * SunCalc — https://github.com/mourner/suncalc
- * A tiny BSD-licensed JavaScript library for calculating sun/moon positions and phases.
+ * a tiny BSD-licensed JavaScript library for calculating sun/moon positions and phases.
  * Created by Vladimir Agafonkin (@mourner).
  *
- * This file is the original suncalc.js source, repackaged as a plain global-scope
- * script (attaching to window.SunCalc) instead of an ES module, so it can be
- * self-hosted and loaded with a plain <script src="suncalc.js"> tag with no
+ * this file is the original suncalc.js source as a plain global-scope
+ * script (attaching to window.SunCalc) so it can be self hosted
+ * and loaded with a plain <script src="suncalc.js"> tag with no
  * build step or module system required.
  */
 (function (global) {
