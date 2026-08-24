@@ -362,12 +362,6 @@
     gap: 1rem;
   }
 
-  /* NOTE: flex:1 only belongs here for the two-up row layouts (wind's
-     compass pairing, lightning's strikes/nearest pair) where
-     .priority-single-value is used as a SIBLING inside a flex row and
-     needs to split that row's width evenly. precip and AQI reuse the same
-     .priority-single-value class as a single standalone block (direct
-     child of .card, not inside a row) */
   .wind-priority-metric,
   .lightning-priority-row .priority-single-value {
     flex: 1;
@@ -570,13 +564,6 @@
     text-align: center;
   }
 
-  /* units are a caption on the value, not a peer of it -- kept
-     uniformly small everywhere in the tile grid so they never compete
-     with the number for size/attention. Individual tiles only deviate
-     from this when their value itself is smaller than the standard
-     1.8rem (e.g. wind's Peak row), and those overrides are boosted to
-     3+ classes of specificity on purpose, so they win predictably
-     regardless of source order instead of relying on cascade position. */
   .card .unit {
     font-size: 0.6rem;
     font-weight: 500;
@@ -688,10 +675,6 @@
     color: inherit;
   }
 
-  /* the theme previews now live inside the hidden-panel easter egg (see
-     #theme-egg-trigger / #theme-preview-panel below) instead of sitting
-     directly in the footer -- full opacity since the panel itself now
-     provides the "you found it" framing. */
   #theme-preview-row {
     display: flex;
     justify-content: center;
@@ -793,12 +776,6 @@
     font-family: var(--font-body);
   }
 
-  /* each theme's preview badge in the footer easter-egg row. Uses the
-     same fixed-size, overflow-hidden + scaled-up-image crop trick as
-     .card-icon above, so the meteocon's animation padding gets cropped
-     away here too -- see the comment on .card-icon for why that's
-     needed. falls back to plain emoji text (theme.icon) sized/centered
-     to match if a theme has no working image, via loadMeteoconOrFallback(). */
   .theme-preview-icon {
     display: inline-block;
     width: 28px;
@@ -932,9 +909,6 @@
   .trend-falling { color: #ff7e67; }
   .trend-steady  { color: var(--muted-color); }
 
-  /* shared pressure+CAPE sparkline strip, replacing the old per-column
-     CAPE category badge -- both metrics' recent trend now reads off
-     this one strip instead of separate text. */
   .pressure-cape-spark {
     width: 100%;
     margin-top: 0.55rem;
@@ -981,12 +955,6 @@
     white-space: nowrap;
   }
 
-  /* glance-row columns (currently just the temperature tile's Feels
-     Like / Dew Point pair) are peer "current" values, not a current/peak
-     pair — every column carries the .priority-value class alongside
-     .value so they all share the same size via that single rule instead
-     of a second, competing size system here. */
-
   .glance-sub {
     font-size: 0.7rem;
     color: var(--label-color);
@@ -994,8 +962,6 @@
     font-family: var(--font-grid-label);
   }
 
-  /* the "actual" caption word inside the temp tile's Feels Like column --
-     shrunk separately from the °F value that follows it in the same span */
   .glance-sub-label {
     font-size: 0.8em;
     opacity: 0.85;
@@ -1014,10 +980,7 @@
 
   .storm-note strong { color: var(--accent-color); }
 
-  /* ----------* expanded detail panels *----------
-     the expanded area is a small instrument with <details> 
-     groups so everything is independently collapsible.  */
-
+  /* ----------* expanded detail panels *----------*/
   .detail-panel {
     display: flex;
     flex-direction: column;
