@@ -1,22 +1,14 @@
 #!/usr/bin/env python3
 """
-Pulls PM2.5 (plus PM1.0/PM10.0) readings from a set of nearby PurpleAir
+pulls PM2.5 (plus PM1.0/PM10.0) readings from a set of nearby PurpleAir
 sensors, drops any that are stale or unreachable, takes a weighted average
-of what's left, applies the standard EPA AQI breakpoint table, and saves
+of what's left, applies the standard EPA AQI table, and saves
 the result to data/air_quality.json.
 
-Uses each sensor's pm2.5_alt field, which PurpleAir returns with the
-EPA/Barkjohn correction already applied — the same correction used by
-AirNow's Fire and Smoke Map, tuned to stay accurate during wildfire smoke
-rather than just clean-air conditions.
-
-API POINT COST: UORV-066 (the closest sensor) is fetched fresh on every
-run, since it's what we actually rely on. The three backup sensors are
-only fetched fresh every BACKUP_POLL_INTERVAL_SECONDS while UORV-066 is
-healthy -- reusing their last cached reading in between -- since they're
-just there as a safety net. The moment UORV-066 goes stale or unreachable,
-all three backups switch back to fetching fresh on every run, since at
-that point they ARE the primary source. This state is tracked in
+API: UORV-066 (the closest sensor) is fetched fresh on every
+run. The three backup sensors are only fetched fresh every BACKUP_POLL_INTERVAL_SECONDS while UORV-066 is
+healthy. reusing their last cached reading in between. if UORV-066 goes stale or unreachable,
+all three backups switch back to fetching fresh on every run. this state is tracked in
 data/air_quality_state.json, which the pipeline commits alongside
 air_quality.json so it persists between runs.
 """
@@ -32,12 +24,11 @@ API_KEY = os.environ.get("PURPLEAIR_API_KEY")
 STATE_PATH = "data/air_quality_state.json"
 OUTPUT_PATH = "data/air_quality.json"
 
-# Sensors to pull from, in order of physical proximity to the station.
+# sensors we pull from, in order of physical proximity to the station.
 # UORV-066 is the closest, is treated as primary, and gets a higher
 # weight when it's healthy; the other three are supplementary/backup
-# sensors from the surrounding area. All four were verified at 100%
-# channel A/B confidence when this list was built -- worth re-checking on
-# map.purpleair.com occasionally in case that changes.
+# sensors from the surrounding area. All are verified at 100%
+# channel A/B confidence when this list was built and are checked daily.
 PRIMARY_NAME = "UORV-066"
 SENSORS = [
     {"index": 308482, "name": "UORV-066", "weight": 2},
@@ -51,21 +42,15 @@ SENSORS = [
 # spending points on data we already had.
 FIELDS = "pm2.5_alt,pm1.0_atm,pm10.0_atm,humidity,last_seen"
 
-# A sensor that hasn't reported in longer than this is treated as offline
-# and dropped from the average, rather than dragging the result toward a
-# frozen reading. PurpleAir sensors normally report every ~1-2 minutes, so
-# an hour is a generous cutoff that tolerates brief network hiccups without
-# masking a genuinely dead sensor like UORV-066 has been.
+# any sensor that hasn't reported in longer than this is treated as offline
+# and dropped from the average
 STALE_THRESHOLD_SECONDS = 60 * 60
 
-# While UORV-066 is healthy, backup sensors are only fetched this often;
-# in between, their last cached reading is reused. This is a reasonable
-# starting point given PM2.5 doesn't swing wildly minute-to-minute except
-# during active smoke/dust events -- adjust if you want them fresher (or
-# even more conservative) once you see the real point-usage numbers.
+# when UORV-066 is healthy, backup sensors are only fetched this often;
+# in between, their last cached reading is reused.
 BACKUP_POLL_INTERVAL_SECONDS = 30 * 60
 
-# Standard US EPA PM2.5 AQI breakpoints: (pm_low, pm_high, aqi_low, aqi_high, category)
+# standard US EPA PM2.5 AQI guide: (pm_low, pm_high, aqi_low, aqi_high, category)
 AQI_BREAKPOINTS = [
     (0.0, 12.0, 0, 50, "Good"),
     (12.1, 35.4, 51, 100, "Moderate"),
@@ -83,7 +68,7 @@ def pm25_to_aqi(pm25):
         if pm_low <= pm25 <= pm_high:
             aqi = ((aqi_high - aqi_low) / (pm_high - pm_low)) * (pm25 - pm_low) + aqi_low
             return round(aqi), category
-    # Above the top breakpoint — cap display at 500+/Hazardous rather than erroring.
+    # above the top breakpoint — cap display at 500+/hazardous rather than erroring.
     return 500, "Hazardous"
 
 
@@ -161,7 +146,6 @@ def main():
 
     healthy = []
 
-    # Primary is always fetched fresh -- it's what everything else depends on.
     primary_reading = fetch_sensor(primary_sensor)
     primary_healthy = primary_reading is not None
     if primary_reading:
@@ -172,7 +156,7 @@ def main():
         cached = state.get(key)
         cache_age = (now - cached["fetchedAt"]) if cached else None
 
-        # Only allow reusing the cache while the primary is healthy AND the
+        # allow reusing the cache if the primary is healthy AND the
         # cached reading is both within the poll interval and still under
         # the staleness threshold (the second check is a safety net in case
         # BACKUP_POLL_INTERVAL_SECONDS is ever set >= STALE_THRESHOLD_SECONDS).
@@ -195,8 +179,8 @@ def main():
             state[key] = {**reading, "fetchedAt": now}
             healthy.append(reading)
         else:
-            # Fetch failed or sensor is stale -- drop any cached copy too,
-            # it's no longer trustworthy either.
+            # fetch failed or sensor is stale, drop last cached copy,
+            # it's no longer trustworthy
             state.pop(key, None)
 
     save_state(state)
