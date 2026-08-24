@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
 """
-Fetches the latest camera snapshot for your Ecowitt station from the
-Ecowitt Cloud API and saves it to data/camera.jpg.
+fetches the latest camera snapshot from ecowitt HP10
+saves it to data/camera.jpg.
 
 Requires three environment variables (set as GitHub Actions secrets):
   ECOWITT_APP_KEY  - your Ecowitt Application Key
   ECOWITT_API_KEY  - your Ecowitt API Key
   ECOWITT_MAC      - your station's MAC address or IMEI (from ecowitt.net device list)
 
-Ecowitt's JSON response structure can vary slightly by device/firmware,
-so this script searches the response for an image URL rather than
-assuming one exact key path, and prints the raw response to the log
-so you can see the real structure if it ever needs adjusting.
+
 """
 
 import json
