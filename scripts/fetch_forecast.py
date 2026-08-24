@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Fetches the local forecast from the National Weather Service (NWS) API
-for zip code 15001 (Aliquippa, PA) and saves a simplified version to
-data/forecast.json — both the day/night periods and an hourly breakdown.
+fetches the local forecast (both the day/night periods and an hourly breakdown) 
+from the National Weather Service (NWS) API for the station,
+saves a simplified version to data/forecast.json
 
-No API key needed — the NWS API is free and public. It does require a
+the NWS API is free and public but it does require a
 descriptive User-Agent identifying the calling app/site (their usage
 policy asks for this so they can reach out if something's misbehaving),
-which is set below. Feel free to swap in your own site URL/contact.
+which is set below. feel free to swap in your own site URL/contact.
 """
 
 import json
@@ -16,7 +16,7 @@ import sys
 import urllib.request
 import urllib.error
 
-# Coordinates for zip 15001 (Aliquippa, PA). NWS forecasts are looked up
+# coordinates for zip 15001 (Aliquippa, PA). NWS forecasts are looked up
 # by lat/lon, not zip code directly, but since this location doesn't move,
 # hardcoding it here avoids an extra geocoding call on every run.
 LATITUDE = 40.604
@@ -27,7 +27,7 @@ USER_AGENT = "(home-weather-station-dashboard, https://cloverterrace.github.io/W
 
 POINTS_URL = f"https://api.weather.gov/points/{LATITUDE},{LONGITUDE}"
 
-# How many forecast periods to keep (each period is roughly a day or
+# how many forecast periods to keep (each period is roughly a day or
 # night — e.g. "Today", "Tonight", "Tuesday", "Tuesday Night" ...).
 MAX_PERIODS = 4
 
@@ -90,8 +90,6 @@ def main():
             "probabilityOfPrecipitation": extract_pop(period),
         })
 
-    # Hourly is a separate NWS product (forecastHourly) -- fetched
-    # independently so a hiccup here doesn't take down the daily periods.
     simplified_hourly = []
     if hourly_url:
         try:
@@ -109,9 +107,6 @@ def main():
                     "probabilityOfPrecipitation": extract_pop(period),
                 })
         except SystemExit:
-            # fetch_json calls sys.exit on failure -- catch it here so a
-            # broken hourly fetch doesn't take the whole script (and the
-            # daily periods) down with it.
             print("WARNING: Hourly forecast fetch failed; continuing with daily periods only.", file=sys.stderr)
             simplified_hourly = []
     else:
