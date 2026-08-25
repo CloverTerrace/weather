@@ -4,23 +4,23 @@
       "name": "Today",
       "temperature": 78,
       "temperatureUnit": "F",
-      "windSpeed": "1 to 5 mph",
-      "windDirection": "W",
-      "shortForecast": "Partly Sunny",
-      "detailedForecast": "Partly sunny, with a high near 78. West wind 1 to 5 mph.",
+      "windSpeed": "5 mph",
+      "windDirection": "NW",
+      "shortForecast": "Mostly Sunny",
+      "detailedForecast": "Mostly sunny, with a high near 78. Northwest wind around 5 mph.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 4
+      "probabilityOfPrecipitation": 2
     },
     {
       "name": "Tonight",
-      "temperature": 58,
+      "temperature": 59,
       "temperatureUnit": "F",
       "windSpeed": "0 to 3 mph",
-      "windDirection": "NW",
+      "windDirection": "NE",
       "shortForecast": "Mostly Cloudy then Areas Of Fog",
-      "detailedForecast": "Areas of fog after 3am. Mostly cloudy, with a low around 58. Northwest wind 0 to 3 mph.",
+      "detailedForecast": "Areas of fog after midnight. Mostly cloudy, with a low around 59. Northeast wind 0 to 3 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 3
+      "probabilityOfPrecipitation": 0
     },
     {
       "name": "Wednesday",
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-08-25T06:00:00-04:00",
+      "temperature": 63,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "W",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-08-25T07:00:00-04:00",
       "temperature": 63,
@@ -274,16 +284,6 @@
       "windDirection": "",
       "shortForecast": "Areas Of Fog",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-08-26T06:00:00-04:00",
-      "temperature": 58,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Areas Of Fog",
-      "isDaytime": true,
       "probabilityOfPrecipitation": 0
     }
   ]
