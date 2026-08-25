@@ -1,8 +1,27 @@
 {
-  "generatedAt": "2026-08-25T06:25:36.143339Z",
+  "generatedAt": "2026-08-25T06:30:37.576776Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "01038cbd-a159-4a78-a999-16c9bf0018bc",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-08-25T06:01:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... No change in the overall message over the next 7 days.",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... No change in the overall message over the next 7 days.",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 201 AM EDT Tue Aug 25 2026 .WHAT HAS CHANGED... No change in the overall message over the next 7 days. && .KEY MESSAGES..."
+        }
+      ],
+      "url": "https://api.weather.gov/products/01038cbd-a159-4a78-a999-16c9bf0018bc"
+    },
     {
       "id": "c7cbad3d-329c-41a6-b678-d621892769db",
       "type": "Hazardous Weather Outlook",
@@ -25,25 +44,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/c7cbad3d-329c-41a6-b678-d621892769db"
-    },
-    {
-      "id": "01038cbd-a159-4a78-a999-16c9bf0018bc",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-08-25T06:01:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... No change in the overall message over the next 7 days.",
-      "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... No change in the overall message over the next 7 days.",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 201 AM EDT Tue Aug 25 2026 .WHAT HAS CHANGED... No change in the overall message over the next 7 days. && .KEY MESSAGES..."
-        }
-      ],
-      "url": "https://api.weather.gov/products/01038cbd-a159-4a78-a999-16c9bf0018bc"
     }
   ]
 }
