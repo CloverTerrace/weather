@@ -1,13 +1,13 @@
 {
   "periods": [
     {
-      "name": "This Afternoon",
+      "name": "Today",
       "temperature": 77,
       "temperatureUnit": "F",
-      "windSpeed": "6 mph",
+      "windSpeed": "2 to 6 mph",
       "windDirection": "NW",
       "shortForecast": "Mostly Sunny",
-      "detailedForecast": "Mostly sunny, with a high near 77. Northwest wind around 6 mph.",
+      "detailedForecast": "Mostly sunny, with a high near 77. Northwest wind 2 to 6 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 1
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-08-25T11:00:00-04:00",
+      "temperature": 71,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "NW",
+      "shortForecast": "Partly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 1
+    },
     {
       "startTime": "2026-08-25T12:00:00-04:00",
       "temperature": 73,
@@ -269,16 +279,6 @@
     {
       "startTime": "2026-08-26T10:00:00-04:00",
       "temperature": 71,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "S",
-      "shortForecast": "Mostly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-08-26T11:00:00-04:00",
-      "temperature": 75,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "S",
