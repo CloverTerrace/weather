@@ -3376,8 +3376,8 @@ body.fx-active-sunrays .fx-sunrays {
   .cloud-shape {
     position: absolute;
     top: 5%;
-    width: 200px;
-    height: 70px;
+    width: 220px;
+    height: 84px;
     animation: fx-drift linear infinite;
   }
 
@@ -3393,11 +3393,37 @@ body.fx-active-sunrays .fx-sunrays {
   50%      { opacity: var(--star-max-opacity, 0.9); transform: scale(1.1); }
 }
   
+  /* cumulus puff -- soft radial shading (sun-catching highlight at top-left,
+     cool shadow at the base) gives real volume instead of a flat blurred
+     blob, and the asymmetric border-radius (varied per-puff in JS from
+     CLOUD_PUFF_SHAPES) reads as an organic lobe rather than a circle. */
   .cloud-puff {
     position: absolute;
     border-radius: 84%;
-    background: rgba(255, 255, 255, 0.5);
+    background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 55%, rgba(205,217,235,0.35) 100%);
     filter: blur(4px);
+  }
+
+  /* wide, flattened puff used as a single "base" layer under each cloud's
+     rounded top puffs -- the flat-bottomed, piled-up-on-top look is what
+     actually reads as "cumulus" rather than a generic cloud blob. */
+  .cloud-puff.cloud-base {
+    border-radius: 50% 50% 28% 28% / 65% 65% 20% 20%;
+    background: radial-gradient(circle at 40% 15%, rgba(255,255,255,0.7) 0%, rgba(205,217,235,0.4) 70%);
+  }
+
+  /* iridescent variant -- a soft nacreous/mother-of-pearl wash (blush pink,
+     pale lavender, warm peach, sky blue) layered under the same white
+     highlight so it reads as light catching the cloud, not a rainbow
+     sticker. Slow hue-rotate keeps it drifting/shimmering rather than static. */
+  .cloud-puff.iridescent {
+    background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.92) 0%, rgba(255,214,232,0.5) 32%, rgba(214,222,255,0.48) 55%, rgba(255,232,210,0.45) 78%, rgba(210,235,250,0.4) 100%);
+    animation: fx-iridescent-shimmer 16s ease-in-out infinite;
+  }
+
+  @keyframes fx-iridescent-shimmer {
+    0%, 100% { filter: blur(4px) hue-rotate(0deg) saturate(1); }
+    50%      { filter: blur(4px) hue-rotate(20deg) saturate(1.25); }
   }
 
   @keyframes fx-drift {
@@ -3406,7 +3432,7 @@ body.fx-active-sunrays .fx-sunrays {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .raindrop, .cloud-shape, .star, .snowflake, .aurora-band, .aurora-glow, .loading-cloud, .loading-star, .loading-icon {
+    .raindrop, .cloud-shape, .cloud-puff.iridescent, .star, .snowflake, .aurora-band, .aurora-glow, .loading-cloud, .loading-star, .loading-icon {
       animation: none !important;
     }
     #weather-fx {
@@ -7907,9 +7933,21 @@ svg circle, svg polygon, svg line {
       rainContainer.appendChild(drop);
     }
 
-    for (let i = 0; i < 4; i++) {
+    // a handful of organic lobe shapes puffs are randomly assigned, so
+    // clouds read as piled-up cumulus rather than uniform blurred ovals.
+    const CLOUD_PUFF_SHAPES = [
+      '42% 46% 40% 44% / 58% 54% 62% 56%',
+      '48% 40% 46% 42% / 54% 60% 50% 58%',
+      '40% 48% 44% 40% / 60% 52% 58% 54%',
+      '46% 42% 48% 44% / 56% 58% 52% 60%',
+    ];
+
+    for (let i = 0; i < 5; i++) {
       const cloud = document.createElement('div');
       cloud.className = 'cloud-shape';
+      // roughly 2 in 5 clouds get the soft iridescent treatment, mixed in
+      // among the plain ones rather than replacing them entirely.
+      const isIridescent = Math.random() < 0.4;
       cloud.style.top = `${Math.random() * 50}%`;
       cloud.style.animationDuration = `${70 + Math.random() * 40}s`;
       cloud.style.animationDelay = `${Math.random() * -60}s`;
@@ -7918,16 +7956,31 @@ svg circle, svg polygon, svg line {
       cloud.style.transform = `scale(${scale})`;
       cloud.style.opacity = depthOpacity;
 
-      const puffCount = 4 + Math.floor(Math.random() * 3);
+      // flat-bottomed base layer first, so the rounded top puffs pile up
+      // on top of it -- this is what actually sells "cumulus" over a
+      // generic drifting blob.
+      const base = document.createElement('div');
+      base.className = 'cloud-puff cloud-base' + (isIridescent ? ' iridescent' : '');
+      base.style.width = `${140 + Math.random() * 50}px`;
+      base.style.height = '34px';
+      base.style.left = `${10 + Math.random() * 20}px`;
+      base.style.top = `${44 + Math.random() * 10}px`;
+      base.style.opacity = 0.4 + Math.random() * 0.2;
+      if (isIridescent) base.style.animationDelay = `${Math.random() * -16}s`;
+      cloud.appendChild(base);
+
+      const puffCount = 5 + Math.floor(Math.random() * 3);
       for (let p = 0; p < puffCount; p++) {
         const puff = document.createElement('div');
-        puff.className = 'cloud-puff';
+        puff.className = 'cloud-puff' + (isIridescent ? ' iridescent' : '');
         const size = 40 + Math.random() * 60;
         puff.style.width = `${size}px`;
         puff.style.height = `${size * (0.6 + Math.random() * 0.3)}px`;
-        puff.style.left = `${(p / puffCount) * 160 + Math.random() * 20}px`;
+        puff.style.left = `${(p / puffCount) * 180 + Math.random() * 20}px`;
         puff.style.top = `${Math.random() * 25}px`;
         puff.style.opacity = 0.5 + Math.random() * 0.4;
+        puff.style.borderRadius = CLOUD_PUFF_SHAPES[Math.floor(Math.random() * CLOUD_PUFF_SHAPES.length)];
+        if (isIridescent) puff.style.animationDelay = `${Math.random() * -16}s`;
         cloud.appendChild(puff);
       }
       cloudContainer.appendChild(cloud);
@@ -8198,7 +8251,7 @@ const THEMES = {
     sunny:             { bg: '#FBBF24', card: '#FFFFFF', accent: '#D97706', muted: '#B45309', text: '#78350F', title: '#ffffff', icon: '☀️', meteocon: 'clear-day.svg', iconImg: 'icons/themes/sunny.png', lightCard: true, fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
     extremeHeat:       { bg: '#351a13', card: '#5f2d1d', accent: '#e9895d', muted: '#d7a07e', text: '#fff4ec', title: '#fff8f2', icon: '🔥☀️', meteocon: 'thermometer-sun.svg', iconImg: 'icons/themes/extremeHeat.png', fonts: { title: "Monas, Papyrus, serif", cardHeading: "Monas" } },
     extremeHeatNight:  { bg: '#201416', card: '#3d2522', accent: '#dc8977', muted: '#d2a095', text: '#fff2ed', title: '#fff8f5', icon: '🔥🌙', meteocon: 'thermometer-moon.svg', iconImg: 'icons/themes/extremeHeatNight.png', fonts: { title: "NightWindSent, Papyrus, serif", cardHeading: "Monas" } },
-    cloudy:            { bg: '#6FA3D6', card: '#F3F6FA', accent: '#1D6FA5', muted: '#5F7A93', text: '#33455A', title: '#ffffff', icon: '⛅️', meteocon: 'partly-cloudy-day.svg', iconImg: 'icons/themes/cloudy.png', lightCard: true, fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Figtree" } },
+    cloudy:            { bg: 'linear-gradient(180deg, #8FC0E8 0%, #A9CBE7 30%, #C9CEE3 58%, #E7D5D0 82%, #F3E3D3 100%)', card: '#F5F3F7', accent: '#3E6E9E', muted: '#5F6E96', text: '#3A3B5A', title: '#ffffff', icon: '⛅️', meteocon: 'partly-cloudy-day.svg', iconImg: 'icons/themes/cloudy.png', lightCard: true, fonts: { title: "Groovy Clouds, Tahoma", cardHeading: "Figtree" } },
     rainy:             { bg: '#143A52', card: '#0E2939', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️', meteocon: 'rain.svg', iconImg: 'icons/themes/rainy.png', fonts: { title: "Letter Magic, Tahoma" } },
     rainyNight:        { bg: '#0E2939', card: '#143A52', accent: '#C6E0F1', muted: '#EAF4FA', text: '#ffffff', title: '#ffffff', icon: '🌧️🌙', meteocon: 'mostly-clear-night-rain.svg', iconImg: 'icons/themes/rainyNight.png', fonts: { title: "Lavishly Yours, cursive" } },
     snowy:             { bg: "#ABE9FF", card: "#EBF9FF", accent: "#9EA9FF", muted: "#73B0FF", text: "#537499", title: "#E3F4FF", icon: '❄️', meteocon: 'snow.svg', iconImg: 'icons/themes/snowy.png', fonts: { title: "Snowby, sans-serif" } },
