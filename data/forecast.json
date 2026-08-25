@@ -1,18 +1,7 @@
 {
   "periods": [
     {
-      "name": "Overnight",
-      "temperature": 56,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "SW",
-      "shortForecast": "Partly Cloudy",
-      "detailedForecast": "Partly cloudy, with a low around 56. Southwest wind around 3 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 1
-    },
-    {
-      "name": "Tuesday",
+      "name": "Today",
       "temperature": 78,
       "temperatureUnit": "F",
       "windSpeed": "1 to 5 mph",
@@ -23,7 +12,7 @@
       "probabilityOfPrecipitation": 4
     },
     {
-      "name": "Tuesday Night",
+      "name": "Tonight",
       "temperature": 58,
       "temperatureUnit": "F",
       "windSpeed": "0 to 3 mph",
@@ -43,19 +32,20 @@
       "detailedForecast": "Areas of fog before 9am. Partly sunny, with a high near 82. South wind 0 to 5 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Wednesday Night",
+      "temperature": 63,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "S",
+      "shortForecast": "Partly Cloudy",
+      "detailedForecast": "Partly cloudy, with a low around 63. South wind around 3 mph.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 5
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-08-25T05:00:00-04:00",
-      "temperature": 57,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "SW",
-      "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 1
-    },
     {
       "startTime": "2026-08-25T06:00:00-04:00",
       "temperature": 56,
@@ -279,6 +269,16 @@
     {
       "startTime": "2026-08-26T04:00:00-04:00",
       "temperature": 59,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Areas Of Fog",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-08-26T05:00:00-04:00",
+      "temperature": 58,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
