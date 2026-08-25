@@ -252,6 +252,7 @@
     overflow: hidden;
     vertical-align: -6px;
     margin-right: 0.35em;
+    /* shadow lives on the container, not the cropped image inside it */
     filter: var(--icon-shadow);
   }
 
@@ -263,7 +264,12 @@
     transform-origin: center;
   }
 
-  /* 🌙 NASA's dial-a-moon images need a bg/frame to prevent it from picking up the card color underneath 🌙 */
+  /* 🌙 NASA's dial-a-moon print images (the same source .sky-body-frame /
+     .moon-body-img use in the Sky & Space card below) are square photos
+     with a lot of built-in black padding around the actual moon disc.
+     a plain img at any size just shows that padding scaled up along with
+     it. same fix as .sky-body-frame: a fixed-size, clipped circular
+     frame with the image scaled up past its edges. more moon less border 🌙 */
   .weather-icon-moon-frame {
      display: flex;
      align-items: center;
@@ -422,7 +428,7 @@
   }
 
   /* combo grid system ☔
-  the weather cards use two independent vertical columns rather than a CSS grid. 
+  the weather cards use two independent vertical columns rather than a conventional CSS grid. 
   prevents an expanded card from changing the vertical position of the card beside it. */
   .grid {
     display: grid;
@@ -2470,7 +2476,8 @@
     line-height: 1.5;
   }
 
-  /* themed leaflet popups. */
+  /* themed leaflet popups — only the quake map uses popups so far, the
+     radar/lightning maps don't, hence no existing rule to build on. */
   .leaflet-popup-content-wrapper {
     background: var(--card-color);
     color: var(--text-color);
@@ -2485,8 +2492,9 @@
     color: var(--accent-color);
   }
 
-  /* leaflet zoom control reskinned to follow the active theme instead
-     of its default white-box */
+  /* leaflet zoom control — reskinned to follow the active theme instead
+     of its default white-box look, so it stays legible across both the
+     light and dark card themes. */
   .leaflet-control-zoom {
     border: none !important;
     border-radius: 8px !important;
@@ -2967,8 +2975,8 @@ body.fx-active-stars .fx-stars {
   opacity: 1;
 }
 
-/* ✨ bonus star layer that only shows on top of .fx-stars when skies are clear
-   with good/excellent stargazing conditions, no aurora. */
+/* ✨ bonus star layer — only shows on top of .fx-stars when skies are clear
+   with good/excellent stargazing conditions and no aurora. */
 .fx-stars-extra {
   position: absolute;
   inset: 0;
@@ -2980,7 +2988,7 @@ body.fx-stars-boost .fx-stars-extra {
   opacity: 1;
 }
 
-/* 🌌 aurora overlay: layered "curtain" bands in atomic-oxygen/
+/* 🌌 aurora overlay — layered "curtain" bands in the real atomic-oxygen/
    nitrogen aurora colors (pink-red high altitude, green mid, blue-purple
    low altitude fringe), screened on top of the night sky + stars. */
 .fx-aurora {
@@ -3060,7 +3068,16 @@ body.fx-active-smoke .fx-smoke {
   to   { transform: translateX(115vw); }
 }
   
-/* ‼️🚨 alerts  */
+/* ‼️🚨 alerts
+   layout: width:100% with no max-width so this sits flush with the
+   #page-content/desktop-dashboard-layout edges instead of floating as an
+   isolated, narrower, centered card above the grid on wide screens.
+   visual language: reuses the same hazard icon + left-border color coding
+   already established by .nws-badge-* in Storm Center (getNwsHazardVisual),
+   so the top banner and the Storm Center card read as one consistent
+   system instead of two. Distinguishing warning vs watch/advisory/statement
+   is structural (filled vs outlined), not just a color swap -- and no
+   emoji, so it doesn't depend on the OS/browser's emoji font. */
 #alert-banners {
   width: 100%;
   display: flex;
@@ -3081,7 +3098,7 @@ body.fx-active-smoke .fx-smoke {
   width: 100%;
   background: none;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
-  /* default font for alerts. legible and plain
+  /* default font for alerts - must stay legible and plain
      no matter which theme (and its decorative font choices) is active. */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
@@ -3095,19 +3112,36 @@ body.fx-active-smoke .fx-smoke {
 .alert-banner.nws-badge-flood  { --hz: #5ba8ff; }
 .alert-banner.nws-badge-winter { --hz: #cfe8ff; }
 .alert-banner.nws-badge-other  { --hz: var(--muted-color); }
+
+/* --hz-safe is what text/borders actually use. On dark-card themes it's
+   just --hz at full strength -- these hazard colors were picked to pop
+   against a dark card. On light-card themes (sunny, cloudy: body carries
+   .theme-light-card) the same pale/mid-tone hz colors sit close in
+   lightness to the card itself (worst case: pale-ice "winter" #cfe8ff on
+   an already-near-white card), so it's darkened here to hold contrast --
+   the hue stays intact, only the lightness drops. */
 .alert-banner { --hz-safe: var(--hz); }
 body.theme-light-card .alert-banner {
   --hz-safe: color-mix(in srgb, var(--hz) 60%, #12202c 40%);
 }
 
-/* warning: filled, high urgency. should be impossible to skim past. */
+/* warning: filled, high urgency -- should be impossible to skim past.
+   Tinting --hz into the theme's own --card-color (rather than a
+   hardcoded dark base) means this automatically becomes a light pastel
+   card with dark text on light-card themes, and a dark tinted card with
+   light text everywhere else -- always the theme's own guaranteed-
+   readable pairing, just with a hazard tint over it. */
 .alert-banner.kind-warning {
   background: color-mix(in srgb, var(--hz) 30%, var(--card-color) 70%);
   border-left: 4px solid var(--hz-safe);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
 }
 
-/* watch / advisory / statement: outlined, slightly lower urgency */
+/* watch / advisory / statement: outlined, lower urgency -- a heads-up,
+   not an order to act. Previously a near-invisible white-glass overlay,
+   which assumed a dark card underneath to read against -- on a light-card
+   theme sitting directly on a colored page background that overlay adds
+   no contrast at all. Same --card-color-based tint as above, just lighter. */
 .alert-banner.kind-watch,
 .alert-banner.kind-advisory,
 .alert-banner.kind-statement {
@@ -3139,6 +3173,12 @@ body.theme-light-card .alert-banner {
   font-size: 0.68rem;
   margin-bottom: 0.35rem;
   font-family: inherit;
+  /* not --hz-safe: at this size the label needs 4.5:1 text contrast, and
+     a hazard-colored label against its own hazard-tinted background falls
+     well short of that on several themes. The border stripe, background
+     tint, and icon already carry the color identity at the more forgiving
+     3:1 UI-component bar, so the label just inherits the same
+     guaranteed-legible color as the rest of the banner's text. */
   color: var(--text-color);
   opacity: 0.8;
 }
@@ -3155,11 +3195,16 @@ body.theme-light-card .alert-banner {
   font-size: 0.85rem;
   line-height: 1.4;
   font-family: inherit;
+  /* not --muted-color: it's tuned for contrast against the plain
+     --card-color, and a warning's more heavily hz-tinted background pulls
+     it below 4.5:1 on light-card themes. --text-color's contrast is
+     guaranteed regardless of tint; de-emphasis still reads through the
+     smaller, non-bold weight relative to the event line above it. */
   color: var(--text-color);
   opacity: 0.85;
 }
 
-/* soft, single-pulse flash (no strobing, epilepsy-safe) used to guide
+/* soft, single-pulse flash -- no strobing, epilepsy-safe -- used to guide
    the eye to the matching item in Storm Center after a banner is clicked */
 @keyframes nws-item-flash {
   0%   { box-shadow: 0 0 0 0 rgba(255,255,255,0); background: rgba(255,255,255,0.035); }
@@ -3169,7 +3214,8 @@ body.theme-light-card .alert-banner {
 
 .nws-item.flash-once { animation: nws-item-flash 1.8s ease-out 1; }
 
-/* persistent marker on whichever item is currently the closest + most severe active alert */
+/* persistent marker on whichever item is currently the closest + most
+   severe active alert -- distinct from the one-shot flash above */
 .nws-item.primary-alert {
   border-color: rgba(255,255,255,0.2);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
@@ -3188,7 +3234,7 @@ body.theme-light-card .alert-banner {
   letter-spacing: 0.03em;
   white-space: nowrap;
 }
-/* ☔ extra rain for heavy rainfall events */
+/* extra rain for heavy rainfall events */
 .raindrop-extra {
   opacity: 0;
 }
@@ -3303,7 +3349,7 @@ body.fx-active-sunrays .fx-sunrays {
   0%, 100% { opacity: 0.4; }
   50%      { opacity: 0.7; }
 }
-/* 🌧️ rain & cloud falling fx stuff */ 
+/* rain & cloud falling fx stuff */ 
   body.fx-active-rain .fx-rain {
     opacity: 1;
   }
@@ -3419,7 +3465,7 @@ body.fx-active-sunrays .fx-sunrays {
     border-top: 1px dashed rgba(255, 255, 255, 0.3);
   }
   
-/* 🌙 sky & space card details */
+/* sky & space card details */
   .sunmoon-details {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -3542,7 +3588,10 @@ svg circle, svg polygon, svg line {
 }
  
 
-  /* ---------- mobile card layout --------- */
+  /* ---------- mobile card flow ----------
+     desktop/tablet use independent columns so expanded cards don't stretch
+     their neighbors. on phones, a single normal-flow column is safer and
+     easier to scan/tap. */
   @media (min-width: 851px) and (max-width: 1120px) {
     .nws-meta-strip { font-size: 0.66rem; }
   }
@@ -3650,6 +3699,10 @@ svg circle, svg polygon, svg line {
     #grid.grid .card.river-card     { order: 8; }
   }
 
+  /* whatever width the square-tile grid above settles a card into, keep
+     the wind compass / dual-value rows from ever feeling cramped. this
+     reacts to the card's own rendered width, so it works no matter how
+     many columns the grid is showing. */
   @container card (max-width: 300px) {
     .wind-priority-row,
     .pressure-priority-row,
@@ -4929,6 +4982,108 @@ svg circle, svg polygon, svg line {
 
     .web-tools-grid > .charts-dropdown { grid-column: 1 !important; grid-row: 1 !important; }
     .web-tools-grid > .weather-map-card { grid-column: 2 !important; grid-row: 1 !important; }
+  }
+
+  @media (min-width: 851px) and (max-width: 1120px) {
+    .desktop-dashboard-layout { grid-template-columns: minmax(0, 1.18fr) minmax(390px, 0.95fr) !important; }
+  }
+
+  /* =================================================================
+     🍀💜 VERY-LARGE-DESKTOP SCALE-UP ☀️⛅️🌩️
+     851px-1599px keeps every rule above untouched (byte-for-byte).
+     from 1600px up, #page-content is allowed to keep growing instead
+     of freezing at 1440px, and the container-query-driven type/icon
+     sizes in the sensor grid (plus the forecast/sky cards beside it)
+     are given room to keep climbing past their old ceiling so text
+     grows in step with the bigger tiles instead of going stale. every
+     rule here only raises a "max" clamp() bound -- the min/preferred
+     (cqw/vw) terms that do the actual smooth scaling are untouched,
+     so nothing here can make anything shrink.
+     ================================================================= */
+  @media (min-width: 1600px) {
+    #page-content {
+      width: min(90vw, 2200px) !important;
+      max-width: 2200px !important;
+    }
+
+    /* sensor grid tiles (temp/wind/pressure/precip/lightning/solar/aqi/river) */
+    .desktop-left-rail #grid.grid .priority-heading,
+    .desktop-left-rail #grid.grid .precip-card .label,
+    #grid.grid .desktop-camera-tile h2 {
+      font-size: clamp(0.62rem, 2.45cqw, 0.98rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .glance-col .label {
+      font-size: clamp(0.52rem, 2.05cqw, 0.84rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .priority-icon,
+    .desktop-left-rail #grid.grid .precip-card .label .card-icon {
+      width: clamp(1.05rem, 4.2cqw, 1.7rem);
+      height: clamp(1.05rem, 4.2cqw, 1.7rem);
+      flex-basis: clamp(1.05rem, 4.2cqw, 1.7rem);
+    }
+
+    .desktop-left-rail #grid.grid .priority-value {
+      font-size: clamp(1.45rem, 8.5cqw, 2.5rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .pressure-glance-row .priority-value {
+      font-size: clamp(1.05rem, 7.5cqw, 2.05rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .precip-card .priority-value {
+      font-size: clamp(1.55rem, 9.5cqw, 2.6rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .aqi-card .priority-value,
+    .desktop-left-rail #grid.grid .river-card .priority-value {
+      font-size: clamp(1.45rem, 8.5cqw, 2.45rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .glance-sub,
+    .desktop-left-rail #grid.grid .priority-context {
+      font-size: clamp(0.62rem, 2.3cqw, 0.98rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .aqi-card .aqi-summary {
+      font-size: clamp(0.56rem, 2cqw, 0.86rem);
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-metric-label {
+      font-size: clamp(0.66rem, 2.7cqw, 1.05rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-metric-peak-label {
+      font-size: clamp(0.54rem, 2.1cqw, 0.8rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-metric-peak-value {
+      font-size: clamp(0.74rem, 3.1cqw, 1.2rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .pressure-trend {
+      font-size: clamp(0.55rem, 2.1cqw, 0.92rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .storm-note {
+      font-size: clamp(0.53rem, 1.9cqw, 0.78rem);
+    }
+
+    /* forecast card + sky card, same left rail -- vw-based (not cqw), so
+       these grow with the real viewport rather than the tile's own box */
+    .desktop-left-rail .forecast-card h2 {
+      font-size: clamp(0.74rem, 0.82vw, 1.15rem);
+    }
+
+    .desktop-left-rail .forecast-period .period-name { font-size: clamp(0.64rem, 0.6vw, 0.85rem); }
+    .desktop-left-rail .forecast-period .period-temp { font-size: clamp(0.98rem, 0.95vw, 1.3rem); }
+    .desktop-left-rail .forecast-period .period-short { font-size: clamp(0.62rem, 0.62vw, 0.82rem); }
+    .desktop-left-rail .forecast-period .period-wind { font-size: clamp(0.55rem, 0.55vw, 0.74rem); }
+
+    .desktop-left-rail > .desktop-sky-card h2 { font-size: clamp(0.78rem, 0.9vw, 1.2rem); }
+    .desktop-left-rail > .desktop-sky-card .sunmoon-details { font-size: clamp(0.7rem, 0.72vw, 0.92rem); }
+    .desktop-left-rail > .desktop-sky-card .sky-badges { font-size: clamp(0.67rem, 0.7vw, 0.88rem); }
   }
 
   @media (min-width: 851px) and (max-width: 1120px) {
