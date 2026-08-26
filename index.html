@@ -2564,7 +2564,7 @@
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.07em;
-    text-align: center;
+    text-align: left;
     margin: 0 0 0.55rem;
     opacity: 0.9;
   }
@@ -4358,14 +4358,71 @@ svg circle, svg polygon, svg line {
   }
 
   /* 🌩️~*~*~*~*~🌩️ STORM CENTER 🌩️~*~*~*~*~🌩️ */
+  /* elevated "instrument panel" treatment -- this card is the dashboard's
+     primary hazard-monitoring surface, so it earns more visual weight than
+     a plain content card: a layered shadow for real depth, a faint
+     accent-tinted border and corner glow that track each theme's
+     --accent-color automatically, and a thin top accent bar. */
   .outlook-card {
-    text-align: center;
+    position: relative;
+    text-align: left;
     overflow: hidden;
+    border-radius: 16px;
+    background:
+      radial-gradient(circle at 8% -10%, color-mix(in srgb, var(--accent-color) 12%, transparent), transparent 48%),
+      radial-gradient(circle at 105% 115%, color-mix(in srgb, var(--accent-color) 7%, transparent), transparent 52%),
+      var(--card-color);
+    border: 1px solid color-mix(in srgb, var(--accent-color) 18%, rgba(255,255,255,0.09));
+    box-shadow:
+      0 16px 36px rgba(0,0,0,0.36),
+      0 3px 10px rgba(0,0,0,0.24),
+      inset 0 1px 0 rgba(255,255,255,0.06);
   }
 
-  .storm-desk-livebar {
-    margin-bottom: 0.95rem;
+  .outlook-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    opacity: 0.7;
+  }
+
+  /* title + live-status readout share one row, title left / status right --
+     replaces the old centered stack so the card reads like a proper panel
+     header instead of a plain centered card title. */
+  .outlook-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    text-align: left;
+    margin-bottom: 1rem;
+  }
+
+  .outlook-card h2 {
+    margin: 0;
+    text-align: left;
+  }
+
+  .outlook-card .storm-desk-livebar {
+    margin: 0.2rem 0 0 auto;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 999px;
+    padding: 4px 11px 4px 9px;
     font-size: 0.64rem;
+  }
+
+  /* collapses the watches/MDs/NWS-updates section (and its divider) to
+     nothing when there's no active item in any of the three -- toggled in
+     renderNwsProducts() so the card never shows empty tab chrome for the
+     KPBZ forecast area. */
+  .storm-top-hidden {
+    display: none !important;
   }
 
   .nws-tabs {
@@ -5514,44 +5571,52 @@ svg circle, svg polygon, svg line {
  </div>    
 
   <div class="camera-card outlook-card">
-    <h2><span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>Storm Center</h2>
-
-    <div class="storm-desk-livebar">
-      <span class="storm-desk-live">live feed</span>
-      <span id="storm-desk-updated">waiting for update</span>
-    </div>
-    <div class="nws-tabs" id="nws-tabs" role="tablist" aria-label="Storm alerts and discussions">
-      <button class="nws-tab active" type="button" role="tab" aria-selected="true" aria-controls="nws-panel-watches" data-target="nws-panel-watches">
-        <span class="card-icon"><img src="icons/code-orange.svg" alt=""></span>
-        <span class="nws-tab-label nws-tab-label-full">Watches</span>
-        <span class="nws-tab-label nws-tab-label-short">Watches</span>
-        <span class="nws-tab-count" id="nws-count-watches">0</span>
-      </button>
-      <button class="nws-tab" type="button" role="tab" aria-selected="false" aria-controls="nws-panel-md" data-target="nws-panel-md">
-        <span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>
-        <span class="nws-tab-label nws-tab-label-full">Mesoscale Discussions</span>
-        <span class="nws-tab-label nws-tab-label-short">MDs</span>
-        <span class="nws-tab-count" id="nws-count-md">0</span>
-      </button>
-      <button class="nws-tab" type="button" role="tab" aria-selected="false" aria-controls="nws-panel-statements" data-target="nws-panel-statements">
-        <span class="card-icon"><img src="icons/code-yellow.svg" alt=""></span>
-        <span class="nws-tab-label nws-tab-label-full">NWS Updates</span>
-        <span class="nws-tab-label nws-tab-label-short">NWS</span>
-        <span class="nws-tab-count" id="nws-count-statements">0</span>
-      </button>
+    <div class="outlook-card-header">
+      <h2><span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>Storm Center</h2>
+      <div class="storm-desk-livebar">
+        <span class="storm-desk-live">live feed</span>
+        <span id="storm-desk-updated">waiting for update</span>
+      </div>
     </div>
 
-    <div class="nws-panel active" id="nws-panel-watches" role="tabpanel">
-      <div class="nws-list" id="nws-list-watches"><div class="nws-empty">No active watches.</div></div>
-    </div>
-    <div class="nws-panel" id="nws-panel-md" role="tabpanel">
-      <div class="nws-list" id="nws-list-md"><div class="nws-empty">No recent mesoscale discussions.</div></div>
-    </div>
-    <div class="nws-panel" id="nws-panel-statements" role="tabpanel">
-      <div class="nws-list" id="nws-list-statements"><div class="nws-empty">No recent NWS updates.</div></div>
+    <!-- Hidden by default (see renderNwsProducts in JS) so a first load with
+         nothing to show for the KPBZ forecast area never flashes empty tabs
+         -- it only reveals once there's an actual watch, warning, advisory,
+         or update to display. -->
+    <div class="storm-top storm-top-hidden" id="storm-top">
+      <div class="nws-tabs" id="nws-tabs" role="tablist" aria-label="Storm alerts and discussions">
+        <button class="nws-tab active" type="button" role="tab" aria-selected="true" aria-controls="nws-panel-watches" data-target="nws-panel-watches">
+          <span class="card-icon"><img src="icons/code-orange.svg" alt=""></span>
+          <span class="nws-tab-label nws-tab-label-full">Watches</span>
+          <span class="nws-tab-label nws-tab-label-short">Watches</span>
+          <span class="nws-tab-count" id="nws-count-watches">0</span>
+        </button>
+        <button class="nws-tab" type="button" role="tab" aria-selected="false" aria-controls="nws-panel-md" data-target="nws-panel-md">
+          <span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>
+          <span class="nws-tab-label nws-tab-label-full">Mesoscale Discussions</span>
+          <span class="nws-tab-label nws-tab-label-short">MDs</span>
+          <span class="nws-tab-count" id="nws-count-md">0</span>
+        </button>
+        <button class="nws-tab" type="button" role="tab" aria-selected="false" aria-controls="nws-panel-statements" data-target="nws-panel-statements">
+          <span class="card-icon"><img src="icons/code-yellow.svg" alt=""></span>
+          <span class="nws-tab-label nws-tab-label-full">NWS Updates</span>
+          <span class="nws-tab-label nws-tab-label-short">NWS</span>
+          <span class="nws-tab-count" id="nws-count-statements">0</span>
+        </button>
+      </div>
+
+      <div class="nws-panel active" id="nws-panel-watches" role="tabpanel">
+        <div class="nws-list" id="nws-list-watches"><div class="nws-empty">No active watches.</div></div>
+      </div>
+      <div class="nws-panel" id="nws-panel-md" role="tabpanel">
+        <div class="nws-list" id="nws-list-md"><div class="nws-empty">No recent mesoscale discussions.</div></div>
+      </div>
+      <div class="nws-panel" id="nws-panel-statements" role="tabpanel">
+        <div class="nws-list" id="nws-list-statements"><div class="nws-empty">No recent NWS updates.</div></div>
+      </div>
     </div>
 
-    <div class="storm-desk-divider"></div>
+    <div class="storm-desk-divider storm-top-hidden" id="storm-desk-divider"></div>
 
     <div class="outlook-section-label">SPC Outlooks</div>
 
@@ -9387,6 +9452,16 @@ const THEMES = {
     if (countWatches) countWatches.textContent = watches.length;
     if (countMd) countMd.textContent = mds.length;
     if (countStatements) countStatements.textContent = statements.length;
+
+    // local-area focus: with nothing active for the KPBZ forecast area
+    // across any of the three feeds, the tabs/panels are just empty chrome
+    // -- collapse the whole top section (and its divider) so the card
+    // shows only the SPC Convective/Thunderstorm outlooks below.
+    const hasStormTopContent = (watches.length + mds.length + statements.length) > 0;
+    const stormTop = document.getElementById('storm-top');
+    const stormDivider = document.getElementById('storm-desk-divider');
+    if (stormTop) stormTop.classList.toggle('storm-top-hidden', !hasStormTopContent);
+    if (stormDivider) stormDivider.classList.toggle('storm-top-hidden', !hasStormTopContent);
 
     // a tornado watch/warning deserves to be seen without opening a tab:
     // pulse the watches tab for as long as one is live, and jump to it
