@@ -5,9 +5,9 @@
       "temperature": 81,
       "temperatureUnit": "F",
       "windSpeed": "1 to 6 mph",
-      "windDirection": "S",
+      "windDirection": "SW",
       "shortForecast": "Patchy Fog then Partly Sunny",
-      "detailedForecast": "Patchy fog before 10am. Partly sunny, with a high near 81. South wind 1 to 6 mph.",
+      "detailedForecast": "Patchy fog before 10am. Partly sunny, with a high near 81. Southwest wind 1 to 6 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-08-26T07:00:00-04:00",
+      "temperature": 59,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "NW",
+      "shortForecast": "Patchy Fog",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-08-26T08:00:00-04:00",
       "temperature": 63,
@@ -268,16 +278,6 @@
     },
     {
       "startTime": "2026-08-27T06:00:00-04:00",
-      "temperature": 64,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "S",
-      "shortForecast": "Mostly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 9
-    },
-    {
-      "startTime": "2026-08-27T07:00:00-04:00",
       "temperature": 64,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
