@@ -4,10 +4,10 @@
       "name": "Tonight",
       "temperature": 59,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "NE",
+      "windSpeed": "2 mph",
+      "windDirection": "N",
       "shortForecast": "Areas Of Fog",
-      "detailedForecast": "Areas of fog after 11pm. Partly cloudy, with a low around 59. Northeast wind around 1 mph.",
+      "detailedForecast": "Areas of fog after 11pm. Partly cloudy, with a low around 59. North wind around 2 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-08-25T20:00:00-04:00",
-      "temperature": 70,
-      "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-08-25T21:00:00-04:00",
       "temperature": 68,
@@ -285,6 +275,16 @@
       "shortForecast": "Partly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 1
+    },
+    {
+      "startTime": "2026-08-26T20:00:00-04:00",
+      "temperature": 72,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "S",
+      "shortForecast": "Partly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
     }
   ]
 }
