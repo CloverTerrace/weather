@@ -3856,10 +3856,6 @@ svg circle, svg polygon, svg line {
     white-space: nowrap;
   }
 
-  /* was 0.78em, which computes against the *inherited* (parent) font
-     size -- on this tile that's the 1.4-1.85rem clamped value size, so
-     it was actually rendering around 1.1-1.4rem, bigger than the base
-     unit style it was meant to shrink from. Fixed rem value instead. */
   .glance-row.pressure-glance-row .unit {
     font-size: 0.58rem;
   }
@@ -4151,9 +4147,6 @@ svg circle, svg polygon, svg line {
     }
   }
 
-
-  /* larger screens web-page composition rather than a horizontally stretched phone/dashboard. 
-     the viewport may grow freely, but the information itself stays at a comfortable reading width. */
   #page-content {
     width: min(100%, 1320px);
     padding-inline: clamp(0.45rem, 1.5vw, 1.1rem);
@@ -5016,15 +5009,6 @@ svg circle, svg polygon, svg line {
 
   /* =================================================================
      🍀💜 VERY-LARGE-DESKTOP SCALE-UP ☀️⛅️🌩️
-     851px-1599px keeps every rule above untouched (byte-for-byte).
-     from 1600px up, #page-content is allowed to keep growing instead
-     of freezing at 1440px, and the container-query-driven type/icon
-     sizes in the sensor grid (plus the forecast/sky cards beside it)
-     are given room to keep climbing past their old ceiling so text
-     grows in step with the bigger tiles instead of going stale. every
-     rule here only raises a "max" clamp() bound -- the min/preferred
-     (cqw/vw) terms that do the actual smooth scaling are untouched,
-     so nothing here can make anything shrink.
      ================================================================= */
   @media (min-width: 1600px) {
     #page-content {
@@ -5356,12 +5340,7 @@ svg circle, svg polygon, svg line {
     .lightning-map-panel { inset: 0.1rem; }
   }
 
-  /* 🌩️ DESKTOP ONLY: make the lightning map full screen on desktop. mobile keeps its original inset:0 in-tile behavior above.
-  z-index note: leaflet's own panes/controls (used by the radar map
-     elsewhere on the page) go up to z-index:1000, and a modest z-index
-     on an ancestor here (.lightning-card) creates its own local stacking
-     context that traps a fixed descendant's z-index for comparison
-     against THAT ancestor's level, not the whole page */
+  /* 🌩️ DESKTOP ONLY: make the lightning map full screen on desktop. mobile keeps its original inset:0 in-tile behavior above.*/
   @media (min-width: 851px) {
     .desktop-left-rail #grid.grid .lightning-card.lightning-map-open {
       z-index: 5000 !important;
@@ -5841,17 +5820,10 @@ svg circle, svg polygon, svg line {
   const DATA_URL = `${DATA_REPO_BASE}/weather.json`;
   const REFRESH_INTERVAL_MS = 15 * 1000;
   const HISTORY_URL = `${DATA_REPO_BASE}/history.json`;
-  // path to the WU-sourced backup file (kept fresh independently by the
-  // worker on its own schedule -- used to backfill gaps in the weewx feed).
+  // path to the WU-sourced backup file
 
   const WU_BACKUP_URL = 'data/weather_wu.json';
-  // if the primary (weewx) feed is older than this, treat it as fully down
-  // rather than trying to patch individual fields -- use the WU record
-  // wholesale instead. Should be comfortably longer than both
-  // REFRESH_INTERVAL_MS and however often the WU worker itself runs.
   const PRIMARY_STALE_MS = 15 * 60 * 1000;
-
-  // fixed station identity for the header
   const STATION_CALLSIGN = 'GW7673';
   const STATION_CITY = 'Aliquippa';
 
@@ -6207,13 +6179,6 @@ svg circle, svg polygon, svg line {
     }
     if (!ext) return { max: {val: '--', time: null}, min: {val: '--', time: null} };
 
-    // history.json only gains a new entry once per weewx archive interval,
-    // and we only re-fetch it every 5 min (loadHistory) -- so a fresh spike
-    // already visible in the live "current" tile can be well ahead of
-    // whatever history/cache last captured. fold the live reading into the
-    // extremes here so peak/low never visibly lags behind what's already
-    // on screen; this self-corrects again once the real history entry
-    // catches up on the next fetch.
     const liveVal = data[fieldKey];
     if (liveVal !== undefined && liveVal !== null && !isNaN(liveVal)) {
         const liveTime = data.obsTimeLocal || new Date().toISOString();
@@ -6891,11 +6856,7 @@ svg circle, svg polygon, svg line {
   }
 
   // ---------- push notifications for severe alerts ----------
-  // Subscribes the browser to Web Push via a small Cloudflare Worker
-  // (see /push-worker in the repo). The worker just stores subscriptions
-  // in KV and fans out a send when the weather-data Action detects a new
-  // Watch/Warning/Mesoscale Discussion; VAPID keys and the send secret
-  // never touch this file.
+  // not operational yet
   const PUSH_WORKER_URL = 'REPLACE_WITH_YOUR_DEPLOYED_WORKER_URL'; // e.g. https://clover-weather-push.<you>.workers.dev
   const VAPID_PUBLIC_KEY = 'REPLACE_WITH_YOUR_VAPID_PUBLIC_KEY';
 
