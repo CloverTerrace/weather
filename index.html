@@ -68,6 +68,16 @@
     --muted-color: #ffffff;
     --font-family: Macondo, system-ui, -apple-system, sans-serif;
 
+    /* ---------- shared "accent frame" (Storm Center treatment) ----------
+       one place to define the tinted border, corner glow, and thin top
+       bar so every card/tile can reuse them and they all stay in sync
+       with whatever --accent-color the current theme sets. */
+    --card-accent-border: 1px solid color-mix(in srgb, var(--accent-color) 18%, rgba(255,255,255,0.09));
+    --card-corner-glow:
+      radial-gradient(circle at 8% -10%, color-mix(in srgb, var(--accent-color) 12%, transparent), transparent 48%),
+      radial-gradient(circle at 105% 115%, color-mix(in srgb, var(--accent-color) 7%, transparent), transparent 52%);
+    --card-top-bar: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+
     /* ---------- font customization ---------- */
     /* defaults to --font-family above.*/
     --font-page-title: Macondo, Palatino, serif;       /* "Clover Terrace Weather Station" at the very top */
@@ -449,7 +459,8 @@
   }
 
   .card {
-    background: var(--card-color);
+    background: var(--card-corner-glow), var(--card-color);
+    border: var(--card-accent-border);
     border-radius: 12px;
     padding: 1.25rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.25);
@@ -808,13 +819,25 @@
   }
 
   .chart-card {
-    background: var(--card-color);
+    position: relative;
+    overflow: hidden;
+    background: var(--card-corner-glow), var(--card-color);
+    border: var(--card-accent-border);
     border-radius: 12px;
     padding: 1.25rem;
     margin-top: 1.5rem;
     width: 100%;
     max-width: 900px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+
+  .chart-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-top-bar);
+    opacity: 0.7;
   }
 
   .chart-card h2 {
@@ -1755,14 +1778,19 @@
      them is a hairline divider rather than two separately-rounded boxes
      floating apart. Corners only round on the outside of the whole shape. */
   .charts-dropdown-body {
-    background: var(--card-color);
+    background: var(--card-corner-glow), var(--card-color);
+    border: var(--card-accent-border);
     border-radius: 0 0 12px 12px;
     padding: 1.25rem;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .charts-dropdown-header {
-    background: var(--card-color);
+    position: relative;
+    overflow: hidden;
+    background: var(--card-corner-glow), var(--card-color);
+    border: var(--card-accent-border);
+    border-bottom: none;
     border-radius: 12px 12px 0 0;
     padding: 1rem 1.25rem;
     font-weight: 600;
@@ -1771,6 +1799,15 @@
     letter-spacing: 0.05em;
     font-size: 0.9rem;
     font-family: var(--font-card-heading);
+  }
+
+  .charts-dropdown-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-top-bar);
+    opacity: 0.7;
   }
 
   /* one chart visible at a time -- switched via .chart-tabs, styled to
@@ -1819,10 +1856,15 @@
   .charts-dropdown .chart-card {
     display: none;
     background: transparent;
+    border: none;
     box-shadow: none;
     padding: 0;
     margin-top: 0;
     max-width: none;
+  }
+
+  .charts-dropdown .chart-card::before {
+    content: none;
   }
 
   .charts-dropdown .chart-card.active {
@@ -1990,7 +2032,10 @@
 
 /* -*-*-*-*- camera card -*-*-*-*- */ 
   .camera-card {
-    background: var(--card-color);
+    position: relative;
+    overflow: hidden;
+    background: var(--card-corner-glow), var(--card-color);
+    border: var(--card-accent-border);
     border-radius: 12px;
     padding: 1.25rem;
     margin-top: 1.5rem;
@@ -1998,6 +2043,15 @@
     max-width: 900px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.25);
     text-align: center;
+  }
+
+  .camera-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-top-bar);
+    opacity: 0.7;
   }
 
   .camera-card h2 {
@@ -4358,25 +4412,21 @@ svg circle, svg polygon, svg line {
   }
 
   /* 🌩️~*~*~*~*~🌩️ STORM CENTER 🌩️~*~*~*~*~🌩️ */
-  /* elevated "instrument panel" treatment -- this card is the dashboard's
-     primary hazard-monitoring surface, so it earns more visual weight than
-     a plain content card: a layered shadow for real depth, a faint
-     accent-tinted border and corner glow that track each theme's
-     --accent-color automatically, and a thin top accent bar. */
+  /* this card's accent-tinted border, corner glow, and thin top bar are
+     the same --card-accent-border / --card-corner-glow / --card-top-bar
+     treatment now shared by every card and tile on the page (this is
+     where it started). the old layered drop shadow was dropped -- it
+     fought the themed backgrounds instead of complementing them -- so
+     this card just gets a slightly bigger radius and left-aligned text
+     on top of the shared .camera-card frame. */
   .outlook-card {
     position: relative;
     text-align: left;
     overflow: hidden;
     border-radius: 16px;
-    background:
-      radial-gradient(circle at 8% -10%, color-mix(in srgb, var(--accent-color) 12%, transparent), transparent 48%),
-      radial-gradient(circle at 105% 115%, color-mix(in srgb, var(--accent-color) 7%, transparent), transparent 52%),
-      var(--card-color);
-    border: 1px solid color-mix(in srgb, var(--accent-color) 18%, rgba(255,255,255,0.09));
-    box-shadow:
-      0 16px 36px rgba(0,0,0,0.36),
-      0 3px 10px rgba(0,0,0,0.24),
-      inset 0 1px 0 rgba(255,255,255,0.06);
+    background: var(--card-corner-glow), var(--card-color);
+    border: var(--card-accent-border);
+    box-shadow: none;
   }
 
   .outlook-card::before {
@@ -4384,7 +4434,7 @@ svg circle, svg polygon, svg line {
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 3px;
-    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    background: var(--card-top-bar);
     opacity: 0.7;
   }
 
@@ -5198,7 +5248,7 @@ svg circle, svg polygon, svg line {
     inset: 0;
     width: 100%;
     height: 100%;
-    background: var(--card-color);
+    background: var(--card-corner-glow), var(--card-color);
     border-radius: 12px;
   }
 
@@ -5231,7 +5281,7 @@ svg circle, svg polygon, svg line {
     justify-content: flex-start;
     padding: 0.7rem;
     overflow: hidden;
-    background: var(--card-color);
+    background: var(--card-corner-glow), var(--card-color);
     box-shadow: 0 14px 34px rgba(0,0,0,0.28);
     opacity: 0;
     transform: translateX(16px);
