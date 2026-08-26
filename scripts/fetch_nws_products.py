@@ -81,6 +81,18 @@ NWS_RECENT_HOURS = 18
 MAX_MDS = 5
 MAX_NWS_UPDATES = 7
 
+# SPC mesoscale discussions are issued nationwide, so the recent-numbers
+# index page has to be scanned deeper than the final local list (MAX_MDS)
+# to find the handful, if any, that actually concern this station's WFO.
+# Recency short-circuits the scan (see fetch_mesoscale_discussions), so this
+# is a ceiling on worst-case fetches during a busy nationwide severe day,
+# not the typical number actually retrieved.
+MD_SCAN_POOL_SIZE = 20
+
+# fallback radius used only when an MD's ATTN...WFO... line can't be parsed
+# (rare) -- see md_is_local() below for why ATTN is the primary signal.
+MD_LOCAL_FALLBACK_MILES = 60
+
 BOILERPLATE_PATTERNS = [
     r"^\s*WEATHER SERVICE.*$",
     r"^\s*NATIONAL WEATHER SERVICE.*$",
@@ -448,6 +460,32 @@ def distance_to_md_polygon_miles(lat: float, lon: float, polygon: list[tuple[flo
     return round(best, 1)
 
 
+# A Mesoscale Discussion is only "local" to this dashboard's WFO if that WFO
+# is explicitly named in the product's own ATTN...WFO... line -- that's SPC
+# stating which forecast offices the discussion concerns, which is a far more
+# reliable signal than map distance: an MD's polygon is drawn around the
+# meteorological feature it's discussing, not the county warning area, so a
+# numerically "close" MD can still belong to a neighboring office's forecast
+# area, and a "far" polygon can still name this WFO in its ATTN line.
+MD_ATTN_WFO_RE = re.compile(r"\b([A-Z]{3})\b")
+
+
+def extract_attn_wfos(attn_text: str | None) -> list[str]:
+    if not attn_text:
+        return []
+    return [code for code in MD_ATTN_WFO_RE.findall(attn_text.upper()) if code != "WFO"]
+
+
+def md_is_local(item: dict) -> bool:
+    attn_wfos = item.get("attnWfos") or []
+    if attn_wfos:
+        return WFO in attn_wfos
+    # ATTN line missing or unparseable (rare) -- fall back to an approximate
+    # radius around the station rather than silently dropping the item.
+    distance = item.get("distanceMiles")
+    return distance is not None and distance <= MD_LOCAL_FALLBACK_MILES
+
+
 def parse_md(url: str, raw_html: str, number: int) -> dict:
     text = strip_html(raw_html)
     issued = parse_spc_datetime(text)
@@ -505,12 +543,18 @@ def parse_md(url: str, raw_html: str, number: int) -> dict:
         "summary": summary,
         "watchProbability": watch_probability,
         "forecaster": forecaster,
+        "attnWfos": extract_attn_wfos(attn),
         "details": details,
         "url": url,
         "office": "SPC",
     }
 
 def fetch_mesoscale_discussions(limit: int = MAX_MDS) -> list[dict]:
+    """Local-area Storm Center: SPC issues MDs nationwide, so this scans a
+    wider recent pool (MD_SCAN_POOL_SIZE) than the final count (limit) and
+    keeps only the ones that actually name this station's WFO -- see
+    md_is_local(). Most runs stop well short of the full pool thanks to the
+    recency break below, since the index is newest-first."""
     raw_index = fetch_text(SPC_MD_INDEX)
     links = []
     for match in re.finditer(r"(?:href=[\"'])([^\"']*md(\d{4})\.html)[\"']", raw_index, re.I):
@@ -518,26 +562,36 @@ def fetch_mesoscale_discussions(limit: int = MAX_MDS) -> list[dict]:
         number = int(number_raw)
         url = href if href.startswith("http") else urllib.parse.urljoin(SPC_MD_INDEX, href)
         links.append((number, url))
-    links = sorted({n: u for n, u in links}.items(), reverse=True)[:10]
+    links = sorted({n: u for n, u in links}.items(), reverse=True)[:MD_SCAN_POOL_SIZE]
 
     now = datetime.now(timezone.utc)
     items=[]
     for number, url in links:
         try:
             item=parse_md(url, fetch_text(url), number)
-            issued=item.get("issued")
-            expires=item.get("expires")
-            if expires:
-                exp=datetime.fromisoformat(expires.replace("Z","+00:00"))
-                if exp < now:
-                    continue
-            elif issued:
-                dt=datetime.fromisoformat(issued.replace("Z","+00:00"))
-                if dt < now - timedelta(hours=MD_RECENT_HOURS):
-                    continue
-            items.append(item)
         except Exception as exc:
             print(f"WARNING: failed to parse {url}: {exc}", file=sys.stderr)
+            continue
+
+        issued=item.get("issued")
+        expires=item.get("expires")
+        if expires:
+            exp=datetime.fromisoformat(expires.replace("Z","+00:00"))
+            if exp < now:
+                continue
+        elif issued:
+            dt=datetime.fromisoformat(issued.replace("Z","+00:00"))
+            if dt < now - timedelta(hours=MD_RECENT_HOURS):
+                # links are newest-first, so nothing further back in the
+                # pool can be recent enough either -- stop scanning.
+                break
+
+        if not md_is_local(item):
+            continue
+
+        items.append(item)
+        if len(items) >= limit:
+            break
     items.sort(key=lambda x: (x.get("issued") or "", x.get("number") or 0), reverse=True)
     return items[:limit]
 
