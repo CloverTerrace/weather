@@ -1,27 +1,8 @@
 {
-  "generatedAt": "2026-08-26T06:10:32.747072Z",
+  "generatedAt": "2026-08-26T06:15:34.728229Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
-    {
-      "id": "57d72156-7b08-40e2-b8ed-1b445ea95aa7",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-08-26T06:00:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... No significant changes were made to the latest forecast.",
-      "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... No significant changes were made to the latest forecast.",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 200 AM EDT Wed Aug 26 2026 .WHAT HAS CHANGED... No significant changes were made to the latest forecast. && .KEY MESSAGES..."
-        }
-      ],
-      "url": "https://api.weather.gov/products/57d72156-7b08-40e2-b8ed-1b445ea95aa7"
-    },
     {
       "id": "1f4690c7-6534-4f79-9887-3ce647bd1b18",
       "type": "Hazardous Weather Outlook",
@@ -44,6 +25,25 @@
         }
       ],
       "url": "https://api.weather.gov/products/1f4690c7-6534-4f79-9887-3ce647bd1b18"
+    },
+    {
+      "id": "57d72156-7b08-40e2-b8ed-1b445ea95aa7",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-08-26T06:00:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... No significant changes were made to the latest forecast.",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... No significant changes were made to the latest forecast.",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 200 AM EDT Wed Aug 26 2026 .WHAT HAS CHANGED... No significant changes were made to the latest forecast. && .KEY MESSAGES..."
+        }
+      ],
+      "url": "https://api.weather.gov/products/57d72156-7b08-40e2-b8ed-1b445ea95aa7"
     }
   ]
 }
