@@ -1,0 +1,5383 @@
+
+  
+  :root {
+    --bg-color: #000000;
+    --card-color: #333333;
+    --title-color: #ffffff;
+    --accent-color: #CEE5F2;
+    --text-color: #ffffff;
+    --muted-color: #ffffff;
+    --font-family: Macondo, system-ui, -apple-system, sans-serif;
+
+    /* ---------- shared "accent frame" (Storm Center treatment) ----------
+       one place to define the tinted border and corner glow so every
+       card/tile can reuse them and they all stay in sync with whatever
+       --accent-color the current theme sets. (a thin top gradient bar
+       lived here too at first, but got pulled site-wide -- it made an
+       inconsistent transition on mobile between tiles with/without it.) */
+    --card-accent-border: 1px solid color-mix(in srgb, var(--accent-color) 18%, rgba(255,255,255,0.09));
+    --card-corner-glow:
+      radial-gradient(circle at 8% -10%, color-mix(in srgb, var(--accent-color) 12%, transparent), transparent 48%),
+      radial-gradient(circle at 105% 115%, color-mix(in srgb, var(--accent-color) 7%, transparent), transparent 52%);
+
+    /* ---------- font customization ---------- */
+    /* defaults to --font-family above.*/
+    --font-page-title: Macondo, Palatino, serif;       /* "Clover Terrace Weather Station" at the very top */
+    --font-card-heading: Figtree, Tahoma, serif;       /* every card's section header — "Sky & Space", "SPC Convective Outlook", chart titles, etc. */
+    --font-body: Figtree, Tahoma, sans-serif;          /* general prose within cards outside the dashboard grid — subtitle, status line, forecast periods, alert banners, sun/moon details, sky badges */
+    --font-details: Figtree, Tahoma, sans-serif;       /* same tier as --font-body; secondary/finer print outside the dashboard grid */
+    --font-grid-label: Figtree, Tahoma, sans-serif;    /* ALL descriptive text inside the dashboard grid tiles — tile headers ("TEMPERATURE"), column labels ("FEELS LIKE"), captions ("actual 73.9°F", "strikes today"), context lines, peak/unit captions */
+    --font-grid-value: Figtree, Tahoma, sans-serif;    /* ALL numeric readouts inside the dashboard grid tiles — both the large "current" number and the smaller "peak"/secondary number beneath it. size is the only thing that differs between the two tiers; font + color stay the same */
+
+    /* ---------- grid tile color roles ---------- */
+    /* every dashboard tile (#grid.grid) draws its numbers from --value-color
+       and its descriptive text from --label-color, so both stay consistent
+       across every tile and every size tier (current vs. peak, heading vs.
+       caption) without needing per-card overrides. both default to existing
+       theme colors, so nothing changes visually until a theme overrides them. */
+    --value-color: var(--accent-color);                /* dashboard tile numbers — current value AND the smaller peak/secondary value beneath it */
+    --label-color: var(--muted-color);                  /* dashboard tile descriptive text — headings, column labels, captions, context lines */
+
+    /* soft ambient shadow shared by the page title and all icons */
+    --icon-shadow: drop-shadow(0 1px 2px rgba(0,0,0,0.16));
+  }
+
+  * { box-sizing: border-box; }
+
+  /* 💜 changes the default color for the tap-highlight flash on every tappable 
+  thing site-wide. can't reappear on any future tappable element. themed 
+  press feedback for the tiles that actually need touch confirmation lives on
+  .card-expandable and .lightning-map-trigger below. 💜 */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+
+  /* 🍀💜🌙 installed fonts (from dafont and google fonts) ❄️☔🌩️ */
+
+  /* macondo-regular - latin 🌈*/
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Macondo';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/macondo-v27-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+    /* groovy clouds - latin  🌥️*/
+@font-face {
+  font-display: swap;
+  font-family: 'Groovy Clouds';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Groovy Clouds.woff2') format('woff2'); 
+}
+
+  /* jelly choco - latin ☁️ */ 
+@font-face {
+  font-display: swap;
+  font-family: 'Jelly Choco';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/jellychoco.woff2') format('woff2'); 
+}
+  
+  /* figtree-regular - latin 🍀*/
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/figtree-v9-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+  /* lavishly-yours-regular - latin 🌙*/
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lavishly Yours';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/lavishly-yours-v7-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+  /* letter magic - latin ☀️*/
+@font-face {
+  font-display: swap;
+  font-family: 'Letter Magic';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Letter Magic.woff2') format('woff2'); 
+}
+
+    /* Monas - latin ☀️*/
+@font-face {
+  font-display: swap;
+  font-family: 'Monas';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Monas.woff2') format('woff2'); 
+}
+
+    /* nightwindsent - latin 🌙💨*/
+@font-face {
+  font-display: swap;
+  font-family: 'NightWindSent';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/NightWindSent.woff2') format('woff2'); 
+}
+
+/* sunny love - latin 🍀💜*/
+@font-face {
+  font-display: swap;
+  font-family: 'Sunny Love';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Sunny Love.woff2') format('woff2'); 
+}
+  
+    /* snowby - latin ❄️*/
+@font-face {
+  font-display: swap;
+  font-family: 'Snowby';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Snowby.woff2') format('woff2'); 
+}
+  
+  /* eagle-lake-regular - latin ☔*/
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Eagle Lake';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/eagle-lake-v26-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* tornado-regular - latin 🌪️*/
+@font-face {
+  font-display: swap;
+  font-family: 'Tornado';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Tornado Serif Font - Demo.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+  
+  body {
+    margin: 0;
+    padding: 2rem 1rem;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.6s ease;
+  }
+
+  h1 {
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+    font-family: var(--font-page-title);
+    color: var(--title-color);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.14);
+  }
+
+  .weather-icon-img {
+    height: 1.1em;
+    width: auto;
+    vertical-align: -0.15em;
+    filter: var(--icon-shadow);
+  }
+
+  .meteocon {
+    width: 1.1em;
+    height: 1.1em;
+    vertical-align: -0.15em;
+    margin-right: 0.15em;
+    object-fit: contain;
+  }
+
+  .card-icon {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    overflow: hidden;
+    vertical-align: -6px;
+    margin-right: 0.35em;
+    /* shadow lives on the container, not the cropped image inside it */
+    filter: var(--icon-shadow);
+  }
+
+  .card-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: scale(1.45);
+    transform-origin: center;
+  }
+
+  /* 🌙 NASA's dial-a-moon print images (the same source .sky-body-frame /
+     .moon-body-img use in the Sky & Space card below) are square photos
+     with a lot of built-in black padding around the actual moon disc.
+     a plain img at any size just shows that padding scaled up along with
+     it. same fix as .sky-body-frame: a fixed-size, clipped circular
+     frame with the image scaled up past its edges. more moon less border 🌙 */
+  .weather-icon-moon-frame {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     width: 1.25em;
+     height: 1.25em;
+     border-radius: 50%;
+     overflow: hidden;
+     object-position: center;
+     margin-right: 0.15em;
+     background: #050505;
+     box-shadow: 0 2px 8px rgba(0,0,0,0.24);
+   }
+
+  .weather-icon-moon-img {
+     display: block;
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     transform: scale(1.8);
+   }
+
+  #subtitle {
+    color: var(--muted-color);
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    font-family: var(--font-body);
+  }
+
+  .priority-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .priority-icon {
+    width: 34px;
+    height: 34px;
+    overflow: hidden;
+    flex: 0 0 34px;
+  }
+
+  .priority-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: scale(1.35);
+    transform-origin: center;
+  }
+
+  .priority-heading {
+    color: var(--label-color);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: var(--font-grid-label);
+  }
+
+  .priority-value {
+    font-size: 2.15rem !important;
+  }
+
+  .priority-glance-row {
+    align-items: center;
+  }
+
+  .priority-context {
+    margin-top: 0.8rem;
+    text-align: center;
+    color: var(--label-color);
+    font-size: 0.76rem;
+    line-height: 1.35;
+    font-family: var(--font-grid-label);
+  }
+
+  .priority-context span { opacity: 0.55; margin: 0 0.2rem; }
+
+  .priority-single-value {
+    text-align: center;
+  }
+
+  .wind-priority-row,
+  .pressure-priority-row,
+  .lightning-priority-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .wind-priority-metric,
+  .lightning-priority-row .priority-single-value {
+    flex: 1;
+    text-align: center;
+  }
+
+  /* wind tile front extra peak values */
+  .wind-metric-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--label-color);
+    margin-top: 2px;
+    font-family: var(--font-grid-label);
+  }
+
+  .wind-metric-peak {
+    margin-top: 0.45rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+  }
+
+  .wind-metric-peak-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--label-color);
+    opacity: 0.85;
+    font-family: var(--font-grid-label);
+  }
+
+  .wind-metric-peak-value {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--value-color);
+    font-family: var(--font-grid-value);
+  }
+
+  
+  .wind-card .wind-metric-peak-value .unit {
+    font-size: 0.44rem;
+    font-weight: 500;
+    margin-left: 1px;
+    color: var(--label-color);
+  }
+
+  .priority-compass { flex: 0 0 112px; }
+  .priority-dual-row .combo-col { flex: 1; text-align: center; }
+  .compact-storm-note { margin-top: 0.7rem; font-size: 0.76rem; }
+
+  @media (max-width: 560px) {
+    .priority-value { font-size: 1.9rem !important; }
+    .priority-compass { flex-basis: 92px; }
+    .wind-priority-row { gap: 0.4rem; }
+  }
+
+  @media (max-width: 850px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* combo grid system ☔
+  the weather cards use two independent vertical columns rather than a conventional CSS grid. 
+  prevents an expanded card from changing the vertical position of the card beside it. */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 900px;
+    align-items: start;
+  }
+
+  .grid-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .card {
+    background: var(--card-corner-glow), var(--card-color);
+    border: var(--card-accent-border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: stretch;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    container-type: inline-size;
+    container-name: card;
+  }
+
+  .card-expandable {
+    cursor: pointer;
+    outline: none;
+    position: relative;
+  }
+
+  .card-expandable:focus-visible {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 2px var(--accent-color);
+  }
+
+  .card-expandable::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--accent-color) 22%, transparent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    z-index: 2;
+  }
+
+  .card-expandable:active::after {
+    opacity: 1;
+    transition-duration: 0.05s;
+  }
+
+  /* hide site-wide: the hint text */
+  .card-expand-hint {
+    display: none;
+  }
+
+  .card-expand-panel {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.3s ease;
+  }
+
+  .combo-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .combo-col {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .extreme-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
+  }
+
+  .high-arrow { color: #ff8659; font-weight: bold; margin-right: 2px; }
+  .low-arrow { color: #4fc3f7; font-weight: bold; margin-right: 2px; }
+  /* the default arrow colors above are tuned for dark cards;
+     swap in deeper shades of the same hues just for themes marked light*/
+  .theme-light-card .high-arrow { color: #C1470F; }
+  .theme-light-card .low-arrow  { color: #0E6FA3; }
+  /* every hairline border / subtle panel tint is white, this changes section boundaries, dividers, and tab/item
+     outlines to a darker shade when needed depending on how light the active card color is. */
+  .ext-time { font-size: 0.7rem; color: var(--muted-color); opacity: 0.75; margin-top: 1px; line-height: 1; }
+  
+  .extra-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    color: var(--muted-color);
+    font-family: var(--font-body);
+  }
+
+  .extra-row span {
+    color: var(--accent-color);
+    font-weight: 600;
+  }
+
+  .card .label {
+    color: var(--label-color);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-grid-label);
+    text-align: center;
+  }
+
+  .card .value {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--value-color);
+    font-family: var(--font-grid-value);
+    text-align: center;
+  }
+
+  .card .unit {
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: var(--label-color);
+    margin-left: 0.15rem;
+    font-family: var(--font-grid-value);
+  }
+  
+/*-*-*-*- wind compass -*-*-*-*/
+  .wind-compass {
+    position: relative;
+    width: 100%;
+    max-width: 105px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+  }
+
+  .wind-compass-ring {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+  }
+
+  .wind-compass-arrow {
+    transition: transform 0.6s ease;
+  }
+
+  .wind-compass-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .wind-compass-degrees {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--value-color);
+    font-family: var(--font-grid-value);
+    line-height: 1;
+  }
+
+  .wind-compass-degrees .unit {
+    font-size: 1rem;
+  }
+
+  .wind-compass-cardinal {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--label-color);
+    margin-top: 0.3rem;
+    letter-spacing: 0.03em;
+    font-family: var(--font-grid-label);
+  }
+
+  .card-footer-metrics {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  font-family: var(--font-body);
+  color: var(--accent-color); 
+}
+
+.card-footer-metrics .metric-left { 
+  text-align: center; 
+  font-size: 0.75rem; 
+}
+
+.card-footer-metrics .metric-center { 
+  text-align: center; 
+  font-size: 1rem; 
+} 
+
+.card-footer-metrics .metric-right { 
+  text-align: center; 
+  font-size: 0.75rem; 
+}
+
+.card-footer-metrics span {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+  #status {
+    margin-top: 2rem;
+    color: var(--muted-color);
+    font-size: 0.85rem;
+    text-align: center;
+    font-family: var(--font-body);
+  }
+
+  #credits-footer {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+    color: var(--muted-color);
+    font-size: 0.75rem;
+    text-align: center;
+    font-family: var(--font-body);
+    opacity: 0.6;
+    max-width: 600px;
+  }
+
+  #credits-footer a {
+    color: inherit;
+  }
+
+  #theme-preview-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 200px;
+    font-size: 0.85rem;
+    user-select: none;
+  }
+
+  /* ---------- "link back" badge row ----------
+                badges made by me 🌪️ */
+  .footer-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 1.75rem;
+  }
+
+  .footer-badge-link {
+    display: inline-block;
+    line-height: 0;
+    border: 1px solid var(--muted-color);
+    opacity: 0.82;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  .footer-badge-link:hover,
+  .footer-badge-link:focus-visible {
+    opacity: 1;
+    transform: translateY(-1px);
+  }
+
+  .footer-badge-link img {
+    display: block;
+    height: 31px;      /* classic 88x31 webring-badge height -- width follows each badge's own aspect ratio */
+    width: auto;
+  }
+
+  /* ---------- hidden theme-preview easter egg ---------- */
+  /* tiny and low-opacity at rest -- meant to be found 
+     brightens on hover/focus/open. */
+  #theme-egg-trigger {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 500;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0.16;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  #theme-egg-trigger:hover,
+  #theme-egg-trigger:focus-visible,
+  #theme-egg-trigger.egg-open {
+    opacity: 0.9;
+    transform: scale(1.15);
+  }
+
+  #theme-preview-panel {
+    position: fixed;
+    right: 10px;
+    bottom: 48px;
+    z-index: 500;
+    background: var(--card-color);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 10px 12px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  #theme-preview-panel.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  #theme-preview-panel .theme-preview-hint {
+    font-size: 0.62rem;
+    color: var(--muted-color);
+    text-align: center;
+    margin: 0 0 6px;
+    opacity: 0.7;
+    font-family: var(--font-body);
+  }
+
+  .theme-preview-icon {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    overflow: hidden;
+    line-height: 28px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .theme-preview-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: scale(1.45);
+    transform-origin: center;
+  }
+
+  #error-banner {
+    display: none;
+    background: #4a1f1f;
+    color: #ffb4b4;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .chart-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--card-corner-glow), var(--card-color);
+    border: var(--card-accent-border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+
+  .chart-card h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    color: var(--muted-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: var(--font-card-heading);
+  }
+
+  /*~*~*~*~ aqi card ~*~*~*~*/
+  .aqi-category {
+    font-size: 0.44em;
+    display: block;
+  }
+
+  .aqi-summary {
+    font-family: var(--font-grid-label);
+    color: var(--label-color);
+  }
+
+  .aqi-scale-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .aqi-scale-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2px 2px;
+    font-family: var(--font-details);
+    font-size: 0.72rem;
+  }
+
+  .aqi-scale-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex: 0 0 8px;
+  }
+
+  .aqi-scale-range {
+    flex: 0 0 4.2em;
+    color: var(--muted-color);
+  }
+
+  .aqi-scale-label {
+    font-weight: 600;
+  }
+
+  .aqi-scale-legend {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+  }
+
+  .aqi-legend-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: clamp(0.56rem, 2.2cqw, 0.64rem);
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    white-space: nowrap;
+  }
+
+  /*-*-*-*- pressure card *-*-*-*/
+  .pressure-trend {
+    font-size: 0.85em;
+    margin-left: 0.25em;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+
+  .pressure-card .pressure-trend {
+    font-size: 0.85rem;
+    margin-left: 0.15em;
+  }
+
+  .pressure-card .pressure-trend .meteocon {
+    width: auto;
+    height: 1em;
+    margin-right: 0;
+  }
+
+  .trend-rising  { color: #6fcf97; }
+  .trend-falling { color: #ff7e67; }
+  .trend-steady  { color: var(--muted-color); }
+
+  .pressure-cape-spark {
+    width: 100%;
+    margin-top: 0.55rem;
+  }
+
+  .pc-sparkline {
+    display: block;
+    width: 100%;
+    height: 32px;
+  }
+
+  .pc-spark-line {
+    fill: none;
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .pc-spark-pressure { stroke: var(--accent-color); }
+  .pc-spark-cape { stroke: #ffb347; opacity: 0.85; }
+
+  /* ---------- "at a glance" priority row (temp / feels like / dew point) ---------- */
+  .glance-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .glance-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    text-align: center;
+  }
+
+  .glance-col + .glance-col {
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .glance-col .label {
+    font-size: 0.6rem;
+    white-space: nowrap;
+  }
+
+  .glance-sub {
+    font-size: 0.7rem;
+    color: var(--label-color);
+    margin-top: 2px;
+    font-family: var(--font-grid-label);
+  }
+
+  .glance-sub-label {
+    font-size: 0.8em;
+    opacity: 0.85;
+  }
+
+  .storm-note {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.78rem;
+    color: var(--muted-color);
+    font-family: var(--font-body);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .storm-note strong { color: var(--accent-color); }
+
+  /* ----------* expanded detail panels *----------*/
+  .detail-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .detail-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 1px;
+  }
+
+  .detail-panel-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.61rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-color);
+    opacity: 0.72;
+    font-family: var(--font-details);
+  }
+
+  .detail-panel-status::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    box-shadow: 0 0 7px var(--accent-color);
+    opacity: 0.75;
+  }
+
+  .detail-section {
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 9px;
+    background: rgba(255,255,255,0.018);
+    overflow: hidden;
+  }
+
+  .detail-section[open] {
+    background: rgba(255,255,255,0.028);
+  }
+
+  .detail-section > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 10px;
+    color: var(--text-color);
+    font-family: var(--font-details);
+    font-size: 0.67rem;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+    user-select: none;
+  }
+
+  .detail-section > summary::-webkit-details-marker { display: none; }
+
+  .detail-section > summary::after {
+    content: "＋";
+    color: var(--muted-color);
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+
+  .detail-section[open] > summary::after {
+    content: "−";
+  }
+
+  .detail-section > summary:hover {
+    background: rgba(255,255,255,0.025);
+  }
+
+  .detail-section-body {
+    padding: 0 8px 8px;
+  }
+
+  .extra-data-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .extra-data-row {
+    min-width: 0;
+    min-height: 43px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    padding: 7px 8px;
+    border: 1px solid rgba(255,255,255,0.055);
+    border-radius: 7px;
+    background: rgba(0,0,0,0.055);
+    font-family: var(--font-body);
+  }
+
+  .extra-data-label {
+    color: var(--muted-color);
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    font-size: 0.66rem;
+    line-height: 1.15;
+  }
+
+  .extra-data-value {
+    color: var(--accent-color);
+    font-weight: 600;
+    text-align: left;
+    font-size: 0.82rem;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    hyphens: auto;
+    text-wrap: pretty;
+  }
+
+  .extra-data-note {
+    font-size: 0.68rem;
+    color: var(--muted-color);
+    opacity: 0.82;
+    margin: 2px 3px 0;
+    font-family: var(--font-details);
+    line-height: 1.45;
+  }
+
+  .detail-rule {
+    height: 1px;
+    margin: 1px 3px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.09), transparent);
+  }
+
+  /* ---------- tile-back visual components ----------*/
+
+  .gauge-bar { padding: 2px 2px 0; }
+  .gauge-bar + .gauge-bar { margin-top: 10px; }
+
+  .gauge-bar-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+
+  .gauge-bar-label {
+    font-size: clamp(0.58rem, 2.4cqw, 0.66rem);
+    color: var(--muted-color);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-family: var(--font-details);
+    line-height: 1.2;
+  }
+
+  .gauge-bar-value {
+    font-size: clamp(0.68rem, 3cqw, 0.8rem);
+    font-weight: 700;
+    font-family: var(--font-body);
+    color: var(--value-color);
+    line-height: 1.2;
+    text-align: right;
+  }
+
+  .gauge-bar-track {
+    position: relative;
+    height: 8px;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.07);
+  }
+
+  .gauge-bar-marker {
+    position: absolute;
+    top: 50%;
+    width: 3px;
+    height: 16px;
+    background: #fff;
+    border-radius: 2px;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.55), 0 0 5px rgba(0,0,0,0.55);
+  }
+
+  .gauge-bar-scale {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+    font-size: clamp(0.52rem, 2.1cqw, 0.6rem);
+    color: var(--muted-color);
+    opacity: 0.85;
+    font-family: var(--font-details);
+    line-height: 1.2;
+  }
+
+  .bar-compare-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .bar-compare-row {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .bar-compare-label {
+    flex: 0 0 auto;
+    width: clamp(2.6rem, 15cqw, 3.7rem);
+    font-size: clamp(0.56rem, 2.3cqw, 0.64rem);
+    color: var(--muted-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: var(--font-details);
+  }
+
+  .bar-compare-track {
+    flex: 1 1 auto;
+    height: 9px;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.065);
+    overflow: hidden;
+    min-width: 18px;
+  }
+
+  .bar-compare-fill {
+    height: 100%;
+    border-radius: 5px;
+    min-width: 3px;
+  }
+
+  .bar-compare-value {
+    flex: 0 0 auto;
+    font-size: clamp(0.6rem, 2.6cqw, 0.7rem);
+    font-weight: 700;
+    color: var(--accent-color);
+    min-width: clamp(2.6rem, 15cqw, 3.6rem);
+    text-align: right;
+    font-family: var(--font-body);
+  }
+
+  .stat-chip-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .stat-chip {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    border-radius: 7px;
+    border: 1px solid rgba(255,255,255,0.055);
+    background: rgba(0,0,0,0.055);
+  }
+
+  .stat-chip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex: 0 0 8px;
+  }
+
+  .stat-chip-text {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .stat-chip-label {
+    display: block;
+    font-size: clamp(0.54rem, 2.2cqw, 0.6rem);
+    color: var(--muted-color);
+    line-height: 1.15;
+    font-family: var(--font-details);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .stat-chip-value {
+    display: block;
+    font-size: clamp(0.66rem, 2.8cqw, 0.78rem);
+    font-weight: 700;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+    color: var(--value-color);
+  }
+
+  .wind-back-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+
+  .wind-back-compass {
+    width: clamp(100px, 58cqw, 140px);
+  }
+
+  .wind-back-compass .wind-compass {
+    max-width: 100%;
+  }
+
+  .wind-back-compass .wind-compass-degrees {
+    font-size: clamp(0.9rem, 7.5cqw, 1.25rem);
+  }
+
+  .wind-back-compass .wind-compass-cardinal {
+    font-size: clamp(0.6rem, 4.8cqw, 0.8rem);
+    margin-top: 0.15rem;
+  }
+
+  @container card (max-width: 190px) {
+    .bar-compare-row {
+      flex-wrap: wrap;
+      row-gap: 2px;
+    }
+    .bar-compare-label {
+      width: auto;
+      flex: 1 1 auto;
+      order: 1;
+    }
+    .bar-compare-value {
+      order: 2;
+      min-width: auto;
+    }
+    .bar-compare-track {
+      order: 3;
+      flex: 1 1 100%;
+    }
+    .gauge-bar-head { gap: 0.2rem; }
+    .stat-chip-row { gap: 4px; }
+    .wind-back-compass {
+      width: clamp(84px, 52cqw, 112px);
+    }
+  }
+
+
+  /* ----------🌪️🌩️ SPC / NWS live storm desk 🌪️🌩️---------- */
+  .nws-card {
+    background: var(--card-color);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+
+  .nws-card h2 {
+    margin: 0 0 0.9rem;
+    font-size: 1rem;
+    color: var(--muted-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: var(--font-card-heading);
+    text-align: center;
+  }
+
+  /* compact status strip: three related information sources, one visual group. */
+  .nws-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 0.9rem;
+  }
+
+  .nws-tab {
+    min-width: 0;
+    min-height: 48px;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.065);
+    color: var(--muted-color);
+    padding: 7px 8px;
+    border-radius: 10px;
+    font-size: 0.67rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+
+  .nws-tab:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .nws-tab .nws-tab-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .nws-tab-label-short { display: none; }
+
+  .nws-tab .nws-tab-count {
+    flex: 0 0 auto;
+    min-width: 20px;
+    background: rgba(0,0,0,0.16);
+    border-radius: 999px;
+    padding: 2px 6px;
+    font-size: 0.61rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .nws-tab.active {
+    background: rgba(255,255,255,0.075);
+    border-color: rgba(255,255,255,0.13);
+    color: var(--text-color);
+    font-weight: 600;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+
+  .nws-panel { display: none; }
+  .nws-panel.active { display: block; }
+
+  .nws-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .nws-item {
+    position: relative;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.055);
+    border-radius: 10px;
+    padding: 10px 11px;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .nws-item:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.09);
+  }
+
+  .nws-item.expanded {
+    background: rgba(255,255,255,0.045);
+  }
+
+  .nws-item-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+  }
+
+  .nws-item-icon {
+    flex-shrink: 0;
+    width: 27px;
+    height: 27px;
+    overflow: hidden;
+    margin-top: 1px;
+    opacity: 0.92;
+    /* shadow on the container so it isn't clipped by the crop below */
+    filter: var(--icon-shadow);
+  }
+
+  .nws-item-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: scale(1.35);
+    transform-origin: center;
+  }
+
+  .nws-item-body { flex: 1; min-width: 0; }
+
+  .nws-item-title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .nws-item-title {
+    min-width: 0;
+    font-weight: 600;
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    line-height: 1.25;
+  }
+
+  .nws-item-title-tags {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nws-item-age {
+    flex: 0 0 auto;
+    color: var(--muted-color);
+    opacity: 0.7;
+    font-family: var(--font-details);
+    font-size: 0.61rem;
+  }
+
+  .nws-prob-badge {
+    flex: 0 0 auto;
+    background: rgba(255,179,71,0.16);
+    color: #ffb347;
+    border: 1px solid rgba(255,179,71,0.35);
+    border-radius: 9px;
+    padding: 1px 6px;
+    font-family: var(--font-details);
+    font-size: 0.6rem;
+    white-space: nowrap;
+  }
+
+  .nws-item-summary {
+    font-size: 0.77rem;
+    color: var(--muted-color);
+    font-family: var(--font-body);
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+
+  .nws-item { text-align: left; }
+
+  .nws-headline {
+    margin-top: 8px;
+    padding-left: 10px;
+    border-left: 3px solid currentColor;
+  }
+
+  .nws-badge-tor    .nws-headline { color: #ff5b5b; }
+  .nws-badge-severe .nws-headline { color: #ffb347; }
+  .nws-badge-flood  .nws-headline { color: #5ba8ff; }
+  .nws-badge-winter .nws-headline { color: #cfe8ff; }
+  .nws-badge-other  .nws-headline { color: var(--muted-color); }
+
+  .nws-headline-label {
+    color: inherit;
+    opacity: 0.8;
+    font-family: var(--font-details);
+    font-size: 0.56rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 2px;
+  }
+
+  .nws-headline-value {
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.92rem;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+  }
+
+  .nws-meta-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    row-gap: 4px;
+    margin-top: 9px;
+    font-family: var(--font-details);
+    font-size: 0.68rem;
+    color: var(--muted-color);
+  }
+
+  .nws-meta-item strong { color: var(--text-color); font-weight: 600; }
+  .nws-meta-dot { margin: 0 7px; opacity: 0.4; }
+  .nws-meta-remaining.urgent strong { color: #ff5b5b; }
+  .nws-meta-remaining.soon strong { color: #ffb347; }
+
+  .nws-time-bar {
+    margin-top: 6px;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+  }
+
+  .nws-time-bar-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: currentColor;
+    opacity: 0.8;
+  }
+
+  .nws-location {
+    margin-top: 10px;
+    padding-top: 9px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .nws-location-label {
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    font-size: 0.56rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 3px;
+    opacity: 0.85;
+  }
+
+  .nws-location-text {
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-size: 0.76rem;
+    line-height: 1.5;
+    opacity: 0.92;
+    overflow-wrap: break-word;
+  }
+
+  .theme-light-card .nws-time-bar { background: rgba(0,0,0,0.08); }
+  .theme-light-card .nws-location { border-top-color: rgba(0,0,0,0.09); }
+  .nws-item-summary { display: none; }
+
+  .nws-item-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.62rem;
+    color: var(--accent-color);
+    opacity: 0.72;
+    margin-top: 6px;
+    font-family: var(--font-details);
+  }
+
+  .nws-item-hint::after { content: '＋'; }
+  .nws-item.expanded .nws-item-hint::after { content: '−'; }
+
+  .nws-item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-3px);
+    transition: max-height 0.35s ease, opacity 0.22s ease, transform 0.22s ease, margin-top 0.3s ease, padding-top 0.3s ease;
+  }
+
+  .nws-item.expanded .nws-item-details {
+    max-height: 2400px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  /* forecaster prose reads as running text with a quiet rail, not a boxed
+     card -- it should feel like reading, not like more instrument boxes. */
+  .nws-detail-block {
+    min-width: 0;
+    padding-left: 9px;
+    border-left: 2px solid rgba(255,255,255,0.12);
+  }
+
+  .nws-detail-label {
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 3px;
+  }
+
+  .nws-detail-text {
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-size: 0.76rem;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+
+  .theme-light-card .nws-detail-block { border-left-color: rgba(0,0,0,0.14); }
+
+  .nws-item-link {
+    display: inline-flex;
+    margin-top: 7px;
+    font-size: 0.66rem;
+    color: var(--accent-color);
+    opacity: 0.8;
+  }
+
+  .nws-empty {
+    text-align: center;
+    color: var(--muted-color);
+    font-size: 0.78rem;
+    font-family: var(--font-body);
+    padding: 1.25rem 0;
+    opacity: 0.75;
+  }
+
+  .nws-badge-tor    { border-left: 3px solid #ff5b5b; }
+  .nws-badge-severe { border-left: 3px solid #ffb347; }
+  .nws-badge-flood  { border-left: 3px solid #5ba8ff; }
+  .nws-badge-winter { border-left: 3px solid #cfe8ff; }
+  .nws-badge-other  { border-left: 3px solid var(--muted-color); }
+
+  .storm-desk-livebar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 0 0 0.8rem;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    font-size: 0.62rem;
+  }
+
+  .storm-desk-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .storm-desk-live::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    box-shadow: 0 0 7px var(--accent-color);
+    opacity: 0.8;
+  }
+
+  @media (max-width: 520px) {
+    .nws-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+    .nws-tab { min-height: 43px; padding: 6px 4px; font-size: 0.61rem; gap: 3px; }
+    .nws-tab .card-icon { display: none; }
+    .nws-tab .nws-tab-count { min-width: 18px; padding: 1px 4px; font-size: 0.57rem; }
+    .nws-tab-label-full { display: none; }
+    .nws-tab-label-short { display: inline; }
+    .nws-item-title-row { display: block; }
+    .nws-item-title-tags { display: flex; margin-top: 2px; }
+    .storm-desk-divider { margin: 0.85rem 0 0.75rem; }
+    .nws-empty { padding: 0.85rem 0; }
+
+    .outlook-section-label { font-size: 0.67rem; margin-bottom: 0.45rem; }
+    .outlook-category-tabs { gap: 5px; margin-bottom: 0.65rem; }
+    .outlook-category-tab { padding: 8px 5px; font-size: 0.67rem; }
+    .outlook-viewport { min-height: 150px; }
+    .outlook-slide img, .thunderstorm-primary-slide img { max-height: 58vh; border-radius: 6px; }
+    .outlook-thumb, .thunderstorm-thumb { flex-basis: 104px; }
+    .outlook-thumb-label, .thunderstorm-thumb-label { font-size: 0.61rem; }
+    .outlook-nav-hint { font-size: 0.58rem; }
+    .outlook-card .outlook-note { font-size: 0.61rem; margin-top: 0.45rem; }
+  }
+
+/* ---*---*--- historical charts ---*---*--- */
+.charts-dropdown {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 1.5rem;
+  }
+
+  /* header + body are one continuous card: no gap, and the seam between
+     them is a hairline divider rather than two separately-rounded boxes
+     floating apart. Corners only round on the outside of the whole shape. */
+  .charts-dropdown-body {
+    background: var(--card-corner-glow), var(--card-color);
+    border: var(--card-accent-border);
+    border-radius: 0 0 12px 12px;
+    padding: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .charts-dropdown-header {
+    position: relative;
+    overflow: hidden;
+    background: var(--card-corner-glow), var(--card-color);
+    border: var(--card-accent-border);
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+    color: var(--muted-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.9rem;
+    font-family: var(--font-card-heading);
+  }
+
+  /* one chart visible at a time -- switched via .chart-tabs, styled to
+     match the existing .map-tabs / .map-tab pattern used by the radar
+     card so this doesn't read as a separate, bolted-on control. */
+  .chart-tabs {
+    display: flex;
+    /* left-aligned, not centered: with 6 tabs this row overflows at
+       mobile widths, and centering overflowing flex content leaves
+       scrollLeft:0 already past the true start -- the first tab stays
+       clipped with no way to scroll back to it. flex-start keeps the
+       scrollable range's zero point at the actual first tab. */
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: clamp(0.3rem, 1.5vw, 0.5rem);
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .chart-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chart-tab {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    padding: 0.5rem clamp(0.5rem, 3vw, 0.9rem);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: clamp(0.68rem, 3vw, 0.8rem);
+    font-weight: 600;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+
+  .chart-tab.active {
+    background: var(--bg-color);
+    font-family: var(--font-body);
+    color: #e4e8eb;
+  }
+
+  .charts-dropdown .chart-card {
+    display: none;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin-top: 0;
+    max-width: none;
+  }
+
+  .charts-dropdown .chart-card.active {
+    display: block;
+  }
+
+  .chart-wrap {
+    position: relative;
+    height: 300px;
+  }
+
+  body.theme-extreme-heat .card {
+    background:
+      linear-gradient(145deg, color-mix(in srgb, var(--accent-color) 5.5%, transparent), transparent 58%),
+      var(--card-color);
+    border: 1px solid color-mix(in srgb, var(--accent-color) 7.5%, transparent);
+    box-shadow:
+      0 3px 12px rgba(32, 12, 7, 0.28),
+      0 0 22px color-mix(in srgb, var(--accent-color) 2.5%, transparent);
+  }
+
+  body.theme-extreme-heat-night .card {
+    background:
+      linear-gradient(145deg, color-mix(in srgb, var(--accent-color) 4.5%, transparent), transparent 58%),
+      var(--card-color);
+    border: 1px solid color-mix(in srgb, var(--accent-color) 6.5%, transparent);
+    box-shadow:
+      0 3px 14px rgba(0, 0, 0, 0.32),
+      0 0 24px color-mix(in srgb, var(--accent-color) 2%, transparent);
+  }
+
+  /* soft ambient warmth rather than a saturated orange glow. */
+  body.theme-extreme-heat #weather-fx::after,
+  body.theme-extreme-heat-night #weather-fx::after {
+    content: "";
+    position: absolute;
+    inset: -15%;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 50% 8%, color-mix(in srgb, var(--accent-color) 5.5%, transparent), transparent 42%),
+      radial-gradient(circle at 15% 85%, color-mix(in srgb, var(--accent-color) 4%, transparent), transparent 36%),
+      radial-gradient(circle at 88% 78%, color-mix(in srgb, var(--accent-color) 3.5%, transparent), transparent 34%);
+    mix-blend-mode: screen;
+    opacity: 0.72;
+    animation: heat-ember-breathe 8s ease-in-out infinite;
+  }
+
+  body.theme-extreme-heat-night #weather-fx::after {
+    background:
+      radial-gradient(circle at 50% 10%, color-mix(in srgb, var(--accent-color) 4.5%, transparent), transparent 40%),
+      radial-gradient(circle at 18% 82%, color-mix(in srgb, var(--accent-color) 3.5%, transparent), transparent 36%),
+      radial-gradient(circle at 86% 78%, color-mix(in srgb, var(--accent-color) 3%, transparent), transparent 34%);
+  }
+
+  @keyframes heat-ember-breathe {
+    0%, 100% { transform: scale(1); opacity: 0.62; }
+    50%      { transform: scale(1.02); opacity: 0.78; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body.theme-extreme-heat #weather-fx::after,
+    body.theme-extreme-heat-night #weather-fx::after {
+      animation: none;
+    }
+  }
+
+  /* ---------- footer actions area (clouds) ---------- */
+  .footer-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .cloud-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: #4a5a6a;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.55rem 1.6rem;
+    border-radius: 999px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: transform 0.2s ease, opacity 0.3s ease;
+    z-index: 1; /* context for puffs */
+  }
+
+  .cloud-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
+  
+  .cloud-btn:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  .cloud-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .cloud-btn::before,
+  .cloud-btn::after {
+    content: '';
+    position: absolute;
+    background: #ffffff;
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  /* refresh button cloud shape */
+  #refresh-btn::before {
+    width: 34px; height: 34px;
+    top: -14px; left: 20px;
+  }
+  #refresh-btn::after {
+    width: 24px; height: 24px;
+    top: -8px; right: 24px;
+    box-shadow: -20px -8px 0 -2px #ffffff; /* tiny third puff */
+  }
+
+  /* share button cloud shape */
+  #share-btn::before {
+    width: 28px; height: 28px;
+    top: -12px; left: 16px;
+  }
+  #share-btn::after {
+    width: 20px; height: 20px;
+    top: -6px; right: 18px;
+  }
+
+  /* -*-*-*- visitor counter -*-*-* */
+  .visitor-cloud {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: #4a5a6a;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.55rem 1.6rem;
+    border-radius: 999px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+  }
+
+  .visitor-cloud-puff {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 50%;
+  }
+
+  #visitor-count-text {
+    position: relative;
+  }
+
+/* -*-*-*-*- camera card -*-*-*-*- */ 
+  .camera-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--card-corner-glow), var(--card-color);
+    border: var(--card-accent-border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    text-align: center;
+  }
+
+  .camera-card h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    color: var(--muted-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: var(--font-card-heading);
+  }
+
+  .camera-card img {
+    max-width: 100%;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .camera-mobile-timelapse-video {
+    display: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: 8px;
+    background: #000;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+  }
+
+  .camera-mobile-timelapse-btn {
+    display: none;
+    width: min(100%, 22rem);
+    margin: 0.85rem auto 0;
+    padding: 0.8rem 1.1rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--accent-color, #6b8fb3);
+    color: #fff;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+  }
+
+  .camera-mobile-timelapse-btn:hover,
+  .camera-mobile-timelapse-btn:focus-visible {
+    filter: brightness(1.06);
+    outline: none;
+  }
+/* ~*~*~*~*~ dashboard grid ~*~*~*~*~ */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 1.5rem;
+  }
+
+    .dashboard-grid > * {
+    margin-top: 0 !important; 
+  }
+
+  @media (min-width: 900px) {
+    #page-content {
+      max-width: 1400px;
+    }
+  }
+
+  @media (min-width: 1800px) {
+    #page-content {
+      max-width: 1800px;
+    }
+
+    .dashboard-grid {
+      max-width: 1800px;
+    }
+
+    .grid {
+      max-width: 1800px;
+    }
+  }
+/* *-*-*-* ☀️ forecast card 🌩️ *-*-*-* */
+.forecast-periods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .forecast-period {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .forecast-period .period-name {
+    font-weight: 600;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    margin-bottom: 0.4rem;
+  }
+
+  .forecast-period .period-temp-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .forecast-period .period-temp {
+    font-size: 1.4rem;
+    color: var(--accent-color);
+    font-family: var(--font-grid-value);
+    font-weight: 700;
+  }
+
+  .forecast-period .period-short {
+    color: var(--text-color);
+    font-family: var(--font-details);
+    margin-bottom: 0.3rem;
+  }
+
+  .forecast-period .period-wind {
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    font-size: 0.85rem;
+  }
+
+  .forecast-period .period-pop {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: #5b9fd9;
+    font-family: var(--font-details);
+    font-size: 0.8rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .forecast-period .period-pop .pop-icon { width: 13px; height: 13px; opacity: 0.9; }
+
+  /* ---------- ☀️ hourly strip + flip-to-4-panel-outlook 🌧️ ----------*/
+  .forecast-card.forecast-expandable {
+    cursor: pointer;
+    border-radius: 12px;
+  }
+
+  .forecast-card.forecast-expandable:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+  }
+
+  .forecast-flip-back { display: none; }
+  .forecast-card.forecast-flipped .forecast-flip-front { display: none; }
+  .forecast-card.forecast-flipped .forecast-flip-back { display: block; }
+
+  .forecast-flip-hint {
+    text-align: center;
+    font-family: var(--font-details);
+    color: var(--muted-color);
+    font-size: 0.72rem;
+    opacity: 0.7;
+    margin-top: 0.6rem;
+    cursor: pointer;
+  }
+
+  .forecast-hourly-strip {
+    display: flex;
+    gap: 0.6rem;
+    overflow-x: auto;
+    padding: 0.1rem 0.1rem 0.5rem;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .forecast-hour {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: 62px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    padding: 0.55rem 0.3rem 0.5rem;
+  }
+
+  .forecast-hour .hour-label {
+    font-family: var(--font-details);
+    color: var(--muted-color);
+    font-size: 0.68rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .forecast-hour .card-icon img { width: 26px; height: 26px; }
+
+  .forecast-hour .hour-temp {
+    font-family: var(--font-grid-value);
+    color: var(--accent-color);
+    font-weight: 700;
+    font-size: 1rem;
+    margin: 0.25rem 0 0.15rem;
+  }
+
+  .forecast-hour .hour-pop {
+    font-family: var(--font-details);
+    color: var(--muted-color);
+    font-size: 0.66rem;
+    min-height: 1em;
+  }
+
+  .forecast-hour .hour-pop.has-pop { color: #5b9fd9; font-weight: 600; }
+
+  @media (max-width: 850px) {
+    .forecast-hour { width: 56px; }
+  }
+
+  /*  🗺️ radar & forecast map 🌧️ */
+  .map-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: clamp(0.3rem, 1.5vw, 0.5rem);
+    margin-bottom: 1rem;
+    /* Safety net, not the primary fix -- the clamp() sizing below is
+       meant to let all tabs fit on one row on their own. This just means
+       an extra tab (or a very narrow/zoomed device) scrolls instead of
+       wrapping onto a second row and breaking the card's height. */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .map-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .map-tab {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    padding: 0.5rem clamp(0.55rem, 3vw, 1rem);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: clamp(0.72rem, 3vw, 0.85rem);
+    font-weight: 600;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+
+  .map-tab.active {
+    background: var(--bg-color);
+    font-family: var(--font-body);
+    color: #e4e8eb;
+  }
+
+  .map-panel {
+    display: none;
+  }
+
+  .map-panel.active {
+    display: block;
+  }
+
+  .map-panel iframe,
+  .rainviewer-map {
+    width: 100%;
+    height: 420px;
+    border: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--card-color);
+  }
+
+  .map-attribution {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+  }
+
+  .radar-frame-time {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--muted-color);
+    text-align: center;
+  }
+
+  /* live radar controls -- product toggle (reflectivity/velocity), overlay
+     toggles (warnings/lightning/settings), and the frame scrubber. Reuses
+     the .quake-range-btn look for visual consistency with the other tab. */
+  .radar-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .radar-product-toggle {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .radar-product-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    padding: 0.35rem 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .radar-product-btn.active {
+    background: var(--bg-color);
+    color: #e4e8eb;
+  }
+
+  .radar-overlay-toggles {
+    display: flex;
+    gap: 0.35rem;
+    position: relative;
+  }
+
+  .radar-overlay-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: var(--muted-color);
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    line-height: 1;
+  }
+
+  .radar-overlay-btn[aria-pressed="true"] {
+    background: var(--bg-color);
+    color: #e4e8eb;
+  }
+
+  .radar-settings-panel {
+    display: none;
+    position: absolute;
+    top: 2.2rem;
+    right: 0;
+    z-index: 20;
+    background: var(--card-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.6rem 0.8rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    min-width: 160px;
+  }
+
+  .radar-settings-panel.open {
+    display: block;
+  }
+
+  .radar-settings-panel label {
+    display: block;
+    font-family: var(--font-details);
+    font-size: 0.7rem;
+    color: var(--muted-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .radar-settings-panel label:last-child {
+    margin-bottom: 0;
+  }
+
+  .radar-settings-panel input[type="range"] {
+    width: 100%;
+    margin-top: 0.3rem;
+  }
+
+  .radar-scrubber {
+    width: 100%;
+    margin-top: 0.5rem;
+    cursor: pointer;
+  }
+
+  .radar-scrubber:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .radar-site-marker-icon {
+    font-size: 1.1rem;
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.7));
+  }
+
+  .radar-warning-popup {
+    font-family: var(--font-details);
+    font-size: 0.8rem;
+    max-width: 220px;
+  }
+
+  .radar-warning-popup strong {
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  /* 🌍 earthquakes tab — reuses .rainviewer-map for map sizing and
+     .radar-frame-time for the caption line, same as the radar panel. */
+  .quake-range-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .quake-range-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    padding: 0.35rem 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .quake-range-btn.active {
+    background: var(--bg-color);
+    color: #e4e8eb;
+  }
+
+  .quake-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    font-family: var(--font-details);
+    font-size: 0.72rem;
+    color: var(--muted-color);
+  }
+
+  .quake-legend-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.3rem;
+    vertical-align: middle;
+  }
+
+  .quake-popup-mag {
+    font-family: var(--font-grid-value);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-color);
+  }
+
+  .quake-popup-place {
+    font-family: var(--font-details);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 2px 0 4px;
+  }
+
+  .quake-popup-meta {
+    font-family: var(--font-details);
+    font-size: 0.75rem;
+    color: var(--muted-color);
+    line-height: 1.5;
+  }
+
+  /* themed leaflet popups — only the quake map uses popups so far, the
+     radar/lightning maps don't, hence no existing rule to build on. */
+  .leaflet-popup-content-wrapper {
+    background: var(--card-color);
+    color: var(--text-color);
+    border-radius: 8px;
+  }
+
+  .leaflet-popup-tip {
+    background: var(--card-color);
+  }
+
+  .leaflet-popup-content a {
+    color: var(--accent-color);
+  }
+
+  /* leaflet zoom control — reskinned to follow the active theme instead
+     of its default white-box look, so it stays legible across both the
+     light and dark card themes. */
+  .leaflet-control-zoom {
+    border: none !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .leaflet-control-zoom a,
+  .leaflet-control-zoom a:link,
+  .leaflet-control-zoom a:visited {
+    background: var(--card-color) !important;
+    color: var(--text-color) !important;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.3) !important;
+  }
+
+  .leaflet-control-zoom a:last-child {
+    border-bottom: none !important;
+  }
+
+  .leaflet-control-zoom a:hover {
+    background: var(--accent-color) !important;
+    color: var(--bg-color) !important;
+  }
+
+  
+/* -*-*-*-*- historical chart data range -*-*-*-*- */ 
+.range-buttons {
+    display: flex;
+    justify-content: center;
+    font-family: var(--font-details);
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .range-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: var(--muted-color);
+    padding: 0.35rem 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .range-btn.active {
+    background: var(--bg-color);
+    color: #e4e8eb;
+  }
+
+  @media (max-width: 480px) {
+    .range-buttons {
+      gap: 0.3rem;
+    }
+
+    .range-btn {
+      padding: 0.3rem 0.55rem;
+      font-size: 0.7rem;
+    }
+  }
+  
+  .outlook-section-label {
+    color: var(--muted-color);
+    font-family: var(--font-card-heading);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    text-align: left;
+    margin: 0 0 0.55rem;
+    opacity: 0.9;
+  }
+  
+
+  /* ---------- SPC outlook viewer ---------- */
+  .outlook-scroll {
+    position: relative;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    scrollbar-width: none;
+    border-radius: 10px;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+  }
+
+  .outlook-scroll::-webkit-scrollbar { display: none; }
+
+  .outlook-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    text-align: center;
+    min-width: 0;
+  }
+
+  .outlook-viewport {
+    width: 100%;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  .outlook-slide img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 62vh;
+    object-fit: contain;
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+
+  .outlook-current-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin: 0 0 0.45rem;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .outlook-current-label::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    box-shadow: 0 0 7px var(--accent-color);
+    opacity: 0.8;
+  }
+
+  .outlook-thumbnails {
+    display: flex;
+    gap: 0.65rem;
+    width: 100%;
+    overflow-x: auto;
+    padding: 0.7rem 2px 2px;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+
+  .outlook-thumbnails::-webkit-scrollbar { display: none; }
+
+  .outlook-thumb {
+    flex: 0 0 118px;
+    min-width: 0;
+    padding: 0;
+    border: 1px solid rgba(255,255,255,0.075);
+    border-radius: 9px;
+    background: rgba(255,255,255,0.025);
+    color: var(--muted-color);
+    cursor: pointer;
+    overflow: hidden;
+    scroll-snap-align: start;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  }
+
+  .outlook-thumb:hover {
+    background: rgba(255,255,255,0.055);
+    border-color: rgba(255,255,255,0.14);
+  }
+
+  .outlook-thumb.active {
+    border-color: var(--accent-color);
+    background: rgba(255,255,255,0.07);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent-color) 35%, transparent);
+  }
+
+  .outlook-thumb:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+  }
+
+  .outlook-thumb img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1.28 / 1;
+    object-fit: contain;
+    background: rgba(0,0,0,0.04);
+  }
+
+  .outlook-thumb-label {
+    display: block;
+    padding: 0.38rem 0.45rem 0.42rem;
+    font-family: var(--font-details);
+    font-size: 0.66rem;
+    line-height: 1.1;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .outlook-thumb.current .outlook-thumb-label::before { content: none; }
+
+  .outlook-nav-hint {
+    text-align: center;
+    margin-top: 0.35rem;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    font-size: 0.61rem;
+    opacity: 0.58;
+  }
+
+  .storm-desk-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 1rem 0 0.85rem;
+  }
+
+  .outlook-category-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 0.8rem;
+  }
+
+  .outlook-category-tab {
+    min-width: 0;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.065);
+    color: var(--muted-color);
+    padding: 9px 8px;
+    border-radius: 10px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-family: var(--font-card-heading);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .outlook-category-tab:hover { background: rgba(255,255,255,0.06); }
+
+  .outlook-category-tab.active {
+    background: rgba(255,255,255,0.09);
+    border-color: rgba(255,255,255,0.14);
+    color: var(--text-color);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+
+  .outlook-category-panel { display: none; }
+  .outlook-category-panel.active { display: block; }
+
+  /* -*-*-*-*- thunderstorm uses the same primary-view + thumbnail-drawer language as
+     convective. the JS fills these two containers from the live manifest. -*-*-*-*- */
+  .thunderstorm-outlook-panel { width: 100%; }
+  .thunderstorm-period-grid { display: block; width: 100%; }
+  .thunderstorm-primary-scroll { margin: 0; }
+  .thunderstorm-primary-slide { flex-basis: 100%; }
+  .thunderstorm-primary-slide img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 62vh;
+    object-fit: contain;
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+
+  .thunderstorm-period-label {
+    text-align: center;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+
+  .thunderstorm-thumb-grid {
+    display: flex;
+    gap: 0.65rem;
+    width: 100%;
+    overflow-x: auto;
+    padding: 0.7rem 2px 2px;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+
+  .thunderstorm-thumb-grid::-webkit-scrollbar { display: none; }
+
+  .thunderstorm-thumb {
+    flex: 0 0 118px;
+    min-width: 0;
+    padding: 0;
+    border: 1px solid rgba(255,255,255,0.075);
+    border-radius: 9px;
+    background: rgba(255,255,255,0.025);
+    color: var(--muted-color);
+    cursor: pointer;
+    overflow: hidden;
+    scroll-snap-align: start;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .thunderstorm-thumb:hover {
+    background: rgba(255,255,255,0.055);
+    border-color: rgba(255,255,255,0.14);
+  }
+
+  .thunderstorm-thumb.active {
+    border-color: var(--accent-color);
+    background: rgba(255,255,255,0.07);
+  }
+
+  .thunderstorm-thumb:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+  }
+
+  .thunderstorm-thumb img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1.28 / 1;
+    object-fit: contain;
+    background: rgba(0,0,0,0.04);
+  }
+
+  .thunderstorm-thumb-label {
+    display: block;
+    padding: 0.38rem 0.45rem 0.42rem;
+    font-family: var(--font-details);
+    font-size: 0.66rem;
+    line-height: 1.1;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .thunderstorm-thumb.current .thunderstorm-thumb-label::before { content: none; }
+
+  .thunderstorm-empty {
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border: 1px dashed rgba(255,255,255,0.1);
+    border-radius: 10px;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    font-size: 0.72rem;
+    text-align: center;
+  }
+
+  .outlook-card .outlook-note {
+    color: var(--muted-color);
+    font-size: 0.64rem;
+    margin: 0.55rem 0 0;
+    font-family: var(--font-body);
+    text-align: center;
+    opacity: 0.72;
+  }
+
+/* ---------- FOUC loading overlay ----------
+   loading overlay for first time visitors or visits without cached data to rely on  */
+#loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.75rem;
+  opacity: 1;
+  transition: opacity 0.7s ease;
+  overflow: hidden;
+}
+
+html.show-loading-overlay #loading-overlay {
+  display: flex;
+}
+
+#loading-overlay.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+html.loading-day #loading-overlay {
+  background: linear-gradient(180deg, #eef4fa 0%, #dce8f3 55%, #cfe0ee 100%);
+  color: #3a5068;
+}
+
+html.loading-night #loading-overlay {
+  background: linear-gradient(180deg, #0b0e1c 0%, #14112f 55%, #1c1846 100%);
+  color: #f0eff6;
+}
+
+.loading-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+html.loading-day .loading-cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  filter: blur(3px);
+  animation: fx-drift 50s linear infinite;
+}
+
+html.loading-night .loading-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #fff;
+  border-radius: 50%;
+  animation: fx-twinkle 3s ease-in-out infinite;
+}
+
+.loading-icon {
+  font-size: 2.75rem;
+  animation: fx-loading-pulse 2s ease-in-out infinite;
+}
+
+@keyframes fx-loading-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50%      { transform: scale(1.08); opacity: 1; }
+}
+
+.loading-text {
+  font-family: "Sunny Love";
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+#weather-fx {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  #page-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* 🌧️ fx rain & clouds */
+  .fx-rain, .fx-clouds {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  /* 🌙 night stars */
+  .fx-stars {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+body.fx-active-stars .fx-stars {
+  opacity: 1;
+}
+
+/* ✨ bonus star layer — only shows on top of .fx-stars when skies are clear
+   with good/excellent stargazing conditions and no aurora. */
+.fx-stars-extra {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+body.fx-stars-boost .fx-stars-extra {
+  opacity: 1;
+}
+
+/* 🌌 aurora overlay — layered "curtain" bands in the real atomic-oxygen/
+   nitrogen aurora colors (pink-red high altitude, green mid, blue-purple
+   low altitude fringe), screened on top of the night sky + stars. */
+.fx-aurora {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 2s ease;
+  overflow: hidden;
+  mix-blend-mode: screen;
+}
+
+body.fx-active-aurora .fx-aurora {
+  opacity: 1;
+}
+
+.aurora-band {
+  position: absolute;
+  left: -25%;
+  width: 150%;
+  border-radius: 50%;
+  filter: blur(35px);
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.aurora-glow {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -15%;
+  height: 55%;
+  background: radial-gradient(ellipse at center, rgba(90, 255, 170, 0.3) 0%, rgba(90, 255, 170, 0) 70%);
+  filter: blur(40px);
+  animation: aurora-shimmer 9s ease-in-out infinite;
+}
+
+@keyframes aurora-wave {
+  0%   { transform: translateX(-4%) skewX(-10deg) scaleY(1); }
+  25%  { transform: translateX(2%) skewX(4deg) scaleY(1.12); }
+  50%  { transform: translateX(5%) skewX(10deg) scaleY(0.94); }
+  75%  { transform: translateX(-2%) skewX(-4deg) scaleY(1.08); }
+  100% { transform: translateX(-4%) skewX(-10deg) scaleY(1); }
+}
+
+@keyframes aurora-shimmer {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 0.95; }
+}
+/* 💨💨 smoke fx 💨💨 */
+.fx-smoke {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+body.fx-active-smoke .fx-smoke {
+  opacity: 1;
+}
+
+.smoke-tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(210, 130, 60, 0.12) 0%, rgba(140, 90, 45, 0.22) 60%, rgba(90, 60, 30, 0.3) 100%);
+}
+
+.smoke-puff {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(190, 120, 60, 0.4) 0%, rgba(190, 120, 60, 0) 70%);
+  filter: blur(18px);
+  animation: fx-smoke-drift linear infinite;
+}
+
+@keyframes fx-smoke-drift {
+  from { transform: translateX(-15vw); }
+  to   { transform: translateX(115vw); }
+}
+  
+/* ‼️🚨 alerts
+   layout: width:100% with no max-width so this sits flush with the
+   #page-content/desktop-dashboard-layout edges instead of floating as an
+   isolated, narrower, centered card above the grid on wide screens.
+   visual language: reuses the same hazard icon + left-border color coding
+   already established by .nws-badge-* in Storm Center (getNwsHazardVisual),
+   so the top banner and the Storm Center card read as one consistent
+   system instead of two. Distinguishing warning vs watch/advisory/statement
+   is structural (filled vs outlined), not just a color swap -- and no
+   emoji, so it doesn't depend on the OS/browser's emoji font. */
+#alert-banners {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.alert-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: 0 10px 10px 0;
+  padding: 0.85rem 1.1rem;
+  text-align: left;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  background: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  /* default font for alerts - must stay legible and plain
+     no matter which theme (and its decorative font choices) is active. */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.alert-banner:hover { transform: translateY(-1px); }
+.alert-banner:focus-visible { outline: 2px solid var(--accent-color); outline-offset: 2px; }
+
+/* hazard-type color, shared with .nws-badge-* in Storm Center */
+.alert-banner.nws-badge-tor    { --hz: #ff5b5b; }
+.alert-banner.nws-badge-severe { --hz: #ffb347; }
+.alert-banner.nws-badge-flood  { --hz: #5ba8ff; }
+.alert-banner.nws-badge-winter { --hz: #cfe8ff; }
+.alert-banner.nws-badge-other  { --hz: var(--muted-color); }
+
+/* --hz-safe is what text/borders actually use. On dark-card themes it's
+   just --hz at full strength -- these hazard colors were picked to pop
+   against a dark card. On light-card themes (sunny, cloudy: body carries
+   .theme-light-card) the same pale/mid-tone hz colors sit close in
+   lightness to the card itself (worst case: pale-ice "winter" #cfe8ff on
+   an already-near-white card), so it's darkened here to hold contrast --
+   the hue stays intact, only the lightness drops. */
+.alert-banner { --hz-safe: var(--hz); }
+body.theme-light-card .alert-banner {
+  --hz-safe: color-mix(in srgb, var(--hz) 60%, #12202c 40%);
+}
+
+/* warning: filled, high urgency -- should be impossible to skim past.
+   Tinting --hz into the theme's own --card-color (rather than a
+   hardcoded dark base) means this automatically becomes a light pastel
+   card with dark text on light-card themes, and a dark tinted card with
+   light text everywhere else -- always the theme's own guaranteed-
+   readable pairing, just with a hazard tint over it. */
+.alert-banner.kind-warning {
+  background: color-mix(in srgb, var(--hz) 30%, var(--card-color) 70%);
+  border-left: 4px solid var(--hz-safe);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* watch / advisory / statement: outlined, lower urgency -- a heads-up,
+   not an order to act. Previously a near-invisible white-glass overlay,
+   which assumed a dark card underneath to read against -- on a light-card
+   theme sitting directly on a colored page background that overlay adds
+   no contrast at all. Same --card-color-based tint as above, just lighter. */
+.alert-banner.kind-watch,
+.alert-banner.kind-advisory,
+.alert-banner.kind-statement {
+  background: color-mix(in srgb, var(--hz) 10%, var(--card-color) 90%);
+  border: 1px solid color-mix(in srgb, var(--hz-safe) 30%, var(--card-color) 70%);
+  border-left: 4px solid var(--hz-safe);
+}
+
+.alert-banner-icon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  margin-top: 1px;
+  filter: var(--icon-shadow);
+}
+
+.alert-banner-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.alert-banner-body { flex: 1; min-width: 0; color: var(--text-color); }
+
+.alert-banner .alert-label {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.68rem;
+  margin-bottom: 0.35rem;
+  font-family: inherit;
+  /* not --hz-safe: at this size the label needs 4.5:1 text contrast, and
+     a hazard-colored label against its own hazard-tinted background falls
+     well short of that on several themes. The border stripe, background
+     tint, and icon already carry the color identity at the more forgiving
+     3:1 UI-component bar, so the label just inherits the same
+     guaranteed-legible color as the rest of the banner's text. */
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+.alert-banner .alert-event {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  font-family: inherit;
+  color: var(--text-color);
+}
+
+.alert-banner .alert-headline {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  font-family: inherit;
+  /* not --muted-color: it's tuned for contrast against the plain
+     --card-color, and a warning's more heavily hz-tinted background pulls
+     it below 4.5:1 on light-card themes. --text-color's contrast is
+     guaranteed regardless of tint; de-emphasis still reads through the
+     smaller, non-bold weight relative to the event line above it. */
+  color: var(--text-color);
+  opacity: 0.85;
+}
+
+/* soft, single-pulse flash -- no strobing, epilepsy-safe -- used to guide
+   the eye to the matching item in Storm Center after a banner is clicked */
+@keyframes nws-item-flash {
+  0%   { box-shadow: 0 0 0 0 rgba(255,255,255,0); background: rgba(255,255,255,0.035); }
+  35%  { box-shadow: 0 0 0 7px rgba(255,255,255,0.14); background: rgba(255,255,255,0.09); }
+  100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); background: rgba(255,255,255,0.035); }
+}
+
+.nws-item.flash-once { animation: nws-item-flash 1.8s ease-out 1; }
+
+/* persistent marker on whichever item is currently the closest + most
+   severe active alert -- distinct from the one-shot flash above */
+.nws-item.primary-alert {
+  border-color: rgba(255,255,255,0.2);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.nws-primary-chip {
+  flex: 0 0 auto;
+  background: rgba(255,255,255,0.1);
+  color: var(--text-color);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 9px;
+  padding: 1px 6px;
+  font-family: var(--font-details);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+/* extra rain for heavy rainfall events */
+.raindrop-extra {
+  opacity: 0;
+}
+
+body.fx-alert-heavy-rain .raindrop-extra {
+  opacity: 1;
+}
+  
+/* ⚡️lightning fx */
+.fx-lightning {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fx-lightning.flash {
+  animation: fx-lightning-flash 0.18s ease-out;
+}
+
+@keyframes fx-lightning-flash {
+  0%   { opacity: 0; }
+  12%  { opacity: 0.5; }
+  100% { opacity: 0; }
+}
+
+  /* ❄️ snow fx */
+.fx-snow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+body.fx-active-snow .fx-snow {
+  opacity: 1;
+}
+
+.snowflake {
+  position: absolute;
+  top: -5vh;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  animation: fx-snow-fall linear infinite;
+}
+
+@keyframes fx-snow-fall {
+  0%   { transform: translate(0, 0); }
+  50%  { transform: translate(15px, 60vh); }
+  100% { transform: translate(-10px, 120vh); }
+}
+
+  /* 🌪️ tornado fx */
+.fx-tornado-vignette {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.fx-alert-tornado .fx-tornado-vignette {
+  opacity: 1;
+  animation: fx-tornado-pulse 6s ease-in-out infinite;
+}
+
+@keyframes fx-tornado-pulse {
+  0%, 100% { box-shadow: inset 0 0 120px 20px rgba(80, 90, 60, 0.25); }
+  50%      { box-shadow: inset 0 0 180px 40px rgba(80, 90, 60, 0.45); }
+}
+
+/* 🌡️ extremeHeat */
+.fx-heat-shimmer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(255,110,40,0.16), rgba(255,110,40,0) 45%);
+}
+
+body.fx-active-heatshimmer .fx-heat-shimmer {
+  opacity: 1;
+  filter: url(#heatShimmerFilter);
+  animation: fx-heat-flicker 4s ease-in-out infinite;
+}
+
+@keyframes fx-heat-flicker {
+  0%, 100% { opacity: 0.85; }
+  50%      { opacity: 1; }
+}
+
+/* ☀️ sunny fx  */
+.fx-sunrays {
+  position: absolute;
+  inset: -25%;
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: 50% 18%;
+  background: repeating-conic-gradient(from 0deg, rgba(255,247,214,0.12) 0deg 5deg, rgba(255,247,214,0) 5deg 16deg);
+}
+
+body.fx-active-sunrays .fx-sunrays {
+  animation: fx-ray-rotate 150s linear infinite, fx-ray-pulse 7s ease-in-out infinite;
+}
+
+@keyframes fx-ray-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes fx-ray-pulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.7; }
+}
+/* rain & cloud falling fx stuff */ 
+  body.fx-active-rain .fx-rain {
+    opacity: 1;
+  }
+
+  body.fx-active-cloudy .fx-clouds {
+    opacity: 1;
+  }
+
+  .raindrop {
+    position: absolute;
+    top: -10vh;
+    width: 2px;
+    height: 18px;
+    background: linear-gradient(to bottom, rgba(180, 220, 255, 0), rgba(180, 220, 255, 0.6));
+    transform: rotate(12deg);
+    animation: fx-fall linear infinite;
+  }
+
+  @keyframes fx-fall {
+    from { transform: translateY(0) rotate(12deg); }
+    to { transform: translateY(120vh) rotate(12deg); }
+  }
+
+  .cloud-shape {
+    position: absolute;
+    top: 5%;
+    width: 220px;
+    height: 84px;
+    animation: fx-drift linear infinite;
+  }
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: fx-twinkle ease-in-out infinite;
+}
+
+@keyframes fx-twinkle {
+  0%, 100% { opacity: var(--star-min-opacity, 0.2); transform: scale(0.85); }
+  50%      { opacity: var(--star-max-opacity, 0.9); transform: scale(1.1); }
+}
+  
+  /* cumulus puff -- soft radial shading (sun-catching highlight at top-left,
+     cool shadow at the base) gives real volume instead of a flat blurred
+     blob, and the asymmetric border-radius (varied per-puff in JS from
+     CLOUD_PUFF_SHAPES) reads as an organic lobe rather than a circle. */
+  .cloud-puff {
+    position: absolute;
+    border-radius: 84%;
+    background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 55%, rgba(205,217,235,0.35) 100%);
+    filter: blur(4px);
+  }
+
+  /* wide, flattened puff used as a single "base" layer under each cloud's
+     rounded top puffs -- the flat-bottomed, piled-up-on-top look is what
+     actually reads as "cumulus" rather than a generic cloud blob. */
+  .cloud-puff.cloud-base {
+    border-radius: 50% 50% 28% 28% / 65% 65% 20% 20%;
+    background: radial-gradient(circle at 40% 15%, rgba(255,255,255,0.7) 0%, rgba(205,217,235,0.4) 70%);
+  }
+
+  /* iridescent variant -- a soft nacreous/mother-of-pearl wash (blush pink,
+     pale lavender, warm peach, sky blue) layered under the same white
+     highlight so it reads as light catching the cloud, not a rainbow
+     sticker. Slow hue-rotate keeps it drifting/shimmering rather than static. */
+  .cloud-puff.iridescent {
+    background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.92) 0%, rgba(255,214,232,0.5) 32%, rgba(214,222,255,0.48) 55%, rgba(255,232,210,0.45) 78%, rgba(210,235,250,0.4) 100%);
+    animation: fx-iridescent-shimmer 16s ease-in-out infinite;
+  }
+
+  @keyframes fx-iridescent-shimmer {
+    0%, 100% { filter: blur(4px) hue-rotate(0deg) saturate(1); }
+    50%      { filter: blur(4px) hue-rotate(20deg) saturate(1.25); }
+  }
+
+  @keyframes fx-drift {
+    from { transform: translateX(-20vw); }
+    to { transform: translateX(120vw); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .raindrop, .cloud-shape, .cloud-puff.iridescent, .star, .snowflake, .aurora-band, .aurora-glow, .loading-cloud, .loading-star, .loading-icon {
+      animation: none !important;
+    }
+    #weather-fx {
+      display: none !important;
+    }
+  }
+/* 🌌 sky & space skytracking box */
+  .sky-box {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    background: linear-gradient(to bottom, #05070d, #0d1b2e 55%, #1b3358 100%);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .sky-body {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    transition: left 1s linear, top 1s linear, opacity 0.5s ease;
+  }
+
+  .sky-body-frame {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+  }
+
+  .sun-body-img, .moon-body-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.8);
+  }
+
+  .moon-body-newmoon {
+    width: 100%;
+    height: 100%;
+    background: #141414;
+  }
+
+  .horizon-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20%;
+    border-top: 1px dashed rgba(255, 255, 255, 0.3);
+  }
+  
+/* sky & space card details */
+  .sunmoon-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--muted-color);
+    text-align: left;
+    font-family: var(--font-body);
+  }
+
+  .sunmoon-details strong {
+    color: var(--accent-color);
+  }
+
+  .sky-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+  .sky-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+  }
+
+  .sky-badge .sky-badge-label {
+    color: var(--muted-color);
+    font-weight: 400;
+  }
+
+  .sky-badge-excellent { color: #6fcf97; }
+  .sky-badge-good      { color: #9bd68f; }
+  .sky-badge-fair      { color: #ffd166; }
+  .sky-badge-poor      { color: var(--muted-color); }
+  .sky-badge-elevated  { color: #ffd166; }
+  .sky-badge-active    { color: #ff9f6b; }
+
+  /* add smooth transitions to all theme-affected elements */
+body, .card, .chart-card, .camera-card, .charts-dropdown-header, 
+.map-panel iframe, .rainviewer-map, .sky-box, .sky-badge, 
+h1, .label, .value, .unit, .forecast-period, 
+.outlook-thumb, .thunderstorm-thumb, .map-tab, .range-btn, .chart-tab {
+  transition: background-color 0.8s ease, background 0.8s ease, color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
+}
+
+/* ensure SVG paths inside cards (like the compass) transition smoothly */
+svg circle, svg polygon, svg line {
+  transition: stroke 0.8s ease, fill 0.8s ease;
+}
+
+/* day to night / night to day smooth switcher */
+  #day-night-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998; /* bg under the FOUC loading overlay */
+  display: none;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#day-night-overlay.active {
+  display: block;
+  animation: dn-fade-in-out 2.5s ease-in-out forwards;
+}
+
+.dn-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #eef4fa 0%, #cfe0ee 100%);
+  animation: dn-sky-darken 2.5s ease-in-out forwards;
+}
+
+.dn-sun {
+  position: absolute;
+  left: 50%;
+  margin-left: -40px; /* half of width to center */
+  top: 30%;
+  animation: dn-sun-set 2.5s ease-in-out forwards;
+}
+
+.dn-moon {
+  position: absolute;
+  left: 50%;
+  margin-left: -40px; 
+  bottom: -20%;
+  animation: dn-moon-rise 2.5s ease-in-out forwards;
+}
+
+@keyframes dn-fade-in-out {
+  0% { opacity: 0; pointer-events: all; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
+@keyframes dn-sky-darken {
+  0% { background: linear-gradient(180deg, #eef4fa 0%, #cfe0ee 100%); }
+  100% { background: linear-gradient(180deg, #0b0e1c 0%, #1c1846 100%); }
+}
+
+@keyframes dn-sun-set {
+  0% { top: 30%; opacity: 1; transform: scale(1); }
+  60% { top: 110%; opacity: 0; transform: scale(0.8); }
+  100% { top: 110%; opacity: 0; }
+}
+
+@keyframes dn-moon-rise {
+  0% { bottom: -20%; opacity: 0; transform: scale(0.8); }
+  40% { bottom: -20%; opacity: 0; }
+  100% { bottom: 45%; opacity: 1; transform: scale(1); }
+}
+ 
+
+  /* ---------- mobile card flow ----------
+     desktop/tablet use independent columns so expanded cards don't stretch
+     their neighbors. on phones, a single normal-flow column is safer and
+     easier to scan/tap. */
+  @media (min-width: 851px) and (max-width: 1120px) {
+    .nws-meta-strip { font-size: 0.66rem; }
+  }
+
+  @media (max-width: 700px) {
+    .dashboard-grid {
+      display: block !important;
+      width: 100%;
+    }
+
+    .dashboard-grid > * {
+      margin-bottom: 1.5rem !important;
+    }
+
+    .dashboard-grid > *:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    .card-expand-panel {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .extra-data-list {
+      grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
+    }
+  }
+
+  @media (max-width: 460px) {
+
+    .card {
+      padding: 1rem;
+      border-radius: 10px;
+    }
+  }
+
+  @media (max-width: 850px) {
+    #grid.grid {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) !important;
+      gap: 1rem !important;
+      width: 100% !important;
+      max-width: 680px !important;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #grid.grid .grid-column {
+      display: contents !important;
+    }
+
+    #grid.grid .card {
+      width: 100% !important;
+      max-width: none !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    #grid.grid .card.temp-card     { order: 1; }
+    #grid.grid .card.wind-card     { order: 2; }
+    #grid.grid .card.pressure-card { order: 3; }
+    #grid.grid .card.precip-card   { order: 4; }
+    #grid.grid .card.lightning-card { order: 5; }
+    #grid.grid .card.solar-card    { order: 6; }
+    #grid.grid .card.aqi-card      { order: 7; }
+    #grid.grid .card.river-card    { order: 8; }
+
+    #grid.grid .priority-value {
+      max-width: 100%;
+    }
+  }
+
+  /* ---------- desktop weather-card layout --------*/
+  @media (min-width: 851px) {
+    #grid.grid {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 300px)) !important;
+      justify-content: center !important;
+      align-items: start !important;
+      gap: clamp(1rem, 1.6vw, 1.5rem) !important;
+      width: 100% !important;
+      max-width: 1320px !important;
+      margin: 0 auto !important;
+    }
+
+    #grid.grid .grid-column {
+      display: contents !important;
+    }
+
+    #grid.grid .card {
+      width: 100% !important;
+      max-width: none !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
+      align-self: start !important;
+    }
+
+    #grid.grid .card.temp-card      { order: 1; }
+    #grid.grid .card.wind-card      { order: 2; }
+    #grid.grid .card.pressure-card  { order: 3; }
+    #grid.grid .card.precip-card    { order: 4; }
+    #grid.grid .card.lightning-card { order: 5; }
+    #grid.grid .card.solar-card     { order: 6; }
+    #grid.grid .card.aqi-card       { order: 7; }
+    #grid.grid .card.river-card     { order: 8; }
+  }
+
+  /* whatever width the square-tile grid above settles a card into, keep
+     the wind compass / dual-value rows from ever feeling cramped. this
+     reacts to the card's own rendered width, so it works no matter how
+     many columns the grid is showing. */
+  @container card (max-width: 300px) {
+    .wind-priority-row,
+    .pressure-priority-row,
+    .lightning-priority-row {
+      gap: 0.5rem;
+    }
+
+    .priority-compass { flex-basis: 88px; }
+    .priority-value { font-size: 1.7rem !important; }
+  }
+
+  @container card (max-width: 250px) {
+    .wind-priority-row,
+    .lightning-priority-row {
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .priority-compass { flex-basis: auto; }
+
+    .pressure-glance-row {
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .pressure-glance-row .glance-col {
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .pressure-glance-row .glance-col + .glance-col {
+      border-left: none;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-left: 0;
+      padding-top: 0.4rem;
+    }
+  }
+
+  @container card (max-width: 190px) {
+    .pressure-card .priority-heading {
+      display: none;
+    }
+
+    .pressure-card .priority-card-head {
+      margin-bottom: 0.3rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #grid.grid {
+      gap: 0.85rem !important;
+      max-width: 100% !important;
+    }
+
+    #grid.grid .card {
+      padding: 1rem;
+    }
+
+    #grid.grid .wind-priority-row {
+      gap: 0.35rem;
+    }
+
+    #grid.grid .priority-compass {
+      flex-basis: 88px;
+    }
+
+    #grid.grid .priority-value {
+      font-size: 1.85rem !important;
+    }
+
+    #grid.grid .pressure-card .pressure-glance-row .priority-value {
+      font-size: 1.5rem !important;
+    }
+  }
+
+
+  .temp-glance-row {
+    gap: 1rem;
+    margin-top: 0.15rem;
+  }
+
+  .temp-glance-row .glance-col {
+    min-width: 0;
+    padding: 0 0.35rem;
+  }
+
+  .temp-glance-row .glance-col.glance-primary {
+    flex: 1;
+  }
+
+  .temp-glance-row .glance-col + .glance-col {
+    padding-left: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    .temp-glance-row {
+      gap: 0.65rem;
+    }
+
+    .temp-glance-row .glance-col {
+      padding: 0;
+    }
+
+    .temp-glance-row .glance-col + .glance-col {
+      padding-left: 0.65rem;
+    }
+  }
+
+  .pressure-glance-row {
+    gap: 0.85rem;
+    margin-top: 0.1rem;
+  }
+
+  .pressure-glance-row .glance-col {
+    min-width: 0;
+    padding: 0 0.35rem;
+  }
+
+  .pressure-glance-row .glance-col + .glance-col {
+    padding-left: 1rem;
+  }
+
+  .pressure-glance-row .priority-value {
+    font-size: clamp(1.4rem, 6.8vw, 1.85rem) !important;
+    white-space: nowrap;
+  }
+
+  .glance-row.pressure-glance-row .unit {
+    font-size: 0.58rem;
+  }
+
+  @media (max-width: 480px) {
+    .pressure-glance-row {
+      gap: 0.5rem;
+    }
+
+    .pressure-glance-row .glance-col + .glance-col {
+      padding-left: 0.65rem;
+    }
+  }
+
+  /* ================================================
+     DESKTOP WEATHER-CENTER COMPOSITION
+     851px+ only ~ 
+     ================================================ */
+  .desktop-dashboard-layout,
+  .desktop-left-rail,
+  .desktop-right-rail {
+    width: 100%;
+  }
+
+  .desktop-dashboard-layout,
+  .desktop-left-rail,
+  .desktop-right-rail {
+    display: contents;
+  }
+
+  .forecast-card { margin-top: 0; }
+
+  .camera-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1rem, 3vw, 3rem);
+    background: rgba(0, 0, 0, 0.86);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  .camera-lightbox.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .camera-lightbox img {
+    display: block;
+    max-width: min(94vw, 1800px);
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .camera-lightbox video {
+    display: none;
+    max-width: min(94vw, 1800px);
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .camera-timelapse-btn {
+    position: static;
+    transform: none;
+    margin-top: 0.9rem;
+    padding: 0.8rem 1.35rem;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.16);
+    color: #fff;
+    font: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+
+  .camera-timelapse-btn:hover,
+  .camera-timelapse-btn:focus-visible {
+    background: rgba(255,255,255,0.22);
+    outline: none;
+  }
+
+  .camera-lightbox-close {
+    position: absolute;
+    top: clamp(0.75rem, 2vw, 1.5rem);
+    right: clamp(0.75rem, 2vw, 1.5rem);
+    width: 2.6rem;
+    height: 2.6rem;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    font: 400 2rem/1 system-ui, sans-serif;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .camera-lightbox-close:hover,
+  .camera-lightbox-close:focus-visible {
+    background: rgba(255,255,255,0.22);
+    outline: none;
+  }
+
+  @media (min-width: 851px) {
+    #page-content {
+      width: min(94vw, 1500px);
+      max-width: 1500px;
+    }
+
+    h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(0.45rem, 0.9vw, 0.85rem);
+      margin-bottom: 0.15rem;
+      text-align: center;
+    }
+
+    h1 #weather-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      width: clamp(3.25rem, 5vw, 5.5rem);
+      height: clamp(3.25rem, 5vw, 5.5rem);
+      line-height: 1;
+    }
+
+    h1 .weather-icon-img,
+    h1 .meteocon,
+    h1 .weather-icon-moon-frame {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      margin-right: 0;
+      vertical-align: middle;
+      object-fit: contain;
+    }
+
+    #subtitle { margin-bottom: clamp(1.1rem, 1.8vw, 1.6rem); }
+
+    .desktop-dashboard-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(360px, 0.85fr);
+      gap: clamp(1rem, 1.5vw, 1.5rem);
+      align-items: start;
+      width: 100%;
+    }
+
+    .desktop-left-rail,
+    .desktop-right-rail {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      gap: clamp(1rem, 1.5vw, 1.5rem);
+    }
+
+    .desktop-left-rail #grid {
+      width: 100% !important;
+      max-width: none !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: clamp(0.9rem, 1.15vw, 1.25rem) !important;
+      justify-content: stretch !important;
+      margin: 0 !important;
+    }
+
+    .desktop-left-rail #grid.grid .card { width: 100% !important; }
+    .desktop-left-rail #grid.grid .card.temp-card      { order: 1; }
+    .desktop-left-rail #grid.grid .card.wind-card      { order: 2; }
+    .desktop-left-rail #grid.grid .card.pressure-card  { order: 3; }
+    .desktop-left-rail #grid.grid .card.precip-card    { order: 4; }
+    .desktop-left-rail #grid.grid .card.lightning-card { order: 5; }
+    .desktop-left-rail #grid.grid .card.solar-card     { order: 6; }
+    .desktop-left-rail #grid.grid .card.aqi-card       { order: 7; }
+    .desktop-left-rail #grid.grid .card.river-card     { order: 8; }
+
+    #grid.grid .desktop-camera-tile {
+      order: 9 !important;
+      grid-column: 3 !important;
+      grid-row: 3 !important;
+      display: flex;
+      min-width: 0;
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: clamp(0.7rem, 0.9vw, 1rem);
+      cursor: zoom-in;
+      align-self: stretch;
+      justify-content: flex-start;
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+
+    #grid.grid .desktop-camera-tile h2 {
+      flex: 0 0 auto;
+      margin: 0 0 0.7rem;
+      font-size: clamp(0.62rem, 2.45cqw, 0.76rem);
+    }
+
+    #grid.grid .desktop-camera-tile img {
+      position: static !important;
+      display: block;
+      width: 100% !important;
+      max-width: none !important;
+      height: clamp(125px, 9vw, 165px) !important;
+      max-height: none !important;
+      flex: 1 1 auto;
+      min-height: 0;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 8px;
+      margin: 0;
+    }
+
+    .desktop-left-rail .forecast-card {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+
+    .desktop-left-rail > .desktop-charts-dropdown {
+      order: 4;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+
+    .desktop-right-rail .dashboard-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: clamp(1rem, 1.5vw, 1.5rem);
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+
+    .desktop-right-rail .dashboard-grid > .camera-card {
+      width: 100%;
+      max-width: none;
+      margin: 0 !important;
+    }
+
+    .desktop-right-rail .dashboard-grid > .camera-card img {
+      max-height: none;
+      object-fit: contain;
+    }
+
+    .web-tools-grid {
+      width: 100%;
+      max-width: none;
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr);
+      gap: clamp(1rem, 1.5vw, 1.5rem);
+      align-items: start;
+      margin-top: clamp(1rem, 1.5vw, 1.5rem);
+    }
+
+    .web-tools-grid > .weather-map-card {
+      grid-column: 2; grid-row: 1; width: 100%; max-width: none; margin: 0;
+    }
+
+    .web-tools-grid > .charts-dropdown {
+      grid-column: 1; grid-row: 1; width: 100%; max-width: none; margin: 0; align-self: start;
+    }
+
+    .web-tools-grid > .weather-map-card .rainviewer-map,
+    .web-tools-grid > .weather-map-card .map-panel iframe {
+      height: clamp(360px, 35vw, 560px);
+    }
+  }
+
+  #page-content {
+    width: min(100%, 1320px);
+    padding-inline: clamp(0.45rem, 1.5vw, 1.1rem);
+  }
+
+  #subtitle {
+    max-width: 58rem;
+    margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
+    text-align: center;
+    line-height: 1.45;
+  }
+
+  .grid,
+  .dashboard-grid,
+  .camera-card,
+  .charts-dropdown {
+    max-width: none;
+  }
+
+  .grid {
+    width: min(82vw, 1320px);
+    gap: clamp(0.95rem, 1.35vw, 1.35rem);
+  }
+
+  .grid-column { gap: clamp(0.95rem, 1.35vw, 1.35rem); }
+
+  .card,
+  .camera-card {
+    border-radius: 14px;
+  }
+
+  .charts-dropdown-header {
+    border-radius: 14px 14px 0 0;
+  }
+
+  .camera-card {
+    width: min(82vw, 1320px);
+    padding: clamp(0.9rem, 1.45vw, 1.35rem);
+    margin-top: clamp(1rem, 1.8vw, 1.5rem);
+  }
+
+  .camera-card h2 {
+    font-family: var(--font-card-heading);
+    font-size: clamp(0.82rem, 1vw, 0.98rem);
+    letter-spacing: 0.065em;
+    margin-bottom: clamp(0.75rem, 1.2vw, 1rem);
+  }
+
+  .dashboard-grid {
+    width: min(82vw, 1320px);
+    gap: clamp(0.95rem, 1.35vw, 1.35rem);
+    margin-top: clamp(1rem, 1.8vw, 1.5rem);
+  }
+
+  @media (min-width: 1100px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+    }
+
+    .dashboard-grid > .outlook-card {
+      grid-column: 1 / -1;
+    }
+
+    .dashboard-grid > .camera-card {
+      width: 100%;
+      max-width: none;
+    }
+
+    .camera-card img {
+      max-height: 64vh;
+      object-fit: contain;
+    }
+  }
+
+  .web-tools-grid {
+    width: min(82vw, 1320px);
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.85fr);
+    gap: clamp(0.95rem, 1.35vw, 1.35rem);
+    align-items: start;
+    margin-top: clamp(1rem, 1.8vw, 1.5rem);
+  }
+
+  .web-tools-grid > .weather-map-card,
+  .web-tools-grid > .charts-dropdown {
+    width: 100%;
+    max-width: none;
+    margin-top: 0;
+  }
+
+  .web-tools-grid > .charts-dropdown {
+    align-self: stretch;
+  }
+
+  @media (max-width: 1050px) {
+    .web-tools-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* lightning card: the live map is created only after expansion */
+  .lightning-map-panel {
+    width: 100%;
+  }
+
+  .lightning-map-frame {
+    display: block;
+    width: 100%;
+    height: 360px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--card-color);
+  }
+
+  .lightning-map-caption {
+    margin-top: 0.5rem;
+    font-size: 0.72rem;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    text-align: center;
+  }
+
+  /* two-way switcher between my GLM map and the Blitzortung embed
+     tap either tab, or swipe left/right over the map area on touch. GLM is
+     the default. */
+  .lightning-map-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .lightning-map-tab {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.68rem;
+    font-weight: 600;
+  }
+
+  .lightning-map-tab.active {
+    background: var(--bg-color);
+    color: var(--text-color);
+  }
+
+  .lightning-map-views {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lightning-map-view {
+    display: none;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    gap: 0.35rem;
+  }
+
+  .lightning-map-view.active {
+    display: flex;
+  }
+
+  .lightning-glm-map {
+    display: block;
+    width: 100%;
+    height: 360px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--card-color);
+  }
+
+  @media (max-width: 850px) {
+    .camera-mobile-timelapse-btn {
+      display: block;
+    }
+  }
+
+  /* desktop information guidelines */
+  @media (min-width: 1100px) {
+    .forecast-periods {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    .forecast-period {
+      padding: 0.85rem 0.9rem;
+      min-height: 116px;
+    }
+
+    .outlook-viewport {
+      min-height: clamp(250px, 26vw, 430px);
+    }
+
+    .weather-map-card .rainviewer-map,
+    .weather-map-card .map-panel iframe {
+      height: clamp(360px, 34vw, 520px);
+    }
+
+    .charts-dropdown {
+      min-height: 100%;
+    }
+  }
+
+  /* 🌩️~*~*~*~*~🌩️ STORM CENTER 🌩️~*~*~*~*~🌩️ */
+  /* this card's accent-tinted border and corner glow are the same
+     --card-accent-border / --card-corner-glow treatment now shared by
+     every card and tile on the page (this is where it started). the
+     old layered drop shadow was dropped -- it fought the themed
+     backgrounds instead of complementing them -- and the thin top
+     gradient bar this card used to have on its own was also removed
+     site-wide (it made an inconsistent transition on mobile between
+     sensor tiles, which never had it, and everything else, which did).
+     this card just gets a slightly bigger radius and left-aligned text
+     on top of the shared .camera-card frame. */
+  .outlook-card {
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+    border-radius: 16px;
+    background: var(--card-corner-glow), var(--card-color);
+    border: var(--card-accent-border);
+    box-shadow: none;
+  }
+
+  /* title + live-status readout share one row, title left / status right --
+     replaces the old centered stack so the card reads like a proper panel
+     header instead of a plain centered card title. */
+  .outlook-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    text-align: left;
+    margin-bottom: 1rem;
+  }
+
+  .outlook-card h2 {
+    margin: 0;
+    text-align: left;
+  }
+
+  .outlook-card .storm-desk-livebar {
+    margin: 0.2rem 0 0 auto;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 999px;
+    padding: 4px 11px 4px 9px;
+    font-size: 0.64rem;
+  }
+
+  /* collapses the watches/MDs/NWS-updates section (and its divider) to
+     nothing when there's no active item in any of the three -- toggled in
+     renderNwsProducts() so the card never shows empty tab chrome for the
+     KPBZ forecast area. */
+  .storm-top-hidden {
+    display: none !important;
+  }
+
+  .nws-tabs {
+    gap: 7px;
+    margin-bottom: 0.8rem;
+  }
+
+  .nws-tab {
+    min-height: 48px;
+    border-radius: 11px;
+    font-family: var(--font-card-heading);
+    letter-spacing: 0.015em;
+  }
+
+  .nws-list { gap: 9px; }
+
+  .nws-item {
+    padding: clamp(0.75rem, 1.25vw, 0.95rem);
+    border-radius: 12px;
+  }
+
+  .nws-item-title {
+    font-size: clamp(0.88rem, 1.05vw, 0.98rem);
+  }
+
+  .nws-headline-value {
+    font-size: clamp(0.85rem, 0.95vw, 0.94rem);
+  }
+
+  .nws-meta-strip {
+    font-size: clamp(0.66rem, 0.72vw, 0.72rem);
+  }
+
+  .nws-location-text {
+    font-size: clamp(0.72rem, 0.82vw, 0.78rem);
+  }
+
+  .nws-item-hint {
+    margin-top: 0.55rem;
+    padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.055);
+    font-size: 0.62rem;
+  }
+
+  .nws-item-details {
+    gap: 10px;
+  }
+
+  .nws-detail-text {
+    font-size: 0.76rem;
+    line-height: 1.5;
+  }
+
+  .nws-item-link {
+    margin-top: 0.65rem;
+  }
+
+  .storm-desk-divider {
+    margin: clamp(1rem, 1.8vw, 1.35rem) 0 clamp(0.85rem, 1.4vw, 1.05rem);
+  }
+
+  /* ~*~*~*~*~🌀⛈️⚡️ SPC Outlooks 🌪️❄️🌧️~*~*~*~*~ */
+  .outlook-section-label {
+    font-family: var(--font-card-heading);
+    font-size: clamp(0.74rem, 0.9vw, 0.82rem);
+    letter-spacing: 0.09em;
+    margin-bottom: 0.7rem;
+  }
+
+  .outlook-category-tabs {
+    gap: 7px;
+    margin-bottom: 0.9rem;
+  }
+
+  .outlook-category-tab {
+    padding: 0.68rem 0.75rem;
+    border-radius: 11px;
+    font-family: var(--font-card-heading);
+    font-size: clamp(0.7rem, 0.85vw, 0.78rem);
+  }
+
+  .outlook-current-label,
+  .thunderstorm-period-label {
+    font-family: var(--font-card-heading);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.075em;
+  }
+
+  .outlook-scroll {
+    gap: 0.85rem;
+    border-radius: 12px;
+  }
+
+  .outlook-viewport {
+    min-height: clamp(180px, 22vw, 360px);
+    padding: clamp(0.1rem, 0.5vw, 0.35rem);
+    background: rgba(0,0,0,0.018);
+    border: 1px solid rgba(255,255,255,0.035);
+  }
+
+  .outlook-slide img,
+  .thunderstorm-primary-slide img {
+    max-height: min(70vh, 760px);
+    border-radius: 9px;
+  }
+
+  .outlook-thumbnails,
+  .thunderstorm-thumb-grid {
+    gap: 0.6rem;
+    padding-top: 0.65rem;
+  }
+
+  .outlook-thumb,
+  .thunderstorm-thumb {
+    flex-basis: clamp(96px, 8vw, 122px);
+    border-radius: 10px;
+  }
+
+  .outlook-thumb-label,
+  .thunderstorm-thumb-label {
+    font-family: var(--font-card-heading);
+    font-size: 0.64rem;
+    letter-spacing: 0.015em;
+  }
+
+  .outlook-nav-hint {
+    margin-top: 0.45rem;
+    font-size: 0.61rem;
+  }
+  
+  @media (max-width: 900px) {
+    .grid,
+    .dashboard-grid,
+    .camera-card {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .web-tools-grid {
+      display: block;
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    .web-tools-grid > .weather-map-card,
+    .web-tools-grid > .charts-dropdown {
+      width: 100%;
+      margin-top: 0;
+    }
+
+    .web-tools-grid > .charts-dropdown {
+      margin-top: 1rem;
+    }
+
+    .lightning-map-frame {
+      height: 320px;
+    }
+
+    .lightning-glm-map {
+      height: 320px;
+    }
+
+    #page-content { padding-inline: 0.25rem; }
+
+    .camera-card {
+      padding: 0.95rem;
+      margin-top: 1rem;
+      border-radius: 12px;
+    }
+
+    .nws-item {
+      padding: 0.72rem;
+    }
+
+    .outlook-viewport {
+      min-height: 155px;
+      padding: 0;
+    }
+
+    .outlook-slide img,
+    .thunderstorm-primary-slide img {
+      max-height: 62vh;
+      border-radius: 7px;
+    }
+
+    .outlook-thumb,
+    .thunderstorm-thumb {
+      flex-basis: 104px;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .nws-item-title-row { gap: 5px; }
+    .nws-item-title { font-size: 0.86rem; }
+    .nws-headline-value { font-size: 0.85rem; }
+    .nws-meta-strip { font-size: 0.64rem; }
+    .nws-location-text { font-size: 0.73rem; }
+
+    .outlook-category-tab {
+      padding: 0.6rem 0.45rem;
+      font-size: 0.66rem;
+    }
+
+    .outlook-current-label,
+    .thunderstorm-period-label {
+      font-size: 0.63rem;
+    }
+  }
+
+
+  /* =================================================================
+     🍀💜 DESKTOP DASHBOARD COMPOSITION ☀️⛅️🌩️🌧️⛈️🌪️🌧️⛅️☀️🌈🌙✨🍀💜
+     ================================================================ */
+  @media (min-width: 851px) {
+    #page-content {
+      width: min(94vw, 1440px);
+      max-width: 1440px;
+      padding-inline: clamp(0.5rem, 1vw, 1rem);
+    }
+
+    .desktop-dashboard-layout {
+      grid-template-columns: minmax(0, 1.22fr) minmax(430px, 0.92fr) !important;
+      gap: clamp(1rem, 1.35vw, 1.4rem);
+    }
+
+    .desktop-left-rail,
+    .desktop-right-rail {
+      gap: clamp(0.9rem, 1.15vw, 1.2rem);
+    }
+
+    .desktop-left-rail #grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      grid-auto-rows: auto !important;
+      gap: clamp(0.85rem, 1vw, 1rem) !important;
+      width: 100% !important;
+      max-width: none !important;
+      align-items: start !important;
+    }
+
+    .desktop-left-rail #grid.grid .card,
+    #grid.grid .desktop-camera-tile {
+      width: 100% !important;
+      aspect-ratio: 1 / 1 !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-width: none !important;
+      padding: 0.9rem clamp(0.9rem, 1.2cqw, 1.1rem) !important;
+      align-self: start !important;
+      position: relative;
+      z-index: 1;
+      box-sizing: border-box;
+    }
+
+    .desktop-left-rail #grid.grid .card { overflow: visible !important; }
+    #grid.grid .desktop-camera-tile { overflow: hidden !important; }
+    .desktop-left-rail #grid.grid .card.card-flipped { z-index: 50 !important; }
+
+    .desktop-left-rail #grid.grid .priority-card-head {
+      position: absolute;
+      top: 0.8rem;
+      left: 0.85rem;
+      right: 0.85rem;
+      margin: 0 !important;
+      gap: 0.35rem;
+      min-height: 1.35rem;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .desktop-left-rail #grid.grid .card-flip-front {
+      padding-top: 2.4rem;
+    }
+
+    .desktop-left-rail #grid.grid .priority-heading {
+      font-size: clamp(0.62rem, 2.45cqw, 0.76rem) !important;
+      line-height: 1.15;
+      letter-spacing: 0.05em;
+    }
+
+    .desktop-left-rail #grid.grid .glance-col .label {
+      font-size: clamp(0.52rem, 2.05cqw, 0.64rem) !important;
+      line-height: 1.15;
+      letter-spacing: 0.05em;
+    }
+
+    .desktop-left-rail #grid.grid .priority-icon {
+      width: clamp(1.05rem, 4.2cqw, 1.3rem);
+      height: clamp(1.05rem, 4.2cqw, 1.3rem);
+      flex-basis: clamp(1.05rem, 4.2cqw, 1.3rem);
+    }
+
+    .desktop-left-rail #grid.grid .card > :not(.priority-card-head):not(.card-flip-inner):not(.lightning-map-panel):not(.lightning-map-backdrop) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .desktop-left-rail #grid.grid .priority-value {
+      font-size: clamp(1.45rem, 8.5cqw, 1.9rem) !important;
+      line-height: 1.05;
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .pressure-glance-row .priority-value {
+      font-size: clamp(1.05rem, 7.5cqw, 1.55rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .glance-sub,
+    .desktop-left-rail #grid.grid .priority-context {
+      font-size: clamp(0.62rem, 2.3cqw, 0.76rem) !important;
+      line-height: 1.25;
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-priority-row,
+    .desktop-left-rail #grid.grid .lightning-card .lightning-priority-row,
+    .desktop-left-rail #grid.grid .solar-card .priority-dual-row,
+    .desktop-left-rail #grid.grid .precip-card .priority-single-value {
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .priority-context,
+    .desktop-left-rail #grid.grid .lightning-card .priority-context,
+    .desktop-left-rail #grid.grid .solar-card .priority-context,
+    .desktop-left-rail #grid.grid .precip-card .priority-context {
+      margin-top: 0.55rem;
+      margin-bottom: 0;
+    }
+
+    .desktop-left-rail #grid.grid .temp-card .temp-glance-row {
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .desktop-left-rail #grid.grid .temp-card .priority-context {
+      margin-top: 0.8rem;
+      margin-bottom: 0;
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .pressure-glance-row {
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .desktop-left-rail #grid.grid .pressure-card .priority-heading {
+      display: block !important;
+    }
+    .desktop-left-rail #grid.grid .pressure-card .glance-col .label {
+      margin-bottom: 0.3rem;
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-priority-row {
+      flex-direction: row !important;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: clamp(0.45rem, 1.2cqw, 0.8rem);
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-metric-label {
+      font-size: clamp(0.66rem, 2.7cqw, 0.8rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-metric-peak {
+      margin-top: clamp(0.3rem, 1.3cqw, 0.45rem);
+      padding-top: clamp(0.28rem, 1.1cqw, 0.4rem);
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-metric-peak-label {
+      font-size: clamp(0.54rem, 2.1cqw, 0.62rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-metric-peak-value {
+      font-size: clamp(0.74rem, 3.1cqw, 0.92rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-priority-metric {
+      flex: 1 1 50%;
+      min-width: 0;
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .priority-compass { display: none; }
+
+    .desktop-left-rail #grid.grid .pressure-card .pressure-trend {
+      font-size: clamp(0.55rem, 2.1cqw, 0.7rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .storm-note {
+      margin-top: 0;
+      margin-bottom: 0;
+      max-width: 92%;
+      font-size: clamp(0.53rem, 1.9cqw, 0.6rem);
+      line-height: 1.16;
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .pressure-cape-spark {
+      margin-top: clamp(0.3rem, 1.4cqw, 0.5rem);
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .pc-sparkline {
+      height: clamp(18px, 7cqw, 28px);
+    }
+
+    @container card (max-width: 250px) {
+      .desktop-left-rail #grid.grid .pressure-card .pressure-glance-row {
+        gap: 0.2rem;
+      }
+
+      .desktop-left-rail #grid.grid .pressure-card .glance-col .label {
+        margin-bottom: 0.1rem;
+      }
+
+      .desktop-left-rail #grid.grid .pressure-card .pressure-cape-spark {
+        margin-top: 0.25rem;
+      }
+
+      .desktop-left-rail #grid.grid .pressure-card .storm-note {
+        padding-top: 0.3rem;
+        border-top: none;
+        font-size: 0.5rem;
+        line-height: 1.1;
+      }
+    }
+
+    .desktop-left-rail #grid.grid .precip-card .label {
+      position: absolute;
+      top: 0.8rem;
+      left: 0.85rem;
+      right: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      margin: 0 !important;
+      font-size: clamp(0.62rem, 2.45cqw, 0.76rem) !important;
+      line-height: 1.15;
+      letter-spacing: 0.05em;
+    }
+
+    .desktop-left-rail #grid.grid .precip-card .label .card-icon {
+      width: clamp(1.05rem, 4.2cqw, 1.3rem);
+      height: clamp(1.05rem, 4.2cqw, 1.3rem);
+      margin: 0;
+    }
+
+    .desktop-left-rail #grid.grid .precip-card .priority-value {
+      font-size: clamp(1.55rem, 9.5cqw, 2rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .lightning-card .lightning-priority-row {
+      flex-direction: row !important;
+      gap: clamp(0.45rem, 1.2cqw, 0.8rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .aqi-card .priority-single-value {
+      margin-top: auto;
+      margin-bottom: auto;
+      gap: 0.25rem;
+    }
+
+    .desktop-left-rail #grid.grid .aqi-card .aqi-summary {
+      margin: 0.3rem auto 0;
+      max-width: 90%;
+      font-size: clamp(0.56rem, 2cqw, 0.66rem);
+      line-height: 1.18;
+      text-align: center;
+    }
+
+    .desktop-left-rail #grid.grid .aqi-card .priority-value {
+      font-size: clamp(1.45rem, 8.5cqw, 1.85rem) !important;
+      line-height: 1;
+    }
+
+    .desktop-left-rail #grid.grid .river-card .pressure-priority-row {
+      margin-top: 0;
+      margin-bottom: 0;
+      gap: 0.5rem;
+    }
+
+    .desktop-left-rail #grid.grid .river-card .priority-context:first-of-type {
+      margin-top: 0.55rem;
+      margin-bottom: 0;
+    }
+
+    .desktop-left-rail #grid.grid .river-card .priority-context + .priority-context {
+      margin-top: 0.15rem;
+    }
+
+    .desktop-left-rail #grid.grid .river-card .priority-value {
+      font-size: clamp(1.45rem, 8.5cqw, 1.85rem) !important;
+    }
+
+    #grid.grid .desktop-camera-tile {
+      grid-column: 3 !important;
+      grid-row: 3 !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      cursor: zoom-in;
+      container-type: inline-size;
+      container-name: card;
+    }
+
+    #grid.grid .desktop-camera-tile h2 {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      width: 100%;
+      margin: 0 0 0.5rem !important;
+      min-height: 1.35rem;
+      color: var(--muted-color);
+      font-family: var(--font-grid-label);
+      font-size: clamp(0.62rem, 2.45cqw, 0.76rem) !important;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.15;
+      white-space: nowrap;
+    }
+
+    #grid.grid .desktop-camera-tile h2::before {
+      content: '📷';
+      font-family: system-ui, sans-serif;
+      font-size: 0.95rem;
+      line-height: 1;
+    }
+
+    @container card (max-width: 145px) {
+      #grid.grid .desktop-camera-tile h2 {
+        font-size: 0.5rem !important;
+        letter-spacing: 0.02em;
+        gap: 0.2rem;
+      }
+
+      #grid.grid .desktop-camera-tile h2::before {
+        font-size: 0.68rem;
+      }
+    }
+
+    #grid.grid .desktop-camera-tile img {
+      position: static !important;
+      display: block;
+      width: 100% !important;
+      max-width: none !important;
+      height: auto !important;
+      max-height: 165px !important;
+      flex: 1 1 auto;
+      min-height: 0;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 8px;
+      margin: 0;
+    }
+
+    .desktop-left-rail .forecast-card {
+      order: 2;
+      min-height: 112px !important;
+      padding: 0.65rem 0.8rem !important;
+      margin: 0 !important;
+    }
+
+    .desktop-left-rail .forecast-card h2 {
+      margin: 0 0 0.3rem;
+      font-size: clamp(0.74rem, 0.82vw, 0.9rem);
+    }
+
+    .desktop-left-rail .forecast-periods {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.3rem;
+    }
+    .desktop-left-rail .forecast-period { min-height: 72px; padding: 0.35rem 0.4rem; }
+    .desktop-left-rail .forecast-period .period-name { font-size: 0.64rem; }
+    .desktop-left-rail .forecast-period .period-temp { font-size: 0.98rem; }
+    .desktop-left-rail .forecast-period .period-short { font-size: 0.62rem; line-height: 1.18; }
+    .desktop-left-rail .forecast-period .period-wind { font-size: 0.55rem; }
+
+    .desktop-left-rail > .desktop-sky-card {
+      order: 3;
+      width: 100%;
+      margin: 0 !important;
+      padding: 0.85rem !important;
+      min-height: 300px !important;
+      border-radius: 13px;
+    }
+
+    .desktop-left-rail > .desktop-sky-card h2 { margin-bottom: 0.45rem; font-size: clamp(0.78rem, 0.9vw, 0.98rem); }
+    .desktop-left-rail > .desktop-sky-card .sky-box { min-height: 190px; height: clamp(190px, 15vw, 235px); }
+    .desktop-left-rail > .desktop-sky-card .sunmoon-details { margin-top: 0.55rem; font-size: 0.7rem; }
+    .desktop-left-rail > .desktop-sky-card .sky-badges { margin-top: 0.45rem; gap: 0.5rem; font-size: 0.67rem; }
+
+    .desktop-right-rail { gap: clamp(1.1rem, 1.6vw, 1.6rem) !important; }
+    .desktop-right-rail .dashboard-grid { display: contents !important; }
+    .desktop-right-rail .outlook-card {
+      order: 1;
+      width: 100%;
+      margin: 0 !important;
+      padding: 0.9rem !important;
+      min-height: 0;
+      height: auto;
+    }
+
+    .desktop-right-rail .outlook-viewport { min-height: 205px; }
+    .desktop-right-rail .outlook-slide img,
+    .desktop-right-rail .thunderstorm-primary-slide img { max-height: 285px; }
+
+    .desktop-right-rail .desktop-radar-card {
+      order: 2;
+      grid-column: 1 / -1;
+      width: 100%;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0.9rem !important;
+      border-radius: 13px;
+    }
+
+    .desktop-right-rail .desktop-radar-card .rainviewer-map,
+    .desktop-right-rail .desktop-radar-card .map-panel iframe {
+      height: clamp(320px, 30vw, 460px) !important;
+    }
+
+    .web-tools-grid {
+      width: 100% !important;
+      max-width: none !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr) !important;
+      gap: clamp(0.9rem, 1.2vw, 1.25rem);
+    }
+
+    .web-tools-grid > .charts-dropdown { grid-column: 1 !important; grid-row: 1 !important; }
+    .web-tools-grid > .weather-map-card { grid-column: 2 !important; grid-row: 1 !important; }
+  }
+
+  @media (min-width: 851px) and (max-width: 1120px) {
+    .desktop-dashboard-layout { grid-template-columns: minmax(0, 1.18fr) minmax(390px, 0.95fr) !important; }
+  }
+
+  /* =================================================================
+     🍀💜 VERY-LARGE-DESKTOP SCALE-UP ☀️⛅️🌩️
+     ================================================================= */
+  @media (min-width: 1600px) {
+    #page-content {
+      width: min(90vw, 2200px) !important;
+      max-width: 2200px !important;
+    }
+
+    /* sensor grid tiles (temp/wind/pressure/precip/lightning/solar/aqi/river) */
+    .desktop-left-rail #grid.grid .priority-heading,
+    .desktop-left-rail #grid.grid .precip-card .label,
+    #grid.grid .desktop-camera-tile h2 {
+      font-size: clamp(0.62rem, 2.45cqw, 0.98rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .glance-col .label {
+      font-size: clamp(0.52rem, 2.05cqw, 0.84rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .priority-icon,
+    .desktop-left-rail #grid.grid .precip-card .label .card-icon {
+      width: clamp(1.05rem, 4.2cqw, 1.7rem);
+      height: clamp(1.05rem, 4.2cqw, 1.7rem);
+      flex-basis: clamp(1.05rem, 4.2cqw, 1.7rem);
+    }
+
+    .desktop-left-rail #grid.grid .priority-value {
+      font-size: clamp(1.45rem, 8.5cqw, 2.5rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .pressure-glance-row .priority-value {
+      font-size: clamp(1.05rem, 7.5cqw, 2.05rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .precip-card .priority-value {
+      font-size: clamp(1.55rem, 9.5cqw, 2.6rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .aqi-card .priority-value,
+    .desktop-left-rail #grid.grid .river-card .priority-value {
+      font-size: clamp(1.45rem, 8.5cqw, 2.45rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .glance-sub,
+    .desktop-left-rail #grid.grid .priority-context {
+      font-size: clamp(0.62rem, 2.3cqw, 0.98rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .aqi-card .aqi-summary {
+      font-size: clamp(0.56rem, 2cqw, 0.86rem);
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-metric-label {
+      font-size: clamp(0.66rem, 2.7cqw, 1.05rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-metric-peak-label {
+      font-size: clamp(0.54rem, 2.1cqw, 0.8rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .wind-card .wind-metric-peak-value {
+      font-size: clamp(0.74rem, 3.1cqw, 1.2rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .pressure-trend {
+      font-size: clamp(0.55rem, 2.1cqw, 0.92rem) !important;
+    }
+
+    .desktop-left-rail #grid.grid .pressure-card .storm-note {
+      font-size: clamp(0.53rem, 1.9cqw, 0.78rem);
+    }
+
+    /* forecast card + sky card, same left rail -- vw-based (not cqw), so
+       these grow with the real viewport rather than the tile's own box */
+    .desktop-left-rail .forecast-card h2 {
+      font-size: clamp(0.74rem, 0.82vw, 1.15rem);
+    }
+
+    .desktop-left-rail .forecast-period .period-name { font-size: clamp(0.64rem, 0.6vw, 0.85rem); }
+    .desktop-left-rail .forecast-period .period-temp { font-size: clamp(0.98rem, 0.95vw, 1.3rem); }
+    .desktop-left-rail .forecast-period .period-short { font-size: clamp(0.62rem, 0.62vw, 0.82rem); }
+    .desktop-left-rail .forecast-period .period-wind { font-size: clamp(0.55rem, 0.55vw, 0.74rem); }
+
+    .desktop-left-rail > .desktop-sky-card h2 { font-size: clamp(0.78rem, 0.9vw, 1.2rem); }
+    .desktop-left-rail > .desktop-sky-card .sunmoon-details { font-size: clamp(0.7rem, 0.72vw, 0.92rem); }
+    .desktop-left-rail > .desktop-sky-card .sky-badges { font-size: clamp(0.67rem, 0.7vw, 0.88rem); }
+  }
+
+  @media (min-width: 851px) and (max-width: 1120px) {
+    .desktop-dashboard-layout { grid-template-columns: minmax(0, 1.18fr) minmax(390px, 0.95fr) !important; }
+  }
+
+  @media (max-width: 850px) {
+    #grid.grid {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) !important;
+      gap: 1rem !important;
+      width: 100% !important;
+      max-width: 680px !important;
+      margin-inline: auto;
+    }
+
+    #grid.grid .grid-column { display: contents !important; }
+    #grid.grid .card { width: 100% !important; max-width: none !important; min-width: 0 !important; }
+    #grid.grid .card.temp-card { order: 1; }
+    #grid.grid .card.wind-card { order: 2; }
+    #grid.grid .card.pressure-card { order: 3; }
+    #grid.grid .card.precip-card { order: 4; }
+    #grid.grid .card.lightning-card { order: 5; }
+    #grid.grid .card.solar-card { order: 6; }
+    #grid.grid .card.aqi-card { order: 7; }
+    #grid.grid .card.river-card { order: 8; }
+
+    #grid.grid .card { min-height: 205px; }
+    #grid.grid .wind-card .priority-compass { display: none; }
+    #grid.grid .wind-card .wind-priority-metric { flex: 1 1 50%; }
+    #grid.grid .precip-card .priority-value { font-size: clamp(1.55rem, 9vw, 2rem) !important; }
+    #grid.grid .aqi-summary { font-size: 0.72rem; }
+  }
+
+
+  /*  🌧️ *~*~* sensor card flip *~*~* ☀️
+      only animates opacity + translateX so there's no added lag/complexity to the data view swap */
+  .card.card-expandable {
+    position: relative;
+    overflow: visible !important;
+  }
+
+  .card-flip-inner {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--card-corner-glow), var(--card-color);
+    border-radius: 12px;
+  }
+
+  .card-flip-front,
+  .card-flip-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 12px;
+    will-change: transform, opacity;
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-flip-front {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0;
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .card-flip-back {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0.7rem;
+    overflow: hidden;
+    background: var(--card-corner-glow), var(--card-color);
+    box-shadow: 0 14px 34px rgba(0,0,0,0.28);
+    opacity: 0;
+    transform: translateX(16px);
+    pointer-events: none;
+  }
+
+  .card.card-flipped .card-flip-front {
+    opacity: 0;
+    transform: translateX(-16px);
+    pointer-events: none;
+  }
+
+  .card.card-flipped .card-flip-back {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .card-flip-back .card-expand-panel {
+    display: block;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: min(430px, calc(100vh - 8rem)) !important;
+    overflow-y: auto;
+    opacity: 1;
+    margin: 0;
+    padding: 0;
+    border-top: 0;
+    scrollbar-width: thin;
+  }
+
+  .card-flip-back .detail-panel { padding-top: 0; }
+
+  .card-expand-hint {
+    margin-top: auto !important;
+    padding-top: 0.45rem;
+    cursor: pointer;
+  }
+
+  /* 💨 wind compass on tap. */
+  .wind-compass-detail-visual {
+    justify-content: center;
+    align-items: center;
+    border-top: 0 !important;
+    padding: 0.35rem 0 !important;
+  }
+
+  .wind-compass-detail-visual .compass-container {
+    width: clamp(72px, 28cqw, 104px);
+    height: clamp(72px, 28cqw, 104px);
+    margin: 0 auto;
+  }
+
+  @media (max-width: 850px) {
+    .wind-compass-detail-visual {
+      grid-column: 1 / -1;
+    }
+
+    .extra-data-row {
+      min-height: 38px;
+      padding: 6px 8px;
+    }
+
+    .detail-panel {
+      gap: 8px;
+    }
+
+    .detail-section-body {
+      padding: 0 8px 7px;
+    }
+  }
+
+  /* lightning map's compact card-local overlay. the iframe is active only
+  ⚡️ when open, no create background lag while the tile is closed.  ⚡️ */
+  .lightning-card.lightning-map-trigger { cursor: pointer; position: relative; }
+  .lightning-card.lightning-map-open { overflow: visible !important; }
+
+  /* same themed press feedback as .card-expandable above, for the other
+  🌩️ tappable tile shape (the lightning card opens a map overlay instead
+  🌈 of swapping active data). deactivates once the map opens. ⛈️✨  */
+  .lightning-card.lightning-map-trigger:not(.lightning-map-open)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--accent-color) 22%, transparent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    z-index: 2;
+  }
+
+  .lightning-card.lightning-map-trigger:not(.lightning-map-open):active::after {
+    opacity: 1;
+    transition-duration: 0.05s;
+  }
+
+  .lightning-map-panel {
+    position: absolute;
+    z-index: 100;
+    inset: 0;
+    min-height: 280px;
+    padding: 0.55rem;
+    border-radius: inherit;
+    background: var(--card-color);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+    display: none;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  /* the panel (and its iframe) stay in the DOM across opens/closes */
+  .lightning-card.lightning-map-open .lightning-map-panel {
+    display: flex;
+  }
+
+  .lightning-map-frame {
+    display: block;
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+    border: 0;
+    border-radius: 8px;
+  }
+
+  .lightning-glm-map {
+    display: block;
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+    border: 0;
+    border-radius: 8px;
+  }
+
+  .lightning-map-caption {
+    color: var(--muted-color);
+    font: 0.62rem var(--font-details);
+    text-align: center;
+    opacity: 0.75;
+  }
+
+  .lightning-map-close {
+    align-self: center;
+    border: 0;
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    background: rgba(127,127,127,0.18);
+    color: var(--text-color);
+    font: 600 0.62rem var(--font-details);
+    cursor: pointer;
+  }
+
+  /* only meaningful on desktop (see the enlarged-modal rules below) */
+  .lightning-map-backdrop {
+    display: none;
+  }
+
+  @media (max-width: 850px) {
+    .card-flip-front,
+    .card-flip-back { position: absolute; }
+    .card-flip-back { padding: 0.65rem; }
+    .card-flip-back .card-expand-panel { max-height: min(520px, calc(100vh - 6rem)) !important; }
+    .lightning-map-panel { inset: 0.1rem; }
+  }
+
+  /* 🌩️ DESKTOP ONLY: make the lightning map full screen on desktop. mobile keeps its original inset:0 in-tile behavior above.*/
+  @media (min-width: 851px) {
+    .desktop-left-rail #grid.grid .lightning-card.lightning-map-open {
+      z-index: 5000 !important;
+    }
+    .desktop-left-rail #grid.grid .lightning-card.lightning-map-open .lightning-map-backdrop {
+      display: block;
+      position: fixed !important;
+      inset: 0 !important;
+      background: rgba(5, 8, 12, 0.6);
+      z-index: 4999 !important;
+      cursor: pointer;
+    }
+    .desktop-left-rail #grid.grid .lightning-card .lightning-map-panel {
+      position: fixed !important;
+      inset: auto !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: min(760px, 86vw) !important;
+      height: min(600px, 84vh) !important;
+      min-height: 0 !important;
+      padding: 1rem !important;
+      z-index: 5001 !important;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.45);
+    }
+  }
+
+  .nws-meta-item { white-space: nowrap; }
