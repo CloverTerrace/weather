@@ -1,6 +1,17 @@
 {
   "periods": [
     {
+      "name": "This Afternoon",
+      "temperature": 80,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "SW",
+      "shortForecast": "Partly Sunny",
+      "detailedForecast": "Partly sunny, with a high near 80. Southwest wind around 6 mph.",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
       "name": "Tonight",
       "temperature": 62,
       "temperatureUnit": "F",
@@ -32,20 +43,19 @@
       "detailedForecast": "Isolated showers and thunderstorms before 8pm. Partly cloudy, with a low around 62. Northwest wind 0 to 6 mph. Chance of precipitation is 20%.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 23
-    },
-    {
-      "name": "Friday",
-      "temperature": 80,
-      "temperatureUnit": "F",
-      "windSpeed": "0 to 6 mph",
-      "windDirection": "N",
-      "shortForecast": "Mostly Sunny",
-      "detailedForecast": "Mostly sunny, with a high near 80. North wind 0 to 6 mph.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 10
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-08-26T17:00:00-04:00",
+      "temperature": 80,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "S",
+      "shortForecast": "Partly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-08-26T18:00:00-04:00",
       "temperature": 79,
@@ -275,16 +285,6 @@
       "shortForecast": "Isolated Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 17
-    },
-    {
-      "startTime": "2026-08-27T17:00:00-04:00",
-      "temperature": 80,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "W",
-      "shortForecast": "Partly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 13
     }
   ]
 }
