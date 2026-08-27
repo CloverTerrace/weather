@@ -33,6 +33,15 @@
     <span class="world-firefly world-firefly-e"></span>
   </div>
 
+  <!--
+    Persistent ground line. Fixed to the bottom of the viewport at every
+    scroll position (not just at the bottom of the document), so the sky
+    above and the grass below are always both visible - the page reads as
+    a place you're standing in, not a dashboard with a garden graphic
+    tacked onto the end.
+  -->
+  <div class="garden-ground-fixed" aria-hidden="true"></div>
+
   <div id="page-content" class="garden-page">
 
     <header class="garden-heading">
