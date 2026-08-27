@@ -1,24 +1,27 @@
 // Clover Terrace Weather — service worker
+// Version 5: multi-page shell + fresh CSS/JS
 //
-// the service worker keeps the site usable offline, but HTML navigations
-// prefer the network so GitHub Pages updates are not hidden behind an old
-// cached index.html or gardening.html.
-//
-// live data is never cached.
+// HTML, CSS and JS use NETWORK-FIRST so GitHub Pages updates are picked up
+// promptly. Cached copies remain available as an offline fallback.
+// Live data files are NEVER cached by this worker.
 
-const CACHE_NAME = 'weather-app-shell-v3';
+const CACHE_NAME = 'weather-app-shell-v5';
 
 const SHELL_FILES = [
   './index.html',
   './gardening.html',
   './manifest.json',
+
   './icons/icon-192.png',
   './icons/icon-512.png',
+
   './chart.umd.min.js',
   './suncalc.js',
+
   './css/site.css',
   './css/navigation.css',
   './css/gardening.css',
+
   './js/navigation.js',
   './js/gardening.js',
 ];
@@ -49,7 +52,10 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
-  // Never intercept live data or external API/CDN requests.
+  // ---------------------------------------------------------------
+  // NEVER CACHE LIVE WEATHER DATA
+  // ---------------------------------------------------------------
+
   if (
     url.pathname.includes('/data/') ||
     url.hostname.includes('spc.noaa.gov') ||
@@ -59,11 +65,10 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // HTML/page navigation:
-  // Network first, cached page only as an offline fallback.
-  //
-  // This prevents an old cached index.html from reappearing after
-  // navigating between pages.
+  // ---------------------------------------------------------------
+  // HTML — NETWORK FIRST
+  // ---------------------------------------------------------------
+
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
@@ -78,9 +83,7 @@ self.addEventListener('fetch', (event) => {
         })
         .catch(() =>
           caches.match(request).then(
-            (cached) =>
-              cached ||
-              caches.match('./index.html')
+            (cached) => cached || caches.match('./index.html')
           )
         )
     );
@@ -88,8 +91,51 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Static shell assets:
-  // Cache first for fast loading, with the network as a fallback.
+  // ---------------------------------------------------------------
+  // CSS + JS — NETWORK FIRST
+  //
+  // This is the important fix for the Garden theme.
+  // GitHub gets a chance to provide the newest CSS/JS every time.
+  // If the network is unavailable, the cached version is used.
+  // ---------------------------------------------------------------
+
+  const isCSS =
+    request.destination === 'style' ||
+    url.pathname.endsWith('.css');
+
+  const isJS =
+    request.destination === 'script' ||
+    url.pathname.endsWith('.js');
+
+  if (isCSS || isJS) {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            const copy = response.clone();
+
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(request, copy);
+            });
+          }
+
+          return response;
+        })
+        .catch(() =>
+          caches.match(request).then((cached) => {
+            if (cached) return cached;
+            return fetch(request);
+          })
+        )
+    );
+
+    return;
+  }
+
+  // ---------------------------------------------------------------
+  // OTHER STATIC ASSETS — CACHE FIRST
+  // ---------------------------------------------------------------
+
   event.respondWith(
     caches.match(request).then(
       (cached) => cached || fetch(request)
@@ -97,8 +143,10 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-// Background sync: periodically fetch fresh weather data when the app is
-// running in the background.
+// ---------------------------------------------------------------
+// BACKGROUND WEATHER SYNC
+// ---------------------------------------------------------------
+
 self.addEventListener('sync', (event) => {
   if (event.tag === 'sync-weather-data') {
     event.waitUntil(syncWeatherData());
@@ -142,6 +190,10 @@ async function syncWeatherData() {
     console.error('Background sync failed:', err);
   }
 }
+
+// ---------------------------------------------------------------
+// REQUEST BACKGROUND SYNC
+// ---------------------------------------------------------------
 
 self.addEventListener('message', (event) => {
   if (
