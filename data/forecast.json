@@ -2,12 +2,12 @@
   "periods": [
     {
       "name": "Tonight",
-      "temperature": 62,
+      "temperature": 63,
       "temperatureUnit": "F",
-      "windSpeed": "3 mph",
+      "windSpeed": "5 mph",
       "windDirection": "S",
       "shortForecast": "Partly Cloudy",
-      "detailedForecast": "Partly cloudy, with a low around 62. South wind around 3 mph.",
+      "detailedForecast": "Partly cloudy, with a low around 63. South wind around 5 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 13
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-08-26T19:00:00-04:00",
+      "temperature": 76,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "SW",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-08-26T20:00:00-04:00",
       "temperature": 73,
@@ -275,16 +285,6 @@
       "shortForecast": "Isolated Showers And Thunderstorms",
       "isDaytime": false,
       "probabilityOfPrecipitation": 16
-    },
-    {
-      "startTime": "2026-08-27T19:00:00-04:00",
-      "temperature": 76,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "W",
-      "shortForecast": "Isolated Showers And Thunderstorms",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 23
     }
   ]
 }
