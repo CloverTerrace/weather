@@ -575,6 +575,46 @@ body.garden-season-summer .garden-bar-fill {
 }
 
 /* ---------------------------------------------------------------------
+   Persistent ground band. Fixed to the viewport (paired with .garden-world
+   above), so there is always grass under the content, at every scroll
+   position — the thing that actually makes this feel like standing in a
+   place, rather than a page with a garden illustration at the bottom.
+
+   TO SWAP IN THE REAL GROUND-TILE SHEET LATER: replace grass-tuft-svg
+   below with url('../assets/garden/ground-grass-tiles.png'), set
+   background-size to the tile's pixel size (e.g. 32px 32px), and switch
+   background-repeat to 'repeat'. Everything else (height, border, z-index)
+   can stay as-is.
+   --------------------------------------------------------------------- */
+
+.garden-ground-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(30px, 4.2vw, 46px);
+  z-index: 1;
+  pointer-events: none;
+  image-rendering: pixelated;
+  background-color: #3a6238;
+  border-top: 3px solid #2e4f2e;
+  box-shadow: 0 -8px 16px rgba(0,0,0,.16);
+}
+
+.garden-ground-fixed::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  image-rendering: pixelated;
+  background-repeat: repeat-x, repeat-x;
+  background-position: bottom left, bottom 4px left 40px;
+  background-size: 16px 20px, 12px 20px;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 20' shape-rendering='crispEdges'%3E%3Crect x='1' y='11' width='2' height='9' fill='%237fb35f'/%3E%3Crect x='4' y='7' width='2' height='13' fill='%236a9d50'/%3E%3Crect x='7' y='9' width='2' height='11' fill='%2384b968'/%3E%3Crect x='10' y='5' width='2' height='15' fill='%235a8a44'/%3E%3Crect x='13' y='10' width='2' height='10' fill='%2373a854'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 20' shape-rendering='crispEdges'%3E%3Crect x='5' y='10' width='2' height='10' fill='%234a7a3e'/%3E%3Crect x='3' y='4' width='2' height='2' fill='%23f2c94c'/%3E%3Crect x='7' y='4' width='2' height='2' fill='%23f2c94c'/%3E%3Crect x='5' y='2' width='2' height='2' fill='%23f2c94c'/%3E%3Crect x='5' y='6' width='2' height='2' fill='%23f2c94c'/%3E%3Crect x='5' y='4' width='2' height='2' fill='%23e8734f'/%3E%3C/svg%3E");
+}
+
+/* ---------------------------------------------------------------------
    The actual meadow. FULL BLEED. No card border, no radius, no card shadow.
    --------------------------------------------------------------------- */
 
@@ -644,7 +684,13 @@ body.garden-season-summer .garden-bar-fill {
 
 .garden-meadow-sky { inset: 0; z-index: 2; pointer-events:none; }
 .garden-life { inset:0; z-index:8; pointer-events:none; }
-.garden-pixel-horizon { left:0; right:0; bottom:70px; height:105px; z-index:5; pointer-events:none; }
+.garden-pixel-horizon {
+  left:0; right:0; bottom:70px; height:105px; z-index:5; pointer-events:none;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  padding-inline: 3%;
+}
 .garden-ground { left:0; right:0; bottom:0; height:42px; z-index:4; display:flex; pointer-events:none; }
 
 /* Ground strip: until the local CC0 PNGs are vendored into the repo, this is
@@ -668,11 +714,52 @@ body.garden-season-summer .garden-bar-fill {
   image-rendering: pixelated;
 }
 
-/* The sprite markup is intentionally inert until the actual local PNGs are
-   placed in assets/garden/. This prevents the current broken/offset sprite
-   sheet behavior from showing up on the live page. */
+/* ---------------------------------------------------------------------
+   Horizon sprites — hand-drawn pixel art (inline SVG, crisp edges).
+   Standing in for the real downloaded sheets (SpiderDave's flower sheet /
+   groundgrass tiles) until those PNGs are vendored into assets/garden/.
+
+   TO SWAP IN THE REAL SHEET LATER: once the PNG is in assets/garden/,
+   replace the background-image below with:
+     background-image: url('../assets/garden/flowers-sheet.png');
+     background-size: <sheet-width>px <sheet-height>px;
+   and give each .sprite-NN class its own background-position: -Xpx -Ypx
+   based on that sheet's actual cell grid. The HTML markup (sprite-flower/
+   sprite-weed/sprite-fungi + sprite-01, sprite-08…) doesn't need to
+   change either way — it's already set up as the coordinate hook.
+   --------------------------------------------------------------------- */
 .garden-sprite {
-  display: none;
+  display: block;
+  flex: 0 0 auto;
+  align-self: flex-end;
+  image-rendering: pixelated;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  filter: drop-shadow(1px 2px 0 rgba(24,54,26,.28));
+}
+
+.sprite-flower {
+  width: 15px;
+  height: 26px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 20' shape-rendering='crispEdges'%3E%3Crect x='5' y='10' width='2' height='10' fill='%234a7a3e'/%3E%3Crect x='3' y='12' width='2' height='2' fill='%234a7a3e'/%3E%3Crect x='3' y='4' width='2' height='2' fill='%23f2c94c'/%3E%3Crect x='7' y='4' width='2' height='2' fill='%23f2c94c'/%3E%3Crect x='5' y='2' width='2' height='2' fill='%23f2c94c'/%3E%3Crect x='5' y='6' width='2' height='2' fill='%23f2c94c'/%3E%3Crect x='5' y='4' width='2' height='2' fill='%23e8734f'/%3E%3C/svg%3E");
+  background-size: 15px 26px;
+}
+
+.sprite-flower:nth-of-type(3n+1) { filter: hue-rotate(200deg) drop-shadow(1px 2px 0 rgba(24,54,26,.28)); }
+.sprite-flower:nth-of-type(3n+2) { filter: hue-rotate(90deg) drop-shadow(1px 2px 0 rgba(24,54,26,.28)); }
+
+.sprite-weed {
+  width: 10px;
+  height: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 22' shape-rendering='crispEdges'%3E%3Crect x='3' y='2' width='2' height='20' fill='%233f6b3a'/%3E%3Crect x='1' y='9' width='2' height='6' fill='%234d7d43'/%3E%3Crect x='5' y='6' width='2' height='8' fill='%23557f45'/%3E%3C/svg%3E");
+  background-size: 10px 24px;
+}
+
+.sprite-fungi {
+  width: 14px;
+  height: 13px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' shape-rendering='crispEdges'%3E%3Crect x='4' y='6' width='4' height='6' fill='%23e9dcc0'/%3E%3Crect x='2' y='2' width='8' height='4' fill='%23c25b4e'/%3E%3Crect x='3' y='2' width='2' height='2' fill='%23f2ece0'/%3E%3Crect x='7' y='2' width='2' height='2' fill='%23f2ece0'/%3E%3C/svg%3E");
+  background-size: 14px 13px;
 }
 
 .garden-grass {
