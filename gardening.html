@@ -3,20 +3,6 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- Reuse the last real Clover Terrace theme before first paint. -->
-  <script>
-    (() => {
-      try {
-        const cached = JSON.parse(localStorage.getItem('cloverWeatherThemeCache') || 'null');
-        if (cached?.vars) {
-          for (const [key, value] of Object.entries(cached.vars)) {
-            document.documentElement.style.setProperty(key, value);
-          }
-        }
-      } catch (e) {}
-    })();
-  </script>
-
   <link rel="preload" as="font" type="font/woff2" href="fonts/macondo-v27-latin-regular.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="fonts/figtree-v9-latin-regular.woff2" crossorigin>
 
@@ -32,7 +18,21 @@
   <link rel="stylesheet" href="css/gardening.css">
 </head>
 
-<body data-garden-season="summer">
+<body class="garden-season-summer" data-garden-season="summer">
+  <div class="garden-world" aria-hidden="true">
+    <span class="world-sun"></span>
+    <span class="world-cloud world-cloud-a"></span>
+    <span class="world-cloud world-cloud-b"></span>
+    <span class="world-cloud world-cloud-c"></span>
+    <span class="world-butterfly world-butterfly-a"></span>
+    <span class="world-butterfly world-butterfly-b"></span>
+    <span class="world-firefly world-firefly-a"></span>
+    <span class="world-firefly world-firefly-b"></span>
+    <span class="world-firefly world-firefly-c"></span>
+    <span class="world-firefly world-firefly-d"></span>
+    <span class="world-firefly world-firefly-e"></span>
+  </div>
+
   <div id="page-content" class="garden-page">
 
     <header class="garden-heading">
@@ -275,16 +275,22 @@
         <span class="pixel-flower flower-d"></span>
         <span class="pixel-flower flower-e"></span>
         <span class="pixel-clover"></span>
+        <span class="pixel-flower flower-f"></span>
+        <span class="pixel-flower flower-g"></span>
+        <span class="pixel-mushroom mushroom-c"></span>
+        <span class="pixel-rock rock-a"></span>
+        <span class="pixel-rock rock-b"></span>
       </div>
 
       <div class="garden-grass grass-back" aria-hidden="true"></div>
+      <div class="garden-grass grass-middle" aria-hidden="true"></div>
       <div class="garden-grass grass-front" aria-hidden="true"></div>
 
       <button class="garden-secret" type="button" aria-label="A tiny garden secret">✦</button>
       <div class="garden-meadow-caption">
         <span class="garden-meadow-label-icon">☀</span>
         <span class="garden-meadow-label-text">Summer garden · Clover Terrace</span>
-        <span class="garden-meadow-credit">pixel garden built in CSS · CC0 sprite assets can be swapped in later</span>
+        <span class="garden-meadow-credit">CSS pixel garden · summer environment · Clover Terrace</span>
       </div>
     </section>
   </div>
