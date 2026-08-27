@@ -4,12 +4,12 @@
       "name": "Overnight",
       "temperature": 62,
       "temperatureUnit": "F",
-      "windSpeed": "0 to 3 mph",
-      "windDirection": "S",
+      "windSpeed": "2 mph",
+      "windDirection": "W",
       "shortForecast": "Isolated Showers And Thunderstorms",
-      "detailedForecast": "Isolated showers and thunderstorms. Mostly cloudy, with a low around 62. South wind 0 to 3 mph. Chance of precipitation is 20%.",
+      "detailedForecast": "Isolated showers and thunderstorms. Mostly cloudy, with a low around 62. West wind around 2 mph. Chance of precipitation is 20%.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 20
+      "probabilityOfPrecipitation": 22
     },
     {
       "name": "Thursday",
@@ -17,10 +17,10 @@
       "temperatureUnit": "F",
       "windSpeed": "2 to 6 mph",
       "windDirection": "SW",
-      "shortForecast": "Isolated Rain Showers then Scattered Showers And Thunderstorms",
-      "detailedForecast": "Isolated rain showers before 8am, then scattered showers and thunderstorms. Mostly sunny, with a high near 82. Southwest wind 2 to 6 mph. Chance of precipitation is 30%.",
+      "shortForecast": "Scattered Showers And Thunderstorms",
+      "detailedForecast": "Scattered showers and thunderstorms before 9am, then scattered showers and thunderstorms. Mostly sunny, with a high near 82. Southwest wind 2 to 6 mph. Chance of precipitation is 40%.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 25
+      "probabilityOfPrecipitation": 40
     },
     {
       "name": "Thursday Night",
@@ -48,47 +48,47 @@
   "hourly": [
     {
       "startTime": "2026-08-27T05:00:00-04:00",
-      "temperature": 63,
+      "temperature": 64,
       "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "S",
-      "shortForecast": "Isolated Rain Showers",
+      "windSpeed": "2 mph",
+      "windDirection": "W",
+      "shortForecast": "Isolated Showers And Thunderstorms",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 20
+      "probabilityOfPrecipitation": 22
     },
     {
       "startTime": "2026-08-27T06:00:00-04:00",
-      "temperature": 63,
+      "temperature": 64,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "S",
-      "shortForecast": "Isolated Rain Showers",
+      "windDirection": "SW",
+      "shortForecast": "Scattered Showers And Thunderstorms",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 16
+      "probabilityOfPrecipitation": 40
     },
     {
       "startTime": "2026-08-27T07:00:00-04:00",
-      "temperature": 63,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "S",
-      "shortForecast": "Isolated Rain Showers",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 17
-    },
-    {
-      "startTime": "2026-08-27T08:00:00-04:00",
-      "temperature": 64,
+      "temperature": 65,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
       "windDirection": "S",
-      "shortForecast": "Partly Sunny",
+      "shortForecast": "Scattered Showers And Thunderstorms",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 12
+      "probabilityOfPrecipitation": 40
+    },
+    {
+      "startTime": "2026-08-27T08:00:00-04:00",
+      "temperature": 65,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "S",
+      "shortForecast": "Isolated Rain Showers",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 20
     },
     {
       "startTime": "2026-08-27T09:00:00-04:00",
-      "temperature": 67,
+      "temperature": 68,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
       "windDirection": "SW",
@@ -110,15 +110,15 @@
       "startTime": "2026-08-27T11:00:00-04:00",
       "temperature": 74,
       "temperatureUnit": "F",
-      "windSpeed": "5 mph",
+      "windSpeed": "6 mph",
       "windDirection": "SW",
-      "shortForecast": "Mostly Sunny",
+      "shortForecast": "Partly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 2
     },
     {
       "startTime": "2026-08-27T12:00:00-04:00",
-      "temperature": 77,
+      "temperature": 76,
       "temperatureUnit": "F",
       "windSpeed": "6 mph",
       "windDirection": "SW",
@@ -128,7 +128,7 @@
     },
     {
       "startTime": "2026-08-27T13:00:00-04:00",
-      "temperature": 79,
+      "temperature": 78,
       "temperatureUnit": "F",
       "windSpeed": "6 mph",
       "windDirection": "W",
