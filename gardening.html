@@ -67,6 +67,9 @@
     <main class="garden-grid">
 
       <section class="garden-card garden-card-wide" aria-labelledby="conditions-heading">
+        <div class="card-bed-top" aria-hidden="true"></div>
+        <span class="gsprite gsprite-clump-green-blossom bloom-left" aria-hidden="true"></span>
+        <span class="gsprite gsprite-flower-colorful bloom-right" aria-hidden="true"></span>
         <h2 id="conditions-heading"><span class="garden-icon">🌿</span>Garden Conditions Now</h2>
 
         <div class="garden-readout-grid">
@@ -111,6 +114,8 @@
       </section>
 
       <section class="garden-card garden-card-side" aria-labelledby="frost-heading">
+        <div class="card-bed-top" aria-hidden="true"></div>
+        <span class="gsprite gsprite-flower-blue bloom-left" aria-hidden="true"></span>
         <h2 id="frost-heading"><span class="garden-icon">❄️</span>Frost &amp; Freeze Watch</h2>
 
         <div id="frost-status" class="garden-status garden-loading">
@@ -140,6 +145,9 @@
       </section>
 
       <section class="garden-card garden-card-side" aria-labelledby="season-heading">
+        <div class="card-bed-top" aria-hidden="true"></div>
+        <span class="gsprite gsprite-groundcover-teal bloom-left" aria-hidden="true"></span>
+        <span class="gsprite gsprite-flower-purple bloom-right" aria-hidden="true"></span>
         <h2 id="season-heading"><span class="garden-icon">🌱</span>Growing Season</h2>
 
         <div class="garden-two-col">
@@ -169,6 +177,9 @@
       </section>
 
       <section class="garden-card garden-card-wide" aria-labelledby="gdd-heading">
+        <div class="card-bed-top" aria-hidden="true"></div>
+        <span class="gsprite gsprite-shrub-pink bloom-left" aria-hidden="true"></span>
+        <span class="gsprite gsprite-flower-cluster-colorful bloom-right" aria-hidden="true"></span>
         <h2 id="gdd-heading"><span class="garden-icon">☀️</span>Heat Accumulation · Growing Degree Days</h2>
 
         <div class="gdd-list">
@@ -189,6 +200,9 @@
       </section>
 
       <section class="garden-card garden-card-side" aria-labelledby="rain-heading">
+        <div class="card-bed-top" aria-hidden="true"></div>
+        <span class="gsprite gsprite-clump-foliage bloom-left" aria-hidden="true"></span>
+        <span class="gsprite gsprite-flower-yellow bloom-right" aria-hidden="true"></span>
         <h2 id="rain-heading"><span class="garden-icon">🌧️</span>Recent Rainfall</h2>
 
         <div class="garden-bars">
@@ -216,6 +230,11 @@
       </section>
 
       <section class="garden-card garden-card-full" aria-labelledby="reference-heading">
+        <div class="card-bed-top" aria-hidden="true"></div>
+        <span class="gsprite gsprite-trellis bloom-right" aria-hidden="true"></span>
+        <span class="gsprite gsprite-pot-purple" aria-hidden="true"></span>
+        <span class="gsprite gsprite-pot-red" aria-hidden="true"></span>
+        <span class="gsprite gsprite-pot-tulip" aria-hidden="true"></span>
         <h2 id="reference-heading"><span class="garden-icon">📚</span>Gardener's Reference Desk</h2>
 
         <div class="garden-two-col">
@@ -272,25 +291,26 @@
       </div>
 
       <!--
-        Actual CC0 pixel-art sprites replace the former CSS-only stand-ins.
-        SpiderDave's Flowers sheet is a 12x24 sprite grid containing flowers,
-        weeds, fungi, vines, grass and cattails. The individual spans below
-        select cells from that sheet with CSS background positioning.
+        Real CC0 pixel-art sprites (assets/garden/plants.png, a single-row
+        39-frame sheet) replace the former inline-SVG stand-ins. Each span
+        below picks one 24x24 frame from that sheet via the --frame custom
+        property, read by the .plant-sprite background-position formula in
+        gardening.css.
       -->
       <div class="garden-pixel-horizon" aria-hidden="true">
-        <span class="garden-sprite sprite-weed sprite-01"></span>
-        <span class="garden-sprite sprite-flower sprite-08"></span>
-        <span class="garden-sprite sprite-flower sprite-13"></span>
-        <span class="garden-sprite sprite-weed sprite-18"></span>
-        <span class="garden-sprite sprite-flower sprite-24"></span>
-        <span class="garden-sprite sprite-fungi sprite-31"></span>
-        <span class="garden-sprite sprite-flower sprite-38"></span>
-        <span class="garden-sprite sprite-weed sprite-44"></span>
-        <span class="garden-sprite sprite-flower sprite-51"></span>
-        <span class="garden-sprite sprite-fungi sprite-57"></span>
-        <span class="garden-sprite sprite-flower sprite-63"></span>
-        <span class="garden-sprite sprite-weed sprite-69"></span>
-        <span class="garden-sprite sprite-flower sprite-75"></span>
+        <span class="plant-sprite" style="--frame:0"></span>
+        <span class="plant-sprite" style="--frame:14"></span>
+        <span class="plant-sprite" style="--frame:5"></span>
+        <span class="plant-sprite" style="--frame:26"></span>
+        <span class="plant-sprite" style="--frame:1"></span>
+        <span class="plant-sprite" style="--frame:36"></span>
+        <span class="plant-sprite" style="--frame:21"></span>
+        <span class="plant-sprite" style="--frame:23"></span>
+        <span class="plant-sprite" style="--frame:38"></span>
+        <span class="plant-sprite" style="--frame:20"></span>
+        <span class="plant-sprite" style="--frame:0"></span>
+        <span class="plant-sprite" style="--frame:15"></span>
+        <span class="plant-sprite" style="--frame:30"></span>
       </div>
 
       <div class="garden-ground" aria-hidden="true">
@@ -309,11 +329,12 @@
       <div class="garden-grass grass-middle" aria-hidden="true"></div>
       <div class="garden-grass grass-front" aria-hidden="true"></div>
 
+      <span class="pixel-clover" aria-hidden="true">☘</span>
       <button class="garden-secret" type="button" aria-label="A tiny garden secret">✦</button>
       <div class="garden-meadow-caption">
         <span class="garden-meadow-label-icon">☀</span>
         <span class="garden-meadow-label-text">Summer garden · Clover Terrace</span>
-        <span class="garden-meadow-credit">Pixel sprites: SpiderDave / CC0 · ground tiles: MraveniskoDev / CC0</span>
+        <span class="garden-meadow-credit">Pixel sprites: Pixel Art Flower Pack &amp; SpiderDave / CC0 · ground tiles: MraveniskoDev / CC0</span>
       </div>
     </section>
   </div>
