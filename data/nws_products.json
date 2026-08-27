@@ -1,27 +1,8 @@
 {
-  "generatedAt": "2026-08-27T06:15:37.675161Z",
+  "generatedAt": "2026-08-27T06:20:36.013795Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
-    {
-      "id": "1aaccf00-73ed-47e3-811f-526212aed26c",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-08-27T06:00:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... Increased the coverage of early morning showers across the area",
-      "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... Increased the coverage of early morning showers across the area",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 200 AM EDT Thu Aug 27 2026 .WHAT HAS CHANGED... Increased the coverage of early morning showers across the area today. Chances for convection has also decreased slightly this afternoon. Otherwise no major changes to the forecast."
-        }
-      ],
-      "url": "https://api.weather.gov/products/1aaccf00-73ed-47e3-811f-526212aed26c"
-    },
     {
       "id": "3b0ced1e-9e19-413f-8408-3d0a3cdaace6",
       "type": "Hazardous Weather Outlook",
@@ -44,6 +25,25 @@
         }
       ],
       "url": "https://api.weather.gov/products/3b0ced1e-9e19-413f-8408-3d0a3cdaace6"
+    },
+    {
+      "id": "1aaccf00-73ed-47e3-811f-526212aed26c",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-08-27T06:00:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Increased the coverage of early morning showers across the area",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Increased the coverage of early morning showers across the area",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 200 AM EDT Thu Aug 27 2026 .WHAT HAS CHANGED... Increased the coverage of early morning showers across the area today. Chances for convection has also decreased slightly this afternoon. Otherwise no major changes to the forecast."
+        }
+      ],
+      "url": "https://api.weather.gov/products/1aaccf00-73ed-47e3-811f-526212aed26c"
     }
   ]
 }
