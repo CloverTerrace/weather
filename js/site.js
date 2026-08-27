@@ -10,6 +10,7 @@
   const PRIMARY_STALE_MS = 15 * 60 * 1000;
   const STATION_CALLSIGN = 'GW7673';
   const STATION_CITY = 'Aliquippa';
+  const CARTO_KEY = 'cb1_29ai_1_4c3003a7d4c4c727cf7883eb';
 
   // USGS gauge — Ohio River at Dashields Lock & Dam, upper pool (Sewickley, PA).
   const USGS_SITE_ID = '03086000';
@@ -1764,8 +1765,8 @@
       zoomControl: true,
       attributionControl: false,
     }).setView([RADAR_LAT, RADAR_LON], 7);
-    radarBaseDark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { subdomains: 'abcd', maxZoom: 19, zIndex: 1 });
-    radarBaseLight = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { subdomains: 'abcd', maxZoom: 19, zIndex: 1 });
+    radarBaseDark = L.tileLayer(`https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=${CARTO_KEY}`, { subdomains: 'abcd', maxZoom: 19, zIndex: 1 });
+    radarBaseLight = L.tileLayer(`https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=${CARTO_KEY}`, { subdomains: 'abcd', maxZoom: 19, zIndex: 1 });
     setRadarBaseLayer(false); 
     L.marker([RADAR_LAT, RADAR_LON]).addTo(radarMap);
 
@@ -1878,7 +1879,7 @@
       worldCopyJump: true,
       minZoom: 2,
     }).setView([RADAR_LAT, RADAR_LON], 3);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { subdomains: 'abcd', maxZoom: 19 }).addTo(quakeMap);
+    L.tileLayer(`https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=${CARTO_KEY}`, { subdomains: 'abcd', maxZoom: 19 }).addTo(quakeMap);
     L.marker([RADAR_LAT, RADAR_LON]).addTo(quakeMap);
     document.querySelectorAll('.quake-range-btn').forEach(btn => {
       btn.addEventListener('click', () => setQuakeFeed(btn.dataset.feed));
@@ -1933,7 +1934,7 @@
       zoomControl: true,
       attributionControl: false,
     }).setView([RADAR_LAT, RADAR_LON], 7);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { subdomains: 'abcd', maxZoom: 19 }).addTo(lightningGlmMap);
+    L.tileLayer(`https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=${CARTO_KEY}`, { subdomains: 'abcd', maxZoom: 19 }).addTo(lightningGlmMap);
     L.marker([RADAR_LAT, RADAR_LON]).addTo(lightningGlmMap);
     loadLightningGlm();
     if (!lightningGlmTimer) lightningGlmTimer = setInterval(loadLightningGlm, LIGHTNING_GLM_REFRESH_INTERVAL_MS);
