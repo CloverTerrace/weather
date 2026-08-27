@@ -1,0 +1,413 @@
+/* ================================================================
+   CLOVER TERRACE — SUMMER GARDEN WORLD v2
+   Drop-in override for gardening.css.
+   Uses the current repo's real garden/raw sprites and preserves the
+   existing data-card layout.
+   ================================================================ */
+
+body.garden-season-summer {
+  --garden-sky-top: #79c7d8;
+  --garden-sky-mid: #b9dfb0;
+  --garden-sky-low: #e8efc5;
+  --garden-meadow-green: #5f994b;
+  --garden-meadow-dark: #315f38;
+  --garden-soil: #765033;
+  --garden-path: #d7b66e;
+  --garden-ink: #29472f;
+  color: var(--garden-ink);
+  background:
+    linear-gradient(
+      180deg,
+      #79c7d8 0%,
+      #b9dfb0 20%,
+      #e8efc5 43%,
+      #b6d58b 67%,
+      #6b9d50 100%
+    ) !important;
+}
+
+/* The gardening page owns its theme. Do not let the site's generic
+   day/night surface colors bleed into it. */
+body.garden-season-summer,
+body.garden-season-summer[data-garden-time="day"],
+body.garden-season-summer[data-garden-time="night"] {
+  background-color: #8fbd69 !important;
+  color: var(--garden-ink) !important;
+}
+
+body.garden-season-summer[data-garden-time="night"] {
+  background:
+    linear-gradient(
+      180deg,
+      #284b59 0%,
+      #496d55 24%,
+      #758f5a 48%,
+      #5d834b 72%,
+      #3f693d 100%
+    ) !important;
+}
+
+body.garden-season-summer #page-content {
+  background: transparent !important;
+}
+
+/* Keep the environmental layer behind everything, but make it part of
+   the garden page rather than a second dashboard theme. */
+body.garden-season-summer .garden-world {
+  z-index: 0;
+}
+
+body.garden-season-summer .garden-ground-fixed {
+  display: none;
+}
+
+/* ----------------------------------------------------------------
+   Cards: retain the existing layout, but make the garden world feel
+   continuous around them.
+   ---------------------------------------------------------------- */
+body.garden-season-summer .garden-grid {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.garden-season-summer .garden-card {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.58),
+      rgba(245,238,210,.86)
+    ) !important;
+}
+
+/* ----------------------------------------------------------------
+   Meadow: this is now a LANDSCAPE, not a card.
+   ---------------------------------------------------------------- */
+body.garden-season-summer .garden-meadow {
+  width: 100vw !important;
+  min-height: clamp(390px, 48vw, 620px) !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  isolation: isolate;
+  background:
+    /* subtle pixel texture */
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.035) 0 1px,
+      transparent 1px 4px
+    ),
+    /* grass base */
+    linear-gradient(
+      180deg,
+      #b8d984 0%,
+      #78ad59 28%,
+      #5d984b 58%,
+      #3f743f 100%
+    ) !important;
+}
+
+/* soft horizon */
+body.garden-season-summer .garden-meadow::before {
+  z-index: 0 !important;
+  background:
+    radial-gradient(
+      ellipse at 18% 18%,
+      rgba(255,255,255,.72) 0 7%,
+      transparent 8%
+    ),
+    radial-gradient(
+      ellipse at 80% 22%,
+      rgba(255,255,255,.55) 0 6%,
+      transparent 7%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.14),
+      transparent 38%
+    ) !important;
+}
+
+/* darker foreground soil/grass */
+body.garden-season-summer .garden-meadow::after {
+  z-index: 2 !important;
+  height: 45% !important;
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(37,83,38,.06) 22%,
+      rgba(30,68,34,.34) 100%
+    ) !important;
+}
+
+/* ----------------------------------------------------------------
+   Turn the existing meadow ground into a top-down garden foundation.
+   The Farm Tileset maps in assets/raw are used as large decorative
+   world pieces rather than as a framed image.
+   ---------------------------------------------------------------- */
+body.garden-season-summer .garden-ground {
+  bottom: 0 !important;
+  height: 48% !important;
+  z-index: 3 !important;
+  display: block !important;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 7%,
+      rgba(214,181,111,.92) 7% 13%,
+      transparent 13% 29%,
+      rgba(214,181,111,.86) 29% 35%,
+      transparent 35% 57%,
+      rgba(214,181,111,.82) 57% 63%,
+      transparent 63% 82%,
+      rgba(214,181,111,.86) 82% 88%,
+      transparent 88%
+    ),
+    radial-gradient(
+      ellipse at 50% 100%,
+      rgba(48,86,39,.42),
+      transparent 64%
+    ),
+    #659e4d !important;
+}
+
+/* Existing repeated grass-tile children become subtle ground texture. */
+body.garden-season-summer .garden-ground .ground-tile {
+  display: inline-block;
+  width: 12.5%;
+  height: 100%;
+  opacity: .28;
+  background-size: 42px 42px !important;
+}
+
+/* ----------------------------------------------------------------
+   Use the real 16x16 Farm map as a large environmental landmark.
+   It is deliberately softened into the scene rather than rendered
+   as a rectangular "image at the bottom".
+   ---------------------------------------------------------------- */
+body.garden-season-summer .garden-meadow-sky::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 7%;
+  width: min(620px, 76vw);
+  height: min(420px, 55vw);
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+  background:
+    url("../assets/raw/map1.png") center bottom / contain no-repeat;
+  image-rendering: pixelated;
+  opacity: .78;
+  filter: saturate(1.08) contrast(1.02);
+}
+
+/* Add the second map fragment as a smaller "neighboring plot". */
+body.garden-season-summer .garden-meadow-sky::after {
+  content: "";
+  position: absolute;
+  right: 1%;
+  bottom: 8%;
+  width: min(260px, 32vw);
+  height: min(260px, 32vw);
+  z-index: 1;
+  pointer-events: none;
+  background:
+    url("../assets/raw/map2.png") center / contain no-repeat;
+  image-rendering: pixelated;
+  opacity: .62;
+}
+
+/* ----------------------------------------------------------------
+   Replace the synthetic horizon with a dense row of real plant
+   sprites. Keep the 24px sheet crisp and scale by whole-ish pixels.
+   ---------------------------------------------------------------- */
+body.garden-season-summer .garden-pixel-horizon {
+  bottom: 30% !important;
+  height: 34% !important;
+  z-index: 7 !important;
+  padding-inline: 2.5% !important;
+  align-items: flex-end !important;
+}
+
+body.garden-season-summer .plant-sprite {
+  width: clamp(42px, 5.2vw, 74px) !important;
+  height: clamp(42px, 5.2vw, 74px) !important;
+  background-size:
+    calc(39 * clamp(42px, 5.2vw, 74px))
+    clamp(42px, 5.2vw, 74px) !important;
+  filter: drop-shadow(1px 2px 0 rgba(25,58,28,.32));
+}
+
+/* ----------------------------------------------------------------
+   Flowers/clumps already vendored into the repo become scattered
+   meadow details. We intentionally keep them independent from the
+   card decorations so the seasonal UI can change later.
+   ---------------------------------------------------------------- */
+body.garden-season-summer .garden-pixel-horizon::before,
+body.garden-season-summer .garden-pixel-horizon::after {
+  content: "";
+  position: absolute;
+  bottom: 8%;
+  width: 92px;
+  height: 70px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+  opacity: .95;
+  filter: drop-shadow(1px 2px 0 rgba(24,54,26,.3));
+}
+
+body.garden-season-summer .garden-pixel-horizon::before {
+  left: 8%;
+  background-image: url("../assets/garden/flowers/flower-cluster-colorful.png");
+}
+
+body.garden-season-summer .garden-pixel-horizon::after {
+  right: 10%;
+  background-image: url("../assets/garden/flowers/clump-green-blossom.png");
+}
+
+/* ----------------------------------------------------------------
+   Existing grass becomes foreground depth instead of a flat footer.
+   ---------------------------------------------------------------- */
+body.garden-season-summer .grass-back {
+  bottom: 28% !important;
+  height: 22% !important;
+  z-index: 8 !important;
+  opacity: .72 !important;
+}
+
+body.garden-season-summer .grass-middle {
+  bottom: 14% !important;
+  height: 18% !important;
+  z-index: 9 !important;
+}
+
+body.garden-season-summer .grass-front {
+  bottom: 0 !important;
+  height: 17% !important;
+  z-index: 11 !important;
+}
+
+/* Gentle independent sway — intentionally slow. */
+body.garden-season-summer .grass-back {
+  animation-duration: 9s !important;
+}
+body.garden-season-summer .grass-middle {
+  animation-duration: 7.5s !important;
+}
+body.garden-season-summer .grass-front {
+  animation-duration: 6.5s !important;
+}
+
+/* ----------------------------------------------------------------
+   Pixel creatures: keep them code-drawn for now, but move them into
+   the actual landscape instead of floating in empty space.
+   ---------------------------------------------------------------- */
+body.garden-season-summer .garden-bee {
+  top: 31% !important;
+  z-index: 13 !important;
+  animation-duration: 42s !important;
+}
+
+body.garden-season-summer .garden-butterfly {
+  top: 28% !important;
+  z-index: 13 !important;
+  animation-duration: 32s !important;
+}
+
+body.garden-season-summer .garden-life {
+  z-index: 13 !important;
+}
+
+/* Night is a garden state, not the Home-page theme. */
+body.garden-season-summer[data-garden-time="night"] .garden-meadow {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.025) 0 1px,
+      transparent 1px 4px
+    ),
+    linear-gradient(
+      180deg,
+      #536e62 0%,
+      #527452 35%,
+      #426843 66%,
+      #304f37 100%
+    ) !important;
+}
+
+body.garden-season-summer[data-garden-time="night"] .garden-meadow-sky::before {
+  opacity: .35;
+  filter: brightness(.7) saturate(.85);
+}
+
+body.garden-season-summer[data-garden-time="night"] .garden-bee,
+body.garden-season-summer[data-garden-time="night"] .garden-butterfly {
+  opacity: .28;
+}
+
+body.garden-season-summer[data-garden-time="night"] .garden-firefly {
+  opacity: 1;
+}
+
+/* Mobile: preserve the full-width landscape and give it enough depth
+   to read as a garden rather than a strip. */
+@media (max-width: 600px) {
+  body.garden-season-summer .garden-meadow {
+    min-height: 390px !important;
+  }
+
+  body.garden-season-summer .garden-meadow-sky::before {
+    width: 125vw;
+    height: 78%;
+    left: 50%;
+    bottom: 4%;
+  }
+
+  body.garden-season-summer .garden-meadow-sky::after {
+    width: 52vw;
+    height: 42vw;
+    right: -6vw;
+  }
+
+  body.garden-season-summer .garden-pixel-horizon {
+    bottom: 31% !important;
+    height: 31% !important;
+  }
+
+  body.garden-season-summer .plant-sprite {
+    width: 44px !important;
+    height: 44px !important;
+    background-size: 1716px 44px !important;
+  }
+
+  body.garden-season-summer .garden-ground {
+    height: 52% !important;
+  }
+
+  body.garden-season-summer .grass-back {
+    bottom: 30% !important;
+  }
+
+  body.garden-season-summer .grass-middle {
+    bottom: 14% !important;
+  }
+
+  body.garden-season-summer .grass-front {
+    height: 19% !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.garden-season-summer .garden-meadow *,
+  body.garden-season-summer .garden-meadow::before,
+  body.garden-season-summer .garden-meadow::after {
+    animation: none !important;
+  }
+}
