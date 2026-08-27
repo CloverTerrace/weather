@@ -5,6 +5,17 @@
   padding-inline: clamp(0.45rem, 1.5vw, 1.1rem);
 }
 
+/* site.css defines a bare #page-content rule (display:flex; align-items:center)
+   for the main dashboard's rain/cloud/stars overlay. Because it's an ID
+   selector it otherwise beats .garden-page's block layout here, which
+   shrinks every direct child - including the meadow section, whose content
+   is entirely position:absolute - down to near-zero width. This ID+class
+   selector outranks the bare ID rule to restore normal block layout on
+   this page without touching site.css or the dashboard. */
+#page-content.garden-page {
+  display: block;
+}
+
 .garden-heading {
   text-align: center;
   margin-bottom: 0.25rem;
