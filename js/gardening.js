@@ -295,4 +295,57 @@
   init();
   setInterval(() => loadStation().catch(() => {}), 60 * 1000);
   setInterval(() => loadNws().catch(() => {}), 15 * 60 * 1000);
+
+  // -------------------------------------------------------------------
+  // Summer garden environment
+  // -------------------------------------------------------------------
+  function updateGardenSeason() {
+    const body = document.body;
+    if (!body) return;
+
+    const month = new Date().getMonth() + 1;
+    let season = 'summer';
+
+    if (month >= 3 && month <= 5) season = 'spring';
+    else if (month >= 6 && month <= 8) season = 'summer';
+    else if (month >= 9 && month <= 11) season = 'autumn';
+    else season = 'winter';
+
+    body.dataset.gardenSeason = season;
+    body.classList.remove(
+      'garden-season-spring',
+      'garden-season-summer',
+      'garden-season-autumn',
+      'garden-season-winter'
+    );
+    body.classList.add(`garden-season-${season}`);
+  }
+
+  function wireGardenSecrets() {
+    const bee = $('garden-bee');
+    const secret = $('garden-secret');
+    const clover = $('garden-clover');
+
+    bee?.addEventListener('click', () => {
+      bee.classList.remove('garden-creature-found');
+      void bee.offsetWidth;
+      bee.classList.add('garden-creature-found');
+    });
+
+    secret?.addEventListener('click', () => {
+      secret.classList.remove('garden-secret-found');
+      void secret.offsetWidth;
+      secret.classList.add('garden-secret-found');
+      setTimeout(() => secret.classList.remove('garden-secret-found'), 900);
+    });
+
+    clover?.addEventListener('click', () => {
+      clover.classList.add('garden-four-leaf');
+      clover.title = 'You found the lucky clover! 🍀';
+    });
+  }
+
+  updateGardenSeason();
+  wireGardenSecrets();
+
 })();
