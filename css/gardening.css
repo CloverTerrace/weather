@@ -393,9 +393,13 @@ body.garden-season-summer::before {
   position: relative;
   z-index: 2;
   width: min(100%, 1320px);
+  min-height: calc(100vh - 1.25rem);
   margin-inline: auto;
   padding-inline: clamp(0.55rem, 1.5vw, 1.1rem);
+  padding-bottom: 0;
   background: transparent;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ---------------------------------------------------------------------
@@ -574,49 +578,58 @@ body.garden-season-summer .garden-bar-fill {
    The actual meadow. FULL BLEED. No card border, no radius, no card shadow.
    --------------------------------------------------------------------- */
 
-.garden-meadow {
+ .garden-meadow {
   position: relative;
   isolation: isolate;
   overflow: hidden;
   width: 100vw;
-  min-height: clamp(220px, 28vw, 340px);
-  margin: 1.4rem 0 0;
+  min-height: clamp(250px, 31vw, 360px);
+  margin-top: auto;
+  margin-right: 0;
+  margin-bottom: 0;
   margin-left: calc(50% - 50vw);
   border: 0 !important;
   border-radius: 0 !important;
   background:
     linear-gradient(180deg,
-      rgba(145,204,222,.98) 0%,
-      rgba(196,225,185,.98) 31%,
-      rgba(224,236,177,.98) 48%,
-      #8bb85f 68%,
+      rgba(169,201,130,0) 0%,
+      rgba(169,201,130,.08) 14%,
+      rgba(150,193,112,.22) 32%,
+      rgba(105,160,78,.78) 58%,
       #4b8147 100%);
   box-shadow:
-    inset 0 8px 18px rgba(255,255,255,.18),
-    inset 0 -15px 24px rgba(35,82,38,.18);
+    inset 0 12px 22px rgba(255,255,255,.10),
+    inset 0 -18px 28px rgba(35,82,38,.22);
 }
 
-.garden-meadow::before {
+ .garden-meadow::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: repeating-linear-gradient(0deg,
-    rgba(255,255,255,.035) 0 1px,
-    transparent 1px 4px);
+  background:
+    radial-gradient(75% 28% at 12% 54%, rgba(108,164,84,.52) 0 58%, transparent 60%),
+    radial-gradient(72% 25% at 72% 50%, rgba(120,174,91,.48) 0 58%, transparent 60%),
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,.035) 0 1px,
+      transparent 1px 4px);
 }
 
-.garden-meadow::after {
+ .garden-meadow::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 36%;
+  height: 48%;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(180deg,transparent,rgba(38,91,40,.16));
+  background:
+    linear-gradient(180deg,
+      transparent 0%,
+      rgba(54,105,47,.08) 30%,
+      rgba(38,91,40,.24) 100%);
 }
 
 .garden-meadow-sky,
@@ -853,9 +866,15 @@ body.garden-season-summer .garden-bar-fill {
 @media (max-width:600px) {
   body.garden-season-summer { padding-top:.7rem; }
   #page-content.garden-page { padding-inline:.55rem; }
+  #page-content.garden-page {
+    min-height: calc(100vh - .7rem);
+    padding-bottom: 0;
+  }
+
   .garden-meadow {
     min-height:230px;
-    margin-top:1rem;
+    margin-top:auto;
+    margin-bottom:0;
   }
   .garden-meadow-caption { bottom:.55rem; }
   .garden-meadow-credit { width:100%; font-size:.52rem; }
