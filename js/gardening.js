@@ -55,16 +55,6 @@
     }).format(d);
   }
 
-  function applyCachedTheme() {
-    try {
-      const cached = JSON.parse(localStorage.getItem('cloverWeatherThemeCache') || 'null');
-      if (!cached?.vars) return;
-      for (const [key, value] of Object.entries(cached.vars)) {
-        document.documentElement.style.setProperty(key, value);
-      }
-    } catch (e) {}
-  }
-
   function setText(id, value) {
     const el = $(id);
     if (el) el.textContent = value;
@@ -271,8 +261,46 @@
     }
   }
 
+  function updateGardenClock() {
+    const hour = Number(new Intl.DateTimeFormat('en-US', {
+      timeZone: STATION_TIMEZONE,
+      hour: 'numeric',
+      hour12: false
+    }).format(new Date()));
+
+    document.body.dataset.gardenTime =
+      hour >= 6 && hour < 20 ? 'day' : 'night';
+  }
+
+  function initGardenDetails() {
+    const meadow = document.querySelector('.garden-meadow');
+    const secret = document.querySelector('.garden-secret');
+    const clover = document.querySelector('.pixel-clover');
+
+    if (secret && clover) {
+      secret.addEventListener('click', () => {
+        secret.classList.remove('garden-secret-found');
+        void secret.offsetWidth;
+        secret.classList.add('garden-secret-found');
+        clover.classList.toggle('garden-four-leaf');
+      });
+    }
+
+    if (meadow) {
+      meadow.addEventListener('click', event => {
+        const bee = event.target.closest?.('.garden-bee');
+        if (bee) {
+          bee.classList.remove('garden-bee-ping');
+          void bee.offsetWidth;
+          bee.classList.add('garden-bee-ping');
+        }
+      });
+    }
+  }
+
   async function init() {
-    applyCachedTheme();
+    updateGardenClock();
+    initGardenDetails();
 
     const results = await Promise.allSettled([
       loadStation(),
@@ -293,52 +321,7 @@
   }
 
   init();
+  setInterval(updateGardenClock, 60 * 1000);
   setInterval(() => loadStation().catch(() => {}), 60 * 1000);
   setInterval(() => loadNws().catch(() => {}), 15 * 60 * 1000);
-
-  // -------------------------------------------------------------------
-  // Seasonal Garden identity
-  // -------------------------------------------------------------------
-  function applyGardenSeason() {
-    const body = document.body;
-    if (!body) return;
-
-    const month = new Date().getMonth() + 1;
-    let season = 'summer';
-
-    if (month >= 3 && month <= 5) season = 'spring';
-    else if (month >= 6 && month <= 8) season = 'summer';
-    else if (month >= 9 && month <= 11) season = 'autumn';
-    else season = 'winter';
-
-    body.dataset.gardenSeason = season;
-    body.classList.remove(
-      'garden-season-spring',
-      'garden-season-summer',
-      'garden-season-autumn',
-      'garden-season-winter'
-    );
-    body.classList.add(`garden-season-${season}`);
-  }
-
-  function wireGardenDetails() {
-    const secret = document.querySelector('.garden-meadow .garden-secret');
-    const clover = document.querySelector('.garden-meadow .pixel-clover');
-
-    secret?.addEventListener('click', () => {
-      secret.classList.remove('garden-secret-found');
-      void secret.offsetWidth;
-      secret.classList.add('garden-secret-found');
-      window.setTimeout(() => secret.classList.remove('garden-secret-found'), 900);
-    });
-
-    clover?.addEventListener('click', () => {
-      clover.classList.add('garden-four-leaf');
-      clover.title = 'You found the lucky clover! 🍀';
-    });
-  }
-
-  applyGardenSeason();
-  wireGardenDetails();
-
 })();
