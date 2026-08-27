@@ -57,6 +57,7 @@
  <link rel="apple-touch-icon" href="/icons/icon-192.png">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/navigation.css">
 
 
 
@@ -151,6 +152,15 @@
   </script>
 
   <div id="subtitle">Loading...</div>
+    <nav class="site-nav" aria-label="Clover Terrace Weather sections">
+      <a href="index.html" data-page="index.html"><span class="nav-icon">☁️</span>Home</a>
+      <a href="gardening.html" data-page="gardening.html"><span class="nav-icon">🌱</span>Garden</a>
+      <button type="button" class="nav-soon" data-coming-soon="Sky &amp; Space"><span class="nav-icon">🌌</span>Sky &amp; Space</button>
+      <button type="button" class="nav-soon" data-coming-soon="Soundings"><span class="nav-icon">🎈</span>Soundings</button>
+      <button type="button" class="nav-soon" data-coming-soon="Rivers"><span class="nav-icon">🌊</span>Rivers</button>
+      <button type="button" class="nav-soon" data-coming-soon="Earth &amp; Climate"><span class="nav-icon">🌎</span>Earth &amp; Climate</button>
+    </nav>
+
 
   <div id="alert-banners" role="alert" aria-live="assertive"></div>
 
@@ -508,6 +518,7 @@
     <div id="theme-preview-row"></div>
   </div>
     
+<script src="js/navigation.js" defer></script>
 <script src="js/site.js"></script>
 
    
