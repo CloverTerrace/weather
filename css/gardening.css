@@ -338,9 +338,7 @@
 
 
 /* =====================================================================
-   🌿 SUMMER GARDEN WORLD
-   The garden owns its environment. The meadow is part of the page,
-   not a card, and nothing here inherits the Home page's day/night theme.
+   🌿 SUMMER GARDEN WORLD 
    ===================================================================== */
 
 body.garden-season-summer {
@@ -431,7 +429,7 @@ body.garden-season-summer .garden-grid::before {
   z-index: 1;
   pointer-events: none;
   image-rendering: pixelated;
-  background-image: url("assets/garden/tiles/stone-top.png");
+  background-image: url("../assets/garden/tiles/stone-top.png");
   background-repeat: repeat-x;
   background-size: 46px 34px;
   border-radius: 6px 6px 0 0;
@@ -475,7 +473,7 @@ body.garden-season-summer .card-bed-top {
   z-index: 3;
   pointer-events: none;
   image-rendering: pixelated;
-  background-image: url("assets/garden/tiles/stone-top.png");
+  background-image: url("../assets/garden/tiles/stone-top.png");
   background-repeat: repeat-x;
   background-size: 44px 34px;
   border-radius: 4px 4px 0 0;
@@ -504,26 +502,26 @@ body.garden-season-summer .bloom-right { right: clamp(0.6rem, 3vw, 1.6rem); }
 body.garden-season-summer .gsprite-clump-foliage,
 body.garden-season-summer .gsprite-clump-green-blossom,
 body.garden-season-summer .gsprite-clump-red-blossom { width: 78px; height: 52px; top: -34px; }
-body.garden-season-summer .gsprite-clump-foliage { background-image: url("assets/garden/flowers/clump-foliage.png"); }
-body.garden-season-summer .gsprite-clump-green-blossom { background-image: url("assets/garden/flowers/clump-green-blossom.png"); }
-body.garden-season-summer .gsprite-clump-red-blossom { background-image: url("assets/garden/flowers/clump-red-blossom.png"); }
+body.garden-season-summer .gsprite-clump-foliage { background-image: url("../assets/garden/flowers/clump-foliage.png"); }
+body.garden-season-summer .gsprite-clump-green-blossom { background-image: url("../assets/garden/flowers/clump-green-blossom.png"); }
+body.garden-season-summer .gsprite-clump-red-blossom { background-image: url("../assets/garden/flowers/clump-red-blossom.png"); }
 
-body.garden-season-summer .gsprite-shrub-pink { width: 116px; height: 46px; top: -28px; background-image: url("assets/garden/flowers/shrub-pink.png"); }
+body.garden-season-summer .gsprite-shrub-pink { width: 116px; height: 46px; top: -28px; background-image: url("../assets/garden/flowers/shrub-pink.png"); }
 
-body.garden-season-summer .gsprite-flower-colorful { width: 72px; height: 53px; background-image: url("assets/garden/flowers/flower-colorful.png"); }
-body.garden-season-summer .gsprite-flower-red { width: 48px; height: 74px; top: -50px; background-image: url("assets/garden/flowers/flower-red.png"); }
-body.garden-season-summer .gsprite-flower-yellow { width: 48px; height: 74px; top: -50px; background-image: url("assets/garden/flowers/flower-yellow.png"); }
-body.garden-season-summer .gsprite-flower-purple { width: 34px; height: 53px; top: -34px; background-image: url("assets/garden/flowers/flower-purple.png"); }
-body.garden-season-summer .gsprite-flower-blue { width: 34px; height: 53px; top: -34px; background-image: url("assets/garden/flowers/flower-blue.png"); }
-body.garden-season-summer .gsprite-flower-cluster-colorful { width: 105px; height: 82px; top: -58px; background-image: url("assets/garden/flowers/flower-cluster-colorful.png"); }
-body.garden-season-summer .gsprite-flower-cluster-pink { width: 110px; height: 106px; top: -78px; background-image: url("assets/garden/flowers/flower-cluster-pink.png"); }
+body.garden-season-summer .gsprite-flower-colorful { width: 72px; height: 53px; background-image: url("../assets/garden/flowers/flower-colorful.png"); }
+body.garden-season-summer .gsprite-flower-red { width: 48px; height: 74px; top: -50px; background-image: url("../assets/garden/flowers/flower-red.png"); }
+body.garden-season-summer .gsprite-flower-yellow { width: 48px; height: 74px; top: -50px; background-image: url("../assets/garden/flowers/flower-yellow.png"); }
+body.garden-season-summer .gsprite-flower-purple { width: 34px; height: 53px; top: -34px; background-image: url("../assets/garden/flowers/flower-purple.png"); }
+body.garden-season-summer .gsprite-flower-blue { width: 34px; height: 53px; top: -34px; background-image: url("../assets/garden/flowers/flower-blue.png"); }
+body.garden-season-summer .gsprite-flower-cluster-colorful { width: 105px; height: 82px; top: -58px; background-image: url("../assets/garden/flowers/flower-cluster-colorful.png"); }
+body.garden-season-summer .gsprite-flower-cluster-pink { width: 110px; height: 106px; top: -78px; background-image: url("../assets/garden/flowers/flower-cluster-pink.png"); }
 
 body.garden-season-summer .gsprite-groundcover-pink,
 body.garden-season-summer .gsprite-groundcover-teal,
 body.garden-season-summer .gsprite-groundcover-purple { width: 88px; height: 29px; top: -18px; }
-body.garden-season-summer .gsprite-groundcover-pink { background-image: url("assets/garden/flowers/groundcover-pink.png"); }
-body.garden-season-summer .gsprite-groundcover-teal { background-image: url("assets/garden/flowers/groundcover-teal.png"); }
-body.garden-season-summer .gsprite-groundcover-purple { background-image: url("assets/garden/flowers/groundcover-purple.png"); }
+body.garden-season-summer .gsprite-groundcover-pink { background-image: url("../assets/garden/flowers/groundcover-pink.png"); }
+body.garden-season-summer .gsprite-groundcover-teal { background-image: url("../assets/garden/flowers/groundcover-teal.png"); }
+body.garden-season-summer .gsprite-groundcover-purple { background-image: url("../assets/garden/flowers/groundcover-purple.png"); }
 
 body.garden-season-summer .gsprite-trellis {
   width: 44px;
@@ -531,7 +529,7 @@ body.garden-season-summer .gsprite-trellis {
   top: -46px;
   z-index: 2;
   opacity: 0.92;
-  background-image: url("assets/garden/flowers/trellis.png");
+  background-image: url("../assets/garden/flowers/trellis.png");
 }
 
 body.garden-season-summer .gsprite-pot-purple,
@@ -540,9 +538,9 @@ body.garden-season-summer .gsprite-pot-tulip {
   top: -46px;
   z-index: 4;
 }
-body.garden-season-summer .gsprite-pot-purple { width: 62px; height: 70px; background-image: url("assets/garden/flowers/pot-purple.png"); left: clamp(0.6rem, 3vw, 1.6rem); }
-body.garden-season-summer .gsprite-pot-red { width: 32px; height: 57px; top: -34px; background-image: url("assets/garden/flowers/pot-red.png"); left: clamp(4.8rem, 10vw, 6.4rem); }
-body.garden-season-summer .gsprite-pot-tulip { width: 32px; height: 52px; top: -30px; background-image: url("assets/garden/flowers/pot-tulip.png"); left: clamp(8.4rem, 16vw, 10.6rem); }
+body.garden-season-summer .gsprite-pot-purple { width: 62px; height: 70px; background-image: url("../assets/garden/flowers/pot-purple.png"); left: clamp(0.6rem, 3vw, 1.6rem); }
+body.garden-season-summer .gsprite-pot-red { width: 32px; height: 57px; top: -34px; background-image: url("../assets/garden/flowers/pot-red.png"); left: clamp(4.8rem, 10vw, 6.4rem); }
+body.garden-season-summer .gsprite-pot-tulip { width: 32px; height: 52px; top: -30px; background-image: url("../assets/garden/flowers/pot-tulip.png"); left: clamp(8.4rem, 16vw, 10.6rem); }
 
 body.garden-season-summer .garden-card h2,
 body.garden-season-summer .garden-stat-label,
@@ -585,7 +583,7 @@ body.garden-season-summer .garden-bar-fill {
 }
 
 /* ---------------------------------------------------------------------
-   Fixed environmental layer. It lives behind the dashboard cards and is
+   fixed environmental layer lives behind the dashboard cards and is
    deliberately separate from the Home page's theme variables.
    --------------------------------------------------------------------- */
 
@@ -700,11 +698,11 @@ body.garden-season-summer .garden-bar-fill {
 }
 
 /* ---------------------------------------------------------------------
-   Persistent ground band. Fixed to the viewport (paired with .garden-world
+    ground band fixed to the viewport (paired with .garden-world
    above), so there is always grass under the content, at every scroll
    position — the thing that actually makes this feel like standing in a
    place, rather than a page with a garden illustration at the bottom.
-   Uses the real grass-tuft frames cropped from assets/garden/plants.png
+   uses the real grass-tuft frames cropped from assets/garden/plants.png
    (see .garden-ground-fixed::before below).
    --------------------------------------------------------------------- */
 
@@ -731,8 +729,8 @@ body.garden-season-summer .garden-bar-fill {
   background-position: bottom left, bottom left 22px;
   background-size: 30px 30px, 30px 30px;
   background-image:
-    url("assets/garden/tiles/grass-a.png"),
-    url("assets/garden/tiles/grass-b.png");
+    url("../assets/garden/tiles/grass-a.png"),
+    url("../assets/garden/tiles/grass-b.png");
 }
 
 /* ---------------------------------------------------------------------
@@ -814,7 +812,7 @@ body.garden-season-summer .garden-bar-fill {
 }
 .garden-ground { left:0; right:0; bottom:0; height:42px; z-index:4; display:flex; pointer-events:none; }
 
-/* Ground strip: the same grass frames cropped from plants.png for the
+/* ground strip: the same grass frames cropped from plants.png for the
    fixed viewport strip, tiled here as the meadow's own soil line. */
 .garden-ground {
   background: linear-gradient(#6d9a51,#416f3d);
@@ -825,7 +823,7 @@ body.garden-season-summer .garden-bar-fill {
   flex: 1 1 32px;
   min-width: 0;
   height: 100%;
-  background-image: url("assets/garden/tiles/grass-a.png");
+  background-image: url("../assets/garden/tiles/grass-a.png");
   background-repeat: repeat-x;
   background-position: bottom center;
   background-size: 30px 30px;
@@ -833,12 +831,12 @@ body.garden-season-summer .garden-bar-fill {
 }
 
 .ground-tile:nth-child(even) {
-  background-image: url("assets/garden/tiles/grass-b.png");
+  background-image: url("../assets/garden/tiles/grass-b.png");
 }
 
 /* ---------------------------------------------------------------------
-   Horizon sprites — real pixel art now that the sheet is vendored into
-   assets/garden/plants.png (single row, 39 frames, 24x24 each). Each
+   horizon sprites — real pixel art now that the sheet is vendored into
+   assets/garden/plants.png (single row, 39 frames, 24x24 each). each
    span sets its own --frame custom property (see gardening.html); the
    background-position formula below reads it, so adding a new sprite
    to the horizon is just another <span style="--frame:N">.
@@ -852,7 +850,7 @@ body.garden-season-summer .garden-bar-fill {
   height: 84px;
   image-rendering: pixelated;
   background-repeat: no-repeat;
-  background-image: url("assets/garden/plants.png");
+  background-image: url("../assets/garden/plants.png");
   background-size: 3276px 84px;
   background-position: calc(var(--frame) * -84px) 0;
   filter: drop-shadow(1px 3px 0 rgba(24,54,26,.32));
