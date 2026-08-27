@@ -1,17 +1,6 @@
 {
   "periods": [
     {
-      "name": "This Afternoon",
-      "temperature": 82,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "W",
-      "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "detailedForecast": "A slight chance of showers and thunderstorms. Partly sunny, with a high near 82. West wind around 6 mph. Chance of precipitation is 20%.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 21
-    },
-    {
       "name": "Tonight",
       "temperature": 62,
       "temperatureUnit": "F",
@@ -43,6 +32,17 @@
       "detailedForecast": "Mostly clear, with a low around 58. North wind 0 to 5 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 1
+    },
+    {
+      "name": "Saturday",
+      "temperature": 82,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "N",
+      "shortForecast": "Patchy Fog then Sunny",
+      "detailedForecast": "Patchy fog before 8am. Sunny, with a high near 82. North wind around 2 mph.",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
     }
   ],
   "hourly": [
