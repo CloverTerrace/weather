@@ -1,8 +1,27 @@
 {
-  "generatedAt": "2026-08-27T21:05:36.548119Z",
+  "generatedAt": "2026-08-27T21:10:35.181988Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "9cdeec96-1c43-47cb-be98-55d6a96199ac",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-27T21:05:00+00:00",
+      "expires": null,
+      "location": "Westmoreland PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg and Youngwood.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg and Youngwood.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg and Youngwood."
+        }
+      ],
+      "url": "https://api.weather.gov/products/9cdeec96-1c43-47cb-be98-55d6a96199ac"
+    },
     {
       "id": "cc72de1f-2682-426e-ae31-be1fb3f0a59d",
       "type": "Severe Weather Statement",
@@ -59,25 +78,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/22e93ee1-4c25-44a4-b2b2-a68eea7f2ada"
-    },
-    {
-      "id": "9057852b-8b98-4772-914f-e130e6b448b7",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-27T20:34:00+00:00",
-      "expires": null,
-      "location": "Westmoreland PA",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Irwin, Manor,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Irwin, Manor, Youngwood, North Irwin, Penn, Arona, Adamsburg, Grapeville, Harrison City and Herminie.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Irwin, Manor, Youngwood, North Irwin, Penn, Arona, Adamsburg, Grapeville, Harrison City and Herminie."
-        }
-      ],
-      "url": "https://api.weather.gov/products/9057852b-8b98-4772-914f-e130e6b448b7"
     }
   ]
 }
