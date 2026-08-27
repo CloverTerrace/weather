@@ -1,8 +1,27 @@
 {
-  "generatedAt": "2026-08-27T21:10:35.181988Z",
+  "generatedAt": "2026-08-27T21:15:36.612135Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "99ef54f6-8227-4bc2-a976-9da30bb7e761",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-27T21:12:00+00:00",
+      "expires": null,
+      "location": "Westmoreland PA",
+      "hazard": "PAC129-272122- /O.EXP.KPBZ.SV.W.0302.000000T0000Z-260827T2115Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC129-272122- /O.EXP.KPBZ.SV.W.0302.000000T0000Z-260827T2115Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 512 PM EDT Thu Aug 27 2026 PAC129-272122- /O.EXP.KPBZ.SV.W.0302.000000T0000Z-260827T2115Z/ Westmoreland PA- 512 PM EDT Thu Aug 27 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/99ef54f6-8227-4bc2-a976-9da30bb7e761"
+    },
     {
       "id": "9cdeec96-1c43-47cb-be98-55d6a96199ac",
       "type": "Severe Weather Statement",
@@ -59,25 +78,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/cf4c5727-76f3-47d6-896d-799ef668021b"
-    },
-    {
-      "id": "22e93ee1-4c25-44a4-b2b2-a68eea7f2ada",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-27T20:44:00+00:00",
-      "expires": null,
-      "location": "Westmoreland PA",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Youngwood, Penn,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Youngwood, Penn, Arona, Adamsburg and Grapeville.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Youngwood, Penn, Arona, Adamsburg and Grapeville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/22e93ee1-4c25-44a4-b2b2-a68eea7f2ada"
     }
   ]
 }
