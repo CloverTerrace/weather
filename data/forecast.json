@@ -4,12 +4,12 @@
       "name": "Today",
       "temperature": 82,
       "temperatureUnit": "F",
-      "windSpeed": "0 to 6 mph",
-      "windDirection": "SW",
-      "shortForecast": "Scattered Showers And Thunderstorms",
-      "detailedForecast": "Scattered showers and thunderstorms before 9am, then scattered showers and thunderstorms. Mostly sunny, with a high near 82. Southwest wind 0 to 6 mph. Chance of precipitation is 40%.",
+      "windSpeed": "6 mph",
+      "windDirection": "W",
+      "shortForecast": "Mostly Sunny then Scattered Showers And Thunderstorms",
+      "detailedForecast": "Scattered showers and thunderstorms after 1pm. Mostly sunny, with a high near 82. West wind around 6 mph. Chance of precipitation is 30%.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 40
+      "probabilityOfPrecipitation": 25
     },
     {
       "name": "Tonight",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-08-27T09:00:00-04:00",
-      "temperature": 68,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "SW",
-      "shortForecast": "Mostly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 2
-    },
     {
       "startTime": "2026-08-27T10:00:00-04:00",
       "temperature": 71,
@@ -283,6 +273,16 @@
       "windSpeed": "0 mph",
       "windDirection": "",
       "shortForecast": "Areas Of Fog",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-08-28T09:00:00-04:00",
+      "temperature": 66,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Patchy Fog",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     }
