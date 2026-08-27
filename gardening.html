@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="css/gardening.css">
 </head>
 
-<body>
+<body data-garden-season="summer">
   <div id="page-content" class="garden-page">
 
     <header class="garden-heading">
@@ -54,6 +54,54 @@
       current conditions, frost risk, rainfall, heat accumulation, and the long-term pieces
       that will eventually make this a full local garden-weather desk.
     </p>
+
+
+    <!-- Summer garden environment: decorative only, never blocks content. -->
+    <div class="garden-environment" id="garden-environment" aria-hidden="true">
+      <div class="garden-sun-glow"></div>
+      <div class="garden-cloud garden-cloud-a"></div>
+      <div class="garden-cloud garden-cloud-b"></div>
+
+      <div class="garden-fireflies">
+        <i class="firefly firefly-1"></i>
+        <i class="firefly firefly-2"></i>
+        <i class="firefly firefly-3"></i>
+        <i class="firefly firefly-4"></i>
+      </div>
+
+      <button class="garden-creature garden-bee" id="garden-bee" type="button" tabindex="-1" aria-label="A little garden bee">
+        <span class="pixel-bee"></span>
+      </button>
+
+      <button class="garden-creature garden-butterfly" id="garden-butterfly" type="button" tabindex="-1" aria-label="A garden butterfly">
+        <span class="pixel-butterfly"></span>
+      </button>
+
+      <div class="garden-meadow" id="garden-meadow">
+        <div class="meadow-back"></div>
+        <div class="meadow-mid">
+          <span class="pixel-plant plant-1"></span>
+          <span class="pixel-plant plant-2"></span>
+          <span class="pixel-plant plant-3"></span>
+          <span class="pixel-flower flower-1"></span>
+          <span class="pixel-flower flower-2"></span>
+          <span class="pixel-flower flower-3"></span>
+          <span class="pixel-mushroom mushroom-1"></span>
+          <span class="pixel-mushroom mushroom-2"></span>
+        </div>
+        <div class="meadow-front">
+          <span class="pixel-grass grass-1"></span>
+          <span class="pixel-grass grass-2"></span>
+          <span class="pixel-grass grass-3"></span>
+          <span class="pixel-flower flower-4"></span>
+          <span class="pixel-flower flower-5"></span>
+          <span class="pixel-clover" id="garden-clover" title="A suspiciously lucky clover"></span>
+          <span class="pixel-mushroom mushroom-3"></span>
+        </div>
+      </div>
+
+      <button class="garden-secret" id="garden-secret" type="button" tabindex="-1" aria-label="A tiny garden secret">✦</button>
+    </div>
 
     <main class="garden-grid">
 
@@ -237,6 +285,56 @@
       </section>
 
     </main>
+
+    <section class="garden-meadow" aria-label="Animated summer garden scene">
+      <div class="garden-meadow-sky" aria-hidden="true">
+        <span class="garden-cloud cloud-a"></span>
+        <span class="garden-cloud cloud-b"></span>
+        <span class="garden-sun"></span>
+      </div>
+
+      <div class="garden-life" aria-hidden="true">
+        <span class="garden-bee" data-garden-secret="bee">
+          <span class="bee-wing bee-wing-a"></span>
+          <span class="bee-wing bee-wing-b"></span>
+          <span class="bee-body"></span>
+        </span>
+        <span class="garden-butterfly">
+          <span class="butterfly-wing butterfly-wing-a"></span>
+          <span class="butterfly-body"></span>
+          <span class="butterfly-wing butterfly-wing-b"></span>
+        </span>
+        <span class="garden-firefly firefly-a"></span>
+        <span class="garden-firefly firefly-b"></span>
+        <span class="garden-firefly firefly-c"></span>
+        <span class="garden-firefly firefly-d"></span>
+      </div>
+
+      <div class="garden-meadow-horizon" aria-hidden="true">
+        <span class="pixel-plant plant-a"></span>
+        <span class="pixel-plant plant-b"></span>
+        <span class="pixel-plant plant-c"></span>
+        <span class="pixel-plant plant-d"></span>
+        <span class="pixel-mushroom mushroom-a"></span>
+        <span class="pixel-mushroom mushroom-b"></span>
+        <span class="pixel-flower flower-a"></span>
+        <span class="pixel-flower flower-b"></span>
+        <span class="pixel-flower flower-c"></span>
+        <span class="pixel-flower flower-d"></span>
+        <span class="pixel-flower flower-e"></span>
+        <span class="pixel-clover"></span>
+      </div>
+
+      <div class="garden-grass grass-back" aria-hidden="true"></div>
+      <div class="garden-grass grass-front" aria-hidden="true"></div>
+
+      <button class="garden-secret" type="button" aria-label="A tiny garden secret">✦</button>
+      <div class="garden-meadow-caption">
+        <span class="garden-meadow-label-icon">☀</span>
+        <span class="garden-meadow-label-text">Summer garden · Clover Terrace</span>
+        <span class="garden-meadow-credit">pixel garden built in CSS · CC0 sprite assets can be swapped in later</span>
+      </div>
+    </section>
   </div>
 
   <script src="js/navigation.js" defer></script>
