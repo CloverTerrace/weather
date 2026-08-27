@@ -262,24 +262,38 @@
         <span class="garden-firefly firefly-d"></span>
       </div>
 
-      <div class="garden-meadow-horizon" aria-hidden="true">
-        <span class="pixel-plant plant-a"></span>
-        <span class="pixel-plant plant-b"></span>
-        <span class="pixel-plant plant-c"></span>
-        <span class="pixel-plant plant-d"></span>
-        <span class="pixel-mushroom mushroom-a"></span>
-        <span class="pixel-mushroom mushroom-b"></span>
-        <span class="pixel-flower flower-a"></span>
-        <span class="pixel-flower flower-b"></span>
-        <span class="pixel-flower flower-c"></span>
-        <span class="pixel-flower flower-d"></span>
-        <span class="pixel-flower flower-e"></span>
-        <span class="pixel-clover"></span>
-        <span class="pixel-flower flower-f"></span>
-        <span class="pixel-flower flower-g"></span>
-        <span class="pixel-mushroom mushroom-c"></span>
-        <span class="pixel-rock rock-a"></span>
-        <span class="pixel-rock rock-b"></span>
+      <!--
+        Actual CC0 pixel-art sprites replace the former CSS-only stand-ins.
+        SpiderDave's Flowers sheet is a 12x24 sprite grid containing flowers,
+        weeds, fungi, vines, grass and cattails. The individual spans below
+        select cells from that sheet with CSS background positioning.
+      -->
+      <div class="garden-pixel-horizon" aria-hidden="true">
+        <span class="garden-sprite sprite-weed sprite-01"></span>
+        <span class="garden-sprite sprite-flower sprite-08"></span>
+        <span class="garden-sprite sprite-flower sprite-13"></span>
+        <span class="garden-sprite sprite-weed sprite-18"></span>
+        <span class="garden-sprite sprite-flower sprite-24"></span>
+        <span class="garden-sprite sprite-fungi sprite-31"></span>
+        <span class="garden-sprite sprite-flower sprite-38"></span>
+        <span class="garden-sprite sprite-weed sprite-44"></span>
+        <span class="garden-sprite sprite-flower sprite-51"></span>
+        <span class="garden-sprite sprite-fungi sprite-57"></span>
+        <span class="garden-sprite sprite-flower sprite-63"></span>
+        <span class="garden-sprite sprite-weed sprite-69"></span>
+        <span class="garden-sprite sprite-flower sprite-75"></span>
+      </div>
+
+      <div class="garden-ground" aria-hidden="true">
+        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
+        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
+        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
+        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
+        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
+        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
+        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
+        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
+        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
       </div>
 
       <div class="garden-grass grass-back" aria-hidden="true"></div>
@@ -290,7 +304,7 @@
       <div class="garden-meadow-caption">
         <span class="garden-meadow-label-icon">☀</span>
         <span class="garden-meadow-label-text">Summer garden · Clover Terrace</span>
-        <span class="garden-meadow-credit">CSS pixel garden · summer environment · Clover Terrace</span>
+        <span class="garden-meadow-credit">Pixel sprites: SpiderDave / CC0 · ground tiles: MraveniskoDev / CC0</span>
       </div>
     </section>
   </div>
