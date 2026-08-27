@@ -297,9 +297,9 @@
   setInterval(() => loadNws().catch(() => {}), 15 * 60 * 1000);
 
   // -------------------------------------------------------------------
-  // Summer garden environment
+  // Seasonal Garden identity
   // -------------------------------------------------------------------
-  function updateGardenSeason() {
+  function applyGardenSeason() {
     const body = document.body;
     if (!body) return;
 
@@ -321,22 +321,15 @@
     body.classList.add(`garden-season-${season}`);
   }
 
-  function wireGardenSecrets() {
-    const bee = $('garden-bee');
-    const secret = $('garden-secret');
-    const clover = $('garden-clover');
-
-    bee?.addEventListener('click', () => {
-      bee.classList.remove('garden-creature-found');
-      void bee.offsetWidth;
-      bee.classList.add('garden-creature-found');
-    });
+  function wireGardenDetails() {
+    const secret = document.querySelector('.garden-meadow .garden-secret');
+    const clover = document.querySelector('.garden-meadow .pixel-clover');
 
     secret?.addEventListener('click', () => {
       secret.classList.remove('garden-secret-found');
       void secret.offsetWidth;
       secret.classList.add('garden-secret-found');
-      setTimeout(() => secret.classList.remove('garden-secret-found'), 900);
+      window.setTimeout(() => secret.classList.remove('garden-secret-found'), 900);
     });
 
     clover?.addEventListener('click', () => {
@@ -345,7 +338,7 @@
     });
   }
 
-  updateGardenSeason();
-  wireGardenSecrets();
+  applyGardenSeason();
+  wireGardenDetails();
 
 })();
