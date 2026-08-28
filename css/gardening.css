@@ -1,1428 +1,496 @@
-/* Clover Terrace Gardening page — page-specific styling */
+/* =====================================================================
+   CLOVER TERRACE — GARDENING WEATHER
+   Single consolidated stylesheet. Replaces the old three-layer stack
+   (gardening.css + garden-world.css + garden-scene.css) now that the
+   garden scene is one real illustrated image instead of CSS-built
+   scenery — the old override layers are fully superseded and can be
+   deleted from the repo.
+   ===================================================================== */
 
-.garden-page {
-  width: min(100%, 1320px);
-  padding-inline: clamp(0.45rem, 1.5vw, 1.1rem);
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+/* =====================================================================
+   CLOVER TERRACE — GARDENING WEATHER / PHASE 1 GARDEN ENGINE
+   Layered pixel-garden foundation; decorative sprites come in Phase 2.
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+:root {
+  --ink: #3b2a1a;
+  --parchment: #faf2df;
+  --parchment-edge: #6b4a2b;
+  --parchment-inner: #f2e2bd;
+  --parchment-well: #ece0c2;
+  --purple-deep: #241a42;
+  --purple-mid: #4a3b7c;
+  --pink-dusk: #d998c2;
+  --good: #3f7d2c;
+  --warn: #b5762a;
+  --danger: #a5352f;
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-body: 'VT323', monospace;
+
+  /* Seasonal asset contract. The layout stays fixed while the asset set swaps. */
+  --season-path: "../assets/garden/summer/";
+  --season-grass: url("../assets/garden/summer/terrain/grass-1.png");
+  --season-grass-detail: url("../assets/garden/summer/terrain/grass-detail.png");
+  --season-grass-variant: url("../assets/garden/summer/terrain/grass-2.png");
+  --season-border-top: url("../assets/garden/summer/borders/top.png");
+  --season-border-bottom: url("../assets/garden/summer/borders/bottom.png");
+  --season-border-left: url("../assets/garden/summer/borders/left.png");
+  --season-border-right: url("../assets/garden/summer/borders/right.png");
+
+  /* Centralized pixel-art tuning knobs. */
+  --garden-tile-size: 16px;
+  --garden-edge-gap: 24px;
+  --garden-content-max: 1180px;
 }
 
-.garden-heading {
+.garden-page {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 20px;
+  color: var(--ink);
+  background: #6f9947;
+}
+
+img.pixel,
+.garden-page img {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* -----------------------------------------------------------------
+   Phase 1 world/layer architecture
+   ----------------------------------------------------------------- */
+.garden-world {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #6f9947;
+}
+
+.garden-layer {
+  position: absolute;
+  pointer-events: none;
+}
+
+.garden-terrain {
+  inset: 0;
+  z-index: 0;
+  background-color: #6f9947;
+  background-image:
+    var(--season-grass-detail),
+    var(--season-grass-variant),
+    var(--season-grass);
+  background-repeat: repeat;
+  background-position:
+    11px 7px,
+    5px 13px,
+    0 0;
+  background-size:
+    64px 64px,
+    96px 96px,
+    var(--garden-tile-size) var(--garden-tile-size);
+}
+
+/* A soft clearing/atmosphere layer keeps the grass visible without allowing
+   the texture to fight the parchment information cards. */
+.garden-clearings {
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(
+      ellipse at 50% 8%,
+      rgba(255, 247, 220, .78) 0 17%,
+      rgba(255, 247, 220, .40) 34%,
+      transparent 58%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(104, 72, 139, .80) 0 9.5%,
+      rgba(104, 72, 139, .22) 18%,
+      rgba(255, 235, 201, .08) 42%,
+      rgba(91, 131, 57, .04) 100%
+    );
+}
+
+.garden-heading,
+.garden-page .site-nav,
+.garden-intro,
+.garden-grid,
+.garden-band-credit {
+  position: relative;
+  z-index: 5;
+}
+
+/* Border slots establish the seasonal asset API now; actual summer pieces
+   will be populated during the decorative-map phase. */
+.garden-border {
+  z-index: 4;
+}
+
+.garden-border-top,
+.garden-border-bottom {
+  left: 0;
+  width: 100%;
+  height: var(--garden-edge-gap);
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+}
+
+.garden-border-top {
+  top: 0;
+  background-image: var(--season-border-top);
+}
+
+.garden-border-bottom {
+  bottom: 0;
+  background-image: var(--season-border-bottom);
+}
+
+.garden-border-left,
+.garden-border-right {
+  top: 0;
+  width: var(--garden-edge-gap);
+  height: 100%;
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+}
+
+.garden-border-left {
+  left: 0;
+  background-image: var(--season-border-left);
+}
+
+.garden-border-right {
+  right: 0;
+  background-image: var(--season-border-right);
+}
+
+/* The footer credit remains, but the old giant scene image is gone. */
+.garden-band-credit {
+  font-family: var(--font-body);
+  font-size: .95rem;
   text-align: center;
-  margin-bottom: 0.25rem;
+  color: #eef7df;
+  background: #3c5a2c;
+  padding: .35rem;
+  border-top: 2px solid #16102b;
+  margin: 0;
+}
+
+/* -----------------------------------------------------------------
+   Shared site nav — re-skinned in place, same markup/JS as every
+   other page (navigation.css/navigation.js are untouched infrastructure)
+   ----------------------------------------------------------------- */
+.garden-page .site-nav {
+  background: linear-gradient(180deg, #241a42, #342a5e) !important;
+  border: 2px solid #16102b !important;
+  backdrop-filter: none !important;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25) !important;
+}
+.garden-page .site-nav a,
+.garden-page .site-nav button {
+  font-family: var(--font-pixel) !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 0 !important;
+  color: #c9bff0 !important;
+}
+.garden-page .site-nav a:hover,
+.garden-page .site-nav button:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #fff !important;
+}
+.garden-page .site-nav a[aria-current="page"] {
+  background: rgba(255, 233, 168, 0.14) !important;
+  color: #ffe9a8 !important;
+  box-shadow: inset 0 -2px 0 #ffe9a8 !important;
+}
+
+/* -----------------------------------------------------------------
+   Heading / hero
+   ----------------------------------------------------------------- */
+.garden-heading {
+  position: relative;
+  text-align: center;
+  padding: 1.6rem 1rem 0.4rem;
+  overflow: hidden;
 }
 
 .garden-heading h1 {
-  margin-bottom: 0.15rem;
+  font-family: var(--font-pixel);
+  font-size: clamp(1.1rem, 3vw, 1.7rem);
+  color: #fff8ec;
+  text-shadow: 3px 3px 0 var(--purple-deep);
+  margin: 0.4rem 0 0.7rem;
+  position: relative;
+  z-index: 2;
 }
 
-.garden-heading .garden-subtitle {
-  margin: 0 0 0.9rem;
-  color: var(--muted-color);
-  font: 500 clamp(0.85rem, 1.4vw, 1rem)/1.4 var(--font-body);
+.garden-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.3rem;
+  color: #fff2df;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+  margin: 0 0 0.6rem;
+  position: relative;
+  z-index: 2;
 }
 
 .garden-intro {
-  width: min(100%, 900px);
-  margin: 0 auto 1.1rem;
+  max-width: 62ch;
+  margin: 0 auto 1.4rem;
   text-align: center;
-  color: var(--muted-color);
-  font: 500 0.82rem/1.5 var(--font-body);
+  font-size: 1.15rem;
+  color: #2e2440;
+  background: rgba(255, 248, 236, 0.85);
+  border: 2px solid var(--parchment-edge);
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  position: relative;
+  z-index: 2;
 }
 
+/* Twinkling star / drifting cloud sprites, confined to the hero band */
+.garden-sky-sprite { position: absolute; pointer-events: none; z-index: 1; }
+.garden-sky-sprite.star { animation: garden-twinkle 2.6s ease-in-out infinite; }
+.garden-sky-sprite.star:nth-of-type(2) { animation-delay: .4s; }
+.garden-sky-sprite.star:nth-of-type(3) { animation-delay: .9s; }
+.garden-sky-sprite.star:nth-of-type(4) { animation-delay: 1.3s; }
+.garden-sky-sprite.star:nth-of-type(5) { animation-delay: .2s; }
+.garden-sky-sprite.star:nth-of-type(6) { animation-delay: 1.7s; }
+@keyframes garden-twinkle { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+.garden-sky-sprite.cloud { animation: garden-drift 34s linear infinite; }
+@keyframes garden-drift {
+  0% { transform: translateX(-6vw); }
+  50% { transform: translateX(6vw); }
+  100% { transform: translateX(-6vw); }
+}
+
+/* -----------------------------------------------------------------
+   Card grid — same 12-col span logic as before, restyled
+   ----------------------------------------------------------------- */
 .garden-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: clamp(0.85rem, 1.25vw, 1.2rem);
-}
-
-.garden-card {
+  gap: 1.1rem;
+  max-width: var(--garden-content-max);
+  margin: 0 auto 1.8rem;
+  padding: 0 1rem;
   position: relative;
-  overflow: hidden;
-  min-width: 0;
-  background: var(--card-corner-glow), var(--card-color);
-  border: var(--card-accent-border);
-  border-radius: 14px;
-  padding: clamp(1rem, 1.6vw, 1.35rem);
-  box-shadow: 0 3px 12px rgba(0,0,0,0.16);
-  transition: background 0.8s ease, color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
+  z-index: 2;
 }
-
-.garden-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  box-shadow: inset 0 0 30px color-mix(in srgb, var(--accent-color) 4%, transparent);
-}
-
 .garden-card-wide { grid-column: span 8; }
 .garden-card-side { grid-column: span 4; }
 .garden-card-full { grid-column: 1 / -1; }
 
+.garden-card {
+  position: relative;
+  background: var(--parchment);
+  border: 4px solid var(--parchment-edge);
+  box-shadow: inset 0 0 0 3px var(--parchment-inner), 0 5px 0 rgba(0, 0, 0, 0.18);
+  padding: 1.1rem 1.2rem 1rem;
+}
+
+.garden-corner {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  z-index: 3;
+  pointer-events: none;
+}
+.garden-corner.tl { top: -11px; left: -11px; }
+.garden-corner.tr { top: -11px; right: -11px; transform: scaleX(-1); }
+.garden-corner.bl { bottom: -11px; left: -11px; transform: scaleY(-1); }
+.garden-corner.br { bottom: -11px; right: -11px; transform: scale(-1, -1); }
+
 .garden-card h2 {
-  margin: 0 0 0.85rem;
-  color: var(--muted-color);
-  font: 600 clamp(0.82rem, 1vw, 1rem)/1.2 var(--font-card-heading);
-  letter-spacing: 0.065em;
-  text-transform: uppercase;
+  font-family: var(--font-pixel);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: #7a5a30;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.9rem;
 }
+.garden-card h2 .garden-icon { font-size: 1rem; }
 
-.garden-card h2 .garden-icon {
-  margin-right: 0.35rem;
-  filter: var(--icon-shadow);
-}
-
-.garden-meta {
-  color: var(--muted-color);
-  font: 500 0.7rem/1.35 var(--font-details);
-}
-
+/* -----------------------------------------------------------------
+   Card internals — readouts / stat pairs / status / timelines / bars
+   ----------------------------------------------------------------- */
 .garden-readout-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: 0.6rem;
 }
-
 .garden-readout {
-  min-width: 0;
+  background: var(--parchment-well);
+  border: 2px solid var(--parchment-edge);
+  border-radius: 3px;
+  padding: 0.5rem 0.5rem 0.6rem;
   text-align: center;
-  padding: 0.7rem 0.4rem;
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--accent-color) 5%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent-color) 10%, transparent);
 }
-
 .garden-readout-label {
-  color: var(--muted-color);
-  font: 600 0.62rem/1.25 var(--font-grid-label);
-  letter-spacing: 0.045em;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
+  color: #7a5a30;
 }
-
-.garden-readout-value {
-  margin-top: 0.22rem;
-  color: var(--value-color);
-  font: 600 clamp(1.35rem, 2.4vw, 2rem)/1 var(--font-grid-value);
-}
-
-.garden-readout-unit {
-  font-size: 0.55em;
-  margin-left: 0.12em;
-}
+.garden-readout-value { font-size: 1.7rem; line-height: 1.1; }
+.garden-readout-unit { font-size: 1rem; color: #6a5a3a; }
 
 .garden-two-col {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.8rem;
+  gap: 0.5rem 1.2rem;
 }
-
-.garden-stat {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.62rem 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--accent-color) 10%, transparent);
-}
-
-.garden-stat:last-child {
-  border-bottom: 0;
-}
-
-.garden-stat-label {
-  color: var(--muted-color);
-  font: 600 0.72rem/1.3 var(--font-body);
-}
-
-.garden-stat-value {
-  color: var(--text-color);
-  font: 700 0.82rem/1.3 var(--font-body);
-  text-align: right;
-}
+.garden-stat { display: flex; flex-direction: column; }
+.garden-stat-label { font-size: 0.95rem; color: #7a5a30; }
+.garden-stat-value { font-size: 1.35rem; }
+.garden-stat-value a { color: var(--purple-mid); text-decoration: underline; }
 
 .garden-status {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  background: var(--parchment-well);
+  border: 2px solid var(--parchment-edge);
+  border-radius: 3px;
+  padding: 0.5rem 0.7rem;
   margin-bottom: 0.8rem;
-  padding: 0.7rem 0.8rem;
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--accent-color) 7%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent-color) 14%, transparent);
-  color: var(--text-color);
-  font: 650 0.76rem/1.35 var(--font-body);
 }
-
 .garden-status-dot {
-  width: 0.62rem;
-  height: 0.62rem;
-  flex: 0 0 0.62rem;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: var(--accent-color);
-  box-shadow: 0 0 8px color-mix(in srgb, var(--accent-color) 65%, transparent);
+  background: #9a8a6a;
+  flex: 0 0 auto;
 }
-
-.garden-status.warn .garden-status-dot {
-  background: #f0b44c;
-}
-
-.garden-status.danger .garden-status-dot {
-  background: #ef6b62;
-}
-
-.garden-status.good .garden-status-dot {
-  background: #75c79b;
-}
+.garden-status.good .garden-status-dot { background: var(--good); }
+.garden-status.warn .garden-status-dot { background: var(--warn); }
+.garden-status.danger .garden-status-dot { background: var(--danger); }
+.garden-status.good { color: var(--good); }
+.garden-status.warn { color: var(--warn); }
+.garden-status.danger { color: var(--danger); }
 
 .frost-timeline {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.65rem;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
 }
-
 .frost-box {
+  background: var(--parchment-well);
+  border: 2px solid var(--parchment-edge);
+  border-radius: 3px;
+  padding: 0.5rem;
   text-align: center;
-  padding: 0.85rem 0.5rem;
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--accent-color) 5%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent-color) 10%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
 }
-
-.frost-box-label {
-  display: block;
-  color: var(--muted-color);
-  font: 600 0.6rem/1.25 var(--font-body);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.frost-box-value {
-  display: block;
-  margin-top: 0.25rem;
-  color: var(--text-color);
-  font: 700 0.92rem/1.25 var(--font-body);
-}
+.frost-box-label { font-size: 0.8rem; text-transform: uppercase; color: #7a5a30; }
+.frost-box-value { font-size: 1.25rem; }
 
 .gdd-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
 }
-
 .gdd-box {
-  padding: 0.85rem;
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--accent-color) 5%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent-color) 10%, transparent);
+  background: var(--parchment-well);
+  border: 2px solid var(--parchment-edge);
+  border-radius: 3px;
+  padding: 0.6rem;
+  text-align: center;
 }
+.gdd-number { font-size: 1.8rem; color: var(--good); }
+.gdd-name { font-size: 0.85rem; color: #6a5a3a; }
 
-.gdd-box .gdd-number {
-  color: var(--value-color);
-  font: 700 1.8rem/1 var(--font-grid-value);
-}
-
-.gdd-box .gdd-name {
-  margin-top: 0.35rem;
-  color: var(--muted-color);
-  font: 650 0.67rem/1.3 var(--font-body);
-}
-
-.garden-bars {
-  display: grid;
-  gap: 0.55rem;
-}
-
+.garden-bars { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.7rem; }
 .garden-bar-row {
   display: grid;
   grid-template-columns: 74px 1fr 48px;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.6rem;
 }
-
-.garden-bar-label,
-.garden-bar-value {
-  color: var(--muted-color);
-  font: 600 0.65rem/1.2 var(--font-body);
-}
-
-.garden-bar-value {
-  text-align: right;
-}
-
+.garden-bar-label { font-size: 1rem; color: #7a5a30; }
 .garden-bar-track {
-  height: 0.48rem;
+  height: 12px;
+  background: var(--parchment-well);
+  border: 2px solid var(--parchment-edge);
+  border-radius: 2px;
   overflow: hidden;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--text-color) 9%, transparent);
 }
-
-.garden-bar-fill {
-  height: 100%;
-  width: 0%;
-  border-radius: inherit;
-  background: var(--accent-color);
-  transition: width 0.5s ease;
-}
-
-.garden-note {
-  margin: 0.8rem 0 0;
-  color: var(--muted-color);
-  font: 500 0.67rem/1.45 var(--font-details);
-}
+.garden-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #6fa84f, #427236); }
+.garden-bar-value { text-align: right; }
 
 .garden-source-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 0.65rem;
-  margin-top: 0.9rem;
-  color: var(--muted-color);
-  font: 500 0.62rem/1.4 var(--font-details);
+  gap: 0.4rem 1rem;
+  font-size: 0.95rem;
+  color: #6a5a3a;
+  border-top: 2px solid var(--parchment-inner);
+  padding-top: 0.6rem;
+  margin-top: 0.2rem;
 }
 
-.garden-source-row a {
-  color: var(--muted-color);
-  text-underline-offset: 2px;
-}
+.garden-note { font-size: 1rem; color: #6a5a3a; margin: 0.3rem 0 0; }
+.garden-meta { font-size: 0.95rem; color: #7a5a30; }
 
-.garden-loading {
-  opacity: 0.65;
-}
 
-.garden-error {
-  color: #f2a7a2;
-}
-
-@media (max-width: 900px) {
+/* -----------------------------------------------------------------
+   Mobile
+   ----------------------------------------------------------------- */
+@media (max-width: 850px) {
   .garden-card-wide,
-  .garden-card-side {
-    grid-column: 1 / -1;
-  }
-
-  .garden-readout-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  .garden-card-side { grid-column: 1 / -1; }
 }
 
-@media (max-width: 600px) {
-  .garden-page {
-    padding-inline: 0.25rem;
-  }
-
-  .garden-grid {
-    display: block;
-  }
-
-  .garden-card {
-    margin-bottom: 0.85rem;
-    border-radius: 12px;
-    padding: 0.95rem;
-  }
-
-  .garden-two-col,
-  .gdd-list {
-    grid-template-columns: 1fr;
-  }
-
-  .frost-timeline {
-    grid-template-columns: 1fr;
-  }
-
-  .garden-readout-value {
-    font-size: 1.55rem;
-  }
-
-  .garden-bar-row {
-    grid-template-columns: 62px 1fr 42px;
-  }
-}
-
-
-/* =====================================================================
-   🌿 SUMMER GARDEN SCENE — corrected version
-   This styles the existing bottom-of-page meadow. It intentionally does
-   NOT create another fixed/duplicate garden layer.
-   ===================================================================== */
-
-.garden-page {
-  position: relative;
-}
-
-/* A gentle summer wash that keeps the original Clover Terrace card
-   language intact instead of turning the whole page into a different site. */
-.garden-page {
-  background:
-    radial-gradient(circle at 88% 5%, rgba(255,238,165,0.12), transparent 25rem),
-    linear-gradient(180deg, rgba(102,157,93,0.06), transparent 34rem);
-}
-
-/* ---------------------------------------------------------------------
-   Bottom meadow
-   --------------------------------------------------------------------- */
-
-.garden-meadow {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  min-height: clamp(150px, 22vw, 230px);
-  margin: 1.15rem 0 0;
-  border: 1px solid color-mix(in srgb, #7caf61 35%, transparent);
-  border-radius: 18px;
-  background:
-    linear-gradient(
-      180deg,
-      #9ccce3 0%,
-      #c8dfad 48%,
-      #82aa62 73%,
-      #4d7c43 100%
-    );
-  box-shadow:
-    0 5px 18px rgba(31,63,38,0.18),
-    inset 0 1px 0 rgba(255,255,255,0.42);
-}
-
-/* Subtle early-web horizontal texture. */
-.garden-meadow::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      rgba(255,255,255,0.025) 0 1px,
-      transparent 1px 4px
-    );
-  pointer-events: none;
-}
-
-/* Soft sun in the upper corner. */
-.garden-sun {
-  position: absolute;
-  width: 90px;
-  height: 90px;
-  top: 13px;
-  right: 8%;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(255,246,179,0.82) 0 18%,
-    rgba(255,237,147,0.34) 42%,
-    transparent 72%
-  );
-  box-shadow: 0 0 28px rgba(255,232,143,0.22);
-}
-
-/* ---------------------------------------------------------------------
-   Clouds — deliberately slow and soft
-   --------------------------------------------------------------------- */
-
-.garden-cloud {
-  position: absolute;
-  width: 92px;
-  height: 22px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.55);
-  filter: blur(0.2px);
-  opacity: 0.72;
-}
-
-.garden-cloud::before,
-.garden-cloud::after {
-  content: "";
-  position: absolute;
-  bottom: 3px;
-  border-radius: 50%;
-  background: inherit;
-}
-
-.garden-cloud::before {
-  width: 34px;
-  height: 34px;
-  left: 15px;
-}
-
-.garden-cloud::after {
-  width: 27px;
-  height: 27px;
-  right: 16px;
-}
-
-.cloud-a {
-  top: 28px;
-  left: -115px;
-  animation: summer-cloud-drift-a 48s linear infinite;
-}
-
-.cloud-b {
-  top: 63px;
-  left: -140px;
-  transform: scale(0.72);
-  opacity: 0.42;
-  animation: summer-cloud-drift-b 67s linear 13s infinite;
-}
-
-@keyframes summer-cloud-drift-a {
-  from { transform: translateX(0); }
-  to { transform: translateX(calc(100% + 520px)); }
-}
-
-@keyframes summer-cloud-drift-b {
-  from { transform: translateX(0); }
-  to { transform: translateX(calc(100% + 560px)); }
-}
-
-/* ---------------------------------------------------------------------
-   Tiny living things
-   --------------------------------------------------------------------- */
-
-.garden-life {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.garden-bee,
-.garden-butterfly {
-  position: absolute;
-  display: block;
-  pointer-events: auto;
-  cursor: pointer;
-  z-index: 8;
-}
-
-.garden-bee {
-  left: -30px;
-  top: 39%;
-  width: 24px;
-  height: 18px;
-  animation: summer-bee-flight 31s ease-in-out infinite;
-}
-
-.bee-body {
-  position: absolute;
-  left: 4px;
-  top: 5px;
-  width: 17px;
-  height: 9px;
-  border-radius: 45%;
-  background:
-    linear-gradient(
-      90deg,
-      #f2c94c 0 27%,
-      #292a28 27% 40%,
-      #f2c94c 40% 68%,
-      #292a28 68% 81%,
-      #f2c94c 81%
-    );
-  box-shadow: 2px 2px 0 rgba(42,42,36,0.18);
-}
-
-.bee-wing {
-  position: absolute;
-  width: 9px;
-  height: 6px;
-  border-radius: 70% 30% 70% 30%;
-  background: rgba(255,255,255,0.72);
-  border: 1px solid rgba(255,255,255,0.45);
-}
-
-.bee-wing-a {
-  left: 5px;
-  top: 0;
-  transform: rotate(-22deg);
-}
-
-.bee-wing-b {
-  left: 12px;
-  top: 1px;
-  transform: rotate(22deg);
-}
-
-@keyframes summer-bee-flight {
-  0%   { transform: translate(0, 0); }
-  15%  { transform: translate(14vw, -8px); }
-  32%  { transform: translate(29vw, 7px); }
-  49%  { transform: translate(45vw, -13px); }
-  68%  { transform: translate(62vw, 5px); }
-  84%  { transform: translate(79vw, -7px); }
-  100% { transform: translate(calc(100vw + 70px), 3px); }
-}
-
-.garden-butterfly {
-  right: 15%;
-  top: 43%;
-  width: 26px;
-  height: 24px;
-  animation: summer-butterfly-flit 17s ease-in-out infinite;
-}
-
-.butterfly-body {
-  position: absolute;
-  left: 11px;
-  top: 5px;
-  width: 4px;
-  height: 15px;
-  border-radius: 4px;
-  background: #4d493f;
-}
-
-.butterfly-wing {
-  position: absolute;
-  top: 2px;
-  width: 11px;
-  height: 13px;
-  border-radius: 70% 30% 70% 30%;
-  background: linear-gradient(135deg, #d28cb1, #9e5f90);
-  border: 1px solid rgba(89,55,84,0.18);
-}
-
-.butterfly-wing-a {
-  left: 1px;
-  transform: rotate(-17deg);
-}
-
-.butterfly-wing-b {
-  right: 1px;
-  transform: scaleX(-1) rotate(-17deg);
-}
-
-@keyframes summer-butterfly-flit {
-  0%, 100% { transform: translate(0, 0) rotate(-2deg); }
-  23% { transform: translate(-25px, -12px) rotate(5deg); }
-  48% { transform: translate(-5px, 10px) rotate(-5deg); }
-  72% { transform: translate(23px, -8px) rotate(3deg); }
-}
-
-/* Fireflies are tiny enough that they read as "something moved" rather
-   than becoming the main attraction. */
-.garden-firefly {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #fff3a1;
-  box-shadow: 0 0 7px 2px rgba(255,238,121,0.55);
-  animation: summer-firefly 4.2s ease-in-out infinite;
-}
-
-.firefly-a { left: 17%; top: 69%; animation-delay: -0.8s; }
-.firefly-b { left: 39%; top: 77%; animation-delay: -2.4s; }
-.firefly-c { left: 69%; top: 67%; animation-delay: -1.6s; }
-.firefly-d { left: 86%; top: 76%; animation-delay: -3.2s; }
-
-@keyframes summer-firefly {
-  0%, 100% { opacity: 0.12; transform: translate(0, 0); }
-  42% { opacity: 0.92; transform: translate(4px, -7px); }
-  68% { opacity: 0.32; transform: translate(-3px, -2px); }
-}
-
-/* ---------------------------------------------------------------------
-   Pixel-ish plants / mushrooms / flowers
-   --------------------------------------------------------------------- */
-
-.garden-meadow-horizon {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 42px;
-  height: 62px;
-}
-
-.pixel-plant,
-.pixel-mushroom,
-.pixel-flower,
-.pixel-clover {
-  position: absolute;
-  display: block;
-  image-rendering: pixelated;
-  transform-origin: bottom center;
-}
-
-.pixel-plant {
-  width: 18px;
-  height: 42px;
-  bottom: 0;
-  background:
-    linear-gradient(#3f7041 0 0) 8px 10px / 3px 32px no-repeat,
-    linear-gradient(#6c9d4e 0 0) 1px 5px / 9px 11px no-repeat,
-    linear-gradient(#548844 0 0) 9px 13px / 9px 11px no-repeat;
-  animation: summer-plant-sway 5.2s ease-in-out infinite;
-}
-
-.plant-a { left: 7%; animation-delay: -1.1s; }
-.plant-b { left: 28%; animation-delay: -3.3s; }
-.plant-c { left: 63%; animation-delay: -2.2s; }
-.plant-d { left: 88%; animation-delay: -4.1s; }
-
-@keyframes summer-plant-sway {
-  0%, 100% { transform: rotate(-1.5deg); }
-  50% { transform: rotate(2deg); }
-}
-
-.pixel-mushroom {
-  width: 28px;
-  height: 25px;
-  bottom: 0;
-  background:
-    linear-gradient(#e8dfc9 0 0) 9px 12px / 11px 13px no-repeat,
-    linear-gradient(#bd5f55 0 0) 3px 6px / 22px 10px no-repeat,
-    linear-gradient(#f6e5ce 0 0) 8px 4px / 5px 4px no-repeat,
-    linear-gradient(#f6e5ce 0 0) 17px 7px / 4px 3px no-repeat;
-}
-
-.mushroom-a { left: 20%; transform: scale(0.72); }
-.mushroom-b { left: 79%; transform: scale(0.56); }
-
-.pixel-flower {
-  width: 21px;
-  height: 46px;
-  bottom: 0;
-  background:
-    linear-gradient(#477843 0 0) 9px 14px / 3px 32px no-repeat,
-    linear-gradient(#ffdc62 0 0) 5px 2px / 12px 12px no-repeat,
-    linear-gradient(#fff0a0 0 0) 1px 6px / 19px 7px no-repeat,
-    linear-gradient(#e6a953 0 0) 7px 6px / 8px 8px no-repeat;
-  animation: summer-flower-sway 4.8s ease-in-out infinite;
-}
-
-.flower-a { left: 13%; animation-delay: -0.5s; }
-.flower-b { left: 44%; transform: scale(0.78); animation-delay: -2.2s; }
-.flower-c { left: 56%; transform: scale(0.63); animation-delay: -3.1s; }
-.flower-d { left: 73%; transform: scale(0.88); animation-delay: -1.7s; }
-.flower-e { left: 94%; transform: scale(0.58); animation-delay: -4s; }
-
-@keyframes summer-flower-sway {
-  0%, 100% { transform: rotate(-1.2deg); }
-  50% { transform: rotate(2.1deg); }
-}
-
-.pixel-clover {
-  width: 28px;
-  height: 27px;
-  left: 35%;
-  bottom: 0;
-  cursor: pointer;
-  pointer-events: auto;
-  background:
-    radial-gradient(circle at 31% 35%, #74aa50 0 27%, transparent 29%),
-    radial-gradient(circle at 69% 35%, #74aa50 0 27%, transparent 29%),
-    radial-gradient(circle at 50% 68%, #5e9649 0 29%, transparent 31%),
-    linear-gradient(#477842 0 0) 12px 13px / 3px 14px no-repeat;
-  transition: transform 0.25s ease, filter 0.25s ease;
-}
-
-.pixel-clover:hover {
-  transform: translateY(-4px) scale(1.08);
-  filter: brightness(1.15) drop-shadow(0 0 5px rgba(117,173,76,0.65));
-}
-
-/* ---------------------------------------------------------------------
-   Grass foreground
-   --------------------------------------------------------------------- */
-
-.garden-grass {
-  position: absolute;
-  left: 0;
-  right: 0;
-  pointer-events: none;
-}
-
-.grass-back {
-  bottom: 25px;
-  height: 70px;
-  background:
-    linear-gradient(76deg, transparent 0 45%, #4f8048 46% 54%, transparent 55%) 0 0 / 22px 58px repeat-x,
-    linear-gradient(103deg, transparent 0 45%, #638f4d 46% 54%, transparent 55%) 8px 4px / 25px 62px repeat-x;
-  opacity: 0.9;
-}
-
-.grass-front {
-  bottom: 0;
-  height: 55px;
-  background:
-    linear-gradient(78deg, transparent 0 45%, #315f39 46% 54%, transparent 55%) 0 0 / 17px 48px repeat-x,
-    linear-gradient(101deg, transparent 0 45%, #427441 46% 54%, transparent 55%) 8px 3px / 21px 52px repeat-x;
-}
-
-/* ---------------------------------------------------------------------
-   Caption / tiny secret
-   --------------------------------------------------------------------- */
-
-.garden-meadow-caption {
-  position: absolute;
-  left: 0.85rem;
-  right: 0.85rem;
-  bottom: 0.55rem;
-  z-index: 10;
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.35rem 0.55rem;
-  color: rgba(255,255,255,0.94);
-  text-shadow: 0 1px 2px rgba(27,55,30,0.5);
-}
-
-.garden-meadow-label-icon {
-  font-size: 0.85rem;
-}
-
-.garden-meadow-label-text {
-  font: 600 0.72rem/1.2 var(--font-body);
-}
-
-.garden-meadow-credit {
-  font: 500 0.58rem/1.2 var(--font-details);
-  opacity: 0.82;
-}
-
-.garden-meadow .garden-secret {
-  position: absolute;
-  right: 0.85rem;
-  bottom: 2.05rem;
-  z-index: 11;
-  width: auto;
-  height: auto;
-  min-width: 0;
-  margin: 0;
-  padding: 0.1rem 0.2rem;
-  border: 0;
-  border-radius: 0;
-  appearance: none;
-  -webkit-appearance: none;
-  background: transparent !important;
-  color: rgba(255,247,174,0.28);
-  box-shadow: none !important;
-  font: 700 0.75rem/1 var(--font-body);
-  cursor: pointer;
-  pointer-events: auto;
-  transition: color 0.25s ease, transform 0.25s ease;
-}
-
-.garden-meadow .garden-secret:hover {
-  color: rgba(255,247,174,0.95);
-  background: transparent !important;
-  transform: scale(1.35) rotate(18deg);
-}
-
-.garden-meadow .garden-secret.garden-secret-found {
-  animation: summer-secret-spark 0.9s ease-out;
-}
-
-@keyframes summer-secret-spark {
-  0% { opacity: 1; transform: scale(1); }
-  45% { opacity: 1; transform: scale(2.3) rotate(45deg); }
-  100% { opacity: 0; transform: scale(0.7); }
-}
-
-/* ---------------------------------------------------------------------
-   Mobile: keep the scene short, readable and horizontal.
-   --------------------------------------------------------------------- */
-
-@media (max-width: 600px) {
-  .garden-meadow {
-    min-height: 145px;
-    margin-top: 0.9rem;
-    border-radius: 14px;
-  }
-
-  .garden-meadow-horizon {
-    bottom: 38px;
-    height: 52px;
-  }
-
-  .garden-sun {
-    width: 68px;
-    height: 68px;
-    right: 5%;
-    top: 10px;
-  }
-
-  .garden-meadow-caption {
-    left: 0.65rem;
-    right: 0.65rem;
-    bottom: 0.45rem;
-  }
-
-  .garden-meadow-credit {
-    width: 100%;
-    font-size: 0.52rem;
-  }
-
-  .garden-meadow .garden-secret {
-    right: 0.55rem;
-    bottom: 2rem;
-  }
-
-  .garden-butterfly {
-    right: 16%;
-  }
+@media (max-width: 480px) {
+  .garden-page { font-size: 18px; }
+  .garden-heading h1 { font-size: 1rem; }
+  .garden-readout-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .frost-timeline { grid-template-columns: 1fr; }
+  .garden-bar-row { grid-template-columns: 62px 1fr 42px; }
+  .garden-sky-sprite.cloud { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cloud-a,
-  .cloud-b,
-  .garden-bee,
-  .garden-butterfly,
-  .garden-firefly,
-  .pixel-plant,
-  .pixel-flower {
-    animation: none !important;
-  }
-
-  .garden-meadow .garden-secret,
-  .pixel-clover {
-    transition: none !important;
-  }
+  .garden-sky-sprite { animation: none !important; }
 }
 
-.pixel-clover.garden-four-leaf {
-  filter: drop-shadow(0 0 6px rgba(117,173,76,0.8));
-  transform: scale(1.15) translateY(-3px);
+/* Seasonal terrain hooks: each season can supply the same role filenames. */
+.garden-world[data-garden-season="summer"] {
+  --season-path: "../assets/garden/summer/";
 }
 
-/* =====================================================================
-   🌼 SUMMER GARDEN WORLD — final environment pass
-   The garden page owns its visual system. Nothing here reads the main
-   weather page's cached day/night theme.
-   ===================================================================== */
-
-body.garden-season-summer {
-  --garden-sky-top: #8ecbe0;
-  --garden-sky-mid: #bfe2c0;
-  --garden-sky-low: #e7efc2;
-  --garden-green: #3d7545;
-  --garden-green-dark: #285a36;
-  --garden-leaf: #5e9650;
-  --garden-flower: #f6d75b;
-  --garden-pink: #df8aaa;
-  --garden-card: rgba(247, 251, 225, 0.78);
-  --garden-card-soft: rgba(255, 255, 255, 0.32);
-  --garden-ink: #24432d;
-  --garden-muted: #47634d;
-  --garden-accent: #5b9650;
-  --garden-border: rgba(45, 100, 57, 0.34);
-  position: relative;
-  isolation: isolate;
-  min-height: 100vh;
-  padding: 1.5rem 0 0;
-  background:
-    linear-gradient(180deg,
-      var(--garden-sky-top) 0%,
-      var(--garden-sky-mid) 23%,
-      var(--garden-sky-low) 45%,
-      #d4e7ad 67%,
-      #b3ce8b 100%);
-  color: var(--garden-ink);
-  transition: none;
+.garden-world[data-garden-season="spring"] {
+  --season-path: "../assets/garden/spring/";
 }
 
-body.garden-season-summer::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.22;
-  background:
-    repeating-linear-gradient(0deg,
-      rgba(255,255,255,0.12) 0 1px,
-      transparent 1px 4px);
-  mix-blend-mode: soft-light;
+.garden-world[data-garden-season="autumn"] {
+  --season-path: "../assets/garden/autumn/";
 }
 
-.garden-page {
-  position: relative;
-  z-index: 2;
-  width: min(100%, 1320px);
-  padding-inline: clamp(0.65rem, 2vw, 1.25rem);
-  color: var(--garden-ink);
-  background: transparent !important;
-}
-
-/* Kill the main site's cached theme variables at the garden boundary. */
-.garden-page,
-.garden-page * {
-  --bg-color: transparent;
-  --card-color: var(--garden-card);
-  --title-color: var(--garden-ink);
-  --accent-color: var(--garden-accent);
-  --text-color: var(--garden-ink);
-  --muted-color: var(--garden-muted);
-  --value-color: #4f8b4a;
-  --label-color: var(--garden-muted);
-  --card-accent-border: 1px solid var(--garden-border);
-  --icon-shadow: drop-shadow(0 1px 1px rgba(35,75,39,0.22));
-}
-
-.garden-heading h1 {
-  color: #245b31 !important;
-  text-shadow: 1px 2px 0 rgba(255,255,255,0.45), 0 3px 8px rgba(42,82,43,0.18);
-}
-
-.garden-heading .garden-subtitle,
-.garden-intro {
-  color: var(--garden-muted) !important;
-}
-
-.garden-intro {
-  max-width: 980px;
-  font-size: clamp(0.82rem, 1.15vw, 0.98rem);
-}
-
-/* Early-web navigation: beveled, glossy, a little delightfully cheesy. */
-.garden-page .site-nav {
-  background: linear-gradient(180deg, rgba(250,255,236,0.82), rgba(189,219,167,0.72)) !important;
-  border: 2px solid rgba(58,108,62,0.32) !important;
-  border-bottom-color: rgba(39,83,43,0.42) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.78),
-              0 4px 12px rgba(45,83,46,0.16) !important;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
-.garden-page .site-nav a,
-.garden-page .site-nav button {
-  color: #35563b !important;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.65);
-}
-
-.garden-page .site-nav a:hover,
-.garden-page .site-nav button:hover {
-  background: linear-gradient(180deg, rgba(255,255,255,0.48), rgba(113,170,93,0.18)) !important;
-  border-color: rgba(69,126,70,0.35) !important;
-  color: #214d2c !important;
-}
-
-.garden-page .site-nav a[aria-current="page"] {
-  background: linear-gradient(180deg, rgba(255,255,255,0.58), rgba(115,169,95,0.3)) !important;
-  border-color: rgba(66,120,68,0.48) !important;
-  color: #1e4d2a !important;
-  box-shadow: inset 0 -3px 0 #5d9652, inset 0 1px 0 rgba(255,255,255,0.7) !important;
-}
-
-.garden-card {
-  background:
-    linear-gradient(135deg, rgba(255,255,255,0.22), transparent 42%),
-    var(--garden-card) !important;
-  border: 1px solid var(--garden-border) !important;
-  border-radius: 12px !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.62),
-              0 4px 12px rgba(48,86,45,0.12) !important;
-  color: var(--garden-ink);
-}
-
-.garden-card h2,
-.garden-stat-label,
-.garden-bar-label,
-.garden-bar-value,
-.garden-meta,
-.garden-note,
-.garden-source-row,
-.garden-readout-label,
-.frost-box-label,
-.gdd-box .gdd-name {
-  color: var(--garden-muted) !important;
-}
-
-.garden-readout,
-.frost-box,
-.gdd-box,
-.garden-status {
-  background: var(--garden-card-soft) !important;
-  border-color: rgba(65,112,65,0.16) !important;
-}
-
-.garden-readout-value,
-.gdd-box .gdd-number {
-  color: #4e8b4a !important;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.55);
-}
-
-.garden-stat-value,
-.frost-box-value {
-  color: #294c31 !important;
-}
-
-.garden-bar-track {
-  background: rgba(52,93,51,0.13) !important;
-}
-
-.garden-bar-fill {
-  background: linear-gradient(90deg, #6fa85a, #9ac75f) !important;
-}
-
-/* Full-width meadow footer: this is the visual 
-/* Full-width meadow footer: this is the visual garden "horizon" rather than a normal data card. */
-.garden-meadow {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  min-height: clamp(250px, 28vw, 360px);
-  margin-top: 1.4rem;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background:
-    linear-gradient(180deg,
-      #9bd1e2 0%,
-      #c6e3bd 34%,
-      #dce9ad 48%,
-      #84b15f 67%,
-      #4c8248 100%) !important;
-  box-shadow: inset 0 8px 18px rgba(255,255,255,0.16),
-              inset 0 -12px 22px rgba(35,82,38,0.18);
-}
-
-.garden-meadow::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    repeating-linear-gradient(0deg,
-      rgba(255,255,255,0.035) 0 1px,
-      transparent 1px 4px),
-    linear-gradient(180deg, transparent 0 54%, rgba(49,105,49,0.08) 55%, transparent 56%);
-}
-
-.garden-meadow::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 34%;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(180deg, transparent, rgba(46,101,46,0.16));
-}
-
-.garden-meadow-sky,
-.garden-life,
-.garden-meadow-horizon,
-.garden-grass,
-.garden-meadow-caption,
-.garden-secret {
-  z-index: 2;
-}
-
-/* Big environment elements belong to the page, not the little meadow box. */
-.garden-world {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.world-sun {
-  position: absolute;
-  width: clamp(70px, 9vw, 130px);
-  height: clamp(70px, 9vw, 130px);
-  right: 9vw;
-  top: 5vh;
-  border-radius: 50%;
-  background: radial-gradient(circle,
-    rgba(255,246,171,0.95) 0 25%,
-    rgba(255,239,135,0.42) 47%,
-    transparent 72%);
-  filter: blur(0.2px);
-  animation: world-sun-breathe 8s ease-in-out infinite;
-}
-
-@keyframes world-sun-breathe {
-  0%, 100% { transform: scale(0.98); opacity: 0.88; }
-  50% { transform: scale(1.03); opacity: 1; }
-}
-
-.world-cloud {
-  position: absolute;
-  width: 130px;
-  height: 28px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.56);
-  filter: blur(0.25px);
-}
-
-.world-cloud::before,
-.world-cloud::after {
-  content: "";
-  position: absolute;
-  bottom: 3px;
-  border-radius: 50%;
-  background: inherit;
-}
-
-.world-cloud::before { width: 45px; height: 45px; left: 20px; }
-.world-cloud::after { width: 34px; height: 34px; right: 20px; }
-
-.world-cloud-a { top: 16vh; left: -170px; animation: world-cloud-a 58s linear infinite; }
-.world-cloud-b { top: 28vh; left: -210px; transform: scale(0.7); opacity: 0.42; animation: world-cloud-b 76s linear 9s infinite; }
-.world-cloud-c { top: 39vh; left: -190px; transform: scale(0.52); opacity: 0.3; animation: world-cloud-c 94s linear 23s infinite; }
-
-@keyframes world-cloud-a { to { transform: translateX(calc(100vw + 430px)); } }
-@keyframes world-cloud-b { to { transform: translateX(calc(100vw + 500px)) scale(0.7); } }
-@keyframes world-cloud-c { to { transform: translateX(calc(100vw + 470px)) scale(0.52); } }
-
-.world-firefly {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #fff3a3;
-  box-shadow: 0 0 9px 2px rgba(255,235,126,0.5);
-  opacity: 0;
-  animation: world-firefly 5.5s ease-in-out infinite;
-}
-
-.world-firefly-a { left: 12%; top: 62%; animation-delay: -1s; }
-.world-firefly-b { left: 31%; top: 76%; animation-delay: -3.7s; }
-.world-firefly-c { left: 58%; top: 68%; animation-delay: -2.2s; }
-.world-firefly-d { left: 76%; top: 79%; animation-delay: -4.6s; }
-.world-firefly-e { left: 91%; top: 63%; animation-delay: -0.4s; }
-
-@keyframes world-firefly {
-  0%, 100% { opacity: 0; transform: translate(0,0); }
-  35% { opacity: 0.75; transform: translate(5px,-9px); }
-  58% { opacity: 0.18; transform: translate(-4px,-15px); }
-  72% { opacity: 0.65; transform: translate(3px,-4px); }
-}
-
-.world-butterfly {
-  position: absolute;
-  width: 22px;
-  height: 18px;
-  opacity: 0.65;
-  animation: world-butterfly 24s ease-in-out infinite;
-}
-
-.world-butterfly::before,
-.world-butterfly::after {
-  content: "";
-  position: absolute;
-  top: 2px;
-  width: 10px;
-  height: 14px;
-  border-radius: 80% 30% 70% 30%;
-  background: linear-gradient(135deg, #e89abb, #a9679a);
-}
-.world-butterfly::before { left: 0; transform: rotate(-18deg); }
-.world-butterfly::after { right: 0; transform: scaleX(-1) rotate(-18deg); }
-
-.world-butterfly-a { left: 8%; top: 35%; animation-delay: -5s; }
-.world-butterfly-b { right: 14%; top: 49%; transform: scale(0.78); animation-delay: -15s; }
-
-@keyframes world-butterfly {
-  0%, 100% { margin-left: 0; margin-top: 0; transform: rotate(-3deg); }
-  25% { margin-left: 38px; margin-top: -20px; transform: rotate(8deg); }
-  52% { margin-left: 78px; margin-top: 8px; transform: rotate(-6deg); }
-  78% { margin-left: 36px; margin-top: -12px; transform: rotate(5deg); }
-}
-
-/* Meadow scenery gets deliberately chunkier so it reads as actual pixel art. */
-.garden-meadow-horizon {
-  bottom: 76px;
-  height: 105px;
-  z-index: 4;
-}
-
-.pixel-plant,
-.pixel-mushroom,
-.pixel-flower,
-.pixel-clover,
-.pixel-rock {
-  filter: drop-shadow(1px 2px 0 rgba(38,79,39,0.18));
-}
-
-.pixel-plant { width: 24px; height: 64px; }
-.plant-a { left: 5%; }
-.plant-b { left: 24%; }
-.plant-c { left: 48%; }
-.plant-d { left: 82%; }
-
-.pixel-mushroom { width: 40px; height: 34px; }
-.mushroom-a { left: 16%; transform: scale(0.9); }
-.mushroom-b { left: 68%; transform: scale(0.72); }
-.mushroom-c { left: 91%; transform: scale(0.58); }
-
-.pixel-flower { width: 27px; height: 61px; }
-.flower-a { left: 10%; }
-.flower-b { left: 31%; }
-.flower-c { left: 46%; }
-.flower-d { left: 63%; }
-.flower-e { left: 77%; }
-.flower-f { left: 87%; transform: scale(0.72); }
-.flower-g { left: 98%; transform: scale(0.55); }
-
-.pixel-rock {
-  position: absolute;
-  bottom: 0;
-  width: 28px;
-  height: 15px;
-  background:
-    linear-gradient(145deg, #6d7e68 0 50%, #4d6550 51% 100%);
-  clip-path: polygon(8% 80%, 25% 28%, 58% 10%, 88% 43%, 100% 83%, 80% 100%, 25% 100%);
-}
-.rock-a { left: 37%; transform: scale(0.8); }
-.rock-b { left: 59%; transform: scale(0.58); }
-
-.garden-grass {
-  left: 0;
-  right: 0;
-}
-
-.grass-back {
-  bottom: 55px;
-  height: 100px;
-  z-index: 5;
-  opacity: 0.9;
-  background:
-    linear-gradient(76deg, transparent 0 45%, #5d9250 46% 54%, transparent 55%) 0 0 / 25px 78px repeat-x,
-    linear-gradient(103deg, transparent 0 45%, #79a65a 46% 54%, transparent 55%) 9px 3px / 29px 82px repeat-x;
-}
-
-.grass-middle {
-  bottom: 25px;
-  height: 78px;
-  z-index: 6;
-  background:
-    linear-gradient(80deg, transparent 0 44%, #4b7d45 45% 56%, transparent 57%) 2px 0 / 21px 67px repeat-x,
-    linear-gradient(100deg, transparent 0 44%, #65924e 45% 55%, transparent 56%) 11px 4px / 24px 72px repeat-x;
-}
-
-.grass-front {
-  bottom: 0;
-  height: 64px;
-  z-index: 7;
-  background:
-    linear-gradient(78deg, transparent 0 44%, #315f39 45% 56%, transparent 57%) 0 0 / 18px 58px repeat-x,
-    linear-gradient(101deg, transparent 0 44%, #427441 45% 56%, transparent 57%) 8px 2px / 22px 62px repeat-x;
-}
-
-/* A subtle wind animation across the grass; very slow so it feels alive. */
-.grass-back,
-.grass-middle,
-.grass-front {
-  transform-origin: bottom center;
-  animation: summer-grass-breathe 7s ease-in-out infinite;
-}
-.grass-middle { animation-delay: -2.3s; }
-.grass-front { animation-delay: -4.1s; }
-
-@keyframes summer-grass-breathe {
-  0%, 100% { transform: skewX(0deg); }
-  50% { transform: skewX(-0.7deg); }
-}
-
-.garden-bee {
-  width: 30px;
-  height: 22px;
-  top: 28%;
-  animation-duration: 38s;
-}
-
-.garden-butterfly {
-  width: 32px;
-  height: 28px;
-  top: 32%;
-  animation-duration: 22s;
-}
-
-.garden-meadow-caption {
-  left: clamp(0.8rem, 3vw, 2.2rem);
-  right: clamp(0.8rem, 3vw, 2.2rem);
-  bottom: 0.7rem;
-  z-index: 12;
-  color: rgba(255,255,255,0.96);
-}
-
-.garden-meadow-label-text {
-  font-size: clamp(0.72rem, 1vw, 0.9rem);
-  text-shadow: 1px 1px 0 rgba(31,77,39,0.42);
-}
-
-.garden-meadow-credit {
-  font-size: clamp(0.55rem, 0.75vw, 0.66rem);
-}
-
-.garden-meadow .garden-secret {
-  right: clamp(0.8rem, 3vw, 2.2rem);
-  bottom: 2.5rem;
-}
-
-@media (max-width: 600px) {
-  body.garden-season-summer {
-    padding-top: 0.7rem;
-  }
-
-  .garden-page {
-    padding-inline: 0.55rem;
-  }
-
-  .garden-meadow {
-    min-height: 245px;
-    margin-top: 1rem;
-  }
-
-  .garden-meadow-horizon {
-    bottom: 66px;
-    height: 92px;
-  }
-
-  .garden-meadow-caption {
-    bottom: 0.55rem;
-  }
-
-  .garden-meadow-credit {
-    width: 100%;
-    font-size: 0.52rem;
-  }
-
-  .world-sun {
-    right: 4vw;
-    top: 5vh;
-  }
-
-  .world-cloud-a { top: 14vh; }
-  .world-cloud-b { top: 27vh; }
-  .world-cloud-c { display: none; }
-
-  .world-butterfly-a { left: 4%; }
-  .world-butterfly-b { right: 5%; }
-
-  .grass-back { height: 88px; bottom: 48px; }
-  .grass-middle { height: 70px; bottom: 22px; }
-  .grass-front { height: 58px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .garden-world *,
-  .garden-meadow *,
-  .garden-meadow::before,
-  .garden-meadow::after {
-    animation: none !important;
-  }
-}
-
-.garden-bee.garden-bee-ping {
-  animation-name: garden-bee-ping;
-  animation-duration: 0.55s;
-}
-
-@keyframes garden-bee-ping {
-  0% { transform: scale(1); }
-  40% { transform: scale(1.25) rotate(-7deg); }
-  100% { transform: scale(1); }
+.garden-world[data-garden-season="winter"] {
+  --season-path: "../assets/garden/winter/";
 }
 
 
 /* =====================================================================
-   FULL-BLEED GARDEN SHELL
-   The shared site.css centers pages and adds body padding. The garden is
-   an immersive viewport environment, so this page deliberately escapes
-   those global container constraints without changing other pages.
+   FULL-BLEED SHELL FIX
+   Scoped only to the gardening page so site.css remains untouched.
    ===================================================================== */
 
 html:has(body.garden-body),
@@ -1436,10 +504,8 @@ body.garden-body {
 
 body.garden-body {
   display: block !important;
-  align-items: initial !important;
-  justify-content: initial !important;
   overflow-x: hidden;
-  background: transparent !important;
+  background: #6f9947 !important;
 }
 
 body.garden-body #page-content.garden-page {
@@ -1452,32 +518,21 @@ body.garden-body #page-content.garden-page {
   min-height: 100svh;
   min-height: 100dvh;
   margin: 0 !important;
-  padding-inline: clamp(0.55rem, 2vw, 1.25rem);
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+  padding: 0 !important;
   box-sizing: border-box;
 }
 
-/* The fixed world must use the actual viewport, not a constrained page box. */
-body.garden-body > .garden-world {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  height: 100svh;
-  height: 100dvh;
+body.garden-body .garden-world {
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
   margin: 0;
-}
-
-/* Full-width meadow is intentionally allowed to touch both viewport edges. */
-body.garden-body .garden-meadow {
-  width: 100vw;
-  max-width: none;
-  margin-left: calc(50% - 50vw);
   box-sizing: border-box;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 850px) {
   html:has(body.garden-body),
   body.garden-body {
     width: 100%;
@@ -1491,13 +546,11 @@ body.garden-body .garden-meadow {
     max-width: none !important;
     min-width: 0 !important;
     margin: 0 !important;
-    padding-inline: 0.55rem;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    padding: 0 !important;
   }
 
-  body.garden-body.garden-season-summer {
-    padding-top: 0 !important;
+  body.garden-body .garden-world {
+    width: 100%;
+    min-width: 0;
   }
 }
-
