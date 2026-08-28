@@ -33,7 +33,9 @@
 
   /* Seasonal asset contract. The layout stays fixed while the asset set swaps. */
   --season-path: "../assets/garden/summer/";
-  --season-grass: url("../assets/garden/summer/terrain/grass.png");
+  --season-grass: url("../assets/garden/summer/terrain/grass-1.png");
+  --season-grass-detail: url("../assets/garden/summer/terrain/grass-detail.png");
+  --season-grass-variant: url("../assets/garden/summer/terrain/grass-2.png");
   --season-border-top: url("../assets/garden/summer/borders/top.png");
   --season-border-bottom: url("../assets/garden/summer/borders/bottom.png");
   --season-border-left: url("../assets/garden/summer/borders/left.png");
@@ -82,10 +84,19 @@ img.pixel,
   inset: 0;
   z-index: 0;
   background-color: #6f9947;
-  background-image: var(--season-grass);
+  background-image:
+    var(--season-grass-detail),
+    var(--season-grass-variant),
+    var(--season-grass);
   background-repeat: repeat;
-  background-position: 0 0;
-  background-size: var(--garden-tile-size) var(--garden-tile-size);
+  background-position:
+    11px 7px,
+    5px 13px,
+    0 0;
+  background-size:
+    64px 64px,
+    96px 96px,
+    var(--garden-tile-size) var(--garden-tile-size);
 }
 
 /* A soft clearing/atmosphere layer keeps the grass visible without allowing
@@ -457,4 +468,21 @@ img.pixel,
 
 @media (prefers-reduced-motion: reduce) {
   .garden-sky-sprite { animation: none !important; }
+}
+
+/* Seasonal terrain hooks: each season can supply the same role filenames. */
+.garden-world[data-garden-season="summer"] {
+  --season-path: "../assets/garden/summer/";
+}
+
+.garden-world[data-garden-season="spring"] {
+  --season-path: "../assets/garden/spring/";
+}
+
+.garden-world[data-garden-season="autumn"] {
+  --season-path: "../assets/garden/autumn/";
+}
+
+.garden-world[data-garden-season="winter"] {
+  --season-path: "../assets/garden/winter/";
 }
