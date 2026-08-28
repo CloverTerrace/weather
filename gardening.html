@@ -268,26 +268,29 @@
 
     </main>
 
-    <!-- Detailed garden-building zone: large sprites live below the compact weather desk. -->
-    <section class="garden-building-zone" aria-label="Clover Terrace garden grounds">
-      <div class="building-skyline" aria-hidden="true"></div>
-      <div class="garden-building-sprite building-tree" aria-hidden="true"></div>
+    <!-- The information desk flows directly into the garden. Large sprites stay below the cards so they never cover live weather information. -->
+    <div class="garden-building-zone">
+      <div class="garden-meadow-transition" aria-hidden="true"></div>
+
+      <div class="garden-building-sprite building-tree tree-west" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-tree tree-flowering" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-bush bush-west" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-bush bush-east" aria-hidden="true"></div>
       <div class="garden-building-sprite building-grove-house" aria-hidden="true"></div>
       <div class="garden-building-sprite building-pond" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-bridge" aria-hidden="true"></div>
       <div class="garden-building-sprite building-bed bed-one" aria-hidden="true"></div>
       <div class="garden-building-sprite building-bed bed-two" aria-hidden="true"></div>
-      <div class="garden-building-sprite building-rocks rocks-one" aria-hidden="true"></div>
-      <div class="garden-building-sprite building-rocks rocks-two" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-fence fence-one" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-fence fence-two" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-mushrooms mushrooms-one" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-sunflower" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-chicken-house" aria-hidden="true"></div>
 
-      <a class="garden-build-hotspot hotspot-rain" href="#garden-rain-card" aria-label="Open recent rainfall">
-        <span class="hotspot-sprite"></span><span>Rainfall</span>
-      </a>
-      <a class="garden-build-hotspot hotspot-season" href="#garden-season-card" aria-label="Open growing season">
-        <span class="hotspot-sprite"></span><span>Growing Season</span>
-      </a>
-      <a class="garden-build-hotspot hotspot-gdd" href="#garden-gdd-card" aria-label="Open heat accumulation and growing degree days">
-        <span class="hotspot-sprite"></span><span>Heat &amp; Sun</span>
-      </a>
+      <!-- Invisible, sprite-sized links keep the garden interactive without adding UI boxes. -->
+      <a class="garden-build-hotspot hotspot-rain" href="#garden-rain-card" aria-label="Open recent rainfall"><span></span></a>
+      <a class="garden-build-hotspot hotspot-season" href="#garden-season-card" aria-label="Open growing season"><span></span></a>
+      <a class="garden-build-hotspot hotspot-gdd" href="#garden-gdd-card" aria-label="Open heat accumulation and growing degree days"><span></span></a>
 
       <div class="garden-building-flower flower-build-a" aria-hidden="true"></div>
       <div class="garden-building-flower flower-build-b" aria-hidden="true"></div>
@@ -295,10 +298,7 @@
       <div class="garden-building-flower flower-build-d" aria-hidden="true"></div>
       <div class="garden-building-flower flower-build-e" aria-hidden="true"></div>
       <div class="garden-building-flower flower-build-f" aria-hidden="true"></div>
-
-      <div class="garden-building-title">Clover Terrace Garden Grounds</div>
-      <div class="garden-building-note">The weather desk above watches the garden; this little world is where the garden itself lives.</div>
-    </section>
+    </div>
 
     <div class="garden-layer garden-border garden-border-left" aria-hidden="true"></div>
     <div class="garden-layer garden-border garden-border-right" aria-hidden="true"></div>
