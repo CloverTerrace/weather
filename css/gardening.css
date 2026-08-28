@@ -22,6 +22,7 @@
   --warn: #b5762a;
   --danger: #a5352f;
   --font-pixel: 'Press Start 2P', monospace;
+  --font-title: 'Macondo', 'FigTree';
   --font-body: 'VT323', monospace;
 }
 
@@ -184,7 +185,7 @@ body[data-garden-season="winter"] .garden-world {
 }
 
 .garden-heading h1 {
-  font-family: var(--font-pixel);
+  font-family: var(--font-title);
   font-size: clamp(1.1rem, 3vw, 1.7rem);
   color: #fff8ec;
   text-shadow: 3px 3px 0 var(--purple-deep);
