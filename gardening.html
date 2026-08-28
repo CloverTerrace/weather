@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="preload" as="font" type="font/woff2" href="fonts/macondo-v27-latin-regular.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="fonts/figtree-v9-latin-regular.woff2" crossorigin>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,37 +15,21 @@
   <link rel="stylesheet" href="css/site.css">
   <link rel="stylesheet" href="css/navigation.css">
   <link rel="stylesheet" href="css/gardening.css">
-  <link rel="stylesheet" href="css/garden-world.css">
-  <link rel="stylesheet" href="css/garden-scene.css">
 </head>
 
-<body class="garden-season-summer" data-garden-season="summer">
-  <div class="garden-world" aria-hidden="true">
-    <span class="world-sun"></span>
-    <span class="world-cloud world-cloud-a"></span>
-    <span class="world-cloud world-cloud-b"></span>
-    <span class="world-cloud world-cloud-c"></span>
-    <span class="world-butterfly world-butterfly-a"></span>
-    <span class="world-butterfly world-butterfly-b"></span>
-    <span class="world-firefly world-firefly-a"></span>
-    <span class="world-firefly world-firefly-b"></span>
-    <span class="world-firefly world-firefly-c"></span>
-    <span class="world-firefly world-firefly-d"></span>
-    <span class="world-firefly world-firefly-e"></span>
-  </div>
-
-  <!--
-    persistent ground line. fixed to the bottom of the viewport at every
-    scroll position (not just at the bottom of the document), so the sky
-    above and the grass below are always both visible - the page reads as
-    a place you're standing in, not a dashboard with a garden graphic
-    tacked onto the end.
-  -->
-  <div class="garden-ground-fixed" aria-hidden="true"></div>
-
+<body data-garden-season="summer">
   <div id="page-content" class="garden-page">
 
     <header class="garden-heading">
+      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:12px; left:4%; width:14px;" alt="">
+      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:70px; left:15%; width:10px;" alt="">
+      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:10px; left:30%; width:12px;" alt="">
+      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:74px; left:72%; width:10px;" alt="">
+      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:14px; left:85%; width:14px;" alt="">
+      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:60px; left:95%; width:10px;" alt="">
+      <img class="garden-sky-sprite cloud" src="assets/garden/scene/cloud.png" style="top:8px; left:2%; width:90px; opacity:0.85;" alt="">
+      <img class="garden-sky-sprite cloud" src="assets/garden/scene/cloud.png" style="top:6px; left:82%; width:110px; opacity:0.8;" alt="">
+
       <h1><span aria-hidden="true">🌱</span> Gardening Weather</h1>
       <p class="garden-subtitle">Clover Terrace · Aliquippa, Pennsylvania</p>
     </header>
@@ -69,9 +52,10 @@
     <main class="garden-grid">
 
       <section class="garden-card garden-card-wide" aria-labelledby="conditions-heading">
-        <div class="card-bed-top" aria-hidden="true"></div>
-        <span class="gsprite gsprite-clump-green-blossom bloom-left" aria-hidden="true"></span>
-        <span class="gsprite gsprite-flower-colorful bloom-right" aria-hidden="true"></span>
+        <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner br" src="assets/garden/scene/corner-flowers.png" alt="">
         <h2 id="conditions-heading"><span class="garden-icon">🌿</span>Garden Conditions Now</h2>
 
         <div class="garden-readout-grid">
@@ -116,8 +100,10 @@
       </section>
 
       <section class="garden-card garden-card-side" aria-labelledby="frost-heading">
-        <div class="card-bed-top" aria-hidden="true"></div>
-        <span class="gsprite gsprite-flower-blue bloom-left" aria-hidden="true"></span>
+        <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner br" src="assets/garden/scene/corner-flowers.png" alt="">
         <h2 id="frost-heading"><span class="garden-icon">❄️</span>Frost &amp; Freeze Watch</h2>
 
         <div id="frost-status" class="garden-status garden-loading">
@@ -147,9 +133,10 @@
       </section>
 
       <section class="garden-card garden-card-side" aria-labelledby="season-heading">
-        <div class="card-bed-top" aria-hidden="true"></div>
-        <span class="gsprite gsprite-groundcover-teal bloom-left" aria-hidden="true"></span>
-        <span class="gsprite gsprite-flower-purple bloom-right" aria-hidden="true"></span>
+        <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner br" src="assets/garden/scene/corner-flowers.png" alt="">
         <h2 id="season-heading"><span class="garden-icon">🌱</span>Growing Season</h2>
 
         <div class="garden-two-col">
@@ -179,9 +166,10 @@
       </section>
 
       <section class="garden-card garden-card-wide" aria-labelledby="gdd-heading">
-        <div class="card-bed-top" aria-hidden="true"></div>
-        <span class="gsprite gsprite-shrub-pink bloom-left" aria-hidden="true"></span>
-        <span class="gsprite gsprite-flower-cluster-colorful bloom-right" aria-hidden="true"></span>
+        <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner br" src="assets/garden/scene/corner-flowers.png" alt="">
         <h2 id="gdd-heading"><span class="garden-icon">☀️</span>Heat Accumulation · Growing Degree Days</h2>
 
         <div class="gdd-list">
@@ -202,9 +190,10 @@
       </section>
 
       <section class="garden-card garden-card-side" aria-labelledby="rain-heading">
-        <div class="card-bed-top" aria-hidden="true"></div>
-        <span class="gsprite gsprite-clump-foliage bloom-left" aria-hidden="true"></span>
-        <span class="gsprite gsprite-flower-yellow bloom-right" aria-hidden="true"></span>
+        <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner br" src="assets/garden/scene/corner-flowers.png" alt="">
         <h2 id="rain-heading"><span class="garden-icon">🌧️</span>Recent Rainfall</h2>
 
         <div class="garden-bars">
@@ -232,11 +221,10 @@
       </section>
 
       <section class="garden-card garden-card-full" aria-labelledby="reference-heading">
-        <div class="card-bed-top" aria-hidden="true"></div>
-        <span class="gsprite gsprite-trellis bloom-right" aria-hidden="true"></span>
-        <span class="gsprite gsprite-pot-purple" aria-hidden="true"></span>
-        <span class="gsprite gsprite-pot-red" aria-hidden="true"></span>
-        <span class="gsprite gsprite-pot-tulip" aria-hidden="true"></span>
+        <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
+        <img class="garden-corner br" src="assets/garden/scene/corner-flowers.png" alt="">
         <h2 id="reference-heading"><span class="garden-icon">📚</span>Gardener's Reference Desk</h2>
 
         <div class="garden-two-col">
@@ -268,166 +256,11 @@
 
     </main>
 
-    <section class="garden-meadow" aria-label="Animated summer garden scene">
-      <div class="garden-meadow-sky" aria-hidden="true">
-        <span class="garden-cloud cloud-a"></span>
-        <span class="garden-cloud cloud-b"></span>
-        <span class="garden-sun"></span>
-      </div>
+    <div class="garden-band">
+      <img src="assets/garden/scene/garden-scene.png" alt="Pixel-art illustration of the Clover Terrace garden: a winding path through flowering trees and shrubs leading to raised vegetable beds.">
+    </div>
+    <p class="garden-band-credit">🍀 Clover Terrace — grown with care</p>
 
-      <!-- ============ Back row: trees framing the plot ============ -->
-      <div class="scene-tree tree-left" aria-hidden="true">
-        <span class="tree-canopy"></span>
-        <span class="tree-trunk"></span>
-      </div>
-      <div class="scene-tree tree-right" aria-hidden="true">
-        <span class="tree-canopy"></span>
-        <span class="tree-trunk"></span>
-      </div>
-
-      <!-- ============ Wooden fence along the back-left edge ============ -->
-      <div class="scene-fence" aria-hidden="true">
-        <span class="fence-rail"></span>
-        <span class="fence-post"></span><span class="fence-post"></span><span class="fence-post"></span>
-        <span class="fence-post"></span><span class="fence-post"></span><span class="fence-post"></span>
-        <span class="fence-post"></span><span class="fence-post"></span>
-      </div>
-
-      <!-- ============ Birdhouse on a pole ============ -->
-      <div class="scene-birdhouse" aria-hidden="true">
-        <span class="birdhouse-roof"></span>
-        <span class="birdhouse-body"><span class="birdhouse-hole"></span></span>
-        <span class="birdhouse-pole"></span>
-      </div>
-
-      <!-- ============ Winding stone path ============ -->
-      <div class="scene-path" aria-hidden="true">
-        <span class="path-stone ps-1"></span><span class="path-stone ps-2"></span>
-        <span class="path-stone ps-3"></span><span class="path-stone ps-4"></span>
-        <span class="path-stone ps-5"></span><span class="path-stone ps-6"></span>
-        <span class="path-stone ps-7"></span><span class="path-stone ps-8"></span>
-        <span class="path-stone ps-9"></span>
-      </div>
-
-      <!-- ============ Pond with footbridge and lily pads ============ -->
-      <div class="scene-pond" aria-hidden="true">
-        <span class="pond-water"></span>
-        <span class="pond-shine"></span>
-        <span class="lily-pad lp-1"></span><span class="lily-pad lp-2"></span><span class="lily-pad lp-3"></span>
-        <span class="pond-bridge"></span>
-        <span class="pond-reed r-1"></span><span class="pond-reed r-2"></span><span class="pond-reed r-3"></span>
-      </div>
-
-      <!-- ============ Raised vegetable bed with trellis ============ -->
-      <div class="scene-bed" aria-hidden="true">
-        <span class="bed-trellis">
-          <span class="trellis-vine"></span><span class="trellis-vine"></span>
-          <span class="trellis-vine"></span><span class="trellis-vine"></span>
-        </span>
-        <span class="bed-soil">
-          <span class="bed-row"></span><span class="bed-row"></span><span class="bed-row"></span>
-        </span>
-      </div>
-
-      <!-- ============ Little glass greenhouse ============ -->
-      <div class="scene-greenhouse" aria-hidden="true">
-        <span class="greenhouse-roof"></span>
-        <span class="greenhouse-body"></span>
-        <span class="greenhouse-door"></span>
-        <span class="greenhouse-crate gh-crate-a"></span>
-        <span class="greenhouse-crate gh-crate-b"></span>
-      </div>
-
-      <!-- ============ Garden bench ============ -->
-      <div class="scene-bench" aria-hidden="true">
-        <span class="bench-back"></span>
-        <span class="bench-seat"></span>
-        <span class="bench-leg bl-a"></span><span class="bench-leg bl-b"></span>
-      </div>
-
-      <!-- ============ Sunflower patch ============ -->
-      <div class="scene-sunflowers" aria-hidden="true">
-        <span class="sunflower sf-1"><span class="sf-head"></span><span class="sf-stem"></span></span>
-        <span class="sunflower sf-2"><span class="sf-head"></span><span class="sf-stem"></span></span>
-        <span class="sunflower sf-3"><span class="sf-head"></span><span class="sf-stem"></span></span>
-      </div>
-
-      <!-- ============ Real vendored flower sprites scattered as texture ============ -->
-      <div class="scene-scatter" aria-hidden="true">
-        <span class="gsprite gsprite-flower-cluster-colorful scatter-1" style="position:absolute;top:auto;"></span>
-        <span class="gsprite gsprite-clump-green-blossom scatter-2" style="position:absolute;top:auto;"></span>
-        <span class="gsprite gsprite-flower-cluster-pink scatter-3" style="position:absolute;top:auto;"></span>
-        <span class="gsprite gsprite-shrub-pink scatter-4" style="position:absolute;top:auto;"></span>
-        <span class="gsprite gsprite-clump-red-blossom scatter-5" style="position:absolute;top:auto;"></span>
-        <span class="gsprite gsprite-groundcover-pink scatter-6" style="position:absolute;top:auto;"></span>
-        <span class="gsprite gsprite-pot-tulip scatter-7" style="position:absolute;top:auto;"></span>
-        <span class="gsprite gsprite-flower-purple scatter-8" style="position:absolute;top:auto;"></span>
-      </div>
-
-      <div class="garden-life" aria-hidden="true">
-        <span class="garden-bee" data-garden-secret="bee">
-          <span class="bee-wing bee-wing-a"></span>
-          <span class="bee-wing bee-wing-b"></span>
-          <span class="bee-body"></span>
-        </span>
-        <span class="garden-butterfly">
-          <span class="butterfly-wing butterfly-wing-a"></span>
-          <span class="butterfly-body"></span>
-          <span class="butterfly-wing butterfly-wing-b"></span>
-        </span>
-        <span class="garden-firefly firefly-a"></span>
-        <span class="garden-firefly firefly-b"></span>
-        <span class="garden-firefly firefly-c"></span>
-        <span class="garden-firefly firefly-d"></span>
-      </div>
-
-      <!--
-        Real CC0 pixel-art sprites (assets/garden/plants.png, a single-row
-        39-frame sheet) replace the former inline-SVG stand-ins. Each span
-        below picks one 24x24 frame from that sheet via the --frame custom
-        property, read by the .plant-sprite background-position formula in
-        gardening.css.
-      -->
-      <div class="garden-pixel-horizon" aria-hidden="true">
-        <span class="plant-sprite" style="--frame:0"></span>
-        <span class="plant-sprite" style="--frame:14"></span>
-        <span class="plant-sprite" style="--frame:5"></span>
-        <span class="plant-sprite" style="--frame:26"></span>
-        <span class="plant-sprite" style="--frame:1"></span>
-        <span class="plant-sprite" style="--frame:36"></span>
-        <span class="plant-sprite" style="--frame:21"></span>
-        <span class="plant-sprite" style="--frame:23"></span>
-        <span class="plant-sprite" style="--frame:38"></span>
-        <span class="plant-sprite" style="--frame:20"></span>
-        <span class="plant-sprite" style="--frame:0"></span>
-        <span class="plant-sprite" style="--frame:15"></span>
-        <span class="plant-sprite" style="--frame:30"></span>
-      </div>
-
-      <div class="garden-ground" aria-hidden="true">
-        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
-        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
-        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
-        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
-        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
-        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
-        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
-        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
-        <span class="ground-tile"></span><span class="ground-tile"></span><span class="ground-tile"></span>
-      </div>
-
-      <div class="garden-grass grass-back" aria-hidden="true"></div>
-      <div class="garden-grass grass-middle" aria-hidden="true"></div>
-      <div class="garden-grass grass-front" aria-hidden="true"></div>
-
-      <span class="pixel-clover" aria-hidden="true">☘</span>
-      <button class="garden-secret" type="button" aria-label="A tiny garden secret">✦</button>
-      <div class="garden-meadow-caption">
-        <span class="garden-meadow-label-icon">☀</span>
-        <span class="garden-meadow-label-text">Summer garden · Clover Terrace</span>
-        <span class="garden-meadow-credit">Pixel sprites: Pixel Art Flower Pack &amp; SpiderDave / CC0 · ground tiles: MraveniskoDev / CC0</span>
-      </div>
-    </section>
   </div>
 
   <script src="js/navigation.js" defer></script>
