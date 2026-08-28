@@ -1,8 +1,27 @@
 {
-  "generatedAt": "2026-08-28T01:25:33.735226Z",
+  "generatedAt": "2026-08-28T01:30:38.569345Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "aee6b9a5-9769-4396-8564-eb26a3a2ab94",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-08-28T01:21:00+00:00",
+      "expires": null,
+      "location": "Preston WV",
+      "hazard": "WVC077-280131- /O.EXP.KPBZ.SV.W.0305.000000T0000Z-260828T0130Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "WVC077-280131- /O.EXP.KPBZ.SV.W.0305.000000T0000Z-260828T0130Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 921 PM EDT Thu Aug 27 2026 WVC077-280131- /O.EXP.KPBZ.SV.W.0305.000000T0000Z-260828T0130Z/ Preston WV- 921 PM EDT Thu Aug 27 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/aee6b9a5-9769-4396-8564-eb26a3a2ab94"
+    },
     {
       "id": "31f1a494-5a11-4544-9f13-236a2c930619",
       "type": "Severe Weather Statement",
@@ -40,25 +59,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/0d21a9e3-a2bb-40c3-8221-35396e0b26cf"
-    },
-    {
-      "id": "9e544b78-1c52-4851-86e4-bb85b47e9693",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-08-28T00:53:00+00:00",
-      "expires": null,
-      "location": "Preston WV",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Albright and Cranesville.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Albright and Cranesville.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Albright and Cranesville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/9e544b78-1c52-4851-86e4-bb85b47e9693"
     }
   ]
 }
