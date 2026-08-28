@@ -22,19 +22,26 @@
   --warn: #b5762a;
   --danger: #a5352f;
   --font-pixel: 'Press Start 2P', monospace;
-  --font-title: 'Macondo', 'FigTree';
   --font-body: 'VT323', monospace;
 }
-
-/* Unconditional reset — does not depend on :has() support, so the page
-   can never end up with a stray default browser margin showing a band
-   of body background around the content (the "green border" bug). */
-html, body { margin: 0 !important; padding: 0 !important; }
-*, *::before, *::after { box-sizing: border-box; }
 
 /* -----------------------------------------------------------------
    Base page
    ----------------------------------------------------------------- */
+html,
+body {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: #a8ba44;
+  background-image: url("../assets/garden/summer/terrain/grass.png");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  background-position: 0 0;
+}
+
 .garden-page {
   width: 100%;
   margin: 0;
@@ -42,7 +49,7 @@ html, body { margin: 0 !important; padding: 0 !important; }
   font-family: var(--font-body);
   font-size: 20px;
   color: var(--ink);
-  background: #a8ba44;
+  background: transparent;
 }
 
 img.pixel,
@@ -54,9 +61,13 @@ img.pixel,
 .garden-world {
   position: relative;
   isolation: isolate;
+  width: 100%;
+  min-width: 0;
   min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
   overflow: hidden;
-  background: #a8ba44;
+  background: transparent;
 }
 
 .garden-layer {
@@ -67,27 +78,27 @@ img.pixel,
 .garden-terrain {
   inset: 0;
   z-index: 0;
-  background-color: #a8ba44;
+  background-color: transparent;
   background-image: var(--season-grass);
   background-repeat: repeat;
   background-position: 0 0;
-  /* Source tile is 16x16px — 4x upscale keeps it crisp (image-rendering:
-     pixelated) while tiling densely enough to read as grass, not a giant
-     blocky checkerboard. */
-  background-size: 64px 64px;
+  background-size: 128px 128px;
   image-rendering: pixelated;
 }
 
-/* Soft ambient glow over the terrain, independent of time-of-day so it
-   still works if JS hasn't run yet. Confined to a gentle top vignette —
-   the old full-page gradient here was the "strange smear" over the sky. */
 .garden-clearings {
   inset: 0;
   z-index: 1;
-  background: radial-gradient(ellipse at 50% 0%,
-    rgba(255,247,220,.35) 0%,
-    rgba(255,247,220,.12) 30%,
-    transparent 55%);
+  background:
+    radial-gradient(ellipse at 50% 10%,
+      rgba(255,247,220,.78) 0 18%,
+      rgba(255,247,220,.40) 36%,
+      transparent 62%),
+    linear-gradient(180deg,
+      rgba(104,72,139,.80) 0 9.5%,
+      rgba(104,72,139,.20) 20%,
+      rgba(255,235,201,.08) 43%,
+      rgba(91,131,57,.03) 100%);
 }
 
 .garden-heading,
@@ -100,7 +111,7 @@ img.pixel,
 }
 
 .garden-border {
-  z-index: 4;
+  display: none;
 }
 
 .garden-border-top,
@@ -181,51 +192,20 @@ body[data-garden-season="winter"] .garden-world {
 }
 
 /* -----------------------------------------------------------------
-   Heading / hero — a proper sky panel, sized to the header only (not
-   smeared across the whole page). Swaps by time of day via the
-   data-time-of-day attribute js/garden-scene.js sets on <body> from
-   the visitor's local clock: dawn / day / dusk / night.
+   Heading / hero
    ----------------------------------------------------------------- */
-:root {
-  --sky-gradient: linear-gradient(180deg, #6fa8d8 0%, #a7cdea 45%, #e8d9b8 80%, #f3e6c4 100%);
-  --sky-star-opacity: 0;
-  --sky-sun-moon: "☀️";
-}
-body[data-time-of-day="dawn"] {
-  --sky-gradient: linear-gradient(180deg, #4a3b7c 0%, #9670a8 35%, #e2a3a0 65%, #f6c98d 100%);
-  --sky-star-opacity: 0.25;
-  --sky-sun-moon: "🌅";
-}
-body[data-time-of-day="day"] {
-  --sky-gradient: linear-gradient(180deg, #5b93c9 0%, #9fc7e8 55%, #e7ecc9 100%);
-  --sky-star-opacity: 0;
-  --sky-sun-moon: "☀️";
-}
-body[data-time-of-day="dusk"] {
-  --sky-gradient: linear-gradient(180deg, #3c2f61 0%, #79508f 30%, #d9788c 62%, #f4b06a 100%);
-  --sky-star-opacity: 0.55;
-  --sky-sun-moon: "🌇";
-}
-body[data-time-of-day="night"] {
-  --sky-gradient: linear-gradient(180deg, #100b24 0%, #241a42 45%, #3a2c5c 80%, #4a3b6e 100%);
-  --sky-star-opacity: 1;
-  --sky-sun-moon: "🌙";
-}
-
 .garden-heading {
   position: relative;
   text-align: center;
   padding: 1.6rem 1rem 0.4rem;
   overflow: hidden;
-  background: var(--sky-gradient);
-  transition: background 1.2s ease;
 }
 
 .garden-heading h1 {
-  font-family: var(--font-title);
+  font-family: var(--font-pixel);
   font-size: clamp(1.1rem, 3vw, 1.7rem);
   color: #fff8ec;
-  text-shadow: 0px 0px 0 var(--purple-deep);
+  text-shadow: 3px 3px 0 var(--purple-deep);
   margin: 0.4rem 0 0.7rem;
   position: relative;
   z-index: 2;
@@ -255,49 +235,21 @@ body[data-time-of-day="night"] {
   z-index: 2;
 }
 
-/* Twinkling star / drifting cloud sprites, confined to the hero band.
-   Stars only make sense once the sky has gone dark — hidden by default,
-   shown (and dimmed appropriately) at dawn/dusk/night. */
+/* Twinkling star / drifting cloud sprites, confined to the hero band */
 .garden-sky-sprite { position: absolute; pointer-events: none; z-index: 1; }
-.garden-sky-sprite.star {
-  opacity: 0;
-  animation: garden-twinkle 2.6s ease-in-out infinite;
-  transition: opacity 1.2s ease;
-}
-body[data-time-of-day="night"] .garden-sky-sprite.star { opacity: 1; }
-body[data-time-of-day="dawn"] .garden-sky-sprite.star,
-body[data-time-of-day="dusk"] .garden-sky-sprite.star { opacity: .55; }
+.garden-sky-sprite.star { animation: garden-twinkle 2.6s ease-in-out infinite; }
 .garden-sky-sprite.star:nth-of-type(2) { animation-delay: .4s; }
 .garden-sky-sprite.star:nth-of-type(3) { animation-delay: .9s; }
 .garden-sky-sprite.star:nth-of-type(4) { animation-delay: 1.3s; }
 .garden-sky-sprite.star:nth-of-type(5) { animation-delay: .2s; }
 .garden-sky-sprite.star:nth-of-type(6) { animation-delay: 1.7s; }
-@keyframes garden-twinkle { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
-body[data-time-of-day="night"] .garden-sky-sprite.star { animation: garden-twinkle 2.6s ease-in-out infinite; }
-.garden-sky-sprite.cloud {
-  animation: garden-drift 34s linear infinite;
-  filter: brightness(1);
-  transition: filter 1.2s ease, opacity 1.2s ease;
-}
-body[data-time-of-day="dusk"] .garden-sky-sprite.cloud { filter: brightness(0.75) sepia(0.3); }
-body[data-time-of-day="night"] .garden-sky-sprite.cloud { filter: brightness(0.45); opacity: 0.8; }
+@keyframes garden-twinkle { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+.garden-sky-sprite.cloud { animation: garden-drift 34s linear infinite; }
 @keyframes garden-drift {
   0% { transform: translateX(-6vw); }
   50% { transform: translateX(6vw); }
   100% { transform: translateX(-6vw); }
 }
-
-/* Little sun/moon/sunset badge, top-right of the hero — purely a nice
-   day/night tell at a glance, updated by the same body attribute. */
-.garden-sky-badge {
-  position: absolute;
-  top: 10px;
-  right: 4%;
-  z-index: 2;
-  font-size: 1.4rem;
-  filter: drop-shadow(1px 1px 0 rgba(0,0,0,.25));
-}
-.garden-sky-badge::before { content: var(--sky-sun-moon); }
 
 /* -----------------------------------------------------------------
    Card grid — same 12-col span logic as before, restyled
@@ -475,6 +427,41 @@ body[data-time-of-day="night"] .garden-sky-sprite.cloud { filter: brightness(0.4
 .garden-meta { font-size: 0.95rem; color: #7a5a30; }
 
 /* -----------------------------------------------------------------
+   Subtle garden resource footer
+   ----------------------------------------------------------------- */
+.garden-footer-credits {
+  position: relative;
+  z-index: 5;
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 0.75rem 1rem 1rem;
+  box-sizing: border-box;
+  text-align: center;
+  color: #eee5d5;
+  background: rgba(50, 78, 39, 0.92);
+  border-top: 2px solid rgba(22, 16, 43, 0.7);
+  border-bottom: 2px solid rgba(22, 16, 43, 0.7);
+  font-size: 0.9rem;
+}
+.garden-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.15rem 0.65rem;
+}
+.garden-footer-links a {
+  color: #f5e7b8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.garden-footer-sources {
+  margin-top: 0.45rem;
+  color: rgba(238, 247, 223, 0.82);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+/* -----------------------------------------------------------------
    Garden illustration band — one real pixel-art image, full width
    ----------------------------------------------------------------- */
 .garden-band {
@@ -503,6 +490,10 @@ body[data-time-of-day="night"] .garden-sky-sprite.cloud { filter: brightness(0.4
 }
 
 @media (max-width: 480px) {
+  .garden-footer-credits {
+    width: 100%;
+    padding-inline: 0.65rem;
+  }
   .garden-page { font-size: 18px; }
   .garden-heading h1 { font-size: 1rem; }
   .garden-readout-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -513,300 +504,4 @@ body[data-time-of-day="night"] .garden-sky-sprite.cloud { filter: brightness(0.4
 
 @media (prefers-reduced-motion: reduce) {
   .garden-sky-sprite { animation: none !important; }
-}
-
-
-/* =====================================================================
-   BASELINE TERRAIN + OVERSCROLL POLISH
-   ===================================================================== */
-
-/* Keep the page shell transparent and let the meadow own the backdrop.
-   Split into independent selectors (rather than one html:has(...),
-   body.garden-body {} rule) so a browser that doesn't support :has()
-   can't drop the whole rule and leave body's default margin showing a
-   band of green around the page. */
-html {
-  margin: 0 !important;
-  padding: 0 !important;
-  background-color: #a8ba44;
-}
-body.garden-body {
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100%;
-  min-width: 0;
-  overflow-x: hidden;
-  background-color: #a8ba44 !important;
-  background-image: var(--season-grass) !important;
-  background-repeat: repeat !important;
-  background-position: 0 0 !important;
-  background-size: 64px 64px !important;
-  image-rendering: pixelated;
-}
-
-/* Do not constrain the centered content; only make its outer shell full-width. */
-body.garden-body #page-content.garden-page {
-  width: 100% !important;
-  max-width: none !important;
-  min-width: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  background: transparent !important;
-  box-sizing: border-box;
-}
-
-/* The world itself remains the visual canvas. */
-body.garden-body .garden-world {
-  width: 100%;
-  min-width: 0;
-  min-height: 100vh;
-  min-height: 100svh;
-  min-height: 100dvh;
-  background-color: #a8ba44;
-}
-
-/* Keep the body fallback seasonal, so future seasons can swap without
-   changing the layout code. */
-body[data-garden-season="spring"] {
-  --season-grass: url("../assets/garden/spring/terrain/grass.png");
-}
-body[data-garden-season="summer"] {
-  --season-grass: url("../assets/garden/summer/terrain/grass.png");
-}
-body[data-garden-season="autumn"] {
-  --season-grass: url("../assets/garden/autumn/terrain/grass.png");
-}
-body[data-garden-season="winter"] {
-  --season-grass: url("../assets/garden/winter/terrain/grass.png");
-}
-
-@media (max-width: 850px) {
-  body.garden-body,
-  body.garden-body #page-content.garden-page {
-    width: 100% !important;
-    min-width: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-}
-
-
-/* =====================================================================
-   SEASONAL SPRITE VARIABLES — corner ornament, border trim, bed soil.
-   Same pattern as --season-grass above: one block per season, each
-   redefining the same set of variables. Add a new body[data-garden-
-   season="..."] block (copy this one) once a season's assets exist;
-   nothing else in this file needs to change.
-   ===================================================================== */
-:root {
-  --season-corner: url("../assets/garden/summer/borders/corner.png");
-  --season-trim: url("../assets/garden/summer/plants/grass-tuft.png");
-  --season-soil: url("../assets/garden/summer/terrain/soil.png");
-}
-body[data-garden-season="spring"] {
-  --season-corner: url("../assets/garden/spring/borders/corner.png");
-  --season-trim: url("../assets/garden/spring/plants/grass-tuft.png");
-  --season-soil: url("../assets/garden/spring/terrain/soil.png");
-}
-body[data-garden-season="summer"] {
-  --season-corner: url("../assets/garden/summer/borders/corner.png");
-  --season-trim: url("../assets/garden/summer/plants/grass-tuft.png");
-  --season-soil: url("../assets/garden/summer/terrain/soil.png");
-}
-body[data-garden-season="autumn"] {
-  --season-corner: url("../assets/garden/autumn/borders/corner.png");
-  --season-trim: url("../assets/garden/autumn/plants/grass-tuft.png");
-  --season-soil: url("../assets/garden/autumn/terrain/soil.png");
-}
-body[data-garden-season="winter"] {
-  --season-corner: url("../assets/garden/winter/borders/corner.png");
-  --season-trim: url("../assets/garden/winter/plants/grass-tuft.png");
-  --season-soil: url("../assets/garden/winter/terrain/soil.png");
-}
-
-/* -----------------------------------------------------------------
-   Border trim — the four garden-border-* layers from garden-world,
-   now actually painted with a repeating pixel tile instead of being
-   empty. Falls back cleanly (no image request loops) if a season's
-   plant tile doesn't exist yet: browser just shows the base color.
-   ----------------------------------------------------------------- */
-.garden-border-top,
-.garden-border-bottom {
-  background-color: #3c5a2c;
-  background-image: var(--season-trim);
-  background-repeat: repeat-x;
-  background-size: 32px 32px;
-  image-rendering: pixelated;
-}
-.garden-border-left,
-.garden-border-right {
-  background-color: #3c5a2c;
-  background-image: var(--season-trim);
-  background-repeat: repeat-y;
-  background-size: 32px 32px;
-  image-rendering: pixelated;
-}
-
-/* Card corners now read from the seasonal --season-corner variable via
-   a CSS mask so no per-card <img src> needs updating on season change. */
-.garden-corner {
-  background-color: transparent;
-}
-.garden-corner[data-sprite="corner"] {
-  content: "";
-}
-
-/* -----------------------------------------------------------------
-   Interactive garden bed — the strip of real, placed, clickable
-   sprites that replaces the old single flat illustration image.
-   Sprite <img> src values are filled in / swapped by js/garden-
-   scene.js from the season's asset manifest; this file only lays
-   out the strip and the click/tooltip presentation.
-   ----------------------------------------------------------------- */
-.garden-bed {
-  position: relative;
-  z-index: 5;
-  margin: 0.4rem auto 0;
-  max-width: 1180px;
-  padding: 0.9rem 1rem 1.1rem;
-}
-
-.garden-bed-inner {
-  position: relative;
-  border: 4px solid var(--parchment-edge);
-  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.18);
-  background-color: #cdae6e;
-  background-image: var(--season-soil);
-  background-repeat: repeat;
-  background-size: 32px 32px;
-  image-rendering: pixelated;
-  padding: 1.6rem 0.75rem 0.6rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 0.4rem 0.15rem;
-  min-height: 130px;
-}
-
-.garden-bed-label {
-  font-family: var(--font-pixel);
-  font-size: 0.62rem;
-  color: #fff8ec;
-  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
-  text-align: center;
-  margin: 0 0 0.5rem;
-  position: relative;
-  z-index: 5;
-}
-
-/* One placed, clickable sprite (flower / plant / creature / decoration). */
-.garden-sprite {
-  appearance: none;
-  border: none;
-  background: none;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
-  position: relative;
-  line-height: 0;
-  transition: transform 0.12s ease;
-}
-.garden-sprite img {
-  display: block;
-  image-rendering: pixelated;
-  pointer-events: none;
-}
-.garden-sprite:hover,
-.garden-sprite:focus-visible {
-  transform: translateY(-3px) scale(1.08);
-}
-.garden-sprite:focus-visible {
-  outline: 2px dashed #fff8ec;
-  outline-offset: 2px;
-}
-.garden-sprite.is-active img {
-  filter: drop-shadow(0 0 4px #fff2b8);
-}
-.garden-sprite.garden-critter {
-  animation: garden-critter-bob 2.4s ease-in-out infinite;
-}
-@keyframes garden-critter-bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
-.garden-sprite.garden-critter:hover,
-.garden-sprite.garden-critter:focus-visible {
-  animation-play-state: paused;
-}
-
-/* Non-interactive decorative sprites scattered in the bed (mushrooms etc). */
-.garden-deco {
-  pointer-events: none;
-  line-height: 0;
-}
-.garden-deco img {
-  display: block;
-  image-rendering: pixelated;
-}
-
-/* Pixel speech-bubble tooltip shown when a sprite is clicked/activated. */
-.garden-tooltip {
-  position: absolute;
-  z-index: 8;
-  max-width: 200px;
-  background: var(--parchment);
-  border: 3px solid var(--parchment-edge);
-  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.22);
-  padding: 0.5rem 0.6rem;
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  line-height: 1.25;
-  color: var(--ink);
-  bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
-}
-.garden-tooltip::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 7px solid transparent;
-  border-top-color: var(--parchment-edge);
-}
-.garden-tooltip strong {
-  display: block;
-  font-size: 0.6rem;
-  font-family: var(--font-pixel);
-  color: #7a5a30;
-  margin-bottom: 0.3rem;
-  line-height: 1.4;
-}
-
-/* -----------------------------------------------------------------
-   Ambient scatter — small non-interactive flourishes pinned around
-   the hero/margins, same technique as the star/cloud sky sprites.
-   ----------------------------------------------------------------- */
-.garden-ambient {
-  position: absolute;
-  z-index: 2;
-  pointer-events: none;
-  image-rendering: pixelated;
-}
-
-@media (max-width: 850px) {
-  .garden-bed-inner { min-height: 84px; }
-}
-
-@media (max-width: 480px) {
-  .garden-bed-inner { gap: 0.2rem 0.05rem; padding: 0.8rem 0.5rem 0.5rem; }
-  .garden-ambient.hide-mobile { display: none; }
-  .garden-tooltip { max-width: 150px; font-size: 0.95rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .garden-sprite.garden-critter { animation: none !important; }
 }
