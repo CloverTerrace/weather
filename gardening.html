@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
 
+  <link rel="preload" as="font" type="font/woff2" href="fonts/macondo-v27-latin-regular.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="fonts/figtree-v9-latin-regular.woff2" crossorigin>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,22 +18,24 @@
   <link rel="stylesheet" href="css/gardening.css">
 </head>
 
-<body class="garden-body" data-garden-season="summer">
+<body class="garden-body garden-season-summer" data-garden-season="summer">
+  <div class="garden-world" aria-hidden="true">
+    <span class="world-sun"></span>
+    <span class="world-cloud world-cloud-a"></span>
+    <span class="world-cloud world-cloud-b"></span>
+    <span class="world-cloud world-cloud-c"></span>
+    <span class="world-butterfly world-butterfly-a"></span>
+    <span class="world-butterfly world-butterfly-b"></span>
+    <span class="world-firefly world-firefly-a"></span>
+    <span class="world-firefly world-firefly-b"></span>
+    <span class="world-firefly world-firefly-c"></span>
+    <span class="world-firefly world-firefly-d"></span>
+    <span class="world-firefly world-firefly-e"></span>
+  </div>
+
   <div id="page-content" class="garden-page">
-    <div class="garden-world" data-garden-season="summer">
-      <div class="garden-layer garden-terrain" aria-hidden="true"></div>
-      <div class="garden-layer garden-clearings" aria-hidden="true"></div>
 
     <header class="garden-heading">
-      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:12px; left:4%; width:14px;" alt="">
-      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:70px; left:15%; width:10px;" alt="">
-      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:10px; left:30%; width:12px;" alt="">
-      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:74px; left:72%; width:10px;" alt="">
-      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:14px; left:85%; width:14px;" alt="">
-      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:60px; left:95%; width:10px;" alt="">
-      <img class="garden-sky-sprite cloud" src="assets/garden/scene/cloud.png" style="top:8px; left:2%; width:90px; opacity:0.85;" alt="">
-      <img class="garden-sky-sprite cloud" src="assets/garden/scene/cloud.png" style="top:6px; left:82%; width:110px; opacity:0.8;" alt="">
-
       <h1><span aria-hidden="true">🌱</span> Gardening Weather</h1>
       <p class="garden-subtitle">Clover Terrace · Aliquippa, Pennsylvania</p>
     </header>
@@ -40,14 +43,11 @@
     <nav class="site-nav" aria-label="Clover Terrace Weather sections">
       <a href="index.html" data-page="index.html"><span class="nav-icon">☁️</span>Home</a>
       <a href="gardening.html" data-page="gardening.html"><span class="nav-icon">🌱</span>Garden</a>
-      <button type="button" class="nav-soon" data-coming-soon="Space"><span class="nav-icon">🌌</span>Sky &amp; Space</button>
+      <button type="button" class="nav-soon" data-coming-soon="Sky &amp; Space"><span class="nav-icon">🌌</span>Sky &amp; Space</button>
       <button type="button" class="nav-soon" data-coming-soon="Soundings"><span class="nav-icon">🎈</span>Soundings</button>
       <button type="button" class="nav-soon" data-coming-soon="Rivers"><span class="nav-icon">🌊</span>Rivers</button>
       <button type="button" class="nav-soon" data-coming-soon="Earth &amp; Climate"><span class="nav-icon">🌎</span>Earth &amp; Climate</button>
     </nav>
-
-    <div class="garden-layer garden-border garden-border-top" aria-hidden="true"></div>
-    <div class="garden-layer garden-border garden-border-bottom" aria-hidden="true"></div>
 
     <p class="garden-intro">
       A growing-season view of the same microclimate the weather station watches every day:
@@ -58,10 +58,6 @@
     <main class="garden-grid">
 
       <section class="garden-card garden-card-wide" aria-labelledby="conditions-heading">
-        <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner br" src="assets/garden/scene/corner-flowers.png" alt="">
         <h2 id="conditions-heading"><span class="garden-icon">🌿</span>Garden Conditions Now</h2>
 
         <div class="garden-readout-grid">
@@ -106,10 +102,6 @@
       </section>
 
       <section class="garden-card garden-card-side" aria-labelledby="frost-heading">
-        <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner br" src="assets/garden/scene/corner-flowers.png" alt="">
         <h2 id="frost-heading"><span class="garden-icon">❄️</span>Frost &amp; Freeze Watch</h2>
 
         <div id="frost-status" class="garden-status garden-loading">
@@ -139,10 +131,6 @@
       </section>
 
       <section class="garden-card garden-card-side" aria-labelledby="season-heading">
-        <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner br" src="assets/garden/scene/corner-flowers.png" alt="">
         <h2 id="season-heading"><span class="garden-icon">🌱</span>Growing Season</h2>
 
         <div class="garden-two-col">
@@ -172,10 +160,6 @@
       </section>
 
       <section class="garden-card garden-card-wide" aria-labelledby="gdd-heading">
-        <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner br" src="assets/garden/scene/corner-flowers.png" alt="">
         <h2 id="gdd-heading"><span class="garden-icon">☀️</span>Heat Accumulation · Growing Degree Days</h2>
 
         <div class="gdd-list">
@@ -196,10 +180,6 @@
       </section>
 
       <section class="garden-card garden-card-side" aria-labelledby="rain-heading">
-        <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner br" src="assets/garden/scene/corner-flowers.png" alt="">
         <h2 id="rain-heading"><span class="garden-icon">🌧️</span>Recent Rainfall</h2>
 
         <div class="garden-bars">
@@ -227,10 +207,6 @@
       </section>
 
       <section class="garden-card garden-card-full" aria-labelledby="reference-heading">
-        <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner br" src="assets/garden/scene/corner-flowers.png" alt="">
         <h2 id="reference-heading"><span class="garden-icon">📚</span>Gardener's Reference Desk</h2>
 
         <div class="garden-two-col">
@@ -262,12 +238,61 @@
 
     </main>
 
-    <div class="garden-layer garden-border garden-border-left" aria-hidden="true"></div>
-    <div class="garden-layer garden-border garden-border-right" aria-hidden="true"></div>
+    <section class="garden-meadow" aria-label="Animated summer garden scene">
+      <div class="garden-meadow-sky" aria-hidden="true">
+        <span class="garden-cloud cloud-a"></span>
+        <span class="garden-cloud cloud-b"></span>
+        <span class="garden-sun"></span>
+      </div>
 
-    <p class="garden-band-credit">🍀 Clover Terrace — grown with care</p>
+      <div class="garden-life" aria-hidden="true">
+        <span class="garden-bee" data-garden-secret="bee">
+          <span class="bee-wing bee-wing-a"></span>
+          <span class="bee-wing bee-wing-b"></span>
+          <span class="bee-body"></span>
+        </span>
+        <span class="garden-butterfly">
+          <span class="butterfly-wing butterfly-wing-a"></span>
+          <span class="butterfly-body"></span>
+          <span class="butterfly-wing butterfly-wing-b"></span>
+        </span>
+        <span class="garden-firefly firefly-a"></span>
+        <span class="garden-firefly firefly-b"></span>
+        <span class="garden-firefly firefly-c"></span>
+        <span class="garden-firefly firefly-d"></span>
+      </div>
 
-    </div><!-- /.garden-world -->
+      <div class="garden-meadow-horizon" aria-hidden="true">
+        <span class="pixel-plant plant-a"></span>
+        <span class="pixel-plant plant-b"></span>
+        <span class="pixel-plant plant-c"></span>
+        <span class="pixel-plant plant-d"></span>
+        <span class="pixel-mushroom mushroom-a"></span>
+        <span class="pixel-mushroom mushroom-b"></span>
+        <span class="pixel-flower flower-a"></span>
+        <span class="pixel-flower flower-b"></span>
+        <span class="pixel-flower flower-c"></span>
+        <span class="pixel-flower flower-d"></span>
+        <span class="pixel-flower flower-e"></span>
+        <span class="pixel-clover"></span>
+        <span class="pixel-flower flower-f"></span>
+        <span class="pixel-flower flower-g"></span>
+        <span class="pixel-mushroom mushroom-c"></span>
+        <span class="pixel-rock rock-a"></span>
+        <span class="pixel-rock rock-b"></span>
+      </div>
+
+      <div class="garden-grass grass-back" aria-hidden="true"></div>
+      <div class="garden-grass grass-middle" aria-hidden="true"></div>
+      <div class="garden-grass grass-front" aria-hidden="true"></div>
+
+      <button class="garden-secret" type="button" aria-label="A tiny garden secret">✦</button>
+      <div class="garden-meadow-caption">
+        <span class="garden-meadow-label-icon">☀</span>
+        <span class="garden-meadow-label-text">Summer garden · Clover Terrace</span>
+        <span class="garden-meadow-credit">CSS pixel garden · summer environment · Clover Terrace</span>
+      </div>
+    </section>
   </div>
 
   <script src="js/navigation.js" defer></script>
