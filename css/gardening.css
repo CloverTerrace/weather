@@ -9,13 +9,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
-/* =====================================================================
-   CLOVER TERRACE — GARDENING WEATHER / PHASE 1 GARDEN ENGINE
-   Layered pixel-garden foundation; decorative sprites come in Phase 2.
-   ===================================================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
-
 :root {
   --ink: #3b2a1a;
   --parchment: #faf2df;
@@ -30,23 +23,11 @@
   --danger: #a5352f;
   --font-pixel: 'Press Start 2P', monospace;
   --font-body: 'VT323', monospace;
-
-  /* Seasonal asset contract. The layout stays fixed while the asset set swaps. */
-  --season-path: "../assets/garden/summer/";
-  --season-grass: url("../assets/garden/summer/terrain/grass-1.png");
-  --season-grass-detail: url("../assets/garden/summer/terrain/grass-detail.png");
-  --season-grass-variant: url("../assets/garden/summer/terrain/grass-2.png");
-  --season-border-top: url("../assets/garden/summer/borders/top.png");
-  --season-border-bottom: url("../assets/garden/summer/borders/bottom.png");
-  --season-border-left: url("../assets/garden/summer/borders/left.png");
-  --season-border-right: url("../assets/garden/summer/borders/right.png");
-
-  /* Centralized pixel-art tuning knobs. */
-  --garden-tile-size: 16px;
-  --garden-edge-gap: 24px;
-  --garden-content-max: 1180px;
 }
 
+/* -----------------------------------------------------------------
+   Base page
+   ----------------------------------------------------------------- */
 .garden-page {
   width: 100%;
   margin: 0;
@@ -54,25 +35,21 @@
   font-family: var(--font-body);
   font-size: 20px;
   color: var(--ink);
-  background: #6f9947;
+  background: #a8ba44;
 }
 
 img.pixel,
-.garden-page img {
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-}
+.garden-page img { image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges; }
 
 /* -----------------------------------------------------------------
-   Phase 1 world/layer architecture
+   Garden world / terrain foundation
    ----------------------------------------------------------------- */
 .garden-world {
   position: relative;
   isolation: isolate;
   min-height: 100vh;
   overflow: hidden;
-  background: #6f9947;
+  background: #a8ba44;
 }
 
 .garden-layer {
@@ -83,41 +60,27 @@ img.pixel,
 .garden-terrain {
   inset: 0;
   z-index: 0;
-  background-color: #6f9947;
-  background-image:
-    var(--season-grass-detail),
-    var(--season-grass-variant),
-    var(--season-grass);
+  background-color: #a8ba44;
+  background-image: var(--season-grass);
   background-repeat: repeat;
-  background-position:
-    11px 7px,
-    5px 13px,
-    0 0;
-  background-size:
-    64px 64px,
-    96px 96px,
-    var(--garden-tile-size) var(--garden-tile-size);
+  background-position: 0 0;
+  background-size: 256px 256px;
+  image-rendering: pixelated;
 }
 
-/* A soft clearing/atmosphere layer keeps the grass visible without allowing
-   the texture to fight the parchment information cards. */
 .garden-clearings {
   inset: 0;
   z-index: 1;
   background:
-    radial-gradient(
-      ellipse at 50% 8%,
-      rgba(255, 247, 220, .78) 0 17%,
-      rgba(255, 247, 220, .40) 34%,
-      transparent 58%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(104, 72, 139, .80) 0 9.5%,
-      rgba(104, 72, 139, .22) 18%,
-      rgba(255, 235, 201, .08) 42%,
-      rgba(91, 131, 57, .04) 100%
-    );
+    radial-gradient(ellipse at 50% 10%,
+      rgba(255,247,220,.78) 0 18%,
+      rgba(255,247,220,.40) 36%,
+      transparent 62%),
+    linear-gradient(180deg,
+      rgba(104,72,139,.80) 0 9.5%,
+      rgba(104,72,139,.20) 20%,
+      rgba(255,235,201,.08) 43%,
+      rgba(91,131,57,.03) 100%);
 }
 
 .garden-heading,
@@ -129,8 +92,6 @@ img.pixel,
   z-index: 5;
 }
 
-/* Border slots establish the seasonal asset API now; actual summer pieces
-   will be populated during the decorative-map phase. */
 .garden-border {
   z-index: 4;
 }
@@ -139,50 +100,49 @@ img.pixel,
 .garden-border-bottom {
   left: 0;
   width: 100%;
-  height: var(--garden-edge-gap);
+  height: 24px;
   background-repeat: repeat-x;
   background-size: auto 100%;
 }
 
-.garden-border-top {
-  top: 0;
-  background-image: var(--season-border-top);
-}
-
-.garden-border-bottom {
-  bottom: 0;
-  background-image: var(--season-border-bottom);
-}
+.garden-border-top { top: 0; }
+.garden-border-bottom { bottom: 0; }
 
 .garden-border-left,
 .garden-border-right {
   top: 0;
-  width: var(--garden-edge-gap);
+  width: 24px;
   height: 100%;
   background-repeat: repeat-y;
   background-size: 100% auto;
 }
 
-.garden-border-left {
-  left: 0;
-  background-image: var(--season-border-left);
+.garden-border-left { left: 0; }
+.garden-border-right { right: 0; }
+
+:root {
+  --season-path: "../assets/garden/summer/";
+  --season-grass: url("../assets/garden/summer/terrain/grass.png");
 }
 
-.garden-border-right {
-  right: 0;
-  background-image: var(--season-border-right);
+body[data-garden-season="spring"] .garden-world {
+  --season-path: "../assets/garden/spring/";
+  --season-grass: url("../assets/garden/spring/terrain/grass.png");
 }
 
-/* The footer credit remains, but the old giant scene image is gone. */
-.garden-band-credit {
-  font-family: var(--font-body);
-  font-size: .95rem;
-  text-align: center;
-  color: #eef7df;
-  background: #3c5a2c;
-  padding: .35rem;
-  border-top: 2px solid #16102b;
-  margin: 0;
+body[data-garden-season="summer"] .garden-world {
+  --season-path: "../assets/garden/summer/";
+  --season-grass: url("../assets/garden/summer/terrain/grass.png");
+}
+
+body[data-garden-season="autumn"] .garden-world {
+  --season-path: "../assets/garden/autumn/";
+  --season-grass: url("../assets/garden/autumn/terrain/grass.png");
+}
+
+body[data-garden-season="winter"] .garden-world {
+  --season-path: "../assets/garden/winter/";
+  --season-grass: url("../assets/garden/winter/terrain/grass.png");
 }
 
 /* -----------------------------------------------------------------
@@ -280,7 +240,7 @@ img.pixel,
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 1.1rem;
-  max-width: var(--garden-content-max);
+  max-width: 1180px;
   margin: 0 auto 1.8rem;
   padding: 0 1rem;
   position: relative;
@@ -448,6 +408,25 @@ img.pixel,
 .garden-note { font-size: 1rem; color: #6a5a3a; margin: 0.3rem 0 0; }
 .garden-meta { font-size: 0.95rem; color: #7a5a30; }
 
+/* -----------------------------------------------------------------
+   Garden illustration band — one real pixel-art image, full width
+   ----------------------------------------------------------------- */
+.garden-band {
+  width: 100%;
+  line-height: 0;
+  background: #7fae4a;
+  border-top: 4px solid #16102b;
+}
+.garden-band img { width: 100%; display: block; }
+.garden-band-credit {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  text-align: center;
+  color: #eef7df;
+  background: #3c5a2c;
+  padding: 0.35rem;
+  border-top: 2px solid #16102b;
+}
 
 /* -----------------------------------------------------------------
    Mobile
@@ -470,87 +449,72 @@ img.pixel,
   .garden-sky-sprite { animation: none !important; }
 }
 
-/* Seasonal terrain hooks: each season can supply the same role filenames. */
-.garden-world[data-garden-season="summer"] {
-  --season-path: "../assets/garden/summer/";
-}
-
-.garden-world[data-garden-season="spring"] {
-  --season-path: "../assets/garden/spring/";
-}
-
-.garden-world[data-garden-season="autumn"] {
-  --season-path: "../assets/garden/autumn/";
-}
-
-.garden-world[data-garden-season="winter"] {
-  --season-path: "../assets/garden/winter/";
-}
-
 
 /* =====================================================================
-   FULL-BLEED SHELL FIX
-   Scoped only to the gardening page so site.css remains untouched.
+   BASELINE TERRAIN + OVERSCROLL POLISH
    ===================================================================== */
 
+/* Keep the page shell transparent and let the meadow own the backdrop. */
 html:has(body.garden-body),
 body.garden-body {
-  width: 100%;
-  min-width: 0;
-  min-height: 100%;
   margin: 0 !important;
   padding: 0 !important;
+  width: 100%;
+  min-width: 0;
 }
 
 body.garden-body {
-  display: block !important;
   overflow-x: hidden;
-  background: #6f9947 !important;
+  background-color: #a8ba44 !important;
+  background-image: var(--season-grass) !important;
+  background-repeat: repeat !important;
+  background-position: 0 0 !important;
+  background-size: 256px 256px !important;
 }
 
+/* Do not constrain the centered content; only make its outer shell full-width. */
 body.garden-body #page-content.garden-page {
-  display: block !important;
-  position: relative;
   width: 100% !important;
   max-width: none !important;
   min-width: 0 !important;
-  min-height: 100vh;
-  min-height: 100svh;
-  min-height: 100dvh;
   margin: 0 !important;
   padding: 0 !important;
+  background: transparent !important;
   box-sizing: border-box;
 }
 
+/* The world itself remains the visual canvas. */
 body.garden-body .garden-world {
   width: 100%;
   min-width: 0;
   min-height: 100vh;
   min-height: 100svh;
   min-height: 100dvh;
-  margin: 0;
-  box-sizing: border-box;
+  background-color: #a8ba44;
+}
+
+/* Keep the body fallback seasonal, so future seasons can swap without
+   changing the layout code. */
+body[data-garden-season="spring"] {
+  --season-grass: url("../assets/garden/spring/terrain/grass.png");
+}
+body[data-garden-season="summer"] {
+  --season-grass: url("../assets/garden/summer/terrain/grass.png");
+}
+body[data-garden-season="autumn"] {
+  --season-grass: url("../assets/garden/autumn/terrain/grass.png");
+}
+body[data-garden-season="winter"] {
+  --season-grass: url("../assets/garden/winter/terrain/grass.png");
 }
 
 @media (max-width: 850px) {
-  html:has(body.garden-body),
-  body.garden-body {
-    width: 100%;
-    min-width: 0;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
+  body.garden-body,
   body.garden-body #page-content.garden-page {
     width: 100% !important;
-    max-width: none !important;
     min-width: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
   }
-
-  body.garden-body .garden-world {
-    width: 100%;
-    min-width: 0;
-  }
 }
+
