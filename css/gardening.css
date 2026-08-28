@@ -90,7 +90,7 @@ img.pixel,
 .garden-grid,
 .garden-band-credit {
   position: relative;
-  z-index: 5;
+  z-index: 20;
 }
 
 .garden-border {
@@ -519,3 +519,196 @@ body[data-garden-season="winter"] {
   }
 }
 
+
+
+
+/* =====================================================================
+   CLOVER TERRACE GARDEN SCENE
+   Stable scene identities + seasonal asset registry.
+   assets/raw is never referenced here: every runtime sprite belongs in
+   assets/garden/<season>/<category>/.
+   ===================================================================== */
+
+.garden-world {
+  --garden-shadow: rgba(44, 71, 29, .22);
+
+  /* Safe empty defaults: missing future-season art simply disappears. */
+  --sprite-tree-west: none;
+  --sprite-tree-east: none;
+  --sprite-raised-bed-west: none;
+  --sprite-raised-bed-east: none;
+  --sprite-trellis: none;
+  --sprite-pond: none;
+  --sprite-birdbath: none;
+  --sprite-bench: none;
+  --sprite-rain: none;
+  --sprite-sun: none;
+  --sprite-frost: none;
+  --sprite-season: none;
+  --sprite-flower-a: none;
+  --sprite-flower-b: none;
+  --sprite-flower-c: none;
+  --sprite-flower-d: none;
+  --sprite-groundcover-west: none;
+  --sprite-groundcover-east: none;
+}
+
+/* Spring/autumn/winter are intentionally ready before their art exists.
+   Add the matching file and uncomment/set its variable when that season is
+   populated. The HTML and object positions never need to change. */
+body[data-garden-season="spring"] .garden-world {
+  --season-path: "../assets/garden/spring/";
+}
+
+body[data-garden-season="summer"] .garden-world {
+  --season-path: "../assets/garden/summer/";
+  --sprite-tree-west: url("../assets/garden/summer/plants/tree-west.png");
+  --sprite-tree-east: url("../assets/garden/summer/plants/tree-east.png");
+  --sprite-raised-bed-west: url("../assets/garden/summer/decorations/raised-bed-west.png");
+  --sprite-raised-bed-east: url("../assets/garden/summer/decorations/raised-bed-east.png");
+  --sprite-trellis: url("../assets/garden/summer/decorations/trellis.png");
+  --sprite-pond: url("../assets/garden/summer/decorations/pond.png");
+  --sprite-birdbath: url("../assets/garden/summer/decorations/birdbath.png");
+  --sprite-bench: url("../assets/garden/summer/decorations/bench.png");
+
+  /* These four double as interactive visual shortcuts to live data. */
+  --sprite-rain: url("../assets/garden/summer/decorations/rain-gauge.png");
+  --sprite-sun: url("../assets/garden/summer/flowers/flower-yellow.png");
+  --sprite-frost: url("../assets/garden/summer/flowers/flower-blue.png");
+  --sprite-season: url("../assets/garden/summer/flowers/flower-cluster-colorful.png");
+
+  --sprite-flower-a: url("../assets/garden/summer/flowers/flower-purple.png");
+  --sprite-flower-b: url("../assets/garden/summer/flowers/flower-red.png");
+  --sprite-flower-c: url("../assets/garden/summer/flowers/flower-cluster-pink.png");
+  --sprite-flower-d: url("../assets/garden/summer/flowers/flower-colorful.png");
+  --sprite-groundcover-west: url("../assets/garden/summer/flowers/groundcover-teal.png");
+  --sprite-groundcover-east: url("../assets/garden/summer/flowers/groundcover-pink.png");
+}
+
+body[data-garden-season="autumn"] .garden-world {
+  --season-path: "../assets/garden/autumn/";
+}
+body[data-garden-season="winter"] .garden-world {
+  --season-path: "../assets/garden/winter/";
+}
+
+.garden-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.garden-scene-sprite,
+.garden-object {
+  position: absolute;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.scene-sprite {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-image: var(--scene-sprite, none);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter: drop-shadow(0 4px 0 var(--garden-shadow));
+}
+.garden-scene-sprite { pointer-events: none; }
+
+.scene-tree { --scene-sprite: var(--sprite-tree-west); width: clamp(120px, 18vw, 240px); height: clamp(150px, 24vw, 330px); top: 17rem; left: -2vw; z-index: 2; }
+.tree-east { --scene-sprite: var(--sprite-tree-east); left: auto; right: -2vw; top: 31rem; }
+.scene-raised-bed { width: clamp(125px, 16vw, 215px); height: clamp(80px, 11vw, 145px); z-index: 4; }
+.bed-west { --scene-sprite: var(--sprite-raised-bed-west); top: 34rem; left: 5%; }
+.bed-east { --scene-sprite: var(--sprite-raised-bed-east); top: 51rem; right: 5%; }
+.scene-trellis { --scene-sprite: var(--sprite-trellis); width: clamp(78px, 10vw, 140px); height: clamp(110px, 14vw, 190px); top: 42rem; left: calc(50% - 5vw); z-index: 6; }
+.scene-pond { --scene-sprite: var(--sprite-pond); width: clamp(170px, 24vw, 350px); height: clamp(95px, 13vw, 180px); bottom: 3rem; right: -1vw; z-index: 2; }
+.scene-birdbath { --scene-sprite: var(--sprite-birdbath); width: clamp(60px, 8vw, 110px); height: clamp(80px, 10vw, 145px); top: 58rem; left: 24%; z-index: 7; }
+.scene-bench { --scene-sprite: var(--sprite-bench); width: clamp(80px, 11vw, 160px); height: clamp(60px, 8vw, 115px); top: 67rem; right: 24%; z-index: 6; }
+
+.garden-path {
+  position: absolute;
+  z-index: 0;
+  opacity: .72;
+  background:
+    radial-gradient(circle at 20% 30%, #d8c49b 0 4px, transparent 5px),
+    radial-gradient(circle at 68% 70%, #b99c6e 0 3px, transparent 4px),
+    #c8af7c;
+  background-size: 36px 36px, 48px 48px, auto;
+  border: 3px solid rgba(111, 83, 50, .38);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.18);
+}
+.path-main { width: clamp(84px, 10vw, 150px); height: 70%; top: 19rem; left: calc(50% - 6vw); transform: rotate(4deg); clip-path: polygon(30% 0,72% 0,88% 12%,72% 24%,96% 39%,74% 56%,90% 72%,66% 100%,22% 100%,36% 73%,11% 56%,28% 38%,7% 24%,29% 11%); }
+.path-branch { width: clamp(150px, 23vw, 320px); height: clamp(50px, 7vw, 90px); top: 42rem; border-radius: 48% 52% 46% 54%; }
+.path-west { left: 7%; transform: rotate(-7deg); }
+.path-east { right: 6%; transform: rotate(8deg); }
+
+.garden-object {
+  z-index: 12;
+  pointer-events: auto;
+  width: clamp(58px, 7vw, 96px);
+  min-height: clamp(72px, 9vw, 122px);
+  display: grid;
+  grid-template-rows: 1fr auto;
+  place-items: center;
+  text-decoration: none;
+  color: #44331e;
+  text-align: center;
+  font-family: var(--font-pixel);
+  font-size: .45rem;
+  line-height: 1.55;
+  transition: transform .18s ease, filter .18s ease;
+}
+.garden-object .scene-sprite { width: 78%; height: 100%; }
+.garden-object-label { background: rgba(255,248,229,.88); border: 2px solid rgba(107,74,43,.55); padding: 3px 4px; opacity: 0; transform: translateY(-2px); transition: opacity .18s ease, transform .18s ease; }
+.garden-object:hover, .garden-object:focus-visible { transform: translateY(-5px) scale(1.08); filter: brightness(1.08); outline: none; }
+.garden-object:hover .garden-object-label, .garden-object:focus-visible .garden-object-label { opacity: 1; transform: translateY(0); }
+.object-rain { top: 55rem; left: 12%; --scene-sprite: var(--sprite-rain); }
+.object-sun { top: 29rem; right: 15%; --scene-sprite: var(--sprite-sun); }
+.object-frost { top: 42rem; right: 4%; --scene-sprite: var(--sprite-frost); }
+.object-season { top: 61rem; left: 3%; --scene-sprite: var(--sprite-season); }
+
+.scene-flower { width: clamp(22px, 3vw, 46px); height: clamp(22px, 3vw, 46px); z-index: 8; }
+.flower-a { --scene-sprite: var(--sprite-flower-a); top: 24rem; left: 18%; }
+.flower-b { --scene-sprite: var(--sprite-flower-b); top: 48rem; right: 17%; }
+.flower-c { --scene-sprite: var(--sprite-flower-c); width: clamp(48px, 7vw, 100px); height: clamp(48px, 7vw, 100px); top: 69rem; right: 2%; }
+.flower-d { --scene-sprite: var(--sprite-flower-d); width: clamp(42px, 6vw, 82px); height: clamp(42px, 6vw, 82px); top: 37rem; left: 28%; }
+.scene-groundcover { width: clamp(55px, 9vw, 130px); height: clamp(36px, 6vw, 84px); z-index: 5; }
+.groundcover-west { --scene-sprite: var(--sprite-groundcover-west); top: 64rem; left: 17%; }
+.groundcover-east { --scene-sprite: var(--sprite-groundcover-east); top: 74rem; right: 10%; }
+
+.garden-grid { max-width: 1100px; padding: 0 clamp(1rem, 4vw, 3rem); gap: clamp(1rem, 2vw, 1.6rem); margin-top: 1.4rem; }
+.garden-card { border-width: 3px; border-radius: 8px; background: linear-gradient(rgba(255,250,238,.96), rgba(248,239,215,.96)), var(--parchment); box-shadow: inset 0 0 0 3px var(--parchment-inner), 0 7px 0 rgba(54,46,29,.17), 0 14px 24px rgba(55,77,35,.10); }
+.garden-card:hover { box-shadow: inset 0 0 0 3px var(--parchment-inner), 0 8px 0 rgba(54,46,29,.18), 0 18px 30px rgba(55,77,35,.14); }
+.garden-heading { padding-top: 2.3rem; min-height: 130px; }
+.garden-heading h1 { color: #fff8ec; text-shadow: 3px 3px 0 rgba(36,26,66,.38); }
+.garden-intro { max-width: 54ch; border-radius: 10px; box-shadow: 0 6px 0 rgba(77,57,32,.14); }
+
+@media (max-width: 850px) {
+  .garden-scene { opacity: .72; }
+  .garden-path { opacity: .34; }
+  .path-main { left: auto; right: -28px; top: 26rem; height: 82%; }
+  .path-west, .path-east { display: none; }
+  .scene-tree { transform: scale(.74); transform-origin: top left; }
+  .tree-east { transform-origin: top right; }
+  .scene-raised-bed { transform: scale(.72); }
+  .bed-west { top: 44rem; left: -28px; }
+  .bed-east { top: 76rem; right: -35px; }
+  .scene-trellis { top: 64rem; left: auto; right: -14px; }
+  .scene-pond { width: 45vw; bottom: 1rem; right: -7vw; }
+  .garden-object { transform: scale(.78); }
+  .object-rain { top: 67rem; left: -6px; }
+  .object-sun { top: 36rem; right: -6px; }
+  .object-frost { top: 50rem; right: -8px; }
+  .object-season { top: 92rem; left: -5px; }
+  .scene-flower, .scene-groundcover { opacity: .78; }
+}
+@media (max-width: 480px) {
+  .garden-scene { opacity: .56; }
+  .garden-object-label { display: none; }
+  .garden-object:hover, .garden-object:focus-visible { transform: scale(.82); }
+  .garden-card { border-radius: 7px; }
+}
