@@ -4,10 +4,10 @@
       "name": "Today",
       "temperature": 79,
       "temperatureUnit": "F",
-      "windSpeed": "2 to 6 mph",
+      "windSpeed": "0 to 6 mph",
       "windDirection": "N",
-      "shortForecast": "Mostly Sunny",
-      "detailedForecast": "Mostly sunny, with a high near 79. North wind 2 to 6 mph.",
+      "shortForecast": "Areas Of Fog then Mostly Sunny",
+      "detailedForecast": "Areas of fog before 9am. Mostly sunny, with a high near 79. North wind 0 to 6 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 5
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-08-28T08:00:00-04:00",
+      "temperature": 63,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "N",
+      "shortForecast": "Patchy Fog",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-08-28T09:00:00-04:00",
       "temperature": 67,
@@ -272,16 +282,6 @@
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
-      "shortForecast": "Patchy Fog",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-08-29T08:00:00-04:00",
-      "temperature": 58,
-      "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "NE",
       "shortForecast": "Patchy Fog",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
