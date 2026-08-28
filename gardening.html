@@ -23,33 +23,15 @@
       <div class="garden-layer garden-terrain" aria-hidden="true"></div>
       <div class="garden-layer garden-clearings" aria-hidden="true"></div>
 
-      <!-- Clover Terrace scene objects: positions are permanent; CSS variables
-           select the seasonal sprite without changing the page layout. -->
-      <div class="garden-scene" aria-label="Clover Terrace interactive garden">
-        <div class="garden-path path-main" aria-hidden="true"></div>
-        <div class="garden-path path-branch path-west" aria-hidden="true"></div>
-        <div class="garden-path path-branch path-east" aria-hidden="true"></div>
-
-        <div class="garden-scene-sprite scene-sprite scene-tree tree-west" aria-hidden="true"></div>
-        <div class="garden-scene-sprite scene-sprite scene-tree tree-east" aria-hidden="true"></div>
-        <div class="garden-scene-sprite scene-sprite scene-raised-bed bed-west" aria-hidden="true"></div>
-        <div class="garden-scene-sprite scene-sprite scene-raised-bed bed-east" aria-hidden="true"></div>
-        <div class="garden-scene-sprite scene-sprite scene-trellis" aria-hidden="true"></div>
-        <div class="garden-scene-sprite scene-sprite scene-pond" aria-hidden="true"></div>
-        <div class="garden-scene-sprite scene-sprite scene-birdbath" aria-hidden="true"></div>
-        <div class="garden-scene-sprite scene-sprite scene-bench" aria-hidden="true"></div>
-
-        <a class="garden-object object-rain" href="#garden-rain-card" aria-label="Open recent rainfall"><span class="scene-sprite"></span><span class="garden-object-label">Rainfall</span></a>
-        <a class="garden-object object-sun" href="#garden-gdd-card" aria-label="Open heat accumulation and growing degree days"><span class="scene-sprite"></span><span class="garden-object-label">Heat &amp; Sun</span></a>
-        <a class="garden-object object-frost" href="#garden-frost-card" aria-label="Open frost and freeze watch"><span class="scene-sprite"></span><span class="garden-object-label">Frost Watch</span></a>
-        <a class="garden-object object-season" href="#garden-season-card" aria-label="Open growing season"><span class="scene-sprite"></span><span class="garden-object-label">Growing Season</span></a>
-
-        <div class="garden-scene-sprite scene-sprite scene-flower flower-a" aria-hidden="true"></div>
-        <div class="garden-scene-sprite scene-sprite scene-flower flower-b" aria-hidden="true"></div>
-        <div class="garden-scene-sprite scene-sprite scene-flower flower-c" aria-hidden="true"></div>
-        <div class="garden-scene-sprite scene-sprite scene-flower flower-d" aria-hidden="true"></div>
-        <div class="garden-scene-sprite scene-sprite scene-groundcover groundcover-west" aria-hidden="true"></div>
-        <div class="garden-scene-sprite scene-sprite scene-groundcover groundcover-east" aria-hidden="true"></div>
+      <!-- Top scene layer: deliberately kept light so the weather desk remains readable. -->
+      <div class="garden-top-scenery" aria-hidden="true">
+        <span class="top-flower flower-red"></span>
+        <span class="top-flower flower-yellow"></span>
+        <span class="top-flower flower-purple"></span>
+        <span class="top-flower flower-pink"></span>
+        <span class="top-flower flower-blue"></span>
+        <span class="top-flower flower-orange"></span>
+        <span class="top-flower flower-magenta"></span>
       </div>
 
     <header class="garden-heading">
@@ -78,11 +60,6 @@
     <div class="garden-layer garden-border garden-border-top" aria-hidden="true"></div>
     <div class="garden-layer garden-border garden-border-bottom" aria-hidden="true"></div>
 
-    <p class="garden-intro">
-      A growing-season view of the same microclimate the weather station watches every day:
-      current conditions, frost risk, rainfall, heat accumulation, and the long-term pieces
-      that will eventually make this a full local garden-weather desk.
-    </p>
 
     <main class="garden-grid">
 
@@ -290,6 +267,38 @@
       </section>
 
     </main>
+
+    <!-- Detailed garden-building zone: large sprites live below the compact weather desk. -->
+    <section class="garden-building-zone" aria-label="Clover Terrace garden grounds">
+      <div class="building-skyline" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-tree" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-grove-house" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-pond" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-bed bed-one" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-bed bed-two" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-rocks rocks-one" aria-hidden="true"></div>
+      <div class="garden-building-sprite building-rocks rocks-two" aria-hidden="true"></div>
+
+      <a class="garden-build-hotspot hotspot-rain" href="#garden-rain-card" aria-label="Open recent rainfall">
+        <span class="hotspot-sprite"></span><span>Rainfall</span>
+      </a>
+      <a class="garden-build-hotspot hotspot-season" href="#garden-season-card" aria-label="Open growing season">
+        <span class="hotspot-sprite"></span><span>Growing Season</span>
+      </a>
+      <a class="garden-build-hotspot hotspot-gdd" href="#garden-gdd-card" aria-label="Open heat accumulation and growing degree days">
+        <span class="hotspot-sprite"></span><span>Heat &amp; Sun</span>
+      </a>
+
+      <div class="garden-building-flower flower-build-a" aria-hidden="true"></div>
+      <div class="garden-building-flower flower-build-b" aria-hidden="true"></div>
+      <div class="garden-building-flower flower-build-c" aria-hidden="true"></div>
+      <div class="garden-building-flower flower-build-d" aria-hidden="true"></div>
+      <div class="garden-building-flower flower-build-e" aria-hidden="true"></div>
+      <div class="garden-building-flower flower-build-f" aria-hidden="true"></div>
+
+      <div class="garden-building-title">Clover Terrace Garden Grounds</div>
+      <div class="garden-building-note">The weather desk above watches the garden; this little world is where the garden itself lives.</div>
+    </section>
 
     <div class="garden-layer garden-border garden-border-left" aria-hidden="true"></div>
     <div class="garden-layer garden-border garden-border-right" aria-hidden="true"></div>
