@@ -508,16 +508,24 @@ body[data-garden-season="winter"] {
 
 /* =====================================================================
    CLOVER TERRACE — SEASONAL GARDEN SCENE
-   Stable scene identities. Runtime assets always live in the production
-   seasonal folders; staging assets are never referenced at runtime.
+   The garden is one continuous world. Small flowers frame the information
+   desk; the scene gradually becomes denser below it, ending in the lush
+   garden rather than a separately labelled "garden section".
    ===================================================================== */
 
 .garden-world {
   --sprite-tree-west: none;
+  --sprite-tree-flowering: none;
+  --sprite-bush-flowering: none;
+  --sprite-bush-round: none;
   --sprite-grove-house: none;
   --sprite-pond: none;
+  --sprite-bridge: none;
   --sprite-soil-bed: none;
-  --sprite-rocks: none;
+  --sprite-fence: none;
+  --sprite-mushrooms: none;
+  --sprite-sunflower: none;
+  --sprite-chicken-house: none;
   --sprite-flower-red: none;
   --sprite-flower-orange: none;
   --sprite-flower-white-blue: none;
@@ -527,18 +535,20 @@ body[data-garden-season="winter"] {
   --sprite-flower-magenta: none;
 }
 
-body[data-garden-season="spring"] .garden-world {
-  --season-path: "../assets/garden/spring/";
-}
-
 body[data-garden-season="summer"] .garden-world {
   --season-path: "../assets/garden/summer/";
   --sprite-tree-west: url("../assets/garden/summer/plants/tree-west.png");
+  --sprite-tree-flowering: url("../assets/garden/summer/plants/tree-flowering.png");
+  --sprite-bush-flowering: url("../assets/garden/summer/plants/bush-flowering.png");
+  --sprite-bush-round: url("../assets/garden/summer/plants/bush-round.png");
   --sprite-grove-house: url("../assets/garden/summer/decorations/garden-grove-house.png");
   --sprite-pond: url("../assets/garden/summer/decorations/pond.png");
+  --sprite-bridge: url("../assets/garden/summer/decorations/bridge.png");
   --sprite-soil-bed: url("../assets/garden/summer/decorations/soil-bed.png");
-  --sprite-rocks: url("../assets/garden/summer/decorations/rocks.png");
-
+  --sprite-fence: url("../assets/garden/summer/decorations/fence-horizontal.png");
+  --sprite-mushrooms: url("../assets/garden/summer/decorations/mushrooms.png");
+  --sprite-sunflower: url("../assets/garden/summer/flowers/sunflower.png");
+  --sprite-chicken-house: url("../assets/garden/summer/decorations/chicken-house.png");
   --sprite-flower-red: url("../assets/garden/summer/flowers/flower-red.png");
   --sprite-flower-orange: url("../assets/garden/summer/flowers/flower-orange.png");
   --sprite-flower-white-blue: url("../assets/garden/summer/flowers/flower-white-blue.png");
@@ -548,71 +558,80 @@ body[data-garden-season="summer"] .garden-world {
   --sprite-flower-magenta: url("../assets/garden/summer/flowers/flower-magenta.png");
 }
 
-body[data-garden-season="autumn"] .garden-world {
-  --season-path: "../assets/garden/autumn/";
-}
+/* Future seasons intentionally remain path-only until their replacement
+   sprites are supplied. The layout does not need to change when they arrive. */
+body[data-garden-season="spring"] .garden-world { --season-path: "../assets/garden/spring/"; }
+body[data-garden-season="autumn"] .garden-world { --season-path: "../assets/garden/autumn/"; }
+body[data-garden-season="winter"] .garden-world { --season-path: "../assets/garden/winter/"; }
 
-body[data-garden-season="winter"] .garden-world {
-  --season-path: "../assets/garden/winter/";
-}
-
-/* Top of the page: only small accents. Nothing large is allowed into the
-   weather-card area. */
+/* Small, quiet decoration around the upper information area. */
 .garden-top-scenery {
   position: absolute;
   top: 9.5rem;
   left: 0;
   width: 100%;
-  height: 78px;
+  height: 58px;
   z-index: 2;
   pointer-events: none;
-  border-top: 2px solid rgba(107,74,43,.35);
-  border-bottom: 2px solid rgba(107,74,43,.25);
-  background: linear-gradient(180deg, rgba(255,248,226,.08), rgba(255,248,226,.22));
+  border-top: 1px solid rgba(107,74,43,.20);
+  border-bottom: 1px solid rgba(107,74,43,.18);
+  background: linear-gradient(180deg, rgba(255,248,226,.04), rgba(255,248,226,.13));
 }
 
 .top-flower {
   position: absolute;
-  bottom: 8px;
-  width: 34px;
-  height: 54px;
+  bottom: 5px;
+  width: 30px;
+  height: 46px;
   background-repeat: no-repeat;
   background-position: center bottom;
   background-size: contain;
   image-rendering: pixelated;
 }
-.top-flower:nth-child(1) { left: 9%; --top-sprite: var(--sprite-flower-red); }
+.top-flower:nth-child(1) { left: 8%; --top-sprite: var(--sprite-flower-red); }
 .top-flower:nth-child(2) { left: 22%; --top-sprite: var(--sprite-flower-yellow); }
 .top-flower:nth-child(3) { left: 36%; --top-sprite: var(--sprite-flower-purple); }
-.top-flower:nth-child(4) { left: 54%; --top-sprite: var(--sprite-flower-pink); }
-.top-flower:nth-child(5) { left: 68%; --top-sprite: var(--sprite-flower-white-blue); }
+.top-flower:nth-child(4) { left: 53%; --top-sprite: var(--sprite-flower-pink); }
+.top-flower:nth-child(5) { left: 67%; --top-sprite: var(--sprite-flower-white-blue); }
 .top-flower:nth-child(6) { left: 81%; --top-sprite: var(--sprite-flower-orange); }
 .top-flower:nth-child(7) { left: 92%; --top-sprite: var(--sprite-flower-magenta); }
 .top-flower { background-image: var(--top-sprite); }
 
-/* The detailed garden lives BELOW the information desk. This is an actual
-   layout section, not an absolute layer over the cards. */
+/* -----------------------------------------------------------------
+   Continuous garden grounds
+   ----------------------------------------------------------------- */
 .garden-building-zone {
   position: relative;
-  width: min(1120px, calc(100% - 2rem));
-  min-height: 620px;
-  margin: 1rem auto 2rem;
+  width: 100%;
+  min-height: 560px;
+  margin: 0;
   overflow: hidden;
-  border: 3px solid rgba(91,65,39,.75);
-  box-shadow: inset 0 0 0 3px rgba(244,230,194,.55), 0 8px 0 rgba(48,63,29,.16);
   background:
-    linear-gradient(180deg, rgba(255,245,217,.12), rgba(69,105,43,.10)),
+    linear-gradient(180deg,
+      rgba(255,247,220,.22) 0,
+      rgba(255,247,220,.08) 11%,
+      rgba(87,126,51,.03) 28%,
+      rgba(48,84,36,.05) 100%),
     var(--season-grass);
   background-size: auto, 256px 256px;
   image-rendering: pixelated;
+  border: 0;
+  box-shadow: none;
 }
 
-.building-skyline {
+/* A soft visual hand-off from parchment cards into grass. */
+.garden-meadow-transition {
   position: absolute;
-  inset: 0 0 auto;
-  height: 70px;
-  background: linear-gradient(180deg, rgba(255,245,216,.30), transparent);
-  border-bottom: 2px solid rgba(91,65,39,.25);
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 96px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(250,242,223,.88), rgba(250,242,223,.25) 35%, transparent 100%),
+    radial-gradient(ellipse at 15% 72%, rgba(63,125,44,.20) 0 7%, transparent 8%),
+    radial-gradient(ellipse at 76% 58%, rgba(63,125,44,.16) 0 8%, transparent 9%);
 }
 
 .garden-building-sprite,
@@ -625,146 +644,261 @@ body[data-garden-season="winter"] .garden-world {
   pointer-events: none;
 }
 
-.building-tree {
-  width: 150px; height: 220px;
-  left: 3%; top: 34px;
+/* Large forms are deliberately kept low in the scene. */
+.building-tree.tree-west {
+  width: clamp(125px, 13vw, 190px);
+  height: clamp(190px, 19vw, 270px);
+  left: 1%;
+  bottom: 100px;
   background-image: var(--sprite-tree-west);
+  z-index: 5;
+}
+
+.building-tree.tree-flowering {
+  width: clamp(115px, 12vw, 170px);
+  height: clamp(120px, 13vw, 190px);
+  left: 22%;
+  bottom: 275px;
+  background-image: var(--sprite-tree-flowering);
   z-index: 4;
+  opacity: .96;
+}
+
+.building-bush {
+  background-image: var(--sprite-bush-flowering);
+  z-index: 6;
+}
+.building-bush.bush-west {
+  width: 150px;
+  height: 105px;
+  left: 9%;
+  bottom: 55px;
+}
+.building-bush.bush-east {
+  width: 135px;
+  height: 110px;
+  right: 17%;
+  bottom: 70px;
+  background-image: var(--sprite-bush-round);
 }
 
 .building-grove-house {
-  width: 220px; height: 260px;
-  right: 3%; top: 25px;
+  width: clamp(135px, 16vw, 205px);
+  height: clamp(175px, 20vw, 245px);
+  right: 2%;
+  bottom: 205px;
   background-image: var(--sprite-grove-house);
   z-index: 5;
 }
 
 .building-pond {
-  width: 360px; height: 210px;
-  right: 17%; bottom: 42px;
+  width: clamp(300px, 33vw, 470px);
+  height: clamp(175px, 20vw, 260px);
+  right: 9%;
+  bottom: 25px;
   background-image: var(--sprite-pond);
   z-index: 2;
 }
 
-.building-bed {
-  width: 260px; height: 150px;
-  background-image: var(--sprite-soil-bed);
-  background-repeat: repeat;
-  background-size: 112px 64px;
-  border: 2px solid rgba(86,61,35,.45);
-  box-shadow: 0 5px 0 rgba(50,42,24,.12);
-  z-index: 3;
+.building-bridge {
+  width: clamp(105px, 12vw, 155px);
+  height: clamp(115px, 14vw, 175px);
+  right: 26%;
+  bottom: 78px;
+  background-image: var(--sprite-bridge);
+  z-index: 4;
+  transform: rotate(-2deg);
 }
-.bed-one { left: 20%; top: 92px; transform: rotate(-2deg); }
-.bed-two { left: 44%; top: 120px; transform: rotate(2deg); }
 
-.building-rocks {
-  width: 100px; height: 70px;
-  background-image: var(--sprite-rocks);
+.building-bed {
+  width: clamp(180px, 19vw, 280px);
+  height: clamp(105px, 12vw, 165px);
+  background-image: var(--sprite-soil-bed);
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 5;
+}
+.bed-one { left: 27%; bottom: 150px; transform: rotate(-2deg); }
+.bed-two { left: 46%; bottom: 185px; transform: rotate(2deg); }
+
+.building-fence {
+  width: clamp(95px, 13vw, 180px);
+  height: 45px;
+  background-image: var(--sprite-fence);
+  background-size: contain;
+  z-index: 7;
+}
+.fence-one { left: 25%; bottom: 112px; }
+.fence-two { right: 27%; bottom: 178px; transform: scaleX(-1); }
+
+.building-mushrooms {
+  width: 52px;
+  height: 45px;
+  left: 18%;
+  bottom: 115px;
+  background-image: var(--sprite-mushrooms);
+  z-index: 8;
+}
+
+.building-sunflower {
+  width: 55px;
+  height: 110px;
+  left: 38%;
+  bottom: 245px;
+  background-image: var(--sprite-sunflower);
+  z-index: 8;
+}
+
+.building-chicken-house {
+  width: 95px;
+  height: 95px;
+  right: 29%;
+  bottom: 205px;
+  background-image: var(--sprite-chicken-house);
   z-index: 6;
 }
-.rocks-one { left: 9%; bottom: 52px; }
-.rocks-two { right: 34%; bottom: 16px; transform: scale(.82); }
 
+/* The links are invisible hit areas placed over the real garden objects. */
 .garden-build-hotspot {
   position: absolute;
-  z-index: 10;
-  display: grid;
-  justify-items: center;
-  gap: 4px;
-  width: 105px;
-  padding: 5px;
-  color: #3d2d1d;
-  font: .48rem/1.45 var(--font-pixel);
-  text-align: center;
+  z-index: 15;
+  display: block;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
   text-decoration: none;
-  background: rgba(255,248,228,.82);
-  border: 2px solid rgba(91,65,39,.55);
-  box-shadow: 0 4px 0 rgba(54,46,29,.14);
+  cursor: pointer;
 }
+.garden-build-hotspot span { display: block; width: 100%; height: 100%; }
 .garden-build-hotspot:hover,
 .garden-build-hotspot:focus-visible {
-  transform: translateY(-4px);
-  background: rgba(255,252,237,.96);
-  outline: none;
+  background: rgba(255,255,255,.08);
+  outline: 2px solid rgba(255,245,216,.65);
+  outline-offset: 3px;
+  border-radius: 50%;
 }
-.hotspot-sprite {
-  width: 42px; height: 42px;
-  background: var(--hotspot-sprite) center bottom / contain no-repeat;
-  image-rendering: pixelated;
-}
-.hotspot-rain { left: 15%; bottom: 95px; --hotspot-sprite: var(--sprite-flower-white-blue); }
-.hotspot-season { left: 39%; bottom: 45px; --hotspot-sprite: var(--sprite-flower-purple); }
-.hotspot-gdd { right: 16%; bottom: 230px; --hotspot-sprite: var(--sprite-flower-yellow); }
+.hotspot-rain { right: 10%; bottom: 25px; width: 300px; height: 175px; }
+.hotspot-season { right: 2%; bottom: 205px; width: 135px; height: 175px; }
+.hotspot-gdd { left: 34%; bottom: 225px; width: 75px; height: 125px; }
 
-.garden-building-flower { width: 50px; height: 72px; z-index: 8; }
-.flower-build-a { left: 17%; bottom: 40px; background-image: var(--sprite-flower-red); }
-.flower-build-b { left: 31%; bottom: 16px; background-image: var(--sprite-flower-orange); }
-.flower-build-c { left: 53%; bottom: 35px; background-image: var(--sprite-flower-white-blue); }
-.flower-build-d { right: 25%; bottom: 48px; background-image: var(--sprite-flower-pink); }
-.flower-build-e { right: 12%; bottom: 25px; background-image: var(--sprite-flower-magenta); }
-.flower-build-f { left: 67%; top: 76px; background-image: var(--sprite-flower-purple); }
+.garden-building-flower { width: 46px; height: 68px; z-index: 10; }
+.flower-build-a { left: 13%; bottom: 35px; background-image: var(--sprite-flower-red); }
+.flower-build-b { left: 23%; bottom: 26px; background-image: var(--sprite-flower-orange); }
+.flower-build-c { left: 34%; bottom: 42px; background-image: var(--sprite-flower-white-blue); }
+.flower-build-d { right: 39%; bottom: 24px; background-image: var(--sprite-flower-pink); }
+.flower-build-e { right: 24%; bottom: 32px; background-image: var(--sprite-flower-magenta); }
+.flower-build-f { right: 10%; bottom: 42px; background-image: var(--sprite-flower-purple); }
 
-.garden-building-title {
-  position: absolute;
-  left: 50%; top: 14px;
-  transform: translateX(-50%);
-  z-index: 12;
-  padding: 5px 10px;
-  font: .58rem var(--font-pixel);
-  color: #fff8e8;
-  background: rgba(49,70,32,.82);
-  border: 2px solid rgba(255,245,216,.65);
-}
-.garden-building-note {
-  position: absolute;
-  left: 50%; bottom: 12px;
-  transform: translateX(-50%);
-  z-index: 12;
-  max-width: 520px;
-  padding: 4px 9px;
-  font-size: .9rem;
-  text-align: center;
-  color: #fff7e7;
-  background: rgba(52,76,34,.76);
-  border: 2px solid rgba(255,245,216,.45);
-}
-
-/* Desktop-only compactness. The mobile card behavior above remains the same. */
+/* -----------------------------------------------------------------
+   Desktop: compact weather desk + uninterrupted transition to garden.
+   This is intentionally desktop-only; the existing mobile card layout is
+   left alone.
+   ----------------------------------------------------------------- */
 @media (min-width: 851px) {
-  .garden-heading { padding-top: 1.8rem; min-height: 118px; }
-  .garden-grid { margin-top: .55rem; margin-bottom: .9rem; }
-  .garden-card h2 { margin-bottom: .5rem; }
-  .garden-readout-label { font-size: .75rem; }
-  .garden-readout-value { font-size: 1.35rem; }
-  .garden-two-col { gap: .35rem 1rem; }
-  .garden-note { font-size: .9rem; line-height: 1.25; }
-  .garden-meta { font-size: .82rem; }
-  .garden-status { padding: .35rem .55rem; margin-bottom: .5rem; }
-  .frost-timeline { gap: .4rem; margin-bottom: .45rem; }
-  .frost-box { padding: .35rem .3rem; }
-  .gdd-list { gap: .4rem; margin-bottom: .4rem; }
-  .gdd-box { padding: .4rem; }
-  .gdd-number { font-size: 1.5rem; }
-  .garden-bars { gap: .35rem; margin-bottom: .4rem; }
-  .garden-building-zone { min-height: 660px; }
+  .garden-heading {
+    padding-top: 1.25rem;
+    min-height: 104px;
+  }
+  .garden-heading h1 { margin-bottom: .35rem; }
+  .garden-subtitle { font-size: 1.05rem; margin-bottom: .35rem; }
+
+  .garden-grid {
+    max-width: 1060px;
+    gap: .55rem;
+    margin-top: .25rem;
+    margin-bottom: 0;
+    padding: 0 .75rem;
+  }
+
+  #garden-conditions-card { grid-column: span 6; }
+  #garden-frost-card { grid-column: span 3; }
+  #garden-season-card { grid-column: span 3; }
+  #garden-gdd-card { grid-column: span 4; }
+  #garden-rain-card { grid-column: span 4; }
+  #garden-reference-card { grid-column: span 4; }
+
+  .garden-card {
+    border-width: 3px;
+    padding: .48rem .58rem .48rem;
+    box-shadow: inset 0 0 0 2px var(--parchment-inner), 0 4px 0 rgba(0,0,0,.15);
+  }
+  .garden-corner { width: 24px; height: 24px; }
+  .garden-corner.tl { top: -9px; left: -9px; }
+  .garden-corner.tr { top: -9px; right: -9px; }
+  .garden-corner.bl { bottom: -9px; left: -9px; }
+  .garden-corner.br { bottom: -9px; right: -9px; }
+
+  .garden-card h2 {
+    font-size: .58rem;
+    line-height: 1.25;
+    gap: .35rem;
+    margin-bottom: .38rem;
+  }
+  .garden-card h2 .garden-icon { font-size: .82rem; }
+  .garden-readout-grid { gap: .35rem; }
+  .garden-readout { border-width: 1px; padding: .26rem .28rem .3rem; }
+  .garden-readout-label { font-size: .66rem; }
+  .garden-readout-value { font-size: 1.12rem; }
+  .garden-readout-unit { font-size: .78rem; }
+
+  .garden-two-col { gap: .22rem .7rem; }
+  .garden-stat-label { font-size: .73rem; }
+  .garden-stat-value { font-size: .94rem; }
+  .garden-note { font-size: .72rem; line-height: 1.15; margin-top: .18rem; }
+  .garden-meta { font-size: .68rem; }
+
+  .garden-status { font-size: .8rem; padding: .25rem .35rem; gap: .35rem; margin-bottom: .35rem; }
+  .garden-status-dot { width: 7px; height: 7px; }
+  .frost-timeline { gap: .25rem; margin-bottom: .25rem; }
+  .frost-box { border-width: 1px; padding: .26rem .2rem; }
+  .frost-box-label { font-size: .6rem; }
+  .frost-box-value { font-size: .9rem; }
+  .gdd-list { gap: .3rem; margin-bottom: .25rem; }
+  .gdd-box { border-width: 1px; padding: .28rem; }
+  .gdd-number { font-size: 1.2rem; }
+  .gdd-name { font-size: .66rem; }
+  .garden-bars { gap: .25rem; margin-bottom: .25rem; }
+  .garden-bar-row { grid-template-columns: 54px 1fr 36px; gap: .35rem; }
+  .garden-bar-label { font-size: .72rem; }
+  .garden-bar-track { height: 8px; border-width: 1px; }
+  .garden-source-row { gap: .2rem .65rem; font-size: .68rem; padding-top: .35rem; }
+
+  .garden-building-zone {
+    min-height: 560px;
+    margin-top: 0;
+  }
+  .garden-meadow-transition { height: 82px; }
 }
 
+/* Mobile keeps the established full-width, stacked presentation. The new
+   large-scene additions are desktop-only so the mobile composition remains
+   visually stable. */
 @media (max-width: 850px) {
   .garden-top-scenery { top: 8.8rem; height: 62px; }
-  .garden-building-zone { width: calc(100% - 1rem); min-height: 520px; margin-top: .8rem; }
-  .building-tree { width: 105px; height: 165px; left: -6px; top: 34px; }
-  .building-grove-house { width: 150px; height: 180px; right: -16px; top: 28px; }
+  .garden-building-zone {
+    width: calc(100% - 1rem);
+    min-height: 520px;
+    margin: .8rem auto 2rem;
+    border: 3px solid rgba(91,65,39,.75);
+    box-shadow: inset 0 0 0 3px rgba(244,230,194,.55), 0 8px 0 rgba(48,63,29,.16);
+  }
+  .building-tree.tree-west { width: 105px; height: 165px; left: -6px; top: 34px; bottom: auto; }
+  .building-grove-house { width: 150px; height: 180px; right: -16px; top: 28px; bottom: auto; }
   .building-pond { width: 250px; height: 145px; right: -38px; bottom: 45px; }
-  .building-bed { width: 170px; height: 105px; background-size: 84px 48px; }
-  .bed-one { left: 15%; top: 115px; }
-  .bed-two { left: 40%; top: 180px; }
-  .garden-build-hotspot { transform: scale(.82); transform-origin: center; }
-  .hotspot-rain { left: 5%; bottom: 90px; }
-  .hotspot-season { left: 35%; bottom: 35px; }
-  .hotspot-gdd { right: 4%; bottom: 180px; }
-  .garden-building-title { font-size: .48rem; white-space: nowrap; }
-  .garden-building-note { width: calc(100% - 1rem); font-size: .78rem; }
+  .building-bed { width: 170px; height: 105px; }
+  .bed-one { left: 15%; top: 115px; bottom: auto; }
+  .bed-two { left: 40%; top: 180px; bottom: auto; }
+
+  .building-tree.tree-flowering,
+  .building-bush,
+  .building-bridge,
+  .building-fence,
+  .building-mushrooms,
+  .building-sunflower,
+  .building-chicken-house { display: none; }
+
+  .garden-build-hotspot { display: none; }
   .garden-building-flower { transform: scale(.78); transform-origin: bottom center; }
 }
 
@@ -772,14 +906,14 @@ body[data-garden-season="winter"] .garden-world {
   .garden-top-scenery { top: 8.4rem; }
   .top-flower { width: 27px; height: 44px; }
   .garden-building-zone { min-height: 450px; }
-  .building-tree { width: 82px; height: 130px; }
+  .building-tree.tree-west { width: 82px; height: 130px; }
   .building-grove-house { width: 118px; height: 145px; }
   .building-pond { width: 205px; height: 118px; }
   .building-bed { width: 135px; height: 82px; }
-  .garden-build-hotspot { display: none; }
-  .garden-building-title { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .garden-object, .garden-build-hotspot { transition: none; }
+  .garden-sky-sprite,
+  .garden-object,
+  .garden-build-hotspot { animation: none !important; transition: none !important; }
 }
