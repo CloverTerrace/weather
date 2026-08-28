@@ -23,6 +23,35 @@
       <div class="garden-layer garden-terrain" aria-hidden="true"></div>
       <div class="garden-layer garden-clearings" aria-hidden="true"></div>
 
+      <!-- Clover Terrace scene objects: positions are permanent; CSS variables
+           select the seasonal sprite without changing the page layout. -->
+      <div class="garden-scene" aria-label="Clover Terrace interactive garden">
+        <div class="garden-path path-main" aria-hidden="true"></div>
+        <div class="garden-path path-branch path-west" aria-hidden="true"></div>
+        <div class="garden-path path-branch path-east" aria-hidden="true"></div>
+
+        <div class="garden-scene-sprite scene-sprite scene-tree tree-west" aria-hidden="true"></div>
+        <div class="garden-scene-sprite scene-sprite scene-tree tree-east" aria-hidden="true"></div>
+        <div class="garden-scene-sprite scene-sprite scene-raised-bed bed-west" aria-hidden="true"></div>
+        <div class="garden-scene-sprite scene-sprite scene-raised-bed bed-east" aria-hidden="true"></div>
+        <div class="garden-scene-sprite scene-sprite scene-trellis" aria-hidden="true"></div>
+        <div class="garden-scene-sprite scene-sprite scene-pond" aria-hidden="true"></div>
+        <div class="garden-scene-sprite scene-sprite scene-birdbath" aria-hidden="true"></div>
+        <div class="garden-scene-sprite scene-sprite scene-bench" aria-hidden="true"></div>
+
+        <a class="garden-object object-rain" href="#garden-rain-card" aria-label="Open recent rainfall"><span class="scene-sprite"></span><span class="garden-object-label">Rainfall</span></a>
+        <a class="garden-object object-sun" href="#garden-gdd-card" aria-label="Open heat accumulation and growing degree days"><span class="scene-sprite"></span><span class="garden-object-label">Heat &amp; Sun</span></a>
+        <a class="garden-object object-frost" href="#garden-frost-card" aria-label="Open frost and freeze watch"><span class="scene-sprite"></span><span class="garden-object-label">Frost Watch</span></a>
+        <a class="garden-object object-season" href="#garden-season-card" aria-label="Open growing season"><span class="scene-sprite"></span><span class="garden-object-label">Growing Season</span></a>
+
+        <div class="garden-scene-sprite scene-sprite scene-flower flower-a" aria-hidden="true"></div>
+        <div class="garden-scene-sprite scene-sprite scene-flower flower-b" aria-hidden="true"></div>
+        <div class="garden-scene-sprite scene-sprite scene-flower flower-c" aria-hidden="true"></div>
+        <div class="garden-scene-sprite scene-sprite scene-flower flower-d" aria-hidden="true"></div>
+        <div class="garden-scene-sprite scene-sprite scene-groundcover groundcover-west" aria-hidden="true"></div>
+        <div class="garden-scene-sprite scene-sprite scene-groundcover groundcover-east" aria-hidden="true"></div>
+      </div>
+
     <header class="garden-heading">
       <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:12px; left:4%; width:14px;" alt="">
       <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:70px; left:15%; width:10px;" alt="">
@@ -57,7 +86,7 @@
 
     <main class="garden-grid">
 
-      <section class="garden-card garden-card-wide" aria-labelledby="conditions-heading">
+      <section id="garden-conditions-card" class="garden-card garden-card-wide" aria-labelledby="conditions-heading">
         <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
@@ -105,7 +134,7 @@
         <div class="garden-meta" id="garden-updated" style="margin-top:0.7rem;">Loading station data…</div>
       </section>
 
-      <section class="garden-card garden-card-side" aria-labelledby="frost-heading">
+      <section id="garden-frost-card" class="garden-card garden-card-side" aria-labelledby="frost-heading">
         <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
@@ -138,7 +167,7 @@
         </p>
       </section>
 
-      <section class="garden-card garden-card-side" aria-labelledby="season-heading">
+      <section id="garden-season-card" class="garden-card garden-card-side" aria-labelledby="season-heading">
         <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
@@ -171,7 +200,7 @@
         </p>
       </section>
 
-      <section class="garden-card garden-card-wide" aria-labelledby="gdd-heading">
+      <section id="garden-gdd-card" class="garden-card garden-card-wide" aria-labelledby="gdd-heading">
         <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
@@ -195,7 +224,7 @@
         </p>
       </section>
 
-      <section class="garden-card garden-card-side" aria-labelledby="rain-heading">
+      <section id="garden-rain-card" class="garden-card garden-card-side" aria-labelledby="rain-heading">
         <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
@@ -226,7 +255,7 @@
         </p>
       </section>
 
-      <section class="garden-card garden-card-full" aria-labelledby="reference-heading">
+      <section id="garden-reference-card" class="garden-card garden-card-full" aria-labelledby="reference-heading">
         <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
