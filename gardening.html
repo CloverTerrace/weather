@@ -19,6 +19,9 @@
 
 <body data-garden-season="summer">
   <div id="page-content" class="garden-page">
+    <div class="garden-world" data-garden-season="summer">
+      <div class="garden-layer garden-terrain" aria-hidden="true"></div>
+      <div class="garden-layer garden-clearings" aria-hidden="true"></div>
 
     <header class="garden-heading">
       <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:12px; left:4%; width:14px;" alt="">
@@ -42,6 +45,9 @@
       <button type="button" class="nav-soon" data-coming-soon="Rivers"><span class="nav-icon">🌊</span>Rivers</button>
       <button type="button" class="nav-soon" data-coming-soon="Earth &amp; Climate"><span class="nav-icon">🌎</span>Earth &amp; Climate</button>
     </nav>
+
+    <div class="garden-layer garden-border garden-border-top" aria-hidden="true"></div>
+    <div class="garden-layer garden-border garden-border-bottom" aria-hidden="true"></div>
 
     <p class="garden-intro">
       A growing-season view of the same microclimate the weather station watches every day:
@@ -256,11 +262,12 @@
 
     </main>
 
-    <div class="garden-band">
-      <img src="assets/garden/scene/garden-scene.png" alt="Pixel-art illustration of the Clover Terrace garden: a winding path through flowering trees and shrubs leading to raised vegetable beds.">
-    </div>
+    <div class="garden-layer garden-border garden-border-left" aria-hidden="true"></div>
+    <div class="garden-layer garden-border garden-border-right" aria-hidden="true"></div>
+
     <p class="garden-band-credit">🍀 Clover Terrace — grown with care</p>
 
+    </div><!-- /.garden-world -->
   </div>
 
   <script src="js/navigation.js" defer></script>
