@@ -437,6 +437,11 @@ body[data-garden-season="winter"] .garden-world {
   width: 100%;
   margin: 0;
   box-sizing: border-box;
+  max-width: none;               /* Overrides the 1200px limit to span the full screen width */
+  border-radius: 0 !important;   /* Squares off the edges so they are no longer rounded */
+  border-left: none !important;  /* Removes the left border so it sits perfectly flush */
+  border-right: none !important; /* Removes the right border */
+  border-top: none !important;
 }
 
 /* -----------------------------------------------------------------
