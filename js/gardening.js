@@ -4,7 +4,6 @@
   const WEATHER_URL = `${DATA_REPO_BASE}/weather.json`;
   const HISTORY_URL = `${DATA_REPO_BASE}/history.json`;
 
-  // Same map-center coordinates already used by the main dashboard.
   const LAT = 40.616;
   const LON = -80.274;
 
@@ -15,9 +14,7 @@
   const fmt = (value, decimals = 1, suffix = '') =>
     Number.isFinite(Number(value)) ? `${Number(value).toFixed(decimals)}${suffix}` : '--';
 
-  // WeeWX timestamps are station-local wall-clock times. We represent those
-  // wall-clock components as UTC internally so a visitor's browser timezone
-  // cannot move an observation across midnight.
+  // prevent user clock fron interfering with observation times
   function stationDate(value) {
     if (!value) return null;
     const match = String(value).match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})(?::(\d{2}))?/);
@@ -60,7 +57,7 @@
     if (el) el.textContent = value;
   }
 
-  // Sets a "<value> / <colored status word> / <caption>" stat card in one
+  // sets a "<value> / <colored status word> / <caption>" stat card in one
   // call. `valueId` is the numeric/text span, `statusId` is the colored
   // status word, `captionId` is the small note underneath. `cls` is one of
   // '', 'good', 'warn', 'danger', 'info', or a season-* class (see CSS).
@@ -178,9 +175,9 @@
     ];
   }
 
-  // Low-precision approximation of equinox/solstice instants (Meeus,
+  // low-precision approximation of equinox/solstice instants (Meeus,
   // "Astronomical Algorithms" ch. 27 -- the mean-equinox JDE0 term only,
-  // without the ~24-term periodic correction). Good to within roughly a
+  // without the ~24-term periodic correction). good to within roughly a
   // day for years near ours, which is plenty for a "days until" tile.
   function seasonJDE0(year, index) {
     const Y = (year - 2000) / 1000;
@@ -265,7 +262,7 @@
     setStatCard({ valueId: 'frost-value', statusId: 'frost-status-word', captionId: 'frost-caption', value, status, cls, caption });
   }
 
-  // Latest data from each source, kept around so the sky/weather-fx
+  // latest data from each source, kept around so the sky/weather-fx
   // system (below) can reclassify conditions whenever either one updates,
   // without the two fetches racing each other.
   let latestStationData = null;
@@ -406,7 +403,7 @@
   }
 
   // ---------- sky: day/night + weather-responsive atmosphere ----------
-  // Mirrors the main dashboard's SunCalc-driven sky tracker and
+  // mirrors the main dashboard's SunCalc-driven sky tracker and
   // #weather-fx system (see site.js), scoped down and restyled for this
   // page's parchment/pixel palette. data-garden-time / data-garden-weather
   // live on <html> rather than <body> so the inline script in <head> can
@@ -500,8 +497,8 @@
     }
   }
 
-  // Classifies current conditions into the handful of buckets the garden
-  // sky reacts to. Prefers the NWS short-range text (already fetched for
+  // classifies current conditions into the handful of buckets the garden
+  // sky reacts to. prefers the NWS short-range text (already fetched for
   // the frost/freeze watch) and falls back to the station's own rain
   // gauge, so the effect still shows up even if the NWS call is slow.
   function classifyGardenWeather(currentPeriod, stationData) {
@@ -569,20 +566,27 @@
       displaySeason = 'Winter';
       iconFile = 'icon-snowflake.png';
     }
-    
-    // 1. Update the body tag to drive your existing CSS background terrain
+
+    // 1. update the body tag to drive CSS background terrain
     document.body.dataset.gardenSeason = seasonKey;
     
-    // 2. Set the subtitle text
-    const subtitle = $('garden-header-subtitle');
-    if (subtitle) subtitle.textContent = displaySeason;
+    // update the .garden-world container
+    const world = document.querySelector('.garden-world');
+    if (world) world.dataset.gardenSeason = seasonKey;
     
-    // 3. Update the icon image source
-    const headerIcon = $('garden-header-icon');
-    if (headerIcon) {
-      headerIcon.src = `assets/garden/${seasonKey}/${iconFile}`; 
+    // 2. build the visual season tag (badge) using innerHTML
+    const subtitle = $('garden-header-subtitle');
+    if (subtitle) {
+      subtitle.innerHTML = `
+        <span class="garden-season-tag">
+          <img src="assets/garden/${seasonKey}/${iconFile}" class="garden-tag-icon" alt=""> 
+          ${displaySeason}
+        </span>
+      `;
     }
+    
   }
+
   
   
   async function init() {
