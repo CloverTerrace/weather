@@ -132,10 +132,12 @@ img.pixel,
   text-align: center; 
 }
 
-.garden-subtitle {
+.garden-season-container {
   display: flex;
-  justify-content: center; /* Centers the pill badge horizontally */
+  justify-content: center;
+  margin-top: 0.4rem;
 }
+
 
 /* -----------------------------------------------------------------
    garden world / terrain foundation
