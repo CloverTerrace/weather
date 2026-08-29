@@ -188,6 +188,14 @@ body[data-garden-season="winter"] .garden-world {
   box-shadow: inset 0 -2px 0 #ffe9a8 !important;
 }
 
+.garden-page .site-nav {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 /* -----------------------------------------------------------------
          heading / hero
    ----------------------------------------------------------------- */
