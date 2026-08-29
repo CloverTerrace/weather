@@ -97,8 +97,9 @@
         <img class="garden-sky-sprite cloud" src="assets/scene/cloud.png" style="top:8px; left:2%; width:90px; opacity:0.85;" alt="">
         <img class="garden-sky-sprite cloud" src="assets/scene/cloud.png" style="top:6px; left:82%; width:110px; opacity:0.8;" alt="">
 
-        <h1><img src="assets/scene/clovericon.png" class="garden-title-icon" alt=""> Gardening Weather</h1>
-        <p class="garden-subtitle"></p>
+        <h1><img src="assets/scene/clovericon.png" id="garden-header-icon" class="garden-title-icon" alt=""> Clover Garden</h1>
+<p class="garden-subtitle" id="garden-header-subtitle"></p>
+
       </header>
 
       <section class="garden-card garden-hero-card" aria-labelledby="conditions-heading">
@@ -111,12 +112,10 @@
         <span id="garden-temp">--</span><span class="garden-hero-temp-unit">°F</span>
       </div>
       
-      <!-- Using Dew Point to mimic the "Feels like" string from the goal image -->
       <div class="garden-hero-desc">
         Dew Point: <span id="garden-dew">--</span>°F
       </div>
       
-      <!-- The timestamp pushed to the bottom left -->
       <div class="garden-meta" id="garden-updated">Loading station data…</div>
     </div>
 
@@ -131,7 +130,7 @@
       <div class="garden-hero-stat-item">
         <span class="garden-hero-stat-icon">💨</span>
         <span class="garden-hero-stat-label">Wind</span>
-        <!-- JS automatically appends "mph" to this ID -->
+
         <strong class="garden-hero-stat-value" id="garden-wind">--</strong> 
       </div>
       
