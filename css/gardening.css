@@ -84,10 +84,16 @@ img.pixel,
   image-rendering: pixelated;
 }
 
-.garden-clearings {
+/* Day/night-responsive sky -- same idea as the main dashboard's
+   weather-driven --bg-color theming, but scoped to this box and
+   recolored for the garden's parchment/purple palette. gardening.js
+   sets data-garden-time on <html> from the sun's real altitude
+   (via SunCalc); the base rule below is the pre-JS / dusk fallback. */
+.garden-sky {
   inset: 0 0 auto 0;
   z-index: 1;
   height: clamp(300px, 38vh, 420px);
+  overflow: hidden;
   background:
     linear-gradient(180deg,
       rgba(104,72,139,.96) 0%,
@@ -95,6 +101,169 @@ img.pixel,
       rgba(104,72,139,.72) 70%,
       rgba(104,72,139,.34) 88%,
       rgba(104,72,139,0) 100%);
+  transition: background 2.5s ease;
+}
+
+:root[data-garden-time="day"] .garden-sky {
+  background:
+    linear-gradient(180deg,
+      rgba(94,150,196,.92) 0%,
+      rgba(146,186,219,.72) 46%,
+      rgba(196,219,235,.36) 74%,
+      rgba(196,219,235,0) 100%);
+}
+
+:root[data-garden-time="dawn"] .garden-sky,
+:root[data-garden-time="dusk"] .garden-sky {
+  background:
+    linear-gradient(180deg,
+      rgba(63,45,92,.95) 0%,
+      rgba(217,138,180,.8) 40%,
+      rgba(245,181,130,.48) 72%,
+      rgba(245,181,130,0) 100%);
+}
+
+:root[data-garden-time="night"] .garden-sky {
+  background:
+    linear-gradient(180deg,
+      rgba(15,12,34,.97) 0%,
+      rgba(30,22,58,.92) 42%,
+      rgba(30,22,58,.6) 72%,
+      rgba(30,22,58,0) 100%);
+}
+
+/* Sun & moon, positioned by JS from real altitude/azimuth (SunCalc) --
+   same mechanism as the main dashboard's sky tracker. Plain pixel-styled
+   circles for now; swap for sprite art whenever that's ready. */
+.garden-sky-body {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: left 1.2s linear, top 1.2s linear, opacity 1s ease;
+  image-rendering: pixelated;
+}
+
+.garden-sun {
+  background: radial-gradient(circle at 34% 30%, #fff6d6 0%, #ffd873 45%, #f0a83c 100%);
+  box-shadow: 0 0 14px rgba(255, 216, 115, 0.55);
+}
+
+.garden-moon {
+  background: radial-gradient(circle at 36% 32%, #f5f3ff 0%, #cfc9e6 55%, #8f88b0 100%);
+  box-shadow: 0 0 10px rgba(207, 201, 230, 0.45);
+}
+
+/* ---------------------------------------------------------------
+   Weather-responsive fx -- rain / snow / clouds / stars layered over
+   the sky, toggled by data-garden-weather (+ data-garden-time for
+   stars) on <html>. See classifyGardenWeather() / updateGardenSky()
+   in gardening.js. Mirrors the main dashboard's #weather-fx system,
+   renamed so it can never collide with site.css's own fx rules even
+   though site.css is loaded on this page too.
+   ----------------------------------------------------------------- */
+.garden-weather-fx {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.garden-fx-rain,
+.garden-fx-snow,
+.garden-fx-clouds,
+.garden-fx-stars {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+:root[data-garden-weather="rain"] .garden-fx-rain,
+:root[data-garden-weather="thunderstorm"] .garden-fx-rain {
+  opacity: 1;
+}
+
+:root[data-garden-weather="snow"] .garden-fx-snow {
+  opacity: 1;
+}
+
+:root[data-garden-weather="cloudy"] .garden-fx-clouds,
+:root[data-garden-weather="rain"] .garden-fx-clouds,
+:root[data-garden-weather="thunderstorm"] .garden-fx-clouds {
+  opacity: 0.85;
+}
+
+:root[data-garden-weather="clear"][data-garden-time="night"] .garden-fx-stars,
+:root[data-garden-weather="clear"][data-garden-time="dusk"] .garden-fx-stars {
+  opacity: 1;
+}
+
+.garden-raindrop {
+  position: absolute;
+  top: -10vh;
+  width: 2px;
+  height: 16px;
+  background: linear-gradient(to bottom, rgba(220, 235, 255, 0), rgba(220, 235, 255, 0.75));
+  transform: rotate(10deg);
+  animation: garden-fx-fall linear infinite;
+}
+
+@keyframes garden-fx-fall {
+  from { transform: translateY(0) rotate(10deg); }
+  to   { transform: translateY(120vh) rotate(10deg); }
+}
+
+.garden-snowflake {
+  position: absolute;
+  top: -5vh;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  animation: garden-fx-snow-fall linear infinite;
+}
+
+@keyframes garden-fx-snow-fall {
+  0%   { transform: translate(0, 0); }
+  50%  { transform: translate(10px, 60vh); }
+  100% { transform: translate(-8px, 120vh); }
+}
+
+.garden-cloud-puff {
+  position: absolute;
+  width: 90px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  filter: blur(3px);
+  animation: garden-fx-drift linear infinite;
+}
+
+@keyframes garden-fx-drift {
+  from { transform: translateX(-20vw); }
+  to   { transform: translateX(120vw); }
+}
+
+.garden-fx-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff8ec;
+  animation: garden-fx-twinkle ease-in-out infinite;
+}
+
+@keyframes garden-fx-twinkle {
+  0%, 100% { opacity: var(--star-min-opacity, 0.25); }
+  50%      { opacity: var(--star-max-opacity, 0.9); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .garden-raindrop, .garden-snowflake, .garden-cloud-puff, .garden-fx-star {
+    animation: none !important;
+  }
 }
 
 .garden-heading,
