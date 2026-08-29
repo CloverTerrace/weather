@@ -87,12 +87,21 @@
 }
 
 @media (min-width: 851px) {
+  /* Set desktop-right-rail as a flex container with ordering */
+  .desktop-right-rail {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Force the navigation bar to render inside the right rail visually */
   .site-nav {
-    position: sticky;
-    top: 0.65rem;
-    justify-content: center;
+    order: 3; /* Places it after Camera (1) and Skytracker (2), right above Storm Center */
+    position: static;
+    width: 100%;
+    margin-bottom: 1rem;
   }
 }
+
 
 @media (max-width: 850px) {
   .site-nav {
