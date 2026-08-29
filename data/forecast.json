@@ -7,7 +7,7 @@
       "windSpeed": "1 mph",
       "windDirection": "NE",
       "shortForecast": "Patchy Fog",
-      "detailedForecast": "Patchy fog. Clear, with a low around 55. Northeast wind around 1 mph.",
+      "detailedForecast": "Patchy fog after 4am. Clear, with a low around 55. Northeast wind around 1 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-08-29T03:00:00-04:00",
+      "temperature": 57,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "NE",
+      "shortForecast": "Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-08-29T04:00:00-04:00",
       "temperature": 56,
@@ -273,16 +283,6 @@
       "windSpeed": "0 mph",
       "windDirection": "",
       "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-08-30T03:00:00-04:00",
-      "temperature": 64,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
