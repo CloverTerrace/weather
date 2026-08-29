@@ -812,17 +812,18 @@ body[data-garden-season="winter"] .garden-world {
   padding: 0.35rem;
   border-top: 2px solid #16102b;
 }
-/* --- New Hero Card Layout --- */
+/* --- colorful accent card --- */
 
 .garden-hero-layout {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+  flex-wrap: nowrap; /* forces them to stay side-by-side on all screens */
+  gap: 1.2rem;       /* slightly reduced gap so it fits nicely on mobile */
   justify-content: space-between;
   margin-top: 1rem;
 }
 
-/* Left column containing the huge temperature */
+
+/* left column containing the huge temperature */
 .garden-hero-primary {
   display: flex;
   flex-direction: column;
@@ -849,11 +850,11 @@ body[data-garden-season="winter"] .garden-world {
 .garden-hero-desc {
   font-size: 1.25rem;
   color: var(--garden-hero-text);
-  margin-bottom: auto; /* Pushes the meta timestamp to the bottom */
+  margin-bottom: auto; /* pushes the meta timestamp to the bottom */
   padding-bottom: 2rem; 
 }
 
-/* Right column containing the stacked list */
+/* right column containing the stacked list */
 .garden-hero-stats-list {
   display: flex;
   flex-direction: column;
