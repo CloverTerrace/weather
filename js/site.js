@@ -3889,11 +3889,11 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
     const forecastCard = document.querySelector('.desktop-left-rail .forecast-card');
     const cameraCard = document.getElementById('camera-img')?.closest('.camera-card');
     const skyCard = document.getElementById('sky-box')?.closest('.camera-card');
-    const stormCard = document.querySelector('.dashboard-grid > .outlook-card');
+    const stormCard = document.querySelector('.dashboard-grid .outlook-card');
     const webToolsGrid = document.querySelector('.web-tools-grid');
     const radarCard = document.querySelector('.web-tools-grid > .weather-map-card');
     const chartsDropdown = document.querySelector('.web-tools-grid > .charts-dropdown');
-    if (!dashboardGrid || !weatherGrid || !leftRail || !forecastCard || !cameraCard || !skyCard || !stormCard) return;
+    if (!dashboardGrid || !weatherGrid || !leftRail || !rightRail || !forecastCard || !cameraCard || !skyCard) return;
 
     const desktopQuery = window.matchMedia('(min-width: 851px)');
     const originalCameraNextSibling = cameraCard.nextElementSibling;
