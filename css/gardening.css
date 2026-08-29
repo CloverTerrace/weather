@@ -402,6 +402,29 @@ body[data-garden-season="winter"] .garden-world {
   --season-path: "../assets/garden/winter/";
   --season-grass: url("../assets/garden/winter/terrain/grass.png");
 }
+/* --- Season Subtitle Tag --- */
+
+.garden-season-tag {
+  display: inline-flex;
+  align-items: center;
+  background-color: #fdf6e9; /* Light warm background for the badge */
+  border: 1px solid #e2d4c0; /* Subtle border matching the theme */
+  border-radius: 20px;       /* Gives it that pill/badge shape */
+  padding: 0.3rem 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #5c4b37;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  margin-top: 0.4rem;
+}
+
+.garden-tag-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.4rem;
+  image-rendering: pixelated; /* Keeps the pixel art crisp */
+}
 
 /* -----------------------------------------------------------------
        site nav 
