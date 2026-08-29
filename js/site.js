@@ -987,7 +987,7 @@
       const forecastData = await res.json();
       // backwards-compatible with the old bare-array shape, in case a
       // stale data/forecast.json is still lying around on first deploy.
-      const periods = Array.isArray(forecastData) ? forecastData : (forecastData.periods || []);
+      const periods = Array.isArray(forecastData) ? forecastData : (Array.isArray(forecastData.periods) ? forecastData.periods : []);
       const hourly = Array.isArray(forecastData) ? [] : (forecastData.hourly || []);
       currentForecastPeriods = periods;
       currentForecastHourly = hourly;
@@ -2261,7 +2261,8 @@
   const AURORA_KP_THRESHOLD = 7;
   
   function getStargazingScore(periods, moonFraction) {
-    const nightPeriod = periods.find(p => p.isDaytime === false) || periods[0];
+    const safePeriods = Array.isArray(periods) ? periods : [];
+    const nightPeriod = safePeriods.find(p => p.isDaytime === false) || safePeriods[0];
     const sky = (nightPeriod?.shortForecast || '').toLowerCase();
     let cloudScore;
     if (/(rain|snow|storm|shower|drizzle)/.test(sky)) cloudScore = 2;
@@ -3742,7 +3743,7 @@ const THEMES = {
     }
     if (auroraRes && auroraRes.ok) {
       currentAurora = await auroraRes.json();
-      updateSkyBadges();
+      try { updateSkyBadges(); } catch (e) { console.warn('Could not update sky badges:', e.message); }
     }
     if (capeRes && capeRes.ok) {
       try {
