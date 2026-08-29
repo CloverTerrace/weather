@@ -1,18 +1,7 @@
 {
   "periods": [
     {
-      "name": "Overnight",
-      "temperature": 51,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Patchy Fog",
-      "detailedForecast": "Patchy fog. Clear, with a low around 51. Wind around 0 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "name": "Saturday",
+      "name": "Today",
       "temperature": 83,
       "temperatureUnit": "F",
       "windSpeed": "0 to 5 mph",
@@ -23,7 +12,7 @@
       "probabilityOfPrecipitation": 0
     },
     {
-      "name": "Saturday Night",
+      "name": "Tonight",
       "temperature": 63,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
@@ -43,22 +32,23 @@
       "detailedForecast": "Mostly sunny, with a high near 86. Southwest wind 0 to 7 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Sunday Night",
+      "temperature": 69,
+      "temperatureUnit": "F",
+      "windSpeed": "1 to 6 mph",
+      "windDirection": "SW",
+      "shortForecast": "Mostly Cloudy",
+      "detailedForecast": "Mostly cloudy, with a low around 69. Southwest wind 1 to 6 mph.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 10
     }
   ],
   "hourly": [
     {
-      "startTime": "2026-08-29T05:00:00-04:00",
-      "temperature": 51,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Patchy Fog",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
       "startTime": "2026-08-29T06:00:00-04:00",
-      "temperature": 53,
+      "temperature": 51,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
@@ -78,7 +68,7 @@
     },
     {
       "startTime": "2026-08-29T08:00:00-04:00",
-      "temperature": 57,
+      "temperature": 60,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "NE",
@@ -88,7 +78,7 @@
     },
     {
       "startTime": "2026-08-29T09:00:00-04:00",
-      "temperature": 61,
+      "temperature": 64,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "E",
@@ -278,6 +268,16 @@
     },
     {
       "startTime": "2026-08-30T04:00:00-04:00",
+      "temperature": 63,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-08-30T05:00:00-04:00",
       "temperature": 63,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
