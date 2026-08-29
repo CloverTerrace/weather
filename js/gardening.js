@@ -586,6 +586,7 @@
   
   
   async function init() {
+    updateCurrentSeasonDisplay();
     updateGardenSky();
     initGardenWeatherFx();
     initGardenDetails();
