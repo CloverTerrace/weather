@@ -171,7 +171,6 @@ body[data-garden-season="winter"] .garden-world {
 .garden-page .site-nav a,
 .garden-page .site-nav button {
   font-family: var(--font-pixel) !important;
-  font-size: 0.6rem !important;
   letter-spacing: 0 !important;
   color: #c9bff0 !important;
 }
@@ -192,19 +191,6 @@ body[data-garden-season="winter"] .garden-world {
   width: 100%;
   margin: 0;
   box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.25rem 0.5rem;
-  padding: 0.5rem 1rem;
-}
-.garden-page .site-nav a,
-.garden-page .site-nav button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  white-space: nowrap;
-  padding: 0.4rem 0.6rem;
 }
 
 /* -----------------------------------------------------------------
@@ -307,6 +293,7 @@ body[data-garden-season="winter"] .garden-world {
   position: relative;
   background: var(--parchment);
   border: 4px solid var(--parchment-edge);
+  border-radius: 18px;
   box-shadow: inset 0 0 0 3px var(--parchment-inner), 0 5px 0 rgba(0, 0, 0, 0.18);
   padding: 1.1rem 1.2rem 1rem;
 }
@@ -365,7 +352,7 @@ body[data-garden-season="winter"] .garden-world {
 .garden-readout {
   background: var(--parchment-well);
   border: 2px solid var(--parchment-edge);
-  border-radius: 3px;
+  border-radius: 10px;
   padding: 0.5rem 0.5rem 0.6rem;
   text-align: center;
 }
@@ -395,7 +382,7 @@ body[data-garden-season="winter"] .garden-world {
   font-size: 1.1rem;
   background: var(--parchment-well);
   border: 2px solid var(--parchment-edge);
-  border-radius: 3px;
+  border-radius: 10px;
   padding: 0.5rem 0.7rem;
   margin-bottom: 0.8rem;
 }
@@ -422,7 +409,7 @@ body[data-garden-season="winter"] .garden-world {
 .frost-box {
   background: var(--parchment-well);
   border: 2px solid var(--parchment-edge);
-  border-radius: 3px;
+  border-radius: 10px;
   padding: 0.5rem;
   text-align: center;
   display: flex;
@@ -441,7 +428,7 @@ body[data-garden-season="winter"] .garden-world {
 .gdd-box {
   background: var(--parchment-well);
   border: 2px solid var(--parchment-edge);
-  border-radius: 3px;
+  border-radius: 10px;
   padding: 0.6rem;
   text-align: center;
 }
