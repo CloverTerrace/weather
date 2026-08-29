@@ -126,6 +126,17 @@ body {
 img.pixel,
 .garden-page img { image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges; }
 
+/* --- center the garden header & season --- */
+
+.garden-heading {
+  text-align: center; 
+}
+
+.garden-subtitle {
+  display: flex;
+  justify-content: center; /* Centers the pill badge horizontally */
+}
+
 /* -----------------------------------------------------------------
    garden world / terrain foundation
    ----------------------------------------------------------------- */
