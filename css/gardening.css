@@ -162,8 +162,7 @@ body[data-garden-season="winter"] .garden-world {
 }
 
 /* -----------------------------------------------------------------
-   shared site nav — re-skinned in place, same markup/JS as every
-   other page (navigation.css/navigation.js are untouched infrastructure)
+       site nav 
    ----------------------------------------------------------------- */
 .garden-page .site-nav {
   background: linear-gradient(180deg, #241a42, #342a5e) !important;
@@ -190,7 +189,7 @@ body[data-garden-season="winter"] .garden-world {
 }
 
 /* -----------------------------------------------------------------
-   heading / hero
+         heading / hero
    ----------------------------------------------------------------- */
 .garden-heading {
   position: relative;
@@ -233,7 +232,7 @@ body[data-garden-season="winter"] .garden-world {
   z-index: 2;
 }
 
-/* Twinkling star / drifting cloud sprites, confined to the hero band */
+/* twinkling star / drifting cloud sprites, confined to the hero band */
 .garden-sky-sprite { position: absolute; pointer-events: none; z-index: 1; }
 .garden-sky-sprite.star { animation: garden-twinkle 2.6s ease-in-out infinite; }
 .garden-sky-sprite.star:nth-of-type(2) { animation-delay: .4s; }
@@ -250,7 +249,7 @@ body[data-garden-season="winter"] .garden-world {
 }
 
 /* -----------------------------------------------------------------
-   Card grid — same 12-col span logic as before, restyled
+   card grid — same 12-col span logic as before, restyled
    ----------------------------------------------------------------- */
 .garden-grid {
   display: grid;
