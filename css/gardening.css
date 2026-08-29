@@ -19,6 +19,69 @@
   --font-pixel: 'Press Start 2P', monospace;
   --font-body: 'VT323', monospace;
   --font-header: 'Macondo', 'Press Start 2P', monospace;
+
+  /* Nav + hero-card accent -- purple by default (night), recolored per
+     data-garden-time by updateGardenSky() in gardening.js so these two
+     "chrome" elements shift alongside the sky instead of staying a fixed
+     purple around the clock. */
+  --garden-accent-1: var(--purple-deep);
+  --garden-accent-2: var(--purple-mid);
+  --garden-accent-border: #16102b;
+  --garden-accent-text: #c9bff0;
+  --garden-accent-active-bg: rgba(255, 233, 168, 0.14);
+  --garden-accent-active-text: #ffe9a8;
+
+  --garden-hero-1: var(--purple-deep);
+  --garden-hero-2: var(--purple-mid);
+  --garden-hero-border: #16102b;
+  --garden-hero-text: #f3ecff;
+  --garden-hero-heading: #d9cdfa;
+  --garden-hero-muted: #c9bff0;
+  --garden-hero-value: #fff8ec;
+  --garden-hero-readout-bg: rgba(255, 255, 255, 0.08);
+  --garden-hero-readout-border: rgba(255, 255, 255, 0.22);
+}
+
+/* Daytime -- leafy sunlit green, echoing the garden itself rather than
+   the night sky. */
+:root[data-garden-time="day"] {
+  --garden-accent-1: #2f5d22;
+  --garden-accent-2: #4f7f2e;
+  --garden-accent-border: #1c3313;
+  --garden-accent-text: #dcefc4;
+  --garden-accent-active-bg: rgba(255, 233, 168, 0.22);
+  --garden-accent-active-text: #fff3c4;
+
+  --garden-hero-1: #3f6d2c;
+  --garden-hero-2: #74a13f;
+  --garden-hero-border: #1c3313;
+  --garden-hero-text: #fbfbe8;
+  --garden-hero-heading: #eaf6c8;
+  --garden-hero-muted: #dcefc4;
+  --garden-hero-value: #fffef2;
+  --garden-hero-readout-bg: rgba(255, 255, 255, 0.14);
+  --garden-hero-readout-border: rgba(255, 255, 255, 0.28);
+}
+
+/* Dawn/dusk -- warm rose-and-amber, matching the twilight sky gradient. */
+:root[data-garden-time="dawn"],
+:root[data-garden-time="dusk"] {
+  --garden-accent-1: #5c3168;
+  --garden-accent-2: #b5567f;
+  --garden-accent-border: #2c1533;
+  --garden-accent-text: #f6d9e6;
+  --garden-accent-active-bg: rgba(255, 214, 168, 0.2);
+  --garden-accent-active-text: #ffe4b8;
+
+  --garden-hero-1: #5c3168;
+  --garden-hero-2: #c9714f;
+  --garden-hero-border: #2c1533;
+  --garden-hero-text: #fff3ea;
+  --garden-hero-heading: #f6d9c8;
+  --garden-hero-muted: #f0c9d8;
+  --garden-hero-value: #fff8ef;
+  --garden-hero-readout-bg: rgba(255, 255, 255, 0.1);
+  --garden-hero-readout-border: rgba(255, 255, 255, 0.24);
 }
 
 /* -----------------------------------------------------------------
@@ -332,16 +395,18 @@ body[data-garden-season="winter"] .garden-world {
        site nav 
    ----------------------------------------------------------------- */
 .garden-page .site-nav {
-  background: linear-gradient(180deg, #241a42, #342a5e) !important;
-  border: 2px solid #16102b !important;
+  background: linear-gradient(180deg, var(--garden-accent-1), var(--garden-accent-2)) !important;
+  border: 2px solid var(--garden-accent-border) !important;
   backdrop-filter: none !important;
   box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25) !important;
+  transition: background 2.5s ease, border-color 2.5s ease;
 }
 .garden-page .site-nav a,
 .garden-page .site-nav button {
   font-family: var(--font-pixel) !important;
   letter-spacing: 0 !important;
-  color: #c9bff0 !important;
+  color: var(--garden-accent-text) !important;
+  transition: color 1.2s ease;
 }
 .garden-page .site-nav a:hover,
 .garden-page .site-nav button:hover {
@@ -349,9 +414,9 @@ body[data-garden-season="winter"] .garden-world {
   color: #fff !important;
 }
 .garden-page .site-nav a[aria-current="page"] {
-  background: rgba(255, 233, 168, 0.14) !important;
-  color: #ffe9a8 !important;
-  box-shadow: inset 0 -2px 0 #ffe9a8 !important;
+  background: var(--garden-accent-active-bg) !important;
+  color: var(--garden-accent-active-text) !important;
+  box-shadow: inset 0 -2px 0 var(--garden-accent-active-text) !important;
 }
 
 .garden-page .site-nav {
@@ -479,24 +544,26 @@ body[data-garden-season="winter"] .garden-world {
 .garden-corner.bl { bottom: -11px; left: -11px; transform: scaleY(-1); }
 .garden-corner.br { bottom: -11px; right: -11px; transform: scale(-1, -1); }
 
-/* Hero "Current Conditions" card — dark, matches the goal image */
+/* Hero "Current Conditions" card — recolors with data-garden-time,
+   same accent variables the nav uses (see :root rules above). */
 .garden-hero-card {
-  background: linear-gradient(160deg, var(--purple-deep), var(--purple-mid));
-  border-color: #16102b;
+  background: linear-gradient(160deg, var(--garden-hero-1), var(--garden-hero-2));
+  border-color: var(--garden-hero-border);
   box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.08), 0 5px 0 rgba(0, 0, 0, 0.25);
-  color: #f3ecff;
+  color: var(--garden-hero-text);
+  transition: background 2.5s ease, border-color 2.5s ease, color 1.2s ease;
 }
-.garden-hero-card h2 { color: #d9cdfa; }
+.garden-hero-card h2 { color: var(--garden-hero-heading); }
 .garden-hero-card .garden-readout {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.22);
+  background: var(--garden-hero-readout-bg);
+  border-color: var(--garden-hero-readout-border);
 }
-.garden-hero-card .garden-readout-label { color: #c9bff0; }
-.garden-hero-card .garden-readout-value { color: #fff8ec; }
-.garden-hero-card .garden-readout-unit { color: #d9cdfa; }
-.garden-hero-card .garden-stat-label { color: #c9bff0; }
-.garden-hero-card .garden-stat-value { color: #fff8ec; }
-.garden-hero-card .garden-meta { color: #c9bff0; }
+.garden-hero-card .garden-readout-label { color: var(--garden-hero-muted); }
+.garden-hero-card .garden-readout-value { color: var(--garden-hero-value); }
+.garden-hero-card .garden-readout-unit { color: var(--garden-hero-heading); }
+.garden-hero-card .garden-stat-label { color: var(--garden-hero-muted); }
+.garden-hero-card .garden-stat-value { color: var(--garden-hero-value); }
+.garden-hero-card .garden-meta { color: var(--garden-hero-muted); }
 
 .garden-card h2 {
   font-family: var(--font-pixel);
