@@ -1,31 +1,56 @@
 /* Clover Terrace — shared site navigation */
 .site-nav {
   width: 100%;
-  height: fit-content;
-  align-self: start;
-  margin: 0 0 0.5rem 0;
-  padding: 0.25rem;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.5rem 1rem;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.25rem;
+  gap: 1rem;
   background: color-mix(in srgb, var(--card-color) 78%, transparent);
   border: var(--card-accent-border);
-  border-radius: 12px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+  border-radius: 0;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   position: relative;
-  z-index: 20;
-  margin-bottom: -0.7rem; /* Adjust between -0.3rem and -0.7rem to match the gap exactly */
+  z-index: 9999;
 }
 
-.site-nav a,
-.site-nav button {
-  flex: 1 1 auto; 
+/* Brand title on the left */
+.site-nav .nav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-header);
+  font-size: 1.35rem;
+  color: #ffffff;
+  text-decoration: none;
+  white-space: nowrap;
+  font-weight: normal;
+  text-transform: none;
+}
+
+.site-nav .nav-brand-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+/* Button link group on the right */
+.site-nav .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.site-nav .nav-links a,
+.site-nav .nav-links button {
   min-height: 24px;
-  padding: 0.25rem 0.4rem;
+  padding: 0.25rem 0.5rem;
   border: 1px solid transparent;
   border-radius: 8px;
   background: transparent;
@@ -62,6 +87,7 @@
   margin-top: -0.15rem;
 }
 
+/* Toast popup */
 .site-nav-toast {
   position: fixed;
   left: 50%;
@@ -74,7 +100,7 @@
   border-radius: 10px;
   background: var(--card-color);
   color: var(--text-color);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.28);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
   font: 600 0.78rem/1.35 var(--font-body);
   text-align: center;
   opacity: 0;
@@ -87,52 +113,19 @@
   transform: translate(-50%, 0);
 }
 
-/* DESKTOP STYLES */
-@media (min-width: 851px) {
+/* Responsive adjustments */
+@media (max-width: 600px) {
   .site-nav {
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto 1.5rem auto;
+    padding: 0.4rem 0.6rem;
   }
-}
-
-/* MOBILE STYLES */
-@media (max-width: 850px) {
-  .site-nav {
-    position: fixed; /* Pin to screen top */
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-    width: 100%;
-    margin: 0;
-    padding: 0.15rem 0.25rem;
-    border-radius: 0;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x proximity;
+  
+  .site-nav .nav-brand {
+    font-size: 1.1rem;
   }
 
-  .site-nav a,
-  .site-nav button {
-    scroll-snap-align: start;
-    min-height: 18px;
-    padding: 0.15rem 0.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .site-nav {
-    gap: 0.2rem;
-    padding: 0.12rem 0.2rem;
-  }
-
-  .site-nav a,
-  .site-nav button {
+  .site-nav .nav-links a,
+  .site-nav .nav-links button {
     font-size: 0.6rem;
-    padding-inline: 0.4rem;
-    min-height: 18px;
+    padding: 0.2rem 0.4rem;
   }
 }
