@@ -38,32 +38,23 @@
               </button>
           
     </nav>
-      
-    <header class="garden-heading">
-      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:12px; left:4%; width:14px;" alt="">
-      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:70px; left:15%; width:10px;" alt="">
-      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:10px; left:30%; width:12px;" alt="">
-      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:74px; left:72%; width:10px;" alt="">
-      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:14px; left:85%; width:14px;" alt="">
-      <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:60px; left:95%; width:10px;" alt="">
-      <img class="garden-sky-sprite cloud" src="assets/garden/scene/cloud.png" style="top:8px; left:2%; width:90px; opacity:0.85;" alt="">
-      <img class="garden-sky-sprite cloud" src="assets/garden/scene/cloud.png" style="top:6px; left:82%; width:110px; opacity:0.8;" alt="">
 
-      <h1><span aria-hidden="true">🌱</span> Gardening Weather</h1>
-      <p class="garden-subtitle">Clover Terrace · Aliquippa, Pennsylvania</p>
-    </header>
-   
+    <div class="garden-hero">
+      <header class="garden-heading">
+        <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:12px; left:4%; width:14px;" alt="">
+        <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:70px; left:15%; width:10px;" alt="">
+        <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:10px; left:30%; width:12px;" alt="">
+        <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:74px; left:72%; width:10px;" alt="">
+        <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:14px; left:85%; width:14px;" alt="">
+        <img class="garden-sky-sprite star" src="assets/garden/scene/star.png" style="top:60px; left:95%; width:10px;" alt="">
+        <img class="garden-sky-sprite cloud" src="assets/garden/scene/cloud.png" style="top:8px; left:2%; width:90px; opacity:0.85;" alt="">
+        <img class="garden-sky-sprite cloud" src="assets/garden/scene/cloud.png" style="top:6px; left:82%; width:110px; opacity:0.8;" alt="">
 
-    <div class="garden-layer garden-border garden-border-top" aria-hidden="true"></div>
-    <div class="garden-layer garden-border garden-border-bottom" aria-hidden="true"></div>
+        <h1><span aria-hidden="true">🌱</span> Gardening Weather</h1>
+        <p class="garden-subtitle">Clover Terrace · Aliquippa, Pennsylvania</p>
+      </header>
 
-    <main class="garden-grid">
-
-      <section class="garden-card garden-card-wide" aria-labelledby="conditions-heading">
-        <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
-        <img class="garden-corner br" src="assets/garden/scene/corner-flowers.png" alt="">
+      <section class="garden-card garden-hero-card" aria-labelledby="conditions-heading">
         <h2 id="conditions-heading"><span class="garden-icon">🌿</span>Garden Conditions Now</h2>
 
         <div class="garden-readout-grid">
@@ -106,8 +97,14 @@
 
         <div class="garden-meta" id="garden-updated" style="margin-top:0.7rem;">Loading station data…</div>
       </section>
+    </div>
 
-      <section class="garden-card garden-card-side" aria-labelledby="frost-heading">
+    <div class="garden-layer garden-border garden-border-top" aria-hidden="true"></div>
+    <div class="garden-layer garden-border garden-border-bottom" aria-hidden="true"></div>
+
+    <main class="garden-grid">
+
+      <section class="garden-card" aria-labelledby="frost-heading">
         <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
@@ -141,7 +138,7 @@
       </section>
 
 
-      <section class="garden-card garden-card-wide" aria-labelledby="gdd-heading">
+      <section class="garden-card" aria-labelledby="gdd-heading">
         <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
@@ -165,7 +162,7 @@
         </p>
       </section>
 
-      <section class="garden-card garden-card-side" aria-labelledby="rain-heading">
+      <section class="garden-card" aria-labelledby="rain-heading">
         <img class="garden-corner tl" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner tr" src="assets/garden/scene/corner-flowers.png" alt="">
         <img class="garden-corner bl" src="assets/garden/scene/corner-flowers.png" alt="">
