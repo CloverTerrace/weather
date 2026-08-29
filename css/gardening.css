@@ -344,7 +344,7 @@ img.pixel,
 .garden-heading,
 .garden-page .site-nav,
 .garden-intro,
-.garden-grid,
+.garden-stat-row,
 .garden-band-credit {
   position: relative;
   z-index: 5;
@@ -555,13 +555,18 @@ body[data-garden-season="winter"] .garden-world {
 }
 
 /* -----------------------------------------------------------------
-   card grid — same 12-col span logic as before, restyled
+   garden-specific stat row — five compact cards below the hero,
+   mirroring the "Soil Moisture / Sunlight / Air Quality / Pollen /
+   Rain Forecast" reference layout: icon+label header, one big value,
+   a colored status word, a one-line caption. Kept deliberately small
+   and un-nested (no sub-boxes/bars) so it reads as a clean quick-glance
+   row rather than another version of the hero card.
    ----------------------------------------------------------------- */
-.garden-grid {
+.garden-stat-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   align-items: stretch;
-  gap: 1.1rem;
+  gap: 1rem;
   max-width: 1180px;
   margin: 1.5rem auto 1.8rem;
   padding: 0 1rem;
@@ -569,6 +574,54 @@ body[data-garden-season="winter"] .garden-world {
   z-index: 2;
 }
 .garden-card-full { grid-column: 1 / -1; }
+
+.garden-stat-card {
+  padding: 1rem 1.1rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.garden-stat-card h2 {
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  line-height: 1.4;
+  color: #7a5a30;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 0.75rem;
+}
+.garden-stat-icon { font-size: 1rem; }
+.garden-stat-value {
+  font-size: 2rem;
+  line-height: 1.05;
+  color: var(--ink);
+}
+.garden-stat-unit {
+  font-size: 1.05rem;
+  color: #6a5a3a;
+  margin-left: 0.2rem;
+}
+.garden-stat-status {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #6a5a3a;
+  margin: 0.15rem 0 0.4rem;
+}
+.garden-stat-status.good { color: var(--good); }
+.garden-stat-status.warn { color: var(--warn); }
+.garden-stat-status.danger { color: var(--danger); }
+.garden-stat-status.info { color: #3d6b8f; }
+.garden-stat-status.season-spring { color: var(--good); }
+.garden-stat-status.season-summer { color: #c9a13a; }
+.garden-stat-status.season-fall { color: var(--warn); }
+.garden-stat-status.season-winter { color: #3d6b8f; }
+.garden-stat-caption {
+  font-size: 0.92rem;
+  color: #6a5a3a;
+  margin: 0;
+  line-height: 1.3;
+}
 
 .garden-card {
   position: relative;
@@ -658,84 +711,6 @@ body[data-garden-season="winter"] .garden-world {
 .garden-stat-value { font-size: 1.35rem; }
 .garden-stat-value a { color: var(--purple-mid); text-decoration: underline; }
 
-.garden-status {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1.1rem;
-  background: var(--parchment-well);
-  border: 2px solid var(--parchment-edge);
-  border-radius: 10px;
-  padding: 0.5rem 0.7rem;
-  margin-bottom: 0.8rem;
-}
-.garden-status-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #9a8a6a;
-  flex: 0 0 auto;
-}
-.garden-status.good .garden-status-dot { background: var(--good); }
-.garden-status.warn .garden-status-dot { background: var(--warn); }
-.garden-status.danger .garden-status-dot { background: var(--danger); }
-.garden-status.good { color: var(--good); }
-.garden-status.warn { color: var(--warn); }
-.garden-status.danger { color: var(--danger); }
-
-.frost-timeline {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.6rem;
-  margin-bottom: 0.7rem;
-}
-.frost-box {
-  background: var(--parchment-well);
-  border: 2px solid var(--parchment-edge);
-  border-radius: 10px;
-  padding: 0.5rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-.frost-box-label { font-size: 0.8rem; text-transform: uppercase; color: #7a5a30; }
-.frost-box-value { font-size: 1.25rem; }
-
-.gdd-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.6rem;
-  margin-bottom: 0.6rem;
-}
-.gdd-box {
-  background: var(--parchment-well);
-  border: 2px solid var(--parchment-edge);
-  border-radius: 10px;
-  padding: 0.6rem;
-  text-align: center;
-}
-.gdd-number { font-size: 1.8rem; color: var(--good); }
-.gdd-name { font-size: 0.85rem; color: #6a5a3a; }
-
-.garden-bars { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.7rem; }
-.garden-bar-row {
-  display: grid;
-  grid-template-columns: 74px 1fr 48px;
-  align-items: center;
-  gap: 0.6rem;
-}
-.garden-bar-label { font-size: 1rem; color: #7a5a30; }
-.garden-bar-track {
-  height: 12px;
-  background: var(--parchment-well);
-  border: 2px solid var(--parchment-edge);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.garden-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #6fa84f, #427236); }
-.garden-bar-value { text-align: right; }
-
 .garden-source-row {
   display: flex;
   flex-wrap: wrap;
@@ -803,7 +778,7 @@ body[data-garden-season="winter"] .garden-world {
             mobile
    ----------------------------------------------------------------- */
 @media (max-width: 850px) {
-  .garden-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+  .garden-stat-row { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 }
 
 @media (max-width: 480px) {
@@ -814,8 +789,7 @@ body[data-garden-season="winter"] .garden-world {
   .garden-page { font-size: 18px; }
   .garden-heading h1 { font-size: 1rem; }
   .garden-readout-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .frost-timeline { grid-template-columns: 1fr; }
-  .garden-bar-row { grid-template-columns: 62px 1fr 42px; }
+  .garden-stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .garden-sky-sprite.cloud { display: none; }
 }
 
