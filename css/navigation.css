@@ -1,13 +1,13 @@
 /* Clover Terrace — shared site navigation */
 .site-nav {
   width: 100%;
-  height: fit-content; /* Stops the grid from stretching it into a giant box */
-  align-self: start; /* Keeps it pinned to the top of its space */
-  margin: 0 0 0.5rem 0; /* Reduced bottom margin to close the gap */
+  height: fit-content;
+  align-self: start;
+  margin: 0 0 0.5rem 0;
   padding: 0.25rem;
   display: flex;
-  flex-wrap: wrap; /* Forces buttons to wrap to a new line instead of scrolling */
-  justify-content: center; /* Centers the buttons nicely */
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   gap: 0.25rem;
   background: color-mix(in srgb, var(--card-color) 78%, transparent);
@@ -23,13 +23,13 @@
 .site-nav a,
 .site-nav button {
   flex: 1 1 auto; 
-  min-height: 24px; /* Even smaller height */
-  padding: 0.25rem 0.4rem; /* Tighter padding */
+  min-height: 24px;
+  padding: 0.25rem 0.4rem;
   border: 1px solid transparent;
   border-radius: 8px;
   background: transparent;
   color: var(--muted-color);
-  font: 600 0.65rem/1.1 var(--font-card-heading); /* Shrunk the font slightly to fit */
+  font: 600 0.65rem/1.1 var(--font-card-heading);
   letter-spacing: 0.055em;
   text-transform: uppercase;
   text-decoration: none;
@@ -86,34 +86,27 @@
   transform: translate(-50%, 0);
 }
 
+/* DESKTOP STYLES */
 @media (min-width: 851px) {
-  /* Set desktop-right-rail as a flex container with ordering */
-  .desktop-right-rail {
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Force the navigation bar to render inside the right rail visually */
   .site-nav {
-    order: 3; /* Places it after Camera (1) and Skytracker (2), right above Storm Center */
-    position: static;
-    width: 100%;
-    margin-bottom: 1rem;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto 1.5rem auto;
   }
+}
 
-
-
+/* MOBILE STYLES */
 @media (max-width: 850px) {
   .site-nav {
-    position: fixed; /* Pins navbar to the top of the viewport on mobile */
+    position: fixed; /* Pin to screen top */
     top: 0;
     left: 0;
     right: 0;
-    z-index: 999;
+    z-index: 9999;
     width: 100%;
     margin: 0;
-    padding: 0.15rem 0.25rem; /* Reduced vertical padding for a thinner bar */
-    border-radius: 0; /* Full edge-to-edge top bar appearance */
+    padding: 0.15rem 0.25rem;
+    border-radius: 0;
     border-top: none;
     border-left: none;
     border-right: none;
@@ -124,21 +117,21 @@
   .site-nav a,
   .site-nav button {
     scroll-snap-align: start;
-    min-height: 18px; /* Thinned down button height */
-    padding: 0.15rem 0.5rem; /* Compact vertical padding */
+    min-height: 18px;
+    padding: 0.15rem 0.5rem;
   }
-
+}
 
 @media (max-width: 480px) {
   .site-nav {
     gap: 0.2rem;
-    padding: 0.12rem 0.2rem; /* Extra thin spacing on small screens */
+    padding: 0.12rem 0.2rem;
   }
 
   .site-nav a,
   .site-nav button {
     font-size: 0.6rem;
     padding-inline: 0.4rem;
-    min-height: 18px; /* Extra thin height for narrow devices */
+    min-height: 18px;
   }
 }
