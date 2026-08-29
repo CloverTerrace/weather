@@ -200,10 +200,10 @@ body[data-garden-season="winter"] .garden-world {
 }
 
 .garden-heading h1 {
-  font-family: var(--font-pixel);
+  font-family: var(--font-header);
   font-size: clamp(1.1rem, 3vw, 1.7rem);
   color: #fff8ec;
-  text-shadow: 3px 3px 0 var(--purple-deep);
+  text-shadow: 1px 1px 0 var(--purple-deep);
   margin: 0.4rem 0 0.7rem;
   position: relative;
   z-index: 2;
