@@ -778,6 +778,92 @@ body[data-garden-season="winter"] .garden-world {
   padding: 0.35rem;
   border-top: 2px solid #16102b;
 }
+/* --- New Hero Card Layout --- */
+
+.garden-hero-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+/* Left column containing the huge temperature */
+.garden-hero-primary {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+}
+
+.garden-hero-temp-large {
+  font-family: var(--font-header);
+  font-size: 4.5rem;
+  line-height: 1;
+  color: var(--garden-hero-value);
+  margin-bottom: 0.5rem;
+}
+
+.garden-hero-temp-unit {
+  font-family: var(--font-body);
+  font-size: 2rem;
+  vertical-align: super;
+  margin-left: 0.1rem;
+  color: var(--garden-hero-muted);
+}
+
+.garden-hero-desc {
+  font-size: 1.25rem;
+  color: var(--garden-hero-text);
+  margin-bottom: auto; /* Pushes the meta timestamp to the bottom */
+  padding-bottom: 2rem; 
+}
+
+/* Right column containing the stacked list */
+.garden-hero-stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  flex: 1;
+  min-width: 220px;
+  justify-content: center;
+}
+
+.garden-hero-stat-item {
+  display: flex;
+  align-items: center;
+  font-size: 1.15rem;
+  color: var(--garden-hero-text);
+  border-bottom: 1px solid var(--garden-hero-readout-border);
+  padding-bottom: 0.4rem;
+}
+
+.garden-hero-stat-item:last-child {
+  border-bottom: none;
+}
+
+.garden-hero-stat-icon {
+  width: 24px;
+  margin-right: 0.6rem;
+  text-align: center;
+}
+
+.garden-hero-stat-label {
+  flex: 1;
+  color: var(--garden-hero-muted);
+}
+
+.garden-hero-stat-value {
+  font-weight: bold;
+  color: var(--garden-hero-value);
+  text-align: right;
+  letter-spacing: 0.05em;
+}
+
+/* Reset the existing meta tag margin */
+.garden-hero-card .garden-meta {
+  margin-top: 0 !important;
+}
 
 /* -----------------------------------------------------------------
             mobile
