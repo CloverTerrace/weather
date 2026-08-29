@@ -102,49 +102,55 @@
       </header>
 
       <section class="garden-card garden-hero-card" aria-labelledby="conditions-heading">
-        <h2 id="conditions-heading"><img src="assets/garden/summer/flowers/icon-sunflower.png" class="garden-icon" alt=""> Garden Conditions Now</h2>
-        <div class="garden-readout-grid">
-          <div class="garden-readout">
-            <div class="garden-readout-label">Temperature</div>
-            <div class="garden-readout-value"><span id="garden-temp">--</span><span class="garden-readout-unit">°F</span></div>
-          </div>
-          <div class="garden-readout">
-            <div class="garden-readout-label">Dew Point</div>
-            <div class="garden-readout-value"><span id="garden-dew">--</span><span class="garden-readout-unit">°F</span></div>
-          </div>
-          <div class="garden-readout">
-            <div class="garden-readout-label">Humidity</div>
-            <div class="garden-readout-value"><span id="garden-rh">--</span><span class="garden-readout-unit">%</span></div>
-          </div>
-          <div class="garden-readout">
-                    <div class="garden-readout">
-            <div class="garden-readout-label">Rain Today</div>
-            <div class="garden-readout-value"><span id="garden-rain">--</span><span class="garden-readout-unit">in</span></div>
-          </div>
-        </div>
+  <h2 id="conditions-heading"><img src="assets/garden/summer/flowers/icon-sunflower.png" class="garden-icon" alt=""> Current Conditions</h2>
+  
+  <div class="garden-hero-layout">
+    <!-- Left Column: Primary Temperature & Meta Data -->
+    <div class="garden-hero-primary">
+      <div class="garden-hero-temp-large">
+        <span id="garden-temp">--</span><span class="garden-hero-temp-unit">°F</span>
+      </div>
+      
+      <!-- Using Dew Point to mimic the "Feels like" string from the goal image -->
+      <div class="garden-hero-desc">
+        Dew Point: <span id="garden-dew">--</span>°F
+      </div>
+      
+      <!-- The timestamp pushed to the bottom left -->
+      <div class="garden-meta" id="garden-updated">Loading station data…</div>
+    </div>
 
-        <div class="garden-two-col" style="margin-top:0.8rem;">
-          <div class="garden-stat">
-            <span class="garden-stat-label">7-day rainfall</span>
-            <strong class="garden-stat-value" id="garden-rain-week">--</strong>
-          </div>
-          <div class="garden-stat">
-            <span class="garden-stat-label">30-day rainfall</span>
-            <strong class="garden-stat-value" id="garden-rain-month">--</strong>
-          </div>
-          <div class="garden-stat">
-            <span class="garden-stat-label">Wind</span>
-            <strong class="garden-stat-value" id="garden-wind">--</strong>
-          </div>
-          <div class="garden-stat">
-            <span class="garden-stat-label">UV / solar</span>
-            <strong class="garden-stat-value" id="garden-sun">--</strong>
-          </div>
-        </div>
+    <!-- Right Column: Vertical Stats List -->
+    <div class="garden-hero-stats-list">
+      <div class="garden-hero-stat-item">
+        <span class="garden-hero-stat-icon">💧</span>
+        <span class="garden-hero-stat-label">Humidity</span>
+        <strong class="garden-hero-stat-value"><span id="garden-rh">--</span>%</strong>
+      </div>
+      
+      <div class="garden-hero-stat-item">
+        <span class="garden-hero-stat-icon">💨</span>
+        <span class="garden-hero-stat-label">Wind</span>
+        <!-- JS automatically appends "mph" to this ID -->
+        <strong class="garden-hero-stat-value" id="garden-wind">--</strong> 
+      </div>
+      
+      <div class="garden-hero-stat-item">
+        <span class="garden-hero-stat-icon">🌧️</span>
+        <span class="garden-hero-stat-label">Precipitation</span>
+        <strong class="garden-hero-stat-value"><span id="garden-rain">--</span> in</strong>
+      </div>
+      
+      <div class="garden-hero-stat-item">
+        <span class="garden-hero-stat-icon">☀️</span>
+        <span class="garden-hero-stat-label">UV Index</span>
+        <!-- JS automatically appends "UV" to this ID -->
+        <strong class="garden-hero-stat-value" id="garden-sun">--</strong>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="garden-meta" id="garden-updated" style="margin-top:0.7rem;">Loading station data…</div>
-
-      </section>
     </div>
 
     <div class="garden-layer garden-border garden-border-top" aria-hidden="true"></div>
