@@ -546,6 +546,45 @@
     }
   }
 
+  function updateCurrentSeasonDisplay() {
+    // getUTCMonth() returns 0 for Jan, 11 for Dec
+    const month = new Date().getUTCMonth(); 
+    
+    let seasonKey, displaySeason, iconFile;
+    
+    if (month >= 2 && month <= 4) {
+      seasonKey = 'spring';
+      displaySeason = 'Spring';
+      iconFile = 'icon-sprout.png'; 
+    } else if (month >= 5 && month <= 7) {
+      seasonKey = 'summer';
+      displaySeason = 'Summer';
+      iconFile = 'icon-sun.png'; // Your pixelated sun icon
+    } else if (month >= 8 && month <= 10) {
+      seasonKey = 'autumn'; // Matches the dataset expected in your CSS
+      displaySeason = 'Autumn';
+      iconFile = 'icon-leaf.png';
+    } else {
+      seasonKey = 'winter';
+      displaySeason = 'Winter';
+      iconFile = 'icon-snowflake.png';
+    }
+    
+    // 1. Update the body tag to drive your existing CSS background terrain
+    document.body.dataset.gardenSeason = seasonKey;
+    
+    // 2. Set the subtitle text
+    const subtitle = $('garden-header-subtitle');
+    if (subtitle) subtitle.textContent = displaySeason;
+    
+    // 3. Update the icon image source
+    const headerIcon = $('garden-header-icon');
+    if (headerIcon) {
+      headerIcon.src = `assets/garden/${seasonKey}/${iconFile}`; 
+    }
+  }
+  
+  
   async function init() {
     updateGardenSky();
     initGardenWeatherFx();
