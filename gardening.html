@@ -6,7 +6,7 @@
   <link rel="preload" as="font" type="font/woff2" href="fonts/figtree-v9-latin-regular.woff2" crossorigin>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gardening Weather — Clover Terrace</title>
+  <title>Garden — Clover Terrace</title>
   <meta name="description" content="Local gardening weather, frost risk, growing degree days, rainfall, and growing-season information for Clover Terrace, Aliquippa, Pennsylvania.">
 
   <link rel="icon" href="icons/icon-192.png" sizes="any">
@@ -18,9 +18,9 @@
 
   <script src="suncalc.js"></script>
   <script>
-    // Synchronous day/night phase pre-paint, so the sky doesn't flash the
+    // synchronous day/night phase pre-paint, so the sky doesn't flash the
     // fallback dusk-purple gradient before gardening.js finishes loading.
-    // Keep LAT/LON here in sync with the constants in js/gardening.js.
+    // keep LAT/LON here in sync with the constants in js/gardening.js.
     (function () {
       try {
         var LAT = 40.616, LON = -80.274;
@@ -44,8 +44,8 @@
     <div class="garden-world" data-garden-season="summer">
       <div class="garden-layer garden-terrain" aria-hidden="true"></div>
 
-      <!-- Day/night-responsive sky, recolored from the sun's real
-           altitude (see updateGardenSky() in gardening.js). Same idea as
+      <!-- day/night-responsive sky, recolored from the sun's real
+           altitude (see updateGardenSky() in gardening.js). same idea as
            the main dashboard's weather theming, just restyled for this
            page's parchment/purple palette. Sun & moon are plain circles
            for now -- swap for sprite art whenever that's ready. -->
@@ -54,7 +54,7 @@
         <div class="garden-sky-body garden-moon" id="garden-moon-body"></div>
       </div>
 
-      <!-- Weather-responsive fx, toggled from the NWS forecast + station
+      <!-- weather-responsive fx, toggled from the NWS forecast + station
            rain gauge (see classifyGardenWeather() in gardening.js). -->
       <div class="garden-weather-fx" id="garden-weather-fx" aria-hidden="true">
         <div class="garden-fx-clouds" id="garden-fx-clouds"></div>
