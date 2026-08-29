@@ -503,6 +503,41 @@ body[data-garden-season="winter"] .garden-world {
   z-index: 2;
 }
 
+/* -----------------------------------------------------------------
+   Custom Image Icons (Replacing Emojis)
+   ----------------------------------------------------------------- */
+
+.garden-icon,
+.garden-title-icon,
+.garden-footer-icon {
+  /* Using 'em' allows the image to automatically scale up or down 
+     based on the font-size of the <h1>, <h2>, or footer text */
+  height: 1.2em; 
+  width: auto;
+  vertical-align: middle; 
+  object-fit: contain;
+  display: inline-block;
+  position: relative;
+  top: -0.1em; /* Slight nudge for perfect optical centering with text */
+}
+
+/* Specific spacing adjustments for different areas */
+.garden-title-icon {
+  height: 1.3em;
+  margin-right: 0.4rem;
+}
+
+.garden-icon {
+  margin-right: 0.35rem;
+}
+
+.garden-footer-icon {
+  height: 1.1em;
+  margin-right: 0.25rem;
+  top: -0.15em;
+}
+
+
 /* twinkling star / drifting cloud sprites, confined to the hero band */
 .garden-sky-sprite { position: absolute; pointer-events: none; z-index: 1; }
 .garden-sky-sprite.star { animation: garden-twinkle 2.6s ease-in-out infinite; }
