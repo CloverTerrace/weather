@@ -3655,9 +3655,40 @@ svg circle, svg polygon, svg line {
     }
   }
 
-  /* ---------- desktop weather-card layout ----------
-     Consolidated into the current desktop composition block below.
-     The shared card container-query rules remain here. */
+  /* ---------- desktop weather-card layout --------*/
+  @media (min-width: 851px) {
+    #grid.grid {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 300px)) !important;
+      justify-content: center !important;
+      align-items: start !important;
+      gap: clamp(1rem, 1.6vw, 1.5rem) !important;
+      width: 100% !important;
+      max-width: 1320px !important;
+      margin: 0 auto !important;
+    }
+
+    #grid.grid .grid-column {
+      display: contents !important;
+    }
+
+    #grid.grid .card {
+      width: 100% !important;
+      max-width: none !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
+      align-self: start !important;
+    }
+
+    #grid.grid .card.temp-card      { order: 1; }
+    #grid.grid .card.wind-card      { order: 2; }
+    #grid.grid .card.pressure-card  { order: 3; }
+    #grid.grid .card.precip-card    { order: 4; }
+    #grid.grid .card.lightning-card { order: 5; }
+    #grid.grid .card.solar-card     { order: 6; }
+    #grid.grid .card.aqi-card       { order: 7; }
+    #grid.grid .card.river-card     { order: 8; }
+  }
 
   /* whatever width the square-tile grid above settles a card into, keep
      the wind compass / dual-value rows from ever feeling cramped. this
@@ -3808,6 +3839,18 @@ svg circle, svg polygon, svg line {
      DESKTOP WEATHER-CENTER COMPOSITION
      851px+ only ~ 
      ================================================ */
+  .desktop-dashboard-layout,
+  .desktop-left-rail,
+  .desktop-right-rail {
+    width: 100%;
+  }
+
+  .desktop-dashboard-layout,
+  .desktop-left-rail,
+  .desktop-right-rail {
+    display: contents;
+  }
+
   .forecast-card { margin-top: 0; }
 
   .camera-lightbox {
@@ -3896,8 +3939,178 @@ svg circle, svg polygon, svg line {
     outline: none;
   }
 
-  /* Desktop dashboard sizing/composition is consolidated in the
-     current DESKTOP DASHBOARD COMPOSITION block near the end of this file. */
+  @media (min-width: 851px) {
+    #page-content {
+      width: min(94vw, 1500px);
+      max-width: 1500px;
+    }
+
+    h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(0.45rem, 0.9vw, 0.85rem);
+      margin-bottom: 0.15rem;
+      text-align: center;
+    }
+
+    h1 #weather-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      width: clamp(3.25rem, 5vw, 5.5rem);
+      height: clamp(3.25rem, 5vw, 5.5rem);
+      line-height: 1;
+    }
+
+    h1 .weather-icon-img,
+    h1 .meteocon,
+    h1 .weather-icon-moon-frame {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      margin-right: 0;
+      vertical-align: middle;
+      object-fit: contain;
+    }
+
+    #subtitle { margin-bottom: clamp(1.1rem, 1.8vw, 1.6rem); }
+
+    .desktop-dashboard-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(360px, 0.85fr);
+      gap: clamp(1rem, 1.5vw, 1.5rem);
+      align-items: start;
+      width: 100%;
+    }
+
+    .desktop-left-rail,
+    .desktop-right-rail {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      gap: clamp(1rem, 1.5vw, 1.5rem);
+    }
+
+    .desktop-left-rail #grid {
+      width: 100% !important;
+      max-width: none !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: clamp(0.9rem, 1.15vw, 1.25rem) !important;
+      justify-content: stretch !important;
+      margin: 0 !important;
+    }
+
+    .desktop-left-rail #grid.grid .card { width: 100% !important; }
+    .desktop-left-rail #grid.grid .card.temp-card      { order: 1; }
+    .desktop-left-rail #grid.grid .card.wind-card      { order: 2; }
+    .desktop-left-rail #grid.grid .card.pressure-card  { order: 3; }
+    .desktop-left-rail #grid.grid .card.precip-card    { order: 4; }
+    .desktop-left-rail #grid.grid .card.lightning-card { order: 5; }
+    .desktop-left-rail #grid.grid .card.solar-card     { order: 6; }
+    .desktop-left-rail #grid.grid .card.aqi-card       { order: 7; }
+    .desktop-left-rail #grid.grid .card.river-card     { order: 8; }
+
+    #grid.grid .desktop-camera-tile {
+      order: 9 !important;
+      grid-column: 3 !important;
+      grid-row: 3 !important;
+      display: flex;
+      min-width: 0;
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: clamp(0.7rem, 0.9vw, 1rem);
+      cursor: zoom-in;
+      align-self: stretch;
+      justify-content: flex-start;
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+
+    #grid.grid .desktop-camera-tile h2 {
+      flex: 0 0 auto;
+      margin: 0 0 0.7rem;
+      font-size: clamp(0.62rem, 2.45cqw, 0.76rem);
+    }
+
+    #grid.grid .desktop-camera-tile img {
+      position: static !important;
+      display: block;
+      width: 100% !important;
+      max-width: none !important;
+      height: clamp(125px, 9vw, 165px) !important;
+      max-height: none !important;
+      flex: 1 1 auto;
+      min-height: 0;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 8px;
+      margin: 0;
+    }
+
+    .desktop-left-rail .forecast-card {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+
+    .desktop-left-rail > .desktop-charts-dropdown {
+      order: 4;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+
+    .desktop-right-rail .dashboard-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: clamp(1rem, 1.5vw, 1.5rem);
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+
+    .desktop-right-rail .dashboard-grid > .camera-card {
+      width: 100%;
+      max-width: none;
+      margin: 0 !important;
+    }
+
+    .desktop-right-rail .dashboard-grid > .camera-card img {
+      max-height: none;
+      object-fit: contain;
+    }
+
+    .web-tools-grid {
+      width: 100%;
+      max-width: none;
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr);
+      gap: clamp(1rem, 1.5vw, 1.5rem);
+      align-items: start;
+      margin-top: clamp(1rem, 1.5vw, 1.5rem);
+    }
+
+    .web-tools-grid > .weather-map-card {
+      grid-column: 2; grid-row: 1; width: 100%; max-width: none; margin: 0;
+    }
+
+    .web-tools-grid > .charts-dropdown {
+      grid-column: 1; grid-row: 1; width: 100%; max-width: none; margin: 0; align-self: start;
+    }
+
+    .web-tools-grid > .weather-map-card .rainviewer-map,
+    .web-tools-grid > .weather-map-card .map-panel iframe {
+      height: clamp(360px, 35vw, 560px);
+    }
+  }
 
   #page-content {
     width: min(100%, 1320px);
@@ -4399,6 +4612,13 @@ svg circle, svg polygon, svg line {
       gap: clamp(0.9rem, 1.15vw, 1.2rem);
     }
 
+    /* Navigation + Storm Center use the same vertical rhythm as the rails. */
+    .storm-nav-group {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.9rem, 1.15vw, 1.2rem);
+    }
+
     .desktop-left-rail #grid {
       grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
       grid-auto-rows: auto !important;
@@ -4761,7 +4981,6 @@ svg circle, svg polygon, svg line {
     .desktop-left-rail > .desktop-sky-card .sunmoon-details { margin-top: 0.55rem; font-size: 0.7rem; }
     .desktop-left-rail > .desktop-sky-card .sky-badges { margin-top: 0.45rem; gap: 0.5rem; font-size: 0.67rem; }
 
-    .desktop-right-rail { gap: clamp(0.9rem, 1.15vw, 1.2rem) !important; }
     .desktop-right-rail .dashboard-grid { display: contents !important; }
     .desktop-right-rail .outlook-card {
       order: 1;
@@ -4893,6 +5112,10 @@ svg circle, svg polygon, svg line {
     .desktop-left-rail > .desktop-sky-card h2 { font-size: clamp(0.78rem, 0.9vw, 1.2rem); }
     .desktop-left-rail > .desktop-sky-card .sunmoon-details { font-size: clamp(0.7rem, 0.72vw, 0.92rem); }
     .desktop-left-rail > .desktop-sky-card .sky-badges { font-size: clamp(0.67rem, 0.7vw, 0.88rem); }
+  }
+
+  @media (min-width: 851px) and (max-width: 1120px) {
+    .desktop-dashboard-layout { grid-template-columns: minmax(0, 1.18fr) minmax(390px, 0.95fr) !important; }
   }
 
   @media (max-width: 850px) {
