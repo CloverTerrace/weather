@@ -85,18 +85,16 @@ img.pixel,
 }
 
 .garden-clearings {
-  inset: 0;
+  inset: 0 0 auto 0;
   z-index: 1;
+  height: clamp(300px, 38vh, 420px);
   background:
-    radial-gradient(ellipse at 50% 10%,
-      rgba(255,247,220,.78) 0 18%,
-      rgba(255,247,220,.40) 36%,
-      transparent 62%),
     linear-gradient(180deg,
-      rgba(104,72,139,.80) 0 9.5%,
-      rgba(104,72,139,.20) 20%,
-      rgba(255,235,201,.08) 43%,
-      rgba(91,131,57,.03) 100%);
+      rgba(104,72,139,.96) 0%,
+      rgba(104,72,139,.90) 45%,
+      rgba(104,72,139,.72) 70%,
+      rgba(104,72,139,.34) 88%,
+      rgba(104,72,139,0) 100%);
 }
 
 .garden-heading,
