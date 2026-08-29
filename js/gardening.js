@@ -130,10 +130,18 @@
     };
   }
 
+  // Latest data from each source, kept around so the sky/weather-fx
+  // system (below) can reclassify conditions whenever either one updates,
+  // without the two fetches racing each other.
+  let latestStationData = null;
+  let latestCurrentPeriod = null;
+
   async function loadStation() {
     const response = await fetch(`${WEATHER_URL}?t=${Date.now()}`, { cache: 'no-store' });
     if (!response.ok) throw new Error(`Station data: HTTP ${response.status}`);
     const data = await response.json();
+    latestStationData = data;
+    refreshGardenWeather();
 
     setText('garden-temp', fmt(data.temp));
     setText('garden-dew', fmt(data.dewpt));
@@ -216,6 +224,9 @@
       mins.get(dateKey).temp = Math.min(mins.get(dateKey).temp, temp);
     }
 
+    latestCurrentPeriod = periods[0] || null;
+    refreshGardenWeather();
+
     const days = [...mins.values()].sort((a, b) => a.date - b.date);
     const frost = days.find(day => day.temp <= 36);
     const freeze = days.find(day => day.temp <= 32);
@@ -261,15 +272,119 @@
     }
   }
 
-  function updateGardenClock() {
-    const hour = Number(new Intl.DateTimeFormat('en-US', {
-      timeZone: STATION_TIMEZONE,
-      hour: 'numeric',
-      hour12: false
-    }).format(new Date()));
+  // ---------- sky: day/night + weather-responsive atmosphere ----------
+  // Mirrors the main dashboard's SunCalc-driven sky tracker and
+  // #weather-fx system (see site.js), scoped down and restyled for this
+  // page's parchment/pixel palette. data-garden-time / data-garden-weather
+  // live on <html> rather than <body> so the inline script in <head> can
+  // set them before gardening.js even loads (no purple flash on paint).
 
-    document.body.dataset.gardenTime =
-      hour >= 6 && hour < 20 ? 'day' : 'night';
+  function getSkyPhase(now) {
+    const pos = SunCalc.getPosition(now, LAT, LON);
+    const times = SunCalc.getTimes(now, LAT, LON);
+    const altDeg = pos.altitude * 180 / Math.PI;
+    const isMorning = now < times.solarNoon;
+    if (altDeg >= 6) return 'day';
+    if (altDeg <= -12) return 'night';
+    return isMorning ? 'dawn' : 'dusk';
+  }
+
+  function positionSkyBody(el, altitudeRad, azimuthRad) {
+    if (!el) return;
+    const altDeg = altitudeRad * 180 / Math.PI;
+    const azDeg = azimuthRad * 180 / Math.PI;
+    const leftPercent = ((azDeg + 180) / 360) * 100;
+    const clampedAlt = Math.max(-15, Math.min(90, altDeg));
+    const topPercent = 92 - ((clampedAlt + 15) / 105) * 80;
+    const opacity = altDeg <= -8 ? 0 : Math.min(1, (altDeg + 8) / 10);
+    el.style.left = `${leftPercent}%`;
+    el.style.top = `${topPercent}%`;
+    el.style.opacity = opacity;
+  }
+
+  function updateGardenSky() {
+    if (typeof SunCalc === 'undefined') return;
+    const now = new Date();
+    document.documentElement.dataset.gardenTime = getSkyPhase(now);
+
+    const sunPos = SunCalc.getPosition(now, LAT, LON);
+    const moonPos = SunCalc.getMoonPosition(now, LAT, LON);
+    positionSkyBody($('garden-sun-body'), sunPos.altitude, sunPos.azimuth);
+    positionSkyBody($('garden-moon-body'), moonPos.altitude, moonPos.azimuth);
+  }
+
+  function initGardenWeatherFx() {
+    const rain = $('garden-fx-rain');
+    for (let i = 0; i < 22; i++) {
+      const drop = document.createElement('div');
+      drop.className = 'garden-raindrop';
+      drop.style.left = `${Math.random() * 100}%`;
+      drop.style.animationDuration = `${0.6 + Math.random() * 0.6}s`;
+      drop.style.animationDelay = `${Math.random() * 2}s`;
+      rain.appendChild(drop);
+    }
+
+    const snow = $('garden-fx-snow');
+    for (let i = 0; i < 26; i++) {
+      const flake = document.createElement('div');
+      flake.className = 'garden-snowflake';
+      const size = 3 + Math.random() * 3;
+      flake.style.width = `${size}px`;
+      flake.style.height = `${size}px`;
+      flake.style.left = `${Math.random() * 100}%`;
+      flake.style.opacity = 0.5 + Math.random() * 0.5;
+      flake.style.animationDuration = `${7 + Math.random() * 7}s`;
+      flake.style.animationDelay = `${Math.random() * -10}s`;
+      snow.appendChild(flake);
+    }
+
+    const clouds = $('garden-fx-clouds');
+    for (let i = 0; i < 3; i++) {
+      const puff = document.createElement('div');
+      puff.className = 'garden-cloud-puff';
+      puff.style.top = `${5 + Math.random() * 30}%`;
+      puff.style.transform = `scale(${0.8 + Math.random() * 0.7})`;
+      puff.style.opacity = 0.4 + Math.random() * 0.3;
+      puff.style.animationDuration = `${60 + Math.random() * 40}s`;
+      puff.style.animationDelay = `${Math.random() * -60}s`;
+      clouds.appendChild(puff);
+    }
+
+    const stars = $('garden-fx-stars');
+    for (let i = 0; i < 40; i++) {
+      const star = document.createElement('div');
+      star.className = 'garden-fx-star';
+      const size = 1 + Math.random() * 1.6;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 70}%`;
+      star.style.animationDuration = `${3 + Math.random() * 5}s`;
+      star.style.animationDelay = `${Math.random() * -8}s`;
+      star.style.setProperty('--star-min-opacity', (0.15 + Math.random() * 0.2).toFixed(2));
+      star.style.setProperty('--star-max-opacity', (0.6 + Math.random() * 0.4).toFixed(2));
+      stars.appendChild(star);
+    }
+  }
+
+  // Classifies current conditions into the handful of buckets the garden
+  // sky reacts to. Prefers the NWS short-range text (already fetched for
+  // the frost/freeze watch) and falls back to the station's own rain
+  // gauge, so the effect still shows up even if the NWS call is slow.
+  function classifyGardenWeather(currentPeriod, stationData) {
+    const text = String(currentPeriod?.shortForecast || '').toLowerCase();
+    const precipNow = Number(stationData?.precipRate) > 0;
+
+    if (/thunderstorm|t-storm/.test(text)) return 'thunderstorm';
+    if (/snow|flurr|sleet|ice/.test(text)) return 'snow';
+    if (/rain|shower|drizzle/.test(text) || precipNow) return 'rain';
+    if (/overcast/.test(text) || (/cloudy/.test(text) && !/partly|mostly clear|mostly sunny/.test(text))) return 'cloudy';
+    return 'clear';
+  }
+
+  function refreshGardenWeather() {
+    const condition = classifyGardenWeather(latestCurrentPeriod, latestStationData);
+    document.documentElement.dataset.gardenWeather = condition;
   }
 
   function initGardenDetails() {
@@ -299,7 +414,8 @@
   }
 
   async function init() {
-    updateGardenClock();
+    updateGardenSky();
+    initGardenWeatherFx();
     initGardenDetails();
 
     const results = await Promise.allSettled([
@@ -321,7 +437,7 @@
   }
 
   init();
-  setInterval(updateGardenClock, 60 * 1000);
+  setInterval(updateGardenSky, 60 * 1000);
   setInterval(() => loadStation().catch(() => {}), 60 * 1000);
   setInterval(() => loadNws().catch(() => {}), 15 * 60 * 1000);
 })();
