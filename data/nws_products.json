@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T06:05:34.111562Z",
+  "generatedAt": "2026-08-29T06:10:34.240317Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
@@ -21,6 +21,29 @@
         }
       ],
       "url": "https://api.weather.gov/products/dfdbf36a-aa7a-480d-8ff6-016a5282bf2c"
+    },
+    {
+      "id": "de83fa7d-790b-476e-aef9-4e5a52d4b5ca",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-08-29T06:00:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Today and tonight. No hazardous weather is expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Sunday through Friday. The probability for widespread hazardous weather is low."
+        }
+      ],
+      "url": "https://api.weather.gov/products/de83fa7d-790b-476e-aef9-4e5a52d4b5ca"
     }
   ]
 }
