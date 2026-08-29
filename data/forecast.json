@@ -2,12 +2,12 @@
   "periods": [
     {
       "name": "Overnight",
-      "temperature": 55,
+      "temperature": 51,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "NE",
+      "windSpeed": "0 mph",
+      "windDirection": "",
       "shortForecast": "Patchy Fog",
-      "detailedForecast": "Patchy fog after 4am. Clear, with a low around 55. Northeast wind around 1 mph.",
+      "detailedForecast": "Patchy fog. Clear, with a low around 51. Wind around 0 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -15,10 +15,10 @@
       "name": "Saturday",
       "temperature": 83,
       "temperatureUnit": "F",
-      "windSpeed": "1 to 5 mph",
-      "windDirection": "E",
+      "windSpeed": "0 to 5 mph",
+      "windDirection": "SE",
       "shortForecast": "Patchy Fog then Sunny",
-      "detailedForecast": "Patchy fog before 9am. Sunny, with a high near 83. East wind 1 to 5 mph.",
+      "detailedForecast": "Patchy fog before 9am. Sunny, with a high near 83. Southeast wind 0 to 5 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -48,20 +48,20 @@
   "hourly": [
     {
       "startTime": "2026-08-29T05:00:00-04:00",
-      "temperature": 55,
+      "temperature": 51,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "NE",
+      "windSpeed": "0 mph",
+      "windDirection": "",
       "shortForecast": "Patchy Fog",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
     {
       "startTime": "2026-08-29T06:00:00-04:00",
-      "temperature": 55,
+      "temperature": 53,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "NE",
+      "windSpeed": "0 mph",
+      "windDirection": "",
       "shortForecast": "Patchy Fog",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
@@ -71,7 +71,7 @@
       "temperature": 55,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
-      "windDirection": "NE",
+      "windDirection": "E",
       "shortForecast": "Patchy Fog",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
