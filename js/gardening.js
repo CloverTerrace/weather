@@ -60,11 +60,18 @@
     if (el) el.textContent = value;
   }
 
-  function setStatus(kind, message) {
-    const el = $('frost-status');
-    if (!el) return;
-    el.className = `garden-status ${kind || ''}`;
-    el.innerHTML = `<span class="garden-status-dot"></span><span>${message}</span>`;
+  // Sets a "<value> / <colored status word> / <caption>" stat card in one
+  // call. `valueId` is the numeric/text span, `statusId` is the colored
+  // status word, `captionId` is the small note underneath. `cls` is one of
+  // '', 'good', 'warn', 'danger', 'info', or a season-* class (see CSS).
+  function setStatCard({ valueId, statusId, captionId, value, status, cls, caption }) {
+    setText(valueId, value);
+    const statusEl = $(statusId);
+    if (statusEl) {
+      statusEl.textContent = status;
+      statusEl.className = `garden-stat-status ${cls || ''}`.trim();
+    }
+    setText(captionId, caption);
   }
 
   function normalizeHistory(history) {
@@ -98,36 +105,164 @@
     return total;
   }
 
-  function findFreezeDates(history) {
-    const byDay = new Map();
+  // Vapor Pressure Deficit (kPa) -- same Tetens-equation formula the main
+  // dashboard uses for its "muggy/dry" comfort read, but reframed here for
+  // gardening: low VPD tracks with fungal/disease risk (air too saturated
+  // for plants to transpire), high VPD tracks with water stress (plants
+  // losing moisture faster than roots can keep up).
+  function calculateVPD(tempF, humidity) {
+    if (tempF === undefined || tempF === null || humidity === undefined || humidity === null) return null;
+    if (isNaN(tempF) || isNaN(humidity)) return null;
+    const tempC = (tempF - 32) * 5 / 9;
+    const es = 0.6108 * Math.exp(17.27 * tempC / (tempC + 237.3));
+    const ea = es * (humidity / 100);
+    return es - ea;
+  }
 
-    for (const entry of history) {
-      const key = localDateKey(entry.date);
-      const temp = Number(entry.temp);
-      if (!Number.isFinite(temp)) continue;
+  function classifyVpd(vpd) {
+    if (vpd === null || isNaN(vpd)) {
+      return { status: '--', cls: '', caption: 'Waiting on station data…' };
+    }
+    if (vpd < 0.4) {
+      return { status: 'Disease Risk', cls: 'warn', caption: 'Humid air — watch for fungal issues like powdery mildew.' };
+    }
+    if (vpd <= 1.6) {
+      return { status: 'Ideal', cls: 'good', caption: 'Good range for transpiration and steady growth.' };
+    }
+    return { status: 'Water Stress', cls: 'danger', caption: 'Plants are losing moisture fast — check soil before it dries out.' };
+  }
 
-      if (!byDay.has(key)) byDay.set(key, { min: Infinity, date: entry.date });
-      const day = byDay.get(key);
-      day.min = Math.min(day.min, temp);
+  // ---------- rain-chance forecast (distinct from the hero's rain-gauge
+  // totals, which look backward at what's already fallen) ----------
+  function getUpcomingRainChance(periods) {
+    const now = Date.now();
+    const horizon = now + 24 * 60 * 60 * 1000;
+    let best = null;
+
+    for (const period of periods || []) {
+      const t = new Date(period.startTime).getTime();
+      if (!Number.isFinite(t) || t < now || t > horizon) continue;
+      const pop = period.probabilityOfPrecipitation && typeof period.probabilityOfPrecipitation.value === 'number'
+        ? period.probabilityOfPrecipitation.value
+        : null;
+      if (pop === null) continue;
+      if (!best || pop > best.pop) best = { pop, name: period.name };
     }
 
+    return best;
+  }
+
+  function classifyRainChance(pop) {
+    if (pop === null || pop === undefined || isNaN(pop)) {
+      return { status: '--', cls: '', caption: 'Forecast probability unavailable.' };
+    }
+    if (pop < 15) {
+      return { status: 'Water Needed', cls: 'warn', caption: 'Little rain expected — plan to water.' };
+    }
+    if (pop < 50) {
+      return { status: 'Possible', cls: 'info', caption: 'Some chance of rain — check before watering.' };
+    }
+    return { status: 'Rain Likely', cls: 'good', caption: "Good chance of rain — you can probably skip watering." };
+  }
+
+  // ---------- next-season countdown (meteorological + astronomical) ----------
+  const SEASON_NAMES = ['Spring', 'Summer', 'Fall', 'Winter'];
+  const SEASON_CLASS = ['season-spring', 'season-summer', 'season-fall', 'season-winter'];
+
+  function meteorologicalSeasonStarts(year) {
+    return [
+      new Date(Date.UTC(year, 2, 1)),
+      new Date(Date.UTC(year, 5, 1)),
+      new Date(Date.UTC(year, 8, 1)),
+      new Date(Date.UTC(year, 11, 1))
+    ];
+  }
+
+  // Low-precision approximation of equinox/solstice instants (Meeus,
+  // "Astronomical Algorithms" ch. 27 -- the mean-equinox JDE0 term only,
+  // without the ~24-term periodic correction). Good to within roughly a
+  // day for years near ours, which is plenty for a "days until" tile.
+  function seasonJDE0(year, index) {
+    const Y = (year - 2000) / 1000;
+    const c = [
+      [2451623.80984, 365242.37404, 0.05169, -0.00411, -0.00057], // Mar equinox
+      [2451716.56767, 365241.62603, 0.00325, 0.00888, -0.00030],  // Jun solstice
+      [2451810.21715, 365242.01767, -0.11575, 0.00337, 0.00078],  // Sep equinox
+      [2451900.05952, 365242.74049, -0.06223, -0.00823, 0.00032]  // Dec solstice
+    ][index];
+    return c[0] + c[1] * Y + c[2] * Y ** 2 + c[3] * Y ** 3 + c[4] * Y ** 4;
+  }
+
+  function julianDayToDate(jd) {
+    const Z = Math.floor(jd + 0.5);
+    const F = (jd + 0.5) - Z;
+    let A = Z;
+    if (Z >= 2299161) {
+      const alpha = Math.floor((Z - 1867216.25) / 36524.25);
+      A = Z + 1 + alpha - Math.floor(alpha / 4);
+    }
+    const B = A + 1524;
+    const C = Math.floor((B - 122.1) / 365.25);
+    const D = Math.floor(365.25 * C);
+    const E = Math.floor((B - D) / 30.6001);
+    const day = B - D - Math.floor(30.6001 * E) + F;
+    const month = E < 14 ? E - 1 : E - 13;
+    const year = month > 2 ? C - 4716 : C - 4715;
+    const dayInt = Math.floor(day);
+    const hours = (day - dayInt) * 24;
+    return new Date(Date.UTC(year, month - 1, dayInt, Math.floor(hours), Math.round((hours % 1) * 60)));
+  }
+
+  function astronomicalSeasonStarts(year) {
+    return [0, 1, 2, 3].map(i => julianDayToDate(seasonJDE0(year, i)));
+  }
+
+  function computeSeasonCountdown() {
     const now = new Date();
-    const currentYear = now.getFullYear();
+    const year = now.getUTCFullYear();
 
-    const days = [...byDay.values()].filter(day => {
-      return day.date.getUTCFullYear() === currentYear && day.min <= 32;
-    }).sort((a, b) => a.date - b.date);
+    const met = [...meteorologicalSeasonStarts(year), ...meteorologicalSeasonStarts(year + 1)];
+    const astro = [...astronomicalSeasonStarts(year), ...astronomicalSeasonStarts(year + 1)];
 
-    // In spring, the last <=32°F day before the growing season.
-    const spring = days.filter(day => day.date.getUTCMonth() + 1 <= 6);
+    const nextMet = met.find(d => d > now);
+    const nextAstro = astro.find(d => d > now);
+    if (!nextMet || !nextAstro) return null;
 
-    // In fall, the first <=32°F day from July onward.
-    const fall = days.filter(day => day.date.getUTCMonth() + 1 >= 7);
+    const metIndex = met.indexOf(nextMet) % 4;
+    const astroIndex = astro.indexOf(nextAstro) % 4;
+    const msPerDay = 24 * 60 * 60 * 1000;
 
-    return {
-      lastSpring: spring.length ? spring[spring.length - 1] : null,
-      firstFall: fall.length ? fall[0] : null
+    const metResult = {
+      label: 'meteorological', name: SEASON_NAMES[metIndex], cls: SEASON_CLASS[metIndex],
+      days: Math.ceil((nextMet - now) / msPerDay), date: nextMet
     };
+    const astroResult = {
+      label: 'astronomical', name: SEASON_NAMES[astroIndex], cls: SEASON_CLASS[astroIndex],
+      days: Math.ceil((nextAstro - now) / msPerDay), date: nextAstro
+    };
+
+    const primary = metResult.days <= astroResult.days ? metResult : astroResult;
+    const secondary = primary === metResult ? astroResult : metResult;
+    return { primary, secondary };
+  }
+
+  function renderSeasonCountdown() {
+    const result = computeSeasonCountdown();
+    if (!result) return;
+    const { primary, secondary } = result;
+    setStatCard({
+      valueId: 'season-days',
+      statusId: 'season-name',
+      captionId: 'season-caption',
+      value: primary.days,
+      status: `${primary.name} (${primary.label})`,
+      cls: primary.cls,
+      caption: `${secondary.label === 'astronomical' ? 'Astronomical' : 'Meteorological'} ${secondary.name.toLowerCase()}: ${formatDate(secondary.date)} · ${secondary.days}d`
+    });
+  }
+
+  function applyFrostCard({ value, status, cls, caption }) {
+    setStatCard({ valueId: 'frost-value', statusId: 'frost-status-word', captionId: 'frost-caption', value, status, cls, caption });
   }
 
   // Latest data from each source, kept around so the sky/weather-fx
@@ -154,21 +289,17 @@
 
     setText('garden-updated', `Station update: ${formatDateTime(data.obsTimeLocal)} · source: ${data.source || 'local'}`);
 
-    const today = Number(data.precipTotal) || 0;
-    const week = Number(data.precipTotalWeek) || 0;
-    const month = Number(data.precipTotalMonth) || 0;
-    const scale = Math.max(month, week, today, 0.01);
-
-    const bars = [
-      ['rainbar-today', 'rainbar-today-value', today],
-      ['rainbar-week', 'rainbar-week-value', week],
-      ['rainbar-month', 'rainbar-month-value', month]
-    ];
-
-    for (const [barId, valueId, amount] of bars) {
-      $(barId).style.width = `${Math.min(100, amount / scale * 100)}%`;
-      setText(valueId, `${amount.toFixed(2)}"`);
-    }
+    const vpd = calculateVPD(data.temp, data.humidity);
+    const vpdInfo = classifyVpd(vpd);
+    setStatCard({
+      valueId: 'vpd-value',
+      statusId: 'vpd-status',
+      captionId: 'vpd-caption',
+      value: vpd === null ? '--' : vpd.toFixed(2),
+      status: vpdInfo.status,
+      cls: vpdInfo.cls,
+      caption: vpdInfo.caption
+    });
 
     return data;
   }
@@ -178,18 +309,13 @@
     if (!response.ok) throw new Error(`History: HTTP ${response.status}`);
     const history = normalizeHistory(await response.json());
 
-    const freezes = findFreezeDates(history);
-    setText('last-freeze-local', freezes.lastSpring ? formatDate(freezes.lastSpring.date) : 'building record');
-    setText('first-freeze-local', freezes.firstFall ? formatDate(freezes.firstFall.date) : 'not observed yet');
+    const gdd50 = calculateGDD(history, 50);
+    const gdd40 = calculateGDD(history, 40);
+    setText('gdd50', Math.round(gdd50).toLocaleString());
     setText(
-      'local-record-span',
-      history.length
-        ? `${formatDate(history[0].date)} → ${formatDate(history[history.length - 1].date)}`
-        : '--'
+      'gdd-caption',
+      `Base 40°F: ${Math.round(gdd40).toLocaleString()}${history.length ? ` · since ${formatDate(history[0].date)}` : ''}`
     );
-
-    setText('gdd50', Math.round(calculateGDD(history, 50)).toLocaleString());
-    setText('gdd40', Math.round(calculateGDD(history, 40)).toLocaleString());
 
     return history;
   }
@@ -232,19 +358,27 @@
     const freeze = days.find(day => day.temp <= 32);
     const hardFreeze = days.find(day => day.temp <= 28);
 
-    setText('frost-next', frost ? `${formatDate(frost.date)} · ${Math.round(frost.temp)}°` : 'none');
-    setText('freeze-next', freeze ? `${formatDate(freeze.date)} · ${Math.round(freeze.temp)}°` : 'none');
-    setText('hard-freeze-next', hardFreeze ? `${formatDate(hardFreeze.date)} · ${Math.round(hardFreeze.temp)}°` : 'none');
-
     if (hardFreeze) {
-      setStatus('danger', `Hard-freeze signal in the NWS forecast: ${formatDate(hardFreeze.date)}.`);
+      applyFrostCard({ value: formatDate(hardFreeze.date), status: 'Hard Freeze', cls: 'danger', caption: `${Math.round(hardFreeze.temp)}°F expected` });
     } else if (freeze) {
-      setStatus('danger', `Freeze signal in the NWS forecast: ${formatDate(freeze.date)}.`);
+      applyFrostCard({ value: formatDate(freeze.date), status: 'Freeze', cls: 'danger', caption: `${Math.round(freeze.temp)}°F expected` });
     } else if (frost) {
-      setStatus('warn', `Frost-risk temperature in the NWS forecast: ${formatDate(frost.date)}.`);
+      applyFrostCard({ value: formatDate(frost.date), status: 'Frost Risk', cls: 'warn', caption: `${Math.round(frost.temp)}°F expected` });
     } else {
-      setStatus('good', 'No ≤36°F temperature signal in the next 7 days.');
+      applyFrostCard({ value: 'Clear', status: 'No Risk', cls: 'good', caption: 'No ≤36°F signal in the next 7 days.' });
     }
+
+    const rainChance = getUpcomingRainChance(periods);
+    const rainInfo = classifyRainChance(rainChance ? rainChance.pop : null);
+    setStatCard({
+      valueId: 'rain-chance',
+      statusId: 'rain-status',
+      captionId: 'rain-caption',
+      value: rainChance ? rainChance.pop : '--',
+      status: rainInfo.status,
+      cls: rainInfo.cls,
+      caption: rainChance ? `${rainInfo.caption} (peak ${rainChance.name})` : rainInfo.caption
+    });
 
     try {
       const alertsResponse = await fetch(
@@ -263,8 +397,7 @@
 
         if (frostAlerts.length) {
           const event = frostAlerts[0].properties.event;
-          setStatus('danger', `Active NWS ${event} for the station area.`);
-          setText('frost-note', 'An official NWS frost/freeze product currently applies to the station area. Check the advisory/warning for timing and expected minimum temperatures.');
+          applyFrostCard({ value: 'Active', status: event, cls: 'danger', caption: `An official NWS ${event} currently applies to the station area.` });
         }
       }
     } catch (e) {
@@ -417,6 +550,7 @@
     updateGardenSky();
     initGardenWeatherFx();
     initGardenDetails();
+    renderSeasonCountdown();
 
     const results = await Promise.allSettled([
       loadStation(),
@@ -431,7 +565,7 @@
         setText('garden-updated', 'Live station data temporarily unavailable.');
       }
       if (results[2]?.status === 'rejected') {
-        setStatus('', 'NWS frost/freeze forecast temporarily unavailable.');
+        applyFrostCard({ value: '--', status: 'Unavailable', cls: '', caption: 'NWS frost/freeze forecast temporarily unavailable.' });
       }
     }
   }
@@ -440,4 +574,5 @@
   setInterval(updateGardenSky, 60 * 1000);
   setInterval(() => loadStation().catch(() => {}), 60 * 1000);
   setInterval(() => loadNws().catch(() => {}), 15 * 60 * 1000);
+  setInterval(renderSeasonCountdown, 60 * 60 * 1000);
 })();
