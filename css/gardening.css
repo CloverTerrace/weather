@@ -85,7 +85,7 @@
 }
 
 /* -----------------------------------------------------------------
-   Base page
+   Base Page & Overscroll Color Blending
    ----------------------------------------------------------------- */
 html {
   width: 100%;
@@ -93,7 +93,8 @@ html {
   min-height: 100%;
   margin: 0 !important;
   padding: 0 !important;
-  background-color: var(--purple-deep); /* Matches the dark top sky / nav background */
+  /* Top pull-down reveals the dark sky color instead of bright green */
+  background-color: var(--purple-deep); 
 }
 
 body {
@@ -102,13 +103,14 @@ body {
   min-height: 100%;
   margin: 0 !important;
   padding: 0 !important;
-  overscroll-behavior: none;
-  background-color: #3c5a2c; /* Matches the bottom footer band color */
+  /* Bottom rubber-banding blends into dark grass green */
+  background-color: #3c5a2c; 
   background-image: url("../assets/garden/summer/terrain/grass.png");
   background-repeat: repeat;
   background-size: 128px 128px;
   background-position: 0 0;
 }
+
 
 
 .garden-page {
