@@ -18,7 +18,7 @@
   z-index: 9999;
 }
 
-/* Brand title on the left */
+/* title on the left */
 .site-nav .nav-brand {
   display: inline-flex;
   align-items: center;
@@ -38,7 +38,7 @@
   object-fit: contain;
 }
 
-/* Button link group on the right */
+/* link group on the right */
 .site-nav .nav-links {
   display: flex;
   align-items: center;
@@ -87,7 +87,7 @@
   margin-top: -0.15rem;
 }
 
-/* Toast popup */
+/* toast popup */
 .site-nav-toast {
   position: fixed;
   left: 50%;
@@ -113,7 +113,7 @@
   transform: translate(-50%, 0);
 }
 
-/* Responsive adjustments */
+/* responsive adjustments */
 @media (max-width: 600px) {
   .site-nav {
     padding: 0.4rem 0.6rem;
