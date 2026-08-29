@@ -192,15 +192,48 @@ body[data-garden-season="winter"] .garden-world {
   width: 100%;
   margin: 0;
   box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  padding: 0.5rem 1rem;
+}
+.garden-page .site-nav a,
+.garden-page .site-nav button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+  padding: 0.4rem 0.6rem;
 }
 
 /* -----------------------------------------------------------------
-         heading / hero
+         hero row — heading (left) + conditions card (right)
    ----------------------------------------------------------------- */
+.garden-hero {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(320px, 1.15fr);
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 1.6rem 1rem 1.2rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 850px) {
+  .garden-hero {
+    grid-template-columns: 1fr;
+    padding-top: 1rem;
+  }
+}
+
 .garden-heading {
   position: relative;
-  text-align: center;
-  padding: 1.6rem 1rem 0.4rem;
+  text-align: left;
+  padding: 0;
   overflow: hidden;
 }
 
@@ -259,7 +292,8 @@ body[data-garden-season="winter"] .garden-world {
    ----------------------------------------------------------------- */
 .garden-grid {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: stretch;
   gap: 1.1rem;
   max-width: 1180px;
   margin: 1.5rem auto 1.8rem;
@@ -267,8 +301,6 @@ body[data-garden-season="winter"] .garden-world {
   position: relative;
   z-index: 2;
 }
-.garden-card-wide { grid-column: span 8; }
-.garden-card-side { grid-column: span 4; }
 .garden-card-full { grid-column: 1 / -1; }
 
 .garden-card {
@@ -290,6 +322,25 @@ body[data-garden-season="winter"] .garden-world {
 .garden-corner.tr { top: -11px; right: -11px; transform: scaleX(-1); }
 .garden-corner.bl { bottom: -11px; left: -11px; transform: scaleY(-1); }
 .garden-corner.br { bottom: -11px; right: -11px; transform: scale(-1, -1); }
+
+/* Hero "Current Conditions" card — dark, matches the goal image */
+.garden-hero-card {
+  background: linear-gradient(160deg, var(--purple-deep), var(--purple-mid));
+  border-color: #16102b;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.08), 0 5px 0 rgba(0, 0, 0, 0.25);
+  color: #f3ecff;
+}
+.garden-hero-card h2 { color: #d9cdfa; }
+.garden-hero-card .garden-readout {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+.garden-hero-card .garden-readout-label { color: #c9bff0; }
+.garden-hero-card .garden-readout-value { color: #fff8ec; }
+.garden-hero-card .garden-readout-unit { color: #d9cdfa; }
+.garden-hero-card .garden-stat-label { color: #c9bff0; }
+.garden-hero-card .garden-stat-value { color: #fff8ec; }
+.garden-hero-card .garden-meta { color: #c9bff0; }
 
 .garden-card h2 {
   font-family: var(--font-pixel);
@@ -482,8 +533,7 @@ body[data-garden-season="winter"] .garden-world {
             mobile
    ----------------------------------------------------------------- */
 @media (max-width: 850px) {
-  .garden-card-wide,
-  .garden-card-side { grid-column: 1 / -1; }
+  .garden-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
 }
 
 @media (max-width: 480px) {
