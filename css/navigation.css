@@ -179,4 +179,17 @@
   .site-nav .nav-brand span {
     display: none;
   }
+
+  /* Main-page nav lives deep in the desktop right column (see
+     .storm-nav-group / .dashboard-grid in site.css) so it renders
+     above the Storm Center card there. On mobile those wrappers
+     flatten via display:contents (site.css), which turns this nav
+     into a normal flex child of #page-content and lets this rule
+     pull it to the very top of the page -- the same place the
+     gardening page's nav already sits, since there it's simply the
+     first thing in the markup. Scoped to #page-content so this is a
+     no-op on the gardening page, which has no such element. */
+  #page-content .site-nav {
+    order: -1;
+  }
 }

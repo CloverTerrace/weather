@@ -5387,3 +5387,50 @@ svg circle, svg polygon, svg line {
   }
 
   .nws-meta-item { white-space: nowrap; }
+
+/* =====================================================================
+   Mobile: nav escapes the right-column wrappers
+   ---------------------------------------------------------------------
+   .site-nav (main page) lives inside .storm-nav-group, itself inside
+   .dashboard-grid, so it can render above the Storm Center card in the
+   desktop right column. Both wrappers already regain real boxes at
+   851px+ (.desktop-right-rail .dashboard-grid / .storm-nav-group
+   above), so this only touches mobile. Flattening them here is what
+   lets #page-content .site-nav { order: -1 } (navigation.css) actually
+   pull the nav out to the very top of the page, matching the gardening
+   page's nav -- which sits there simply because it's first in the
+   markup and has no such wrappers to escape.
+
+   Two earlier, narrower rules already touch .dashboard-grid on mobile
+   (the <700px block above sets display:block + a bottom-margin gap;
+   the plain <851px default sets display:grid + its own gap) -- both
+   provided spacing that no longer exists once this flattens the box
+   away entirely, so spacing for the affected cards is restored below
+   on their top margin instead, consistently across the whole <851px
+   range. This block is intentionally last in the cascade so it wins
+   over those two for the properties it touches.
+   ===================================================================== */
+@media (max-width: 850px) {
+  .dashboard-grid {
+    display: contents !important;
+  }
+
+  .dashboard-grid > * {
+    margin-bottom: 0 !important; /* supersedes the <700px rule above */
+  }
+
+  .dashboard-grid > .camera-card {
+    margin-top: 1.5rem !important; /* replaces the lost grid gap / dashboard-grid's own margin-top */
+  }
+
+  /* .storm-nav-group's flex/gap styling comes from an inline style
+     attribute on the element, which always beats a plain external
+     rule -- !important is required here to win control for the
+     mobile flatten. Its two children need no extra spacing rule here:
+     .site-nav now sits first in the page (order:-1, no margin-top
+     needed) and .outlook-card already carries its own margin-top from
+     the shared .camera-card base class. */
+  .storm-nav-group {
+    display: contents !important;
+  }
+}
