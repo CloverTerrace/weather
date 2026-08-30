@@ -69,12 +69,20 @@
         <div class="garden-sky-body garden-moon" id="garden-moon-body"></div>
 
         <!-- png stars -- only faded in at night, twinkling in place -->
-        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:8%; left:4%; width:14px; animation-delay:.2s;" alt="">
-        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:24%; left:15%; width:10px; animation-delay:.6s;" alt="">
-        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:6%; left:30%; width:12px; animation-delay:1.1s;" alt="">
-        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:26%; left:72%; width:10px; animation-delay:.3s;" alt="">
-        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:9%; left:85%; width:14px; animation-delay:1.6s;" alt="">
-        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:20%; left:95%; width:10px; animation-delay:.8s;" alt="">
+        <!-- Fixed px, not %, of #garden-sky's own top -- keeps every
+             star inside the narrow open band below the nav and above
+             the hero row's content (heading/card), whatever
+             --garden-sky-height ends up computed as. That band sits
+             within the first ~20% of even the shortest sky height, so
+             it stays well inside the gradient's fully-opaque top
+             stretch and never drifts down toward the fade where the
+             terrain (grass) shows through. -->
+        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:58px; left:4%; width:14px; animation-delay:.2s;" alt="">
+        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:70px; left:16%; width:10px; animation-delay:.6s;" alt="">
+        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:52px; left:32%; width:12px; animation-delay:1.1s;" alt="">
+        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:76px; left:68%; width:10px; animation-delay:.3s;" alt="">
+        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:62px; left:84%; width:14px; animation-delay:1.6s;" alt="">
+        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:82px; left:95%; width:10px; animation-delay:.8s;" alt="">
 
         <!-- png clouds -- drift one-directionally across the full band,
              faded out at night in favor of the stars above -->
