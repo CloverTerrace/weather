@@ -554,33 +554,6 @@
       snow.appendChild(flake);
     }
 
-    const clouds = $('garden-fx-clouds');
-    for (let i = 0; i < 3; i++) {
-      const puff = document.createElement('div');
-      puff.className = 'garden-cloud-puff';
-      puff.style.top = `${5 + Math.random() * 30}%`;
-      puff.style.transform = `scale(${0.8 + Math.random() * 0.7})`;
-      puff.style.opacity = 0.4 + Math.random() * 0.3;
-      puff.style.animationDuration = `${60 + Math.random() * 40}s`;
-      puff.style.animationDelay = `${Math.random() * -60}s`;
-      clouds.appendChild(puff);
-    }
-
-    const stars = $('garden-fx-stars');
-    for (let i = 0; i < 40; i++) {
-      const star = document.createElement('div');
-      star.className = 'garden-fx-star';
-      const size = 1 + Math.random() * 1.6;
-      star.style.width = `${size}px`;
-      star.style.height = `${size}px`;
-      star.style.left = `${Math.random() * 100}%`;
-      star.style.top = `${Math.random() * 70}%`;
-      star.style.animationDuration = `${3 + Math.random() * 5}s`;
-      star.style.animationDelay = `${Math.random() * -8}s`;
-      star.style.setProperty('--star-min-opacity', (0.15 + Math.random() * 0.2).toFixed(2));
-      star.style.setProperty('--star-max-opacity', (0.6 + Math.random() * 0.4).toFixed(2));
-      stars.appendChild(star);
-    }
   }
 
   // classifies current conditions into the handful of buckets the garden
