@@ -165,6 +165,17 @@ img.pixel,
 
 /* --- center the garden header & season --- */
 
+/* The navbar's brand icon now uses the clover pixel-art asset (in place
+   of the cloud) on this page -- constrain it to emoji-size so it reads
+   as a small logomark, matching the "Clover Terrace" wordmark next to
+   it, rather than the larger scale navigation.css sets by default for
+   the cloud art. */
+.garden-page .nav-brand-icon {
+  width: 1.2em;
+  height: 1.2em;
+  object-fit: contain;
+}
+
 .garden-heading {
   text-align: center; 
 }
@@ -267,28 +278,44 @@ img.pixel,
    (visibly "stuck" mid-climb) whenever the real hero section rendered
    a different height. Simplified to a two-state rise: gardening.js
    toggles .is-risen on whichever body is currently above the horizon
-   (real SunCalc altitude, see updateCelestialRise()), and CSS just
-   animates between "waiting below the sky" and a fixed top-left resting
-   spot -- same real day/night timing, far less that can go visually wrong. */
+   (real SunCalc altitude, see updateCelestialRise()), and CSS animates
+   between "waiting below the sky" and a resting spot beside the
+   "Clover Garden" heading -- same real day/night timing, far less that
+   can go visually wrong.
+
+   The resting spot used to be a fixed top-left corner of the sky band,
+   which starts at the very top of the page (behind the navbar's higher
+   z-index) and clipped the icon there. Now it docks next to the heading
+   text instead: --garden-celestial-top/-left are set by
+   updateCelestialAnchor() in gardening.js from the real position of
+   #garden-celestial-slot, the empty placeholder inline with "Clover
+   Garden". The clamp() values below are only the pre-JS fallback. */
 .garden-sky-body {
   position: absolute;
   width: 40px;
   height: 40px;
-  left: clamp(20px, 7%, 84px);
+  left: var(--garden-celestial-left, clamp(20px, 7%, 84px));
   top: 100%;
   transform: translate(-50%, 0);
   opacity: 0;
   background-repeat: no-repeat;
   background-size: contain;
-  transition: top 2.4s ease, opacity 1.6s ease;
+  transition: top 2.4s ease, left 1s ease, opacity 1.6s ease, transform 1s ease;
   image-rendering: pixelated;
   pointer-events: none;
 }
 
 .garden-sky-body.is-risen {
-  top: clamp(16px, 6%, 44px);
+  top: var(--garden-celestial-top, clamp(72px, 14%, 110px));
   opacity: 1;
 }
+
+/* Moonrise during full daylight (and moonset well after sunrise) is
+   common, not just a dawn/dusk edge case -- so any time both bodies are
+   actually above the horizon together, split them to either side of the
+   anchor point instead of letting them stack on top of each other. */
+#garden-sky.both-risen .garden-sun.is-risen { transform: translate(calc(-100% - 4px), 0); }
+#garden-sky.both-risen .garden-moon.is-risen { transform: translate(4px, 0); }
 
 .garden-sun {
   background-image: url("../assets/scene/pixelsun.png");
@@ -580,6 +607,19 @@ body[data-garden-season="winter"] .garden-world {
 .garden-title-icon {
   height: 1.3em;
   margin-right: 0.4rem;
+}
+
+/* Empty placeholder inline with the "Clover Garden" heading -- reserves
+   the same space the old inline clover icon did, and gives
+   updateCelestialAnchor() (gardening.js) a real element to measure so
+   the rising sun/moon can dock beside the heading text instead of a
+   fixed page corner. */
+.garden-celestial-slot {
+  display: inline-block;
+  width: 1.3em;
+  height: 1.3em;
+  margin-right: 0.4rem;
+  vertical-align: middle;
 }
 
 .garden-icon {
