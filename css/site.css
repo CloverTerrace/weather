@@ -5411,6 +5411,17 @@ svg circle, svg polygon, svg line {
    over those two for the properties it touches.
    ===================================================================== */
 @media (max-width: 850px) {
+  /* The gardening page zeroes out body's own top padding entirely, which
+     is why its nav sits flush against the top of the screen. This page
+     reuses the shared 2rem/1rem body padding for spacing everywhere else,
+     so rather than overriding the whole rule we just shrink the top value
+     here -- bringing the now order:-1'd nav up to match the gardening
+     page, while leaving the side/bottom padding this page still relies on
+     untouched. */
+  body {
+    padding-top: 0.5rem;
+  }
+
   .dashboard-grid {
     display: contents !important;
   }

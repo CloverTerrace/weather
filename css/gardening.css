@@ -49,18 +49,23 @@
   --garden-overscroll-bottom: #4a3f2a;
 }
 
-/* Daytime -- leafy sunlit green, echoing the garden itself rather than
-   the night sky. Shifted from a flat dark-olive-to-medium-green ramp
-   (read as dim/muddy against the bright sky photo) to a richer emerald
-   base warming up into a sunlit gold-green, with a warmer border so it
-   doesn't go near-black the way the night/dusk palettes do. */
+/* Daytime -- sky blue, echoing the daytime sky band itself (see
+   .garden-sky's data-garden-time="day" gradient below, and
+   --garden-overscroll-top which uses the same top tone) so the nav reads
+   as part of the sky rather than clashing with it or with the device's
+   own status bar. Previously this was leafy green, which stood out
+   against the blue sky/status bar instead of blending in. Text switched
+   from light to dark navy since a light sky-blue bar needs dark text to
+   clear AA contrast (light text worked on the old, much darker green).
+   Active-tab highlight kept as a warm "sunlit" gold so the selected page
+   still pops against the cooler blue. */
 :root[data-garden-time="day"] {
-  --garden-accent-1: #2e6b34;
-  --garden-accent-2: #86b83f;
-  --garden-accent-border: #2e4a1e;
-  --garden-accent-text: #f2ffdf;
-  --garden-accent-active-bg: rgba(255, 226, 130, 0.28);
-  --garden-accent-active-text: #fff3c4;
+  --garden-accent-1: #3f6f96;
+  --garden-accent-2: #7fb0d4;
+  --garden-accent-border: #1c3547;
+  --garden-accent-text: #0d2436;
+  --garden-accent-active-bg: rgba(255, 214, 89, 0.55);
+  --garden-accent-active-text: #3c2a0c;
 
   --garden-hero-1: #245c3a;
   --garden-hero-2: #9dc45c;
@@ -520,7 +525,12 @@ body[data-garden-season="winter"] .garden-world {
 .garden-page .site-nav a:hover,
 .garden-page .site-nav button:hover {
   background: rgba(255, 255, 255, 0.08) !important;
-  color: #fff !important;
+  /* Theme-aware instead of a hardcoded white: on the dark night/dusk
+     accents that's nearly identical to --garden-accent-text anyway, but
+     the new light sky-blue day accent needs its own dark navy text to
+     keep hover legible -- a hardcoded white here would drop well below
+     AA contrast against a light background. */
+  color: var(--garden-accent-text) !important;
 }
 .garden-page .site-nav a[aria-current="page"] {
   background: var(--garden-accent-active-bg) !important;

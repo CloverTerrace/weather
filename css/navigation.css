@@ -157,21 +157,55 @@
     border-radius: 12px;
   }
 
+  .site-nav .nav-links {
+    gap: clamp(0.1rem, 1vw, 0.25rem);
+  }
+
   .site-nav .nav-links a,
   .site-nav .nav-links button {
     min-height: 24px;
-    padding: 0.25rem 0.3rem;
+    padding: 0.25rem clamp(0.15rem, 1vw, 0.3rem);
+    gap: clamp(0.12rem, 1vw, 0.25rem);
+    /* Text shrinks before it ever runs out of room, rather than
+       overflowing its own button and visually running into the next
+       one (the "Space soon Soundings" overlap this page was hitting on
+       narrow phones, once a nav-brand icon+link is added in front of
+       these four buttons -- see .nav-brand below). */
+    font-size: clamp(0.56rem, 2.6vw, 0.72rem) !important;
   }
 
   .site-nav .nav-icon {
-    width: 18px !important;
-    height: 18px !important;
+    width: clamp(13px, 4.2vw, 18px) !important;
+    height: clamp(13px, 4.2vw, 18px) !important;
+  }
+
+  /* The "soon" tag used to be normal inline content right after the
+     label text, so on a page that also carries a nav-brand icon+link
+     (gardening.html) it was one more thing competing for the same
+     shrinking row and was what actually overflowed into the next
+     button. Pulling it out of flow into a small corner badge removes
+     that width from the layout entirely instead of trying to shrink
+     text that's already at a readable floor. */
+  .site-nav .nav-soon {
+    position: relative;
+  }
+
+  .site-nav .nav-soon::after {
+    position: absolute;
+    top: 1px;
+    right: 3px;
+    font-size: 0.42rem;
+    margin-top: 0;
   }
 
   /* Wordmark takes real width away from the four section links on a
      phone-width bar, which is what pushed everything onto a second
-     line even after the flex fix above. Icon stays, text collapses. */
+     line even after the flex fix above. Icon stays, text collapses.
+     flex:0 0 auto keeps the icon pinned at its own size at the far
+     left instead of being pulled into the same shrink pool as the
+     section links. */
   .site-nav .nav-brand {
+    flex: 0 0 auto;
     max-width: none;
     padding: 0.25rem;
   }
