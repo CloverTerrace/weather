@@ -15,7 +15,7 @@
    season switch (data-garden-season) already works, it just has
    nowhere to look for the other three seasons yet.
    ===================================================================== */
-
+/*
 (function () {
   "use strict";
 
