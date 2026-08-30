@@ -54,6 +54,13 @@
     <div class="garden-world" data-garden-season="summer">
       <div class="garden-layer garden-terrain" aria-hidden="true"></div>
 
+      <!-- Responsive DOM sprite world. The sprite engine populates these layers
+           from the active season and viewport width; they are intentionally
+           separate from the repeating terrain so the garden can expand instead
+           of becoming one static background image. -->
+      <div class="garden-sprite-layer garden-sprite-layer-back" id="garden-sprites-back" aria-hidden="false"></div>
+      <div class="garden-sprite-layer garden-sprite-layer-front" id="garden-sprites-front" aria-hidden="false"></div>
+
       <!-- day/night-responsive sky, recolored from the sun's real
            altitude (see updateGardenSky() in gardening.js). same idea as
            the main dashboard's weather theming, just restyled for this
@@ -256,6 +263,7 @@
 
   <script src="js/navigation.js" defer></script>
   <script src="js/gardening.js" defer></script>
+  <script src="js/garden-sprites.js" defer></script>
   <footer class="garden-band-credit" aria-label="Garden resources and credits">
 <img src="assets/garden/summer/flowers/icon-rose.png" class="garden-footer-icon" alt=""> Clover Terrace — grown with care
   <div class="garden-footer-links">
