@@ -435,17 +435,19 @@
     if (meta) meta.setAttribute('content', GARDEN_THEME_COLORS[phase] || GARDEN_THEME_COLORS.dusk);
   }
 
-  function positionSkyBody(el, altitudeRad, azimuthRad) {
+  // Sun/moon no longer trace a full sky arc (azimuth+altitude math tuned
+  // against a fixed-height sky band) -- that's what made the body look
+  // like it "got stuck" once the real hero section rendered a different
+  // height. Simplified to a rise/set toggle: whichever body's real
+  // SunCalc altitude is above the horizon gets .is-risen, and CSS alone
+  // animates it between "waiting below the sky" and a fixed top-left
+  // resting spot (see .garden-sky-body / .is-risen in gardening.css).
+  function updateCelestialRise(el, altitudeRad) {
     if (!el) return;
     const altDeg = altitudeRad * 180 / Math.PI;
-    const azDeg = azimuthRad * 180 / Math.PI;
-    const leftPercent = ((azDeg + 180) / 360) * 100;
-    const clampedAlt = Math.max(-15, Math.min(90, altDeg));
-    const topPercent = 92 - ((clampedAlt + 15) / 105) * 80;
-    const opacity = altDeg <= -8 ? 0 : Math.min(1, (altDeg + 8) / 10);
-    el.style.left = `${leftPercent}%`;
-    el.style.top = `${topPercent}%`;
-    el.style.opacity = opacity;
+    // small buffer below the true horizon so it doesn't flicker in/out
+    // right at 0 degrees.
+    el.classList.toggle('is-risen', altDeg > -2);
   }
 
   function updateGardenSky() {
@@ -457,8 +459,74 @@
 
     const sunPos = SunCalc.getPosition(now, LAT, LON);
     const moonPos = SunCalc.getMoonPosition(now, LAT, LON);
-    positionSkyBody($('garden-sun-body'), sunPos.altitude, sunPos.azimuth);
-    positionSkyBody($('garden-moon-body'), moonPos.altitude, moonPos.azimuth);
+    updateCelestialRise($('garden-sun-body'), sunPos.altitude);
+    updateCelestialRise($('garden-moon-body'), moonPos.altitude);
+  }
+
+  // ---------- sky band height (extends the sky/horizon overlay down to
+  // just above the stat-card row, whatever height the hero section
+  // actually renders at -- see --garden-sky-height in gardening.css). ----------
+  let gardenSkyHeightRaf = null;
+
+  function updateGardenSkyHeight() {
+    const world = document.querySelector('.garden-world');
+    const statRow = document.querySelector('.garden-stat-row');
+    if (!world || !statRow) return;
+    const gap = 12; // stop just above the cards, not flush against them
+    const height = Math.max(220, Math.round(statRow.offsetTop - gap));
+    document.documentElement.style.setProperty('--garden-sky-height', `${height}px`);
+  }
+
+  function scheduleGardenSkyHeightUpdate() {
+    if (gardenSkyHeightRaf) return;
+    gardenSkyHeightRaf = requestAnimationFrame(() => {
+      gardenSkyHeightRaf = null;
+      updateGardenSkyHeight();
+    });
+  }
+
+  function initGardenSkyHeight() {
+    updateGardenSkyHeight();
+    const hero = document.querySelector('.garden-hero');
+    if (typeof ResizeObserver !== 'undefined' && hero) {
+      new ResizeObserver(scheduleGardenSkyHeightUpdate).observe(hero);
+    }
+    window.addEventListener('resize', scheduleGardenSkyHeightUpdate);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(scheduleGardenSkyHeightUpdate).catch(() => {});
+    }
+  }
+
+  // ---------- emoji -> custom-icon override (generic, any [data-icon]) ----------
+  // Tries assets/garden/icons/<name>.svg then .png; if neither exists yet
+  // the probe just fails silently and the emoji already in the markup
+  // stays put, so icons can be dropped in later with zero markup changes.
+  const GARDEN_ICON_BASE = 'assets/garden/icons/';
+  const GARDEN_ICON_EXTS = ['svg', 'png'];
+
+  function loadGardenIconCandidate(name, extIndex = 0) {
+    return new Promise(resolve => {
+      if (extIndex >= GARDEN_ICON_EXTS.length) return resolve(null);
+      const src = `${GARDEN_ICON_BASE}${name}.${GARDEN_ICON_EXTS[extIndex]}`;
+      const probe = new Image();
+      probe.onload = () => resolve(src);
+      probe.onerror = () => resolve(loadGardenIconCandidate(name, extIndex + 1));
+      probe.src = src;
+    });
+  }
+
+  async function initGardenIconOverrides() {
+    const nodes = document.querySelectorAll('[data-icon]');
+    await Promise.all(Array.from(nodes).map(async node => {
+      const src = await loadGardenIconCandidate(node.dataset.icon);
+      if (!src) return;
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = '';
+      img.className = 'garden-icon-img';
+      node.textContent = '';
+      node.appendChild(img);
+    }));
   }
 
   function initGardenWeatherFx() {
@@ -610,6 +678,8 @@
   async function init() {
     updateCurrentSeasonDisplay();
     updateGardenSky();
+    initGardenSkyHeight();
+    initGardenIconOverrides();
     initGardenWeatherFx();
     initGardenDetails();
     renderSeasonCountdown();
@@ -630,6 +700,10 @@
         applyFrostCard({ value: '--', status: 'Unavailable', cls: '', caption: 'NWS frost/freeze forecast temporarily unavailable.' });
       }
     }
+
+    // hero content (station timestamp, temp, etc.) just settled into its
+    // final size -- recompute the sky band's height against it.
+    scheduleGardenSkyHeightUpdate();
   }
 
   init();
