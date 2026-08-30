@@ -694,7 +694,7 @@ body[data-garden-season="winter"] .garden-world {
   color: var(--garden-hero-text);
   transition: background 2.5s ease, border-color 2.5s ease, color 1.2s ease;
 }
-.garden-hero-card h2 { color: var(--garden-hero-heading); }
+.garden-hero-card h2 { color: var(--garden-hero-text); }
 .garden-hero-card .garden-readout {
   background: var(--garden-hero-readout-bg);
   border-color: var(--garden-hero-readout-border);
