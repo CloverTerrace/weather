@@ -6,6 +6,10 @@
   <link rel="preload" as="font" type="font/woff2" href="fonts/figtree-v9-latin-regular.woff2" crossorigin>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tints the browser chrome (Android address bar / installed-PWA
+       status bar) to match the current sky. Kept in sync by the
+       pre-paint script below and by updateGardenSky() in gardening.js. -->
+  <meta name="theme-color" id="garden-theme-color" content="#3f2d5c">
   <title>Garden — Clover Terrace</title>
   <meta name="description" content="Local gardening weather, frost risk, growing degree days, rainfall, and growing-season information for Clover Terrace, Aliquippa, Pennsylvania.">
 
@@ -18,10 +22,14 @@
 
   <script src="suncalc.js"></script>
   <script>
-    // synchronous day/night phase pre-paint, so the sky doesn't flash the
-    // fallback dusk-purple gradient before gardening.js finishes loading.
-    // keep LAT/LON here in sync with the constants in js/gardening.js.
+    // synchronous day/night phase pre-paint, so the sky (and the
+    // overscroll/browser-chrome color that follows it) doesn't flash the
+    // fallback dusk-purple before gardening.js finishes loading.
+    // keep LAT/LON and the theme-color map here in sync with
+    // js/gardening.js (GARDEN_THEME_COLORS / --garden-overscroll-*).
     (function () {
+      var THEME_COLORS = { day: '#5e96c4', dawn: '#3f2d5c', dusk: '#3f2d5c', night: '#0f0c22' };
+      var phase = 'dusk';
       try {
         var LAT = 40.616, LON = -80.274;
         var now = new Date();
@@ -29,12 +37,14 @@
         var times = SunCalc.getTimes(now, LAT, LON);
         var altDeg = pos.altitude * 180 / Math.PI;
         var isMorning = now < times.solarNoon;
-        var phase = altDeg >= 6 ? 'day' : altDeg <= -12 ? 'night' : (isMorning ? 'dawn' : 'dusk');
-        document.documentElement.dataset.gardenTime = phase;
+        phase = altDeg >= 6 ? 'day' : altDeg <= -12 ? 'night' : (isMorning ? 'dawn' : 'dusk');
       } catch (e) {
-        document.documentElement.dataset.gardenTime = 'day';
+        phase = 'day';
       }
+      document.documentElement.dataset.gardenTime = phase;
       document.documentElement.dataset.gardenWeather = 'clear';
+      var themeMeta = document.getElementById('garden-theme-color');
+      if (themeMeta) themeMeta.setAttribute('content', THEME_COLORS[phase] || THEME_COLORS.dusk);
     })();
   </script>
 </head>
