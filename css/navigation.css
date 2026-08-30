@@ -49,6 +49,17 @@
   white-space: nowrap;
 }
 
+/* Brand/logo icon — shared base size so the clover mark is identical on
+   every page regardless of which page-specific artwork it points to.
+   Only the image src and any color skin should differ per page; the
+   box it renders into stays fixed here. */
+.site-nav .nav-brand-icon {
+  width: 1.2em;
+  height: 1.2em;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
 /* Section links — the actual row of buttons. This wrapper needs its
    own display:flex: the section links inside it were already set to
    flex:1 1 0px, but that only does anything once their direct parent
@@ -147,14 +158,30 @@
   }
 }
 
-/* MOBILE STYLES (HOME PAGE) */
+/* MOBILE STYLES (ALL PAGES) */
 @media (max-width: 850px) {
+  /* Full-bleed strip: regardless of how much padding a given page's
+     body/wrapper carries (the home page keeps ~1rem side padding for
+     its cards; the gardening page zeroes its body padding entirely),
+     the navbar itself always spans the true viewport edge-to-edge.
+     width:100vw + left:50% + translateX(-50%) is the standard bleed
+     trick -- it reads off the viewport, not the parent, so this box
+     needs no per-page tuning to stay flush. Squared-off corners and no
+     side/top border make it a thin flat strip rather than a floating
+     card; only its background/border COLOR and font-family are meant
+     to change per page (see the page-specific stylesheets), never
+     this size/shape/position block. */
   .site-nav {
     position: relative;
-    width: 100%;
-    margin: 0 0 0.5rem 0;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin: 0 -50vw 0.5rem -50vw;
     padding: 0.2rem 0.3rem;
-    border-radius: 12px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
   }
 
   .site-nav .nav-links {
@@ -163,20 +190,26 @@
 
   .site-nav .nav-links a,
   .site-nav .nav-links button {
-    min-height: 24px;
-    padding: 0.25rem clamp(0.15rem, 1vw, 0.3rem);
-    gap: clamp(0.12rem, 1vw, 0.25rem);
-    /* Text shrinks before it ever runs out of room, rather than
-       overflowing its own button and visually running into the next
-       one (the "Space soon Soundings" overlap this page was hitting on
-       narrow phones, once a nav-brand icon+link is added in front of
-       these four buttons -- see .nav-brand below). */
-    font-size: clamp(0.56rem, 2.6vw, 0.72rem) !important;
+    min-height: 22px;
+    padding: 0.2rem clamp(0.12rem, 0.8vw, 0.25rem);
+    gap: clamp(0.1rem, 0.8vw, 0.2rem);
+    /* Kept deliberately small and narrow-range: this is the one clamp
+       that every page's nav text shares, so a page with a visually
+       "louder" font (e.g. a blocky pixel font) doesn't need a bigger
+       number to still read fine -- shrinking the shared ceiling here
+       is what keeps the bar the same height everywhere and is what
+       stops a chunkier font from overflowing into the next button. */
+    font-size: clamp(0.48rem, 1.9vw, 0.58rem) !important;
   }
 
   .site-nav .nav-icon {
-    width: clamp(13px, 4.2vw, 18px) !important;
-    height: clamp(13px, 4.2vw, 18px) !important;
+    width: clamp(11px, 3.4vw, 14px) !important;
+    height: clamp(11px, 3.4vw, 14px) !important;
+  }
+
+  .site-nav .nav-brand-icon {
+    width: clamp(14px, 4vw, 17px);
+    height: clamp(14px, 4vw, 17px);
   }
 
   /* The "soon" tag used to be normal inline content right after the

@@ -5414,12 +5414,14 @@ svg circle, svg polygon, svg line {
   /* The gardening page zeroes out body's own top padding entirely, which
      is why its nav sits flush against the top of the screen. This page
      reuses the shared 2rem/1rem body padding for spacing everywhere else,
-     so rather than overriding the whole rule we just shrink the top value
-     here -- bringing the now order:-1'd nav up to match the gardening
-     page, while leaving the side/bottom padding this page still relies on
-     untouched. */
+     so rather than overriding the whole rule we just zero the top value
+     here -- bringing the now order:-1'd nav flush with the top edge to
+     match the gardening page exactly, while leaving the side/bottom
+     padding this page still relies on untouched. The navbar's own
+     margin-bottom (navigation.css) still provides the gap before the
+     title below it. */
   body {
-    padding-top: 0.5rem;
+    padding-top: 0;
   }
 
   .dashboard-grid {

@@ -173,17 +173,6 @@ img.pixel,
 
 /* --- center the garden header & season --- */
 
-/* The navbar's brand icon now uses the clover pixel-art asset (in place
-   of the cloud) on this page -- constrain it to emoji-size so it reads
-   as a small logomark, matching the "Clover Terrace" wordmark next to
-   it, rather than the larger scale navigation.css sets by default for
-   the cloud art. */
-.garden-page .nav-brand-icon {
-  width: 1.2em;
-  height: 1.2em;
-  object-fit: contain;
-}
-
 .garden-heading {
   text-align: center; 
 }
@@ -542,6 +531,8 @@ body[data-garden-season="winter"] .garden-world {
   position: relative;
   z-index: 10;
   width: 100%;
+  left: 0;
+  right: 0;
   margin: 0;
   box-sizing: border-box;
   max-width: none;               /* Overrides the 1200px limit to span the full screen width */
