@@ -234,12 +234,20 @@ img.pixel,
   z-index: 1;
   height: var(--garden-sky-height, clamp(300px, 38vh, 420px));
   overflow: hidden;
+  /* Stays substantially opaque across nearly the whole computed height
+     (see updateGardenSkyHeight() in gardening.js -- the band already
+     reaches just above .garden-stat-row) and only blends toward
+     transparent in the final ~10-12%, right where the terrain begins.
+     Previously this faded out by ~88% regardless of how tall the band
+     actually rendered, so once the band grew taller than the original
+     hero-only design, the grass terrain showed through well above the
+     stat row instead of everything above it reading as one horizon. */
   background:
     linear-gradient(180deg,
       rgba(104,72,139,.96) 0%,
-      rgba(104,72,139,.90) 45%,
-      rgba(104,72,139,.72) 70%,
-      rgba(104,72,139,.34) 88%,
+      rgba(104,72,139,.92) 50%,
+      rgba(104,72,139,.82) 75%,
+      rgba(104,72,139,.55) 90%,
       rgba(104,72,139,0) 100%);
   transition: background 2.5s ease, height 0.3s ease;
 }
@@ -248,8 +256,9 @@ img.pixel,
   background:
     linear-gradient(180deg,
       rgba(94,150,196,.92) 0%,
-      rgba(146,186,219,.72) 46%,
-      rgba(196,219,235,.36) 74%,
+      rgba(146,186,219,.85) 45%,
+      rgba(196,219,235,.6) 75%,
+      rgba(196,219,235,.3) 90%,
       rgba(196,219,235,0) 100%);
 }
 
@@ -258,8 +267,9 @@ img.pixel,
   background:
     linear-gradient(180deg,
       rgba(63,45,92,.95) 0%,
-      rgba(217,138,180,.8) 40%,
-      rgba(245,181,130,.48) 72%,
+      rgba(217,138,180,.85) 40%,
+      rgba(245,181,130,.65) 70%,
+      rgba(245,181,130,.35) 88%,
       rgba(245,181,130,0) 100%);
 }
 
@@ -267,8 +277,9 @@ img.pixel,
   background:
     linear-gradient(180deg,
       rgba(15,12,34,.97) 0%,
-      rgba(30,22,58,.92) 42%,
-      rgba(30,22,58,.6) 72%,
+      rgba(30,22,58,.94) 45%,
+      rgba(30,22,58,.82) 75%,
+      rgba(30,22,58,.5) 90%,
       rgba(30,22,58,0) 100%);
 }
 
@@ -799,6 +810,12 @@ body[data-garden-season="winter"] .garden-world {
   box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.08), 0 5px 0 rgba(0, 0, 0, 0.25);
   color: var(--garden-hero-text);
   transition: background 2.5s ease, border-color 2.5s ease, color 1.2s ease;
+  /* Extra padding (over .garden-card's base) so the heading/readouts
+     clear the vine border's dip into the card -- the vine art here
+     covers noticeably more of the card than the stat cards' small
+     corner-only ornament does, so it needs more room to read cleanly
+     rather than sitting on top of the text. */
+  padding: 3.7rem 1.7rem 3.3rem;
 }
 .garden-card.garden-hero-card h2 { color: var(--garden-hero-text); }
 .garden-hero-card .garden-readout {
@@ -811,6 +828,80 @@ body[data-garden-season="winter"] .garden-world {
 .garden-hero-card .garden-stat-label { color: var(--garden-hero-muted); }
 .garden-hero-card .garden-stat-value { color: var(--garden-hero-value); }
 .garden-hero-card .garden-meta { color: var(--garden-hero-muted); }
+
+/* Wisteria vine border -- the hero/accent card's own larger, longer
+   take on the .garden-corner ornament the stat cards use below. Same
+   idea (real cropped pixel-art sprites, absolutely positioned, no
+   CSS-drawn substitutes) but scaled up and extended along all four
+   edges rather than just the corners, since this card is the visual
+   anchor of the page and its edges are much longer than a stat card's.
+   Four corner sprites (each genuinely unique art, not one image
+   mirrored via transform) anchor the corners; four edge strips tile
+   between them via background-repeat so the vine reads as continuous
+   regardless of how wide/tall the hero card renders. Corners sit in a
+   later paint order (higher z-index) than the edges so the edge tiles'
+   cut ends tuck cleanly under the corner art instead of showing a seam. */
+.garden-hero-vine {
+  position: absolute;
+  pointer-events: none;
+  image-rendering: pixelated;
+  z-index: 4;
+}
+
+.garden-hero-vine.corner {
+  width: var(--vine-corner-w, 108px);
+  height: auto;
+  z-index: 5;
+}
+.garden-hero-vine.tl { top: -30px; left: -22px; }
+.garden-hero-vine.tr { top: -30px; right: -22px; }
+.garden-hero-vine.bl { bottom: -26px; left: -22px; width: var(--vine-corner-bottom-w, 106px); }
+.garden-hero-vine.br { bottom: -26px; right: -22px; width: var(--vine-corner-bottom-w, 106px); }
+
+.garden-hero-vine.edge-top,
+.garden-hero-vine.edge-bottom {
+  height: var(--vine-edge-h, 66px);
+  left: calc(var(--vine-corner-w, 108px) - 26px);
+  right: calc(var(--vine-corner-w, 108px) - 26px);
+  background-repeat: repeat-x;
+  background-position: center;
+}
+.garden-hero-vine.edge-top {
+  top: -18px;
+  background-image: url("../assets/garden/summer/borders/vine-edge-top.png");
+  background-size: 118px 82px;
+}
+.garden-hero-vine.edge-bottom {
+  bottom: -14px;
+  height: var(--vine-edge-bottom-h, 58px);
+  background-image: url("../assets/garden/summer/borders/vine-edge-bottom.png");
+  background-size: 108px 75px;
+}
+
+.garden-hero-vine.edge-left,
+.garden-hero-vine.edge-right {
+  width: var(--vine-edge-side-w, 34px);
+  top: calc(var(--vine-corner-w, 108px) * 0.62);
+  bottom: calc(var(--vine-corner-bottom-w, 106px) * 0.62);
+  background-repeat: repeat-y;
+  background-position: center;
+}
+.garden-hero-vine.edge-left {
+  left: -16px;
+  background-image: url("../assets/garden/summer/borders/vine-edge-left.png");
+  background-size: 34px 97px;
+}
+.garden-hero-vine.edge-right {
+  right: -16px;
+  background-image: url("../assets/garden/summer/borders/vine-edge-right.png");
+  background-size: 34px 97px;
+}
+
+@media (max-width: 850px) {
+  :root { --vine-corner-w: 78px; --vine-corner-bottom-w: 76px; --vine-edge-side-w: 26px; }
+  .garden-hero-vine.edge-top { height: 50px; }
+  .garden-hero-vine.edge-bottom { height: 44px; }
+}
 
 .garden-card h2 {
   font-family: var(--font-pixel);
