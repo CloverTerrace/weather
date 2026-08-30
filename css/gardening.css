@@ -50,27 +50,30 @@
 }
 
 /* Daytime -- leafy sunlit green, echoing the garden itself rather than
-   the night sky. */
+   the night sky. Shifted from a flat dark-olive-to-medium-green ramp
+   (read as dim/muddy against the bright sky photo) to a richer emerald
+   base warming up into a sunlit gold-green, with a warmer border so it
+   doesn't go near-black the way the night/dusk palettes do. */
 :root[data-garden-time="day"] {
-  --garden-accent-1: #2f5d22;
-  --garden-accent-2: #4f7f2e;
-  --garden-accent-border: #1c3313;
-  --garden-accent-text: #dcefc4;
-  --garden-accent-active-bg: rgba(255, 233, 168, 0.22);
+  --garden-accent-1: #2e6b34;
+  --garden-accent-2: #86b83f;
+  --garden-accent-border: #2e4a1e;
+  --garden-accent-text: #f2ffdf;
+  --garden-accent-active-bg: rgba(255, 226, 130, 0.28);
   --garden-accent-active-text: #fff3c4;
 
-  --garden-hero-1: #3f6d2c;
-  --garden-hero-2: #74a13f;
-  --garden-hero-border: #1c3313;
-  --garden-hero-text: #fbfbe8;
-  --garden-hero-heading: #eaf6c8;
-  --garden-hero-muted: #dcefc4;
-  --garden-hero-value: #fffef2;
-  --garden-hero-readout-bg: rgba(255, 255, 255, 0.14);
-  --garden-hero-readout-border: rgba(255, 255, 255, 0.28);
+  --garden-hero-1: #245c3a;
+  --garden-hero-2: #9dc45c;
+  --garden-hero-border: #26401f;
+  --garden-hero-text: #fffef2;
+  --garden-hero-heading: #f4ffd9;
+  --garden-hero-muted: #e4f6c4;
+  --garden-hero-value: #ffffff;
+  --garden-hero-readout-bg: rgba(255, 255, 255, 0.16);
+  --garden-hero-readout-border: rgba(255, 255, 255, 0.3);
 
   --garden-overscroll-top: #5e96c4;
-  --garden-overscroll-bottom: #3c5a2c;
+  --garden-overscroll-bottom: #35592c;
 }
 
 /* Dawn/dusk -- warm rose-and-amber, matching the twilight sky gradient. */
@@ -901,6 +904,7 @@ body[data-garden-season="winter"] .garden-world {
   :root { --vine-corner-w: 78px; --vine-corner-bottom-w: 76px; --vine-edge-side-w: 26px; }
   .garden-hero-vine.edge-top { height: 50px; }
   .garden-hero-vine.edge-bottom { height: 44px; }
+  .garden-hero-card { padding: 2.6rem 1.1rem 2.2rem; }
 }
 
 .garden-card h2 {
@@ -1015,10 +1019,35 @@ body[data-garden-season="winter"] .garden-world {
 
 .garden-hero-layout {
   display: flex;
-  flex-wrap: nowrap; /* forces them to stay side-by-side on all screens */
-  gap: 1.2rem;       /* slightly reduced gap so it fits nicely on mobile */
+  flex-wrap: nowrap;
+  gap: 1.2rem;
   justify-content: space-between;
   margin-top: 1rem;
+}
+
+/* Below ~560px, the two columns' own min-widths (200px + 220px) plus
+   this gap no longer fit inside the card at all, regardless of how
+   much the card's own padding shrinks — that's the accent-card
+   overflow. Stacking them is the only layout that actually fits a
+   phone-width screen. */
+@media (max-width: 560px) {
+  .garden-hero-layout {
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+  }
+
+  .garden-hero-primary,
+  .garden-hero-stats-list {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .garden-hero-desc {
+    padding-bottom: 0.5rem; /* was reserving space to push .garden-meta
+                                to the card's bottom edge in the
+                                two-column layout; not needed stacked */
+  }
 }
 
 

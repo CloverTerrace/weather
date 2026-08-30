@@ -20,9 +20,50 @@
   z-index: 20;
 }
 
-/* Force Figtree font on all links & buttons to match cards */
-.site-nav a,
-.site-nav button,
+/* Brand link (logo + wordmark) — sized to its own content, not stretched
+   equally with the section links. Previously this matched the same
+   ".site-nav a" rule as the section links below, so it was forced to
+   flex:1 1 0px alongside four other equal-width items with no
+   display:flex on their shared parent (see .nav-links below) — that
+   combination is what caused the whole bar to wrap onto multiple lines
+   instead of staying a single row. */
+.site-nav .nav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 42%;
+  padding: 0.3rem 0.4rem;
+  color: var(--muted-color);
+  font-family: 'Figtree', var(--font-body), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.site-nav .nav-brand span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Section links — the actual row of buttons. This wrapper needs its
+   own display:flex: the section links inside it were already set to
+   flex:1 1 0px, but that only does anything once their direct parent
+   is itself a flex container. Without this rule .nav-links rendered as
+   a plain block, so the links fell back to normal inline text flow and
+   wrapped freely instead of sharing the row evenly. */
+.site-nav .nav-links {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  gap: 0.25rem;
+}
+
+/* Force Figtree font on the section links & buttons to match cards */
 .site-nav .nav-links a,
 .site-nav .nav-links button {
   flex: 1 1 0px; /* Allows buttons to shrink evenly if container narrows */
@@ -116,8 +157,6 @@
     border-radius: 12px;
   }
 
-  .site-nav a,
-  .site-nav button,
   .site-nav .nav-links a,
   .site-nav .nav-links button {
     min-height: 24px;
@@ -127,5 +166,17 @@
   .site-nav .nav-icon {
     width: 18px !important;
     height: 18px !important;
+  }
+
+  /* Wordmark takes real width away from the four section links on a
+     phone-width bar, which is what pushed everything onto a second
+     line even after the flex fix above. Icon stays, text collapses. */
+  .site-nav .nav-brand {
+    max-width: none;
+    padding: 0.25rem;
+  }
+
+  .site-nav .nav-brand span {
+    display: none;
   }
 }
