@@ -4,12 +4,12 @@
       "name": "This Afternoon",
       "temperature": 86,
       "temperatureUnit": "F",
-      "windSpeed": "7 mph",
+      "windSpeed": "2 to 7 mph",
       "windDirection": "W",
       "shortForecast": "Slight Chance Rain Showers",
-      "detailedForecast": "A slight chance of rain showers before 4pm. Partly sunny, with a high near 86. West wind around 7 mph. Chance of precipitation is 20%.",
+      "detailedForecast": "A slight chance of rain showers. Partly sunny, with a high near 86. West wind 2 to 7 mph. Chance of precipitation is 20%.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 17
+      "probabilityOfPrecipitation": 24
     },
     {
       "name": "Tonight",
@@ -18,9 +18,9 @@
       "windSpeed": "0 to 5 mph",
       "windDirection": "SE",
       "shortForecast": "Slight Chance Rain Showers then Mostly Cloudy",
-      "detailedForecast": "A slight chance of rain showers between 8pm and 9pm. Mostly cloudy, with a low around 68. Southeast wind 0 to 5 mph. Chance of precipitation is 20%.",
+      "detailedForecast": "A slight chance of rain showers before 8pm. Mostly cloudy, with a low around 68. Southeast wind 0 to 5 mph. Chance of precipitation is 20%.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 16
+      "probabilityOfPrecipitation": 18
     },
     {
       "name": "Monday",
@@ -48,13 +48,13 @@
   "hourly": [
     {
       "startTime": "2026-08-30T14:00:00-04:00",
-      "temperature": 84,
+      "temperature": 83,
       "temperatureUnit": "F",
-      "windSpeed": "7 mph",
-      "windDirection": "W",
+      "windSpeed": "2 mph",
+      "windDirection": "NW",
       "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 16
+      "probabilityOfPrecipitation": 24
     },
     {
       "startTime": "2026-08-30T15:00:00-04:00",
@@ -64,7 +64,7 @@
       "windDirection": "W",
       "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 17
+      "probabilityOfPrecipitation": 23
     },
     {
       "startTime": "2026-08-30T16:00:00-04:00",
@@ -72,9 +72,9 @@
       "temperatureUnit": "F",
       "windSpeed": "6 mph",
       "windDirection": "W",
-      "shortForecast": "Mostly Cloudy",
+      "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 10
+      "probabilityOfPrecipitation": 22
     },
     {
       "startTime": "2026-08-30T17:00:00-04:00",
@@ -82,9 +82,9 @@
       "temperatureUnit": "F",
       "windSpeed": "6 mph",
       "windDirection": "W",
-      "shortForecast": "Mostly Cloudy",
+      "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 10
+      "probabilityOfPrecipitation": 20
     },
     {
       "startTime": "2026-08-30T18:00:00-04:00",
@@ -92,9 +92,9 @@
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "W",
-      "shortForecast": "Mostly Cloudy",
+      "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 10
+      "probabilityOfPrecipitation": 18
     },
     {
       "startTime": "2026-08-30T19:00:00-04:00",
@@ -102,9 +102,9 @@
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
       "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy",
+      "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 10
+      "probabilityOfPrecipitation": 15
     },
     {
       "startTime": "2026-08-30T20:00:00-04:00",
@@ -112,9 +112,9 @@
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "N",
-      "shortForecast": "Slight Chance Rain Showers",
+      "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 16
+      "probabilityOfPrecipitation": 12
     },
     {
       "startTime": "2026-08-30T21:00:00-04:00",
@@ -124,7 +124,7 @@
       "windDirection": "E",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 11
+      "probabilityOfPrecipitation": 10
     },
     {
       "startTime": "2026-08-30T22:00:00-04:00",
@@ -134,7 +134,7 @@
       "windDirection": "E",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 8
+      "probabilityOfPrecipitation": 9
     },
     {
       "startTime": "2026-08-30T23:00:00-04:00",
