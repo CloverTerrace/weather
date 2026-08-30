@@ -303,6 +303,12 @@ img.pixel,
   transition: top 2.4s ease, left 1s ease, opacity 1.6s ease, transform 1s ease;
   image-rendering: pixelated;
   pointer-events: none;
+  /* Keeps this on its own composited layer for the whole rise/set
+     transition (not just while a transform/opacity is actively
+     changing), so the glow filter's raster stays in sync with the
+     top/left repaints instead of leaving a stale blurred copy behind
+     once the animation settles. */
+  will-change: top, left, transform, filter;
 }
 
 .garden-sky-body.is-risen {
@@ -666,7 +672,7 @@ body[data-garden-season="winter"] .garden-world {
    place the instant opacity turns on -- it stays invisible the rest
    of the time since the base .garden-sky-sprite opacity is 0. */
 .garden-sky-sprite.star {
-  filter: drop-shadow(0 0 3px rgba(255, 255, 225, 0.9)) drop-shadow(0 0 6px rgba(255, 255, 225, 0.45));
+  filter: drop-shadow(0 0 1.5px rgba(255, 255, 225, 0.85));
 }
 
 /* CSS animations win the cascade over any normal-priority rule for the
@@ -698,7 +704,13 @@ body[data-garden-season="winter"] .garden-world {
    ----------------------------------------------------------------- */
 .garden-stat-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  /* Always exactly 5 cards here, so a fixed 5-column template (rather
+     than auto-fit with a 180px floor) lets columns shrink together as
+     the viewport narrows instead of auto-fit dropping to fewer tracks
+     once 5*180px+gaps stops fitting -- which pushed the last card (and
+     its corner sprites) past the row's edge instead of cleanly
+     wrapping or shrinking. */
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: stretch;
   gap: 1rem;
   max-width: 1180px;
