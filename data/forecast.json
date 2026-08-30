@@ -1,15 +1,15 @@
 {
   "periods": [
     {
-      "name": "Overnight",
+      "name": "Tonight",
       "temperature": 63,
       "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Partly Cloudy",
-      "detailedForecast": "Partly cloudy, with a low around 63. Wind around 0 mph.",
+      "windSpeed": "1 mph",
+      "windDirection": "E",
+      "shortForecast": "Mostly Cloudy",
+      "detailedForecast": "Mostly cloudy, with a low around 63. East wind around 1 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 2
+      "probabilityOfPrecipitation": 0
     },
     {
       "name": "Sunday",
@@ -17,45 +17,35 @@
       "temperatureUnit": "F",
       "windSpeed": "0 to 7 mph",
       "windDirection": "SW",
-      "shortForecast": "Partly Sunny",
-      "detailedForecast": "Partly sunny, with a high near 86. Southwest wind 0 to 7 mph.",
+      "shortForecast": "Mostly Sunny",
+      "detailedForecast": "Mostly sunny, with a high near 86. Southwest wind 0 to 7 mph.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 5
+      "probabilityOfPrecipitation": 8
     },
     {
       "name": "Sunday Night",
-      "temperature": 69,
+      "temperature": 68,
       "temperatureUnit": "F",
       "windSpeed": "0 to 5 mph",
       "windDirection": "SW",
       "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 69. Southwest wind 0 to 5 mph.",
+      "detailedForecast": "Mostly cloudy, with a low around 68. Southwest wind 0 to 5 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 13
+      "probabilityOfPrecipitation": 12
     },
     {
       "name": "Monday",
       "temperature": 89,
       "temperatureUnit": "F",
-      "windSpeed": "1 to 8 mph",
+      "windSpeed": "0 to 7 mph",
       "windDirection": "SW",
       "shortForecast": "Partly Sunny",
-      "detailedForecast": "Partly sunny, with a high near 89. Southwest wind 1 to 8 mph.",
+      "detailedForecast": "Partly sunny, with a high near 89. Southwest wind 0 to 7 mph.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 8
+      "probabilityOfPrecipitation": 11
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-08-29T23:00:00-04:00",
-      "temperature": 66,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-08-30T00:00:00-04:00",
       "temperature": 65,
@@ -285,6 +275,16 @@
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 7
+    },
+    {
+      "startTime": "2026-08-30T23:00:00-04:00",
+      "temperature": 73,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 8
     }
   ]
 }
