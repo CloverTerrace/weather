@@ -732,7 +732,7 @@ body[data-garden-season="winter"] .garden-world {
   margin: 1.5rem auto 1.8rem;
   padding: 0 1rem;
   position: relative;
-  z-index: 2;
+  z-index: 5;
 }
 .garden-card-full { grid-column: 1 / -1; }
 
@@ -1150,4 +1150,153 @@ body[data-garden-season="winter"] .garden-world {
 
 @media (prefers-reduced-motion: reduce) {
   .garden-sky-sprite { animation: none !important; }
+}
+
+
+/* -----------------------------------------------------------------
+   Responsive DOM garden sprites
+   -----------------------------------------------------------------
+   These are real DOM elements rather than one composite background.
+   The JS sprite engine gives each object a stable normalized position,
+   changes density with viewport width, and swaps the season asset path.
+   The two layers deliberately sit below the information UI but above the
+   repeating terrain, with the foreground layer allowed to overlap the
+   lower edge of cards when an individual sprite asks for it.
+   ----------------------------------------------------------------- */
+.garden-sprite-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.garden-sprite-layer-back { z-index: 3; }
+.garden-sprite-layer-front { z-index: 4; }
+
+.garden-sprite {
+  position: absolute;
+  display: block;
+  width: var(--sprite-size, 40px);
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  transform-origin: 50% 100%;
+  transition: filter 180ms ease, opacity 220ms ease;
+  will-change: transform, opacity;
+}
+
+button.garden-sprite {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.garden-sprite.is-clickable {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.garden-sprite.is-clickable:focus-visible {
+  outline: 2px dashed rgba(255, 239, 171, .95);
+  outline-offset: 3px;
+}
+
+.garden-sprite.is-gently-moving {
+  animation: garden-sprite-sway 4.5s ease-in-out infinite;
+  animation-delay: var(--sprite-delay, 0s);
+}
+
+@keyframes garden-sprite-sway {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-2px) rotate(1deg); }
+}
+
+.garden-sprite.is-pulsing {
+  animation: garden-sprite-pulse 1.2s ease-out;
+}
+
+@keyframes garden-sprite-pulse {
+  0% { transform: scale(1); filter: brightness(1); }
+  45% { transform: scale(1.16); filter: brightness(1.18); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+.garden-sprite.is-flying-away {
+  pointer-events: none;
+  animation: garden-sprite-fly-away 1.35s cubic-bezier(.2,.7,.25,1) forwards;
+}
+
+@keyframes garden-sprite-fly-away {
+  0% { opacity: 1; transform: translate(0, 0) scale(1); }
+  35% { opacity: 1; transform: translate(18px, -22px) scale(1.05) rotate(5deg); }
+  100% { opacity: 0; transform: translate(88px, -105px) scale(.78) rotate(12deg); }
+}
+
+.garden-sprite-tip {
+  position: absolute;
+  z-index: 20;
+  max-width: min(240px, 70vw);
+  padding: .45rem .6rem;
+  border: 2px solid var(--parchment-edge);
+  border-radius: 6px;
+  background: rgba(250, 242, 223, .97);
+  color: var(--ink);
+  box-shadow: 3px 3px 0 rgba(0,0,0,.2);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.1;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, 4px);
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.garden-sprite-tip.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.garden-spore {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(245, 226, 177, .95);
+  pointer-events: none;
+  animation: garden-spore-pop 850ms ease-out forwards;
+}
+
+@keyframes garden-spore-pop {
+  from { opacity: 1; transform: translate(0, 0) scale(.7); }
+  to { opacity: 0; transform: translate(var(--spore-x), var(--spore-y)) scale(1.2); }
+}
+
+@media (max-width: 850px) {
+  .garden-sprite-layer-front { z-index: 3; }
+}
+
+@media (max-width: 480px) {
+  .garden-sprite-layer-front { z-index: 3; }
+  .garden-sprite-tip { font-size: .9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .garden-sprite.is-gently-moving,
+  .garden-sprite.is-pulsing,
+  .garden-sprite.is-flying-away,
+  .garden-spore { animation: none !important; }
+  .garden-sprite.is-flying-away { opacity: 0; }
 }
