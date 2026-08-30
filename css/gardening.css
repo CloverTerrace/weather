@@ -40,6 +40,13 @@
   --garden-hero-value: #fff8ec;
   --garden-hero-readout-bg: rgba(255, 255, 255, 0.08);
   --garden-hero-readout-border: rgba(255, 255, 255, 0.22);
+
+  /* Overscroll (rubber-band) fill for the strip above/below the page,
+     plus the browser chrome color (see the <meta name="theme-color">
+     tag, kept in sync by updateGardenSky() in gardening.js). Defaults
+     match the dusk fallback, same as .garden-sky's own base rule. */
+  --garden-overscroll-top: #3f2d5c;
+  --garden-overscroll-bottom: #4a3f2a;
 }
 
 /* Daytime -- leafy sunlit green, echoing the garden itself rather than
@@ -61,6 +68,9 @@
   --garden-hero-value: #fffef2;
   --garden-hero-readout-bg: rgba(255, 255, 255, 0.14);
   --garden-hero-readout-border: rgba(255, 255, 255, 0.28);
+
+  --garden-overscroll-top: #5e96c4;
+  --garden-overscroll-bottom: #3c5a2c;
 }
 
 /* Dawn/dusk -- warm rose-and-amber, matching the twilight sky gradient. */
@@ -82,6 +92,15 @@
   --garden-hero-value: #fff8ef;
   --garden-hero-readout-bg: rgba(255, 255, 255, 0.1);
   --garden-hero-readout-border: rgba(255, 255, 255, 0.24);
+
+  --garden-overscroll-top: #3f2d5c;
+  --garden-overscroll-bottom: #4a3f2a;
+}
+
+/* Night -- deep shadowed green blending into the near-black sky. */
+:root[data-garden-time="night"] {
+  --garden-overscroll-top: #0f0c22;
+  --garden-overscroll-bottom: #1b2a16;
 }
 
 /* -----------------------------------------------------------------
@@ -93,8 +112,10 @@ html {
   min-height: 100%;
   margin: 0 !important;
   padding: 0 !important;
-  /* Top pull-down reveals the dark sky color instead of bright green */
-  background-color: var(--purple-deep); 
+  /* Top pull-down reveals the current sky color (day/dawn/dusk/night),
+     kept in sync with --garden-overscroll-top above by data-garden-time. */
+  background-color: var(--garden-overscroll-top);
+  transition: background-color 2.5s ease;
 }
 
 body {
@@ -103,12 +124,14 @@ body {
   min-height: 100%;
   margin: 0 !important;
   padding: 0 !important;
-  /* Bottom rubber-banding blends into dark grass green */
-  background-color: #3c5a2c; 
+  /* Bottom rubber-banding blends into a grass tone that darkens/warms
+     with the time of day instead of staying a fixed bright green. */
+  background-color: var(--garden-overscroll-bottom);
   background-image: url("../assets/garden/summer/terrain/grass.png");
   background-repeat: repeat;
   background-size: 128px 128px;
   background-position: 0 0;
+  transition: background-color 2.5s ease;
 }
 
 
