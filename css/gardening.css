@@ -149,6 +149,20 @@ body {
 img.pixel,
 .garden-page img { image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges; }
 
+/* Generic emoji -> custom-icon override. Any element with data-icon
+   gets checked by initGardenIconOverrides() in gardening.js for a
+   matching file at assets/garden/icons/<name>.svg or .png; if one
+   exists it replaces the emoji text with this image, sized to match
+   the surrounding text. If no file exists yet, the probe silently
+   fails and the original emoji stays exactly as it is -- so any icon
+   here can be added later without ever touching markup. */
+.garden-icon-img {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  object-fit: contain;
+}
+
 /* --- center the garden header & season --- */
 
 .garden-heading {
@@ -199,11 +213,15 @@ img.pixel,
    weather-driven --bg-color theming, but scoped to this box and
    recolored for the garden's parchment/purple palette. gardening.js
    sets data-garden-time on <html> from the sun's real altitude
-   (via SunCalc); the base rule below is the pre-JS / dusk fallback. */
+   (via SunCalc); the base rule below is the pre-JS / dusk fallback.
+   Height comes from --garden-sky-height, a px value gardening.js
+   measures at runtime so the band always reaches just above the
+   stat-card row regardless of how tall the hero section renders
+   (the clamp() is only a pre-JS fallback for the first paint). */
 .garden-sky {
   inset: 0 0 auto 0;
   z-index: 1;
-  height: clamp(300px, 38vh, 420px);
+  height: var(--garden-sky-height, clamp(300px, 38vh, 420px));
   overflow: hidden;
   background:
     linear-gradient(180deg,
@@ -212,7 +230,7 @@ img.pixel,
       rgba(104,72,139,.72) 70%,
       rgba(104,72,139,.34) 88%,
       rgba(104,72,139,0) 100%);
-  transition: background 2.5s ease;
+  transition: background 2.5s ease, height 0.3s ease;
 }
 
 :root[data-garden-time="day"] .garden-sky {
@@ -243,30 +261,43 @@ img.pixel,
       rgba(30,22,58,0) 100%);
 }
 
-/* Sun & moon, positioned by JS from real altitude/azimuth (SunCalc) --
-   same mechanism as the main dashboard's sky tracker. Plain pixel-styled
-   circles for now; swap for sprite art whenever that's ready. */
+/* Sun & moon: real pixel art (assets/scene/pixelsun.png /
+   pixelmoon.png), no longer traced across the sky by azimuth -- that
+   full-arc mapping was tuned against a fixed-height sky band and broke
+   (visibly "stuck" mid-climb) whenever the real hero section rendered
+   a different height. Simplified to a two-state rise: gardening.js
+   toggles .is-risen on whichever body is currently above the horizon
+   (real SunCalc altitude, see updateCelestialRise()), and CSS just
+   animates between "waiting below the sky" and a fixed top-left resting
+   spot -- same real day/night timing, far less that can go visually wrong. */
 .garden-sky-body {
   position: absolute;
-  width: 26px;
-  height: 26px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  left: clamp(20px, 7%, 84px);
+  top: 100%;
+  transform: translate(-50%, 0);
   opacity: 0;
-  transition: left 1.2s linear, top 1.2s linear, opacity 1s ease;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: top 2.4s ease, opacity 1.6s ease;
   image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.garden-sky-body.is-risen {
+  top: clamp(16px, 6%, 44px);
+  opacity: 1;
 }
 
 .garden-sun {
-  background: radial-gradient(circle at 34% 30%, #fff6d6 0%, #ffd873 45%, #f0a83c 100%);
-  box-shadow: 0 0 14px rgba(255, 216, 115, 0.55);
+  background-image: url("../assets/scene/pixelsun.png");
+  filter: drop-shadow(0 0 10px rgba(255, 216, 115, 0.55));
 }
 
 .garden-moon {
-  background: radial-gradient(circle at 36% 32%, #f5f3ff 0%, #cfc9e6 55%, #8f88b0 100%);
-  box-shadow: 0 0 10px rgba(207, 201, 230, 0.45);
+  background-image: url("../assets/scene/pixelmoon.png");
+  filter: drop-shadow(0 0 8px rgba(207, 201, 230, 0.45));
 }
 
 /* ---------------------------------------------------------------
