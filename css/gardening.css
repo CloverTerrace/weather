@@ -317,9 +317,7 @@ img.pixel,
 }
 
 .garden-fx-rain,
-.garden-fx-snow,
-.garden-fx-clouds,
-.garden-fx-stars {
+.garden-fx-snow {
   position: absolute;
   inset: 0;
   opacity: 0;
@@ -332,17 +330,6 @@ img.pixel,
 }
 
 :root[data-garden-weather="snow"] .garden-fx-snow {
-  opacity: 1;
-}
-
-:root[data-garden-weather="cloudy"] .garden-fx-clouds,
-:root[data-garden-weather="rain"] .garden-fx-clouds,
-:root[data-garden-weather="thunderstorm"] .garden-fx-clouds {
-  opacity: 0.85;
-}
-
-:root[data-garden-weather="clear"][data-garden-time="night"] .garden-fx-stars,
-:root[data-garden-weather="clear"][data-garden-time="dusk"] .garden-fx-stars {
   opacity: 1;
 }
 
@@ -375,35 +362,8 @@ img.pixel,
   100% { transform: translate(-8px, 120vh); }
 }
 
-.garden-cloud-puff {
-  position: absolute;
-  width: 90px;
-  height: 34px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.55);
-  filter: blur(3px);
-  animation: garden-fx-drift linear infinite;
-}
-
-@keyframes garden-fx-drift {
-  from { transform: translateX(-20vw); }
-  to   { transform: translateX(120vw); }
-}
-
-.garden-fx-star {
-  position: absolute;
-  border-radius: 50%;
-  background: #fff8ec;
-  animation: garden-fx-twinkle ease-in-out infinite;
-}
-
-@keyframes garden-fx-twinkle {
-  0%, 100% { opacity: var(--star-min-opacity, 0.25); }
-  50%      { opacity: var(--star-max-opacity, 0.9); }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .garden-raindrop, .garden-snowflake, .garden-cloud-puff, .garden-fx-star {
+  .garden-raindrop, .garden-snowflake {
     animation: none !important;
   }
 }
@@ -633,21 +593,44 @@ body[data-garden-season="winter"] .garden-world {
 }
 
 
-/* twinkling star / drifting cloud sprites, confined to the hero band */
-.garden-sky-sprite { position: absolute; pointer-events: none; z-index: 1; }
-.garden-sky-sprite.star { animation: garden-twinkle 2.6s ease-in-out infinite; }
-.garden-sky-sprite.star:nth-of-type(2) { animation-delay: .4s; }
-.garden-sky-sprite.star:nth-of-type(3) { animation-delay: .9s; }
-.garden-sky-sprite.star:nth-of-type(4) { animation-delay: 1.3s; }
-.garden-sky-sprite.star:nth-of-type(5) { animation-delay: .2s; }
-.garden-sky-sprite.star:nth-of-type(6) { animation-delay: 1.7s; }
-@keyframes garden-twinkle { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
-.garden-sky-sprite.cloud { animation: garden-drift 34s linear infinite; }
-@keyframes garden-drift {
-  0% { transform: translateX(-6vw); }
-  50% { transform: translateX(6vw); }
-  100% { transform: translateX(-6vw); }
+/* twinkling png stars / drifting png cloud sprites -- these are now the
+   only atmospheric decoration (no CSS-drawn clouds or sparkle dots) and
+   live inside #garden-sky itself (see gardening.html) so they travel the
+   full width of the actual day/night overlay rather than just the
+   narrow hero-heading area. Clouds own the daytime/dawn/dusk sky and
+   drift one-directionally, edge to edge, looping; at night they fade
+   out and the stars fade in and twinkle instead (see the
+   :root[data-garden-time="night"] rules below). Per-sprite timing
+   (animation-delay / animation-duration) is set inline in the markup. */
+.garden-sky-sprite {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 2.5s ease;
 }
+
+.garden-sky-sprite.cloud {
+  opacity: 0.85;
+  animation-name: garden-drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes garden-drift {
+  from { left: -20%; }
+  to   { left: 120%; }
+}
+
+.garden-sky-sprite.star {
+  animation-name: garden-twinkle;
+  animation-timing-function: ease-in-out;
+  animation-duration: 2.6s;
+  animation-iteration-count: infinite;
+}
+@keyframes garden-twinkle { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+
+:root[data-garden-time="night"] .garden-sky-sprite.cloud { opacity: 0; }
+:root[data-garden-time="night"] .garden-sky-sprite.star { opacity: 1; }
 
 /* -----------------------------------------------------------------
    garden-specific stat row — five compact cards below the hero,
@@ -748,7 +731,7 @@ body[data-garden-season="winter"] .garden-world {
   color: var(--garden-hero-text);
   transition: background 2.5s ease, border-color 2.5s ease, color 1.2s ease;
 }
-.garden-hero-card h2 { color: var(--garden-hero-text); }
+.garden-card.garden-hero-card h2 { color: var(--garden-hero-text); }
 .garden-hero-card .garden-readout {
   background: var(--garden-hero-readout-bg);
   border-color: var(--garden-hero-readout-border);
