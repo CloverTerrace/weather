@@ -57,8 +57,13 @@
       <!-- day/night-responsive sky, recolored from the sun's real
            altitude (see updateGardenSky() in gardening.js). same idea as
            the main dashboard's weather theming, just restyled for this
-           page's parchment/purple palette. Sun & moon are plain circles
-           for now -- swap for sprite art whenever that's ready. -->
+           page's parchment/purple palette. Sun/moon use real pixel art
+           (assets/scene/pixelsun.png / pixelmoon.png) and simply rise
+           from the bottom of this band to a fixed top-left resting spot
+           (.is-risen, toggled by updateCelestialRise() in gardening.js)
+           rather than tracing a full arc. Height is set at runtime by
+           updateGardenSkyHeight() so the band always reaches just above
+           the stat-card row below. -->
       <div class="garden-layer garden-sky" id="garden-sky" aria-hidden="true">
         <div class="garden-sky-body garden-sun" id="garden-sun-body"></div>
         <div class="garden-sky-body garden-moon" id="garden-moon-body"></div>
@@ -132,26 +137,26 @@
     <!-- Right Column: Vertical Stats List -->
     <div class="garden-hero-stats-list">
       <div class="garden-hero-stat-item">
-        <span class="garden-hero-stat-icon">💧</span>
+        <span class="garden-hero-stat-icon" data-icon="humidity">💧</span>
         <span class="garden-hero-stat-label">Humidity</span>
         <strong class="garden-hero-stat-value"><span id="garden-rh">--</span>%</strong>
       </div>
       
       <div class="garden-hero-stat-item">
-        <span class="garden-hero-stat-icon">💨</span>
+        <span class="garden-hero-stat-icon" data-icon="wind">💨</span>
         <span class="garden-hero-stat-label">Wind</span>
 
         <strong class="garden-hero-stat-value" id="garden-wind">--</strong> 
       </div>
       
       <div class="garden-hero-stat-item">
-        <span class="garden-hero-stat-icon">🌧️</span>
+        <span class="garden-hero-stat-icon" data-icon="precip">🌧️</span>
         <span class="garden-hero-stat-label">Precipitation</span>
         <strong class="garden-hero-stat-value"><span id="garden-rain">--</span> in</strong>
       </div>
       
       <div class="garden-hero-stat-item">
-        <span class="garden-hero-stat-icon">☀️</span>
+        <span class="garden-hero-stat-icon" data-icon="uv">☀️</span>
         <span class="garden-hero-stat-label">UV Index</span>
         <!-- JS automatically appends "UV" to this ID -->
         <strong class="garden-hero-stat-value" id="garden-sun">--</strong>
@@ -172,7 +177,7 @@
         <img class="garden-corner tr" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
         <img class="garden-corner bl" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
         <img class="garden-corner br" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
-        <h2 id="frost-heading"><span class="garden-stat-icon">❄️</span>Frost &amp; Freeze</h2>
+        <h2 id="frost-heading"><span class="garden-stat-icon" data-icon="frost">❄️</span>Frost &amp; Freeze</h2>
         <div class="garden-stat-value" id="frost-value">--</div>
         <div class="garden-stat-status" id="frost-status-word">--</div>
         <p class="garden-stat-caption" id="frost-caption">Checking the local forecast…</p>
@@ -183,7 +188,7 @@
         <img class="garden-corner tr" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
         <img class="garden-corner bl" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
         <img class="garden-corner br" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
-        <h2 id="gdd-heading"><span class="garden-stat-icon">🌱</span>Growing Degree Days</h2>
+        <h2 id="gdd-heading"><span class="garden-stat-icon" data-icon="gdd">🌱</span>Growing Degree Days</h2>
         <div class="garden-stat-value"><span id="gdd50">--</span></div>
         <div class="garden-stat-status good" id="gdd-status">Accumulating</div>
         <p class="garden-stat-caption" id="gdd-caption">Base 40°F: --</p>
@@ -194,7 +199,7 @@
         <img class="garden-corner tr" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
         <img class="garden-corner bl" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
         <img class="garden-corner br" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
-        <h2 id="vpd-heading"><span class="garden-stat-icon">💧</span>Growing Conditions</h2>
+        <h2 id="vpd-heading"><span class="garden-stat-icon" data-icon="vpd">💧</span>Growing Conditions</h2>
         <div class="garden-stat-value"><span id="vpd-value">--</span><span class="garden-stat-unit">kPa</span></div>
         <div class="garden-stat-status" id="vpd-status">--</div>
         <p class="garden-stat-caption" id="vpd-caption">Vapor pressure deficit — building…</p>
@@ -205,7 +210,7 @@
         <img class="garden-corner tr" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
         <img class="garden-corner bl" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
         <img class="garden-corner br" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
-        <h2 id="season-heading"><span class="garden-stat-icon">🍂</span>Next Season</h2>
+        <h2 id="season-heading"><span class="garden-stat-icon" data-icon="fall">🍂</span>Next Season</h2>
         <div class="garden-stat-value"><span id="season-days">--</span><span class="garden-stat-unit">days</span></div>
         <div class="garden-stat-status" id="season-name">--</div>
         <p class="garden-stat-caption" id="season-caption">Working it out…</p>
@@ -216,7 +221,7 @@
         <img class="garden-corner tr" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
         <img class="garden-corner bl" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
         <img class="garden-corner br" data-sprite="corner" src="assets/garden/summer/borders/corner-flowers.png" alt="">
-        <h2 id="rain-heading"><span class="garden-stat-icon">🌧️</span>Rain Forecast</h2>
+        <h2 id="rain-heading"><span class="garden-stat-icon" data-icon="rain">🌧️</span>Rain Forecast</h2>
         <div class="garden-stat-value"><span id="rain-chance">--</span><span class="garden-stat-unit">%</span></div>
         <div class="garden-stat-status" id="rain-status">--</div>
         <p class="garden-stat-caption" id="rain-caption">Checking the forecast…</p>
