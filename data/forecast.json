@@ -1,18 +1,7 @@
 {
   "periods": [
     {
-      "name": "Overnight",
-      "temperature": 59,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 59. Wind around 0 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "name": "Sunday",
+      "name": "Today",
       "temperature": 86,
       "temperatureUnit": "F",
       "windSpeed": "0 to 7 mph",
@@ -23,7 +12,7 @@
       "probabilityOfPrecipitation": 1
     },
     {
-      "name": "Sunday Night",
+      "name": "Tonight",
       "temperature": 69,
       "temperatureUnit": "F",
       "windSpeed": "0 to 5 mph",
@@ -43,19 +32,20 @@
       "detailedForecast": "Partly sunny, with a high near 89. Southwest wind 1 to 8 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 8
+    },
+    {
+      "name": "Monday Night",
+      "temperature": 72,
+      "temperatureUnit": "F",
+      "windSpeed": "3 to 7 mph",
+      "windDirection": "SW",
+      "shortForecast": "Mostly Cloudy",
+      "detailedForecast": "Mostly cloudy, with a low around 72. Southwest wind 3 to 7 mph.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 1
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-08-30T05:00:00-04:00",
-      "temperature": 61,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-08-30T06:00:00-04:00",
       "temperature": 62,
@@ -285,6 +275,16 @@
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 13
+    },
+    {
+      "startTime": "2026-08-31T05:00:00-04:00",
+      "temperature": 69,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "S",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 9
     }
   ]
 }
