@@ -442,12 +442,24 @@
   // SunCalc altitude is above the horizon gets .is-risen, and CSS alone
   // animates it between "waiting below the sky" and a fixed top-left
   // resting spot (see .garden-sky-body / .is-risen in gardening.css).
+  // Sun/moon no longer trace a full sky arc (azimuth+altitude math tuned
+  // against a fixed-height sky band) -- that's what made the body look
+  // like it "got stuck" once the real hero section rendered a different
+  // height. Simplified to a rise/set toggle: whichever body's real
+  // SunCalc altitude is above the horizon gets .is-risen, and CSS alone
+  // animates it between "waiting below the sky" and a resting spot beside
+  // the "Clover Garden" heading (see updateCelestialAnchor() below, and
+  // .garden-sky-body / .is-risen in gardening.css). Returns whether the
+  // body ended up risen, so callers can tell when sun + moon are both up
+  // at once and need to be juxtaposed instead of overlapping.
   function updateCelestialRise(el, altitudeRad) {
-    if (!el) return;
+    if (!el) return false;
     const altDeg = altitudeRad * 180 / Math.PI;
     // small buffer below the true horizon so it doesn't flicker in/out
     // right at 0 degrees.
-    el.classList.toggle('is-risen', altDeg > -2);
+    const risen = altDeg > -2;
+    el.classList.toggle('is-risen', risen);
+    return risen;
   }
 
   function updateGardenSky() {
@@ -459,14 +471,41 @@
 
     const sunPos = SunCalc.getPosition(now, LAT, LON);
     const moonPos = SunCalc.getMoonPosition(now, LAT, LON);
-    updateCelestialRise($('garden-sun-body'), sunPos.altitude);
-    updateCelestialRise($('garden-moon-body'), moonPos.altitude);
+    const sunRisen = updateCelestialRise($('garden-sun-body'), sunPos.altitude);
+    const moonRisen = updateCelestialRise($('garden-moon-body'), moonPos.altitude);
+    const sky = $('garden-sky');
+    // moonrise during full daylight is common (not just a dawn/dusk edge
+    // case), so this needs to hold any time both are actually above the
+    // horizon together -- see .both-risen in gardening.css.
+    if (sky) sky.classList.toggle('both-risen', sunRisen && moonRisen);
   }
 
   // ---------- sky band height (extends the sky/horizon overlay down to
   // just above the stat-card row, whatever height the hero section
   // actually renders at -- see --garden-sky-height in gardening.css). ----------
   let gardenSkyHeightRaf = null;
+
+  // Sun/moon rise up inside the full #garden-sky band (so the motion still
+  // reads as "rising"), but their resting spot is no longer a fixed
+  // top-left corner -- that's what let them end up clipped under the
+  // navbar (the sky band starts at the very top of the page, behind the
+  // nav's higher z-index). Instead they dock beside the "Clover Garden"
+  // heading: #garden-celestial-slot is an empty inline placeholder sized
+  // like the old title icon, and this measures its real on-screen center
+  // each time layout changes, exposing it as --garden-celestial-top/-left
+  // (consumed by .garden-sky-body.is-risen in gardening.css).
+  function updateCelestialAnchor() {
+    const sky = document.getElementById('garden-sky');
+    const slot = document.getElementById('garden-celestial-slot');
+    if (!sky || !slot) return;
+    const skyRect = sky.getBoundingClientRect();
+    const slotRect = slot.getBoundingClientRect();
+    const iconSize = 40; // matches .garden-sky-body width/height
+    const left = (slotRect.left + slotRect.width / 2) - skyRect.left;
+    const top = (slotRect.top + slotRect.height / 2) - skyRect.top - (iconSize / 2);
+    sky.style.setProperty('--garden-celestial-left', `${Math.round(left)}px`);
+    sky.style.setProperty('--garden-celestial-top', `${Math.round(top)}px`);
+  }
 
   function updateGardenSkyHeight() {
     const world = document.querySelector('.garden-world');
@@ -475,6 +514,7 @@
     const gap = 12; // stop just above the cards, not flush against them
     const height = Math.max(220, Math.round(statRow.offsetTop - gap));
     document.documentElement.style.setProperty('--garden-sky-height', `${height}px`);
+    updateCelestialAnchor();
   }
 
   function scheduleGardenSkyHeightUpdate() {
@@ -650,8 +690,8 @@
   
   async function init() {
     updateCurrentSeasonDisplay();
-    updateGardenSky();
     initGardenSkyHeight();
+    updateGardenSky();
     initGardenIconOverrides();
     initGardenWeatherFx();
     initGardenDetails();
