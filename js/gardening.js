@@ -419,6 +419,22 @@
     return isMorning ? 'dawn' : 'dusk';
   }
 
+  // Solid (non-alpha) versions of each phase's sky-top color, used for
+  // the browser chrome's theme-color -- keep these in sync with
+  // --garden-overscroll-top per data-garden-time in gardening.css, and
+  // with the matching inline pre-paint script in gardening.html's <head>.
+  const GARDEN_THEME_COLORS = {
+    day: '#5e96c4',
+    dawn: '#3f2d5c',
+    dusk: '#3f2d5c',
+    night: '#0f0c22',
+  };
+
+  function updateGardenThemeColor(phase) {
+    const meta = document.getElementById('garden-theme-color');
+    if (meta) meta.setAttribute('content', GARDEN_THEME_COLORS[phase] || GARDEN_THEME_COLORS.dusk);
+  }
+
   function positionSkyBody(el, altitudeRad, azimuthRad) {
     if (!el) return;
     const altDeg = altitudeRad * 180 / Math.PI;
@@ -435,7 +451,9 @@
   function updateGardenSky() {
     if (typeof SunCalc === 'undefined') return;
     const now = new Date();
-    document.documentElement.dataset.gardenTime = getSkyPhase(now);
+    const phase = getSkyPhase(now);
+    document.documentElement.dataset.gardenTime = phase;
+    updateGardenThemeColor(phase);
 
     const sunPos = SunCalc.getPosition(now, LAT, LON);
     const moonPos = SunCalc.getMoonPosition(now, LAT, LON);
