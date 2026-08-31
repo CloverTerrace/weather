@@ -54,10 +54,7 @@
     <div class="garden-world" data-garden-season="summer">
       <div class="garden-layer garden-terrain" aria-hidden="true"></div>
 
-      <!-- Responsive DOM sprite world. The sprite engine populates these layers
-           from the active season and viewport width; they are intentionally
-           separate from the repeating terrain so the garden can expand instead
-           of becoming one static background image. -->
+      <!-- DOM sprite world -->
       <div class="garden-sprite-layer garden-sprite-layer-ambient" id="garden-sprites-ambient" aria-hidden="true"></div>
       <div class="garden-sprite-layer garden-sprite-layer-back" id="garden-sprites-back" aria-hidden="false"></div>
       <div class="garden-sprite-layer garden-sprite-layer-front" id="garden-sprites-front" aria-hidden="false"></div>
@@ -77,7 +74,7 @@
         <div class="garden-sky-body garden-moon" id="garden-moon-body"></div>
 
         <!-- png stars -- only faded in at night, twinkling in place -->
-        <!-- Fixed px, not %, of #garden-sky's own top -- keeps every
+        <!-- fixed px, not %, of #garden-sky's own top -- keeps every
              star inside the narrow open band below the nav and above
              the hero row's content (heading/card), whatever
              --garden-sky-height ends up computed as. That band sits
@@ -133,7 +130,7 @@
         <h1><span class="garden-celestial-slot" id="garden-celestial-slot" aria-hidden="true"></span>Garden Weather</h1>
 <p class="garden-season-container" id="garden-season-container"></p>
 
-        <!-- Seasonal keystone tree. Lives here on desktop (filling the
+        <!-- seasonal keystone tree. lives here on desktop (filling the
              space beside the heading); reparented into .garden-stat-row
              on narrow screens by initGardenTreeComposition() in
              gardening.js, landing in the empty grid cell next to Rain
@@ -143,9 +140,9 @@
         <div class="garden-hero-tree" id="garden-hero-tree" aria-hidden="true">
           <img class="garden-tree-sprite" id="garden-tree-img" src="assets/garden/summer/tree/gingko.png" alt="">
           <img class="garden-tree-companion tc-1" src="assets/garden/summer/decorations/mushroom-red.png" alt="">
-          <img class="garden-tree-companion tc-2" src="assets/garden/summer/decorations/rocks.png" alt="">
+          <img class="garden-tree-companion tc-2" src="assets/garden/summer/decorations/mossrock3.png" alt="">
           <img class="garden-tree-companion tc-3" src="assets/garden/summer/plants/grass-tuft.png" alt="">
-          <img class="garden-tree-companion tc-4" src="assets/garden/summer/flowers/bed-daisy.png" alt="">
+          <img class="garden-tree-companion tc-4" src="assets/garden/summer/flowers/daisy.png" alt="">
         </div>
       </header>
 
