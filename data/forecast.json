@@ -6,10 +6,10 @@
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "S",
-      "shortForecast": "Slight Chance Showers And Thunderstorms then Mostly Cloudy",
-      "detailedForecast": "A slight chance of showers and thunderstorms before 7pm. Mostly cloudy, with a low around 72. South wind around 5 mph. Chance of precipitation is 20%.",
+      "shortForecast": "Mostly Cloudy",
+      "detailedForecast": "Mostly cloudy, with a low around 72. South wind around 5 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 21
+      "probabilityOfPrecipitation": 13
     },
     {
       "name": "Tuesday",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-08-31T18:00:00-04:00",
-      "temperature": 82,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "SW",
-      "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 21
-    },
     {
       "startTime": "2026-08-31T19:00:00-04:00",
       "temperature": 79,
@@ -285,6 +275,16 @@
       "shortForecast": "Slight Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 23
+    },
+    {
+      "startTime": "2026-09-01T18:00:00-04:00",
+      "temperature": 88,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "W",
+      "shortForecast": "Slight Chance Showers And Thunderstorms",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 24
     }
   ]
 }
