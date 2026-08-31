@@ -179,8 +179,8 @@ img.pixel,
 
 .garden-season-container {
   display: flex;
-  justify-content: center;
-  margin-top: 0.4rem;
+  justify-content: flex-start;
+  margin: 0.2rem 0 0;
 }
 
 
@@ -300,8 +300,11 @@ img.pixel,
    Garden". The clamp() values below are only the pre-JS fallback. */
 .garden-sky-body {
   position: absolute;
-  width: 40px;
-  height: 40px;
+  /* Bumped from 40px to keep proportion with the enlarged heading text
+     it now docks beside (see .garden-celestial-slot) -- kept in sync
+     with the iconSize constant in updateCelestialAnchor(), gardening.js. */
+  width: 50px;
+  height: 50px;
   left: var(--garden-celestial-left, clamp(20px, 7%, 84px));
   top: 100%;
   transform: translate(-50%, 0);
@@ -476,20 +479,22 @@ body[data-garden-season="winter"] .garden-world {
   display: inline-flex;
   align-items: center;
   background-color: #fdf6e9; /* Light warm background for the badge */
-  border: 1px solid #e2d4c0; /* Subtle border matching the theme */
+  border: 2px solid var(--parchment-edge); /* matches the site's parchment/wood border language */
   border-radius: 20px;       /* Gives it that pill/badge shape */
-  padding: 0.3rem 0.85rem;
+  padding: 0.35rem 0.95rem;
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: bold;
   color: #5c4b37;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  /* flat pixel-style drop shadow, matching .garden-card's shadow
+     language, instead of the softer modern blur it had before */
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18);
   margin-top: 0.4rem;
 }
 
 .garden-tag-icon {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   margin-right: 0.4rem;
   image-rendering: pixelated; /* Keeps the pixel art crisp */
 }
@@ -550,7 +555,12 @@ body[data-garden-season="winter"] .garden-world {
   z-index: 5;
   display: grid;
   grid-template-columns: minmax(260px, 1fr) minmax(320px, 1.15fr);
-  align-items: center;
+  /* stretch (not center) so the heading column grows to match the
+     Current Conditions card's height -- that's what gives the keystone
+     tree room to fill the space below the heading text instead of the
+     column staying only as tall as the text and floating centered
+     inside a taller row. */
+  align-items: stretch;
   gap: 1.5rem;
   max-width: 1180px;
   margin: 0 auto;
@@ -570,11 +580,16 @@ body[data-garden-season="winter"] .garden-world {
   text-align: left;
   padding: 0;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .garden-heading h1 {
   font-family: var(--font-header);
-  font-size: clamp(1.1rem, 3vw, 1.7rem);
+  /* Bigger + more prominent, so it can anchor the tree feature sitting
+     beneath it (was clamp(1.1rem, 3vw, 1.7rem)). */
+  font-size: clamp(1.3rem, 4.5vw, 2.6rem);
   color: #ffffff;
   text-shadow: 1px 1px 0 var(--purple-deep);
   margin: 0.4rem 0 0.7rem;
@@ -637,8 +652,12 @@ body[data-garden-season="winter"] .garden-world {
    fixed page corner. */
 .garden-celestial-slot {
   display: inline-block;
-  width: 1.3em;
-  height: 1.3em;
+  /* scales with the (now bigger) heading font-size automatically via
+     em, so the sun/moon anchor grows and repositions along with the
+     enlarged "Garden Weather" heading with no JS changes needed --
+     updateCelestialAnchor() just re-measures this slot's live position. */
+  width: 1.5em;
+  height: 1.5em;
   margin-right: 0.4rem;
   vertical-align: middle;
 }
@@ -907,6 +926,58 @@ body[data-garden-season="winter"] .garden-world {
   .garden-hero-vine.edge-bottom { height: 44px; }
   .garden-hero-card { padding: 2.6rem 1.1rem 2.2rem; }
 }
+
+/* -----------------------------------------------------------------
+   keystone seasonal gingko tree -- lives beside the heading on desktop
+   (reparented there by initGardenTreeComposition(), gardening.js) and
+   inside .garden-stat-row on narrow screens, landing in the empty grid
+   cell next to Rain Forecast. Tree + companion sprite art is swapped
+   per-season by updateSeasonalTreeArt() (gardening.js), same trigger
+   the rest of the sprite system reacts to -- never hardcode a season
+   folder in the src attributes here.
+   ----------------------------------------------------------------- */
+.garden-hero-tree {
+  position: relative;
+  z-index: 2;
+}
+
+.garden-heading .garden-hero-tree {
+  /* pushes the tree to the bottom of the (now stretch-height) heading
+     column, so its base lines up near the Current Conditions card's
+     bottom edge instead of floating in the middle of the extra space. */
+  margin-top: auto;
+  align-self: center;
+  width: min(78%, 300px);
+  padding-top: 0.5rem;
+}
+
+.garden-stat-row .garden-hero-tree {
+  align-self: end;
+  width: min(100%, 160px);
+  margin: 0 auto;
+}
+
+.garden-tree-sprite {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.28));
+}
+
+.garden-tree-companion {
+  position: absolute;
+  z-index: 1;
+  width: 16%;
+  height: auto;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+.garden-tree-companion.tc-1 { left: -2%;  bottom: 0%;  width: 15%; }
+.garden-tree-companion.tc-2 { right: -1%; bottom: 4%;  width: 20%; }
+.garden-tree-companion.tc-3 { left: 26%;  bottom: -6%; width: 12%; }
+.garden-tree-companion.tc-4 { right: 22%; bottom: -4%; width: 11%; }
 
 .garden-card h2 {
   font-family: var(--font-pixel);
