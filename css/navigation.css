@@ -1,40 +1,8 @@
 /* Clover Terrace — shared site navigation */
 
-/* Opt every page that loads this stylesheet into native cross-document
-   view transitions. Supporting browsers (current Chrome/Edge) animate
-   between index.html and gardening.html as a same-page morph instead
-   of a hard reload; unsupported browsers (Safari/Firefox) just ignore
-   this at-rule and navigate normally, so this is a pure progressive
-   enhancement with no fallback code needed. */
 @view-transition {
   navigation: auto;
 }
-
-/* Giving the bar itself a stable transition name is what makes it read
-   as "the same navbar, recolored" rather than "old one out, new one
-   in": the browser matches this name across the two documents and
-   cross-fades/morphs the one element between its before/after states
-   instead of swapping two different elements. Every page must reuse
-   this exact name on its .site-nav (and only here — a name has to be
-   unique within a single page) for the match to fire. */
-/* Full-bleed flush strip, at every screen size: regardless of how much
-   padding a given page's body/wrapper carries (the home page keeps
-   ~1rem side padding for its cards; the gardening page zeroes its body
-   padding entirely), the navbar itself always spans the true viewport
-   edge-to-edge and sits flush against the top of the screen (paired
-   with site.css's unconditional `body { padding-top: 0 }`).
-   width:100vw + left/right:50% + negative margin is the standard bleed
-   trick -- it reads off the viewport, not the parent, so this box needs
-   no per-page or per-breakpoint tuning to stay flush. Squared-off
-   corners and no border/shadow make it a thin flat strip rather than a
-   floating card. This used to be a mobile-only (<=850px) override with
-   a separate min-width:851px block re-floating the bar as a centered,
-   rounded, bordered, shadowed 1200px card with a gap above it -- that
-   split is why desktop didn't match mobile's flush/flat look. Now it's
-   one rule that holds at every width; only sizing (padding/font/icon
-   scale) still varies per breakpoint below. Background/border COLOR and
-   font-family are meant to change per page (see the page-specific
-   stylesheets), never this size/shape/position block. */
 .site-nav {
   view-transition-name: site-nav;
   position: relative;
@@ -46,10 +14,10 @@
   margin: 0 -50vw 0.5rem -50vw;
   padding: 0.35rem 0.4rem;
   display: flex;
-  flex-wrap: nowrap !important; /* Forces all buttons to stay on a single row */
+  flex-wrap: nowrap !important;
   justify-content: center;
   align-items: center;
-  gap: 0.25rem; /* Tightened gap between buttons */
+  gap: 0.25rem; 
   background: color-mix(in srgb, var(--card-color) 78%, transparent);
   border-left: none;
   border-right: none;
@@ -62,13 +30,6 @@
   z-index: 20;
 }
 
-/* Brand link (logo + wordmark) — sized to its own content, not stretched
-   equally with the section links. Previously this matched the same
-   ".site-nav a" rule as the section links below, so it was forced to
-   flex:1 1 0px alongside four other equal-width items with no
-   display:flex on their shared parent (see .nav-links below) — that
-   combination is what caused the whole bar to wrap onto multiple lines
-   instead of staying a single row. */
 .site-nav .nav-brand {
   display: inline-flex;
   align-items: center;
@@ -91,23 +52,12 @@
   white-space: nowrap;
 }
 
-/* Brand/logo icon — shared base size so the clover mark is identical on
-   every page regardless of which page-specific artwork it points to.
-   Only the image src and any color skin should differ per page; the
-   box it renders into stays fixed here. */
 .site-nav .nav-brand-icon {
   width: 1.2em;
   height: 1.2em;
   object-fit: contain;
   flex-shrink: 0;
 }
-
-/* Section links — the actual row of buttons. This wrapper needs its
-   own display:flex: the section links inside it were already set to
-   flex:1 1 0px, but that only does anything once their direct parent
-   is itself a flex container. Without this rule .nav-links rendered as
-   a plain block, so the links fell back to normal inline text flow and
-   wrapped freely instead of sharing the row evenly. */
 .site-nav .nav-links {
   display: flex;
   align-items: center;
@@ -116,13 +66,12 @@
   gap: 0.25rem;
 }
 
-/* Force Figtree font on the section links & buttons to match cards */
 .site-nav .nav-links a,
 .site-nav .nav-links button {
-  flex: 1 1 0px; /* Allows buttons to shrink evenly if container narrows */
+  flex: 1 1 0px; 
   min-width: 0;
   min-height: 28px;
-  padding: 0.3rem 0.35rem; /* Reduced padding to keep buttons compact */
+  padding: 0.3rem 0.35rem;
   border: 1px solid transparent;
   border-radius: 8px;
   background: transparent;
@@ -138,12 +87,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem; /* Tightened gap between icon and text */
+  gap: 0.25rem; 
   cursor: pointer;
   transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
 }
 
-/* Meteocon sizing inside navbar */
+/* meteocon sizing inside navbar */
 .site-nav .nav-icon {
   width: 20px !important;  
   height: 20px !important; 
@@ -165,7 +114,7 @@
   margin-top: -0.1rem;
 }
 
-/* Toast popup */
+/* toast popup */
 .site-nav-toast {
   position: fixed;
   left: 50%;
@@ -194,14 +143,6 @@
 /* DESKTOP STYLES (HOME PAGE) */
 @media (min-width: 851px) {
   .site-nav {
-    /* Keep the flush full-bleed strip from the base rule (no re-floating
-       into a centered card), but on wide viewports inset the row's
-       *content* so the brand/links don't stretch edge-to-edge across an
-       ultrawide monitor -- the same visual width the bar used to have as
-       a 1200px centered card, just as padding on a full-width strip
-       instead of margin:auto on a narrower box. Below ~1200px + insets
-       this collapses toward the 1rem floor and behaves like a normal
-       edge-padded bar. */
     padding-left: max(1rem, calc((100% - 1200px) / 2));
     padding-right: max(1rem, calc((100% - 1200px) / 2));
     margin-bottom: 1.5rem;
@@ -210,10 +151,6 @@
 
 /* MOBILE STYLES (ALL PAGES) */
 @media (max-width: 850px) {
-  /* The flush/full-bleed/flat treatment now lives unconditionally in
-     the base .site-nav rule above, so this block only needs the
-     phone-width sizing on top of it: tighter padding and the
-     font/icon clamps below. */
   .site-nav {
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
@@ -230,12 +167,6 @@
     min-height: 22px;
     padding: 0.2rem clamp(0.12rem, 0.8vw, 0.25rem);
     gap: clamp(0.1rem, 0.8vw, 0.2rem);
-    /* Kept deliberately small and narrow-range: this is the one clamp
-       that every page's nav text shares, so a page with a visually
-       "louder" font (e.g. a blocky pixel font) doesn't need a bigger
-       number to still read fine -- shrinking the shared ceiling here
-       is what keeps the bar the same height everywhere and is what
-       stops a chunkier font from overflowing into the next button. */
     font-size: clamp(0.48rem, 1.9vw, 0.58rem) !important;
   }
 
@@ -248,14 +179,6 @@
     width: clamp(14px, 4vw, 17px);
     height: clamp(14px, 4vw, 17px);
   }
-
-  /* The "soon" tag used to be normal inline content right after the
-     label text, so on a page that also carries a nav-brand icon+link
-     (gardening.html) it was one more thing competing for the same
-     shrinking row and was what actually overflowed into the next
-     button. Pulling it out of flow into a small corner badge removes
-     that width from the layout entirely instead of trying to shrink
-     text that's already at a readable floor. */
   .site-nav .nav-soon {
     position: relative;
   }
@@ -268,12 +191,6 @@
     margin-top: 0;
   }
 
-  /* Wordmark takes real width away from the four section links on a
-     phone-width bar, which is what pushed everything onto a second
-     line even after the flex fix above. Icon stays, text collapses.
-     flex:0 0 auto keeps the icon pinned at its own size at the far
-     left instead of being pulled into the same shrink pool as the
-     section links. */
   .site-nav .nav-brand {
     flex: 0 0 auto;
     max-width: none;
