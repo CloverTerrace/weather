@@ -20,7 +20,7 @@
   --font-body: 'VT323', monospace;
   --font-header: 'Macondo', 'Press Start 2P', monospace;
 
-  /* Nav + hero-card accent -- purple by default (night), recolored per
+  /* nav + hero-card accent -- purple by default (night), recolored per
      data-garden-time by updateGardenSky() in gardening.js so these two
      "chrome" elements shift alongside the sky instead of staying a fixed
      purple around the clock. */
@@ -523,7 +523,7 @@ body[data-garden-season="winter"] .garden-world {
 
 .garden-heading h1 {
   font-family: var(--font-header);
-  /* Bigger + more prominent, so it can anchor the tree feature sitting
+  /* bigger + more prominent, so it can anchor the tree feature sitting
      beneath it (was clamp(1.1rem, 3vw, 1.7rem)). */
   font-size: clamp(1.3rem, 4.5vw, 2.6rem);
   color: #ffffff;
@@ -558,40 +558,28 @@ body[data-garden-season="winter"] .garden-world {
 }
 
 /* -----------------------------------------------------------------
-   Custom Image Icons (Replacing Emojis)
+   icons
    ----------------------------------------------------------------- */
 
 .garden-icon,
 .garden-title-icon,
 .garden-footer-icon {
-  /* Using 'em' allows the image to automatically scale up or down 
-     based on the font-size of the <h1>, <h2>, or footer text */
   height: 1.2em; 
   width: auto;
   vertical-align: middle; 
   object-fit: contain;
   display: inline-block;
   position: relative;
-  top: -0.1em; /* Slight nudge for perfect optical centering with text */
+  top: -0.1em;
 }
 
-/* Specific spacing adjustments for different areas */
+/* specific spacing adjustments for different areas */
 .garden-title-icon {
   height: 1.3em;
   margin-right: 0.4rem;
 }
-
-/* Empty placeholder inline with the "Clover Garden" heading -- reserves
-   the same space the old inline clover icon did, and gives
-   updateCelestialAnchor() (gardening.js) a real element to measure so
-   the rising sun/moon can dock beside the heading text instead of a
-   fixed page corner. */
 .garden-celestial-slot {
   display: inline-block;
-  /* scales with the (now bigger) heading font-size automatically via
-     em, so the sun/moon anchor grows and repositions along with the
-     enlarged "Garden Weather" heading with no JS changes needed --
-     updateCelestialAnchor() just re-measures this slot's live position. */
   width: 1.5em;
   height: 1.5em;
   margin-right: 0.4rem;
@@ -609,15 +597,7 @@ body[data-garden-season="winter"] .garden-world {
 }
 
 
-/* twinkling png stars / drifting png cloud sprites -- these are now the
-   only atmospheric decoration (no CSS-drawn clouds or sparkle dots) and
-   live inside #garden-sky itself (see gardening.html) so they travel the
-   full width of the actual day/night overlay rather than just the
-   narrow hero-heading area. Clouds own the daytime/dawn/dusk sky and
-   drift one-directionally, edge to edge, looping; at night they fade
-   out and the stars fade in and twinkle instead (see the
-   :root[data-garden-time="night"] rules below). Per-sprite timing
-   (animation-delay / animation-duration) is set inline in the markup. */
+/* twinkling png stars / drifting png cloud sprites */
 .garden-sky-sprite {
   position: absolute;
   pointer-events: none;
@@ -637,22 +617,11 @@ body[data-garden-season="winter"] .garden-world {
   to   { left: 120%; }
 }
 
-/* Faint glow around the pixel art. This sits on the base .star rule
-   (rather than only the night rule below) purely so it's already in
-   place the instant opacity turns on -- it stays invisible the rest
-   of the time since the base .garden-sky-sprite opacity is 0. */
+/* faint glow around the pixel art */
 .garden-sky-sprite.star {
-  filter: drop-shadow(0 0 1.5px rgba(255, 255, 225, 0.85));
+  filter: drop-shadow(0 0 0px rgba(255, 255, 225, 0.85));
 }
 
-/* CSS animations win the cascade over any normal-priority rule for the
-   same property, regardless of selector specificity -- so when
-   animation-name was applied unconditionally above, the keyframes'
-   oscillating opacity permanently overrode BOTH the base "opacity: 0"
-   rule and the ":root[data-garden-time=night]" rule that used to live
-   here, at every time of day. Fix is to scope animation-name itself to
-   night, not to try to out-rank the animation with a stronger opacity
-   rule (nothing at normal priority can win that fight). */
 :root[data-garden-time="night"] .garden-sky-sprite.star {
   opacity: 1;
   animation-name: garden-twinkle;
@@ -665,21 +634,10 @@ body[data-garden-season="winter"] .garden-world {
 :root[data-garden-time="night"] .garden-sky-sprite.cloud { opacity: 0; }
 
 /* -----------------------------------------------------------------
-   garden-specific stat row — five compact cards below the hero,
-   mirroring the "Soil Moisture / Sunlight / Air Quality / Pollen /
-   Rain Forecast" reference layout: icon+label header, one big value,
-   a colored status word, a one-line caption. Kept deliberately small
-   and un-nested (no sub-boxes/bars) so it reads as a clean quick-glance
-   row rather than another version of the hero card.
+   garden-specific stat row
    ----------------------------------------------------------------- */
 .garden-stat-row {
   display: grid;
-  /* Always exactly 5 cards here, so a fixed 5-column template (rather
-     than auto-fit with a 180px floor) lets columns shrink together as
-     the viewport narrows instead of auto-fit dropping to fewer tracks
-     once 5*180px+gaps stops fitting -- which pushed the last card (and
-     its corner sprites) past the row's edge instead of cleanly
-     wrapping or shrinking. */
   grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: stretch;
   gap: 1rem;
