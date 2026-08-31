@@ -14,10 +14,10 @@
       { id:'spring-pink-edge', file:'flowers/flowers37.png', x:.03,y:.86,size:48,minWidth:1250,layer:'front',overlap:true,priority:65 }
     ],
     summer: [
-      { id:'summer-blue', file:'flowers/flower-blue.png', x:.06,y:.76,size:40,minWidth:0,layer:'front',motion:'sway',priority:100 },
+      { id:'summer-lavender', file:'flowers/lavender.png', x:.06,y:.76,minWidth:0,layer:'front',motion:'sway',priority:100 },
       { id:'summer-pink-cluster', file:'flowers/flower-cluster-pink.png', x:.19,y:.81,size:50,minWidth:0,layer:'front',motion:'sway',priority:100 },
-      { id:'summer-allium', file:'flowers/bed-allium.png', x:.31,y:.84,minWidth:0,layer:'front',priority:90 },
-      { id:'summer-daisy', file:'flowers/bed-daisy.png', x:.44,y:.82,size:48,minWidth:0,layer:'front',priority:90 },
+      { id:'summer-allium', file:'flowers/flowers44.png', x:.31,y:.84,minWidth:0,layer:'front',priority:90 },
+      { id:'summer-daisy', file:'flowers/flowers41.png', x:.44,y:.82,size:48,minWidth:0,layer:'front',priority:90 },
       { id:'summer-purple', file:'flowers/flower-purple.png', x:.08,y:.69,size:42,minWidth:520,layer:'front',priority:85 },
       { id:'summer-orange', file:'flowers/flower-orange.png', x:.56,y:.78,size:42,minWidth:520,layer:'front',motion:'sway',priority:85 },
       { id:'summer-red', file:'flowers/flower-red.png', x:.73,y:.82,size:42,minWidth:650,layer:'front',priority:85 },
