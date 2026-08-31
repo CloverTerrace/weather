@@ -40,25 +40,11 @@
   --garden-hero-value: #fff8ec;
   --garden-hero-readout-bg: rgba(255, 255, 255, 0.08);
   --garden-hero-readout-border: rgba(255, 255, 255, 0.22);
-
-  /* Overscroll (rubber-band) fill for the strip above/below the page,
-     plus the browser chrome color (see the <meta name="theme-color">
-     tag, kept in sync by updateGardenSky() in gardening.js). Defaults
-     match the dusk fallback, same as .garden-sky's own base rule. */
   --garden-overscroll-top: #3f2d5c;
   --garden-overscroll-bottom: #4a3f2a;
 }
 
-/* Daytime -- sky blue, echoing the daytime sky band itself (see
-   .garden-sky's data-garden-time="day" gradient below, and
-   --garden-overscroll-top which uses the same top tone) so the nav reads
-   as part of the sky rather than clashing with it or with the device's
-   own status bar. Previously this was leafy green, which stood out
-   against the blue sky/status bar instead of blending in. Text switched
-   from light to dark navy since a light sky-blue bar needs dark text to
-   clear AA contrast (light text worked on the old, much darker green).
-   Active-tab highlight kept as a warm "sunlit" gold so the selected page
-   still pops against the cooler blue. */
+/* daytime*/
 :root[data-garden-time="day"] {
   --garden-accent-1: #3f6f96;
   --garden-accent-2: #7fb0d4;
@@ -81,7 +67,7 @@
   --garden-overscroll-bottom: #35592c;
 }
 
-/* Dawn/dusk -- warm rose-and-amber, matching the twilight sky gradient. */
+/* dawn/dusk */
 :root[data-garden-time="dawn"],
 :root[data-garden-time="dusk"] {
   --garden-accent-1: #5c3168;
@@ -105,14 +91,14 @@
   --garden-overscroll-bottom: #4a3f2a;
 }
 
-/* Night -- deep shadowed green blending into the near-black sky. */
+/* night */
 :root[data-garden-time="night"] {
   --garden-overscroll-top: #0f0c22;
   --garden-overscroll-bottom: #1b2a16;
 }
 
 /* -----------------------------------------------------------------
-   Base Page & Overscroll Color Blending
+   base page & overscroll color
    ----------------------------------------------------------------- */
 html {
   width: 100%;
@@ -120,8 +106,6 @@ html {
   min-height: 100%;
   margin: 0 !important;
   padding: 0 !important;
-  /* Top pull-down reveals the current sky color (day/dawn/dusk/night),
-     kept in sync with --garden-overscroll-top above by data-garden-time. */
   background-color: var(--garden-overscroll-top);
   transition: background-color 2.5s ease;
 }
@@ -132,8 +116,6 @@ body {
   min-height: 100%;
   margin: 0 !important;
   padding: 0 !important;
-  /* Bottom rubber-banding blends into a grass tone that darkens/warms
-     with the time of day instead of staying a fixed bright green. */
   background-color: var(--garden-overscroll-bottom);
   background-image: url("../assets/garden/summer/terrain/grass.png");
   background-repeat: repeat;
@@ -141,8 +123,6 @@ body {
   background-position: 0 0;
   transition: background-color 2.5s ease;
 }
-
-
 
 .garden-page {
   width: 100%;
@@ -156,14 +136,6 @@ body {
 
 img.pixel,
 .garden-page img { image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges; }
-
-/* Generic emoji -> custom-icon override. Any element with data-icon
-   gets checked by initGardenIconOverrides() in gardening.js for a
-   matching file at assets/garden/icons/<name>.svg or .png; if one
-   exists it replaces the emoji text with this image, sized to match
-   the surrounding text. If no file exists yet, the probe silently
-   fails and the original emoji stays exactly as it is -- so any icon
-   here can be added later without ever touching markup. */
 .garden-icon-img {
   width: 1em;
   height: 1em;
@@ -217,7 +189,7 @@ img.pixel,
   image-rendering: pixelated;
 }
 
-/* Day/night-responsive sky -- same idea as the main dashboard's
+/* day/night-responsive sky -- same idea as the main dashboard's
    weather-driven --bg-color theming, but scoped to this box and
    recolored for the garden's parchment/purple palette. gardening.js
    sets data-garden-time on <html> from the sun's real altitude
@@ -231,14 +203,6 @@ img.pixel,
   z-index: 1;
   height: var(--garden-sky-height, clamp(300px, 38vh, 420px));
   overflow: hidden;
-  /* Stays substantially opaque across nearly the whole computed height
-     (see updateGardenSkyHeight() in gardening.js -- the band already
-     reaches just above .garden-stat-row) and only blends toward
-     transparent in the final ~10-12%, right where the terrain begins.
-     Previously this faded out by ~88% regardless of how tall the band
-     actually rendered, so once the band grew taller than the original
-     hero-only design, the grass terrain showed through well above the
-     stat row instead of everything above it reading as one horizon. */
   background:
     linear-gradient(180deg,
       rgba(104,72,139,.96) 0%,
@@ -280,29 +244,9 @@ img.pixel,
       rgba(30,22,58,0) 100%);
 }
 
-/* Sun & moon: real pixel art (assets/scene/pixelsun.png /
-   pixelmoon.png), no longer traced across the sky by azimuth -- that
-   full-arc mapping was tuned against a fixed-height sky band and broke
-   (visibly "stuck" mid-climb) whenever the real hero section rendered
-   a different height. Simplified to a two-state rise: gardening.js
-   toggles .is-risen on whichever body is currently above the horizon
-   (real SunCalc altitude, see updateCelestialRise()), and CSS animates
-   between "waiting below the sky" and a resting spot beside the
-   "Clover Garden" heading -- same real day/night timing, far less that
-   can go visually wrong.
-
-   The resting spot used to be a fixed top-left corner of the sky band,
-   which starts at the very top of the page (behind the navbar's higher
-   z-index) and clipped the icon there. Now it docks next to the heading
-   text instead: --garden-celestial-top/-left are set by
-   updateCelestialAnchor() in gardening.js from the real position of
-   #garden-celestial-slot, the empty placeholder inline with "Clover
-   Garden". The clamp() values below are only the pre-JS fallback. */
+/* sun & moon */
 .garden-sky-body {
   position: absolute;
-  /* Bumped from 40px to keep proportion with the enlarged heading text
-     it now docks beside (see .garden-celestial-slot) -- kept in sync
-     with the iconSize constant in updateCelestialAnchor(), gardening.js. */
   width: 50px;
   height: 50px;
   left: var(--garden-celestial-left, clamp(20px, 7%, 84px));
@@ -314,11 +258,6 @@ img.pixel,
   transition: top 2.4s ease, left 1s ease, opacity 1.6s ease, transform 1s ease;
   image-rendering: pixelated;
   pointer-events: none;
-  /* Keeps this on its own composited layer for the whole rise/set
-     transition (not just while a transform/opacity is actively
-     changing), so the glow filter's raster stays in sync with the
-     top/left repaints instead of leaving a stale blurred copy behind
-     once the animation settles. */
   will-change: top, left, transform, filter;
 }
 
@@ -327,10 +266,7 @@ img.pixel,
   opacity: 1;
 }
 
-/* Moonrise during full daylight (and moonset well after sunrise) is
-   common, not just a dawn/dusk edge case -- so any time both bodies are
-   actually above the horizon together, split them to either side of the
-   anchor point instead of letting them stack on top of each other. */
+/* moonrise during full daylight (and moonset after sunrise) */
 #garden-sky.both-risen .garden-sun.is-risen { transform: translate(calc(-100% - 4px), 0); }
 #garden-sky.both-risen .garden-moon.is-risen { transform: translate(4px, 0); }
 
@@ -345,10 +281,10 @@ img.pixel,
 }
 
 /* ---------------------------------------------------------------
-   Weather-responsive fx -- rain / snow / clouds / stars layered over
+   weather-responsive fx -- rain / snow / clouds / stars layered over
    the sky, toggled by data-garden-weather (+ data-garden-time for
-   stars) on <html>. See classifyGardenWeather() / updateGardenSky()
-   in gardening.js. Mirrors the main dashboard's #weather-fx system,
+   stars) on <html>. see classifyGardenWeather() / updateGardenSky()
+   in gardening.js. mirrors the main dashboard's #weather-fx system,
    renamed so it can never collide with site.css's own fx rules even
    though site.css is loaded on this page too.
    ----------------------------------------------------------------- */
@@ -473,7 +409,7 @@ body[data-garden-season="winter"] .garden-world {
   --season-path: "../assets/garden/winter/";
   --season-grass: url("../assets/garden/winter/terrain/grass.png");
 }
-/* --- Season Subtitle Tag --- */
+/* --- season subtitle tag --- */
 
 .garden-season-tag {
   display: inline-flex;
@@ -519,7 +455,7 @@ body[data-garden-season="winter"] .garden-world {
 .garden-page .site-nav a:hover,
 .garden-page .site-nav button:hover {
   background: rgba(255, 255, 255, 0.08) !important;
-  /* Theme-aware instead of a hardcoded white: on the dark night/dusk
+  /* theme-aware instead of a hardcoded white: on the dark night/dusk
      accents that's nearly identical to --garden-accent-text anyway, but
      the new light sky-blue day accent needs its own dark navy text to
      keep hover legible -- a hardcoded white here would drop well below
@@ -825,7 +761,7 @@ body[data-garden-season="winter"] .garden-world {
 .garden-corner.bl { bottom: -11px; left: -11px; transform: scaleY(-1); }
 .garden-corner.br { bottom: -11px; right: -11px; transform: scale(-1, -1); }
 
-/* Hero "Current Conditions" card — recolors with data-garden-time,
+/* hero "Current Conditions" card — recolors with data-garden-time,
    same accent variables the nav uses (see :root rules above). */
 .garden-hero-card {
   background: linear-gradient(160deg, var(--garden-hero-1), var(--garden-hero-2));
@@ -833,11 +769,6 @@ body[data-garden-season="winter"] .garden-world {
   box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.08), 0 5px 0 rgba(0, 0, 0, 0.25);
   color: var(--garden-hero-text);
   transition: background 2.5s ease, border-color 2.5s ease, color 1.2s ease;
-  /* Extra padding (over .garden-card's base) so the heading/readouts
-     clear the vine border's dip into the card -- the vine art here
-     covers noticeably more of the card than the stat cards' small
-     corner-only ornament does, so it needs more room to read cleanly
-     rather than sitting on top of the text. */
   padding: 3.7rem 1.7rem 3.3rem;
 }
 .garden-card.garden-hero-card h2 { color: var(--garden-hero-text); }
@@ -852,18 +783,7 @@ body[data-garden-season="winter"] .garden-world {
 .garden-hero-card .garden-stat-value { color: var(--garden-hero-value); }
 .garden-hero-card .garden-meta { color: var(--garden-hero-muted); }
 
-/* Wisteria vine border -- the hero/accent card's own larger, longer
-   take on the .garden-corner ornament the stat cards use below. Same
-   idea (real cropped pixel-art sprites, absolutely positioned, no
-   CSS-drawn substitutes) but scaled up and extended along all four
-   edges rather than just the corners, since this card is the visual
-   anchor of the page and its edges are much longer than a stat card's.
-   Four corner sprites (each genuinely unique art, not one image
-   mirrored via transform) anchor the corners; four edge strips tile
-   between them via background-repeat so the vine reads as continuous
-   regardless of how wide/tall the hero card renders. Corners sit in a
-   later paint order (higher z-index) than the edges so the edge tiles'
-   cut ends tuck cleanly under the corner art instead of showing a seam. */
+/* wisteria vine border */
 .garden-hero-vine {
   position: absolute;
   pointer-events: none;
@@ -963,7 +883,6 @@ body[data-garden-season="winter"] .garden-world {
   height: auto;
   position: relative;
   z-index: 2;
-  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.28));
 }
 
 .garden-tree-companion {
