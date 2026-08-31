@@ -189,15 +189,7 @@ img.pixel,
   image-rendering: pixelated;
 }
 
-/* day/night-responsive sky -- same idea as the main dashboard's
-   weather-driven --bg-color theming, but scoped to this box and
-   recolored for the garden's parchment/purple palette. gardening.js
-   sets data-garden-time on <html> from the sun's real altitude
-   (via SunCalc); the base rule below is the pre-JS / dusk fallback.
-   Height comes from --garden-sky-height, a px value gardening.js
-   measures at runtime so the band always reaches just above the
-   stat-card row regardless of how tall the hero section renders
-   (the clamp() is only a pre-JS fallback for the first paint). */
+/* day/night-responsive sky */
 .garden-sky {
   inset: 0 0 auto 0;
   z-index: 1;
@@ -422,8 +414,7 @@ body[data-garden-season="winter"] .garden-world {
   font-size: 1.05rem;
   font-weight: bold;
   color: #5c4b37;
-  /* flat pixel-style drop shadow, matching .garden-card's shadow
-     language, instead of the softer modern blur it had before */
+ 
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18);
   margin-top: 0.4rem;
 }
@@ -455,11 +446,7 @@ body[data-garden-season="winter"] .garden-world {
 .garden-page .site-nav a:hover,
 .garden-page .site-nav button:hover {
   background: rgba(255, 255, 255, 0.08) !important;
-  /* theme-aware instead of a hardcoded white: on the dark night/dusk
-     accents that's nearly identical to --garden-accent-text anyway, but
-     the new light sky-blue day accent needs its own dark navy text to
-     keep hover legible -- a hardcoded white here would drop well below
-     AA contrast against a light background. */
+  
   color: var(--garden-accent-text) !important;
 }
 .garden-page .site-nav a[aria-current="page"] {
@@ -476,10 +463,10 @@ body[data-garden-season="winter"] .garden-world {
   right: 0;
   margin: 0;
   box-sizing: border-box;
-  max-width: none;               /* Overrides the 1200px limit to span the full screen width */
-  border-radius: 0 !important;   /* Squares off the edges so they are no longer rounded */
-  border-left: none !important;  /* Removes the left border so it sits perfectly flush */
-  border-right: none !important; /* Removes the right border */
+  max-width: none;               
+  border-radius: 0 !important;   
+  border-left: none !important;  
+  border-right: none !important; 
   border-top: none !important;
 }
 
@@ -491,11 +478,6 @@ body[data-garden-season="winter"] .garden-world {
   z-index: 5;
   display: grid;
   grid-template-columns: minmax(260px, 1fr) minmax(320px, 1.15fr);
-  /* stretch (not center) so the heading column grows to match the
-     Current Conditions card's height -- that's what gives the keystone
-     tree room to fill the space below the heading text instead of the
-     column staying only as tall as the text and floating centered
-     inside a taller row. */
   align-items: stretch;
   gap: 1.5rem;
   max-width: 1180px;
@@ -523,8 +505,6 @@ body[data-garden-season="winter"] .garden-world {
 
 .garden-heading h1 {
   font-family: var(--font-header);
-  /* bigger + more prominent, so it can anchor the tree feature sitting
-     beneath it (was clamp(1.1rem, 3vw, 1.7rem)). */
   font-size: clamp(1.3rem, 4.5vw, 2.6rem);
   color: #ffffff;
   text-shadow: 1px 1px 0 var(--purple-deep);
@@ -719,8 +699,7 @@ body[data-garden-season="winter"] .garden-world {
 .garden-corner.bl { bottom: -11px; left: -11px; transform: scaleY(-1); }
 .garden-corner.br { bottom: -11px; right: -11px; transform: scale(-1, -1); }
 
-/* hero "Current Conditions" card — recolors with data-garden-time,
-   same accent variables the nav uses (see :root rules above). */
+/* current season and conditions card */
 .garden-hero-card {
   background: linear-gradient(160deg, var(--garden-hero-1), var(--garden-hero-2));
   border-color: var(--garden-hero-border);
@@ -806,10 +785,10 @@ body[data-garden-season="winter"] .garden-world {
 }
 
 /* -----------------------------------------------------------------
-   keystone seasonal gingko tree -- lives beside the heading on desktop
+   keystone seasonal gingko tree beside the heading on desktop
    (reparented there by initGardenTreeComposition(), gardening.js) and
    inside .garden-stat-row on narrow screens, landing in the empty grid
-   cell next to Rain Forecast. Tree + companion sprite art is swapped
+   cell next to Rain Forecast. tree + companion sprite art is swapped
    per-season by updateSeasonalTreeArt() (gardening.js), same trigger
    the rest of the sprite system reacts to -- never hardcode a season
    folder in the src attributes here.
@@ -974,11 +953,6 @@ body[data-garden-season="winter"] .garden-world {
   margin-top: 1rem;
 }
 
-/* Below ~560px, the two columns' own min-widths (200px + 220px) plus
-   this gap no longer fit inside the card at all, regardless of how
-   much the card's own padding shrinks — that's the accent-card
-   overflow. Stacking them is the only layout that actually fits a
-   phone-width screen. */
 @media (max-width: 560px) {
   .garden-hero-layout {
     flex-direction: column;
@@ -993,9 +967,7 @@ body[data-garden-season="winter"] .garden-world {
   }
 
   .garden-hero-desc {
-    padding-bottom: 0.5rem; /* was reserving space to push .garden-meta
-                                to the card's bottom edge in the
-                                two-column layout; not needed stacked */
+    padding-bottom: 0.5rem; 
   }
 }
 
@@ -1027,7 +999,7 @@ body[data-garden-season="winter"] .garden-world {
 .garden-hero-desc {
   font-size: 1.25rem;
   color: var(--garden-hero-text);
-  margin-bottom: auto; /* pushes the meta timestamp to the bottom */
+  margin-bottom: auto;
   padding-bottom: 2rem; 
 }
 
@@ -1072,7 +1044,7 @@ body[data-garden-season="winter"] .garden-world {
   letter-spacing: 0.05em;
 }
 
-/* Reset the existing meta tag margin */
+/* reset the existing meta tag margin */
 .garden-hero-card .garden-meta {
   margin-top: 0 !important;
 }
@@ -1102,14 +1074,7 @@ body[data-garden-season="winter"] .garden-world {
 
 
 /* -----------------------------------------------------------------
-   Responsive DOM garden sprites
-   -----------------------------------------------------------------
-   These are real DOM elements rather than one composite background.
-   The JS sprite engine gives each object a stable normalized position,
-   changes density with viewport width, and swaps the season asset path.
-   The two layers deliberately sit below the information UI but above the
-   repeating terrain, with the foreground layer allowed to overlap the
-   lower edge of cards when an individual sprite asks for it.
+   responsive dom sprites
    ----------------------------------------------------------------- */
 .garden-sprite-layer {
   position: absolute;
@@ -1250,7 +1215,7 @@ button.garden-sprite {
 }
 
 /* -----------------------------------------------------------------
-   Garden sprite engine v2 additions
+   garden sprite engine
    ----------------------------------------------------------------- */
 .garden-sprite-layer-ambient { z-index: 2; }
 .garden-sprite-layer-back { z-index: 3; }
