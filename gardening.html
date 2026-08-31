@@ -133,6 +133,20 @@
         <h1><span class="garden-celestial-slot" id="garden-celestial-slot" aria-hidden="true"></span>Garden Weather</h1>
 <p class="garden-season-container" id="garden-season-container"></p>
 
+        <!-- Seasonal keystone tree. Lives here on desktop (filling the
+             space beside the heading); reparented into .garden-stat-row
+             on narrow screens by initGardenTreeComposition() in
+             gardening.js, landing in the empty grid cell next to Rain
+             Forecast. Tree art + companions are swapped per-season by
+             updateSeasonalTreeArt() in gardening.js -- do not hardcode
+             a season folder here. -->
+        <div class="garden-hero-tree" id="garden-hero-tree" aria-hidden="true">
+          <img class="garden-tree-sprite" id="garden-tree-img" src="assets/garden/summer/tree/gingko.png" alt="">
+          <img class="garden-tree-companion tc-1" src="assets/garden/summer/decorations/mushroom-red.png" alt="">
+          <img class="garden-tree-companion tc-2" src="assets/garden/summer/decorations/rocks.png" alt="">
+          <img class="garden-tree-companion tc-3" src="assets/garden/summer/plants/grass-tuft.png" alt="">
+          <img class="garden-tree-companion tc-4" src="assets/garden/summer/flowers/bed-daisy.png" alt="">
+        </div>
       </header>
 
       <section class="garden-card garden-hero-card" aria-labelledby="conditions-heading">
