@@ -1,5 +1,24 @@
 /* Clover Terrace — shared site navigation */
+
+/* Opt every page that loads this stylesheet into native cross-document
+   view transitions. Supporting browsers (current Chrome/Edge) animate
+   between index.html and gardening.html as a same-page morph instead
+   of a hard reload; unsupported browsers (Safari/Firefox) just ignore
+   this at-rule and navigate normally, so this is a pure progressive
+   enhancement with no fallback code needed. */
+@view-transition {
+  navigation: auto;
+}
+
+/* Giving the bar itself a stable transition name is what makes it read
+   as "the same navbar, recolored" rather than "old one out, new one
+   in": the browser matches this name across the two documents and
+   cross-fades/morphs the one element between its before/after states
+   instead of swapping two different elements. Every page must reuse
+   this exact name on its .site-nav (and only here — a name has to be
+   unique within a single page) for the match to fire. */
 .site-nav {
+  view-transition-name: site-nav;
   width: 100%;
   height: fit-content;
   align-self: start;
@@ -178,10 +197,12 @@
     right: 50%;
     margin: 0 -50vw 0.5rem -50vw;
     padding: 0.2rem 0.3rem;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-    border-top: none;
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
   }
 
   .site-nav .nav-links {

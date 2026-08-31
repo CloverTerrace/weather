@@ -5399,6 +5399,6 @@ svg circle, svg polygon, svg line {
      page still relies on untouched. The navbar's own margin-bottom
      (navigation.css) still provides the gap before the title below it. */
   body {
-    padding-top: 0;
+    padding-top: 0 !important;
   }
 }
