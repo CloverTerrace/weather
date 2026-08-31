@@ -4612,13 +4612,6 @@ svg circle, svg polygon, svg line {
       gap: clamp(0.9rem, 1.15vw, 1.2rem);
     }
 
-    /* Navigation + Storm Center use the same vertical rhythm as the rails. */
-    .storm-nav-group {
-      display: flex;
-      flex-direction: column;
-      gap: clamp(0.9rem, 1.15vw, 1.2rem);
-    }
-
     .desktop-left-rail #grid {
       grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
       grid-auto-rows: auto !important;
@@ -5389,61 +5382,23 @@ svg circle, svg polygon, svg line {
   .nws-meta-item { white-space: nowrap; }
 
 /* =====================================================================
-   Mobile: nav escapes the right-column wrappers
+   Mobile: nav sits flush against the top of the screen
    ---------------------------------------------------------------------
-   .site-nav (main page) lives inside .storm-nav-group, itself inside
-   .dashboard-grid, so it can render above the Storm Center card in the
-   desktop right column. Both wrappers already regain real boxes at
-   851px+ (.desktop-right-rail .dashboard-grid / .storm-nav-group
-   above), so this only touches mobile. Flattening them here is what
-   lets #page-content .site-nav { order: -1 } (navigation.css) actually
-   pull the nav out to the very top of the page, matching the gardening
-   page's nav -- which sits there simply because it's first in the
-   markup and has no such wrappers to escape.
-
-   Two earlier, narrower rules already touch .dashboard-grid on mobile
-   (the <700px block above sets display:block + a bottom-margin gap;
-   the plain <851px default sets display:grid + its own gap) -- both
-   provided spacing that no longer exists once this flattens the box
-   away entirely, so spacing for the affected cards is restored below
-   on their top margin instead, consistently across the whole <851px
-   range. This block is intentionally last in the cascade so it wins
-   over those two for the properties it touches.
+   .site-nav now sits first in the markup, directly inside #page-content
+   -- the same position it already occupies on the gardening page -- so
+   no flex/grid reordering or wrapper-flattening is needed here anymore,
+   just the same top-edge treatment the gardening page uses.
    ===================================================================== */
 @media (max-width: 850px) {
   /* The gardening page zeroes out body's own top padding entirely, which
      is why its nav sits flush against the top of the screen. This page
      reuses the shared 2rem/1rem body padding for spacing everywhere else,
      so rather than overriding the whole rule we just zero the top value
-     here -- bringing the now order:-1'd nav flush with the top edge to
-     match the gardening page exactly, while leaving the side/bottom
-     padding this page still relies on untouched. The navbar's own
-     margin-bottom (navigation.css) still provides the gap before the
-     title below it. */
+     here -- bringing the nav flush with the top edge to match the
+     gardening page exactly, while leaving the side/bottom padding this
+     page still relies on untouched. The navbar's own margin-bottom
+     (navigation.css) still provides the gap before the title below it. */
   body {
     padding-top: 0;
-  }
-
-  .dashboard-grid {
-    display: contents !important;
-  }
-
-  .dashboard-grid > * {
-    margin-bottom: 0 !important; /* supersedes the <700px rule above */
-  }
-
-  .dashboard-grid > .camera-card {
-    margin-top: 1.5rem !important; /* replaces the lost grid gap / dashboard-grid's own margin-top */
-  }
-
-  /* .storm-nav-group's flex/gap styling comes from an inline style
-     attribute on the element, which always beats a plain external
-     rule -- !important is required here to win control for the
-     mobile flatten. Its two children need no extra spacing rule here:
-     .site-nav now sits first in the page (order:-1, no margin-top
-     needed) and .outlook-card already carries its own margin-top from
-     the shared .camera-card base class. */
-  .storm-nav-group {
-    display: contents !important;
   }
 }
