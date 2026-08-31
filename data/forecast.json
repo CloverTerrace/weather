@@ -4,10 +4,10 @@
       "name": "This Afternoon",
       "temperature": 83,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 7 mph",
+      "windSpeed": "7 mph",
       "windDirection": "W",
       "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "detailedForecast": "A slight chance of showers and thunderstorms after 5pm. Partly sunny, with a high near 83. West wind 3 to 7 mph. Chance of precipitation is 20%.",
+      "detailedForecast": "A slight chance of showers and thunderstorms after 5pm. Partly sunny, with a high near 83. West wind around 7 mph. Chance of precipitation is 20%.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 15
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-08-31T15:00:00-04:00",
+      "temperature": 83,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "W",
+      "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 6
+    },
     {
       "startTime": "2026-08-31T16:00:00-04:00",
       "temperature": 82,
@@ -275,16 +285,6 @@
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 13
-    },
-    {
-      "startTime": "2026-09-01T15:00:00-04:00",
-      "temperature": 90,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "W",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 8
     }
   ]
 }
