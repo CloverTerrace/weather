@@ -500,7 +500,7 @@
     if (!sky || !slot) return;
     const skyRect = sky.getBoundingClientRect();
     const slotRect = slot.getBoundingClientRect();
-    const iconSize = 40; // matches .garden-sky-body width/height
+    const iconSize = 50; // matches .garden-sky-body width/height
     const left = (slotRect.left + slotRect.width / 2) - skyRect.left;
     const top = (slotRect.top + slotRect.height / 2) - skyRect.top - (iconSize / 2);
     sky.style.setProperty('--garden-celestial-left', `${Math.round(left)}px`);
@@ -674,7 +674,11 @@
     if (world) world.dataset.gardenSeason = seasonKey;
     
     // 2. build the visual season tag (badge) using innerHTML
-    const subtitle = $('garden-header-subtitle');
+    // NOTE: this used to target a 'garden-header-subtitle' id that
+    // doesn't exist anywhere in gardening.html -- the real element is
+    // #garden-season-container (the <p> right under the h1) -- which is
+    // why the pill silently never rendered. Fixed to the real id.
+    const subtitle = $('garden-season-container');
     if (subtitle) {
       subtitle.innerHTML = `
         <span class="garden-season-tag">
@@ -683,13 +687,71 @@
         </span>
       `;
     }
-    
+
+    // 3. swap the keystone tree + its companion sprites for the season
+    updateSeasonalTreeArt(seasonKey);
+  }
+
+  // ---------- seasonal keystone gingko tree ----------
+  // Mirrors the per-season file convention garden-sprites.js already
+  // uses for its ambient sprite catalog (assets/garden/<season>/<file>).
+  // Companion sprite filenames below are drawn straight from files
+  // garden-sprites.js's CATALOG already references for each season, so
+  // every path here is a confirmed-real asset -- add a matching
+  // assets/garden/<season>/tree/gingko.png for each season to complete
+  // the set (only the summer one exists today).
+  const TREE_COMPANIONS = {
+    spring: ['flowers/hyacinth.png', 'flowers/forgetmenot.png', 'flowers/pansy.png', 'flowers/lily.png'],
+    summer: ['decorations/mushroom-red.png', 'decorations/rocks.png', 'plants/grass-tuft.png', 'flowers/bed-daisy.png'],
+    autumn: ['plants/mossrock.png', 'plants/fern-small.png', 'plants/mossrock2.png', 'plants/berry-bush-1.png'],
+    winter: ['flowers/snowflake.png', 'flowers/snowflake.png', 'flowers/snowflake.png', 'flowers/snowflake.png']
+  };
+
+  function updateSeasonalTreeArt(seasonKey) {
+    const treeImg = $('garden-tree-img');
+    if (treeImg) treeImg.src = `assets/garden/${seasonKey}/tree/gingko.png`;
+
+    const companions = TREE_COMPANIONS[seasonKey] || TREE_COMPANIONS.summer;
+    document.querySelectorAll('.garden-tree-companion').forEach((el, i) => {
+      if (companions[i]) el.src = `assets/garden/${seasonKey}/${companions[i]}`;
+    });
+  }
+
+  // ---------- desktop/mobile placement of the hero gingko tree ----------
+  // On desktop the tree lives beside the "Garden Weather" heading,
+  // filling the space the tall Current Conditions card left empty next
+  // to the (previously short) heading text. On narrow screens there's
+  // no room there, so it moves into the stat-card row instead, landing
+  // in the empty grid cell next to Rain Forecast (5 stat cards + the
+  // tree = 6, filling the 2-column mobile grid's last row exactly).
+  // Reparented (not just shown/hidden) via matchMedia, same pattern the
+  // main dashboard uses to relocate its camera/sky/radar tiles between
+  // mobile and desktop layouts.
+  function initGardenTreeComposition() {
+    const tree = document.getElementById('garden-hero-tree');
+    const heading = document.querySelector('.garden-heading');
+    const statRow = document.querySelector('.garden-stat-row');
+    if (!tree || !heading || !statRow) return;
+
+    const desktopQuery = window.matchMedia('(min-width: 851px)');
+    function place() {
+      const target = desktopQuery.matches ? heading : statRow;
+      if (tree.parentElement !== target) target.appendChild(tree);
+      // moving the tree changes the heading column's height on desktop
+      // (and the stat row's own height on mobile), both of which the
+      // sky band's height is measured against.
+      scheduleGardenSkyHeightUpdate();
+    }
+    place();
+    if (desktopQuery.addEventListener) desktopQuery.addEventListener('change', place);
+    else if (desktopQuery.addListener) desktopQuery.addListener(place); // older Safari
   }
 
   
   
   async function init() {
     updateCurrentSeasonDisplay();
+    initGardenTreeComposition();
     initGardenSkyHeight();
     updateGardenSky();
     initGardenIconOverrides();
