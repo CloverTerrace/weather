@@ -5,9 +5,9 @@
       "temperature": 83,
       "temperatureUnit": "F",
       "windSpeed": "7 mph",
-      "windDirection": "SW",
+      "windDirection": "W",
       "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "detailedForecast": "A slight chance of showers and thunderstorms after 5pm. Partly sunny, with a high near 83. Southwest wind around 7 mph. Chance of precipitation is 20%.",
+      "detailedForecast": "A slight chance of showers and thunderstorms after 5pm. Partly sunny, with a high near 83. West wind around 7 mph. Chance of precipitation is 20%.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 15
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-08-31T14:00:00-04:00",
-      "temperature": 81,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "W",
-      "shortForecast": "Mostly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 4
-    },
     {
       "startTime": "2026-08-31T15:00:00-04:00",
       "temperature": 83,
@@ -285,6 +275,16 @@
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 11
+    },
+    {
+      "startTime": "2026-09-01T14:00:00-04:00",
+      "temperature": 89,
+      "temperatureUnit": "F",
+      "windSpeed": "9 mph",
+      "windDirection": "W",
+      "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 13
     }
   ]
 }
