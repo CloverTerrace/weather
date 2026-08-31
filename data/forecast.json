@@ -4,12 +4,12 @@
       "name": "This Afternoon",
       "temperature": 83,
       "temperatureUnit": "F",
-      "windSpeed": "6 mph",
+      "windSpeed": "7 mph",
       "windDirection": "W",
       "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "detailedForecast": "A slight chance of showers and thunderstorms. Mostly cloudy, with a high near 83. West wind around 6 mph. Chance of precipitation is 20%.",
+      "detailedForecast": "A slight chance of showers and thunderstorms after 5pm. Partly sunny, with a high near 83. West wind around 7 mph. Chance of precipitation is 20%.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 22
+      "probabilityOfPrecipitation": 15
     },
     {
       "name": "Tonight",
@@ -17,10 +17,10 @@
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "S",
-      "shortForecast": "Slight Chance Showers And Thunderstorms then Mostly Cloudy",
-      "detailedForecast": "A slight chance of showers and thunderstorms before 7pm. Mostly cloudy, with a low around 72. South wind around 5 mph. Chance of precipitation is 20%.",
+      "shortForecast": "Mostly Cloudy",
+      "detailedForecast": "Mostly cloudy, with a low around 72. South wind around 5 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 21
+      "probabilityOfPrecipitation": 13
     },
     {
       "name": "Tuesday",
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-08-31T16:00:00-04:00",
+      "temperature": 83,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "SW",
+      "shortForecast": "Slight Chance Showers And Thunderstorms",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 23
+    },
     {
       "startTime": "2026-08-31T17:00:00-04:00",
       "temperature": 82,
@@ -275,16 +285,6 @@
       "shortForecast": "Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 8
-    },
-    {
-      "startTime": "2026-09-01T16:00:00-04:00",
-      "temperature": 89,
-      "temperatureUnit": "F",
-      "windSpeed": "8 mph",
-      "windDirection": "W",
-      "shortForecast": "Mostly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 10
     }
   ]
 }
