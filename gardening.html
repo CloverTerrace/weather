@@ -6,11 +6,8 @@
   <link rel="preload" as="font" type="font/woff2" href="fonts/figtree-v9-latin-regular.woff2" crossorigin>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- tints the browser chrome (Android address bar / installed-PWA
-       status bar) to match the current sky. kept in sync by the
-       pre-paint script below and by updateGardenSky() in gardening.js. -->
   <meta name="theme-color" id="garden-theme-color" content="#2E3133">
-  <title>Garden — Clover Terrace</title>
+  <title>Garden ~ Clover Terrace</title>
   <meta name="description" content="Local gardening weather, frost risk, growing degree days, rainfall, and growing-season information for Clover Terrace, Aliquippa, Pennsylvania.">
 
   <link rel="icon" href="icons/icon-192.png" sizes="any">
@@ -119,7 +116,7 @@
              space beside the heading); reparented into .garden-stat-row
              on narrow screens by initGardenTreeComposition() in
              gardening.js, landing in the empty grid cell next to Rain
-             Forecast. Tree art + companions are swapped per-season by
+             Forecast. tree art + companions are swapped per-season by
              updateSeasonalTreeArt() in gardening.js -- do not hardcode
              a season folder here. -->
         <div class="garden-hero-tree" id="garden-hero-tree" aria-hidden="true">
@@ -143,7 +140,7 @@
   <h2 id="conditions-heading"><img src="assets/garden/summer/plants/pitcherplant.png" class="garden-icon" alt="">Currently <p class="garden-season-container" id="garden-season-container"></p></h2>
   
   <div class="garden-hero-layout">
-    <!-- Left Column: Primary Temperature & Meta Data -->
+    <!-- left column -->
     <div class="garden-hero-primary">
       <div class="garden-hero-temp-large">
         <span id="garden-temp">--</span><span class="garden-hero-temp-unit">°F</span>
@@ -156,7 +153,7 @@
       <div class="garden-meta" id="garden-updated">Loading station data…</div>
     </div>
 
-    <!-- Right Column: Vertical Stats List -->
+    <!-- right column -->
     <div class="garden-hero-stats-list">
       <div class="garden-hero-stat-item">
         <span class="garden-hero-stat-icon" data-icon="humidity">💧</span>
