@@ -205,8 +205,8 @@
 
         <nav class="site-nav" aria-label="Clover Terrace Weather sections">
           <a href="index.html" class="nav-brand">
-            <img src="assets/scene/clovericon.png" alt="" class="nav-brand-icon">
-            <span>Clover Terrace</span>
+            <img src="icons/cloverwx.png" alt="" class="nav-brand-icon">
+            <span></span>
           </a>
 
           <div class="nav-links">
@@ -229,12 +229,12 @@
     <div class="outlook-card-header">
       <h2><span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>Storm Center</h2>
       <div class="storm-desk-livebar">
-        <span class="storm-desk-live">live feed</span>
+        <span class="storm-desk-live"></span>
         <span id="storm-desk-updated">waiting for update</span>
       </div>
     </div>
 
-    <!-- Hidden by default (see renderNwsProducts in JS) so a first load with
+    <!-- hidden by default (see renderNwsProducts in JS) so a first load with
          nothing to show for the KPBZ forecast area never flashes empty tabs
          -- it only reveals once there's an actual watch, warning, advisory,
          or update to display. -->
@@ -322,7 +322,7 @@
           <span class="outlook-thumb-label">Day 4–8</span>
         </button>
       </div>
-      <div class="outlook-nav-hint">swipe the large outlook or tap a preview to switch days</div>
+      <div class="outlook-nav-hint">swipe or tap a preview to switch days</div>
     </div>
 
     <div class="outlook-category-panel" id="outlook-panel-thunderstorm" role="tabpanel">
@@ -331,7 +331,7 @@
           <div class="thunderstorm-empty">loading current thunderstorm outlook periods…</div>
         </div>
       </div>
-      <div class="outlook-nav-hint" id="thunderstorm-outlook-hint">Swipe the large outlook or tap a preview to switch periods</div>
+      <div class="outlook-nav-hint" id="thunderstorm-outlook-hint">swipe or tap a preview to switch periods</div>
       <div class="outlook-note" id="thunderstorm-outlook-note"></div>
     </div>
   </div>
