@@ -17,12 +17,33 @@
    instead of swapping two different elements. Every page must reuse
    this exact name on its .site-nav (and only here — a name has to be
    unique within a single page) for the match to fire. */
+/* Full-bleed flush strip, at every screen size: regardless of how much
+   padding a given page's body/wrapper carries (the home page keeps
+   ~1rem side padding for its cards; the gardening page zeroes its body
+   padding entirely), the navbar itself always spans the true viewport
+   edge-to-edge and sits flush against the top of the screen (paired
+   with site.css's unconditional `body { padding-top: 0 }`).
+   width:100vw + left/right:50% + negative margin is the standard bleed
+   trick -- it reads off the viewport, not the parent, so this box needs
+   no per-page or per-breakpoint tuning to stay flush. Squared-off
+   corners and no border/shadow make it a thin flat strip rather than a
+   floating card. This used to be a mobile-only (<=850px) override with
+   a separate min-width:851px block re-floating the bar as a centered,
+   rounded, bordered, shadowed 1200px card with a gap above it -- that
+   split is why desktop didn't match mobile's flush/flat look. Now it's
+   one rule that holds at every width; only sizing (padding/font/icon
+   scale) still varies per breakpoint below. Background/border COLOR and
+   font-family are meant to change per page (see the page-specific
+   stylesheets), never this size/shape/position block. */
 .site-nav {
   view-transition-name: site-nav;
-  width: 100%;
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
   height: fit-content;
   align-self: start;
-  margin: 0 0 0.5rem 0;
+  margin: 0 -50vw 0.5rem -50vw;
   padding: 0.35rem 0.4rem;
   display: flex;
   flex-wrap: nowrap !important; /* Forces all buttons to stay on a single row */
@@ -30,12 +51,14 @@
   align-items: center;
   gap: 0.25rem; /* Tightened gap between buttons */
   background: color-mix(in srgb, var(--card-color) 78%, transparent);
-  border: var(--card-accent-border);
-  border-radius: 12px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: none;
+  border-radius: 0;
+  box-shadow: none;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  position: relative;
   z-index: 20;
 }
 
@@ -171,38 +194,31 @@
 /* DESKTOP STYLES (HOME PAGE) */
 @media (min-width: 851px) {
   .site-nav {
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto 1.5rem auto;
+    /* Keep the flush full-bleed strip from the base rule (no re-floating
+       into a centered card), but on wide viewports inset the row's
+       *content* so the brand/links don't stretch edge-to-edge across an
+       ultrawide monitor -- the same visual width the bar used to have as
+       a 1200px centered card, just as padding on a full-width strip
+       instead of margin:auto on a narrower box. Below ~1200px + insets
+       this collapses toward the 1rem floor and behaves like a normal
+       edge-padded bar. */
+    padding-left: max(1rem, calc((100% - 1200px) / 2));
+    padding-right: max(1rem, calc((100% - 1200px) / 2));
+    margin-bottom: 1.5rem;
   }
 }
 
 /* MOBILE STYLES (ALL PAGES) */
 @media (max-width: 850px) {
-  /* Full-bleed strip: regardless of how much padding a given page's
-     body/wrapper carries (the home page keeps ~1rem side padding for
-     its cards; the gardening page zeroes its body padding entirely),
-     the navbar itself always spans the true viewport edge-to-edge.
-     width:100vw + left:50% + translateX(-50%) is the standard bleed
-     trick -- it reads off the viewport, not the parent, so this box
-     needs no per-page tuning to stay flush. Squared-off corners and no
-     side/top border make it a thin flat strip rather than a floating
-     card; only its background/border COLOR and font-family are meant
-     to change per page (see the page-specific stylesheets), never
-     this size/shape/position block. */
+  /* The flush/full-bleed/flat treatment now lives unconditionally in
+     the base .site-nav rule above, so this block only needs the
+     phone-width sizing on top of it: tighter padding and the
+     font/icon clamps below. */
   .site-nav {
-    position: relative;
-    width: 100vw;
-    left: 50%;
-    right: 50%;
-    margin: 0 -50vw 0.5rem -50vw;
-    padding: 0.2rem 0.3rem;
-    border-radius: 0 !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-top: none !important;
-    border-bottom: none !important;
-    box-shadow: none !important;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
   }
 
   .site-nav .nav-links {

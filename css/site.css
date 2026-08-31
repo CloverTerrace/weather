@@ -5382,23 +5382,20 @@ svg circle, svg polygon, svg line {
   .nws-meta-item { white-space: nowrap; }
 
 /* =====================================================================
-   Mobile: nav sits flush against the top of the screen
+   Nav sits flush against the top of the screen, at every screen size
    ---------------------------------------------------------------------
-   .site-nav now sits first in the markup, directly inside #page-content
-   -- the same position it already occupies on the gardening page -- so
-   no flex/grid reordering or wrapper-flattening is needed here anymore,
-   just the same top-edge treatment the gardening page uses.
-   ===================================================================== */
-@media (max-width: 850px) {
-  /* The gardening page zeroes out body's own top padding entirely, which
-     is why its nav sits flush against the top of the screen. This page
-     reuses the shared 2rem/1rem body padding for spacing everywhere else,
-     so rather than overriding the whole rule we just zero the top value
-     here -- bringing the nav flush with the top edge to match the
-     gardening page exactly, while leaving the side/bottom padding this
-     page still relies on untouched. The navbar's own margin-bottom
-     (navigation.css) still provides the gap before the title below it. */
-  body {
-    padding-top: 0 !important;
-  }
+   .site-nav sits first in the markup, directly inside #page-content --
+   the same position it already occupies on the gardening page -- so no
+   flex/grid reordering or wrapper-flattening is needed here, just the
+   same top-edge treatment the gardening page uses. This used to be
+   scoped to mobile widths only (<=850px), leaving desktop with the
+   body's normal 2rem top padding -- which is what floated the navbar
+   as a gapped card up top on wide screens instead of sitting flush.
+   Zeroing it unconditionally lets navigation.css's now-unconditional
+   full-bleed .site-nav rule sit flush at every width, not just mobile.
+   The side/bottom body padding this page still relies on is untouched
+   -- only the top value changes. The navbar's own margin-bottom
+   (navigation.css) still provides the gap before the title below it. */
+body {
+  padding-top: 0 !important;
 }
