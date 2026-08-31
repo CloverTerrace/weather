@@ -16,7 +16,7 @@
     summer: [
       { id:'summer-blue', file:'flowers/flower-blue.png', x:.06,y:.76,size:40,minWidth:0,layer:'front',motion:'sway',priority:100 },
       { id:'summer-pink-cluster', file:'flowers/flower-cluster-pink.png', x:.19,y:.81,size:50,minWidth:0,layer:'front',motion:'sway',priority:100 },
-      { id:'summer-allium', file:'flowers/bed-allium.png', x:.31,y:.84,size:50,minWidth:0,layer:'front',priority:90 },
+      { id:'summer-allium', file:'flowers/bed-allium.png', x:.31,y:.84,minWidth:0,layer:'front',priority:90 },
       { id:'summer-daisy', file:'flowers/bed-daisy.png', x:.44,y:.82,size:48,minWidth:0,layer:'front',priority:90 },
       { id:'summer-purple', file:'flowers/flower-purple.png', x:.08,y:.69,size:42,minWidth:520,layer:'front',priority:85 },
       { id:'summer-orange', file:'flowers/flower-orange.png', x:.56,y:.78,size:42,minWidth:520,layer:'front',motion:'sway',priority:85 },
