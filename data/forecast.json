@@ -4,10 +4,10 @@
       "name": "Tonight",
       "temperature": 68,
       "temperatureUnit": "F",
-      "windSpeed": "2 mph",
+      "windSpeed": "1 mph",
       "windDirection": "SE",
       "shortForecast": "Chance Rain Showers",
-      "detailedForecast": "A chance of rain showers. Mostly cloudy, with a low around 68. Southeast wind around 2 mph. Chance of precipitation is 30%.",
+      "detailedForecast": "A chance of rain showers. Mostly cloudy, with a low around 68. Southeast wind around 1 mph. Chance of precipitation is 30%.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 33
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-08-30T22:00:00-04:00",
+      "temperature": 74,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "E",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 29
+    },
     {
       "startTime": "2026-08-30T23:00:00-04:00",
       "temperature": 73,
@@ -275,16 +285,6 @@
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 1
-    },
-    {
-      "startTime": "2026-08-31T22:00:00-04:00",
-      "temperature": 75,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "SW",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
     }
   ]
 }
