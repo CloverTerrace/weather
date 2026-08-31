@@ -4,10 +4,10 @@
       "name": "Today",
       "temperature": 86,
       "temperatureUnit": "F",
-      "windSpeed": "0 to 7 mph",
+      "windSpeed": "1 to 7 mph",
       "windDirection": "S",
       "shortForecast": "Scattered Rain Showers then Isolated Showers And Thunderstorms",
-      "detailedForecast": "Scattered rain showers between 7am and 2pm, then isolated showers and thunderstorms. Mostly cloudy, with a high near 86. South wind 0 to 7 mph. Chance of precipitation is 30%.",
+      "detailedForecast": "Scattered rain showers before 2pm, then isolated showers and thunderstorms. Mostly cloudy, with a high near 86. South wind 1 to 7 mph. Chance of precipitation is 30%.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 31
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-08-31T06:00:00-04:00",
-      "temperature": 68,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 12
-    },
     {
       "startTime": "2026-08-31T07:00:00-04:00",
       "temperature": 69,
@@ -285,6 +275,16 @@
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 5
+    },
+    {
+      "startTime": "2026-09-01T06:00:00-04:00",
+      "temperature": 72,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "SW",
+      "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 4
     }
   ]
 }
