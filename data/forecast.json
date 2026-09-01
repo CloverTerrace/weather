@@ -4,10 +4,10 @@
       "name": "Today",
       "temperature": 90,
       "temperatureUnit": "F",
-      "windSpeed": "9 mph",
+      "windSpeed": "5 to 9 mph",
       "windDirection": "SW",
-      "shortForecast": "Slight Chance Showers And Thunderstorms then Mostly Sunny",
-      "detailedForecast": "A slight chance of showers and thunderstorms before noon. Mostly sunny, with a high near 90. Southwest wind around 9 mph. Chance of precipitation is 20%.",
+      "shortForecast": "Slight Chance Showers And Thunderstorms then Partly Sunny",
+      "detailedForecast": "A slight chance of showers and thunderstorms before noon. Partly sunny, with a high near 90. Southwest wind 5 to 9 mph. Chance of precipitation is 20%.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 23
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-01T10:00:00-04:00",
-      "temperature": 79,
-      "temperatureUnit": "F",
-      "windSpeed": "7 mph",
-      "windDirection": "SW",
-      "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 23
-    },
     {
       "startTime": "2026-09-01T11:00:00-04:00",
       "temperature": 81,
@@ -285,6 +275,16 @@
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 6
+    },
+    {
+      "startTime": "2026-09-02T10:00:00-04:00",
+      "temperature": 80,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "SW",
+      "shortForecast": "Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
     }
   ]
 }
