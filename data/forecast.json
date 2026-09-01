@@ -4,12 +4,12 @@
       "name": "Overnight",
       "temperature": 72,
       "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "SW",
-      "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 72. Southwest wind around 5 mph.",
+      "windSpeed": "0 to 5 mph",
+      "windDirection": "S",
+      "shortForecast": "Slight Chance Rain Showers",
+      "detailedForecast": "A slight chance of rain showers before 1am. Mostly cloudy, with a low around 72. South wind 0 to 5 mph. Chance of precipitation is 20%.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 13
+      "probabilityOfPrecipitation": 17
     },
     {
       "name": "Tuesday",
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-01T00:00:00-04:00",
+      "temperature": 75,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Slight Chance Rain Showers",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 17
+    },
     {
       "startTime": "2026-09-01T01:00:00-04:00",
       "temperature": 75,
@@ -275,16 +285,6 @@
       "shortForecast": "Slight Chance Showers And Thunderstorms",
       "isDaytime": false,
       "probabilityOfPrecipitation": 16
-    },
-    {
-      "startTime": "2026-09-02T00:00:00-04:00",
-      "temperature": 76,
-      "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "SW",
-      "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 22
     }
   ]
 }
