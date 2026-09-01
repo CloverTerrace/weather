@@ -600,19 +600,19 @@
     if (month >= 2 && month <= 4) {
       seasonKey = 'spring';
       displaySeason = 'Spring';
-      iconFile = 'icon-sprout.png'; 
+      iconFile = 'spring_icon.png'; 
     } else if (month >= 5 && month <= 7) {
       seasonKey = 'summer';
       displaySeason = 'Summer';
-      iconFile = 'icon-sun.png'; // Your pixelated sun icon
+      iconFile = 'summer_icon.png'; // Your pixelated sun icon
     } else if (month >= 8 && month <= 10) {
       seasonKey = 'autumn'; // Matches the dataset expected in your CSS
       displaySeason = 'Autumn';
-      iconFile = 'pumpkin-icon.png';
+      iconFile = 'pumpkin_icon.png';
     } else {
       seasonKey = 'winter';
       displaySeason = 'Winter';
-      iconFile = 'icon-snowflake.png';
+      iconFile = 'winter_icon.png';
     }
 
     // 1. update the body tag to drive CSS background terrain
