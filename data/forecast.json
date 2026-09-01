@@ -1,18 +1,7 @@
 {
   "periods": [
     {
-      "name": "Overnight",
-      "temperature": 72,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "SW",
-      "shortForecast": "Partly Cloudy",
-      "detailedForecast": "Partly cloudy, with a low around 72. Southwest wind around 5 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 13
-    },
-    {
-      "name": "Tuesday",
+      "name": "Today",
       "temperature": 90,
       "temperatureUnit": "F",
       "windSpeed": "5 to 9 mph",
@@ -23,7 +12,7 @@
       "probabilityOfPrecipitation": 23
     },
     {
-      "name": "Tuesday Night",
+      "name": "Tonight",
       "temperature": 73,
       "temperatureUnit": "F",
       "windSpeed": "0 to 7 mph",
@@ -43,19 +32,20 @@
       "detailedForecast": "A chance of showers and thunderstorms before 4pm. Mostly sunny, with a high near 92. Heat index values as high as 100. Southwest wind 2 to 8 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 34
+    },
+    {
+      "name": "Wednesday Night",
+      "temperature": 73,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "SW",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "detailedForecast": "A chance of showers and thunderstorms between 8pm and 11pm, then a chance of showers and thunderstorms between 11pm and 5am, then a chance of showers and thunderstorms. Partly cloudy, with a low around 73. Southwest wind around 7 mph. Chance of precipitation is 40%.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 37
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-01T05:00:00-04:00",
-      "temperature": 73,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "SW",
-      "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 13
-    },
     {
       "startTime": "2026-09-01T06:00:00-04:00",
       "temperature": 73,
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": false,
       "probabilityOfPrecipitation": 30
+    },
+    {
+      "startTime": "2026-09-02T05:00:00-04:00",
+      "temperature": 74,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "S",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 39
     }
   ]
 }
