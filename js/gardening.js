@@ -639,6 +639,35 @@
 
     // 3. swap the keystone tree + its companion sprites for the season
     updateSeasonalTreeArt(seasonKey);
+
+    // 4. swap the hero card's vine corners + stat cards' corner-flowers
+    updateSeasonalBorders(seasonKey);
+  }
+
+  // ---------- seasonal card borders ----------
+  // Two separate border treatments, both previously hardcoded to
+  // assets/garden/summer/... in gardening.html with no season hook at
+  // all: the hero (Current Conditions) card's 4 vine corners, and the
+  // 5 stat cards' corner-flowers (which DO carry a data-sprite="corner"
+  // marker in the HTML, but nothing in garden-sprites.js or here ever
+  // read it -- inert markup until now). Wired up the same way
+  // updateSeasonalTreeArt() swaps the keystone tree: re-point each
+  // <img>'s src at the current season's folder, with onerror silently
+  // leaving the old image in place if that season's file doesn't exist
+  // yet (matches initGardenIconOverrides()'s no-op-on-missing-asset
+  // convention elsewhere in this file).
+  function updateSeasonalBorders(seasonKey) {
+    document.querySelectorAll('.garden-hero-vine.corner').forEach(img => {
+      const pos = ['tl', 'tr', 'bl', 'br'].find(p => img.classList.contains(p));
+      if (!pos) return;
+      img.onerror = () => {}; // keep last-good image instead of a broken-icon flash
+      img.src = `assets/garden/${seasonKey}/borders/vine-corner-${pos}.png`;
+    });
+
+    document.querySelectorAll('[data-sprite="corner"]').forEach(img => {
+      img.onerror = () => {};
+      img.src = `assets/garden/${seasonKey}/borders/corner-flowers.png`;
+    });
   }
 
   // ---------- seasonal keystone gingko tree ----------
