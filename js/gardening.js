@@ -102,11 +102,7 @@
     return total;
   }
 
-  // Vapor Pressure Deficit (kPa) -- same Tetens-equation formula the main
-  // dashboard uses for its "muggy/dry" comfort read, but reframed here for
-  // gardening: low VPD tracks with fungal/disease risk (air too saturated
-  // for plants to transpire), high VPD tracks with water stress (plants
-  // losing moisture faster than roots can keep up).
+  // Vapor Pressure Deficit (kPa) 
   function calculateVPD(tempF, humidity) {
     if (tempF === undefined || tempF === null || humidity === undefined || humidity === null) return null;
     if (isNaN(tempF) || isNaN(humidity)) return null;
@@ -398,16 +394,11 @@
         }
       }
     } catch (e) {
-      // Forecast data is still useful if the alert endpoint has a transient issue.
+      
     }
   }
 
-  // ---------- sky: day/night + weather-responsive atmosphere ----------
-  // mirrors the main dashboard's SunCalc-driven sky tracker and
-  // #weather-fx system (see site.js), scoped down and restyled for this
-  // page's parchment/pixel palette. data-garden-time / data-garden-weather
-  // live on <html> rather than <body> so the inline script in <head> can
-  // set them before gardening.js even loads (no purple flash on paint).
+  // -- sky: day/night + weather-responsive atmosphere 
 
   function getSkyPhase(now) {
     const pos = SunCalc.getPosition(now, LAT, LON);
@@ -419,10 +410,6 @@
     return isMorning ? 'dawn' : 'dusk';
   }
 
-  // Solid (non-alpha) versions of each phase's sky-top color, used for
-  // the browser chrome's theme-color -- keep these in sync with
-  // --garden-overscroll-top per data-garden-time in gardening.css, and
-  // with the matching inline pre-paint script in gardening.html's <head>.
   const GARDEN_THEME_COLORS = {
     day: '#5e96c4',
     dawn: '#3f2d5c',
@@ -435,28 +422,10 @@
     if (meta) meta.setAttribute('content', GARDEN_THEME_COLORS[phase] || GARDEN_THEME_COLORS.dusk);
   }
 
-  // Sun/moon no longer trace a full sky arc (azimuth+altitude math tuned
-  // against a fixed-height sky band) -- that's what made the body look
-  // like it "got stuck" once the real hero section rendered a different
-  // height. Simplified to a rise/set toggle: whichever body's real
-  // SunCalc altitude is above the horizon gets .is-risen, and CSS alone
-  // animates it between "waiting below the sky" and a fixed top-left
-  // resting spot (see .garden-sky-body / .is-risen in gardening.css).
-  // Sun/moon no longer trace a full sky arc (azimuth+altitude math tuned
-  // against a fixed-height sky band) -- that's what made the body look
-  // like it "got stuck" once the real hero section rendered a different
-  // height. Simplified to a rise/set toggle: whichever body's real
-  // SunCalc altitude is above the horizon gets .is-risen, and CSS alone
-  // animates it between "waiting below the sky" and a resting spot beside
-  // the "Clover Garden" heading (see updateCelestialAnchor() below, and
-  // .garden-sky-body / .is-risen in gardening.css). Returns whether the
-  // body ended up risen, so callers can tell when sun + moon are both up
-  // at once and need to be juxtaposed instead of overlapping.
+  
   function updateCelestialRise(el, altitudeRad) {
     if (!el) return false;
     const altDeg = altitudeRad * 180 / Math.PI;
-    // small buffer below the true horizon so it doesn't flicker in/out
-    // right at 0 degrees.
     const risen = altDeg > -2;
     el.classList.toggle('is-risen', risen);
     return risen;
@@ -474,26 +443,13 @@
     const sunRisen = updateCelestialRise($('garden-sun-body'), sunPos.altitude);
     const moonRisen = updateCelestialRise($('garden-moon-body'), moonPos.altitude);
     const sky = $('garden-sky');
-    // moonrise during full daylight is common (not just a dawn/dusk edge
-    // case), so this needs to hold any time both are actually above the
-    // horizon together -- see .both-risen in gardening.css.
     if (sky) sky.classList.toggle('both-risen', sunRisen && moonRisen);
   }
 
-  // ---------- sky band height (extends the sky/horizon overlay down to
-  // just above the stat-card row, whatever height the hero section
-  // actually renders at -- see --garden-sky-height in gardening.css). ----------
+  // ---------- sky band height
   let gardenSkyHeightRaf = null;
 
-  // Sun/moon rise up inside the full #garden-sky band (so the motion still
-  // reads as "rising"), but their resting spot is no longer a fixed
-  // top-left corner -- that's what let them end up clipped under the
-  // navbar (the sky band starts at the very top of the page, behind the
-  // nav's higher z-index). Instead they dock beside the "Clover Garden"
-  // heading: #garden-celestial-slot is an empty inline placeholder sized
-  // like the old title icon, and this measures its real on-screen center
-  // each time layout changes, exposing it as --garden-celestial-top/-left
-  // (consumed by .garden-sky-body.is-risen in gardening.css).
+  
   function updateCelestialAnchor() {
     const sky = document.getElementById('garden-sky');
     const slot = document.getElementById('garden-celestial-slot');
@@ -538,9 +494,6 @@
   }
 
   // ---------- emoji -> custom-icon override (generic, any [data-icon]) ----------
-  // Tries assets/garden/icons/<name>.svg then .png; if neither exists yet
-  // the probe just fails silently and the emoji already in the markup
-  // stays put, so icons can be dropped in later with zero markup changes.
   const GARDEN_ICON_BASE = 'assets/garden/icons/';
   const GARDEN_ICON_EXTS = ['svg', 'png'];
 
@@ -596,10 +549,6 @@
 
   }
 
-  // classifies current conditions into the handful of buckets the garden
-  // sky reacts to. prefers the NWS short-range text (already fetched for
-  // the frost/freeze watch) and falls back to the station's own rain
-  // gauge, so the effect still shows up even if the NWS call is slow.
   function classifyGardenWeather(currentPeriod, stationData) {
     const text = String(currentPeriod?.shortForecast || '').toLowerCase();
     const precipNow = Number(stationData?.precipRate) > 0;
