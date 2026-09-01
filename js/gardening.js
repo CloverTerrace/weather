@@ -608,7 +608,7 @@
     } else if (month >= 8 && month <= 10) {
       seasonKey = 'autumn'; // Matches the dataset expected in your CSS
       displaySeason = 'Autumn';
-      iconFile = 'icon-pumpkin.png';
+      iconFile = 'pumpkin-icon.png';
     } else {
       seasonKey = 'winter';
       displaySeason = 'Winter';
@@ -642,7 +642,7 @@
   }
 
   // ---------- seasonal keystone gingko tree ----------
-  // Mirrors the per-season file convention garden-sprites.js already
+  // mirrors the per-season file convention garden-sprites.js already
   // uses for its ambient sprite catalog (assets/garden/<season>/<file>).
   // Companion sprite filenames below are drawn straight from files
   // garden-sprites.js's CATALOG already references for each season, so
