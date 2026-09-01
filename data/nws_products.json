@@ -1,57 +1,27 @@
 {
-  "generatedAt": "2026-09-01T23:25:37.648510Z",
+  "generatedAt": "2026-09-01T23:30:39.459994Z",
   "watches": [],
-  "mesoscaleDiscussions": [
+  "mesoscaleDiscussions": [],
+  "statements": [
     {
-      "id": "MD2187",
-      "number": 2187,
-      "issued": "2026-09-01T22:00:00Z",
-      "expires": "2026-09-01T23:30:00Z",
-      "concerning": "Severe potential...Watch possible",
-      "hazard": "Severe potential...Watch possible",
-      "areas": "Western into central Pennsylvania",
-      "location": "Western into central Pennsylvania",
-      "distanceMiles": 23.4,
-      "summary": "Large hail and damaging winds will be possible with storms in western/central Pennsylvania. Storm coverage is not certain, but a watch is possible should convective trends warrant",
-      "watchProbability": "40 percent",
-      "forecaster": "Wendt/Mosier",
-      "attnWfos": [
-        "BUF",
-        "CTP",
-        "PBZ",
-        "CLE"
-      ],
+      "id": "ed4a55c3-e9b1-4c81-bc2b-0f6a6e1f3eab",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-01T23:28:00+00:00",
+      "expires": null,
+      "location": "Clarion PA-Forest PA-Jefferson PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Marienville, Brockway, Falls Creek, Sigel, Leeper, Kellettville, Clarington, Clear",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Marienville, Brockway, Falls Creek, Sigel, Leeper, Kellettville, Clarington, Clear Creek State Park, Cook Forest State Park and Starr.",
       "details": [
         {
-          "label": "Summary",
-          "text": "Large hail and damaging winds will be possible with storms in western/central Pennsylvania. Storm coverage is not certain, but a watch is possible should convective trends warrant"
-        },
-        {
-          "label": "Discussion",
-          "text": "Thunderstorms have developed along the lake breeze front in northwest Pennsylvania. This convection has generally been slow to intensity per KCLE radar imagery. The 12Z PBZ sounding showed rather modest mid-level lapse rates, though more recent TAMDAR soundings from CMH show slightly steeper lapse rates. MLCAPE of around 3000 J/kg and 35-40 kt of effective shear will promote some storm organization. Large hail will be possible with any supercellular structures. Damaging winds will also be possible. Overall storm coverage will be the main question given the lack of focused synoptic ascent and weaker surface convergence than farther east. A watch may need to be considered for this activity as it could persist into the evening"
-        },
-        {
-          "label": "Watch probability",
-          "text": "40 percent"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK WIND GUST...UP TO 60 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Wendt/Mosier"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...BUF...CTP...PBZ...CLE"
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Marienville, Brockway, Falls Creek, Sigel, Leeper, Kellettville, Clarington, Clear Creek State Park, Cook Forest State Park and Starr."
         }
       ],
-      "url": "https://www.spc.noaa.gov/products/md/md2187.html",
-      "office": "SPC"
-    }
-  ],
-  "statements": [
+      "url": "https://api.weather.gov/products/ed4a55c3-e9b1-4c81-bc2b-0f6a6e1f3eab"
+    },
     {
       "id": "9a566561-b30a-496c-ae02-78fdc9e4f004",
       "type": "Area Forecast Discussion",

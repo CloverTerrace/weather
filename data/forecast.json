@@ -47,6 +47,16 @@
   ],
   "hourly": [
     {
+      "startTime": "2026-09-01T18:00:00-04:00",
+      "temperature": 86,
+      "temperatureUnit": "F",
+      "windSpeed": "8 mph",
+      "windDirection": "W",
+      "shortForecast": "Partly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 5
+    },
+    {
       "startTime": "2026-09-01T19:00:00-04:00",
       "temperature": 85,
       "temperatureUnit": "F",
@@ -275,16 +285,6 @@
       "shortForecast": "Slight Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 20
-    },
-    {
-      "startTime": "2026-09-02T18:00:00-04:00",
-      "temperature": 88,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "SW",
-      "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 23
     }
   ]
 }
