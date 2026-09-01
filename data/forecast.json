@@ -4,10 +4,10 @@
       "name": "This Afternoon",
       "temperature": 89,
       "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "W",
+      "windSpeed": "5 to 9 mph",
+      "windDirection": "SW",
       "shortForecast": "Mostly Sunny",
-      "detailedForecast": "Mostly sunny, with a high near 89. West wind around 9 mph.",
+      "detailedForecast": "Mostly sunny, with a high near 89. Southwest wind 5 to 9 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 5
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-01T15:00:00-04:00",
-      "temperature": 87,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "W",
-      "shortForecast": "Mostly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 4
-    },
     {
       "startTime": "2026-09-01T16:00:00-04:00",
       "temperature": 87,
@@ -285,6 +275,16 @@
       "shortForecast": "Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 7
+    },
+    {
+      "startTime": "2026-09-02T15:00:00-04:00",
+      "temperature": 91,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "W",
+      "shortForecast": "Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 9
     }
   ]
 }
