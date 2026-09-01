@@ -608,7 +608,7 @@
     } else if (month >= 8 && month <= 10) {
       seasonKey = 'autumn'; // Matches the dataset expected in your CSS
       displaySeason = 'Autumn';
-      iconFile = 'icon-leaf.png';
+      iconFile = 'icon-pumpkin.png';
     } else {
       seasonKey = 'winter';
       displaySeason = 'Winter';
