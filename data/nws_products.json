@@ -1,8 +1,27 @@
 {
-  "generatedAt": "2026-09-01T23:35:32.730117Z",
+  "generatedAt": "2026-09-01T23:40:32.648157Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "09cf7650-d3b4-41dd-8131-62109c749e6b",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-01T23:37:00+00:00",
+      "expires": null,
+      "location": "Clarion PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Marienville, Brockway, Falls Creek, Sigel, Clear Creek State Park and Clarington.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Marienville, Brockway, Falls Creek, Sigel, Clear Creek State Park and Clarington.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Marienville, Brockway, Falls Creek, Sigel, Clear Creek State Park and Clarington."
+        }
+      ],
+      "url": "https://api.weather.gov/products/09cf7650-d3b4-41dd-8131-62109c749e6b"
+    },
     {
       "id": "ed4a55c3-e9b1-4c81-bc2b-0f6a6e1f3eab",
       "type": "Severe Weather Statement",
@@ -59,44 +78,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/c63c2ad9-2739-437b-bf06-d2fe1b842a9a"
-    },
-    {
-      "id": "f7b2e59d-f5c7-4502-89e3-f195e48d2dd8",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-01T23:06:00+00:00",
-      "expires": null,
-      "location": "Venango PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Clarion, Brookville, Marienville, Reynoldsville, Brockway, Tionesta, Sykesville, Falls",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Clarion, Brookville, Marienville, Reynoldsville, Brockway, Tionesta, Sykesville, Falls Creek, Big Run, Strattanville, Summerville, Shippenville, Corsica, Sigel, Fisher, Leeper, Kellettville, Fryburg, West Hickory and Clarington.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Clarion, Brookville, Marienville, Reynoldsville, Brockway, Tionesta, Sykesville, Falls Creek, Big Run, Strattanville, Summerville, Shippenville, Corsica, Sigel, Fisher, Leeper, Kellettville, Fryburg, West Hickory and Clarington."
-        }
-      ],
-      "url": "https://api.weather.gov/products/f7b2e59d-f5c7-4502-89e3-f195e48d2dd8"
-    },
-    {
-      "id": "04a7ab2e-a7b9-43bb-8e0c-77c78b1fcadf",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-01T23:00:00+00:00",
-      "expires": null,
-      "location": "Clarion PA-Forest PA-Venango PA",
-      "hazard": "PAC031-053-121-012310- /O.EXP.KPBZ.SV.W.0306.000000T0000Z-260901T2300Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC031-053-121-012310- /O.EXP.KPBZ.SV.W.0306.000000T0000Z-260901T2300Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 700 PM EDT Tue Sep 1 2026 PAC031-053-121-012310- /O.EXP.KPBZ.SV.W.0306.000000T0000Z-260901T2300Z/ Clarion PA-Forest PA-Venango PA- 700 PM EDT Tue Sep 1 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/04a7ab2e-a7b9-43bb-8e0c-77c78b1fcadf"
     }
   ]
 }
