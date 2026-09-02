@@ -1,6 +1,106 @@
 {
-  "generatedAt": "2026-09-02T20:41:01.500259Z",
-  "watches": [],
+  "generatedAt": "2026-09-02T22:44:58.892241Z",
+  "watches": [
+    {
+      "id": "urn:oid:2.49.0.1.840.0.66eb76e70559e694485e69e0f2bdf5657e69f27e.001.1",
+      "type": "Severe Thunderstorm Watch",
+      "number": null,
+      "issued": "2026-09-02T16:56:00-04:00",
+      "expires": "2026-09-03T00:00:00-04:00",
+      "location": "Columbiana, OH; Allegheny, PA; Armstrong, PA; Beaver, PA; Butler, PA; Clarion, PA; Forest, PA; Indiana, PA; Jefferson, PA; Lawrence, PA; Mercer, PA; Venango, PA; Westmoreland, PA; Hancock, WV",
+      "distanceMiles": null,
+      "summary": "Severe Thunderstorm Watch issued September 2 at 4:56PM EDT until September 3 at 12:00AM EDT by NWS Pittsburgh PA",
+      "details": [
+        {
+          "label": "Areas",
+          "text": "Columbiana, OH; Allegheny, PA; Armstrong, PA; Beaver, PA; Butler, PA; Clarion, PA; Forest, PA; Indiana, PA; Jefferson, PA; Lawrence, PA; Mercer, PA; Venango, PA; Westmoreland, PA; Hancock, WV"
+        },
+        {
+          "label": "Alert detail",
+          "text": "646 IN EFFECT UNTIL MIDNIGHT EDT TONIGHT FOR THE FOLLOWING AREAS\n\nIN OHIO THIS WATCH INCLUDES 1 COUNTY\n\nIN EAST CENTRAL OHIO\n\nCOLUMBIANA\n\nIN PENNSYLVANIA THIS WATCH INCLUDES 12 COUNTIES\n\nIN NORTHWEST PENNSYLVANIA\n\nFOREST                MERCER                VENANGO\n\nIN SOUTHWEST PENNSYLVANIA\n\nALLEGHENY             WESTMORELAND\n\nIN WEST CENTRAL PENNSYLVANIA\n\nARMSTRONG             BUTLER                CLARION\nINDIANA               JEFFERSON PA\n\nIN WESTERN PENNSYLVANIA\n\nBEAVER                LAWRENCE\n\nIN WEST VIRGINIA THIS WATCH INCLUDES 1 COUNTY\n\nIN THE NORTHERN PANHANDLE OF WEST VIRGINIA\n\nHANCOCK\n\nTHIS INCLUDES THE CITIES OF ALIQUIPPA, AMBRIDGE, BEAVER FALLS,\nBROOKVILLE, BUTLER, CLARION, COLUMBIANA, EAST LIVERPOOL,\nELLWOOD CITY, FORD CITY, FRANKLIN, GREENSBURG, GROVE CITY,\nHERMITAGE, INDIANA, KITTANNING, LATROBE, MONACA, MURRYSVILLE,\nNEW CASTLE, NEW KENSINGTON, OIL CITY, PITTSBURGH METRO AREA,\nPUNXSUTAWNEY, SALEM, SHARON, TIONESTA, AND WEIRTON."
+        }
+      ],
+      "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.66eb76e70559e694485e69e0f2bdf5657e69f27e.001.1",
+      "office": "NWS Pittsburgh PA"
+    }
+  ],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "a6df1195-7d03-4ed2-93c9-bb0c64690c09",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T22:39:00+00:00",
+      "expires": null,
+      "location": "Clarion PA-Forest PA",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Marienville, Leeper and Cook Forest State",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Marienville, Leeper and Cook Forest State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Marienville, Leeper and Cook Forest State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/a6df1195-7d03-4ed2-93c9-bb0c64690c09"
+    },
+    {
+      "id": "d115f0fa-0534-4c90-a7b2-4c94eff7a851",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T22:37:00+00:00",
+      "expires": null,
+      "location": "Forest PA-Venango PA",
+      "hazard": "PAC053-121-022247- /O.CAN.KPBZ.SV.W.0315.000000T0000Z-260902T2300Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC053-121-022247- /O.CAN.KPBZ.SV.W.0315.000000T0000Z-260902T2300Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 637 PM EDT Wed Sep 2 2026 PAC053-121-022247- /O.CAN.KPBZ.SV.W.0315.000000T0000Z-260902T2300Z/ Forest PA-Venango PA- 637 PM EDT Wed Sep 2 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/d115f0fa-0534-4c90-a7b2-4c94eff7a851"
+    },
+    {
+      "id": "cb628523-6b3b-47e9-b755-33190c9f07ec",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T22:25:00+00:00",
+      "expires": null,
+      "location": "Forest PA-Venango PA",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Tionesta, West Hickory, Starr and East",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Tionesta, West Hickory, Starr and East Hickory.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Tionesta, West Hickory, Starr and East Hickory."
+        }
+      ],
+      "url": "https://api.weather.gov/products/cb628523-6b3b-47e9-b755-33190c9f07ec"
+    },
+    {
+      "id": "91a113c0-c36e-4d3e-ba32-305db06af054",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T22:19:00+00:00",
+      "expires": null,
+      "location": "Clarion PA-Jefferson PA",
+      "hazard": "PAC031-065-022229- /O.CAN.KPBZ.SV.W.0314.000000T0000Z-260902T2245Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC031-065-022229- /O.CAN.KPBZ.SV.W.0314.000000T0000Z-260902T2245Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 619 PM EDT Wed Sep 2 2026 PAC031-065-022229- /O.CAN.KPBZ.SV.W.0314.000000T0000Z-260902T2245Z/ Clarion PA-Jefferson PA- 619 PM EDT Wed Sep 2 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/91a113c0-c36e-4d3e-ba32-305db06af054"
+    }
+  ]
 }
