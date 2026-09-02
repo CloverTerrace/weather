@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T13:36:05.544793Z",
+  "generatedAt": "2026-09-02T13:41:10.485212Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -54,6 +54,25 @@
   ],
   "statements": [
     {
+      "id": "8847dbee-46ce-4b48-a5f4-31c3b6fef7d3",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T13:33:00+00:00",
+      "expires": null,
+      "location": "Butler PA-Clarion PA-Venango PA",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Emlenton, Clintonville, St. Petersburg, Eau",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Emlenton, Clintonville, St. Petersburg, Eau Claire, Kennerdell, Foxburg and Cherry Valley.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Emlenton, Clintonville, St. Petersburg, Eau Claire, Kennerdell, Foxburg and Cherry Valley."
+        }
+      ],
+      "url": "https://api.weather.gov/products/8847dbee-46ce-4b48-a5f4-31c3b6fef7d3"
+    },
+    {
       "id": "334a43b0-d543-408a-a80a-58a2389620ea",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -90,44 +109,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/5b483111-4871-457c-91de-d811bf6b0521"
-    },
-    {
-      "id": "7d16f46f-18c3-4c99-a8fd-e2e3f039ff48",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-02T13:13:00+00:00",
-      "expires": null,
-      "location": "Jefferson PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Brookville, Reynoldsville, Brockway, Sykesville, Falls Creek, Sigel, Clear Creek State",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Brookville, Reynoldsville, Brockway, Sykesville, Falls Creek, Sigel, Clear Creek State Park and Clarington.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Brookville, Reynoldsville, Brockway, Sykesville, Falls Creek, Sigel, Clear Creek State Park and Clarington."
-        }
-      ],
-      "url": "https://api.weather.gov/products/7d16f46f-18c3-4c99-a8fd-e2e3f039ff48"
-    },
-    {
-      "id": "558f7c9d-562f-43ff-a567-fd4e4e632813",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-02T13:12:00+00:00",
-      "expires": null,
-      "location": "Mercer PA-Venango PA",
-      "hazard": "PAC085-121-021322- /O.EXP.KPBZ.SV.W.0309.000000T0000Z-260902T1315Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC085-121-021322- /O.EXP.KPBZ.SV.W.0309.000000T0000Z-260902T1315Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 912 AM EDT Wed Sep 2 2026 PAC085-121-021322- /O.EXP.KPBZ.SV.W.0309.000000T0000Z-260902T1315Z/ Mercer PA-Venango PA- 912 AM EDT Wed Sep 2 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/558f7c9d-562f-43ff-a567-fd4e4e632813"
     }
   ]
 }
