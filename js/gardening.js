@@ -664,17 +664,20 @@
       img.src = `assets/garden/${seasonKey}/borders/vine-corner-${pos}.png`;
     });
 
-    // edges are single full illustrations (not seamless tiles), sized by
-    // their own natural aspect ratio in CSS -- see .garden-hero-vine.edge-*
-    // img rules. Each wraps a real <img>, swapped here the same way the
-    // corners are, rather than a background-image tile.
+    // top/bottom edges are single full illustrations (not seamless
+    // tiles), sized by their own natural aspect ratio via CSS
+    // (width:100%;height:auto on .garden-hero-vine.edge-top/bottom img).
+    // Swapped here the same way the corners are, via a real <img> src.
+    // Left/right edges are handled entirely by CSS instead (see
+    // --vine-edge-left/--vine-edge-right in gardening.css) since they
+    // tile as a repeating background rather than a single stretched
+    // image, and CSS already reacts to body[data-garden-season] with no
+    // JS needed.
     const EDGE_FILES = {
       'edge-top': 'vine-edge-top.png',
-      'edge-bottom': 'vine-edge-bottom.png',
-      'edge-left': 'vine-edge-left.png',
-      'edge-right': 'vine-edge-right.png'
+      'edge-bottom': 'vine-edge-bottom.png'
     };
-    document.querySelectorAll('.garden-hero-vine.edge-top img, .garden-hero-vine.edge-bottom img, .garden-hero-vine.edge-left img, .garden-hero-vine.edge-right img').forEach(img => {
+    document.querySelectorAll('.garden-hero-vine.edge-top img, .garden-hero-vine.edge-bottom img').forEach(img => {
       const wrap = img.parentElement;
       const cls = Object.keys(EDGE_FILES).find(c => wrap.classList.contains(c));
       if (!cls) return;
