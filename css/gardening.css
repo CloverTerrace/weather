@@ -151,8 +151,8 @@ img.pixel,
 
 .garden-season-container {
   display: flex;
-  justify-content: flex-start;
-  margin: 0.2rem 0 0;
+  align-items: center;
+  margin: 0;
 }
 
 
@@ -419,28 +419,34 @@ img.pixel,
   --vine-edge-left: url("../assets/garden/winter/borders/vine-edge-left.png");
   --vine-edge-right: url("../assets/garden/winter/borders/vine-edge-right.png");
 }
-/* --- season subtitle tag --- */
+/* --- season subtitle tag ---
+   Redesigned to borrow the hero card's own "readout chip" language
+   (same translucent bg/border vars .garden-readout uses on this card)
+   and the pixel font the h2 itself is set in, instead of a separate
+   cream parchment sticker with its own drop shadow -- so it reads as
+   a native part of the header instead of a badge glued on afterward.
+   Colors/border come from the same time-of-day-reactive vars as the
+   rest of the hero card, so it recolors in step at dawn/day/dusk/night
+   instead of staying a fixed cream regardless of theme. */
 
 .garden-season-tag {
   display: inline-flex;
   align-items: center;
-  background-color: #fdf6e9; /* Light warm background for the badge */
-  border: 2px solid var(--parchment-edge); /* matches the site's parchment/wood border language */
-  border-radius: 20px;       /* Gives it that pill/badge shape */
-  padding: 0.35rem 0.95rem;
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  font-weight: bold;
-  color: #5c4b37;
- 
-  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18);
-  margin-top: 0.4rem;
+  gap: 0.35rem;
+  background: var(--garden-hero-readout-bg);
+  border: 1px solid var(--garden-hero-readout-border);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem 0.3rem 0.5rem;
+  font-family: var(--font-pixel);
+  font-size: 0.56rem;
+  letter-spacing: 0.02em;
+  color: var(--garden-hero-heading);
+  transition: background 1.2s ease, border-color 1.2s ease, color 1.2s ease;
 }
 
 .garden-tag-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 0.4rem;
+  width: 14px;
+  height: 14px;
   image-rendering: pixelated; /* Keeps the pixel art crisp */
 }
 
@@ -724,9 +730,14 @@ img.pixel,
   box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.08), 0 5px 0 rgba(0, 0, 0, 0.25);
   color: var(--garden-hero-text);
   transition: background 2.5s ease, border-color 2.5s ease, color 1.2s ease;
-  padding: 3.7rem 1.7rem 3.3rem;
+  padding: 2.3rem 1.7rem 3.3rem;
 }
-.garden-card.garden-hero-card h2 { color: var(--garden-hero-text); }
+.garden-card.garden-hero-card h2 {
+  color: var(--garden-hero-text);
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 0.4rem;
+}
 .garden-hero-card .garden-readout {
   background: var(--garden-hero-readout-bg);
   border-color: var(--garden-hero-readout-border);
@@ -756,21 +767,38 @@ img.pixel,
 .garden-hero-vine.bl { bottom: -26px; left: -22px; width: var(--vine-corner-bottom-w, 106px); }
 .garden-hero-vine.br { bottom: -26px; right: -22px; width: var(--vine-corner-bottom-w, 106px); }
 
-.garden-hero-vine.edge-top,
 .garden-hero-vine.edge-bottom {
   left: calc(var(--vine-corner-w, 108px) - 26px);
   right: calc(var(--vine-corner-w, 108px) - 26px);
   height: auto;
+  bottom: -14px;
 }
-.garden-hero-vine.edge-top { top: -32px; }
-.garden-hero-vine.edge-bottom { bottom: -14px; }
-.garden-hero-vine.edge-top img,
 .garden-hero-vine.edge-bottom img {
   display: block;
   width: 100%;
   max-width: 340px; /* keeps the motif from ballooning on wide desktop
                         cards, since width:100% + height:auto scales the
                         rendered height right along with the card width */
+  height: auto;
+  margin: 0 auto;
+}
+
+/* top edge: a modest centered motif rather than a wide banner, so its
+   scale reads as a sibling of the vine corners (~108px) and the thin
+   repeating side edges (~30px) instead of dominating them. Sized as a
+   fixed width + centered (not stretched between the corners like the
+   bottom edge) precisely so it stays small regardless of card width. */
+.garden-hero-vine.edge-top {
+  top: -18px;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: min(34%, 170px);
+  height: auto;
+}
+.garden-hero-vine.edge-top img {
+  display: block;
+  width: 100%;
   height: auto;
   margin: 0 auto;
 }
@@ -801,7 +829,8 @@ img.pixel,
 
 @media (max-width: 850px) {
   :root { --vine-corner-w: 78px; --vine-corner-bottom-w: 76px; --vine-edge-side-w: 22px; }
-  .garden-hero-card { padding: 2.6rem 1.1rem 2.2rem; }
+  .garden-hero-card { padding: 1.7rem 1.1rem 2.2rem; }
+  .garden-hero-vine.edge-top { top: -12px; width: min(40%, 120px); }
 }
 
 /* -----------------------------------------------------------------
