@@ -1,11 +1,11 @@
 // Clover Terrace Weather — service worker
-// Version 5: multi-page shell + fresh CSS/JS
+// Version 6: multi-page shell + fresh CSS/JS
 //
 // HTML, CSS and JS use NETWORK-FIRST so GitHub Pages updates are picked up
 // promptly. Cached copies remain available as an offline fallback.
 // Live data files are NEVER cached by this worker.
 
-const CACHE_NAME = 'weather-app-shell-v5';
+const CACHE_NAME = 'weather-app-shell-v6';
 
 const SHELL_FILES = [
   './index.html',
@@ -24,6 +24,7 @@ const SHELL_FILES = [
 
   './js/navigation.js',
   './js/gardening.js',
+  './js/garden-sprites.js',
 ];
 
 self.addEventListener('install', (event) => {
