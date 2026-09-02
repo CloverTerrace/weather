@@ -664,6 +664,24 @@
       img.src = `assets/garden/${seasonKey}/borders/vine-corner-${pos}.png`;
     });
 
+    // edges are single full illustrations (not seamless tiles), sized by
+    // their own natural aspect ratio in CSS -- see .garden-hero-vine.edge-*
+    // img rules. Each wraps a real <img>, swapped here the same way the
+    // corners are, rather than a background-image tile.
+    const EDGE_FILES = {
+      'edge-top': 'vine-edge-top.png',
+      'edge-bottom': 'vine-edge-bottom.png',
+      'edge-left': 'vine-edge-left.png',
+      'edge-right': 'vine-edge-right.png'
+    };
+    document.querySelectorAll('.garden-hero-vine.edge-top img, .garden-hero-vine.edge-bottom img, .garden-hero-vine.edge-left img, .garden-hero-vine.edge-right img').forEach(img => {
+      const wrap = img.parentElement;
+      const cls = Object.keys(EDGE_FILES).find(c => wrap.classList.contains(c));
+      if (!cls) return;
+      img.onerror = () => {};
+      img.src = `assets/garden/${seasonKey}/borders/${EDGE_FILES[cls]}`;
+    });
+
     document.querySelectorAll('[data-sprite="corner"]').forEach(img => {
       img.onerror = () => {};
       img.src = `assets/garden/${seasonKey}/borders/corner-flowers.png`;
