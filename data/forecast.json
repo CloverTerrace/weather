@@ -6,10 +6,10 @@
       "temperatureUnit": "F",
       "windSpeed": "7 mph",
       "windDirection": "SW",
-      "shortForecast": "Mostly Sunny",
-      "detailedForecast": "Mostly sunny, with a high near 90. Heat index values as high as 100. Southwest wind around 7 mph. New rainfall amounts less than a tenth of an inch possible.",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "detailedForecast": "A chance of showers and thunderstorms after 5pm. Mostly sunny, with a high near 90. Heat index values as high as 100. Southwest wind around 7 mph. Chance of precipitation is 20%.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 8
+      "probabilityOfPrecipitation": 17
     },
     {
       "name": "Tonight",
@@ -18,9 +18,9 @@
       "windSpeed": "6 mph",
       "windDirection": "SW",
       "shortForecast": "Chance Showers And Thunderstorms then Partly Cloudy",
-      "detailedForecast": "A chance of showers and thunderstorms between 7pm and 10pm. Partly cloudy, with a low around 72. Southwest wind around 6 mph. Chance of precipitation is 20%.",
+      "detailedForecast": "A chance of showers and thunderstorms before 10pm. Partly cloudy, with a low around 72. Southwest wind around 6 mph. Chance of precipitation is 20%.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 16
+      "probabilityOfPrecipitation": 19
     },
     {
       "name": "Thursday",
@@ -47,16 +47,6 @@
   ],
   "hourly": [
     {
-      "startTime": "2026-09-02T13:00:00-04:00",
-      "temperature": 87,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "SW",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 2
-    },
-    {
       "startTime": "2026-09-02T14:00:00-04:00",
       "temperature": 88,
       "temperatureUnit": "F",
@@ -74,7 +64,7 @@
       "windDirection": "SW",
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 5
+      "probabilityOfPrecipitation": 11
     },
     {
       "startTime": "2026-09-02T16:00:00-04:00",
@@ -84,7 +74,7 @@
       "windDirection": "SW",
       "shortForecast": "Partly Sunny",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 6
+      "probabilityOfPrecipitation": 12
     },
     {
       "startTime": "2026-09-02T17:00:00-04:00",
@@ -92,9 +82,9 @@
       "temperatureUnit": "F",
       "windSpeed": "7 mph",
       "windDirection": "SW",
-      "shortForecast": "Partly Sunny",
+      "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 8
+      "probabilityOfPrecipitation": 17
     },
     {
       "startTime": "2026-09-02T18:00:00-04:00",
@@ -102,9 +92,9 @@
       "temperatureUnit": "F",
       "windSpeed": "6 mph",
       "windDirection": "SW",
-      "shortForecast": "Mostly Cloudy",
+      "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 13
+      "probabilityOfPrecipitation": 18
     },
     {
       "startTime": "2026-09-02T19:00:00-04:00",
@@ -114,7 +104,7 @@
       "windDirection": "SW",
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 15
+      "probabilityOfPrecipitation": 19
     },
     {
       "startTime": "2026-09-02T20:00:00-04:00",
@@ -122,7 +112,7 @@
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "SW",
-      "shortForecast": "Slight Chance Showers And Thunderstorms",
+      "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": false,
       "probabilityOfPrecipitation": 15
     },
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 36
+    },
+    {
+      "startTime": "2026-09-03T13:00:00-04:00",
+      "temperature": 86,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "NW",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 30
     }
   ]
 }
