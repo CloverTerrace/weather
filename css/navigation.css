@@ -143,9 +143,23 @@
 /* DESKTOP STYLES (HOME PAGE) */
 @media (min-width: 851px) {
   .site-nav {
+    padding-top: 0;
+    padding-bottom: 0;
     padding-left: max(1rem, calc((100% - 1200px) / 2));
     padding-right: max(1rem, calc((100% - 1200px) / 2));
     margin-bottom: 1.5rem;
+  }
+
+  .site-nav .nav-brand {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .site-nav .nav-links a,
+  .site-nav .nav-links button {
+    min-height: auto;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 }
 
