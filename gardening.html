@@ -82,12 +82,12 @@
         <div class="garden-sky-body garden-sun" id="garden-sun-body"></div>
         <div class="garden-sky-body garden-moon" id="garden-moon-body"></div>
 
-        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:58px; left:4%; width:14px; animation-delay:.2s;" alt="">
-        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:70px; left:16%; width:18px; animation-delay:.6s;" alt="">
-        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:52px; left:32%; width:20px; animation-delay:1.1s;" alt="">
-        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:76px; left:68%; width:17px; animation-delay:.3s;" alt="">
-        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:62px; left:84%; width:14px; animation-delay:1.6s;" alt="">
-        <img class="garden-sky-sprite star" src="assets/scene/star.png" style="top:82px; left:95%; width:19px; animation-delay:.8s;" alt="">
+        <div class="garden-sky-sprite star" style="top:58px; left:4%; width:8px; height:8px; animation-delay:.2s;"></div>
+        <div class="garden-sky-sprite star" style="top:70px; left:16%; width:10px; height:10px; animation-delay:.6s;"></div>
+        <div class="garden-sky-sprite star" style="top:52px; left:32%; width:11px; height:11px; animation-delay:1.1s;"></div>
+        <div class="garden-sky-sprite star" style="top:76px; left:68%; width:9px; height:9px; animation-delay:.3s;"></div>
+        <div class="garden-sky-sprite star" style="top:62px; left:84%; width:8px; height:8px; animation-delay:1.6s;"></div>
+        <div class="garden-sky-sprite star" style="top:82px; left:95%; width:10px; height:10px; animation-delay:.8s;"></div>
 
         <!-- png clouds -->
         <img class="garden-sky-sprite cloud" src="assets/scene/cloud1.png" style="top:22%; animation-duration:244s; animation-delay:-11s;" alt="">
@@ -164,23 +164,29 @@
   <div class="garden-hero-vine edge-bottom" aria-hidden="true"><img alt=""></div>
   <div class="garden-hero-vine edge-left" aria-hidden="true"></div>
   <div class="garden-hero-vine edge-right" aria-hidden="true"></div>
-  <h2 id="conditions-heading"><img src="assets/garden/summer/plants/pitcherplant.png" class="garden-icon" alt="">Currently <p class="garden-season-container" id="garden-season-container"></p></h2>
-  
+  <h2 id="conditions-heading"><img src="assets/garden/summer/plants/pitcherplant.png" class="garden-icon" alt="">Currently</h2>
+
+  <!-- CSS Grid with named areas (see .garden-hero-layout in
+       gardening.css), so the season badge (grid-area: badge) can sit
+       in the desktop-only "bottom center" row while also sitting
+       beside the temperature on mobile, without duplicating markup
+       per breakpoint -- the grid-template-areas simply differ at the
+       850px breakpoint. -->
   <div class="garden-hero-layout">
-    <!-- left column -->
-    <div class="garden-hero-primary">
-      <div class="garden-hero-temp-large">
-        <span id="garden-temp">--</span><span class="garden-hero-temp-unit">°F</span>
-      </div>
-      
+    <div class="garden-hero-temp-large">
+      <span id="garden-temp">--</span><span class="garden-hero-temp-unit">°F</span>
+    </div>
+
+    <div class="garden-season-container" id="garden-season-container"></div>
+
+    <div class="garden-hero-desc-wrap">
       <div class="garden-hero-desc">
         Dew Point: <span id="garden-dew">--</span>°F
       </div>
-      
+
       <div class="garden-meta" id="garden-updated">Loading station data…</div>
     </div>
 
-    <!-- right column -->
     <div class="garden-hero-stats-list">
       <div class="garden-hero-stat-item">
         <span class="garden-hero-stat-icon" data-icon="humidity">💧</span>
@@ -209,6 +215,7 @@
     </div>
   </div>
 </section>
+
 
     </div>
 
