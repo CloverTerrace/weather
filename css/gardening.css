@@ -457,17 +457,19 @@ img.pixel,
 }
 
 .garden-tag-icon {
-  width: 40px;
-  height: 40px;
-  image-rendering: pixelated; /* Keeps the pixel art crisp */
+ width: 40px;
+ height: 40px;
+ image-rendering: pixelated; /* Keeps the pixel art crisp */
+ }
+
+/* seasonal decorative <img> elements begin hidden and are revealed only
+   after a successful load. This prevents empty/broken image boxes from ever
+   participating in desktop layout. */
+.garden-page img[hidden] {
+  display: none !important;
 }
 
-@media (max-width: 560px) {
-  /* fills the whole grid-area: badge cell (which sits beside the
-     temperature and is exactly as tall as its row needs to be) rather
-     than sizing to its own content, so it genuinely fills that square
-     instead of floating small inside it. */
-  .garden-season-tag {
+ .garden-season-tag {
     width: 100%;
     height: 100%;
     min-width: 0;
