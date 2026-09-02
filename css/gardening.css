@@ -418,6 +418,17 @@ img.pixel,
   --season-grass: url("../assets/garden/autumn/terrain/grass.png");
   --vine-edge-left: url("../assets/garden/autumn/borders/vine-edge-left.png");
   --vine-edge-right: url("../assets/garden/autumn/borders/vine-edge-right.png");
+  /* autumn-only border sizing: corners 1px bigger than the shared default
+     (108/106 -> 109/107). The top edge isn't set separately here -- it's
+     already keyed to --vine-corner-w directly (see .garden-hero-vine.edge-top),
+     so bumping the corner var carries the top edge up by the same 1px and
+     keeps the two proportional automatically. The bottom edge previously
+     had its own oversized 340px cap unrelated to the corner scale; pinning
+     it to --vine-corner-w here brings it down to match the top edge's size
+     instead of dwarfing it. */
+  --vine-corner-w: 109px;
+  --vine-corner-bottom-w: 107px;
+  --vine-edge-bottom-max-w: 109px;
 }
 
 :root[data-garden-season="winter"] .garden-world {
@@ -828,9 +839,13 @@ img.pixel,
 .garden-hero-vine.edge-bottom img {
   display: block;
   width: 100%;
-  max-width: 340px; /* keeps the motif from ballooning on wide desktop
-                        cards, since width:100% + height:auto scales the
-                        rendered height right along with the card width */
+  max-width: var(--vine-edge-bottom-max-w, 340px); /* keeps the motif from
+                        ballooning on wide desktop cards, since width:100% +
+                        height:auto scales the rendered height right along
+                        with the card width. Overridable per-season via
+                        --vine-edge-bottom-max-w (see autumn's tighter value,
+                        which brings the bottom garland down to match the
+                        top edge's size instead of the oversized default). */
   height: auto;
   margin: 0 auto;
 }
@@ -891,6 +906,17 @@ img.pixel,
 @media (max-width: 850px) {
   :root { --vine-corner-w: 78px; --vine-corner-bottom-w: 76px; --vine-edge-side-w: 22px; }
   .garden-hero-card { padding: 1.3rem 1.1rem 2.2rem; }
+  /* autumn's +1px bump (see the base :root[data-garden-season="autumn"]
+     block above) has higher specificity than the plain :root rule right
+     above, so without a mobile-scoped value of its own it would win at
+     every width and lock autumn's corners at the desktop 109/107px size
+     even on phones. Redeclaring it here keeps autumn's border 1px bigger
+     than every other season while still shrinking at this breakpoint. */
+  :root[data-garden-season="autumn"] .garden-world {
+    --vine-corner-w: 79px;
+    --vine-corner-bottom-w: 77px;
+    --vine-edge-bottom-max-w: 79px;
+  }
 }
 
 /* -----------------------------------------------------------------
