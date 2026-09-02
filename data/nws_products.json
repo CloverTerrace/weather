@@ -1,8 +1,27 @@
 {
-  "generatedAt": "2026-09-02T17:16:05.995369Z",
+  "generatedAt": "2026-09-02T17:21:09.899349Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "c11e0318-ebbe-4c9f-b07d-8d34b1ce219a",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-09-02T17:14:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Additional development of thunderstorms expected Wednesday",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Additional development of thunderstorms expected Wednesday",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 114 PM EDT Wed Sep 2 2026 .WHAT HAS CHANGED... Additional development of thunderstorms expected Wednesday afternoon and evening with uncertainty beyond that for Thursday, though expect another round at some point during the day. Timing"
+        }
+      ],
+      "url": "https://api.weather.gov/products/c11e0318-ebbe-4c9f-b07d-8d34b1ce219a"
+    },
     {
       "id": "5138e7f3-3f41-46df-9a63-e7327b301222",
       "type": "Area Forecast Discussion",
@@ -44,25 +63,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/15b51a03-2015-4fcd-9640-8e42022d7bbb"
-    },
-    {
-      "id": "dd482142-79c8-4efc-9a86-6041d5a5f8f5",
-      "type": "Non-Precipitation Warnings / Watches / Advisories",
-      "office": "KPBZ",
-      "issued": "2026-09-02T16:45:00+00:00",
-      "expires": null,
-      "location": "Tuscarawas-Carroll-Coshocton-Harrison-Jefferson OH-Muskingum",
-      "hazard": "URGENT - WEATHER MESSAGE OHZ039-040-048>050-057>059-068-069-PAZ020-021-029-031-073-075-",
-      "distanceMiles": null,
-      "headline": "Non-Precipitation Warnings / Watches / Advisories",
-      "summary": "URGENT - WEATHER MESSAGE OHZ039-040-048>050-057>059-068-069-PAZ020-021-029-031-073-075-",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 NPWPBZ URGENT - WEATHER MESSAGE 1245 PM EDT Wed Sep 2 2026 OHZ039-040-048>050-057>059-068-069-PAZ020-021-029-031-073-075- WVZ001>004-012-021-509-030200- /O.CON.KPBZ.HT.Y.0003.000000T0000Z-260904T0000Z/ Tuscarawas-Carroll-Coshocton-Harrison-Jefferson OH-Muskingum-"
-        }
-      ],
-      "url": "https://api.weather.gov/products/dd482142-79c8-4efc-9a86-6041d5a5f8f5"
     }
   ]
 }
