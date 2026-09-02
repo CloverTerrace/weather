@@ -1,8 +1,46 @@
 {
-  "generatedAt": "2026-09-02T12:46:03.913660Z",
+  "generatedAt": "2026-09-02T12:51:10.923799Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "6cc368cc-5c85-4d47-ae8c-6a2528ae8ca4",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T12:50:00+00:00",
+      "expires": null,
+      "location": "Mercer PA-Venango PA",
+      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Franklin, Sugarcreek, Stoneboro, Polk, Sandy Lake, Cooperstown, Jackson Center, Woodland Heights, Utica, New Lebanon and Maurice K Goddard State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Franklin, Sugarcreek, Stoneboro, Polk, Sandy Lake, Cooperstown, Jackson Center, Woodland Heights, Utica, New Lebanon and Maurice K Goddard State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/6cc368cc-5c85-4d47-ae8c-6a2528ae8ca4"
+    },
+    {
+      "id": "cb62ac01-a602-4f71-9bfc-be5511e245c9",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T12:45:00+00:00",
+      "expires": null,
+      "location": "Clarion PA-Forest PA",
+      "hazard": "PAC031-053-021255- /O.EXP.KPBZ.SV.W.0308.000000T0000Z-260902T1245Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC031-053-021255- /O.EXP.KPBZ.SV.W.0308.000000T0000Z-260902T1245Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 845 AM EDT Wed Sep 2 2026 PAC031-053-021255- /O.EXP.KPBZ.SV.W.0308.000000T0000Z-260902T1245Z/ Clarion PA-Forest PA- 845 AM EDT Wed Sep 2 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/cb62ac01-a602-4f71-9bfc-be5511e245c9"
+    },
     {
       "id": "a2bc1a81-f1db-4e2a-8a04-a96c47785665",
       "type": "Severe Weather Statement",
@@ -40,29 +78,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/8519c5f3-f7fa-4cb1-95ed-412b6ea8f74c"
-    },
-    {
-      "id": "021b6b19-281a-4dd5-a5bf-38f19f9f82ed",
-      "type": "Hazardous Weather Outlook",
-      "office": "KPBZ",
-      "issued": "2026-09-02T12:17:00+00:00",
-      "expires": null,
-      "location": "Columbiana-Lawrence-Butler-Armstrong",
-      "hazard": "Today and tonight. Severe thunderstorms are possible today. Damaging wind, large hail, and isolated tornadoes are possible, especially in western Pennsylvania.",
-      "distanceMiles": null,
-      "headline": "Hazardous Weather Outlook",
-      "summary": "Today and tonight. Severe thunderstorms are possible today. Damaging wind, large hail, and isolated tornadoes are possible, especially in western Pennsylvania.",
-      "details": [
-        {
-          "label": "Today's Hazards",
-          "text": "Today and tonight. Severe thunderstorms are possible today. Damaging wind, large hail, and isolated tornadoes are possible, especially in western Pennsylvania."
-        },
-        {
-          "label": "Extended Outlook",
-          "text": "Thursday through Tuesday. Showers and thunderstorms are expected on Thursday. Some storms could be severe. Mainly during the afternoon/evening but there is a potential for some overnight storms as well."
-        }
-      ],
-      "url": "https://api.weather.gov/products/021b6b19-281a-4dd5-a5bf-38f19f9f82ed"
     }
   ]
 }
