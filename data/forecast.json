@@ -4,10 +4,10 @@
       "name": "Tonight",
       "temperature": 72,
       "temperatureUnit": "F",
-      "windSpeed": "2 to 8 mph",
+      "windSpeed": "5 mph",
       "windDirection": "SW",
       "shortForecast": "Chance Showers And Thunderstorms",
-      "detailedForecast": "A chance of showers and thunderstorms after 10pm. Partly cloudy, with a low around 72. Southwest wind 2 to 8 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
+      "detailedForecast": "A chance of showers and thunderstorms after 10pm. Mostly cloudy, with a low around 72. Southwest wind around 5 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 26
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-01T19:00:00-04:00",
-      "temperature": 85,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "W",
-      "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 5
-    },
     {
       "startTime": "2026-09-01T20:00:00-04:00",
       "temperature": 82,
@@ -285,6 +275,16 @@
       "shortForecast": "Slight Chance Showers And Thunderstorms",
       "isDaytime": false,
       "probabilityOfPrecipitation": 23
+    },
+    {
+      "startTime": "2026-09-02T19:00:00-04:00",
+      "temperature": 85,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "SW",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 29
     }
   ]
 }
