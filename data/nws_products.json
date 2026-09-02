@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T13:56:03.084412Z",
+  "generatedAt": "2026-09-02T14:01:32.801982Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -54,6 +54,44 @@
   ],
   "statements": [
     {
+      "id": "d94c28fd-e992-414a-851a-636012b5e1a1",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T13:54:00+00:00",
+      "expires": null,
+      "location": "Indiana PA-Jefferson PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Punxsutawney, Big Run and Rossiter.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Punxsutawney, Big Run and Rossiter.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Punxsutawney, Big Run and Rossiter."
+        }
+      ],
+      "url": "https://api.weather.gov/products/d94c28fd-e992-414a-851a-636012b5e1a1"
+    },
+    {
+      "id": "5d1b383d-cfa6-44e6-af1b-a8d1285ce170",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T13:53:00+00:00",
+      "expires": null,
+      "location": "Butler PA-Clarion PA-Venango PA",
+      "hazard": "PAC019-031-121-021403- /O.EXP.KPBZ.SV.W.0311.000000T0000Z-260902T1400Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC019-031-121-021403- /O.EXP.KPBZ.SV.W.0311.000000T0000Z-260902T1400Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 953 AM EDT Wed Sep 2 2026 PAC019-031-121-021403- /O.EXP.KPBZ.SV.W.0311.000000T0000Z-260902T1400Z/ Butler PA-Clarion PA-Venango PA- 953 AM EDT Wed Sep 2 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/5d1b383d-cfa6-44e6-af1b-a8d1285ce170"
+    },
+    {
       "id": "0f490453-0ebb-483c-9533-dfd9522d621a",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -90,44 +128,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/4a77d895-ee9a-40fa-a997-4f5140189324"
-    },
-    {
-      "id": "8847dbee-46ce-4b48-a5f4-31c3b6fef7d3",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-02T13:33:00+00:00",
-      "expires": null,
-      "location": "Butler PA-Clarion PA-Venango PA",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Emlenton, Clintonville, St. Petersburg, Eau",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Emlenton, Clintonville, St. Petersburg, Eau Claire, Kennerdell, Foxburg and Cherry Valley.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Emlenton, Clintonville, St. Petersburg, Eau Claire, Kennerdell, Foxburg and Cherry Valley."
-        }
-      ],
-      "url": "https://api.weather.gov/products/8847dbee-46ce-4b48-a5f4-31c3b6fef7d3"
-    },
-    {
-      "id": "334a43b0-d543-408a-a80a-58a2389620ea",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-02T13:27:00+00:00",
-      "expires": null,
-      "location": "Jefferson PA",
-      "hazard": "PAC065-021337- /O.EXP.KPBZ.SV.W.0310.000000T0000Z-260902T1330Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC065-021337- /O.EXP.KPBZ.SV.W.0310.000000T0000Z-260902T1330Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 927 AM EDT Wed Sep 2 2026 PAC065-021337- /O.EXP.KPBZ.SV.W.0310.000000T0000Z-260902T1330Z/ Jefferson PA- 927 AM EDT Wed Sep 2 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/334a43b0-d543-408a-a80a-58a2389620ea"
     }
   ]
 }
