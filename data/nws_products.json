@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T13:25:59.537705Z",
+  "generatedAt": "2026-09-02T13:31:15.522164Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -54,6 +54,44 @@
   ],
   "statements": [
     {
+      "id": "334a43b0-d543-408a-a80a-58a2389620ea",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T13:27:00+00:00",
+      "expires": null,
+      "location": "Jefferson PA",
+      "hazard": "PAC065-021337- /O.EXP.KPBZ.SV.W.0310.000000T0000Z-260902T1330Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC065-021337- /O.EXP.KPBZ.SV.W.0310.000000T0000Z-260902T1330Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 927 AM EDT Wed Sep 2 2026 PAC065-021337- /O.EXP.KPBZ.SV.W.0310.000000T0000Z-260902T1330Z/ Jefferson PA- 927 AM EDT Wed Sep 2 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/334a43b0-d543-408a-a80a-58a2389620ea"
+    },
+    {
+      "id": "5b483111-4871-457c-91de-d811bf6b0521",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T13:21:00+00:00",
+      "expires": null,
+      "location": "Mercer PA",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Emlenton, Clintonville, St. Petersburg, Eau",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Emlenton, Clintonville, St. Petersburg, Eau Claire, Kennerdell, Foxburg and Cherry Valley.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Emlenton, Clintonville, St. Petersburg, Eau Claire, Kennerdell, Foxburg and Cherry Valley."
+        }
+      ],
+      "url": "https://api.weather.gov/products/5b483111-4871-457c-91de-d811bf6b0521"
+    },
+    {
       "id": "7d16f46f-18c3-4c99-a8fd-e2e3f039ff48",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -90,25 +128,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/558f7c9d-562f-43ff-a567-fd4e4e632813"
-    },
-    {
-      "id": "894b56cc-560e-44c7-a5ab-f39b88dc97a7",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-02T13:01:00+00:00",
-      "expires": null,
-      "location": "Mercer PA-Venango PA",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Franklin, Sugarcreek, Stoneboro,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Franklin, Sugarcreek, Stoneboro, Polk, Sandy Lake, Cooperstown, Woodland Heights, Utica, New Lebanon and Maurice K Goddard State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Franklin, Sugarcreek, Stoneboro, Polk, Sandy Lake, Cooperstown, Woodland Heights, Utica, New Lebanon and Maurice K Goddard State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/894b56cc-560e-44c7-a5ab-f39b88dc97a7"
     }
   ]
 }
