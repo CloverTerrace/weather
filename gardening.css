@@ -1,0 +1,1318 @@
+/* =====================================================================
+    🍀🌹 CLOVER TERRACE — GARDENING WEATHER 🌹🍀
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+:root {
+  --ink: #3b2a1a;
+  --parchment: #faf2df;
+  --parchment-edge: #6b4a2b;
+  --parchment-inner: #f2e2bd;
+  --parchment-well: #ece0c2;
+  --purple-deep: #241a42;
+  --purple-mid: #4a3b7c;
+  --pink-dusk: #d998c2;
+  --good: #3f7d2c;
+  --warn: #b5762a;
+  --danger: #a5352f;
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-body: 'VT323', monospace;
+  --font-header: 'Macondo', 'Press Start 2P', monospace;
+
+  /* nav + hero-card accent -- purple by default (night), recolored per
+     data-garden-time by updateGardenSky() in gardening.js so these two
+     "chrome" elements shift alongside the sky instead of staying a fixed
+     purple around the clock. */
+  --garden-accent-1: var(--purple-deep);
+  --garden-accent-2: var(--purple-mid);
+  --garden-accent-border: #16102b;
+  --garden-accent-text: #c9bff0;
+  --garden-accent-active-bg: rgba(255, 233, 168, 0.14);
+  --garden-accent-active-text: #ffe9a8;
+
+  --garden-hero-1: var(--purple-deep);
+  --garden-hero-2: var(--purple-mid);
+  --garden-hero-border: #16102b;
+  --garden-hero-text: #f3ecff;
+  --garden-hero-heading: #d9cdfa;
+  --garden-hero-muted: #c9bff0;
+  --garden-hero-value: #fff8ec;
+  --garden-hero-readout-bg: rgba(255, 255, 255, 0.08);
+  --garden-hero-readout-border: rgba(255, 255, 255, 0.22);
+  --garden-overscroll-top: #3f2d5c;
+  --garden-overscroll-bottom: #4a3f2a;
+}
+
+/* daytime*/
+:root[data-garden-time="day"] {
+  --garden-accent-1: #3f6f96;
+  --garden-accent-2: #7fb0d4;
+  --garden-accent-border: #1c3547;
+  --garden-accent-text: #0d2436;
+  --garden-accent-active-bg: rgba(255, 214, 89, 0.55);
+  --garden-accent-active-text: #3c2a0c;
+
+  --garden-hero-1: #245c3a;
+  --garden-hero-2: #9dc45c;
+  --garden-hero-border: #26401f;
+  --garden-hero-text: #fffef2;
+  --garden-hero-heading: #f4ffd9;
+  --garden-hero-muted: #e4f6c4;
+  --garden-hero-value: #ffffff;
+  --garden-hero-readout-bg: rgba(255, 255, 255, 0.16);
+  --garden-hero-readout-border: rgba(255, 255, 255, 0.3);
+
+  --garden-overscroll-top: #5e96c4;
+  --garden-overscroll-bottom: #35592c;
+}
+
+/* dawn/dusk */
+:root[data-garden-time="dawn"],
+:root[data-garden-time="dusk"] {
+  --garden-accent-1: #5c3168;
+  --garden-accent-2: #b5567f;
+  --garden-accent-border: #2c1533;
+  --garden-accent-text: #f6d9e6;
+  --garden-accent-active-bg: rgba(255, 214, 168, 0.2);
+  --garden-accent-active-text: #ffe4b8;
+
+  --garden-hero-1: #5c3168;
+  --garden-hero-2: #c9714f;
+  --garden-hero-border: #2c1533;
+  --garden-hero-text: #fff3ea;
+  --garden-hero-heading: #f6d9c8;
+  --garden-hero-muted: #f0c9d8;
+  --garden-hero-value: #fff8ef;
+  --garden-hero-readout-bg: rgba(255, 255, 255, 0.1);
+  --garden-hero-readout-border: rgba(255, 255, 255, 0.24);
+
+  --garden-overscroll-top: #3f2d5c;
+  --garden-overscroll-bottom: #4a3f2a;
+}
+
+/* night */
+:root[data-garden-time="night"] {
+  --garden-overscroll-top: #0f0c22;
+  --garden-overscroll-bottom: #1b2a16;
+}
+
+/* -----------------------------------------------------------------
+   base page & overscroll color
+   ----------------------------------------------------------------- */
+html {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: var(--garden-overscroll-top);
+  transition: background-color 2.5s ease;
+}
+
+body {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: var(--garden-overscroll-bottom);
+  background-image: url("../assets/garden/summer/terrain/grass.png");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  background-position: 0 0;
+  transition: background-color 2.5s ease;
+}
+
+.garden-page {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 20px;
+  color: var(--ink);
+  background: transparent;
+}
+
+img.pixel,
+.garden-page img { image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges; }
+.garden-icon-img {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  object-fit: contain;
+}
+
+/* --- center the garden header & season --- */
+
+.garden-heading {
+  text-align: center; 
+}
+
+.garden-season-container {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0.2rem 0 0;
+}
+
+
+/* -----------------------------------------------------------------
+   garden world / terrain foundation
+   ----------------------------------------------------------------- */
+.garden-world {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: transparent;
+}
+
+.garden-layer {
+  position: absolute;
+  pointer-events: none;
+}
+
+.garden-terrain {
+  inset: 0;
+  z-index: 0;
+  background-color: transparent;
+  background-image: var(--season-grass);
+  background-repeat: repeat;
+  background-position: 0 0;
+  background-size: 128px 128px;
+  image-rendering: pixelated;
+}
+
+/* day/night-responsive sky */
+.garden-sky {
+  inset: 0 0 auto 0;
+  z-index: 1;
+  height: var(--garden-sky-height, clamp(300px, 38vh, 420px));
+  overflow: hidden;
+  background:
+    linear-gradient(180deg,
+      rgba(104,72,139,.96) 0%,
+      rgba(104,72,139,.92) 50%,
+      rgba(104,72,139,.82) 75%,
+      rgba(104,72,139,.55) 90%,
+      rgba(104,72,139,0) 100%);
+  transition: background 2.5s ease, height 0.3s ease;
+}
+
+:root[data-garden-time="day"] .garden-sky {
+  background:
+    linear-gradient(180deg,
+      rgba(94,150,196,.92) 0%,
+      rgba(146,186,219,.85) 45%,
+      rgba(196,219,235,.6) 75%,
+      rgba(196,219,235,.3) 90%,
+      rgba(196,219,235,0) 100%);
+}
+
+:root[data-garden-time="dawn"] .garden-sky,
+:root[data-garden-time="dusk"] .garden-sky {
+  background:
+    linear-gradient(180deg,
+      rgba(63,45,92,.95) 0%,
+      rgba(217,138,180,.85) 40%,
+      rgba(245,181,130,.65) 70%,
+      rgba(245,181,130,.35) 88%,
+      rgba(245,181,130,0) 100%);
+}
+
+:root[data-garden-time="night"] .garden-sky {
+  background:
+    linear-gradient(180deg,
+      rgba(15,12,34,.97) 0%,
+      rgba(30,22,58,.94) 45%,
+      rgba(30,22,58,.82) 75%,
+      rgba(30,22,58,.5) 90%,
+      rgba(30,22,58,0) 100%);
+}
+
+/* sun & moon */
+.garden-sky-body {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  left: var(--garden-celestial-left, clamp(20px, 7%, 84px));
+  top: 100%;
+  transform: translate(-50%, 0);
+  opacity: 0;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: top 2.4s ease, left 1s ease, opacity 1.6s ease, transform 1s ease;
+  image-rendering: pixelated;
+  pointer-events: none;
+  will-change: top, left, transform, filter;
+}
+
+.garden-sky-body.is-risen {
+  top: var(--garden-celestial-top, clamp(72px, 14%, 110px));
+  opacity: 1;
+}
+
+/* moonrise during full daylight (and moonset after sunrise) */
+#garden-sky.both-risen .garden-sun.is-risen { transform: translate(calc(-100% - 4px), 0); }
+#garden-sky.both-risen .garden-moon.is-risen { transform: translate(4px, 0); }
+
+.garden-sun {
+  background-image: url("../assets/scene/pixelsun.png");
+  filter: drop-shadow(0 0 10px rgba(255, 216, 115, 0.55));
+}
+
+.garden-moon {
+  background-image: url("../assets/scene/pixelmoon.png");
+  filter: drop-shadow(0 0 8px rgba(207, 201, 230, 0.45));
+}
+
+/* ---------------------------------------------------------------
+   weather-responsive fx -- rain / snow / clouds / stars layered over
+   the sky, toggled by data-garden-weather (+ data-garden-time for
+   stars) on <html>. see classifyGardenWeather() / updateGardenSky()
+   in gardening.js. mirrors the main dashboard's #weather-fx system,
+   renamed so it can never collide with site.css's own fx rules even
+   though site.css is loaded on this page too.
+   ----------------------------------------------------------------- */
+.garden-weather-fx {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.garden-fx-rain,
+.garden-fx-snow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+:root[data-garden-weather="rain"] .garden-fx-rain,
+:root[data-garden-weather="thunderstorm"] .garden-fx-rain {
+  opacity: 1;
+}
+
+:root[data-garden-weather="snow"] .garden-fx-snow {
+  opacity: 1;
+}
+
+.garden-raindrop {
+  position: absolute;
+  top: -10vh;
+  width: 2px;
+  height: 16px;
+  background: linear-gradient(to bottom, rgba(220, 235, 255, 0), rgba(220, 235, 255, 0.75));
+  transform: rotate(10deg);
+  animation: garden-fx-fall linear infinite;
+}
+
+@keyframes garden-fx-fall {
+  from { transform: translateY(0) rotate(10deg); }
+  to   { transform: translateY(120vh) rotate(10deg); }
+}
+
+.garden-snowflake {
+  position: absolute;
+  top: -5vh;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  animation: garden-fx-snow-fall linear infinite;
+}
+
+@keyframes garden-fx-snow-fall {
+  0%   { transform: translate(0, 0); }
+  50%  { transform: translate(10px, 60vh); }
+  100% { transform: translate(-8px, 120vh); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .garden-raindrop, .garden-snowflake {
+    animation: none !important;
+  }
+}
+
+.garden-heading,
+.garden-page .site-nav,
+.garden-intro,
+.garden-stat-row,
+.garden-band-credit {
+  position: relative;
+  z-index: 5;
+}
+
+.garden-border {
+  display: none;
+}
+
+.garden-border-top,
+.garden-border-bottom {
+  left: 0;
+  width: 100%;
+  height: 24px;
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+}
+
+.garden-border-top { top: 0; }
+.garden-border-bottom { bottom: 0; }
+
+.garden-border-left,
+.garden-border-right {
+  top: 0;
+  width: 24px;
+  height: 100%;
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+}
+
+.garden-border-left { left: 0; }
+.garden-border-right { right: 0; }
+
+:root {
+  --season-path: "../assets/garden/summer/";
+  --season-grass: url("../assets/garden/summer/terrain/grass.png");
+  --vine-edge-left: url("../assets/garden/summer/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/summer/borders/vine-edge-right.png");
+}
+
+body[data-garden-season="spring"] .garden-world {
+  --season-path: "../assets/garden/spring/";
+  --season-grass: url("../assets/garden/spring/terrain/grass.png");
+  --vine-edge-left: url("../assets/garden/spring/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/spring/borders/vine-edge-right.png");
+}
+
+body[data-garden-season="summer"] .garden-world {
+  --season-path: "../assets/garden/summer/";
+  --season-grass: url("../assets/garden/summer/terrain/grass.png");
+  --vine-edge-left: url("../assets/garden/summer/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/summer/borders/vine-edge-right.png");
+}
+
+body[data-garden-season="autumn"] .garden-world {
+  --season-path: "../assets/garden/autumn/";
+  --season-grass: url("../assets/garden/autumn/terrain/grass.png");
+  --vine-edge-left: url("../assets/garden/autumn/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/autumn/borders/vine-edge-right.png");
+}
+
+body[data-garden-season="winter"] .garden-world {
+  --season-path: "../assets/garden/winter/";
+  --season-grass: url("../assets/garden/winter/terrain/grass.png");
+  --vine-edge-left: url("../assets/garden/winter/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/winter/borders/vine-edge-right.png");
+}
+/* --- season subtitle tag --- */
+
+.garden-season-tag {
+  display: inline-flex;
+  align-items: center;
+  background-color: #fdf6e9; /* Light warm background for the badge */
+  border: 2px solid var(--parchment-edge); /* matches the site's parchment/wood border language */
+  border-radius: 20px;       /* Gives it that pill/badge shape */
+  padding: 0.35rem 0.95rem;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: #5c4b37;
+ 
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18);
+  margin-top: 0.4rem;
+}
+
+.garden-tag-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.4rem;
+  image-rendering: pixelated; /* Keeps the pixel art crisp */
+}
+
+/* -----------------------------------------------------------------
+       site nav 
+   ----------------------------------------------------------------- */
+.garden-page .site-nav {
+  background: linear-gradient(180deg, var(--garden-accent-1), var(--garden-accent-2)) !important;
+  border: 2px solid var(--garden-accent-border) !important;
+  backdrop-filter: none !important;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25) !important;
+  transition: background 2.5s ease, border-color 2.5s ease;
+}
+.garden-page .site-nav a,
+.garden-page .site-nav button {
+  font-family: var(--font-pixel) !important;
+  letter-spacing: 0 !important;
+  color: var(--garden-accent-text) !important;
+  transition: color 1.2s ease;
+}
+.garden-page .site-nav a:hover,
+.garden-page .site-nav button:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  
+  color: var(--garden-accent-text) !important;
+}
+.garden-page .site-nav a[aria-current="page"] {
+  background: var(--garden-accent-active-bg) !important;
+  color: var(--garden-accent-active-text) !important;
+  box-shadow: inset 0 -2px 0 var(--garden-accent-active-text) !important;
+}
+
+.garden-page .site-nav {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  box-sizing: border-box;
+  max-width: none;               
+  border-radius: 0 !important;   
+  border-left: none !important;  
+  border-right: none !important; 
+  border-top: none !important;
+}
+
+/* -----------------------------------------------------------------
+         hero row — heading (left) + conditions card (right)
+   ----------------------------------------------------------------- */
+.garden-hero {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(320px, 1.15fr);
+  align-items: stretch;
+  gap: 1.5rem;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 1.6rem 1rem 1.2rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 850px) {
+  .garden-hero {
+    grid-template-columns: 1fr;
+    padding-top: 1rem;
+  }
+}
+
+.garden-heading {
+  position: relative;
+  text-align: left;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.garden-heading h1 {
+  font-family: var(--font-header);
+  font-size: clamp(1.3rem, 4.5vw, 2.6rem);
+  color: #ffffff;
+  text-shadow: 1px 1px 0 var(--purple-deep);
+  margin: 0.4rem 0 0.7rem;
+  position: relative;
+  z-index: 2;
+}
+
+.garden-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.3rem;
+  color: #fff2df;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+  margin: 0 0 0.6rem;
+  position: relative;
+  z-index: 2;
+}
+
+.garden-intro {
+  max-width: 62ch;
+  margin: 0 auto 1.4rem;
+  text-align: center;
+  font-size: 1.15rem;
+  color: #2e2440;
+  background: rgba(255, 248, 236, 0.85);
+  border: 2px solid var(--parchment-edge);
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* -----------------------------------------------------------------
+   icons
+   ----------------------------------------------------------------- */
+
+.garden-icon,
+.garden-title-icon,
+.garden-footer-icon {
+  height: 1.2em; 
+  width: auto;
+  vertical-align: middle; 
+  object-fit: contain;
+  display: inline-block;
+  position: relative;
+  top: -0.1em;
+}
+
+/* specific spacing adjustments for different areas */
+.garden-title-icon {
+  height: 1.3em;
+  margin-right: 0.4rem;
+}
+.garden-celestial-slot {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+}
+
+.garden-icon {
+  margin-right: 0.35rem;
+}
+
+.garden-footer-icon {
+  height: 1.1em;
+  margin-right: 0.25rem;
+  top: -0.15em;
+}
+
+
+/* twinkling png stars / drifting png cloud sprites */
+.garden-sky-sprite {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 2.5s ease;
+}
+
+.garden-sky-sprite.cloud {
+  opacity: 0.85;
+  animation-name: garden-drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes garden-drift {
+  from { left: -20%; }
+  to   { left: 120%; }
+}
+
+/* faint glow around the pixel art */
+.garden-sky-sprite.star {
+  filter: drop-shadow(0 0 0px rgba(255, 255, 225, 0.85));
+}
+
+:root[data-garden-time="night"] .garden-sky-sprite.star {
+  opacity: 1;
+  animation-name: garden-twinkle;
+  animation-timing-function: ease-in-out;
+  animation-duration: 2.6s;
+  animation-iteration-count: infinite;
+}
+@keyframes garden-twinkle { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+
+:root[data-garden-time="night"] .garden-sky-sprite.cloud { opacity: 0; }
+
+/* -----------------------------------------------------------------
+   garden-specific stat row
+   ----------------------------------------------------------------- */
+.garden-stat-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 1rem;
+  max-width: 1180px;
+  margin: 1.5rem auto 1.8rem;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 5;
+}
+.garden-card-full { grid-column: 1 / -1; }
+
+.garden-stat-card {
+  padding: 1rem 1.1rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.garden-stat-card h2 {
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  line-height: 1.4;
+  color: #7a5a30;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 0.75rem;
+}
+.garden-stat-icon { font-size: 1rem; }
+.garden-stat-value {
+  font-size: 2rem;
+  line-height: 1.05;
+  color: var(--ink);
+}
+.garden-stat-unit {
+  font-size: 1.05rem;
+  color: #6a5a3a;
+  margin-left: 0.2rem;
+}
+.garden-stat-status {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #6a5a3a;
+  margin: 0.15rem 0 0.4rem;
+}
+.garden-stat-status.good { color: var(--good); }
+.garden-stat-status.warn { color: var(--warn); }
+.garden-stat-status.danger { color: var(--danger); }
+.garden-stat-status.info { color: #3d6b8f; }
+.garden-stat-status.season-spring { color: var(--good); }
+.garden-stat-status.season-summer { color: #c9a13a; }
+.garden-stat-status.season-fall { color: var(--warn); }
+.garden-stat-status.season-winter { color: #3d6b8f; }
+.garden-stat-caption {
+  font-size: 0.92rem;
+  color: #6a5a3a;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.garden-card {
+  position: relative;
+  box-sizing: border-box;
+  background: var(--parchment);
+  border: 4px solid var(--parchment-edge);
+  border-radius: 18px;
+  box-shadow: inset 0 0 0 3px var(--parchment-inner), 0 5px 0 rgba(0, 0, 0, 0.18);
+  padding: 1.1rem 1.2rem 1rem;
+}
+
+.garden-corner {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  z-index: 3;
+  pointer-events: none;
+}
+.garden-corner.tl { top: -11px; left: -11px; }
+.garden-corner.tr { top: -11px; right: -11px; transform: scaleX(-1); }
+.garden-corner.bl { bottom: -11px; left: -11px; transform: scaleY(-1); }
+.garden-corner.br { bottom: -11px; right: -11px; transform: scale(-1, -1); }
+
+/* current season and conditions card */
+.garden-hero-card {
+  background: linear-gradient(160deg, var(--garden-hero-1), var(--garden-hero-2));
+  border-color: var(--garden-hero-border);
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.08), 0 5px 0 rgba(0, 0, 0, 0.25);
+  color: var(--garden-hero-text);
+  transition: background 2.5s ease, border-color 2.5s ease, color 1.2s ease;
+  padding: 3.7rem 1.7rem 3.3rem;
+}
+.garden-card.garden-hero-card h2 { color: var(--garden-hero-text); }
+.garden-hero-card .garden-readout {
+  background: var(--garden-hero-readout-bg);
+  border-color: var(--garden-hero-readout-border);
+}
+.garden-hero-card .garden-readout-label { color: var(--garden-hero-muted); }
+.garden-hero-card .garden-readout-value { color: var(--garden-hero-value); }
+.garden-hero-card .garden-readout-unit { color: var(--garden-hero-heading); }
+.garden-hero-card .garden-stat-label { color: var(--garden-hero-muted); }
+.garden-hero-card .garden-stat-value { color: var(--garden-hero-value); }
+.garden-hero-card .garden-meta { color: var(--garden-hero-muted); }
+
+/* wisteria vine border */
+.garden-hero-vine {
+  position: absolute;
+  pointer-events: none;
+  image-rendering: pixelated;
+  z-index: 4;
+}
+
+.garden-hero-vine.corner {
+  width: var(--vine-corner-w, 108px);
+  height: auto;
+  z-index: 5;
+}
+.garden-hero-vine.tl { top: -30px; left: -22px; }
+.garden-hero-vine.tr { top: -30px; right: -22px; }
+.garden-hero-vine.bl { bottom: -26px; left: -22px; width: var(--vine-corner-bottom-w, 106px); }
+.garden-hero-vine.br { bottom: -26px; right: -22px; width: var(--vine-corner-bottom-w, 106px); }
+
+.garden-hero-vine.edge-top,
+.garden-hero-vine.edge-bottom {
+  left: calc(var(--vine-corner-w, 108px) - 26px);
+  right: calc(var(--vine-corner-w, 108px) - 26px);
+  height: auto;
+}
+.garden-hero-vine.edge-top { top: -32px; }
+.garden-hero-vine.edge-bottom { bottom: -14px; }
+.garden-hero-vine.edge-top img,
+.garden-hero-vine.edge-bottom img {
+  display: block;
+  width: 100%;
+  max-width: 340px; /* keeps the motif from ballooning on wide desktop
+                        cards, since width:100% + height:auto scales the
+                        rendered height right along with the card width */
+  height: auto;
+  margin: 0 auto;
+}
+
+.garden-hero-vine.edge-left,
+.garden-hero-vine.edge-right {
+  top: calc(var(--vine-corner-w, 108px) * 0.62);
+  bottom: calc(var(--vine-corner-bottom-w, 106px) * 0.62);
+  width: var(--vine-edge-side-w, 30px);
+  background-repeat: repeat-y;
+  background-position: top center;
+  /* height:auto here preserves each tile's own native aspect ratio at
+     this fixed width, instead of stretching one copy to fill the whole
+     card height (which also blows up the width proportionally -- the
+     bug from last round). The vine is meant to repeat down the card,
+     same as the old summer-only version, just at each season's own
+     correct proportions rather than a guessed fixed height. */
+  background-size: var(--vine-edge-side-w, 30px) auto;
+}
+.garden-hero-vine.edge-left {
+  left: -16px;
+  background-image: var(--vine-edge-left);
+}
+.garden-hero-vine.edge-right {
+  right: -16px;
+  background-image: var(--vine-edge-right);
+}
+
+@media (max-width: 850px) {
+  :root { --vine-corner-w: 78px; --vine-corner-bottom-w: 76px; --vine-edge-side-w: 22px; }
+  .garden-hero-card { padding: 2.6rem 1.1rem 2.2rem; }
+}
+
+/* -----------------------------------------------------------------
+   keystone seasonal gingko tree beside the heading on desktop
+   (reparented there by initGardenTreeComposition(), gardening.js) and
+   inside .garden-stat-row on narrow screens, landing in the empty grid
+   cell next to Rain Forecast. tree + companion sprite art is swapped
+   per-season by updateSeasonalTreeArt() (gardening.js), same trigger
+   the rest of the sprite system reacts to -- never hardcode a season
+   folder in the src attributes here.
+   ----------------------------------------------------------------- */
+.garden-hero-tree {
+  position: relative;
+  z-index: 2;
+}
+
+.garden-heading .garden-hero-tree {
+  /* pushes the tree to the bottom of the (now stretch-height) heading
+     column, so its base lines up near the Current Conditions card's
+     bottom edge instead of floating in the middle of the extra space. */
+  margin-top: auto;
+  align-self: center;
+  width: min(78%, 300px);
+  padding-top: 0.5rem;
+}
+
+.garden-stat-row .garden-hero-tree {
+  align-self: end;
+  width: min(100%, 160px);
+  margin: 0 auto;
+}
+
+.garden-tree-sprite {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.garden-tree-companion {
+  position: absolute;
+  z-index: 1;
+  width: 16%;
+  height: auto;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+.garden-tree-companion.tc-1 { left: -2%;  bottom: 0%;  width: 15%; }
+.garden-tree-companion.tc-2 { right: -1%; bottom: 4%;  width: 20%; }
+.garden-tree-companion.tc-3 { left: 26%;  bottom: -6%; width: 12%; }
+.garden-tree-companion.tc-4 { right: 22%; bottom: -4%; width: 11%; }
+
+.garden-card h2 {
+  font-family: var(--font-pixel);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: #7a5a30;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.9rem;
+}
+.garden-card h2 .garden-icon { font-size: 1rem; }
+
+/* -----------------------------------------------------------------
+   card internals — readouts / stat pairs / status / timelines / bars
+   ----------------------------------------------------------------- */
+.garden-readout-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+.garden-readout {
+  background: var(--parchment-well);
+  border: 2px solid var(--parchment-edge);
+  border-radius: 10px;
+  padding: 0.5rem 0.5rem 0.6rem;
+  text-align: center;
+}
+.garden-readout-label {
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #7a5a30;
+}
+.garden-readout-value { font-size: 1.7rem; line-height: 1.1; }
+.garden-readout-unit { font-size: 1rem; color: #6a5a3a; }
+
+.garden-two-col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem 1.2rem;
+}
+.garden-stat { display: flex; flex-direction: column; }
+.garden-stat-label { font-size: 0.95rem; color: #7a5a30; }
+.garden-stat-value { font-size: 1.35rem; }
+.garden-stat-value a { color: var(--purple-mid); text-decoration: underline; }
+
+.garden-source-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  font-size: 0.95rem;
+  color: #6a5a3a;
+  border-top: 2px solid var(--parchment-inner);
+  padding-top: 0.6rem;
+  margin-top: 0.2rem;
+}
+
+.garden-note { font-size: 1rem; color: #6a5a3a; margin: 0.3rem 0 0; }
+.garden-meta { font-size: 0.95rem; color: #7a5a30; }
+
+
+.garden-footer-credits {
+  position: relative;
+  z-index: 5;
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 0.75rem 1rem 1rem;
+  box-sizing: border-box;
+  text-align: center;
+  color: #eee5d5;
+  background: rgba(50, 78, 39, 0.92);
+  border-top: 2px solid rgba(22, 16, 43, 0.7);
+  border-bottom: 2px solid rgba(22, 16, 43, 0.7);
+  font-size: 0.9rem;
+}
+.garden-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.15rem 0.65rem;
+}
+.garden-footer-links a {
+  color: #f5e7b8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.garden-footer-sources {
+  margin-top: 0.45rem;
+  color: rgba(238, 247, 223, 0.82);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+.garden-band {
+  width: 100%;
+  line-height: 0;
+  background: #7fae4a;
+  border-top: 4px solid #16102b;
+}
+.garden-band img { width: 100%; display: block; }
+.garden-band-credit {
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  text-align: center;
+  color: #eef7df;
+  background: #3c5a2c;
+  padding: 0.35rem;
+  border-top: 2px solid #16102b;
+}
+/* --- colorful accent card --- */
+
+.garden-hero-layout {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1.2rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+@media (max-width: 560px) {
+  .garden-hero-layout {
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+  }
+
+  .garden-hero-primary,
+  .garden-hero-stats-list {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .garden-hero-desc {
+    padding-bottom: 0.5rem; 
+  }
+}
+
+
+/* left column containing the huge temperature */
+.garden-hero-primary {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+}
+
+.garden-hero-temp-large {
+  font-family: var(--font-header);
+  font-size: 4.5rem;
+  line-height: 1;
+  color: var(--garden-hero-value);
+  margin-bottom: 0.5rem;
+}
+
+.garden-hero-temp-unit {
+  font-family: var(--font-body);
+  font-size: 2rem;
+  vertical-align: super;
+  margin-left: 0.1rem;
+  color: var(--garden-hero-muted);
+}
+
+.garden-hero-desc {
+  font-size: 1.25rem;
+  color: var(--garden-hero-text);
+  margin-bottom: auto;
+  padding-bottom: 2rem; 
+}
+
+/* right column containing the stacked list */
+.garden-hero-stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  flex: 1;
+  min-width: 220px;
+  justify-content: center;
+}
+
+.garden-hero-stat-item {
+  display: flex;
+  align-items: center;
+  font-size: 1.15rem;
+  color: var(--garden-hero-text);
+  border-bottom: 1px solid var(--garden-hero-readout-border);
+  padding-bottom: 0.4rem;
+}
+
+.garden-hero-stat-item:last-child {
+  border-bottom: none;
+}
+
+.garden-hero-stat-icon {
+  width: 24px;
+  margin-right: 0.6rem;
+  text-align: center;
+}
+
+.garden-hero-stat-label {
+  flex: 1;
+  color: var(--garden-hero-muted);
+}
+
+.garden-hero-stat-value {
+  font-weight: bold;
+  color: var(--garden-hero-value);
+  text-align: right;
+  letter-spacing: 0.05em;
+}
+
+/* reset the existing meta tag margin */
+.garden-hero-card .garden-meta {
+  margin-top: 0 !important;
+}
+
+/* -----------------------------------------------------------------
+            mobile
+   ----------------------------------------------------------------- */
+@media (max-width: 850px) {
+  .garden-stat-row { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+}
+
+@media (max-width: 480px) {
+  .garden-footer-credits {
+    width: 100%;
+    padding-inline: 0.65rem;
+  }
+  .garden-page { font-size: 18px; }
+  .garden-heading h1 { font-size: 1rem; }
+  .garden-readout-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .garden-stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .garden-sky-sprite { animation: none !important; }
+}
+
+
+/* -----------------------------------------------------------------
+   responsive dom sprites
+   ----------------------------------------------------------------- */
+.garden-sprite-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.garden-sprite-layer-back { z-index: 3; }
+.garden-sprite-layer-front { z-index: 4; }
+
+.garden-sprite {
+  position: absolute;
+  display: block;
+  width: var(--sprite-size, 40px);
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  transform-origin: 50% 100%;
+  transition: filter 180ms ease, opacity 220ms ease;
+  will-change: transform, opacity;
+}
+
+button.garden-sprite {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.garden-sprite.is-clickable {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.garden-sprite.is-clickable:focus-visible {
+  outline: 2px dashed rgba(255, 239, 171, .95);
+  outline-offset: 3px;
+}
+
+.garden-sprite.is-gently-moving {
+  animation: garden-sprite-sway 4.5s ease-in-out infinite;
+  animation-delay: var(--sprite-delay, 0s);
+}
+
+@keyframes garden-sprite-sway {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-2px) rotate(1deg); }
+}
+
+.garden-sprite.is-pulsing {
+  animation: garden-sprite-pulse 1.2s ease-out;
+}
+
+@keyframes garden-sprite-pulse {
+  0% { transform: scale(1); filter: brightness(1); }
+  45% { transform: scale(1.16); filter: brightness(1.18); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+.garden-sprite.is-flying-away {
+  pointer-events: none;
+  animation: garden-sprite-fly-away 1.35s cubic-bezier(.2,.7,.25,1) forwards;
+}
+
+@keyframes garden-sprite-fly-away {
+  0% { opacity: 1; transform: translate(0, 0) scale(1); }
+  35% { opacity: 1; transform: translate(18px, -22px) scale(1.05) rotate(5deg); }
+  100% { opacity: 0; transform: translate(88px, -105px) scale(.78) rotate(12deg); }
+}
+
+.garden-sprite-tip {
+  position: absolute;
+  z-index: 20;
+  max-width: min(240px, 70vw);
+  padding: .45rem .6rem;
+  border: 2px solid var(--parchment-edge);
+  border-radius: 6px;
+  background: rgba(250, 242, 223, .97);
+  color: var(--ink);
+  box-shadow: 3px 3px 0 rgba(0,0,0,.2);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.1;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, 4px);
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.garden-sprite-tip.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.garden-spore {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(245, 226, 177, .95);
+  pointer-events: none;
+  animation: garden-spore-pop 850ms ease-out forwards;
+}
+
+@keyframes garden-spore-pop {
+  from { opacity: 1; transform: translate(0, 0) scale(.7); }
+  to { opacity: 0; transform: translate(var(--spore-x), var(--spore-y)) scale(1.2); }
+}
+
+@media (max-width: 850px) {
+  .garden-sprite-layer-front { z-index: 3; }
+}
+
+@media (max-width: 480px) {
+  .garden-sprite-layer-front { z-index: 3; }
+  .garden-sprite-tip { font-size: .9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .garden-sprite.is-gently-moving,
+  .garden-sprite.is-pulsing,
+  .garden-sprite.is-flying-away,
+  .garden-spore { animation: none !important; }
+  .garden-sprite.is-flying-away { opacity: 0; }
+}
+
+/* -----------------------------------------------------------------
+   garden sprite engine
+   ----------------------------------------------------------------- */
+.garden-sprite-layer-ambient { z-index: 2; }
+.garden-sprite-layer-back { z-index: 3; }
+.garden-sprite-layer-front { z-index: 4; }
+.garden-sprite.is-overlap { z-index: 6; }
+
+.garden-sprite.is-hover {
+  animation: garden-sprite-hover 3.8s ease-in-out infinite;
+  animation-delay: var(--sprite-delay, 0s);
+}
+
+@keyframes garden-sprite-hover {
+  0%,100% { transform: translate(0,0); }
+  50% { transform: translate(4px,-5px); }
+}
+
+.garden-sprite.is-drift {
+  animation: garden-sprite-drift 6.5s ease-in-out infinite;
+  animation-delay: var(--sprite-delay, 0s);
+}
+
+@keyframes garden-sprite-drift {
+  0%,100% { transform: translate(0,0) rotate(-2deg); }
+  50% { transform: translate(3px,8px) rotate(3deg); }
+}
+
+.garden-sprite.is-scurrying {
+  animation: garden-sprite-scurrying 1.15s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+@keyframes garden-sprite-scurrying {
+  0% { transform: translate(0,0); opacity:1; }
+  18% { transform: translate(5px,-2px); opacity:1; }
+  48% { transform: translate(28px,1px); opacity:1; }
+  100% { transform: translate(58px,8px); opacity:0; }
+}
+
+.garden-sprite.is-clickable:hover { filter: brightness(1.08); }
+.garden-sprite.is-clickable:active { filter: brightness(.96); }
+
+.garden-ambient-particle {
+  position:absolute;
+  display:block;
+  width:5px;
+  height:5px;
+  image-rendering:pixelated;
+  pointer-events:none;
+  opacity:0;
+  animation: garden-ambient-float var(--ambient-duration,8s) ease-in-out infinite;
+  animation-delay:var(--ambient-delay,0s);
+}
+
+.garden-ambient-spring {
+  background:#fff2a8;
+  box-shadow:0 0 0 1px rgba(91,65,112,.18);
+}
+
+.garden-ambient-autumn {
+  width:7px;
+  height:5px;
+  background:#d47a43;
+  box-shadow:3px 2px 0 #9b5135;
+}
+
+@keyframes garden-ambient-float {
+  0% { opacity:0; transform:translate(0,0) rotate(0deg); }
+  15% { opacity:.8; }
+  50% { opacity:.7; transform:translate(13px,18px) rotate(90deg); }
+  85% { opacity:.35; }
+  100% { opacity:0; transform:translate(-7px,38px) rotate(180deg); }
+}
+
+@media (max-width:850px) {
+  .garden-sprite-layer-front { z-index:4; }
+  .garden-sprite.is-overlap { z-index:5; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .garden-sprite.is-hover,
+  .garden-sprite.is-drift,
+  .garden-sprite.is-scurrying,
+  .garden-ambient-particle { animation:none !important; }
+  .garden-sprite.is-scurrying { opacity:1; }
+}
