@@ -71,13 +71,13 @@
   flex: 1 1 0px; 
   min-width: 0;
   min-height: 28px;
-  padding: 0.3rem 0.35rem;
+  padding: 0.3rem 0.3rem;
   border: 1px solid transparent;
   border-radius: 8px;
   background: transparent;
   color: var(--muted-color);
   font-family: 'Figtree', var(--font-body), sans-serif !important;
-  font-size: 0.72rem !important;
+  font-size: 0.78rem !important;
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: 0.01em;
@@ -165,9 +165,9 @@
   .site-nav .nav-links a,
   .site-nav .nav-links button {
     min-height: 22px;
-    padding: 0.2rem clamp(0.12rem, 0.8vw, 0.25rem);
-    gap: clamp(0.1rem, 0.8vw, 0.2rem);
-    font-size: clamp(0.48rem, 1.9vw, 0.58rem) !important;
+    padding: 0.2rem clamp(0.1rem, 0.7vw, 0.22rem);
+    gap: clamp(0.08rem, 0.7vw, 0.18rem);
+    font-size: clamp(0.52rem, 2vw, 0.62rem) !important;
   }
 
   .site-nav .nav-icon {
