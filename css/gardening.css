@@ -380,26 +380,36 @@ img.pixel,
 :root {
   --season-path: "../assets/garden/summer/";
   --season-grass: url("../assets/garden/summer/terrain/grass.png");
+  --vine-edge-left: url("../assets/garden/summer/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/summer/borders/vine-edge-right.png");
 }
 
 body[data-garden-season="spring"] .garden-world {
   --season-path: "../assets/garden/spring/";
   --season-grass: url("../assets/garden/spring/terrain/grass.png");
+  --vine-edge-left: url("../assets/garden/spring/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/spring/borders/vine-edge-right.png");
 }
 
 body[data-garden-season="summer"] .garden-world {
   --season-path: "../assets/garden/summer/";
   --season-grass: url("../assets/garden/summer/terrain/grass.png");
+  --vine-edge-left: url("../assets/garden/summer/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/summer/borders/vine-edge-right.png");
 }
 
 body[data-garden-season="autumn"] .garden-world {
   --season-path: "../assets/garden/autumn/";
   --season-grass: url("../assets/garden/autumn/terrain/grass.png");
+  --vine-edge-left: url("../assets/garden/autumn/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/autumn/borders/vine-edge-right.png");
 }
 
 body[data-garden-season="winter"] .garden-world {
   --season-path: "../assets/garden/winter/";
   --season-grass: url("../assets/garden/winter/terrain/grass.png");
+  --vine-edge-left: url("../assets/garden/winter/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/winter/borders/vine-edge-right.png");
 }
 /* --- season subtitle tag --- */
 
@@ -757,19 +767,28 @@ body[data-garden-season="winter"] .garden-world {
 .garden-hero-vine.edge-right {
   top: calc(var(--vine-corner-w, 108px) * 0.62);
   bottom: calc(var(--vine-corner-bottom-w, 106px) * 0.62);
-  width: auto;
+  width: var(--vine-edge-side-w, 30px);
+  background-repeat: repeat-y;
+  background-position: top center;
+  /* height:auto here preserves each tile's own native aspect ratio at
+     this fixed width, instead of stretching one copy to fill the whole
+     card height (which also blows up the width proportionally -- the
+     bug from last round). The vine is meant to repeat down the card,
+     same as the old summer-only version, just at each season's own
+     correct proportions rather than a guessed fixed height. */
+  background-size: var(--vine-edge-side-w, 30px) auto;
 }
-.garden-hero-vine.edge-left { left: -16px; }
-.garden-hero-vine.edge-right { right: -16px; }
-.garden-hero-vine.edge-left img,
-.garden-hero-vine.edge-right img {
-  display: block;
-  height: 100%;
-  width: auto;
+.garden-hero-vine.edge-left {
+  left: -16px;
+  background-image: var(--vine-edge-left);
+}
+.garden-hero-vine.edge-right {
+  right: -16px;
+  background-image: var(--vine-edge-right);
 }
 
 @media (max-width: 850px) {
-  :root { --vine-corner-w: 78px; --vine-corner-bottom-w: 76px; }
+  :root { --vine-corner-w: 78px; --vine-corner-bottom-w: 76px; --vine-edge-side-w: 22px; }
   .garden-hero-card { padding: 2.6rem 1.1rem 2.2rem; }
 }
 
