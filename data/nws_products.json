@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T13:06:04.190544Z",
+  "generatedAt": "2026-09-02T13:11:14.626119Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -54,6 +54,25 @@
   ],
   "statements": [
     {
+      "id": "894b56cc-560e-44c7-a5ab-f39b88dc97a7",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T13:01:00+00:00",
+      "expires": null,
+      "location": "Mercer PA-Venango PA",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Franklin, Sugarcreek, Stoneboro,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Franklin, Sugarcreek, Stoneboro, Polk, Sandy Lake, Cooperstown, Woodland Heights, Utica, New Lebanon and Maurice K Goddard State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Franklin, Sugarcreek, Stoneboro, Polk, Sandy Lake, Cooperstown, Woodland Heights, Utica, New Lebanon and Maurice K Goddard State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/894b56cc-560e-44c7-a5ab-f39b88dc97a7"
+    },
+    {
       "id": "6cc368cc-5c85-4d47-ae8c-6a2528ae8ca4",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -71,44 +90,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/6cc368cc-5c85-4d47-ae8c-6a2528ae8ca4"
-    },
-    {
-      "id": "cb62ac01-a602-4f71-9bfc-be5511e245c9",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-02T12:45:00+00:00",
-      "expires": null,
-      "location": "Clarion PA-Forest PA",
-      "hazard": "PAC031-053-021255- /O.EXP.KPBZ.SV.W.0308.000000T0000Z-260902T1245Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC031-053-021255- /O.EXP.KPBZ.SV.W.0308.000000T0000Z-260902T1245Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 845 AM EDT Wed Sep 2 2026 PAC031-053-021255- /O.EXP.KPBZ.SV.W.0308.000000T0000Z-260902T1245Z/ Clarion PA-Forest PA- 845 AM EDT Wed Sep 2 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/cb62ac01-a602-4f71-9bfc-be5511e245c9"
-    },
-    {
-      "id": "a2bc1a81-f1db-4e2a-8a04-a96c47785665",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-02T12:39:00+00:00",
-      "expires": null,
-      "location": "Mercer PA-Venango PA",
-      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Franklin, Sugarcreek, Stoneboro, Polk, Sandy Lake, Cooperstown, Jackson Center, Woodland Heights, Utica, New Lebanon, Sheakleyville and Maurice K Goddard State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Franklin, Sugarcreek, Stoneboro, Polk, Sandy Lake, Cooperstown, Jackson Center, Woodland Heights, Utica, New Lebanon, Sheakleyville and Maurice K Goddard State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/a2bc1a81-f1db-4e2a-8a04-a96c47785665"
     }
   ]
 }
