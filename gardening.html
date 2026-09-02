@@ -63,6 +63,44 @@
       else if (month >= 8 && month <= 10) season = 'autumn';
       window.__gardenSeason = season;
       document.documentElement.dataset.gardenSeason = season;
+
+      // One authoritative seasonal-art table. Both the first-paint loader below
+      // and gardening.js read this instead of maintaining separate copies.
+      window.GARDEN_SEASON_ART = {
+        spring: { label: 'Spring', icon: 'spring_icon.png', companions: [
+          'flowers/hyacinth.png', 'flowers/forgetmenot.png', 'flowers/pansy.png', 'flowers/lily.png'
+        ] },
+        summer: { label: 'Summer', icon: 'summer_icon.png', companions: [
+          'decorations/mushroom-red.png', 'decorations/rocks.png', 'plants/grass-tuft.png', 'flowers/bed-daisy.png'
+        ] },
+        autumn: { label: 'Autumn', icon: 'pumpkin_icon.png', companions: [
+          'plants/mossrock.png', 'plants/fern-small.png', 'plants/mossrock2.png', 'plants/berry-bush-1.png'
+        ] },
+        winter: { label: 'Winter', icon: 'winter_icon.png', companions: [
+          'flowers/snowflake.png', 'flowers/snowflake.png', 'flowers/snowflake.png', 'flowers/snowflake.png'
+        ] }
+      };
+
+      // Decorative images start hidden and only become visible after a real
+      // image load. A failed seasonal asset is removed/hidden rather than
+      // leaving the browser's broken-image glyph in the layout.
+      window.__setGardenSeasonImage = function (img, primary, fallback) {
+        if (!img) return;
+        delete img.dataset.gardenFallback;
+        img.hidden = true;
+        img.removeAttribute('src');
+        img.onload = function () { img.hidden = false; };
+        img.onerror = function () {
+          if (fallback && img.dataset.gardenFallback !== '1') {
+            img.dataset.gardenFallback = '1';
+            img.src = fallback;
+            return;
+          }
+          img.removeAttribute('src');
+          img.hidden = true;
+        };
+        img.src = primary;
+      };
     })();
   </script>
 </head>
@@ -145,23 +183,23 @@
                script at the end of <body>, which assigns the correct
                season's art exactly once instead of these starting on
                a hardcoded summer path and getting swapped after paint. -->
-          <img class="garden-tree-sprite" id="garden-tree-img" alt="">
-          <img class="garden-tree-companion tc-1" alt="">
-          <img class="garden-tree-companion tc-2" alt="">
-          <img class="garden-tree-companion tc-3" alt="">
-          <img class="garden-tree-companion tc-4" alt="">
+          <img class="garden-tree-sprite" id="garden-tree-img" alt="" hidden>
+          <img class="garden-tree-companion tc-1" alt="" hidden>
+          <img class="garden-tree-companion tc-2" alt="" hidden>
+          <img class="garden-tree-companion tc-3" alt="" hidden>
+          <img class="garden-tree-companion tc-4" alt="" hidden>
         </div>
       </header>
 
       <section class="garden-card garden-hero-card" aria-labelledby="conditions-heading">
   <!-- src intentionally omitted on the vine images below -- see the
        FOUC-prevention script at the end of <body>. -->
-  <img class="garden-hero-vine corner tl" alt="">
-  <img class="garden-hero-vine corner tr" alt="">
-  <img class="garden-hero-vine corner bl" alt="">
-  <img class="garden-hero-vine corner br" alt="">
-  <div class="garden-hero-vine edge-top" aria-hidden="true"><img alt=""></div>
-  <div class="garden-hero-vine edge-bottom" aria-hidden="true"><img alt=""></div>
+  <img class="garden-hero-vine corner tl" alt="" hidden>
+  <img class="garden-hero-vine corner tr" alt="" hidden>
+  <img class="garden-hero-vine corner bl" alt="" hidden>
+  <img class="garden-hero-vine corner br" alt="" hidden>
+  <div class="garden-hero-vine edge-top" aria-hidden="true"><img alt="" hidden></div>
+  <div class="garden-hero-vine edge-bottom" aria-hidden="true"><img alt="" hidden></div>
   <div class="garden-hero-vine edge-left" aria-hidden="true"></div>
   <div class="garden-hero-vine edge-right" aria-hidden="true"></div>
   <h2 id="conditions-heading"><img src="assets/garden/summer/plants/pitcherplant.png" class="garden-icon" alt="">Currently</h2>
@@ -177,7 +215,12 @@
       <span id="garden-temp">--</span><span class="garden-hero-temp-unit">°F</span>
     </div>
 
-    <div class="garden-season-container" id="garden-season-container"></div>
+    <div class="garden-season-container" id="garden-season-container">
+        <span class="garden-season-tag">
+          <img id="garden-season-icon" class="garden-tag-icon" alt="" hidden>
+          <span id="garden-season-label">--</span>
+        </span>
+      </div>
 
     <div class="garden-hero-desc-wrap">
       <div class="garden-hero-desc">
@@ -228,10 +271,10 @@
         <!-- src intentionally omitted on all [data-sprite="corner"] images
              in this page -- see the FOUC-prevention script at the end of
              <body>, which assigns the correct season's art exactly once. -->
-        <img class="garden-corner tl" data-sprite="corner" alt="">
-        <img class="garden-corner tr" data-sprite="corner" alt="">
-        <img class="garden-corner bl" data-sprite="corner" alt="">
-        <img class="garden-corner br" data-sprite="corner" alt="">
+        <img class="garden-corner tl" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner tr" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner bl" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner br" data-sprite="corner" alt="" hidden>
         <h2 id="frost-heading"><span class="garden-stat-icon" data-icon="frost">❄️</span>Frost &amp; Freeze</h2>
         <div class="garden-stat-value" id="frost-value">--</div>
         <div class="garden-stat-status" id="frost-status-word">--</div>
@@ -239,10 +282,10 @@
       </section>
 
       <section class="garden-card garden-stat-card" aria-labelledby="gdd-heading">
-        <img class="garden-corner tl" data-sprite="corner" alt="">
-        <img class="garden-corner tr" data-sprite="corner" alt="">
-        <img class="garden-corner bl" data-sprite="corner" alt="">
-        <img class="garden-corner br" data-sprite="corner" alt="">
+        <img class="garden-corner tl" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner tr" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner bl" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner br" data-sprite="corner" alt="" hidden>
         <h2 id="gdd-heading"><span class="garden-stat-icon" data-icon="gdd">🌱</span>Growing Degree Days</h2>
         <div class="garden-stat-value"><span id="gdd50">--</span></div>
         <div class="garden-stat-status good" id="gdd-status">Accumulating</div>
@@ -250,10 +293,10 @@
       </section>
 
       <section class="garden-card garden-stat-card" aria-labelledby="vpd-heading">
-        <img class="garden-corner tl" data-sprite="corner" alt="">
-        <img class="garden-corner tr" data-sprite="corner" alt="">
-        <img class="garden-corner bl" data-sprite="corner" alt="">
-        <img class="garden-corner br" data-sprite="corner" alt="">
+        <img class="garden-corner tl" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner tr" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner bl" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner br" data-sprite="corner" alt="" hidden>
         <h2 id="vpd-heading"><span class="garden-stat-icon" data-icon="vpd">💧</span>Vapor Pressure Deficit</h2>
         <div class="garden-stat-value"><span id="vpd-value">--</span><span class="garden-stat-unit">kPa</span></div>
         <div class="garden-stat-status" id="vpd-status">--</div>
@@ -261,10 +304,10 @@
       </section>
 
       <section class="garden-card garden-stat-card" aria-labelledby="season-heading">
-        <img class="garden-corner tl" data-sprite="corner" alt="">
-        <img class="garden-corner tr" data-sprite="corner" alt="">
-        <img class="garden-corner bl" data-sprite="corner" alt="">
-        <img class="garden-corner br" data-sprite="corner" alt="">
+        <img class="garden-corner tl" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner tr" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner bl" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner br" data-sprite="corner" alt="" hidden>
         <h2 id="season-heading"><span class="garden-stat-icon" data-icon="fall">🍂</span>Next Season</h2>
         <div class="garden-stat-value"><span id="season-days">--</span><span class="garden-stat-unit">days</span></div>
         <div class="garden-stat-status" id="season-name">--</div>
@@ -272,10 +315,10 @@
       </section>
 
       <section class="garden-card garden-stat-card" aria-labelledby="rain-heading">
-        <img class="garden-corner tl" data-sprite="corner" alt="">
-        <img class="garden-corner tr" data-sprite="corner" alt="">
-        <img class="garden-corner bl" data-sprite="corner" alt="">
-        <img class="garden-corner br" data-sprite="corner" alt="">
+        <img class="garden-corner tl" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner tr" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner bl" data-sprite="corner" alt="" hidden>
+        <img class="garden-corner br" data-sprite="corner" alt="" hidden>
         <h2 id="rain-heading"><span class="garden-stat-icon" data-icon="rain">🌧️</span>Rain Forecast</h2>
         <div class="garden-stat-value"><span id="rain-chance">--</span><span class="garden-stat-unit">%</span></div>
         <div class="garden-stat-status" id="rain-status">--</div>
@@ -292,68 +335,41 @@
   </div>
 
   <script>
-    // FOUC prevention: first (and normally only) src assignment for the
-    // season-swapped decorative sprites above (hero tree + companions, vine
-    // corners/edges, stat-card corner-flowers). Those elements deliberately
-    // ship with no src in the markup above -- a hardcoded assets/garden/
-    // summer/... path there would get requested by the browser's preload
-    // scanner the instant the parser saw the tag, before any script
-    // (deferred or not) could step in, causing a visible flash from summer
-    // art to the real season's art plus a wasted duplicate fetch. Since this
-    // script is a plain, non-deferred <script> placed after all of the
-    // markup above, it runs synchronously as soon as the parser reaches it
-    // -- before the deferred scripts below, and before first paint -- so the
-    // browser only ever requests the correct season's assets.
-    //
-    // window.__gardenSeason comes from the synchronous season calculation in
-    // <head>. TREE_COMPANIONS is intentionally duplicated from
-    // js/gardening.js (same convention as THEME_COLORS being duplicated
-    // between here and there) -- js/gardening.js's updateSeasonalTreeArt()/
-    // updateSeasonalBorders() re-run this same assignment once it loads,
-    // which is harmless (same URL, cache hit); keep both copies in sync.
+    // First-paint seasonal decoration loader. The season table and safe image
+    // loader are defined once in <head>; this block only wires them to the DOM.
     (function () {
       var season = window.__gardenSeason || 'summer';
+      var art = window.GARDEN_SEASON_ART && window.GARDEN_SEASON_ART[season];
+      var fallback = window.GARDEN_SEASON_ART && window.GARDEN_SEASON_ART.summer;
+      var setImage = window.__setGardenSeasonImage;
+      if (!art || !setImage) return;
+
       var base = 'assets/garden/' + season + '/';
-
-      // if a season's asset isn't built out yet (e.g. only summer's border/
-      // tree art may exist), fall back to the summer file once rather than
-      // showing a broken image -- matches gardening.css's own :root default.
-      function withFallback(img, path) {
-        img.onerror = function () {
-          if (img.dataset.gardenFellBack) return;
-          img.dataset.gardenFellBack = '1';
-          img.src = 'assets/garden/summer/' + path;
-        };
-        img.src = base + path;
-      }
-
-      var TREE_COMPANIONS = {
-        spring: ['flowers/hyacinth.png', 'flowers/forgetmenot.png', 'flowers/pansy.png', 'flowers/lily.png'],
-        summer: ['decorations/mushroom-red.png', 'decorations/rocks.png', 'plants/grass-tuft.png', 'flowers/bed-daisy.png'],
-        autumn: ['plants/mossrock.png', 'plants/fern-small.png', 'plants/mossrock2.png', 'plants/berry-bush-1.png'],
-        winter: ['flowers/snowflake.png', 'flowers/snowflake.png', 'flowers/snowflake.png', 'flowers/snowflake.png']
+      var summerBase = 'assets/garden/summer/';
+      var use = function (img, path, fallbackPath) {
+        setImage(img, base + path, fallbackPath ? summerBase + fallbackPath : null);
       };
 
       var treeImg = document.getElementById('garden-tree-img');
-      if (treeImg) withFallback(treeImg, 'tree/gingko.png');
+      use(treeImg, 'tree/gingko.png', 'tree/gingko.png');
 
-      var companions = TREE_COMPANIONS[season] || TREE_COMPANIONS.summer;
-      document.querySelectorAll('.garden-tree-companion').forEach(function (el, i) {
-        if (companions[i]) withFallback(el, companions[i]);
+      document.querySelectorAll('.garden-tree-companion').forEach(function (img, i) {
+        if (art.companions[i]) use(img, art.companions[i], fallback.companions[i]);
       });
 
       document.querySelectorAll('.garden-hero-vine.corner').forEach(function (img) {
-        var pos = ['tl', 'tr', 'bl', 'br'].filter(function (p) { return img.classList.contains(p); })[0];
-        if (pos) withFallback(img, 'borders/vine-corner-' + pos + '.png');
+        var pos = ['tl', 'tr', 'bl', 'br'].find(function (p) { return img.classList.contains(p); });
+        if (pos) use(img, 'borders/vine-corner-' + pos + '.png', 'borders/vine-corner-' + pos + '.png');
       });
 
       var edgeTop = document.querySelector('.garden-hero-vine.edge-top img');
-      if (edgeTop) withFallback(edgeTop, 'borders/vine-edge-top.png');
+      if (edgeTop) use(edgeTop, 'borders/vine-edge-top.png', 'borders/vine-edge-top.png');
+
       var edgeBottom = document.querySelector('.garden-hero-vine.edge-bottom img');
-      if (edgeBottom) withFallback(edgeBottom, 'borders/vine-edge-bottom.png');
+      if (edgeBottom) use(edgeBottom, 'borders/vine-edge-bottom.png', 'borders/vine-edge-bottom.png');
 
       document.querySelectorAll('[data-sprite="corner"]').forEach(function (img) {
-        withFallback(img, 'borders/corner-flowers.png');
+        use(img, 'borders/corner-flowers.png', 'borders/corner-flowers.png');
       });
     })();
   </script>
