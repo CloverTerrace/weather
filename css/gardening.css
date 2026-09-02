@@ -384,28 +384,36 @@ img.pixel,
   --vine-edge-right: url("../assets/garden/summer/borders/vine-edge-right.png");
 }
 
-body[data-garden-season="spring"] .garden-world {
+/* Keyed off :root (<html>), NOT body, because the FOUC-prevention
+   script in gardening.html's <head> sets data-garden-season on
+   document.documentElement synchronously before <body> even exists --
+   these rules need to see that same element to resolve correctly on
+   first paint. If this were scoped to body[data-garden-season] again,
+   it would only pick up the season once js/gardening.js's deferred
+   updateCurrentSeasonDisplay() runs, which is exactly the flash of
+   summer terrain/vines this was set up to avoid. */
+:root[data-garden-season="spring"] .garden-world {
   --season-path: "../assets/garden/spring/";
   --season-grass: url("../assets/garden/spring/terrain/grass.png");
   --vine-edge-left: url("../assets/garden/spring/borders/vine-edge-left.png");
   --vine-edge-right: url("../assets/garden/spring/borders/vine-edge-right.png");
 }
 
-body[data-garden-season="summer"] .garden-world {
+:root[data-garden-season="summer"] .garden-world {
   --season-path: "../assets/garden/summer/";
   --season-grass: url("../assets/garden/summer/terrain/grass.png");
   --vine-edge-left: url("../assets/garden/summer/borders/vine-edge-left.png");
   --vine-edge-right: url("../assets/garden/summer/borders/vine-edge-right.png");
 }
 
-body[data-garden-season="autumn"] .garden-world {
+:root[data-garden-season="autumn"] .garden-world {
   --season-path: "../assets/garden/autumn/";
   --season-grass: url("../assets/garden/autumn/terrain/grass.png");
   --vine-edge-left: url("../assets/garden/autumn/borders/vine-edge-left.png");
   --vine-edge-right: url("../assets/garden/autumn/borders/vine-edge-right.png");
 }
 
-body[data-garden-season="winter"] .garden-world {
+:root[data-garden-season="winter"] .garden-world {
   --season-path: "../assets/garden/winter/";
   --season-grass: url("../assets/garden/winter/terrain/grass.png");
   --vine-edge-left: url("../assets/garden/winter/borders/vine-edge-left.png");
