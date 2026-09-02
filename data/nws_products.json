@@ -1,8 +1,31 @@
 {
-  "generatedAt": "2026-09-02T12:16:05.661272Z",
+  "generatedAt": "2026-09-02T12:21:10.312368Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "021b6b19-281a-4dd5-a5bf-38f19f9f82ed",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-09-02T12:17:00+00:00",
+      "expires": null,
+      "location": "Columbiana-Lawrence-Butler-Armstrong",
+      "hazard": "Today and tonight. Severe thunderstorms are possible today. Damaging wind, large hail, and isolated tornadoes are possible, especially in western Pennsylvania.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. Severe thunderstorms are possible today. Damaging wind, large hail, and isolated tornadoes are possible, especially in western Pennsylvania.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. Severe thunderstorms are possible today. Damaging wind, large hail, and isolated tornadoes are possible, especially in western Pennsylvania."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Thursday through Tuesday. Showers and thunderstorms are expected on Thursday. Some storms could be severe. Mainly during the afternoon/evening but there is a potential for some overnight storms as well."
+        }
+      ],
+      "url": "https://api.weather.gov/products/021b6b19-281a-4dd5-a5bf-38f19f9f82ed"
+    },
     {
       "id": "07a563ae-2eda-4313-b8ec-6212c5320d74",
       "type": "Severe Weather Statement",
@@ -21,25 +44,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/07a563ae-2eda-4313-b8ec-6212c5320d74"
-    },
-    {
-      "id": "9395767b-76d0-4390-9e40-8fe0f0fa5ab4",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-09-02T11:51:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": "Area Forecast Discussion...UPDATED .WHAT HAS CHANGED...",
-      "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": "Area Forecast Discussion...UPDATED .WHAT HAS CHANGED...",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion...UPDATED 751 AM EDT Wed Sep 2 2026 .WHAT HAS CHANGED... Line of strong to severe thunderstorms across portions of western PA this morning. &&"
-        }
-      ],
-      "url": "https://api.weather.gov/products/9395767b-76d0-4390-9e40-8fe0f0fa5ab4"
     }
   ]
 }
