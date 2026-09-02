@@ -2,12 +2,12 @@
   "periods": [
     {
       "name": "Today",
-      "temperature": 92,
+      "temperature": 90,
       "temperatureUnit": "F",
-      "windSpeed": "0 to 7 mph",
+      "windSpeed": "1 to 7 mph",
       "windDirection": "SW",
       "shortForecast": "Scattered Showers And Thunderstorms",
-      "detailedForecast": "Isolated showers and thunderstorms before 8am, then scattered showers and thunderstorms between 8am and 9am, then scattered showers and thunderstorms. Mostly sunny, with a high near 92. Southwest wind 0 to 7 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
+      "detailedForecast": "Scattered showers and thunderstorms. Mostly sunny, with a high near 90. Southwest wind 1 to 7 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 32
     },
@@ -18,9 +18,9 @@
       "windSpeed": "6 mph",
       "windDirection": "SW",
       "shortForecast": "Scattered Showers And Thunderstorms then Chance Showers And Thunderstorms",
-      "detailedForecast": "Scattered showers and thunderstorms before 9pm, then a chance of showers and thunderstorms between 10pm and 2am, then a slight chance of showers and thunderstorms. Partly cloudy, with a low around 73. Southwest wind around 6 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
+      "detailedForecast": "Scattered showers and thunderstorms before 9pm, then a chance of showers and thunderstorms between 10pm and 2am, then a slight chance of showers and thunderstorms. Partly cloudy, with a low around 73. Southwest wind around 6 mph. Chance of precipitation is 40%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 33
+      "probabilityOfPrecipitation": 40
     },
     {
       "name": "Thursday",
@@ -47,28 +47,18 @@
   ],
   "hourly": [
     {
-      "startTime": "2026-09-02T08:00:00-04:00",
-      "temperature": 72,
+      "startTime": "2026-09-02T09:00:00-04:00",
+      "temperature": 74,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
       "windDirection": "S",
-      "shortForecast": "Scattered Showers And Thunderstorms",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 32
-    },
-    {
-      "startTime": "2026-09-02T09:00:00-04:00",
-      "temperature": 75,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "SW",
       "shortForecast": "Isolated Showers And Thunderstorms",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 23
+      "probabilityOfPrecipitation": 20
     },
     {
       "startTime": "2026-09-02T10:00:00-04:00",
-      "temperature": 78,
+      "temperature": 77,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
       "windDirection": "SW",
@@ -78,13 +68,13 @@
     },
     {
       "startTime": "2026-09-02T11:00:00-04:00",
-      "temperature": 81,
+      "temperature": 80,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "SW",
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 6
+      "probabilityOfPrecipitation": 7
     },
     {
       "startTime": "2026-09-02T12:00:00-04:00",
@@ -94,11 +84,11 @@
       "windDirection": "SW",
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 3
+      "probabilityOfPrecipitation": 4
     },
     {
       "startTime": "2026-09-02T13:00:00-04:00",
-      "temperature": 86,
+      "temperature": 87,
       "temperatureUnit": "F",
       "windSpeed": "6 mph",
       "windDirection": "SW",
@@ -118,7 +108,7 @@
     },
     {
       "startTime": "2026-09-02T15:00:00-04:00",
-      "temperature": 88,
+      "temperature": 90,
       "temperatureUnit": "F",
       "windSpeed": "7 mph",
       "windDirection": "SW",
@@ -128,33 +118,33 @@
     },
     {
       "startTime": "2026-09-02T16:00:00-04:00",
-      "temperature": 88,
+      "temperature": 89,
       "temperatureUnit": "F",
       "windSpeed": "7 mph",
       "windDirection": "SW",
       "shortForecast": "Scattered Showers And Thunderstorms",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 25
+      "probabilityOfPrecipitation": 32
     },
     {
       "startTime": "2026-09-02T17:00:00-04:00",
-      "temperature": 88,
+      "temperature": 89,
       "temperatureUnit": "F",
       "windSpeed": "7 mph",
       "windDirection": "SW",
-      "shortForecast": "Isolated Showers And Thunderstorms",
+      "shortForecast": "Scattered Showers And Thunderstorms",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 20
+      "probabilityOfPrecipitation": 29
     },
     {
       "startTime": "2026-09-02T18:00:00-04:00",
-      "temperature": 87,
+      "temperature": 88,
       "temperatureUnit": "F",
       "windSpeed": "6 mph",
       "windDirection": "SW",
-      "shortForecast": "Isolated Showers And Thunderstorms",
+      "shortForecast": "Scattered Showers And Thunderstorms",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 24
+      "probabilityOfPrecipitation": 40
     },
     {
       "startTime": "2026-09-02T19:00:00-04:00",
@@ -168,7 +158,7 @@
     },
     {
       "startTime": "2026-09-02T20:00:00-04:00",
-      "temperature": 81,
+      "temperature": 82,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "SW",
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 30
+    },
+    {
+      "startTime": "2026-09-03T08:00:00-04:00",
+      "temperature": 73,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "SW",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 35
     }
   ]
 }

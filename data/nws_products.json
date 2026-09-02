@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T13:16:09.377933Z",
+  "generatedAt": "2026-09-02T13:21:02.282492Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -54,6 +54,44 @@
   ],
   "statements": [
     {
+      "id": "7d16f46f-18c3-4c99-a8fd-e2e3f039ff48",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T13:13:00+00:00",
+      "expires": null,
+      "location": "Jefferson PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Brookville, Reynoldsville, Brockway, Sykesville, Falls Creek, Sigel, Clear Creek State",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Brookville, Reynoldsville, Brockway, Sykesville, Falls Creek, Sigel, Clear Creek State Park and Clarington.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Brookville, Reynoldsville, Brockway, Sykesville, Falls Creek, Sigel, Clear Creek State Park and Clarington."
+        }
+      ],
+      "url": "https://api.weather.gov/products/7d16f46f-18c3-4c99-a8fd-e2e3f039ff48"
+    },
+    {
+      "id": "558f7c9d-562f-43ff-a567-fd4e4e632813",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T13:12:00+00:00",
+      "expires": null,
+      "location": "Mercer PA-Venango PA",
+      "hazard": "PAC085-121-021322- /O.EXP.KPBZ.SV.W.0309.000000T0000Z-260902T1315Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC085-121-021322- /O.EXP.KPBZ.SV.W.0309.000000T0000Z-260902T1315Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 912 AM EDT Wed Sep 2 2026 PAC085-121-021322- /O.EXP.KPBZ.SV.W.0309.000000T0000Z-260902T1315Z/ Mercer PA-Venango PA- 912 AM EDT Wed Sep 2 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/558f7c9d-562f-43ff-a567-fd4e4e632813"
+    },
+    {
       "id": "894b56cc-560e-44c7-a5ab-f39b88dc97a7",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -71,25 +109,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/894b56cc-560e-44c7-a5ab-f39b88dc97a7"
-    },
-    {
-      "id": "6cc368cc-5c85-4d47-ae8c-6a2528ae8ca4",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-02T12:50:00+00:00",
-      "expires": null,
-      "location": "Mercer PA-Venango PA",
-      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Franklin, Sugarcreek, Stoneboro, Polk, Sandy Lake, Cooperstown, Jackson Center, Woodland Heights, Utica, New Lebanon and Maurice K Goddard State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Oil City, Franklin, Sugarcreek, Stoneboro, Polk, Sandy Lake, Cooperstown, Jackson Center, Woodland Heights, Utica, New Lebanon and Maurice K Goddard State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/6cc368cc-5c85-4d47-ae8c-6a2528ae8ca4"
     }
   ]
 }
