@@ -592,6 +592,10 @@
   }
 
   function updateCurrentSeasonDisplay() {
+    // Month-range logic here must stay in sync with the synchronous season
+    // calculation in gardening.html's <head> script (SEASON_KEY), which runs
+    // this same test before first paint so the terrain/vine textures and the
+    // tree/corner sprites below never briefly show the wrong season.
     // getUTCMonth() returns 0 for Jan, 11 for Dec
     const month = new Date().getUTCMonth(); 
     
@@ -615,10 +619,17 @@
       iconFile = 'winter_icon.png';
     }
 
-    // 1. update the body tag to drive CSS background terrain
+    // 1. mirror onto documentElement, body, and .garden-world. documentElement
+    // is the one that actually drives the CSS background terrain/vine-edge
+    // vars (see :root[data-garden-season] in gardening.css) -- it's already
+    // been set once, synchronously, by the <head> script in gardening.html
+    // before first paint (so there's no flash of summer terrain while this
+    // deferred script is still loading); this just keeps it affirmed/in sync
+    // going forward. body/.garden-world are kept for any other code (and
+    // garden-sprites.js's fallback chain) still reading them there.
+    document.documentElement.dataset.gardenSeason = seasonKey;
     document.body.dataset.gardenSeason = seasonKey;
-    
-    // update the .garden-world container
+
     const world = document.querySelector('.garden-world');
     if (world) world.dataset.gardenSeason = seasonKey;
     
@@ -645,17 +656,19 @@
   }
 
   // ---------- seasonal card borders ----------
-  // Two separate border treatments, both previously hardcoded to
-  // assets/garden/summer/... in gardening.html with no season hook at
-  // all: the hero (Current Conditions) card's 4 vine corners, and the
-  // 5 stat cards' corner-flowers (which DO carry a data-sprite="corner"
-  // marker in the HTML, but nothing in garden-sprites.js or here ever
-  // read it -- inert markup until now). Wired up the same way
-  // updateSeasonalTreeArt() swaps the keystone tree: re-point each
-  // <img>'s src at the current season's folder, with onerror silently
-  // leaving the old image in place if that season's file doesn't exist
-  // yet (matches initGardenIconOverrides()'s no-op-on-missing-asset
-  // convention elsewhere in this file).
+  // Two separate border treatments: the hero (Current Conditions) card's
+  // 4 vine corners, and the 5 stat cards' corner-flowers (data-sprite="corner").
+  // Both ship with NO src in gardening.html's markup (a deliberate FOUC fix --
+  // a hardcoded assets/garden/summer/... src there would get fetched by the
+  // browser's preload scanner before any script could run). A small
+  // synchronous script at the end of gardening.html's <body> does the real
+  // first-paint assignment using the season computed in <head>; this function
+  // re-runs the same assignment once this deferred script loads, which is
+  // harmless/idempotent (same URL, cache hit) and keeps things correct if
+  // this ever needs to re-fire. onerror silently leaves the current image in
+  // place if that season's file doesn't exist yet (matches
+  // initGardenIconOverrides()'s no-op-on-missing-asset convention elsewhere
+  // in this file).
   function updateSeasonalBorders(seasonKey) {
     document.querySelectorAll('.garden-hero-vine.corner').forEach(img => {
       const pos = ['tl', 'tr', 'bl', 'br'].find(p => img.classList.contains(p));
@@ -699,6 +712,10 @@
   // every path here is a confirmed-real asset -- add a matching
   // assets/garden/<season>/tree/gingko.png for each season to complete
   // the set (only the summer one exists today).
+  // NOTE: this map is duplicated (deliberately, for the same reason
+  // THEME_COLORS is duplicated between here and the <head> script) in
+  // gardening.html's end-of-body FOUC-prevention script, which does the
+  // real first-paint tree/companion assignment. Keep both in sync.
   const TREE_COMPANIONS = {
     spring: ['flowers/hyacinth.png', 'flowers/forgetmenot.png', 'flowers/pansy.png', 'flowers/lily.png'],
     summer: ['decorations/mushroom-red.png', 'decorations/rocks.png', 'plants/grass-tuft.png', 'flowers/bed-daisy.png'],

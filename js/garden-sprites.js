@@ -54,7 +54,11 @@
 
   const state = { season:null, weather:null, rendered:[], resizeTimer:null, weatherTimer:null };
 
-  const season = () => document.body?.dataset.gardenSeason || document.querySelector('.garden-world')?.dataset.gardenSeason || 'summer';
+  // documentElement is the authoritative source (set synchronously in
+  // gardening.html's <head> before first paint, same place data-garden-time
+  // and data-garden-weather already live); body/.garden-world are kept as
+  // fallbacks since js/gardening.js also mirrors the value there once it runs.
+  const season = () => document.documentElement.dataset.gardenSeason || document.body?.dataset.gardenSeason || document.querySelector('.garden-world')?.dataset.gardenSeason || 'summer';
   const weather = () => document.documentElement?.dataset.gardenWeather || 'clear';
   const url = (s,file) => `assets/garden/${s}/${file}`;
 
@@ -176,9 +180,9 @@
         const s=season(),w=weather();
         if(s!==state.season || w!==state.weather) render();
       });
+      observer.observe(document.documentElement,{attributes:true,attributeFilter:['data-garden-season','data-garden-weather']});
       observer.observe(document.body,{attributes:true,attributeFilter:['data-garden-season']});
       observer.observe(world,{attributes:true,attributeFilter:['data-garden-season']});
-      observer.observe(document.documentElement,{attributes:true,attributeFilter:['data-garden-weather']});
     }
     let lastWidth=window.innerWidth;
     window.addEventListener('resize',()=>{
