@@ -4,10 +4,10 @@
       "name": "Today",
       "temperature": 90,
       "temperatureUnit": "F",
-      "windSpeed": "1 to 7 mph",
+      "windSpeed": "3 to 7 mph",
       "windDirection": "SW",
       "shortForecast": "Scattered Showers And Thunderstorms",
-      "detailedForecast": "Scattered showers and thunderstorms. Mostly sunny, with a high near 90. Southwest wind 1 to 7 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
+      "detailedForecast": "Scattered showers and thunderstorms. Mostly sunny, with a high near 90. Southwest wind 3 to 7 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 32
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-02T09:00:00-04:00",
-      "temperature": 74,
-      "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "S",
-      "shortForecast": "Isolated Showers And Thunderstorms",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 20
-    },
     {
       "startTime": "2026-09-02T10:00:00-04:00",
       "temperature": 77,
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 35
+    },
+    {
+      "startTime": "2026-09-03T09:00:00-04:00",
+      "temperature": 76,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "SW",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 41
     }
   ]
 }
