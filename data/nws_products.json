@@ -1,8 +1,31 @@
 {
-  "generatedAt": "2026-09-02T07:06:07.725637Z",
+  "generatedAt": "2026-09-02T07:11:01.351493Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "2608d26c-c0c3-4be9-81e7-0957588d95e6",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-09-02T07:02:00+00:00",
+      "expires": null,
+      "location": "Columbiana-Lawrence-Butler-Armstrong",
+      "hazard": "Today and tonight. Showers and thunderstorms are possible today, mainly in the evening and overnight hours. Some storms could be severe with damaging winds,",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. Showers and thunderstorms are possible today, mainly in the evening and overnight hours. Some storms could be severe with damaging winds, large hail, and heavy downpours possible.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. Showers and thunderstorms are possible today, mainly in the evening and overnight hours. Some storms could be severe with damaging winds, large hail, and heavy downpours possible."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Thursday through Tuesday. Showers and thunderstorms are expected on Thursday. Some storms could be severe. Mainly during the afternoon/evening but there is a potential for some overnight storms as well."
+        }
+      ],
+      "url": "https://api.weather.gov/products/2608d26c-c0c3-4be9-81e7-0957588d95e6"
+    },
     {
       "id": "8c93aa90-de6b-4929-8255-8b6d4aca7b88",
       "type": "Non-Precipitation Warnings / Watches / Advisories",
@@ -21,25 +44,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/8c93aa90-de6b-4929-8255-8b6d4aca7b88"
-    },
-    {
-      "id": "b41e887f-540f-4422-ad82-b996f94d618c",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-09-02T06:37:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... The severe set up for Wednesday afternoon and evening has a",
-      "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... The severe set up for Wednesday afternoon and evening has a",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 237 AM EDT Wed Sep 2 2026 .WHAT HAS CHANGED... The severe set up for Wednesday afternoon and evening has a better environment according to the 00Z model update. &&"
-        }
-      ],
-      "url": "https://api.weather.gov/products/b41e887f-540f-4422-ad82-b996f94d618c"
     }
   ]
 }
