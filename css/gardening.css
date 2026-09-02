@@ -380,26 +380,46 @@ img.pixel,
 :root {
   --season-path: "../assets/garden/summer/";
   --season-grass: url("../assets/garden/summer/terrain/grass.png");
+  --vine-edge-top: url("../assets/garden/summer/borders/vine-edge-top.png");
+  --vine-edge-bottom: url("../assets/garden/summer/borders/vine-edge-bottom.png");
+  --vine-edge-left: url("../assets/garden/summer/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/summer/borders/vine-edge-right.png");
 }
 
 body[data-garden-season="spring"] .garden-world {
   --season-path: "../assets/garden/spring/";
   --season-grass: url("../assets/garden/spring/terrain/grass.png");
+  --vine-edge-top: url("../assets/garden/spring/borders/vine-edge-top.png");
+  --vine-edge-bottom: url("../assets/garden/spring/borders/vine-edge-bottom.png");
+  --vine-edge-left: url("../assets/garden/spring/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/spring/borders/vine-edge-right.png");
 }
 
 body[data-garden-season="summer"] .garden-world {
   --season-path: "../assets/garden/summer/";
   --season-grass: url("../assets/garden/summer/terrain/grass.png");
+  --vine-edge-top: url("../assets/garden/summer/borders/vine-edge-top.png");
+  --vine-edge-bottom: url("../assets/garden/summer/borders/vine-edge-bottom.png");
+  --vine-edge-left: url("../assets/garden/summer/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/summer/borders/vine-edge-right.png");
 }
 
 body[data-garden-season="autumn"] .garden-world {
   --season-path: "../assets/garden/autumn/";
   --season-grass: url("../assets/garden/autumn/terrain/grass.png");
+  --vine-edge-top: url("../assets/garden/autumn/borders/vine-edge-top.png");
+  --vine-edge-bottom: url("../assets/garden/autumn/borders/vine-edge-bottom.png");
+  --vine-edge-left: url("../assets/garden/autumn/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/autumn/borders/vine-edge-right.png");
 }
 
 body[data-garden-season="winter"] .garden-world {
   --season-path: "../assets/garden/winter/";
   --season-grass: url("../assets/garden/winter/terrain/grass.png");
+  --vine-edge-top: url("../assets/garden/winter/borders/vine-edge-top.png");
+  --vine-edge-bottom: url("../assets/garden/winter/borders/vine-edge-bottom.png");
+  --vine-edge-left: url("../assets/garden/winter/borders/vine-edge-left.png");
+  --vine-edge-right: url("../assets/garden/winter/borders/vine-edge-right.png");
 }
 /* --- season subtitle tag --- */
 
@@ -748,13 +768,13 @@ body[data-garden-season="winter"] .garden-world {
 }
 .garden-hero-vine.edge-top {
   top: -18px;
-  background-image: url("../assets/garden/summer/borders/vine-edge-top.png");
+  background-image: var(--vine-edge-top);
   background-size: 118px 82px;
 }
 .garden-hero-vine.edge-bottom {
   bottom: -14px;
   height: var(--vine-edge-bottom-h, 58px);
-  background-image: url("../assets/garden/summer/borders/vine-edge-bottom.png");
+  background-image: var(--vine-edge-bottom);
   background-size: 108px 75px;
 }
 
@@ -768,12 +788,12 @@ body[data-garden-season="winter"] .garden-world {
 }
 .garden-hero-vine.edge-left {
   left: -16px;
-  background-image: url("../assets/garden/summer/borders/vine-edge-left.png");
+  background-image: var(--vine-edge-left);
   background-size: 34px 97px;
 }
 .garden-hero-vine.edge-right {
   right: -16px;
-  background-image: url("../assets/garden/summer/borders/vine-edge-right.png");
+  background-image: var(--vine-edge-right);
   background-size: 34px 97px;
 }
 
@@ -935,6 +955,11 @@ body[data-garden-season="winter"] .garden-world {
 }
 .garden-band img { width: 100%; display: block; }
 .garden-band-credit {
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  box-sizing: border-box;
   font-family: var(--font-body);
   font-size: 0.95rem;
   text-align: center;
