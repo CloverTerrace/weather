@@ -642,8 +642,7 @@
     if (subtitle) {
       subtitle.innerHTML = `
         <span class="garden-season-tag">
-          <img src="assets/garden/${seasonKey}/${iconFile}" class="garden-tag-icon" alt=""> 
-          ${displaySeason}
+          <img src="assets/garden/${seasonKey}/${iconFile}" class="garden-tag-icon" alt="">${displaySeason}
         </span>
       `;
     }
