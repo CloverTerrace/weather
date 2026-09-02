@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clover Terrace — Space & Stargazing</title>
+  <link rel="stylesheet" href="navigation.css">
+  <link rel="stylesheet" href="space.css">
+</head>
+<body id="space-page">
+
+  <!-- Shared Navbar -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-brand">
+      <img src="logo.svg" alt="" class="nav-brand-icon">
+      <span>Clover Terrace</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" data-page="index.html">Home</a>
+      <a href="gardening.html" data-page="gardening.html">Gardening</a>
+      <a href="space.html" data-page="space.html">Space</a>
+    </div>
+  </nav>
+
+  <!-- Main Content Cards -->
+  <main class="space-container">
+    <header class="space-header">
+      <h1>Stargazing & Space</h1>
+      <p id="apod-title">Loading today's sky view...</p>
+    </header>
+
+    <div class="space-grid">
+      <!-- Kp Index Card -->
+      <section class="space-card">
+        <h2>Geomagnetic Kp Index</h2>
+        <div class="metric-value" id="kp-value">--</div>
+        <p id="kp-status">Fetching solar activity...</p>
+      </section>
+
+      <!-- Moon Phase Card -->
+      <section class="space-card">
+        <h2>Moon Phase</h2>
+        <div class="metric-value" id="moon-phase">--</div>
+        <p id="moon-illumination">Calculating illumination...</p>
+      </section>
+
+      <!-- Visible Constellations Card -->
+      <section class="space-card">
+        <h2>Tonight's Sky Highlights</h2>
+        <ul id="constellation-list">
+          <li>Checking seasonal constellations...</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <script src="navigation.js"></script>
+  <script src="space.js"></script>
+</body>
+</html>
