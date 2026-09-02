@@ -591,144 +591,126 @@
     }
   }
 
-  function updateCurrentSeasonDisplay() {
-    // Month-range logic here must stay in sync with the synchronous season
-    // calculation in gardening.html's <head> script (SEASON_KEY), which runs
-    // this same test before first paint so the terrain/vine textures and the
-    // tree/corner sprites below never briefly show the wrong season.
-    // getUTCMonth() returns 0 for Jan, 11 for Dec
-    const month = new Date().getUTCMonth(); 
-    
-    let seasonKey, displaySeason, iconFile;
-    
-    if (month >= 2 && month <= 4) {
-      seasonKey = 'spring';
-      displaySeason = 'Spring';
-      iconFile = 'spring_icon.png'; 
-    } else if (month >= 5 && month <= 7) {
-      seasonKey = 'summer';
-      displaySeason = 'Summer';
-      iconFile = 'summer_icon.png'; // Your pixelated sun icon
-    } else if (month >= 8 && month <= 10) {
-      seasonKey = 'autumn'; // Matches the dataset expected in your CSS
-      displaySeason = 'Autumn';
-      iconFile = 'pumpkin_icon.png';
-    } else {
-      seasonKey = 'winter';
-      displaySeason = 'Winter';
-      iconFile = 'winter_icon.png';
+  // ---------- seasonal art ----------
+  // gardening.html owns the season calculation + art table so there is one
+  // source of truth for first paint and runtime updates. This file only reads it.
+  function getGardenSeasonKey() {
+    if (window.__gardenSeason) return window.__gardenSeason;
+    const month = new Date().getUTCMonth();
+    if (month >= 2 && month <= 4) return 'spring';
+    if (month >= 5 && month <= 7) return 'summer';
+    if (month >= 8 && month <= 10) return 'autumn';
+    return 'winter';
+  }
+
+  function setSeasonalImage(img, primary, fallback = null) {
+    if (!img) return;
+    if (typeof window.__setGardenSeasonImage === 'function') {
+      window.__setGardenSeasonImage(img, primary, fallback);
+      return;
     }
 
-    // 1. mirror onto documentElement, body, and .garden-world. documentElement
-    // is the one that actually drives the CSS background terrain/vine-edge
-    // vars (see :root[data-garden-season] in gardening.css) -- it's already
-    // been set once, synchronously, by the <head> script in gardening.html
-    // before first paint (so there's no flash of summer terrain while this
-    // deferred script is still loading); this just keeps it affirmed/in sync
-    // going forward. body/.garden-world are kept for any other code (and
-    // garden-sprites.js's fallback chain) still reading them there.
+    // Defensive fallback if this script is ever used without gardening.html's
+    // head helper. It still guarantees that a failed decorative image cannot
+    // expose the browser's broken-image glyph.
+    img.hidden = true;
+    img.onload = () => { img.hidden = false; };
+    img.onerror = () => {
+      if (fallback && img.dataset.gardenFallback !== '1') {
+        img.dataset.gardenFallback = '1';
+        img.src = fallback;
+        return;
+      }
+      img.removeAttribute('src');
+      img.hidden = true;
+    };
+    img.src = primary;
+  }
+
+  function updateCurrentSeasonDisplay() {
+    const seasonKey = getGardenSeasonKey();
+    const art = window.GARDEN_SEASON_ART?.[seasonKey];
+    if (!art) return;
+
     document.documentElement.dataset.gardenSeason = seasonKey;
-    document.body.dataset.gardenSeason = seasonKey;
+    if (document.body) document.body.dataset.gardenSeason = seasonKey;
 
     const world = document.querySelector('.garden-world');
     if (world) world.dataset.gardenSeason = seasonKey;
-    
-    // 2. build the visual season tag (badge) using innerHTML
-    // NOTE: this used to target a 'garden-header-subtitle' id that
-    // doesn't exist anywhere in gardening.html -- the real element is
-    // #garden-season-container (the <p> right under the h1) -- which is
-    // why the pill silently never rendered. Fixed to the real id.
-    const subtitle = $('garden-season-container');
-    if (subtitle) {
-      subtitle.innerHTML = `
-        <span class="garden-season-tag">
-          <img src="assets/garden/${seasonKey}/${iconFile}" class="garden-tag-icon" alt="">${displaySeason}
-        </span>
-      `;
+
+    // Keep the badge DOM stable. Replacing innerHTML here used to create a
+    // second lifecycle for its image and made it much easier for a broken
+    // decorative image to leak into desktop layout.
+    const label = $('garden-season-label');
+    const icon = $('garden-season-icon');
+    if (label) label.textContent = art.label;
+    if (icon) {
+      setSeasonalImage(
+        icon,
+        `assets/garden/${seasonKey}/${art.icon}`,
+        seasonKey === 'summer' ? null : `assets/garden/summer/${window.GARDEN_SEASON_ART.summer.icon}`
+      );
     }
 
-    // 3. swap the keystone tree + its companion sprites for the season
     updateSeasonalTreeArt(seasonKey);
-
-    // 4. swap the hero card's vine corners + stat cards' corner-flowers
     updateSeasonalBorders(seasonKey);
   }
 
   // ---------- seasonal card borders ----------
-  // Two separate border treatments: the hero (Current Conditions) card's
-  // 4 vine corners, and the 5 stat cards' corner-flowers (data-sprite="corner").
-  // Both ship with NO src in gardening.html's markup (a deliberate FOUC fix --
-  // a hardcoded assets/garden/summer/... src there would get fetched by the
-  // browser's preload scanner before any script could run). A small
-  // synchronous script at the end of gardening.html's <body> does the real
-  // first-paint assignment using the season computed in <head>; this function
-  // re-runs the same assignment once this deferred script loads, which is
-  // harmless/idempotent (same URL, cache hit) and keeps things correct if
-  // this ever needs to re-fire. onerror silently leaves the current image in
-  // place if that season's file doesn't exist yet (matches
-  // initGardenIconOverrides()'s no-op-on-missing-asset convention elsewhere
-  // in this file).
   function updateSeasonalBorders(seasonKey) {
+    const base = `assets/garden/${seasonKey}/`;
+    const summerBase = 'assets/garden/summer/';
+
     document.querySelectorAll('.garden-hero-vine.corner').forEach(img => {
       const pos = ['tl', 'tr', 'bl', 'br'].find(p => img.classList.contains(p));
       if (!pos) return;
-      img.onerror = () => {}; // keep last-good image instead of a broken-icon flash
-      img.src = `assets/garden/${seasonKey}/borders/vine-corner-${pos}.png`;
+      const file = `borders/vine-corner-${pos}.png`;
+      setSeasonalImage(img, base + file, seasonKey === 'summer' ? null : summerBase + file);
     });
 
-    // top/bottom edges are single full illustrations (not seamless
-    // tiles), sized by their own natural aspect ratio via CSS
-    // (width:100%;height:auto on .garden-hero-vine.edge-top/bottom img).
-    // Swapped here the same way the corners are, via a real <img> src.
-    // Left/right edges are handled entirely by CSS instead (see
-    // --vine-edge-left/--vine-edge-right in gardening.css) since they
-    // tile as a repeating background rather than a single stretched
-    // image, and CSS already reacts to body[data-garden-season] with no
-    // JS needed.
-    const EDGE_FILES = {
+    const edgeFiles = {
       'edge-top': 'vine-edge-top.png',
       'edge-bottom': 'vine-edge-bottom.png'
     };
     document.querySelectorAll('.garden-hero-vine.edge-top img, .garden-hero-vine.edge-bottom img').forEach(img => {
       const wrap = img.parentElement;
-      const cls = Object.keys(EDGE_FILES).find(c => wrap.classList.contains(c));
+      const cls = Object.keys(edgeFiles).find(c => wrap.classList.contains(c));
       if (!cls) return;
-      img.onerror = () => {};
-      img.src = `assets/garden/${seasonKey}/borders/${EDGE_FILES[cls]}`;
+      const file = `borders/${edgeFiles[cls]}`;
+      setSeasonalImage(img, base + file, seasonKey === 'summer' ? null : summerBase + file);
     });
 
     document.querySelectorAll('[data-sprite="corner"]').forEach(img => {
-      img.onerror = () => {};
-      img.src = `assets/garden/${seasonKey}/borders/corner-flowers.png`;
+      const file = 'borders/corner-flowers.png';
+      setSeasonalImage(img, base + file, seasonKey === 'summer' ? null : summerBase + file);
     });
   }
 
   // ---------- seasonal keystone gingko tree ----------
-  // mirrors the per-season file convention garden-sprites.js already
-  // uses for its ambient sprite catalog (assets/garden/<season>/<file>).
-  // Companion sprite filenames below are drawn straight from files
-  // garden-sprites.js's CATALOG already references for each season, so
-  // every path here is a confirmed-real asset -- add a matching
-  // assets/garden/<season>/tree/gingko.png for each season to complete
-  // the set (only the summer one exists today).
-  // NOTE: this map is duplicated (deliberately, for the same reason
-  // THEME_COLORS is duplicated between here and the <head> script) in
-  // gardening.html's end-of-body FOUC-prevention script, which does the
-  // real first-paint tree/companion assignment. Keep both in sync.
-  const TREE_COMPANIONS = {
-    spring: ['flowers/hyacinth.png', 'flowers/forgetmenot.png', 'flowers/pansy.png', 'flowers/lily.png'],
-    summer: ['decorations/mushroom-red.png', 'decorations/rocks.png', 'plants/grass-tuft.png', 'flowers/bed-daisy.png'],
-    autumn: ['plants/mossrock.png', 'plants/fern-small.png', 'plants/mossrock2.png', 'plants/berry-bush-1.png'],
-    winter: ['flowers/snowflake.png', 'flowers/snowflake.png', 'flowers/snowflake.png', 'flowers/snowflake.png']
-  };
-
   function updateSeasonalTreeArt(seasonKey) {
-    const treeImg = $('garden-tree-img');
-    if (treeImg) treeImg.src = `assets/garden/${seasonKey}/tree/gingko.png`;
+    const art = window.GARDEN_SEASON_ART?.[seasonKey];
+    if (!art) return;
 
-    const companions = TREE_COMPANIONS[seasonKey] || TREE_COMPANIONS.summer;
+    const base = `assets/garden/${seasonKey}/`;
+    const summerBase = 'assets/garden/summer/';
+    const treeImg = $('garden-tree-img');
+    if (treeImg) {
+      setSeasonalImage(
+        treeImg,
+        `${base}tree/gingko.png`,
+        seasonKey === 'summer' ? null : `${summerBase}tree/gingko.png`
+      );
+    }
+
     document.querySelectorAll('.garden-tree-companion').forEach((el, i) => {
-      if (companions[i]) el.src = `assets/garden/${seasonKey}/${companions[i]}`;
+      const path = art.companions?.[i];
+      if (!path) return;
+      const fallback = window.GARDEN_SEASON_ART?.summer?.companions?.[i];
+      setSeasonalImage(
+        el,
+        base + path,
+        seasonKey === 'summer' || !fallback ? null : summerBase + fallback
+      );
     });
   }
 
