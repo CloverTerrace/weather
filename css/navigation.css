@@ -12,7 +12,7 @@
   height: fit-content;
   align-self: start;
   margin: 0 -50vw 0.5rem -50vw;
-  padding: 0.25rem 0.3rem;
+  padding: 0 0.3rem;
   display: flex;
   flex-wrap: nowrap !important;
   justify-content: center;
@@ -37,7 +37,7 @@
   flex: 0 1 auto;
   min-width: 0;
   max-width: 42%;
-  padding: 0.3rem 0.4rem;
+  padding: 0 0.4rem;
   color: var(--muted-color);
   font-family: 'Figtree', var(--font-body), sans-serif;
   font-size: 0.78rem;
@@ -70,8 +70,8 @@
 .site-nav .nav-links button {
   flex: 1 1 0px; 
   min-width: 0;
-  min-height: 28px;
-  padding: 0.3rem 0.3rem;
+  min-height: auto;
+  padding: 0 0.3rem;
   border: 1px solid transparent;
   border-radius: 8px;
   background: transparent;
@@ -152,8 +152,8 @@
 /* MOBILE STYLES (ALL PAGES) */
 @media (max-width: 850px) {
   .site-nav {
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
+    padding-top: 0;
+    padding-bottom: 0;
     padding-left: 0.3rem;
     padding-right: 0.3rem;
   }
@@ -164,8 +164,8 @@
 
   .site-nav .nav-links a,
   .site-nav .nav-links button {
-    min-height: 22px;
-    padding: 0.2rem clamp(0.1rem, 0.7vw, 0.22rem);
+    min-height: auto;
+    padding: 0 clamp(0.1rem, 0.7vw, 0.22rem);
     gap: clamp(0.08rem, 0.7vw, 0.18rem);
     font-size: clamp(0.54rem, 3vw, 0.64rem) !important;
   }
@@ -194,7 +194,7 @@
   .site-nav .nav-brand {
     flex: 0 0 auto;
     max-width: none;
-    padding: 0.25rem;
+    padding: 0 0.25rem;
   }
 
   .site-nav .nav-brand span {
