@@ -1,8 +1,27 @@
 {
-  "generatedAt": "2026-09-02T12:06:09.111973Z",
+  "generatedAt": "2026-09-02T12:11:13.155559Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "07a563ae-2eda-4313-b8ec-6212c5320d74",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-02T12:09:00+00:00",
+      "expires": null,
+      "location": "Clarion PA-Forest PA-Venango PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Marienville, Tionesta, Pleasantville, Kellettville, Leeper, West Hickory, Starr, East",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Marienville, Tionesta, Pleasantville, Kellettville, Leeper, West Hickory, Starr, East Hickory, Cook Forest State Park and Clarington.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Marienville, Tionesta, Pleasantville, Kellettville, Leeper, West Hickory, Starr, East Hickory, Cook Forest State Park and Clarington."
+        }
+      ],
+      "url": "https://api.weather.gov/products/07a563ae-2eda-4313-b8ec-6212c5320d74"
+    },
     {
       "id": "9395767b-76d0-4390-9e40-8fe0f0fa5ab4",
       "type": "Area Forecast Discussion",
@@ -21,25 +40,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/9395767b-76d0-4390-9e40-8fe0f0fa5ab4"
-    },
-    {
-      "id": "24088b50-e260-47ed-9186-50184dfcd41a",
-      "type": "Special Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-02T11:34:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": "PAZ007>009-014>016-022-077-078-021345- Mercer-Venango-Forest-Butler-Clarion-Jefferson PA-Armstrong-",
-      "distanceMiles": null,
-      "headline": "Special Weather Statement",
-      "summary": "PAZ007>009-014>016-022-077-078-021345- Mercer-Venango-Forest-Butler-Clarion-Jefferson PA-Armstrong-",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SPSPBZ Special Weather Statement 734 AM EDT Wed Sep 2 2026 PAZ007>009-014>016-022-077-078-021345- Mercer-Venango-Forest-Butler-Clarion-Jefferson PA-Armstrong- Indiana-Higher Elevations of Indiana- Including the cities of Sharon, Hermitage, Grove City, Oil City,"
-        }
-      ],
-      "url": "https://api.weather.gov/products/24088b50-e260-47ed-9186-50184dfcd41a"
     }
   ]
 }
