@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 1. Fetch NASA Astronomy Picture of the Day (APOD) for high-res background
 async function fetchNASAImage() {
-  const apiKey = 'DEMO_KEY'; // Replace with free API key from api.nasa.gov if needed
+  const apiKey = 'j51yuSzLie3lAbzzOC3fBItEoHUSnPplT1dAFs6H'; // Replace with free API key from api.nasa.gov if needed
   try {
     const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}`);
     const data = await res.json();
