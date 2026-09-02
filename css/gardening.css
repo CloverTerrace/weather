@@ -754,13 +754,17 @@ body[data-garden-season="winter"] .garden-world {
   right: calc(var(--vine-corner-w, 108px) - 26px);
   height: auto;
 }
-.garden-hero-vine.edge-top { top: -18px; }
+.garden-hero-vine.edge-top { top: -32px; }
 .garden-hero-vine.edge-bottom { bottom: -14px; }
 .garden-hero-vine.edge-top img,
 .garden-hero-vine.edge-bottom img {
   display: block;
   width: 100%;
+  max-width: 340px; /* keeps the motif from ballooning on wide desktop
+                        cards, since width:100% + height:auto scales the
+                        rendered height right along with the card width */
   height: auto;
+  margin: 0 auto;
 }
 
 .garden-hero-vine.edge-left,
