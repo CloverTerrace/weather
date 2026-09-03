@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T19:55:34.945525Z",
+  "generatedAt": "2026-09-03T20:00:51.028908Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -76,6 +76,25 @@
     }
   ],
   "statements": [
+    {
+      "id": "540448d4-9d8e-49e3-9e50-ca964dafa420",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T19:56:00+00:00",
+      "expires": null,
+      "location": "Coshocton OH-Muskingum OH",
+      "hazard": "OHC031-119-032006- /O.EXP.KPBZ.SV.W.0327.000000T0000Z-260903T2000Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC031-119-032006- /O.EXP.KPBZ.SV.W.0327.000000T0000Z-260903T2000Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 356 PM EDT Thu Sep 3 2026 OHC031-119-032006- /O.EXP.KPBZ.SV.W.0327.000000T0000Z-260903T2000Z/ Coshocton OH-Muskingum OH- 356 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/540448d4-9d8e-49e3-9e50-ca964dafa420"
+    },
     {
       "id": "dff322c1-3b3c-4feb-a2b3-e35762168bdc",
       "type": "Severe Weather Statement",
