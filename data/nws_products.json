@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T22:45:42.359522Z",
+  "generatedAt": "2026-09-03T22:50:51.130632Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -25,6 +25,50 @@
     }
   ],
   "mesoscaleDiscussions": [
+    {
+      "id": "MD2222",
+      "number": 2222,
+      "issued": "2026-09-03T22:43:00Z",
+      "expires": "2026-09-04T00:15:00Z",
+      "concerning": "Severe Thunderstorm Watch 649",
+      "hazard": "Severe Thunderstorm Watch 649",
+      "areas": "portions of northern Ohio into far western Pennsylvania",
+      "location": "portions of northern Ohio into far western Pennsylvania",
+      "distanceMiles": 10.5,
+      "summary": "The threat for primarily damaging/severe wind gusts continues across portions of Severe Thunderstorm Watch 649",
+      "watchProbability": null,
+      "forecaster": "Chalmers",
+      "attnWfos": [
+        "PBZ",
+        "CLE",
+        "ILN",
+        "IWX"
+      ],
+      "details": [
+        {
+          "label": "Summary",
+          "text": "The threat for primarily damaging/severe wind gusts continues across portions of Severe Thunderstorm Watch 649"
+        },
+        {
+          "label": "Discussion",
+          "text": "An ongoing MCS continues to persist across portions of northern Ohio as of 2240 UTC, with wind gusts of 60 and 62 mph recently measured in Cleveland/Elyria, OH, vicinity. Recent radar imagery from KCLE indicates that the system outflow has outpaced the deeper convective cores along the southwestern flank of the MCS but remains more co-located with the deeper updrafts farther to the northeast. However, the downstream environment across northeastern Ohio is characterized by cooler surface temperatures and increased static stability owing to the passage of prior convection, which is likely contributing to a weakening of this MCS as indicated by recent lightning trends. Thus, some uncertainty exists regarding the downstream intensity of convection, but at least some risk for primarily damaging/severe wind gusts is likely to persist downstream across portions of northern/eastern Ohio for at least another 1-2 hours"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...55-70 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Chalmers"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...PBZ...CLE...ILN...IWX"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2222.html",
+      "office": "SPC"
+    },
     {
       "id": "MD2221",
       "number": 2221,
@@ -119,6 +163,25 @@
     }
   ],
   "statements": [
+    {
+      "id": "4f2a2cb6-e3ab-4e6a-abe7-1eb331c1eef2",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:49:00+00:00",
+      "expires": null,
+      "location": "Westmoreland PA",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Latrobe, McChesneytown-Loyalhanna, Derry, Lawson Heights, New Alexandria, Youngstown and Crabtree.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Latrobe, McChesneytown-Loyalhanna, Derry, Lawson Heights, New Alexandria, Youngstown and Crabtree."
+        }
+      ],
+      "url": "https://api.weather.gov/products/4f2a2cb6-e3ab-4e6a-abe7-1eb331c1eef2"
+    },
     {
       "id": "54a5b03a-cb1f-4ee0-828e-5943f0c82780",
       "type": "Severe Weather Statement",
@@ -232,25 +295,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/680fc1c7-4b71-4fcb-86c8-c7081ce846d8"
-    },
-    {
-      "id": "cd195928-4568-40ee-825b-5d15317860fe",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:29:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA-Westmoreland PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Pittsburgh, Penn Hills, Monroeville, Greensburg, McKeesport, Jeannette, Plum, West Mifflin, Baldwin, Murrysville, Wilkinsburg, Munhall, Jefferson Hills, North Versailles, Bren",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Pittsburgh, Penn Hills, Monroeville, Greensburg, McKeesport, Jeannette, Plum, West Mifflin, Baldwin, Murrysville, Wilkinsburg, Munhall, Jefferson Hills, North Versailles, Brentwood, Swissvale, Pleasant Hills, White Oak and Clairton."
-        }
-      ],
-      "url": "https://api.weather.gov/products/cd195928-4568-40ee-825b-5d15317860fe"
     }
   ]
 }
