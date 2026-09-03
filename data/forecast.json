@@ -4,10 +4,10 @@
       "name": "Overnight",
       "temperature": 72,
       "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "SW",
+      "windSpeed": "0 to 5 mph",
+      "windDirection": "S",
       "shortForecast": "Mostly Clear",
-      "detailedForecast": "Mostly clear, with a low around 72. Southwest wind around 5 mph.",
+      "detailedForecast": "Mostly clear, with a low around 72. South wind 0 to 5 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 10
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-03T03:00:00-04:00",
+      "temperature": 74,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "SW",
+      "shortForecast": "Mostly Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 8
+    },
     {
       "startTime": "2026-09-03T04:00:00-04:00",
       "temperature": 74,
@@ -275,16 +285,6 @@
       "shortForecast": "Chance Rain Showers",
       "isDaytime": false,
       "probabilityOfPrecipitation": 33
-    },
-    {
-      "startTime": "2026-09-04T03:00:00-04:00",
-      "temperature": 72,
-      "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "SW",
-      "shortForecast": "Patchy Fog",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 18
     }
   ]
 }
