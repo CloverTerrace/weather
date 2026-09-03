@@ -1,25 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
-  fetchNASAImage();
+  loadCustomSkyBackground();
   fetchKpIndex();
   calculateMoonPhase();
   getVisibleConstellations();
 });
 
-// 1. Fetch NASA Astronomy Picture of the Day (APOD) for high-res background
-async function fetchNASAImage() {
-  const apiKey = 'j51yuSzLie3lAbzzOC3fBItEoHUSnPplT1dAFs6H'; // Replace with free API key from api.nasa.gov if needed
-  try {
-    const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}`);
-    const data = await res.json();
-    
-    if (data.media_type === 'image') {
-      document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('${data.hdurl || data.url}')`;
-      document.getElementById('apod-title').textContent = `Background: ${data.title}`;
-    }
-  } catch (err) {
-    document.getElementById('apod-title').textContent = 'Night Sky Overview';
+// Load locally generated 4K sky render with cache-busting timestamp
+function loadCustomSkyBackground() {
+  const timestamp = new Date().getTime();
+  const skyUrl = `assets/skyrender/sky-bg.png?t=${timestamp}`;
+  
+  document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('${skyUrl}')`;
+  
+  const titleEl = document.getElementById('apod-title');
+  if (titleEl) {
+    titleEl.textContent = 'Live 4K Night Sky View';
   }
 }
+
 
 // 2. Fetch Live Planetary Kp Index from NOAA SWPC
 async function fetchKpIndex() {
