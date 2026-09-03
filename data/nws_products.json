@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T21:30:44.870930Z",
+  "generatedAt": "2026-09-03T21:35:48.475553Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -71,6 +71,44 @@
     }
   ],
   "statements": [
+    {
+      "id": "1ba05f02-d447-4476-a6d4-309b4d5418e7",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:33:00+00:00",
+      "expires": null,
+      "location": "Lawrence PA-Venango PA",
+      "hazard": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Butler, Kittanning, Rimersburg, Homeacre-Lyndora, Shanor-Northvue, Meridian, Ford City, Meadowood, Oak Hills, New Bethlehem, West Kittanning, Prospect, Chicora, East Brady, Parker, East Butler, Sligo and Worthington.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Butler, Kittanning, Rimersburg, Homeacre-Lyndora, Shanor-Northvue, Meridian, Ford City, Meadowood, Oak Hills, New Bethlehem, West Kittanning, Prospect, Chicora, East Brady, Parker, East Butler, Sligo and Worthington."
+        }
+      ],
+      "url": "https://api.weather.gov/products/1ba05f02-d447-4476-a6d4-309b4d5418e7"
+    },
+    {
+      "id": "162f0ce6-517b-4e78-93f9-fcb2d3979b6d",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:31:00+00:00",
+      "expires": null,
+      "location": "Lawrence PA",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Ross Township, McCandless Township, Cranberry, Moon Township, Butler, Franklin Park, East Liverpool, Aliquippa, Beaver Falls, Monaca, Hampton Township, Robinson Township, Econ",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Ross Township, McCandless Township, Cranberry, Moon Township, Butler, Franklin Park, East Liverpool, Aliquippa, Beaver Falls, Monaca, Hampton Township, Robinson Township, Economy, Bellevue, Kennedy Township, Ambridge, Wexford, Homeacre-Lyndora, West View and Stowe Township."
+        }
+      ],
+      "url": "https://api.weather.gov/products/162f0ce6-517b-4e78-93f9-fcb2d3979b6d"
+    },
     {
       "id": "c9b2af0f-e2df-4c26-98d8-b8401dcfaf79",
       "type": "Severe Weather Statement",
@@ -146,44 +184,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/f841997b-b44d-40d9-9258-71156bb63542"
-    },
-    {
-      "id": "bb6fe6ff-8c36-471e-be08-e91d887dc730",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:08:00+00:00",
-      "expires": null,
-      "location": "Columbiana OH-Beaver PA-Lawrence PA",
-      "hazard": "OHC029-PAC007-073-032118- /O.EXP.KPBZ.SV.W.0331.000000T0000Z-260903T2115Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC029-PAC007-073-032118- /O.EXP.KPBZ.SV.W.0331.000000T0000Z-260903T2115Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 508 PM EDT Thu Sep 3 2026 OHC029-PAC007-073-032118- /O.EXP.KPBZ.SV.W.0331.000000T0000Z-260903T2115Z/ Columbiana OH-Beaver PA-Lawrence PA- 508 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/bb6fe6ff-8c36-471e-be08-e91d887dc730"
-    },
-    {
-      "id": "6226af29-0a02-40e0-821a-969b167ab414",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:08:00+00:00",
-      "expires": null,
-      "location": "Beaver PA-Butler PA-Lawrence PA",
-      "hazard": "PAC007-019-073-032118- /O.EXP.KPBZ.SV.W.0332.000000T0000Z-260903T2115Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC007-019-073-032118- /O.EXP.KPBZ.SV.W.0332.000000T0000Z-260903T2115Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 508 PM EDT Thu Sep 3 2026 PAC007-019-073-032118- /O.EXP.KPBZ.SV.W.0332.000000T0000Z-260903T2115Z/ Beaver PA-Butler PA-Lawrence PA- 508 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/6226af29-0a02-40e0-821a-969b167ab414"
     }
   ]
 }
