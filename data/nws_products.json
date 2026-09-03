@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T21:01:00.309149Z",
+  "generatedAt": "2026-09-03T21:07:18.615273Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -72,6 +72,44 @@
   ],
   "statements": [
     {
+      "id": "99b064cf-6d02-4183-9a39-b125fedbdd47",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:03:00+00:00",
+      "expires": null,
+      "location": "Columbiana OH-Beaver PA-Hancock WV",
+      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... East Liverpool, Wellsville, Calcutta, Ohioville, Lisbon, Chester, Newell, Hanoverton, Rogers, Summitville, Beaver Creek State Park, Glenmoor, Lake Tomahawk, La Croft, Guilford Lake State Park, Winona and New Garden.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... East Liverpool, Wellsville, Calcutta, Ohioville, Lisbon, Chester, Newell, Hanoverton, Rogers, Summitville, Beaver Creek State Park, Glenmoor, Lake Tomahawk, La Croft, Guilford Lake State Park, Winona and New Garden."
+        }
+      ],
+      "url": "https://api.weather.gov/products/99b064cf-6d02-4183-9a39-b125fedbdd47"
+    },
+    {
+      "id": "17a60ac3-27d4-468b-82a5-dc0ba3c2243e",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:01:00+00:00",
+      "expires": null,
+      "location": "Butler PA-Clarion PA-Lawrence PA-Mercer PA-Venango PA",
+      "hazard": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... New Castle, Grove City, Slippery",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... New Castle, Grove City, Slippery Rock, New Wilmington, Oakwood, New Castle Northwest, Harrisville, Plain Grove Township, Emlenton, Clintonville, West Liberty, Eau Claire, Harlansburg, Kennerdell, Barkeyville, West Sunbury, Volant, Cherry Valley and Boyers.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... New Castle, Grove City, Slippery Rock, New Wilmington, Oakwood, New Castle Northwest, Harrisville, Plain Grove Township, Emlenton, Clintonville, West Liberty, Eau Claire, Harlansburg, Kennerdell, Barkeyville, West Sunbury, Volant, Cherry Valley and Boyers."
+        }
+      ],
+      "url": "https://api.weather.gov/products/17a60ac3-27d4-468b-82a5-dc0ba3c2243e"
+    },
+    {
       "id": "3aa067e6-3c2a-470a-900c-fd30d209b9df",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -108,63 +146,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/2bd97deb-68d9-44c4-91f8-ad0181749ea7"
-    },
-    {
-      "id": "dbf9b9e8-6fb3-48f8-844d-d32678df4761",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:44:00+00:00",
-      "expires": null,
-      "location": "Forest PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Hermitage, Sharon, Grove City, Franklin, Sharpsville, Farrell, Slippery",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Hermitage, Sharon, Grove City, Franklin, Sharpsville, Farrell, Slippery Rock, New Wilmington, Oakwood, New Castle Northwest, Mercer, Pulaski, Stoneboro, New Bedford, Harrisville, West Middlesex and Polk.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Hermitage, Sharon, Grove City, Franklin, Sharpsville, Farrell, Slippery Rock, New Wilmington, Oakwood, New Castle Northwest, Mercer, Pulaski, Stoneboro, New Bedford, Harrisville, West Middlesex and Polk."
-        }
-      ],
-      "url": "https://api.weather.gov/products/dbf9b9e8-6fb3-48f8-844d-d32678df4761"
-    },
-    {
-      "id": "c25a9606-72d4-41f5-af3f-84a3258cde94",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:41:00+00:00",
-      "expires": null,
-      "location": "Beaver PA-Butler PA-Lawrence PA",
-      "hazard": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... New Castle, Beaver Falls, Ellwood City, New Brighton, Zelienople, Oakwood, Patterson Township, Big Beaver, New Beaver, West Mayfield, Ellport, Prospect, Bessemer, Harmony, Koppel, Wampum, South New Castle, Patterson Heights and New Galilee.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... New Castle, Beaver Falls, Ellwood City, New Brighton, Zelienople, Oakwood, Patterson Township, Big Beaver, New Beaver, West Mayfield, Ellport, Prospect, Bessemer, Harmony, Koppel, Wampum, South New Castle, Patterson Heights and New Galilee."
-        }
-      ],
-      "url": "https://api.weather.gov/products/c25a9606-72d4-41f5-af3f-84a3258cde94"
-    },
-    {
-      "id": "58cbae0d-1d0f-4783-9841-e950b942436f",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:38:00+00:00",
-      "expires": null,
-      "location": "Columbiana OH-Beaver PA-Lawrence PA",
-      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Salem, Columbiana, East Palestine, Leetonia, New Waterford, Bessemer, Enon Valley, Rogers, S.n.p.j., Negley, Guilford Lake State Park, Winona, New Garden and North Georgetown.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Salem, Columbiana, East Palestine, Leetonia, New Waterford, Bessemer, Enon Valley, Rogers, S.n.p.j., Negley, Guilford Lake State Park, Winona, New Garden and North Georgetown."
-        }
-      ],
-      "url": "https://api.weather.gov/products/58cbae0d-1d0f-4783-9841-e950b942436f"
     }
   ]
 }
