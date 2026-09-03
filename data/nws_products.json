@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T21:20:31.996616Z",
+  "generatedAt": "2026-09-03T21:25:33.380853Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -72,6 +72,63 @@
   ],
   "statements": [
     {
+      "id": "c9b2af0f-e2df-4c26-98d8-b8401dcfaf79",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:22:00+00:00",
+      "expires": null,
+      "location": "Butler PA-Clarion PA-Lawrence PA-Mercer PA-Venango PA",
+      "hazard": "PAC019-031-073-085-121-032132- /O.EXP.KPBZ.SV.W.0330.000000T0000Z-260903T2130Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC019-031-073-085-121-032132- /O.EXP.KPBZ.SV.W.0330.000000T0000Z-260903T2130Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 522 PM EDT Thu Sep 3 2026 PAC019-031-073-085-121-032132- /O.EXP.KPBZ.SV.W.0330.000000T0000Z-260903T2130Z/ Butler PA-Clarion PA-Lawrence PA-Mercer PA-Venango PA- 522 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/c9b2af0f-e2df-4c26-98d8-b8401dcfaf79"
+    },
+    {
+      "id": "016279b2-5bf4-4b94-86c3-65c5026ae1e3",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:21:00+00:00",
+      "expires": null,
+      "location": "Butler PA-Lawrence PA-Mercer PA",
+      "hazard": "PAC019-073-085-032131- /O.EXP.KPBZ.SV.W.0334.000000T0000Z-260903T2130Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC019-073-085-032131- /O.EXP.KPBZ.SV.W.0334.000000T0000Z-260903T2130Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 521 PM EDT Thu Sep 3 2026 PAC019-073-085-032131- /O.EXP.KPBZ.SV.W.0334.000000T0000Z-260903T2130Z/ Butler PA-Lawrence PA-Mercer PA- 521 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/016279b2-5bf4-4b94-86c3-65c5026ae1e3"
+    },
+    {
+      "id": "f7169212-fc75-4ddc-860c-01b7395c9eee",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:20:00+00:00",
+      "expires": null,
+      "location": "Columbiana OH-Beaver PA-Hancock WV",
+      "hazard": "OHC029-PAC007-WVC029-032130- /O.EXP.KPBZ.SV.W.0333.000000T0000Z-260903T2130Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC029-PAC007-WVC029-032130- /O.EXP.KPBZ.SV.W.0333.000000T0000Z-260903T2130Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 520 PM EDT Thu Sep 3 2026 OHC029-PAC007-WVC029-032130- /O.EXP.KPBZ.SV.W.0333.000000T0000Z-260903T2130Z/ Columbiana OH-Beaver PA-Hancock WV- 520 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/f7169212-fc75-4ddc-860c-01b7395c9eee"
+    },
+    {
       "id": "f841997b-b44d-40d9-9258-71156bb63542",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -127,63 +184,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/6226af29-0a02-40e0-821a-969b167ab414"
-    },
-    {
-      "id": "99b064cf-6d02-4183-9a39-b125fedbdd47",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:03:00+00:00",
-      "expires": null,
-      "location": "Columbiana OH-Beaver PA-Hancock WV",
-      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... East Liverpool, Wellsville, Calcutta, Ohioville, Lisbon, Chester, Newell, Hanoverton, Rogers, Summitville, Beaver Creek State Park, Glenmoor, Lake Tomahawk, La Croft, Guilford Lake State Park, Winona and New Garden.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... East Liverpool, Wellsville, Calcutta, Ohioville, Lisbon, Chester, Newell, Hanoverton, Rogers, Summitville, Beaver Creek State Park, Glenmoor, Lake Tomahawk, La Croft, Guilford Lake State Park, Winona and New Garden."
-        }
-      ],
-      "url": "https://api.weather.gov/products/99b064cf-6d02-4183-9a39-b125fedbdd47"
-    },
-    {
-      "id": "17a60ac3-27d4-468b-82a5-dc0ba3c2243e",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:01:00+00:00",
-      "expires": null,
-      "location": "Butler PA-Clarion PA-Lawrence PA-Mercer PA-Venango PA",
-      "hazard": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... New Castle, Grove City, Slippery",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... New Castle, Grove City, Slippery Rock, New Wilmington, Oakwood, New Castle Northwest, Harrisville, Plain Grove Township, Emlenton, Clintonville, West Liberty, Eau Claire, Harlansburg, Kennerdell, Barkeyville, West Sunbury, Volant, Cherry Valley and Boyers.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... New Castle, Grove City, Slippery Rock, New Wilmington, Oakwood, New Castle Northwest, Harrisville, Plain Grove Township, Emlenton, Clintonville, West Liberty, Eau Claire, Harlansburg, Kennerdell, Barkeyville, West Sunbury, Volant, Cherry Valley and Boyers."
-        }
-      ],
-      "url": "https://api.weather.gov/products/17a60ac3-27d4-468b-82a5-dc0ba3c2243e"
-    },
-    {
-      "id": "3aa067e6-3c2a-470a-900c-fd30d209b9df",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:58:00+00:00",
-      "expires": null,
-      "location": "Columbiana OH-Beaver PA-Lawrence PA",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Columbiana, East Palestine, New Waterford,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Columbiana, East Palestine, New Waterford, Enon Valley, S.n.p.j. and Negley.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Columbiana, East Palestine, New Waterford, Enon Valley, S.n.p.j. and Negley."
-        }
-      ],
-      "url": "https://api.weather.gov/products/3aa067e6-3c2a-470a-900c-fd30d209b9df"
     }
   ]
 }
