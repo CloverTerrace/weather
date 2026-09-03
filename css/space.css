@@ -7,6 +7,14 @@
   font-family: 'Figtree', sans-serif;
 }
 
+@font-face {
+  font-display: swap;
+  font-family: 'SF Distant Galaxy';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/SF Distant Galaxy.woff2') format('woff2'); 
+}
+
 /*----- live sky render + HUD overlay -----*/
 .sky-stage {
   position: fixed;
