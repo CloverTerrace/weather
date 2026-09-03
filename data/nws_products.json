@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T22:15:42.302945Z",
+  "generatedAt": "2026-09-03T22:20:44.416684Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -24,8 +24,89 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [],
+  "mesoscaleDiscussions": [
+    {
+      "id": "MD2220",
+      "number": 2220,
+      "issued": "2026-09-03T22:13:00Z",
+      "expires": "2026-09-03T23:45:00Z",
+      "concerning": "Severe Thunderstorm Watch 649...650",
+      "hazard": "Severe Thunderstorm Watch 649...650",
+      "areas": "portions of southeastern Pennsylvania",
+      "location": "portions of southeastern Pennsylvania",
+      "distanceMiles": 0.8,
+      "summary": "An organizing MCS will yield a greater risk for severe wind gusts across portions of southwestern Pennsylvania over the next 1-2 hours",
+      "watchProbability": null,
+      "forecaster": "Chalmers",
+      "attnWfos": [
+        "CTP",
+        "PBZ"
+      ],
+      "details": [
+        {
+          "label": "Summary",
+          "text": "An organizing MCS will yield a greater risk for severe wind gusts across portions of southwestern Pennsylvania over the next 1-2 hours"
+        },
+        {
+          "label": "Discussion",
+          "text": "Regional radar imagery depicts an organizing MCS across portions of western Pennsylvania, with volume scans over the past 30 minutes from KPBZ depicting embedded velocities up to 65 kts at 600 ft AGL. Numerous reports of wind damage have been noted with this complex, including downed trees and power lines, with a 62 mph wind gust also recently measured at KHLG in far northern West Virginia. The downstream environment remains favorable for damaging/severe wind gusts, with steep low-level lapse rates (7.5-8.0 K/km), moderately strong instability (2500-3000 J/kg MLCAPE), and around 30-40 kts of effective shear in place, as sampled by the 18z PIT observed sounding and recent objective analysis. Given this environment and the organizing MCS, a locally greater risk for damaging/severe wind gusts is likely to accompany this system as it progresses east-southeastward across portions of southwestern Pennsylvania"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...65-80 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Chalmers"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...CTP...PBZ"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2220.html",
+      "office": "SPC"
+    }
+  ],
   "statements": [
+    {
+      "id": "54af9b30-341a-41e3-a159-e637741f392b",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:18:00+00:00",
+      "expires": null,
+      "location": "Washington PA",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Mount Lebanon, Bethel Park, Upper St. Clair, Scott Township, Robinson Township, Carnegie, Bridgeville, South Fayette Township, Collier Township, Oakdale, Heidelberg and Rossly",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Mount Lebanon, Bethel Park, Upper St. Clair, Scott Township, Robinson Township, Carnegie, Bridgeville, South Fayette Township, Collier Township, Oakdale, Heidelberg and Rosslyn Farms."
+        }
+      ],
+      "url": "https://api.weather.gov/products/54af9b30-341a-41e3-a159-e637741f392b"
+    },
+    {
+      "id": "fda98cc8-bd6f-41b1-bf9b-6537224c646e",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:16:00+00:00",
+      "expires": null,
+      "location": "Hancock WV",
+      "hazard": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Moon Township, McMurray, Greensburg, McKeesport, Indiana, Franklin Park, Jeannette, Aliquippa, Vandergrift, Kittanning, Apollo and Gastonvi",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Moon Township, McMurray, Greensburg, McKeesport, Indiana, Franklin Park, Jeannette, Aliquippa, Vandergrift, Kittanning, Apollo and Gastonville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/fda98cc8-bd6f-41b1-bf9b-6537224c646e"
+    },
     {
       "id": "38323040-d51b-4f0e-9811-368c69472603",
       "type": "Severe Weather Statement",
@@ -101,63 +182,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/359dd709-cca7-4cf5-8388-c5ca43402cdc"
-    },
-    {
-      "id": "b529f825-5557-4f34-a421-21cb0cd0e081",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:52:00+00:00",
-      "expires": null,
-      "location": "Columbiana OH-Allegheny PA-Beaver PA-Butler PA-Washington PA",
-      "hazard": "OHC029-PAC003-007-019-125-WVC029-032202- /O.EXP.KPBZ.SV.W.0335.000000T0000Z-260903T2200Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC029-PAC003-007-019-125-WVC029-032202- /O.EXP.KPBZ.SV.W.0335.000000T0000Z-260903T2200Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 552 PM EDT Thu Sep 3 2026 OHC029-PAC003-007-019-125-WVC029-032202- /O.EXP.KPBZ.SV.W.0335.000000T0000Z-260903T2200Z/ Columbiana OH-Allegheny PA-Beaver PA-Butler PA-Washington PA- Hancock WV-"
-        }
-      ],
-      "url": "https://api.weather.gov/products/b529f825-5557-4f34-a421-21cb0cd0e081"
-    },
-    {
-      "id": "8e633c0f-bb1a-446d-b06b-f91f955ed048",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:51:00+00:00",
-      "expires": null,
-      "location": "Columbiana OH-Jefferson OH-Beaver PA-Hancock WV",
-      "hazard": "OHC029-081-PAC007-WVC029-032201- /O.EXP.KPBZ.SV.W.0337.000000T0000Z-260903T2200Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC029-081-PAC007-WVC029-032201- /O.EXP.KPBZ.SV.W.0337.000000T0000Z-260903T2200Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 551 PM EDT Thu Sep 3 2026 OHC029-081-PAC007-WVC029-032201- /O.EXP.KPBZ.SV.W.0337.000000T0000Z-260903T2200Z/ Columbiana OH-Jefferson OH-Beaver PA-Hancock WV- 551 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/8e633c0f-bb1a-446d-b06b-f91f955ed048"
-    },
-    {
-      "id": "03f3a0d6-8570-4186-96b8-ce72369b065c",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:51:00+00:00",
-      "expires": null,
-      "location": "Armstrong PA-Butler PA-Clarion PA-Jefferson PA",
-      "hazard": "PAC005-019-031-065-032201- /O.EXP.KPBZ.SV.W.0336.000000T0000Z-260903T2200Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC005-019-031-065-032201- /O.EXP.KPBZ.SV.W.0336.000000T0000Z-260903T2200Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 551 PM EDT Thu Sep 3 2026 PAC005-019-031-065-032201- /O.EXP.KPBZ.SV.W.0336.000000T0000Z-260903T2200Z/ Armstrong PA-Butler PA-Clarion PA-Jefferson PA- 551 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/03f3a0d6-8570-4186-96b8-ce72369b065c"
     }
   ]
 }
