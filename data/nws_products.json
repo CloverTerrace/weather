@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T20:25:38.834933Z",
+  "generatedAt": "2026-09-03T20:30:44.342530Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -71,6 +71,25 @@
     }
   ],
   "statements": [
+    {
+      "id": "cf619020-b89f-456e-88b6-866b7677536d",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T20:27:00+00:00",
+      "expires": null,
+      "location": "Mercer PA",
+      "hazard": "PAC085-032037- /O.EXP.KPBZ.TO.W.0056.000000T0000Z-260903T2030Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC085-032037- /O.EXP.KPBZ.TO.W.0056.000000T0000Z-260903T2030Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 427 PM EDT Thu Sep 3 2026 PAC085-032037- /O.EXP.KPBZ.TO.W.0056.000000T0000Z-260903T2030Z/ Mercer PA- 427 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/cf619020-b89f-456e-88b6-866b7677536d"
+    },
     {
       "id": "e5954c31-bfbe-4d5d-88c3-e505d07946d6",
       "type": "Severe Weather Statement",
@@ -184,25 +203,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/0cc43321-ebb8-4929-b7e0-297d3ffec41a"
-    },
-    {
-      "id": "7b035073-24cd-431b-8526-eb67a5c40b65",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:06:00+00:00",
-      "expires": null,
-      "location": "Mercer PA",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greenville, Stoneboro, Sandy Lake,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greenville, Stoneboro, Sandy Lake, Jamestown, Fredonia, New Lebanon, Sheakleyville and Maurice K Goddard State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greenville, Stoneboro, Sandy Lake, Jamestown, Fredonia, New Lebanon, Sheakleyville and Maurice K Goddard State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/7b035073-24cd-431b-8526-eb67a5c40b65"
     }
   ]
 }
