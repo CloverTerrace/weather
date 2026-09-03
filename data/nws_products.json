@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T21:10:35.938935Z",
+  "generatedAt": "2026-09-03T21:15:41.001317Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -72,6 +72,63 @@
   ],
   "statements": [
     {
+      "id": "f841997b-b44d-40d9-9258-71156bb63542",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:14:00+00:00",
+      "expires": null,
+      "location": "Columbiana OH-Beaver PA-Hancock WV",
+      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... East Liverpool, Wellsville, Calcutta, Ohioville, Lisbon, Chester, Newell, Rogers, Summitville, Beaver Creek State Park, Glenmoor, Lake Tomahawk, La Croft, Guilford Lake State Park, Winona and New Garden.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... East Liverpool, Wellsville, Calcutta, Ohioville, Lisbon, Chester, Newell, Rogers, Summitville, Beaver Creek State Park, Glenmoor, Lake Tomahawk, La Croft, Guilford Lake State Park, Winona and New Garden."
+        }
+      ],
+      "url": "https://api.weather.gov/products/f841997b-b44d-40d9-9258-71156bb63542"
+    },
+    {
+      "id": "bb6fe6ff-8c36-471e-be08-e91d887dc730",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:08:00+00:00",
+      "expires": null,
+      "location": "Columbiana OH-Beaver PA-Lawrence PA",
+      "hazard": "OHC029-PAC007-073-032118- /O.EXP.KPBZ.SV.W.0331.000000T0000Z-260903T2115Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC029-PAC007-073-032118- /O.EXP.KPBZ.SV.W.0331.000000T0000Z-260903T2115Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 508 PM EDT Thu Sep 3 2026 OHC029-PAC007-073-032118- /O.EXP.KPBZ.SV.W.0331.000000T0000Z-260903T2115Z/ Columbiana OH-Beaver PA-Lawrence PA- 508 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/bb6fe6ff-8c36-471e-be08-e91d887dc730"
+    },
+    {
+      "id": "6226af29-0a02-40e0-821a-969b167ab414",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:08:00+00:00",
+      "expires": null,
+      "location": "Beaver PA-Butler PA-Lawrence PA",
+      "hazard": "PAC007-019-073-032118- /O.EXP.KPBZ.SV.W.0332.000000T0000Z-260903T2115Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC007-019-073-032118- /O.EXP.KPBZ.SV.W.0332.000000T0000Z-260903T2115Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 508 PM EDT Thu Sep 3 2026 PAC007-019-073-032118- /O.EXP.KPBZ.SV.W.0332.000000T0000Z-260903T2115Z/ Beaver PA-Butler PA-Lawrence PA- 508 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/6226af29-0a02-40e0-821a-969b167ab414"
+    },
+    {
       "id": "99b064cf-6d02-4183-9a39-b125fedbdd47",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -127,25 +184,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/3aa067e6-3c2a-470a-900c-fd30d209b9df"
-    },
-    {
-      "id": "2bd97deb-68d9-44c4-91f8-ad0181749ea7",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:49:00+00:00",
-      "expires": null,
-      "location": "Columbiana OH-Beaver PA-Lawrence PA",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Columbiana, East Palestine, Leetonia, New",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Columbiana, East Palestine, Leetonia, New Waterford, Enon Valley, S.n.p.j. and Negley.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Columbiana, East Palestine, Leetonia, New Waterford, Enon Valley, S.n.p.j. and Negley."
-        }
-      ],
-      "url": "https://api.weather.gov/products/2bd97deb-68d9-44c4-91f8-ad0181749ea7"
     }
   ]
 }
