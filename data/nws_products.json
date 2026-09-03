@@ -1,8 +1,27 @@
 {
-  "generatedAt": "2026-09-03T12:36:08.921283Z",
+  "generatedAt": "2026-09-03T12:40:56.521567Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "7dbae936-9b4a-4322-99e5-41cc6d98e3a5",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T12:35:00+00:00",
+      "expires": null,
+      "location": "Indiana PA-Westmoreland PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Youngwood, New Stanton, Ligonier, Calumet-Norvelt, New Florence, Seward, Hunker,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Youngwood, New Stanton, Ligonier, Calumet-Norvelt, New Florence, Seward, Hunker, Laurel Mountain, Armagh, Donegal, Champion, Loyalhanna Gorge, Laurel Mountain State Park, Jones Mills and Acme.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Youngwood, New Stanton, Ligonier, Calumet-Norvelt, New Florence, Seward, Hunker, Laurel Mountain, Armagh, Donegal, Champion, Loyalhanna Gorge, Laurel Mountain State Park, Jones Mills and Acme."
+        }
+      ],
+      "url": "https://api.weather.gov/products/7dbae936-9b4a-4322-99e5-41cc6d98e3a5"
+    },
     {
       "id": "9311ab5c-4ddb-4b49-977a-26873ea260c8",
       "type": "Severe Weather Statement",
@@ -21,25 +40,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/9311ab5c-4ddb-4b49-977a-26873ea260c8"
-    },
-    {
-      "id": "79360f3c-fbd3-4353-b437-f2e9c69338d8",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-09-03T12:06:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... The storms are expected to continue through Thursday morning.",
-      "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... The storms are expected to continue through Thursday morning.",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 806 AM EDT Thu Sep 3 2026 .WHAT HAS CHANGED... The storms are expected to continue through Thursday morning. The slight risk has been expanded to include almost the entire forecast area."
-        }
-      ],
-      "url": "https://api.weather.gov/products/79360f3c-fbd3-4353-b437-f2e9c69338d8"
     }
   ]
 }
