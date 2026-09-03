@@ -5,6 +5,7 @@
   background-color: transparent;
   color: #f6f8fa;
   font-family: 'Figtree', sans-serif;
+  overflow: hidden;
 }
 
 @font-face {
@@ -17,11 +18,11 @@
 
 /* figtree-regular - latin 🍀*/
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-display: swap;
   font-family: 'Figtree';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/figtree-v9-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url('../fonts/figtree-v9-latin-regular.woff2') format('woff2');
 }
 
 /*----- live sky render + HUD overlay -----*/
@@ -62,7 +63,11 @@
   gap: 0.3rem;
   pointer-events: auto;
   opacity: 1 !important;
-  transition: opacity 0.8s ease;
+  transition: opacity 0.8s ease, transform 0.2s ease;
+}
+
+.sky-marker:hover {
+  transform: translate(-50%, -50%) scale(1.1);
 }
 
 .sky-marker.is-shown {
@@ -121,7 +126,6 @@
   letter-spacing: 0.05em;
 }
 
-
 .space-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -150,7 +154,7 @@
   margin: 0.5rem 0;
 }
 
-/*----- Kp / space weather card -----*/
+/*----- kp / space weather card -----*/
 .kp-glance {
   display: flex;
   align-items: baseline;
@@ -198,50 +202,7 @@
   margin: 0.4rem 0 0;
 }
 
-/*----- moon card -----*/
-.moon-card-body {
-  display: flex;
-  gap: 1.1rem;
-  align-items: center;
-}
-
-.moon-card-frame {
-  flex: 0 0 auto;
-  width: 84px;
-  height: 84px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #05060c;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 16px rgba(165, 192, 238, 0.15);
-}
-
-.moon-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Dial-A-Moon source photos carry a lot of built-in black padding
-     around the actual moon disc (they're print-ready posters, not
-     cropped icons) -- same crop scale already proven for this exact
-     image source on the main dashboard's sky card / moon title icon. */
-  transform: scale(1.8);
-  opacity: 0;
-  transition: opacity 0.8s ease;
-}
-
-.moon-card-img.is-loaded {
-  opacity: 1;
-}
-
-.moon-card-stats {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.moon-card-stats .metric-value {
-  margin: 0 0 0.15rem;
-}
-
+/*----- shared moon & modal details -----*/
 .moon-detail-list {
   list-style: none;
   margin: 0.7rem 0 0;
@@ -301,15 +262,14 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Bottom Drawer Styling */
 .bottom-drawer {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  max-height: 40vh; /* Keeps the sky visible */
+  max-height: 40vh;
   overflow-y: auto;
-  background: rgba(11, 13, 23, 0.85); /* Slightly darker than cards for contrast */
+  background: rgba(11, 13, 23, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid rgba(255, 255, 255, 0.15);
@@ -318,9 +278,14 @@
   z-index: 10;
   display: flex;
   flex-direction: column;
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
 }
 
-/* A visual cue that the drawer can be swiped/scrolled */
+.bottom-drawer::-webkit-scrollbar {
+  display: none;
+}
+
 .drawer-drag-handle {
   width: 40px;
   height: 5px;
@@ -333,9 +298,9 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
+} 
 
-/* Floating Modal Styling */
+
 .glass-modal {
   position: fixed;
   top: 50%;
@@ -364,16 +329,8 @@
   cursor: pointer;
 }
 
-
 .site-nav,
 .space-container {
   position: relative;
   z-index: 1;
-}
-
-@media (max-width: 380px) {
-  .moon-card-body {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 }
