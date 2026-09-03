@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T23:15:35.509862Z",
+  "generatedAt": "2026-09-03T23:20:36.508220Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -164,6 +164,82 @@
   ],
   "statements": [
     {
+      "id": "2063084c-ee04-4736-a066-b409ec17224f",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:19:00+00:00",
+      "expires": null,
+      "location": "Westmoreland PA",
+      "hazard": "PAC129-032329- /O.CAN.KPBZ.TO.W.0059.000000T0000Z-260903T2330Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC129-032329- /O.CAN.KPBZ.TO.W.0059.000000T0000Z-260903T2330Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 719 PM EDT Thu Sep 3 2026 PAC129-032329- /O.CAN.KPBZ.TO.W.0059.000000T0000Z-260903T2330Z/ Westmoreland PA- 719 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/2063084c-ee04-4736-a066-b409ec17224f"
+    },
+    {
+      "id": "7c092226-2a08-41cd-8e9a-b6cb44574e5e",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:18:00+00:00",
+      "expires": null,
+      "location": "Lawrence PA-Mercer PA-Venango PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Hermitage, Sharon, Grove City, Sharpsville, Farrell, New Wilmington,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Hermitage, Sharon, Grove City, Sharpsville, Farrell, New Wilmington, Oakwood, New Castle Northwest, Mercer, Pulaski, Stoneboro, New Bedford, West Middlesex, Polk, Plain Grove Township, Sandy Lake, Clark, Wheatland and Fredonia.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Hermitage, Sharon, Grove City, Sharpsville, Farrell, New Wilmington, Oakwood, New Castle Northwest, Mercer, Pulaski, Stoneboro, New Bedford, West Middlesex, Polk, Plain Grove Township, Sandy Lake, Clark, Wheatland and Fredonia."
+        }
+      ],
+      "url": "https://api.weather.gov/products/7c092226-2a08-41cd-8e9a-b6cb44574e5e"
+    },
+    {
+      "id": "4898b8ad-4c43-4cc3-bb16-53a522b0007c",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:12:00+00:00",
+      "expires": null,
+      "location": "Fayette PA",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Seven Springs, Champion, Indian Head and Normalville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Seven Springs, Champion, Indian Head and Normalville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/4898b8ad-4c43-4cc3-bb16-53a522b0007c"
+    },
+    {
+      "id": "9dbdb6a8-efb4-4c17-9c0c-6a5aa854b58a",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:11:00+00:00",
+      "expires": null,
+      "location": "Fayette PA",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Ligonier, Laurel Mountain and Laurel Mountain State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Ligonier, Laurel Mountain and Laurel Mountain State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/9dbdb6a8-efb4-4c17-9c0c-6a5aa854b58a"
+    },
+    {
       "id": "223f8a49-9e54-41a4-acb9-ce1b41400d32",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -219,82 +295,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/faf71cb3-8d76-4862-82ff-d7f9f40c576c"
-    },
-    {
-      "id": "e0fb29af-8b43-44c7-8b68-1c1cdbcd126b",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:04:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA-Fayette PA-Greene PA-Washington PA-Westmoreland PA",
-      "hazard": "PAC003-051-059-125-129-032314- /O.CAN.KPBZ.SV.W.0346.000000T0000Z-260903T2330Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC003-051-059-125-129-032314- /O.CAN.KPBZ.SV.W.0346.000000T0000Z-260903T2330Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 704 PM EDT Thu Sep 3 2026 PAC003-051-059-125-129-032314- /O.CAN.KPBZ.SV.W.0346.000000T0000Z-260903T2330Z/ Allegheny PA-Fayette PA-Greene PA-Washington PA-Westmoreland PA- 704 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/e0fb29af-8b43-44c7-8b68-1c1cdbcd126b"
-    },
-    {
-      "id": "dd25af22-4bff-48c5-b3a8-78d60e54a65f",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:03:00+00:00",
-      "expires": null,
-      "location": "Westmoreland PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Ligonier, Laurel Mountain, Laurel Mountain State Park and Loyalhanna Gorge.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Ligonier, Laurel Mountain, Laurel Mountain State Park and Loyalhanna Gorge."
-        }
-      ],
-      "url": "https://api.weather.gov/products/dd25af22-4bff-48c5-b3a8-78d60e54a65f"
-    },
-    {
-      "id": "ba5f96a8-d43f-40d0-9f13-85000b978794",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:00:00+00:00",
-      "expires": null,
-      "location": "Fayette PA-Westmoreland PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Mount Pleasant, Scottdale, Seven Springs, Everson, Champion, Indian Head, Normalville and Acme.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Mount Pleasant, Scottdale, Seven Springs, Everson, Champion, Indian Head, Normalville and Acme."
-        }
-      ],
-      "url": "https://api.weather.gov/products/ba5f96a8-d43f-40d0-9f13-85000b978794"
-    },
-    {
-      "id": "c46bc82a-34da-4269-8610-c6a00538148c",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:58:00+00:00",
-      "expires": null,
-      "location": "Armstrong PA",
-      "hazard": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Greensburg, Jeannette, Latrobe, Mount Pleasant, Scottdale, McChesneytown-Loyalhanna, Blairsville, Youngwood, Derry, West Newton, Lawson Heights, New Stanton, Ligonier, Black Lick, Seven Springs, Calumet-Norvelt, Saltsburg and Everson.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Greensburg, Jeannette, Latrobe, Mount Pleasant, Scottdale, McChesneytown-Loyalhanna, Blairsville, Youngwood, Derry, West Newton, Lawson Heights, New Stanton, Ligonier, Black Lick, Seven Springs, Calumet-Norvelt, Saltsburg and Everson."
-        }
-      ],
-      "url": "https://api.weather.gov/products/c46bc82a-34da-4269-8610-c6a00538148c"
     }
   ]
 }
