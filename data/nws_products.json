@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T22:25:32.636941Z",
+  "generatedAt": "2026-09-03T22:31:03.556154Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -120,6 +120,82 @@
   ],
   "statements": [
     {
+      "id": "cd195928-4568-40ee-825b-5d15317860fe",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:29:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Westmoreland PA",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Pittsburgh, Penn Hills, Monroeville, Greensburg, McKeesport, Jeannette, Plum, West Mifflin, Baldwin, Murrysville, Wilkinsburg, Munhall, Jefferson Hills, North Versailles, Bren",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Pittsburgh, Penn Hills, Monroeville, Greensburg, McKeesport, Jeannette, Plum, West Mifflin, Baldwin, Murrysville, Wilkinsburg, Munhall, Jefferson Hills, North Versailles, Brentwood, Swissvale, Pleasant Hills, White Oak and Clairton."
+        }
+      ],
+      "url": "https://api.weather.gov/products/cd195928-4568-40ee-825b-5d15317860fe"
+    },
+    {
+      "id": "18cd9b4e-0059-4bb2-8588-a143a2d78135",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:27:00+00:00",
+      "expires": null,
+      "location": "Beaver PA-Butler PA",
+      "hazard": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, Monroeville, McMurray, Greensburg, McKeesport, Indiana, Jeannette, Vandergrift, Apollo, Gastonville, Shaler Township, Plum, West Mifflin and North Side Pittsburgh.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, Monroeville, McMurray, Greensburg, McKeesport, Indiana, Jeannette, Vandergrift, Apollo, Gastonville, Shaler Township, Plum, West Mifflin and North Side Pittsburgh."
+        }
+      ],
+      "url": "https://api.weather.gov/products/18cd9b4e-0059-4bb2-8588-a143a2d78135"
+    },
+    {
+      "id": "760ec6dd-9224-4096-99a1-2c0291ba1d04",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:24:00+00:00",
+      "expires": null,
+      "location": "Columbiana OH-Washington PA-Hancock WV",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Mount Lebanon, Ross Township,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Mount Lebanon, Ross Township, McCandless Township, Moon Township, Franklin Park, Aliquippa, Shaler Township, North Side Pittsburgh, Hampton Township, Scott Township, Robinson Township, Economy, Dormont, Bellevue, Castle Shannon, Carnegie, Kennedy Township, Ambridge and Wexford.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Mount Lebanon, Ross Township, McCandless Township, Moon Township, Franklin Park, Aliquippa, Shaler Township, North Side Pittsburgh, Hampton Township, Scott Township, Robinson Township, Economy, Dormont, Bellevue, Castle Shannon, Carnegie, Kennedy Township, Ambridge and Wexford."
+        }
+      ],
+      "url": "https://api.weather.gov/products/760ec6dd-9224-4096-99a1-2c0291ba1d04"
+    },
+    {
+      "id": "be5c9e78-781e-4630-b167-085cbc1e2199",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:21:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA",
+      "hazard": "PAC003-032231- /O.EXP.KPBZ.SV.W.0342.000000T0000Z-260903T2230Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC003-032231- /O.EXP.KPBZ.SV.W.0342.000000T0000Z-260903T2230Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 621 PM EDT Thu Sep 3 2026 PAC003-032231- /O.EXP.KPBZ.SV.W.0342.000000T0000Z-260903T2230Z/ Allegheny PA- 621 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/be5c9e78-781e-4630-b167-085cbc1e2199"
+    },
+    {
       "id": "54af9b30-341a-41e3-a159-e637741f392b",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -175,63 +251,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/38323040-d51b-4f0e-9811-368c69472603"
-    },
-    {
-      "id": "0af60a4d-8b25-4b47-9880-2eb7906e8e66",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:11:00+00:00",
-      "expires": null,
-      "location": "Washington PA",
-      "hazard": "PAC125-032221- /O.EXP.KPBZ.SV.W.0339.000000T0000Z-260903T2215Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC125-032221- /O.EXP.KPBZ.SV.W.0339.000000T0000Z-260903T2215Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 611 PM EDT Thu Sep 3 2026 PAC125-032221- /O.EXP.KPBZ.SV.W.0339.000000T0000Z-260903T2215Z/ Washington PA- 611 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/0af60a4d-8b25-4b47-9880-2eb7906e8e66"
-    },
-    {
-      "id": "16906731-5ccd-4e8b-aea5-3641a5f0f644",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:05:00+00:00",
-      "expires": null,
-      "location": "Jefferson OH",
-      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Weirton, Avella, Follansbee, Hooverson Heights, New Cumberland, Burgettstown, Franklin, West Middletown, Langeloth, Slovan, Colliers, Atlasburg, Rockdale, East Steubenville and Sun Valley.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Weirton, Avella, Follansbee, Hooverson Heights, New Cumberland, Burgettstown, Franklin, West Middletown, Langeloth, Slovan, Colliers, Atlasburg, Rockdale, East Steubenville and Sun Valley."
-        }
-      ],
-      "url": "https://api.weather.gov/products/16906731-5ccd-4e8b-aea5-3641a5f0f644"
-    },
-    {
-      "id": "359dd709-cca7-4cf5-8388-c5ca43402cdc",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:54:00+00:00",
-      "expires": null,
-      "location": "Harrison OH",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, Wellsburg, Avella,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, Wellsburg, Avella, Toronto, Wintersville, Mingo Junction, Follansbee, Hooverson Heights, Burgettstown, Franklin, Brilliant, Richmond, West Middletown, Colliers, East Steubenville, Sun Valley, Rockdale and Langeloth.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, Wellsburg, Avella, Toronto, Wintersville, Mingo Junction, Follansbee, Hooverson Heights, Burgettstown, Franklin, Brilliant, Richmond, West Middletown, Colliers, East Steubenville, Sun Valley, Rockdale and Langeloth."
-        }
-      ],
-      "url": "https://api.weather.gov/products/359dd709-cca7-4cf5-8388-c5ca43402cdc"
     }
   ]
 }

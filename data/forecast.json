@@ -1,17 +1,6 @@
 {
   "periods": [
     {
-      "name": "This Afternoon",
-      "temperature": 90,
-      "temperatureUnit": "F",
-      "windSpeed": "8 mph",
-      "windDirection": "W",
-      "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "detailedForecast": "A slight chance of showers and thunderstorms after 4pm. Some of the storms could be severe. Mostly sunny, with a high near 90. West wind around 8 mph. Chance of precipitation is 20%.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 21
-    },
-    {
       "name": "Tonight",
       "temperature": 69,
       "temperatureUnit": "F",
@@ -43,6 +32,17 @@
       "detailedForecast": "Showers and thunderstorms likely before 7pm, then a chance of showers and thunderstorms between 7pm and 9pm, then a chance of showers and thunderstorms between 9pm and 10pm, then showers and thunderstorms likely. Mostly cloudy, with a low around 66. Northwest wind 0 to 6 mph. Chance of precipitation is 70%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 66
+    },
+    {
+      "name": "Saturday",
+      "temperature": 81,
+      "temperatureUnit": "F",
+      "windSpeed": "1 to 6 mph",
+      "windDirection": "NW",
+      "shortForecast": "Rain Showers Likely",
+      "detailedForecast": "Rain showers likely before 2pm, then a chance of showers and thunderstorms. Partly sunny, with a high near 81. Northwest wind 1 to 6 mph. Chance of precipitation is 60%. New rainfall amounts less than a tenth of an inch possible.",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 60
     }
   ],
   "hourly": [
