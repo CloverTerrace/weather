@@ -2,20 +2,16 @@
 #space-page {
   min-height: 100vh;
   margin: 0;
-  background-color: #0b0d17;
+  background-color: transparent;
   color: #f6f8fa;
   font-family: 'Figtree', sans-serif;
 }
 
-/* Live sky render + HUD overlay -----------------------------------------
-   A real <img> (not a CSS background) so JS can read its natural pixel
-   size and compute exactly how object-fit: cover crops/scales it — that's
-   what lets the overlay markers land in the right spot regardless of the
-   viewport's aspect ratio. */
+/*----- live sky render + HUD overlay -----*/
 .sky-stage {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   overflow: hidden;
   background: #0b0d17;
 }
