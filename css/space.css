@@ -150,8 +150,166 @@
   margin: 0.5rem 0;
 }
 
+/*----- Kp / space weather card -----*/
+.kp-glance {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.kp-glance .metric-value {
+  margin: 0.25rem 0;
+}
+
+.kp-chip {
+  font-size: 0.78rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+
+.kp-chip[data-level="low"] { color: #4ade80; border-color: rgba(74, 222, 128, 0.4); }
+.kp-chip[data-level="watch"] { color: #fbbf24; border-color: rgba(251, 191, 36, 0.4); }
+.kp-chip[data-level="elevated"] { color: #fb923c; border-color: rgba(251, 146, 60, 0.4); }
+.kp-chip[data-level="high"] { color: #f87171; border-color: rgba(248, 113, 113, 0.4); }
+
+.kp-sparkline {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 42px;
+  margin: 0.9rem 0 0.4rem;
+}
+
+.kp-bar {
+  flex: 1;
+  min-width: 4px;
+  background: var(--bar-color, #4ade80);
+  border-radius: 2px 2px 0 0;
+  opacity: 0.85;
+}
+
+.kp-note {
+  font-size: 0.8rem;
+  color: rgba(246, 248, 250, 0.65);
+  margin: 0.4rem 0 0;
+}
+
+/*----- moon card -----*/
+.moon-card-body {
+  display: flex;
+  gap: 1.1rem;
+  align-items: center;
+}
+
+.moon-card-frame {
+  flex: 0 0 auto;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #05060c;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 16px rgba(165, 192, 238, 0.15);
+}
+
+.moon-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Dial-A-Moon source photos carry a lot of built-in black padding
+     around the actual moon disc (they're print-ready posters, not
+     cropped icons) -- same crop scale already proven for this exact
+     image source on the main dashboard's sky card / moon title icon. */
+  transform: scale(1.8);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.moon-card-img.is-loaded {
+  opacity: 1;
+}
+
+.moon-card-stats {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.moon-card-stats .metric-value {
+  margin: 0 0 0.15rem;
+}
+
+.moon-detail-list {
+  list-style: none;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+}
+
+.moon-detail-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 0.3rem;
+}
+
+.moon-detail-label {
+  color: rgba(246, 248, 250, 0.6);
+}
+
+/*----- tonight's sky card -----*/
+.constellation-list,
+.planet-list {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.constellation-list li,
+.planet-list li {
+  font-size: 0.88rem;
+}
+
+.constellation-name,
+.planet-name {
+  font-weight: 600;
+}
+
+.constellation-fact,
+.planet-detail {
+  display: block;
+  font-size: 0.78rem;
+  color: rgba(246, 248, 250, 0.62);
+  margin-top: 0.1rem;
+}
+
+.sky-subheading {
+  font-size: 0.92rem;
+  color: #a5c0ee;
+  margin: 1.2rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .site-nav,
 .space-container {
   position: relative;
   z-index: 1;
+}
+
+@media (max-width: 380px) {
+  .moon-card-body {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
