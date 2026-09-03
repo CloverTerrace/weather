@@ -1,8 +1,27 @@
 {
-  "generatedAt": "2026-09-03T12:46:05.803783Z",
+  "generatedAt": "2026-09-03T12:51:07.131887Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "b1f5ff92-fb1d-4f2c-bfb1-14ab4bfd7de6",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T12:50:00+00:00",
+      "expires": null,
+      "location": "Westmoreland PA",
+      "hazard": "PAC129-031300- /O.EXP.KPBZ.SV.W.0326.000000T0000Z-260903T1300Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC129-031300- /O.EXP.KPBZ.SV.W.0326.000000T0000Z-260903T1300Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 850 AM EDT Thu Sep 3 2026 PAC129-031300- /O.EXP.KPBZ.SV.W.0326.000000T0000Z-260903T1300Z/ Westmoreland PA- 850 AM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/b1f5ff92-fb1d-4f2c-bfb1-14ab4bfd7de6"
+    },
     {
       "id": "c1947427-c9fb-4575-923d-9eb7d32c0321",
       "type": "Severe Weather Statement",
@@ -40,25 +59,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/7dbae936-9b4a-4322-99e5-41cc6d98e3a5"
-    },
-    {
-      "id": "9311ab5c-4ddb-4b49-977a-26873ea260c8",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T12:24:00+00:00",
-      "expires": null,
-      "location": "Indiana PA-Westmoreland PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Latrobe, Irwin, McChesneytown-Loyalhanna, Blairsville,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Latrobe, Irwin, McChesneytown-Loyalhanna, Blairsville, Youngwood, Derry, Lawson Heights, New Stanton, Ligonier, Black Lick, Calumet-Norvelt, New Florence, New Alexandria, Seward, Penn, Bolivar and Madison.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Latrobe, Irwin, McChesneytown-Loyalhanna, Blairsville, Youngwood, Derry, Lawson Heights, New Stanton, Ligonier, Black Lick, Calumet-Norvelt, New Florence, New Alexandria, Seward, Penn, Bolivar and Madison."
-        }
-      ],
-      "url": "https://api.weather.gov/products/9311ab5c-4ddb-4b49-977a-26873ea260c8"
     }
   ]
 }
