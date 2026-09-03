@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T19:40:38.201471Z",
+  "generatedAt": "2026-09-03T19:45:54.465147Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -76,6 +76,25 @@
     }
   ],
   "statements": [
+    {
+      "id": "0009f48e-ab37-4a3d-bcba-0e6d7271efb0",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T19:44:00+00:00",
+      "expires": null,
+      "location": "Mercer PA",
+      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greenville, Mercer, Stoneboro, Sandy Lake, Jamestown, Fredonia, Jackson Center, New Lebanon, Sheakleyville and Maurice K Goddard State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greenville, Mercer, Stoneboro, Sandy Lake, Jamestown, Fredonia, Jackson Center, New Lebanon, Sheakleyville and Maurice K Goddard State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/0009f48e-ab37-4a3d-bcba-0e6d7271efb0"
+    },
     {
       "id": "057fb27e-6665-4fce-8e93-df10b18b9904",
       "type": "Severe Weather Statement",
