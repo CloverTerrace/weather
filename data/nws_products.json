@@ -1,8 +1,46 @@
 {
-  "generatedAt": "2026-09-03T12:05:59.375223Z",
+  "generatedAt": "2026-09-03T12:15:58.234209Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "79360f3c-fbd3-4353-b437-f2e9c69338d8",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-09-03T12:06:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... The storms are expected to continue through Thursday morning.",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... The storms are expected to continue through Thursday morning.",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 806 AM EDT Thu Sep 3 2026 .WHAT HAS CHANGED... The storms are expected to continue through Thursday morning. The slight risk has been expanded to include almost the entire forecast area."
+        }
+      ],
+      "url": "https://api.weather.gov/products/79360f3c-fbd3-4353-b437-f2e9c69338d8"
+    },
+    {
+      "id": "b5acef16-3334-430e-9d20-ab5f9a072f72",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T12:01:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Armstrong PA-Indiana PA-Westmoreland PA",
+      "hazard": "PAC003-005-063-129-031211- /O.EXP.KPBZ.SV.W.0325.000000T0000Z-260903T1200Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC003-005-063-129-031211- /O.EXP.KPBZ.SV.W.0325.000000T0000Z-260903T1200Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 801 AM EDT Thu Sep 3 2026 PAC003-005-063-129-031211- /O.EXP.KPBZ.SV.W.0325.000000T0000Z-260903T1200Z/ Allegheny PA-Armstrong PA-Indiana PA-Westmoreland PA- 801 AM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/b5acef16-3334-430e-9d20-ab5f9a072f72"
+    },
     {
       "id": "65ec25a8-a36c-4636-baf9-ce906293932b",
       "type": "Severe Weather Statement",
@@ -21,25 +59,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/65ec25a8-a36c-4636-baf9-ce906293932b"
-    },
-    {
-      "id": "30f3d257-f785-456d-8847-90f21039ce90",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T11:40:00+00:00",
-      "expires": null,
-      "location": "Butler PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Vandergrift, Kittanning, Apollo, Plum, Murrysville, Hampton Township, New Kensington,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Vandergrift, Kittanning, Apollo, Plum, Murrysville, Hampton Township, New Kensington, Lower Burrell, Harrison Township, Oakmont, Fox Chapel, Arnold, Tarentum, Natrona Heights, Springdale, Brackenridge and Ford City.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Vandergrift, Kittanning, Apollo, Plum, Murrysville, Hampton Township, New Kensington, Lower Burrell, Harrison Township, Oakmont, Fox Chapel, Arnold, Tarentum, Natrona Heights, Springdale, Brackenridge and Ford City."
-        }
-      ],
-      "url": "https://api.weather.gov/products/30f3d257-f785-456d-8847-90f21039ce90"
     }
   ]
 }
