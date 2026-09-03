@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T20:20:34.963272Z",
+  "generatedAt": "2026-09-03T20:25:38.834933Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -24,8 +24,110 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [],
+  "mesoscaleDiscussions": [
+    {
+      "id": "MD2218",
+      "number": 2218,
+      "issued": "2026-09-03T20:16:00Z",
+      "expires": "2026-09-03T22:15:00Z",
+      "concerning": "Severe Thunderstorm Watch 649",
+      "hazard": "Severe Thunderstorm Watch 649",
+      "areas": "Eastern Ohio into central Pennsylvania...western Maryland...and far northern West Virginia",
+      "location": "Eastern Ohio into central Pennsylvania...western Maryland...and far northern West Virginia",
+      "distanceMiles": 0.0,
+      "summary": "Supercells across eastern Ohio and northwestern Pennsylvania will likely grow upscale and pose a more substantial wind threat downstream into central Pennsylvania through the evening. Downstream watch issuance is expected soon",
+      "watchProbability": null,
+      "forecaster": "Moore",
+      "attnWfos": [
+        "CTP",
+        "LWX",
+        "PBZ",
+        "CLE"
+      ],
+      "details": [
+        {
+          "label": "Summary",
+          "text": "Supercells across eastern Ohio and northwestern Pennsylvania will likely grow upscale and pose a more substantial wind threat downstream into central Pennsylvania through the evening. Downstream watch issuance is expected soon"
+        },
+        {
+          "label": "Discussion",
+          "text": "Discrete to semi-discrete supercells are evident in regional radar imagery across northeast OH and northwest PA with a few instances of severe hail noted over the past hour. Regional VWPs continue to sample elongated hodographs favorable for splitting supercells with an attendant threat for large hail for the next hour or so. Given the propensity for splitting cells and tight clustering of convection, upscale growth into one or more organized lines appears probable over the coming hours. As this occurs, the potential for severe wind should increase as convection moves into central PA where air mass recovery has been ongoing through the afternoon (MLCAPE has increased to 1000-1500 J/kg per recent mesoanalysis estimates)"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...65-80 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Moore"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...CTP...LWX...PBZ...CLE"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2218.html",
+      "office": "SPC"
+    }
+  ],
   "statements": [
+    {
+      "id": "e5954c31-bfbe-4d5d-88c3-e505d07946d6",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T20:24:00+00:00",
+      "expires": null,
+      "location": "Mercer PA",
+      "hazard": "PAC085-032034- /O.EXP.KPBZ.SV.W.0328.000000T0000Z-260903T2030Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC085-032034- /O.EXP.KPBZ.SV.W.0328.000000T0000Z-260903T2030Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 424 PM EDT Thu Sep 3 2026 PAC085-032034- /O.EXP.KPBZ.SV.W.0328.000000T0000Z-260903T2030Z/ Mercer PA- 424 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/e5954c31-bfbe-4d5d-88c3-e505d07946d6"
+    },
+    {
+      "id": "2dfcc581-33b4-4f9d-a0e5-c173b7c1ff1a",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T20:21:00+00:00",
+      "expires": null,
+      "location": "Mercer PA",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... New Lebanon and Maurice K Goddard State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... New Lebanon and Maurice K Goddard State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/2dfcc581-33b4-4f9d-a0e5-c173b7c1ff1a"
+    },
+    {
+      "id": "03d9c498-7a0d-4d67-9804-13090a407fd2",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T20:20:00+00:00",
+      "expires": null,
+      "location": "Guernsey OH",
+      "hazard": "OHC059-032030- /O.EXP.KPBZ.SV.W.0329.000000T0000Z-260903T2030Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC059-032030- /O.EXP.KPBZ.SV.W.0329.000000T0000Z-260903T2030Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 420 PM EDT Thu Sep 3 2026 OHC059-032030- /O.EXP.KPBZ.SV.W.0329.000000T0000Z-260903T2030Z/ Guernsey OH- 420 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/03d9c498-7a0d-4d67-9804-13090a407fd2"
+    },
     {
       "id": "63cc3f47-e171-4962-9d36-92c4cdab9747",
       "type": "Severe Weather Statement",
@@ -101,44 +203,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/7b035073-24cd-431b-8526-eb67a5c40b65"
-    },
-    {
-      "id": "bf9a06f7-4d12-456b-a786-c4a96b01f6af",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:01:00+00:00",
-      "expires": null,
-      "location": "Guernsey OH-Muskingum OH",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Cambridge, Byesville, Boden and Kimbolton.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Cambridge, Byesville, Boden and Kimbolton.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Cambridge, Byesville, Boden and Kimbolton."
-        }
-      ],
-      "url": "https://api.weather.gov/products/bf9a06f7-4d12-456b-a786-c4a96b01f6af"
-    },
-    {
-      "id": "540448d4-9d8e-49e3-9e50-ca964dafa420",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T19:56:00+00:00",
-      "expires": null,
-      "location": "Coshocton OH-Muskingum OH",
-      "hazard": "OHC031-119-032006- /O.EXP.KPBZ.SV.W.0327.000000T0000Z-260903T2000Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC031-119-032006- /O.EXP.KPBZ.SV.W.0327.000000T0000Z-260903T2000Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 356 PM EDT Thu Sep 3 2026 OHC031-119-032006- /O.EXP.KPBZ.SV.W.0327.000000T0000Z-260903T2000Z/ Coshocton OH-Muskingum OH- 356 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/540448d4-9d8e-49e3-9e50-ca964dafa420"
     }
   ]
 }
