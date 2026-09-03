@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T22:35:33.638646Z",
+  "generatedAt": "2026-09-03T22:40:34.602148Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -120,6 +120,82 @@
   ],
   "statements": [
     {
+      "id": "40ea51fa-b01c-419f-9ad5-65e3d9ed16cc",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:38:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Westmoreland PA",
+      "hazard": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Penn Hills, Monroeville, Greensburg,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Penn Hills, Monroeville, Greensburg, Jeannette, Plum, Murrysville, Wilkinsburg, North Versailles, White Oak, Forest Hills, Wilkins Township, Turtle Creek, Irwin, Pitcairn, Manor, Trafford, Churchill and Delmont.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect considerable tree damage. Damage is likely to mobile homes, roofs, and outbuildings. Locations impacted include... Penn Hills, Monroeville, Greensburg, Jeannette, Plum, Murrysville, Wilkinsburg, North Versailles, White Oak, Forest Hills, Wilkins Township, Turtle Creek, Irwin, Pitcairn, Manor, Trafford, Churchill and Delmont."
+        }
+      ],
+      "url": "https://api.weather.gov/products/40ea51fa-b01c-419f-9ad5-65e3d9ed16cc"
+    },
+    {
+      "id": "98f605c2-916f-4c62-a163-df2bf559a707",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:38:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Westmoreland PA",
+      "hazard": "PAC003-129-032248- /O.EXP.KPBZ.SV.W.0344.000000T0000Z-260903T2245Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC003-129-032248- /O.EXP.KPBZ.SV.W.0344.000000T0000Z-260903T2245Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 638 PM EDT Thu Sep 3 2026 PAC003-129-032248- /O.EXP.KPBZ.SV.W.0344.000000T0000Z-260903T2245Z/ Allegheny PA-Westmoreland PA- 638 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/98f605c2-916f-4c62-a163-df2bf559a707"
+    },
+    {
+      "id": "2f84c972-ee82-4d1e-acad-d86446d8d002",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:37:00+00:00",
+      "expires": null,
+      "location": "Washington PA",
+      "hazard": "PAC125-032247- /O.EXP.KPBZ.SV.W.0343.000000T0000Z-260903T2245Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC125-032247- /O.EXP.KPBZ.SV.W.0343.000000T0000Z-260903T2245Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 637 PM EDT Thu Sep 3 2026 PAC125-032247- /O.EXP.KPBZ.SV.W.0343.000000T0000Z-260903T2245Z/ Washington PA- 637 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/2f84c972-ee82-4d1e-acad-d86446d8d002"
+    },
+    {
+      "id": "680fc1c7-4b71-4fcb-86c8-c7081ce846d8",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:37:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Beaver PA",
+      "hazard": "PAC003-007-032247- /O.EXP.KPBZ.SV.W.0341.000000T0000Z-260903T2245Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC003-007-032247- /O.EXP.KPBZ.SV.W.0341.000000T0000Z-260903T2245Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 637 PM EDT Thu Sep 3 2026 PAC003-007-032247- /O.EXP.KPBZ.SV.W.0341.000000T0000Z-260903T2245Z/ Allegheny PA-Beaver PA- 637 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/680fc1c7-4b71-4fcb-86c8-c7081ce846d8"
+    },
+    {
       "id": "cd195928-4568-40ee-825b-5d15317860fe",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -175,82 +251,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/760ec6dd-9224-4096-99a1-2c0291ba1d04"
-    },
-    {
-      "id": "be5c9e78-781e-4630-b167-085cbc1e2199",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:21:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA",
-      "hazard": "PAC003-032231- /O.EXP.KPBZ.SV.W.0342.000000T0000Z-260903T2230Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC003-032231- /O.EXP.KPBZ.SV.W.0342.000000T0000Z-260903T2230Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 621 PM EDT Thu Sep 3 2026 PAC003-032231- /O.EXP.KPBZ.SV.W.0342.000000T0000Z-260903T2230Z/ Allegheny PA- 621 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/be5c9e78-781e-4630-b167-085cbc1e2199"
-    },
-    {
-      "id": "54af9b30-341a-41e3-a159-e637741f392b",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:18:00+00:00",
-      "expires": null,
-      "location": "Washington PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Mount Lebanon, Bethel Park, Upper St. Clair, Scott Township, Robinson Township, Carnegie, Bridgeville, South Fayette Township, Collier Township, Oakdale, Heidelberg and Rossly",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Mount Lebanon, Bethel Park, Upper St. Clair, Scott Township, Robinson Township, Carnegie, Bridgeville, South Fayette Township, Collier Township, Oakdale, Heidelberg and Rosslyn Farms."
-        }
-      ],
-      "url": "https://api.weather.gov/products/54af9b30-341a-41e3-a159-e637741f392b"
-    },
-    {
-      "id": "fda98cc8-bd6f-41b1-bf9b-6537224c646e",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:16:00+00:00",
-      "expires": null,
-      "location": "Hancock WV",
-      "hazard": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Moon Township, McMurray, Greensburg, McKeesport, Indiana, Franklin Park, Jeannette, Aliquippa, Vandergrift, Kittanning, Apollo and Gastonvi",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, McCandless Township, Monroeville, Cranberry, Moon Township, McMurray, Greensburg, McKeesport, Indiana, Franklin Park, Jeannette, Aliquippa, Vandergrift, Kittanning, Apollo and Gastonville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/fda98cc8-bd6f-41b1-bf9b-6537224c646e"
-    },
-    {
-      "id": "38323040-d51b-4f0e-9811-368c69472603",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:13:00+00:00",
-      "expires": null,
-      "location": "Washington PA-Brooke WV-Hancock WV",
-      "hazard": "PAC125-WVC009-029-032223- /O.EXP.KPBZ.SV.W.0338.000000T0000Z-260903T2215Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC125-WVC009-029-032223- /O.EXP.KPBZ.SV.W.0338.000000T0000Z-260903T2215Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 613 PM EDT Thu Sep 3 2026 PAC125-WVC009-029-032223- /O.EXP.KPBZ.SV.W.0338.000000T0000Z-260903T2215Z/ Washington PA-Brooke WV-Hancock WV- 613 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/38323040-d51b-4f0e-9811-368c69472603"
     }
   ]
 }
