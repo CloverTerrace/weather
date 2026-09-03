@@ -4,12 +4,12 @@
       "name": "Today",
       "temperature": 91,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 8 mph",
-      "windDirection": "W",
+      "windSpeed": "1 to 8 mph",
+      "windDirection": "SW",
       "shortForecast": "Chance Showers And Thunderstorms",
-      "detailedForecast": "A chance of showers and thunderstorms. Partly sunny, with a high near 91. West wind 3 to 8 mph. Chance of precipitation is 70%.",
+      "detailedForecast": "A chance of showers and thunderstorms. Partly sunny, with a high near 91. Southwest wind 1 to 8 mph. Chance of precipitation is 70%.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 66
+      "probabilityOfPrecipitation": 71
     },
     {
       "name": "Tonight",
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-03T08:00:00-04:00",
+      "temperature": 74,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "S",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 71
+    },
     {
       "startTime": "2026-09-03T09:00:00-04:00",
       "temperature": 76,
@@ -275,16 +285,6 @@
       "shortForecast": "Areas Of Fog",
       "isDaytime": true,
       "probabilityOfPrecipitation": 43
-    },
-    {
-      "startTime": "2026-09-04T08:00:00-04:00",
-      "temperature": 71,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "SW",
-      "shortForecast": "Patchy Fog",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 59
     }
   ]
 }
