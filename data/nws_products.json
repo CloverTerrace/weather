@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T19:50:34.401829Z",
+  "generatedAt": "2026-09-03T19:55:34.945525Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -77,6 +77,44 @@
   ],
   "statements": [
     {
+      "id": "dff322c1-3b3c-4feb-a2b3-e35762168bdc",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T19:54:00+00:00",
+      "expires": null,
+      "location": "Mercer PA",
+      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greenville, Stoneboro, Sandy Lake, Jamestown, Fredonia, New Lebanon, Sheakleyville and Maurice K Goddard State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greenville, Stoneboro, Sandy Lake, Jamestown, Fredonia, New Lebanon, Sheakleyville and Maurice K Goddard State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/dff322c1-3b3c-4feb-a2b3-e35762168bdc"
+    },
+    {
+      "id": "3329adad-3572-4948-a480-2cf115ffad0b",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T19:48:00+00:00",
+      "expires": null,
+      "location": "Coshocton OH-Muskingum OH",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, Conesville and Otsego.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, Conesville and Otsego.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, Conesville and Otsego."
+        }
+      ],
+      "url": "https://api.weather.gov/products/3329adad-3572-4948-a480-2cf115ffad0b"
+    },
+    {
       "id": "0009f48e-ab37-4a3d-bcba-0e6d7271efb0",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -113,44 +151,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/057fb27e-6665-4fce-8e93-df10b18b9904"
-    },
-    {
-      "id": "49c8f14a-818b-4b8f-9dce-5a1f7aa1422d",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T19:26:00+00:00",
-      "expires": null,
-      "location": "Coshocton OH-Muskingum OH",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden, Frazeysburg, Conesville, Drake, Otsego, Cooperdale and Dillon State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden, Frazeysburg, Conesville, Drake, Otsego, Cooperdale and Dillon State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/49c8f14a-818b-4b8f-9dce-5a1f7aa1422d"
-    },
-    {
-      "id": "7d0f5c43-f59f-4e4d-84db-8add35bc0351",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T19:23:00+00:00",
-      "expires": null,
-      "location": "Coshocton OH-Muskingum OH",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden, Frazeysburg, Conesville, Drake, Otsego,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden, Frazeysburg, Conesville, Drake, Otsego, Cooperdale and Dillon State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden, Frazeysburg, Conesville, Drake, Otsego, Cooperdale and Dillon State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/7d0f5c43-f59f-4e4d-84db-8add35bc0351"
     }
   ]
 }
