@@ -1,7 +1,8 @@
-const SKY_REFRESH_MS = 15 * 60 * 1000; // matches the server render cadence (~15-30min)
+const SKY_REFRESH_MS = 15 * 60 * 1000;
 
 document.addEventListener('DOMContentLoaded', () => {
-  loadLiveSky();
+  // Run tasks independently so one failure never blocks the rest of the page
+  loadLiveSky().catch(() => {});
   fetchKpIndex();
   calculateMoonPhase();
   getVisibleConstellations();
@@ -13,14 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let latestOverlayData = null;
 
-// Synchronously wait for both the background image download and JSON fetch
-// using Promise.all so renderSkyOverlay() only fires when both assets are ready.
 async function loadLiveSky() {
   const timestamp = new Date().getTime();
   const img = document.getElementById('sky-render-img');
   const titleEl = document.getElementById('apod-title');
   if (titleEl) titleEl.textContent = 'Live 4K Night Sky View';
 
+  if (!img) return;
   img.classList.remove('is-loaded');
 
   const loadImage = new Promise((resolve) => {
@@ -28,11 +28,19 @@ async function loadLiveSky() {
       img.classList.add('is-loaded');
       resolve();
     };
+    img.onerror = () => {
+      resolve(); // Resolve anyway so Promise.all never hangs
+    };
     img.src = `assets/skyrender/sky-bg.png?t=${timestamp}`;
+
+    if (img.complete) {
+      img.classList.add('is-loaded');
+      resolve();
+    }
   });
 
   const loadJson = fetch(`assets/skyrender/sky_overlay.json?t=${timestamp}`)
-    .then(res => res.json())
+    .then(res => res.ok ? res.json() : null)
     .then(data => { latestOverlayData = data; })
     .catch(() => { latestOverlayData = null; });
 
@@ -40,33 +48,21 @@ async function loadLiveSky() {
   renderSkyOverlay();
 }
 
-
-// Given the sky-stage container's box and the image's natural pixel size,
-// figure out exactly how `object-fit: cover` scaled/cropped it — needed so
-// overlay markers (in the render's own -1..1 normalized space) land on the
-// same sky feature regardless of the viewport's aspect ratio.
 function computeCoverRect(naturalW, naturalH, containerW, containerH) {
   const scale = Math.max(containerW / naturalW, containerH / naturalH);
-  const renderedW = naturalW * scale;
-  const renderedH = naturalH * scale;
   return {
     scale,
-    offsetX: (containerW - renderedW) / 2,
-    offsetY: (containerH - renderedH) / 2,
+    offsetX: (containerW - naturalW * scale) / 2,
+    offsetY: (containerH - naturalH * scale) / 2,
   };
 }
 
-// Convert a render-space point (x,y in -1..1, zenith at 0,0, north up,
-// east right — matching render_sky.py's stereographic projection exactly)
-// into a percentage position over the sky-stage container.
 function renderSpaceToPercent(x, y, naturalW, naturalH, cover, containerW, containerH) {
   const pixelX = ((x + 1) / 2) * naturalW;
-  const pixelY = ((1 - y) / 2) * naturalH; // image rows increase downward
-  const screenX = cover.offsetX + pixelX * cover.scale;
-  const screenY = cover.offsetY + pixelY * cover.scale;
+  const pixelY = ((1 - y) / 2) * naturalH;
   return {
-    leftPct: (screenX / containerW) * 100,
-    topPct: (screenY / containerH) * 100,
+    leftPct: ((cover.offsetX + pixelX * cover.scale) / containerW) * 100,
+    topPct: ((cover.offsetY + pixelY * cover.scale) / containerH) * 100,
   };
 }
 
@@ -81,7 +77,6 @@ function renderSkyOverlay() {
   const containerH = stage.clientHeight;
   const cover = computeCoverRect(img.naturalWidth, img.naturalHeight, containerW, containerH);
 
-  // Cardinal direction ticks around the horizon
   const cardinals = (latestOverlayData && latestOverlayData.cardinal_points) || {
     N: { x: 0, y: 1 }, E: { x: 1, y: 0 }, S: { x: 0, y: -1 }, W: { x: -1, y: 0 },
   };
@@ -104,7 +99,6 @@ function renderSkyOverlay() {
     const { leftPct, topPct } = renderSpaceToPercent(
       obj.x, obj.y, img.naturalWidth, img.naturalHeight, cover, containerW, containerH
     );
-    // Skip markers that landed outside the visible cropped area
     if (leftPct < -5 || leftPct > 105 || topPct < -5 || topPct > 105) return;
 
     const marker = document.createElement('div');
@@ -124,7 +118,6 @@ function renderSkyOverlay() {
     marker.appendChild(label);
     overlay.appendChild(marker);
 
-    // fade in after layout settles
     requestAnimationFrame(() => marker.classList.add('is-shown'));
   });
 }
@@ -150,28 +143,28 @@ function debounce(fn, wait) {
   };
 }
 
-
-// 2. Fetch Live Planetary Kp Index from NOAA SWPC
 async function fetchKpIndex() {
   try {
     const res = await fetch('https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json');
     const data = await res.json();
-    const latestEntry = data[data.length - 1]; // [time, kp, status, ...]
+    const latestEntry = data[data.length - 1];
     const kp = parseFloat(latestEntry[1]);
 
-    document.getElementById('kp-value').textContent = kp.toFixed(1);
-    
+    const kpValEl = document.getElementById('kp-value');
+    if (kpValEl) kpValEl.textContent = kp.toFixed(1);
+
     let status = 'Quiet (Poor Aurora / Clear Stargazing)';
     if (kp >= 5) status = 'Geomagnetic Storm! (Aurora Likely Visible)';
     else if (kp >= 3) status = 'Unsettled / Active Sky';
-    
-    document.getElementById('kp-status').textContent = status;
+
+    const kpStatusEl = document.getElementById('kp-status');
+    if (kpStatusEl) kpStatusEl.textContent = status;
   } catch (err) {
-    document.getElementById('kp-value').textContent = 'N/A';
+    const kpValEl = document.getElementById('kp-value');
+    if (kpValEl) kpValEl.textContent = 'N/A';
   }
 }
 
-// 3. Moon Phase Calculation
 function calculateMoonPhase() {
   const date = new Date();
   let year = date.getFullYear();
@@ -182,24 +175,25 @@ function calculateMoonPhase() {
   month++;
   let c = 365.25 * year;
   let e = 30.6 * month;
-  let jd = c + e + day - 694039.09; 
-  jd /= 29.5305882; 
-  let b = parseInt(jd); 
-  jd -= b; 
-  
+  let jd = c + e + day - 694039.09;
+  jd /= 29.5305882;
+  let b = parseInt(jd);
+  jd -= b;
+
   let phaseIndex = Math.round(jd * 8) % 8;
   const phases = ['New Moon', 'Waxing Crescent', 'First Quarter', 'Waxing Gibbous', 'Full Moon', 'Waning Gibbous', 'Third Quarter', 'Waning Crescent'];
-  
-  document.getElementById('moon-phase').textContent = phases[phaseIndex];
-  document.getElementById('moon-illumination').textContent = `Cycle Progress: ${(jd * 100).toFixed(0)}%`;
+
+  const moonPhaseEl = document.getElementById('moon-phase');
+  const moonIllumEl = document.getElementById('moon-illumination');
+  if (moonPhaseEl) moonPhaseEl.textContent = phases[phaseIndex];
+  if (moonIllumEl) moonIllumEl.textContent = `Cycle Progress: ${(jd * 100).toFixed(0)}%`;
 }
 
-// 4. Seasonal Constellations Helper
 function getVisibleConstellations() {
   const month = new Date().getMonth();
   const list = document.getElementById('constellation-list');
-  
-  // Seasonal mapping for Northern Hemisphere
+  if (!list) return;
+
   const seasonal = {
     Spring: ['Ursa Major', 'Leo', 'Boötes'],
     Summer: ['Cygnus', 'Lyra', 'Aquila', 'Scorpius'],
