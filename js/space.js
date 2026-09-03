@@ -17,7 +17,7 @@ async function loadLiveSky() {
   const timestamp = new Date().getTime();
   const img = document.getElementById('sky-render-img');
   const titleEl = document.getElementById('apod-title');
-  if (titleEl) titleEl.textContent = 'Live 4K Night Sky View';
+  if (titleEl) titleEl.textContent = '';
 
   if (!img) return;
 
