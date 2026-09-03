@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T22:10:41.454522Z",
+  "generatedAt": "2026-09-03T22:15:42.302945Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -24,53 +24,46 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [
+  "mesoscaleDiscussions": [],
+  "statements": [
     {
-      "id": "MD2218",
-      "number": 2218,
-      "issued": "2026-09-03T20:16:00Z",
-      "expires": "2026-09-03T22:15:00Z",
-      "concerning": "Severe Thunderstorm Watch 649",
-      "hazard": "Severe Thunderstorm Watch 649",
-      "areas": "Eastern Ohio into central Pennsylvania...western Maryland...and far northern West Virginia",
-      "location": "Eastern Ohio into central Pennsylvania...western Maryland...and far northern West Virginia",
-      "distanceMiles": 0.0,
-      "summary": "Supercells across eastern Ohio and northwestern Pennsylvania will likely grow upscale and pose a more substantial wind threat downstream into central Pennsylvania through the evening. Downstream watch issuance is expected soon",
-      "watchProbability": null,
-      "forecaster": "Moore",
-      "attnWfos": [
-        "CTP",
-        "LWX",
-        "PBZ",
-        "CLE"
-      ],
+      "id": "38323040-d51b-4f0e-9811-368c69472603",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:13:00+00:00",
+      "expires": null,
+      "location": "Washington PA-Brooke WV-Hancock WV",
+      "hazard": "PAC125-WVC009-029-032223- /O.EXP.KPBZ.SV.W.0338.000000T0000Z-260903T2215Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC125-WVC009-029-032223- /O.EXP.KPBZ.SV.W.0338.000000T0000Z-260903T2215Z/",
       "details": [
         {
-          "label": "Summary",
-          "text": "Supercells across eastern Ohio and northwestern Pennsylvania will likely grow upscale and pose a more substantial wind threat downstream into central Pennsylvania through the evening. Downstream watch issuance is expected soon"
-        },
-        {
-          "label": "Discussion",
-          "text": "Discrete to semi-discrete supercells are evident in regional radar imagery across northeast OH and northwest PA with a few instances of severe hail noted over the past hour. Regional VWPs continue to sample elongated hodographs favorable for splitting supercells with an attendant threat for large hail for the next hour or so. Given the propensity for splitting cells and tight clustering of convection, upscale growth into one or more organized lines appears probable over the coming hours. As this occurs, the potential for severe wind should increase as convection moves into central PA where air mass recovery has been ongoing through the afternoon (MLCAPE has increased to 1000-1500 J/kg per recent mesoanalysis estimates)"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...65-80 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Moore"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...CTP...LWX...PBZ...CLE"
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 613 PM EDT Thu Sep 3 2026 PAC125-WVC009-029-032223- /O.EXP.KPBZ.SV.W.0338.000000T0000Z-260903T2215Z/ Washington PA-Brooke WV-Hancock WV- 613 PM EDT Thu Sep 3 2026"
         }
       ],
-      "url": "https://www.spc.noaa.gov/products/md/md2218.html",
-      "office": "SPC"
-    }
-  ],
-  "statements": [
+      "url": "https://api.weather.gov/products/38323040-d51b-4f0e-9811-368c69472603"
+    },
+    {
+      "id": "0af60a4d-8b25-4b47-9880-2eb7906e8e66",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:11:00+00:00",
+      "expires": null,
+      "location": "Washington PA",
+      "hazard": "PAC125-032221- /O.EXP.KPBZ.SV.W.0339.000000T0000Z-260903T2215Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC125-032221- /O.EXP.KPBZ.SV.W.0339.000000T0000Z-260903T2215Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 611 PM EDT Thu Sep 3 2026 PAC125-032221- /O.EXP.KPBZ.SV.W.0339.000000T0000Z-260903T2215Z/ Washington PA- 611 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/0af60a4d-8b25-4b47-9880-2eb7906e8e66"
+    },
     {
       "id": "16906731-5ccd-4e8b-aea5-3641a5f0f644",
       "type": "Severe Weather Statement",
@@ -165,44 +158,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/03f3a0d6-8570-4186-96b8-ce72369b065c"
-    },
-    {
-      "id": "33c21d2f-d470-4d51-a578-f562d9d3106f",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:48:00+00:00",
-      "expires": null,
-      "location": "Jefferson OH-Brooke WV-Ohio WV",
-      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect considerable tree damage. Wind damage is also",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Washington, Canonsburg, Avella, Cecil-Bishop, Wolfdale, McGovern, East Washington, McDonald, Houston, Claysville, Eighty Four, Hickory, Taylorstown, West Middletown, Meadow Lands, Atl",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Washington, Canonsburg, Avella, Cecil-Bishop, Wolfdale, McGovern, East Washington, McDonald, Houston, Claysville, Eighty Four, Hickory, Taylorstown, West Middletown, Meadow Lands, Atlasburg, Slovan and Midway."
-        }
-      ],
-      "url": "https://api.weather.gov/products/33c21d2f-d470-4d51-a578-f562d9d3106f"
-    },
-    {
-      "id": "068ba718-3988-426d-bcbd-358442f1f588",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:45:00+00:00",
-      "expires": null,
-      "location": "Columbiana OH-Allegheny PA-Beaver PA-Butler PA-Washington PA",
-      "hazard": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Ross Township, McCandless Township, Cranberry, Moon Township, Butler, Franklin Park, East Liverpool, Aliquippa, Beaver Falls, Monaca, Hampton Township, Robinson Township, Economy, Bellevue, Kennedy Township, Ambridge, Wexford, Homeacre-Lyndora, West V",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Ross Township, McCandless Township, Cranberry, Moon Township, Butler, Franklin Park, East Liverpool, Aliquippa, Beaver Falls, Monaca, Hampton Township, Robinson Township, Economy, Bellevue, Kennedy Township, Ambridge, Wexford, Homeacre-Lyndora, West View and Stowe Township."
-        }
-      ],
-      "url": "https://api.weather.gov/products/068ba718-3988-426d-bcbd-358442f1f588"
     }
   ]
 }
