@@ -1,5 +1,4 @@
 const SKY_REFRESH_MS = 15 * 60 * 1000; // matches the server render cadence (~15-30min)
-const SKY_REFRESH_MS = 15 * 60 * 1000; // matches the server render cadence (~15-30min)
 
 document.addEventListener('DOMContentLoaded', () => {
   loadLiveSky();
