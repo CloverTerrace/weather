@@ -1,7 +1,6 @@
 const SKY_REFRESH_MS = 15 * 60 * 1000;
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Run tasks independently so one failure never blocks the rest of the page
   loadLiveSky().catch(() => {});
   fetchKpIndex();
   calculateMoonPhase();
@@ -21,16 +20,13 @@ async function loadLiveSky() {
   if (titleEl) titleEl.textContent = 'Live 4K Night Sky View';
 
   if (!img) return;
-  img.classList.remove('is-loaded');
 
   const loadImage = new Promise((resolve) => {
     img.onload = () => {
       img.classList.add('is-loaded');
       resolve();
     };
-    img.onerror = () => {
-      resolve(); // Resolve anyway so Promise.all never hangs
-    };
+    img.onerror = () => resolve();
     img.src = `assets/skyrender/sky-bg.png?t=${timestamp}`;
 
     if (img.complete) {
@@ -99,10 +95,10 @@ function renderSkyOverlay() {
     const { leftPct, topPct } = renderSpaceToPercent(
       obj.x, obj.y, img.naturalWidth, img.naturalHeight, cover, containerW, containerH
     );
-    if (leftPct < -5 || leftPct > 105 || topPct < -5 || topPct > 105) return;
+    if (leftPct < -10 || leftPct > 110 || topPct < -10 || topPct > 110) return;
 
     const marker = document.createElement('div');
-    marker.className = 'sky-marker';
+    marker.className = 'sky-marker is-shown';
     marker.dataset.type = obj.type;
     marker.style.left = `${leftPct}%`;
     marker.style.top = `${topPct}%`;
@@ -117,8 +113,6 @@ function renderSkyOverlay() {
     marker.appendChild(dot);
     marker.appendChild(label);
     overlay.appendChild(marker);
-
-    requestAnimationFrame(() => marker.classList.add('is-shown'));
   });
 }
 
@@ -147,18 +141,28 @@ async function fetchKpIndex() {
   try {
     const res = await fetch('https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json');
     const data = await res.json();
-    const latestEntry = data[data.length - 1];
-    const kp = parseFloat(latestEntry[1]);
+    
+    let validKp = null;
+    for (let i = data.length - 1; i >= 1; i--) {
+      const val = parseFloat(data[i][1]);
+      if (!isNaN(val)) {
+        validKp = val;
+        break;
+      }
+    }
 
     const kpValEl = document.getElementById('kp-value');
-    if (kpValEl) kpValEl.textContent = kp.toFixed(1);
-
-    let status = 'Quiet (Poor Aurora / Clear Stargazing)';
-    if (kp >= 5) status = 'Geomagnetic Storm! (Aurora Likely Visible)';
-    else if (kp >= 3) status = 'Unsettled / Active Sky';
-
     const kpStatusEl = document.getElementById('kp-status');
-    if (kpStatusEl) kpStatusEl.textContent = status;
+
+    if (validKp !== null && kpValEl) {
+      kpValEl.textContent = validKp.toFixed(1);
+      let status = 'Quiet (Poor Aurora / Clear Stargazing)';
+      if (validKp >= 5) status = 'Geomagnetic Storm! (Aurora Likely Visible)';
+      else if (validKp >= 3) status = 'Unsettled / Active Sky';
+      if (kpStatusEl) kpStatusEl.textContent = status;
+    } else if (kpValEl) {
+      kpValEl.textContent = 'N/A';
+    }
   } catch (err) {
     const kpValEl = document.getElementById('kp-value');
     if (kpValEl) kpValEl.textContent = 'N/A';
