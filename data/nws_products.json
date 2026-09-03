@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T20:40:42.452348Z",
+  "generatedAt": "2026-09-03T20:45:43.501080Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -71,6 +71,44 @@
     }
   ],
   "statements": [
+    {
+      "id": "dbf9b9e8-6fb3-48f8-844d-d32678df4761",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T20:44:00+00:00",
+      "expires": null,
+      "location": "Forest PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Hermitage, Sharon, Grove City, Franklin, Sharpsville, Farrell, Slippery",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Hermitage, Sharon, Grove City, Franklin, Sharpsville, Farrell, Slippery Rock, New Wilmington, Oakwood, New Castle Northwest, Mercer, Pulaski, Stoneboro, New Bedford, Harrisville, West Middlesex and Polk.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Hermitage, Sharon, Grove City, Franklin, Sharpsville, Farrell, Slippery Rock, New Wilmington, Oakwood, New Castle Northwest, Mercer, Pulaski, Stoneboro, New Bedford, Harrisville, West Middlesex and Polk."
+        }
+      ],
+      "url": "https://api.weather.gov/products/dbf9b9e8-6fb3-48f8-844d-d32678df4761"
+    },
+    {
+      "id": "c25a9606-72d4-41f5-af3f-84a3258cde94",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T20:41:00+00:00",
+      "expires": null,
+      "location": "Beaver PA-Butler PA-Lawrence PA",
+      "hazard": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... New Castle, Beaver Falls, Ellwood City, New Brighton, Zelienople, Oakwood, Patterson Township, Big Beaver, New Beaver, West Mayfield, Ellport, Prospect, Bessemer, Harmony, Koppel, Wampum, South New Castle, Patterson Heights and New Galilee.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... New Castle, Beaver Falls, Ellwood City, New Brighton, Zelienople, Oakwood, Patterson Township, Big Beaver, New Beaver, West Mayfield, Ellport, Prospect, Bessemer, Harmony, Koppel, Wampum, South New Castle, Patterson Heights and New Galilee."
+        }
+      ],
+      "url": "https://api.weather.gov/products/c25a9606-72d4-41f5-af3f-84a3258cde94"
+    },
     {
       "id": "58cbae0d-1d0f-4783-9841-e950b942436f",
       "type": "Severe Weather Statement",
@@ -165,25 +203,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/2dfcc581-33b4-4f9d-a0e5-c173b7c1ff1a"
-    },
-    {
-      "id": "03d9c498-7a0d-4d67-9804-13090a407fd2",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:20:00+00:00",
-      "expires": null,
-      "location": "Guernsey OH",
-      "hazard": "OHC059-032030- /O.EXP.KPBZ.SV.W.0329.000000T0000Z-260903T2030Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC059-032030- /O.EXP.KPBZ.SV.W.0329.000000T0000Z-260903T2030Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 420 PM EDT Thu Sep 3 2026 OHC059-032030- /O.EXP.KPBZ.SV.W.0329.000000T0000Z-260903T2030Z/ Guernsey OH- 420 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/03d9c498-7a0d-4d67-9804-13090a407fd2"
     }
   ]
 }
