@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T06:11:01.340908Z",
+  "generatedAt": "2026-09-03T06:16:08.187538Z",
   "watches": [],
   "mesoscaleDiscussions": [
     {
@@ -53,23 +53,27 @@
   ],
   "statements": [
     {
-      "id": "fb9bf4a1-6cd1-40cf-99b4-515b2ad35f51",
-      "type": "Area Forecast Discussion",
+      "id": "952bd597-23f1-471b-a189-9e4028bcb3b5",
+      "type": "Hazardous Weather Outlook",
       "office": "KPBZ",
-      "issued": "2026-09-03T05:41:00+00:00",
+      "issued": "2026-09-03T06:13:00+00:00",
       "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... The storms are expected to continue through Thursday morning.",
+      "location": "Columbiana-Mercer-Venango-Forest-Lawrence-Butler-Clarion-Jefferson PA-Armstrong-Higher Elevations of Westmoreland-Higher Elevations of Fayette-Indiana-Higher Elevations of Indiana",
+      "hazard": "Today and tonight. Showers and thunderstorms are expected this afternoon and into the evening. Some storms could be severe with damaging wind and a possible",
       "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... The storms are expected to continue through Thursday morning.",
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. Showers and thunderstorms are expected this afternoon and into the evening. Some storms could be severe with damaging wind and a possible tornado as the main threats.",
       "details": [
         {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 141 AM EDT Thu Sep 3 2026 .WHAT HAS CHANGED... The storms are expected to continue through Thursday morning. The slight risk has been expanded to include almost the entire forecast area."
+          "label": "Today's Hazards",
+          "text": "Today and tonight. Showers and thunderstorms are expected this afternoon and into the evening. Some storms could be severe with damaging wind and a possible tornado as the main threats."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Friday through Wednesday. Strong storms are possible on Friday as well with damaging winds as the main threat."
         }
       ],
-      "url": "https://api.weather.gov/products/fb9bf4a1-6cd1-40cf-99b4-515b2ad35f51"
+      "url": "https://api.weather.gov/products/952bd597-23f1-471b-a189-9e4028bcb3b5"
     }
   ]
 }
