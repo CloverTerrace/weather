@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T20:05:37.108295Z",
+  "generatedAt": "2026-09-03T20:10:42.776299Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -77,6 +77,63 @@
   ],
   "statements": [
     {
+      "id": "0cc43321-ebb8-4929-b7e0-297d3ffec41a",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T20:07:00+00:00",
+      "expires": null,
+      "location": "Mercer PA",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... New Lebanon, Sheakleyville and Maurice K Goddard State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... New Lebanon, Sheakleyville and Maurice K Goddard State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/0cc43321-ebb8-4929-b7e0-297d3ffec41a"
+    },
+    {
+      "id": "7b035073-24cd-431b-8526-eb67a5c40b65",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T20:06:00+00:00",
+      "expires": null,
+      "location": "Mercer PA",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greenville, Stoneboro, Sandy Lake,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greenville, Stoneboro, Sandy Lake, Jamestown, Fredonia, New Lebanon, Sheakleyville and Maurice K Goddard State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Greenville, Stoneboro, Sandy Lake, Jamestown, Fredonia, New Lebanon, Sheakleyville and Maurice K Goddard State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/7b035073-24cd-431b-8526-eb67a5c40b65"
+    },
+    {
+      "id": "bf9a06f7-4d12-456b-a786-c4a96b01f6af",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T20:01:00+00:00",
+      "expires": null,
+      "location": "Guernsey OH-Muskingum OH",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Cambridge, Byesville, Boden and Kimbolton.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Cambridge, Byesville, Boden and Kimbolton.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Cambridge, Byesville, Boden and Kimbolton."
+        }
+      ],
+      "url": "https://api.weather.gov/products/bf9a06f7-4d12-456b-a786-c4a96b01f6af"
+    },
+    {
       "id": "540448d4-9d8e-49e3-9e50-ca964dafa420",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -151,25 +208,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/0009f48e-ab37-4a3d-bcba-0e6d7271efb0"
-    },
-    {
-      "id": "057fb27e-6665-4fce-8e93-df10b18b9904",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T19:36:00+00:00",
-      "expires": null,
-      "location": "Coshocton OH-Muskingum OH",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden, Conesville, Drake, Otsego and Cooperdale.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden, Conesville, Drake, Otsego and Cooperdale."
-        }
-      ],
-      "url": "https://api.weather.gov/products/057fb27e-6665-4fce-8e93-df10b18b9904"
     }
   ]
 }
