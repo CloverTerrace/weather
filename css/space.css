@@ -126,3 +126,9 @@
   font-weight: 700;
   margin: 0.5rem 0;
 }
+
+.site-nav,
+.space-container {
+  position: relative;
+  z-index: 1;
+}
