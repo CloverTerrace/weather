@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T20:55:37.569445Z",
+  "generatedAt": "2026-09-03T21:01:00.309149Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -71,6 +71,25 @@
     }
   ],
   "statements": [
+    {
+      "id": "3aa067e6-3c2a-470a-900c-fd30d209b9df",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T20:58:00+00:00",
+      "expires": null,
+      "location": "Columbiana OH-Beaver PA-Lawrence PA",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Columbiana, East Palestine, New Waterford,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Columbiana, East Palestine, New Waterford, Enon Valley, S.n.p.j. and Negley.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Columbiana, East Palestine, New Waterford, Enon Valley, S.n.p.j. and Negley."
+        }
+      ],
+      "url": "https://api.weather.gov/products/3aa067e6-3c2a-470a-900c-fd30d209b9df"
+    },
     {
       "id": "2bd97deb-68d9-44c4-91f8-ad0181749ea7",
       "type": "Severe Weather Statement",
