@@ -1,6 +1,45 @@
 {
-  "generatedAt": "2026-09-03T03:35:56.796067Z",
+  "generatedAt": "2026-09-03T03:40:57.141349Z",
   "watches": [],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "75dba402-6285-42ca-bf64-fbec46934a4c",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T03:39:00+00:00",
+      "expires": null,
+      "location": "Forest PA",
+      "hazard": "PAC053-030349- /O.EXP.KPBZ.SV.W.0320.000000T0000Z-260903T0345Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC053-030349- /O.EXP.KPBZ.SV.W.0320.000000T0000Z-260903T0345Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 1139 PM EDT Wed Sep 2 2026 PAC053-030349- /O.EXP.KPBZ.SV.W.0320.000000T0000Z-260903T0345Z/ Forest PA- 1139 PM EDT Wed Sep 2 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/75dba402-6285-42ca-bf64-fbec46934a4c"
+    },
+    {
+      "id": "a8d7212f-add9-46d7-a656-870419b12983",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T03:38:00+00:00",
+      "expires": null,
+      "location": "Forest PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Mainly rural areas of Northeastern Forest County.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Mainly rural areas of Northeastern Forest County.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Mainly rural areas of Northeastern Forest County."
+        }
+      ],
+      "url": "https://api.weather.gov/products/a8d7212f-add9-46d7-a656-870419b12983"
+    }
+  ]
 }
