@@ -1,21 +1,157 @@
+const SKY_REFRESH_MS = 15 * 60 * 1000; // matches the server render cadence (~15-30min)
+
 document.addEventListener('DOMContentLoaded', () => {
-  loadCustomSkyBackground();
+  loadLiveSky();
   fetchKpIndex();
   calculateMoonPhase();
   getVisibleConstellations();
+
+  window.addEventListener('resize', debounce(renderSkyOverlay, 150));
+  window.addEventListener('orientationchange', debounce(renderSkyOverlay, 150));
+  setInterval(loadLiveSky, SKY_REFRESH_MS);
 });
 
-// Load locally generated 4K sky render with cache-busting timestamp
-function loadCustomSkyBackground() {
+let latestOverlayData = null;
+
+// Load the live 4K sky render + its matching overlay data together, using
+// the same cache-busting timestamp for both so they never show a render
+// and a HUD from two different moments.
+function loadLiveSky() {
   const timestamp = new Date().getTime();
-  const skyUrl = `assets/skyrender/sky-bg.png?t=${timestamp}`;
-  
-  document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('${skyUrl}')`;
-  
+  const img = document.getElementById('sky-render-img');
+
+  img.classList.remove('is-loaded');
+  img.onload = () => {
+    img.classList.add('is-loaded');
+    renderSkyOverlay(); // natural width/height only available once loaded
+  };
+  img.src = `assets/skyrender/sky-bg.png?t=${timestamp}`;
+
+  fetchSkyOverlay(timestamp);
+
   const titleEl = document.getElementById('apod-title');
   if (titleEl) {
     titleEl.textContent = 'Live 4K Night Sky View';
   }
+}
+
+async function fetchSkyOverlay(timestamp) {
+  try {
+    const res = await fetch(`assets/skyrender/sky_overlay.json?t=${timestamp}`);
+    latestOverlayData = await res.json();
+    renderSkyOverlay();
+  } catch (err) {
+    latestOverlayData = null;
+  }
+}
+
+// Given the sky-stage container's box and the image's natural pixel size,
+// figure out exactly how `object-fit: cover` scaled/cropped it — needed so
+// overlay markers (in the render's own -1..1 normalized space) land on the
+// same sky feature regardless of the viewport's aspect ratio.
+function computeCoverRect(naturalW, naturalH, containerW, containerH) {
+  const scale = Math.max(containerW / naturalW, containerH / naturalH);
+  const renderedW = naturalW * scale;
+  const renderedH = naturalH * scale;
+  return {
+    scale,
+    offsetX: (containerW - renderedW) / 2,
+    offsetY: (containerH - renderedH) / 2,
+  };
+}
+
+// Convert a render-space point (x,y in -1..1, zenith at 0,0, north up,
+// east right — matching render_sky.py's stereographic projection exactly)
+// into a percentage position over the sky-stage container.
+function renderSpaceToPercent(x, y, naturalW, naturalH, cover, containerW, containerH) {
+  const pixelX = ((x + 1) / 2) * naturalW;
+  const pixelY = ((1 - y) / 2) * naturalH; // image rows increase downward
+  const screenX = cover.offsetX + pixelX * cover.scale;
+  const screenY = cover.offsetY + pixelY * cover.scale;
+  return {
+    leftPct: (screenX / containerW) * 100,
+    topPct: (screenY / containerH) * 100,
+  };
+}
+
+function renderSkyOverlay() {
+  const img = document.getElementById('sky-render-img');
+  const stage = document.querySelector('.sky-stage');
+  const overlay = document.getElementById('sky-overlay');
+  if (!img || !stage || !overlay || !img.naturalWidth) return;
+
+  overlay.innerHTML = '';
+  const containerW = stage.clientWidth;
+  const containerH = stage.clientHeight;
+  const cover = computeCoverRect(img.naturalWidth, img.naturalHeight, containerW, containerH);
+
+  // Cardinal direction ticks around the horizon
+  const cardinals = (latestOverlayData && latestOverlayData.cardinal_points) || {
+    N: { x: 0, y: 1 }, E: { x: 1, y: 0 }, S: { x: 0, y: -1 }, W: { x: -1, y: 0 },
+  };
+  Object.entries(cardinals).forEach(([label, pos]) => {
+    const { leftPct, topPct } = renderSpaceToPercent(
+      pos.x, pos.y, img.naturalWidth, img.naturalHeight, cover, containerW, containerH
+    );
+    if (leftPct < -10 || leftPct > 110 || topPct < -10 || topPct > 110) return;
+    const tick = document.createElement('div');
+    tick.className = 'sky-cardinal';
+    tick.style.left = `${leftPct}%`;
+    tick.style.top = `${topPct}%`;
+    tick.textContent = label;
+    overlay.appendChild(tick);
+  });
+
+  if (!latestOverlayData || !Array.isArray(latestOverlayData.objects)) return;
+
+  latestOverlayData.objects.forEach(obj => {
+    const { leftPct, topPct } = renderSpaceToPercent(
+      obj.x, obj.y, img.naturalWidth, img.naturalHeight, cover, containerW, containerH
+    );
+    // Skip markers that landed outside the visible cropped area
+    if (leftPct < -5 || leftPct > 105 || topPct < -5 || topPct > 105) return;
+
+    const marker = document.createElement('div');
+    marker.className = 'sky-marker';
+    marker.dataset.type = obj.type;
+    marker.style.left = `${leftPct}%`;
+    marker.style.top = `${topPct}%`;
+
+    const dot = document.createElement('div');
+    dot.className = 'sky-marker-dot';
+
+    const label = document.createElement('div');
+    label.className = 'sky-marker-label';
+    label.textContent = buildMarkerLabel(obj);
+
+    marker.appendChild(dot);
+    marker.appendChild(label);
+    overlay.appendChild(marker);
+
+    // fade in after layout settles
+    requestAnimationFrame(() => marker.classList.add('is-shown'));
+  });
+}
+
+function buildMarkerLabel(obj) {
+  if (obj.type === 'moon' && typeof obj.illumination === 'number') {
+    return `Moon ${Math.round(obj.illumination * 100)}%`;
+  }
+  if (obj.type === 'satellite') {
+    return obj.sunlit ? 'ISS (visible)' : 'ISS';
+  }
+  if (typeof obj.magnitude === 'number') {
+    return `${obj.name} ${obj.magnitude.toFixed(1)}`;
+  }
+  return obj.name;
+}
+
+function debounce(fn, wait) {
+  let timeoutId;
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn(...args), wait);
+  };
 }
 
 
