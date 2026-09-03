@@ -1,8 +1,27 @@
 {
-  "generatedAt": "2026-09-03T11:11:01.284005Z",
+  "generatedAt": "2026-09-03T11:16:07.480084Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "088b7ff4-b77a-4e38-82f1-7dd2bd735d4e",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T11:07:00+00:00",
+      "expires": null,
+      "location": "Armstrong PA-Butler PA-Clarion PA-Lawrence PA",
+      "hazard": "PAC005-019-031-073-031117- /O.EXP.KPBZ.SV.W.0324.000000T0000Z-260903T1115Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC005-019-031-073-031117- /O.EXP.KPBZ.SV.W.0324.000000T0000Z-260903T1115Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 707 AM EDT Thu Sep 3 2026 PAC005-019-031-073-031117- /O.EXP.KPBZ.SV.W.0324.000000T0000Z-260903T1115Z/ Armstrong PA-Butler PA-Clarion PA-Lawrence PA- 707 AM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/088b7ff4-b77a-4e38-82f1-7dd2bd735d4e"
+    },
     {
       "id": "e7944836-dda7-413f-b149-0e7c1e0739ae",
       "type": "Severe Weather Statement",
@@ -59,44 +78,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/9fb64f41-d883-4923-b759-a9d1cc0ddcb8"
-    },
-    {
-      "id": "9839082e-d258-4689-b8e9-a54a40e7893d",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T10:47:00+00:00",
-      "expires": null,
-      "location": "Mercer PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Butler, Clarion, Knox, Rimersburg, Ellwood City, Homeacre-Lyndora,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Butler, Clarion, Knox, Rimersburg, Ellwood City, Homeacre-Lyndora, Shanor-Northvue, Meridian, Slippery Rock, Meadowood, Oakwood, New Beaver, Ellport, Prospect, Bessemer, Chicora and East Brady.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Butler, Clarion, Knox, Rimersburg, Ellwood City, Homeacre-Lyndora, Shanor-Northvue, Meridian, Slippery Rock, Meadowood, Oakwood, New Beaver, Ellport, Prospect, Bessemer, Chicora and East Brady."
-        }
-      ],
-      "url": "https://api.weather.gov/products/9839082e-d258-4689-b8e9-a54a40e7893d"
-    },
-    {
-      "id": "921d38d8-75d8-4c3e-899c-2ca5580e68af",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T10:47:00+00:00",
-      "expires": null,
-      "location": "Venango PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Marienville, Kellettville and Starr.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Marienville, Kellettville and Starr.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Marienville, Kellettville and Starr."
-        }
-      ],
-      "url": "https://api.weather.gov/products/921d38d8-75d8-4c3e-899c-2ca5580e68af"
     }
   ]
 }
