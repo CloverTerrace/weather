@@ -1,5 +1,27 @@
 [
   {
+    "id": "urn:oid:2.49.0.1.840.0.948e99135a22057c5996c57ea3170c54d990233b.001.1",
+    "event": "Severe Thunderstorm Warning",
+    "headline": "Severe Thunderstorm Warning issued September 3 at 5:52PM EDT until September 3 at 6:00PM EDT by NWS Pittsburgh PA",
+    "severity": "Severe",
+    "urgency": "Immediate",
+    "effective": "2026-09-03T17:52:00-04:00",
+    "expires": "2026-09-03T18:02:00-04:00",
+    "senderName": "NWS Pittsburgh PA",
+    "areaDesc": "Columbiana, OH; Allegheny, PA; Beaver, PA; Butler, PA; Washington, PA; Hancock, WV",
+    "details": [
+      {
+        "label": "Areas",
+        "text": "Columbiana, OH; Allegheny, PA; Beaver, PA; Butler, PA; Washington, PA; Hancock, WV"
+      },
+      {
+        "label": "Alert detail",
+        "text": "The Severe Thunderstorm Warning that was previously in effect has\nbeen reissued for Hancock, Butler, Allegheny, Washington, and Beaver\nCounties and is in effect until 645 PM EDT. Please refer to that\nbulletin for the latest severe weather information.\n\nA Severe Thunderstorm Watch remains in effect until 1000 PM EDT\nThursday for portions of east central Ohio, Pennsylvania, and the\nnorthern panhandle of West Virginia."
+      }
+    ],
+    "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.948e99135a22057c5996c57ea3170c54d990233b.001.1"
+  },
+  {
     "id": "urn:oid:2.49.0.1.840.0.941c09b148f90b3231fd847d5f53783306a0a345.001.1",
     "event": "Severe Thunderstorm Warning",
     "headline": "Severe Thunderstorm Warning issued September 3 at 5:47PM EDT until September 3 at 6:45PM EDT by NWS Pittsburgh PA",
@@ -20,28 +42,6 @@
       }
     ],
     "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.941c09b148f90b3231fd847d5f53783306a0a345.001.1"
-  },
-  {
-    "id": "urn:oid:2.49.0.1.840.0.39517d2914479ecb4ff6ddb5e97896099e514878.001.1",
-    "event": "Severe Thunderstorm Warning",
-    "headline": "Severe Thunderstorm Warning issued September 3 at 5:45PM EDT until September 3 at 6:00PM EDT by NWS Pittsburgh PA",
-    "severity": "Severe",
-    "urgency": "Immediate",
-    "effective": "2026-09-03T17:45:00-04:00",
-    "expires": "2026-09-03T18:00:00-04:00",
-    "senderName": "NWS Pittsburgh PA",
-    "areaDesc": "Columbiana, OH; Allegheny, PA; Beaver, PA; Butler, PA; Washington, PA; Hancock, WV",
-    "details": [
-      {
-        "label": "Areas",
-        "text": "Columbiana, OH; Allegheny, PA; Beaver, PA; Butler, PA; Washington, PA; Hancock, WV"
-      },
-      {
-        "label": "Instructions",
-        "text": "Anyone outdoors should move to shelter inside a well-built structure\nand stay away from windows. These storms are capable of producing\nwidespread damaging winds and large hail."
-      }
-    ],
-    "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.39517d2914479ecb4ff6ddb5e97896099e514878.001.1"
   },
   {
     "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
