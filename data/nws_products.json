@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T19:25:37.238688Z",
+  "generatedAt": "2026-09-03T19:30:47.716510Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -77,6 +77,25 @@
   ],
   "statements": [
     {
+      "id": "49c8f14a-818b-4b8f-9dce-5a1f7aa1422d",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T19:26:00+00:00",
+      "expires": null,
+      "location": "Coshocton OH-Muskingum OH",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden, Frazeysburg, Conesville, Drake, Otsego, Cooperdale and Dillon State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden, Frazeysburg, Conesville, Drake, Otsego, Cooperdale and Dillon State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/49c8f14a-818b-4b8f-9dce-5a1f7aa1422d"
+    },
+    {
       "id": "7d0f5c43-f59f-4e4d-84db-8add35bc0351",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -113,29 +132,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/f6450154-430c-470e-95e7-dadc39b41324"
-    },
-    {
-      "id": "fdd48105-ca60-4baf-b270-e6653062c6fa",
-      "type": "Hazardous Weather Outlook",
-      "office": "KPBZ",
-      "issued": "2026-09-03T19:03:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": "This afternoon and tonight. Severe Thunderstorm Watch. Showers and thunderstorms are expected this afternoon and into the evening. Some storms could be severe",
-      "distanceMiles": null,
-      "headline": "Hazardous Weather Outlook",
-      "summary": "This afternoon and tonight. Severe Thunderstorm Watch. Showers and thunderstorms are expected this afternoon and into the evening. Some storms could be severe with damaging wind, large hail, a tornado, and heavy rain all possible threats.",
-      "details": [
-        {
-          "label": "Today's Hazards",
-          "text": "This afternoon and tonight. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Severe Thunderstorm Watch. Showers and thunderstorms are expected this afternoon and into the evening. Some storms could be severe with damaging wind, large hail, a tornado, and heavy rain all possible threats."
-        },
-        {
-          "label": "Extended Outlook",
-          "text": "Friday through Wednesday. Strong storms are possible Friday afternoon as well with again all hazards possible."
-        }
-      ],
-      "url": "https://api.weather.gov/products/fdd48105-ca60-4baf-b270-e6653062c6fa"
     }
   ]
 }
