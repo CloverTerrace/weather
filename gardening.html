@@ -44,17 +44,7 @@
       if (themeMeta) themeMeta.setAttribute('content', THEME_COLORS[phase] || THEME_COLORS.dusk);
     })();
 
-    // synchronous season pre-paint, for the same reason as the phase block
-    // above: gardening.css keys the grass terrain + vine-edge textures off
-    // data-garden-season on THIS element (:root), so it has to be correct
-    // before the browser paints, not after js/gardening.js (deferred) gets
-    // around to it. Season is a pure function of today's date, so there's
-    // no async risk in computing it here. window.__gardenSeason is also read
-    // by the FOUC-prevention script at the end of <body>, which assigns the
-    // season-specific sprite images (tree, vine corners, corner-flowers)
-    // exactly once, correctly, instead of them briefly showing summer art.
-    // Keep the month ranges here in sync with updateCurrentSeasonDisplay()
-    // in js/gardening.js.
+    // synchronous season pre-paint
     (function () {
       var month = new Date().getUTCMonth(); // 0 = Jan, 11 = Dec
       var season = 'winter';
@@ -64,8 +54,7 @@
       window.__gardenSeason = season;
       document.documentElement.dataset.gardenSeason = season;
 
-      // One authoritative seasonal-art table. Both the first-paint loader below
-      // and gardening.js read this instead of maintaining separate copies.
+      // authoritative seasonal-art table
       window.GARDEN_SEASON_ART = {
         spring: { label: 'Spring', icon: 'spring_icon.png', companions: [
           'flowers/hyacinth.png', 'flowers/forgetmenot.png', 'flowers/pansy.png', 'flowers/lily.png'
@@ -81,9 +70,8 @@
         ] }
       };
 
-      // Decorative images start hidden and only become visible after a real
-      // image load. A failed seasonal asset is removed/hidden rather than
-      // leaving the browser's broken-image glyph in the layout.
+      // decorative images start hidden and only become visible after a real
+      // image load
       window.__setGardenSeasonImage = function (img, primary, fallback) {
         if (!img) return;
         delete img.dataset.gardenFallback;
@@ -159,9 +147,9 @@
     <button type="button" class="nav-soon" data-coming-soon="Soundings">
       <img src="icons/windsock.svg" alt="" class="nav-icon">Soundings
     </button>
-    <button type="button" class="nav-soon" data-coming-soon="Space">
+    <a href="space.html" data-page="space.html">
       <img src="icons/star.svg" alt="" class="nav-icon">Space
-    </button>
+    </a>
   </div>
 </nav>
 
