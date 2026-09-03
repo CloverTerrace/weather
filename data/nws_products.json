@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T23:35:38.052976Z",
+  "generatedAt": "2026-09-03T23:40:39.428801Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -164,6 +164,63 @@
   ],
   "statements": [
     {
+      "id": "dee99952-202a-44dd-b6f6-82f7410d37a4",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:37:00+00:00",
+      "expires": null,
+      "location": "Fayette PA-Indiana PA-Westmoreland PA",
+      "hazard": "PAC051-063-129-032347- /O.EXP.KPBZ.SV.W.0349.000000T0000Z-260903T2345Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC051-063-129-032347- /O.EXP.KPBZ.SV.W.0349.000000T0000Z-260903T2345Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 737 PM EDT Thu Sep 3 2026 PAC051-063-129-032347- /O.EXP.KPBZ.SV.W.0349.000000T0000Z-260903T2345Z/ Fayette PA-Indiana PA-Westmoreland PA- 737 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/dee99952-202a-44dd-b6f6-82f7410d37a4"
+    },
+    {
+      "id": "7643c45d-cb3e-4512-95b4-9eb6933ad399",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:35:00+00:00",
+      "expires": null,
+      "location": "Lawrence PA-Mercer PA-Venango PA",
+      "hazard": "PAC073-085-121-032345- /O.EXP.KPBZ.SV.W.0348.000000T0000Z-260903T2345Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC073-085-121-032345- /O.EXP.KPBZ.SV.W.0348.000000T0000Z-260903T2345Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 735 PM EDT Thu Sep 3 2026 PAC073-085-121-032345- /O.EXP.KPBZ.SV.W.0348.000000T0000Z-260903T2345Z/ Lawrence PA-Mercer PA-Venango PA- 735 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/7643c45d-cb3e-4512-95b4-9eb6933ad399"
+    },
+    {
+      "id": "a5fed65b-b17f-491b-ac90-7401c514bfdf",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:33:00+00:00",
+      "expires": null,
+      "location": "Fayette PA-Indiana PA-Westmoreland PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Seven Springs, New Florence, Seward, Laurel Mountain, Armagh, Champion, Indian Head,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Seven Springs, New Florence, Seward, Laurel Mountain, Armagh, Champion, Indian Head, Laurel Mountain State Park, Jones Mills and Normalville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Seven Springs, New Florence, Seward, Laurel Mountain, Armagh, Champion, Indian Head, Laurel Mountain State Park, Jones Mills and Normalville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/a5fed65b-b17f-491b-ac90-7401c514bfdf"
+    },
+    {
       "id": "761ab55c-d067-451b-93e5-c6e6eafe2ce5",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -238,63 +295,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/46e28fa6-562d-4211-b6f4-93c79da1c3d3"
-    },
-    {
-      "id": "2063084c-ee04-4736-a066-b409ec17224f",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:19:00+00:00",
-      "expires": null,
-      "location": "Westmoreland PA",
-      "hazard": "PAC129-032329- /O.CAN.KPBZ.TO.W.0059.000000T0000Z-260903T2330Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC129-032329- /O.CAN.KPBZ.TO.W.0059.000000T0000Z-260903T2330Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 719 PM EDT Thu Sep 3 2026 PAC129-032329- /O.CAN.KPBZ.TO.W.0059.000000T0000Z-260903T2330Z/ Westmoreland PA- 719 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/2063084c-ee04-4736-a066-b409ec17224f"
-    },
-    {
-      "id": "7c092226-2a08-41cd-8e9a-b6cb44574e5e",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:18:00+00:00",
-      "expires": null,
-      "location": "Lawrence PA-Mercer PA-Venango PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Hermitage, Sharon, Grove City, Sharpsville, Farrell, New Wilmington,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Hermitage, Sharon, Grove City, Sharpsville, Farrell, New Wilmington, Oakwood, New Castle Northwest, Mercer, Pulaski, Stoneboro, New Bedford, West Middlesex, Polk, Plain Grove Township, Sandy Lake, Clark, Wheatland and Fredonia.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... New Castle, Hermitage, Sharon, Grove City, Sharpsville, Farrell, New Wilmington, Oakwood, New Castle Northwest, Mercer, Pulaski, Stoneboro, New Bedford, West Middlesex, Polk, Plain Grove Township, Sandy Lake, Clark, Wheatland and Fredonia."
-        }
-      ],
-      "url": "https://api.weather.gov/products/7c092226-2a08-41cd-8e9a-b6cb44574e5e"
-    },
-    {
-      "id": "4898b8ad-4c43-4cc3-bb16-53a522b0007c",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:12:00+00:00",
-      "expires": null,
-      "location": "Fayette PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Seven Springs, Champion, Indian Head and Normalville.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Seven Springs, Champion, Indian Head and Normalville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/4898b8ad-4c43-4cc3-bb16-53a522b0007c"
     }
   ]
 }
