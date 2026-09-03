@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T19:35:36.527620Z",
+  "generatedAt": "2026-09-03T19:40:38.201471Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -77,6 +77,25 @@
   ],
   "statements": [
     {
+      "id": "057fb27e-6665-4fce-8e93-df10b18b9904",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T19:36:00+00:00",
+      "expires": null,
+      "location": "Coshocton OH-Muskingum OH",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden, Conesville, Drake, Otsego and Cooperdale.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Coshocton, North Zanesville, Dresden, Conesville, Drake, Otsego and Cooperdale."
+        }
+      ],
+      "url": "https://api.weather.gov/products/057fb27e-6665-4fce-8e93-df10b18b9904"
+    },
+    {
       "id": "49c8f14a-818b-4b8f-9dce-5a1f7aa1422d",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -113,25 +132,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/7d0f5c43-f59f-4e4d-84db-8add35bc0351"
-    },
-    {
-      "id": "f6450154-430c-470e-95e7-dadc39b41324",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-09-03T19:04:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... Severe Thunderstorm Watch issued for our entire area through",
-      "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... Severe Thunderstorm Watch issued for our entire area through",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 304 PM EDT Thu Sep 3 2026 .WHAT HAS CHANGED... Severe Thunderstorm Watch issued for our entire area through 10PM. Introduction of an Enhanced Risk (level 3/5) for severe thunderstorms on Thursday."
-        }
-      ],
-      "url": "https://api.weather.gov/products/f6450154-430c-470e-95e7-dadc39b41324"
     }
   ]
 }
