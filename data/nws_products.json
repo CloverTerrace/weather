@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T23:05:33.724439Z",
+  "generatedAt": "2026-09-03T23:10:42.281232Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -164,6 +164,101 @@
   ],
   "statements": [
     {
+      "id": "223f8a49-9e54-41a4-acb9-ce1b41400d32",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:09:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Fayette PA-Indiana PA-Westmoreland PA",
+      "hazard": "PAC003-051-063-129-032319- /O.EXP.KPBZ.SV.W.0345.000000T0000Z-260903T2315Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC003-051-063-129-032319- /O.EXP.KPBZ.SV.W.0345.000000T0000Z-260903T2315Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 709 PM EDT Thu Sep 3 2026 PAC003-051-063-129-032319- /O.EXP.KPBZ.SV.W.0345.000000T0000Z-260903T2315Z/ Allegheny PA-Fayette PA-Indiana PA-Westmoreland PA- 709 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/223f8a49-9e54-41a4-acb9-ce1b41400d32"
+    },
+    {
+      "id": "fb8e0532-5da5-49b8-84ab-67a3226ea399",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:05:00+00:00",
+      "expires": null,
+      "location": "Westmoreland PA",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Seven Springs, Champion, Indian Head and Normalville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Seven Springs, Champion, Indian Head and Normalville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/fb8e0532-5da5-49b8-84ab-67a3226ea399"
+    },
+    {
+      "id": "faf71cb3-8d76-4862-82ff-d7f9f40c576c",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:04:00+00:00",
+      "expires": null,
+      "location": "Fayette PA-Westmoreland PA",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Latrobe, Mount Pleasant, McChesneytown-Loyalhanna, Derry, Lawson Heights, Ligonier, Seven Springs, Calumet-Norvelt, Youngstown, Laurel Mountain, Donegal, Champion, Loyalhanna ",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Latrobe, Mount Pleasant, McChesneytown-Loyalhanna, Derry, Lawson Heights, Ligonier, Seven Springs, Calumet-Norvelt, Youngstown, Laurel Mountain, Donegal, Champion, Loyalhanna Gorge, Jones Mills, Acme and Laurel Mountain State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/faf71cb3-8d76-4862-82ff-d7f9f40c576c"
+    },
+    {
+      "id": "e0fb29af-8b43-44c7-8b68-1c1cdbcd126b",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:04:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Fayette PA-Greene PA-Washington PA-Westmoreland PA",
+      "hazard": "PAC003-051-059-125-129-032314- /O.CAN.KPBZ.SV.W.0346.000000T0000Z-260903T2330Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC003-051-059-125-129-032314- /O.CAN.KPBZ.SV.W.0346.000000T0000Z-260903T2330Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 704 PM EDT Thu Sep 3 2026 PAC003-051-059-125-129-032314- /O.CAN.KPBZ.SV.W.0346.000000T0000Z-260903T2330Z/ Allegheny PA-Fayette PA-Greene PA-Washington PA-Westmoreland PA- 704 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/e0fb29af-8b43-44c7-8b68-1c1cdbcd126b"
+    },
+    {
+      "id": "dd25af22-4bff-48c5-b3a8-78d60e54a65f",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:03:00+00:00",
+      "expires": null,
+      "location": "Westmoreland PA",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Ligonier, Laurel Mountain, Laurel Mountain State Park and Loyalhanna Gorge.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Ligonier, Laurel Mountain, Laurel Mountain State Park and Loyalhanna Gorge."
+        }
+      ],
+      "url": "https://api.weather.gov/products/dd25af22-4bff-48c5-b3a8-78d60e54a65f"
+    },
+    {
       "id": "ba5f96a8-d43f-40d0-9f13-85000b978794",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -200,101 +295,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/c46bc82a-34da-4269-8610-c6a00538148c"
-    },
-    {
-      "id": "9c6d8fa8-a763-4c81-8146-98567778c787",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:57:00+00:00",
-      "expires": null,
-      "location": "Fayette PA-Westmoreland PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Greensburg, Latrobe, Mount Pleasant, McChesneytown-Loyalhanna, Youngwood, Derry, Lawson Heights, New Stanton, Ligonier, Seven Springs, Calumet-Norvelt, Youngstown, Hunker, Lau",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Greensburg, Latrobe, Mount Pleasant, McChesneytown-Loyalhanna, Youngwood, Derry, Lawson Heights, New Stanton, Ligonier, Seven Springs, Calumet-Norvelt, Youngstown, Hunker, Laurel Mountain, Donegal, Champion, Crabtree, Loyalhanna Gorge, Acme and Jones Mills."
-        }
-      ],
-      "url": "https://api.weather.gov/products/9c6d8fa8-a763-4c81-8146-98567778c787"
-    },
-    {
-      "id": "340526c3-3c17-443e-887c-be2be6a6303b",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:56:00+00:00",
-      "expires": null,
-      "location": "Westmoreland PA",
-      "hazard": "PAC129-032306- /O.EXP.KPBZ.TO.W.0057.000000T0000Z-260903T2300Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC129-032306- /O.EXP.KPBZ.TO.W.0057.000000T0000Z-260903T2300Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 656 PM EDT Thu Sep 3 2026 PAC129-032306- /O.EXP.KPBZ.TO.W.0057.000000T0000Z-260903T2300Z/ Westmoreland PA- 656 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/340526c3-3c17-443e-887c-be2be6a6303b"
-    },
-    {
-      "id": "68213f91-e8a1-4ee8-b688-440354323746",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:54:00+00:00",
-      "expires": null,
-      "location": "Westmoreland PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Latrobe, McChesneytown-Loyalhanna, Derry, Lawson Heights and Youngstown.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Latrobe, McChesneytown-Loyalhanna, Derry, Lawson Heights and Youngstown."
-        }
-      ],
-      "url": "https://api.weather.gov/products/68213f91-e8a1-4ee8-b688-440354323746"
-    },
-    {
-      "id": "8c5272cf-c703-4b62-a202-d28446989cee",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:51:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA-Fayette PA-Greene PA-Washington PA-Westmoreland PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Bethel Park, McMurray, Uniontown, Connellsville, Gastonville, Baldwin, South Park",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Bethel Park, McMurray, Uniontown, Connellsville, Gastonville, Baldwin, South Park Township, Jefferson Hills, Pleasant Hills, Monessen, Clairton, California, Donora, Scottdale, Monongahela, Charleroi, Masontown and West Newton.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Bethel Park, McMurray, Uniontown, Connellsville, Gastonville, Baldwin, South Park Township, Jefferson Hills, Pleasant Hills, Monessen, Clairton, California, Donora, Scottdale, Monongahela, Charleroi, Masontown and West Newton."
-        }
-      ],
-      "url": "https://api.weather.gov/products/8c5272cf-c703-4b62-a202-d28446989cee"
-    },
-    {
-      "id": "4f2a2cb6-e3ab-4e6a-abe7-1eb331c1eef2",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:49:00+00:00",
-      "expires": null,
-      "location": "Westmoreland PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Latrobe, McChesneytown-Loyalhanna, Derry, Lawson Heights, New Alexandria, Youngstown and Crabtree.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Latrobe, McChesneytown-Loyalhanna, Derry, Lawson Heights, New Alexandria, Youngstown and Crabtree."
-        }
-      ],
-      "url": "https://api.weather.gov/products/4f2a2cb6-e3ab-4e6a-abe7-1eb331c1eef2"
     }
   ]
 }
