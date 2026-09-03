@@ -41,8 +41,6 @@ async function loadLiveSky() {
 
   await Promise.all([loadImage, loadJson]);
   renderSkyOverlay();
-  updateMoonCard();
-  updateVisiblePlanets();
   updateSpaceWeatherNote();
 }
 
@@ -105,6 +103,7 @@ function renderSkyOverlay() {
     marker.dataset.type = obj.type;
     marker.style.left = `${leftPct}%`;
     marker.style.top = `${topPct}%`;
+    marker.style.cursor = 'pointer';
 
     const dot = document.createElement('div');
     dot.className = 'sky-marker-dot';
@@ -116,6 +115,8 @@ function renderSkyOverlay() {
     marker.appendChild(dot);
     marker.appendChild(label);
     overlay.appendChild(marker);
+
+    marker.addEventListener('click', () => openCelestialModal(obj));
   });
 }
 
@@ -146,9 +147,6 @@ async function fetchKpIndex() {
   const kpValEl = document.getElementById('kp-value');
   const kpChipEl = document.getElementById('kp-chip');
 
-  // Read the site's own already-fetched data (fetch_aurora.py -> data/aurora.json)
-  // instead of calling NOAA directly from the browser -- NOAA's SWPC endpoint
-  // doesn't send CORS headers, so a client-side fetch to it is blocked outright.
   try {
     const res = await fetch(`data/aurora.json?t=${Date.now()}`);
     if (!res.ok) throw new Error(`aurora.json ${res.status}`);
@@ -204,62 +202,13 @@ function kpBarColor(kp) {
   return '#4ade80';
 }
 
-// Pulls in data from BOTH fetchKpIndex (aurora chance) and the sky overlay
-// (is the sun currently up), so it's called from each once it's loaded --
-// harmless to call before both are ready, it just no-ops until they are.
 function updateSpaceWeatherNote() {
   const noteEl = document.getElementById('kp-dark-note');
   if (!noteEl || !latestAuroraData || !latestOverlayData) return;
-  // project() in render_sky.py omits the Sun object entirely when it's
-  // below the horizon, so its absence from objects IS the "it's dark" signal.
   const sunIsUp = latestOverlayData.objects.some(o => o.type === 'sun');
   noteEl.textContent = sunIsUp
     ? 'Daylight right now — any aurora would be washed out.'
     : 'The sun is below the horizon — dark enough for aurora to be visible if it happens.';
-}
-
-// Replaces the old client-side Julian-day approximation: this now reads
-// the accurate skyfield-computed phase/illumination/rise-set data that
-// render_sky.py already produces in sky_overlay.json's Moon entry.
-function updateMoonCard() {
-  const phaseEl = document.getElementById('moon-phase');
-  const illumEl = document.getElementById('moon-illumination');
-  const riseEl = document.getElementById('moon-rise');
-  const setEl = document.getElementById('moon-set');
-  const nextFullEl = document.getElementById('moon-next-full');
-  const nextNewEl = document.getElementById('moon-next-new');
-  const imgEl = document.getElementById('moon-today-img');
-
-  const moon = latestOverlayData && Array.isArray(latestOverlayData.objects)
-    ? latestOverlayData.objects.find(o => o.type === 'moon')
-    : null;
-  if (!moon) return;
-
-  if (phaseEl) phaseEl.textContent = moon.phase_name || '--';
-  if (illumEl && typeof moon.illumination === 'number') {
-    illumEl.textContent = `${Math.round(moon.illumination * 100)}% illuminated`;
-  }
-  if (riseEl) riseEl.textContent = moon.next_moonrise ? formatLocalTime(moon.next_moonrise) : '--';
-  if (setEl) setEl.textContent = moon.next_moonset ? formatLocalTime(moon.next_moonset) : '--';
-  if (nextFullEl) nextFullEl.textContent = moon.next_full_moon ? formatLocalDate(moon.next_full_moon) : '--';
-  if (nextNewEl) nextNewEl.textContent = moon.next_new_moon ? formatLocalDate(moon.next_new_moon) : '--';
-
-  if (imgEl && moon.image) {
-    imgEl.onload = () => imgEl.classList.add('is-loaded');
-    imgEl.src = `${moon.image}?t=${Date.now()}`;
-  }
-}
-
-function formatLocalTime(iso) {
-  const d = new Date(iso);
-  if (isNaN(d)) return '--';
-  return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-}
-
-function formatLocalDate(iso) {
-  const d = new Date(iso);
-  if (isNaN(d)) return '--';
-  return d.toLocaleDateString([], { month: 'short', day: 'numeric' });
 }
 
 const CONSTELLATION_INFO = {
@@ -306,32 +255,10 @@ function getVisibleConstellations() {
   }).join('');
 }
 
-// Sourced directly from sky_overlay.json -- real positions, not a static list.
-function updateVisiblePlanets() {
-  const listEl = document.getElementById('visible-planets-list');
-  if (!listEl) return;
-
-  const planets = (latestOverlayData && Array.isArray(latestOverlayData.objects))
-    ? latestOverlayData.objects.filter(o => o.type === 'planet')
-    : null;
-
-  if (!planets) {
-    listEl.innerHTML = '<li>Checking...</li>';
-    return;
-  }
-  if (planets.length === 0) {
-    listEl.innerHTML = '<li>No planets are above the horizon right now.</li>';
-    return;
-  }
-
-  const sorted = [...planets].sort((a, b) => (a.magnitude ?? 99) - (b.magnitude ?? 99));
-  listEl.innerHTML = sorted.map(p => {
-    const magText = typeof p.magnitude === 'number' ? `mag ${p.magnitude.toFixed(1)}` : '';
-    return `<li>
-      <span class="planet-name">${p.name}</span>
-      <span class="planet-detail">${magText}${magText ? ', ' : ''}${altDescription(p.alt)} in the ${compassFromAz(p.az)}</span>
-    </li>`;
-  }).join('');
+function formatLocalTime(iso) {
+  const d = new Date(iso);
+  if (isNaN(d)) return '--';
+  return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 }
 
 function altDescription(alt) {
@@ -377,11 +304,9 @@ function openCelestialModal(obj) {
       </p>
     `;
   } else {
-    // Fallback for ISS or Sun
     modalContent.innerHTML = `
       <h2 style="color: #a5c0ee; margin-top: 0;">${obj.name}</h2>
       <p style="font-size: 0.9rem;">Type: ${obj.type}</p>
     `;
   }
 }
-
