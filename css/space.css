@@ -1,13 +1,95 @@
-/* Space Page Layout & NASA Background Styling */
+/* Space Page Layout & Live Sky Styling */
 #space-page {
   min-height: 100vh;
   margin: 0;
-  background: #0b0d17 url('/assets/skyrender/sky-bg.png') no-repeat center center fixed;
-  background-size: cover;
+  background-color: #0b0d17;
   color: #f6f8fa;
   font-family: 'Figtree', sans-serif;
 }
 
+/* Live sky render + HUD overlay -----------------------------------------
+   A real <img> (not a CSS background) so JS can read its natural pixel
+   size and compute exactly how object-fit: cover crops/scales it — that's
+   what lets the overlay markers land in the right spot regardless of the
+   viewport's aspect ratio. */
+.sky-stage {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: #0b0d17;
+}
+
+.sky-render-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.sky-render-img.is-loaded {
+  opacity: 1;
+}
+
+.sky-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sky-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  pointer-events: auto;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.sky-marker.is-shown {
+  opacity: 1;
+}
+
+.sky-marker-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--marker-color, #a5c0ee);
+  box-shadow: 0 0 8px 2px var(--marker-color, #a5c0ee);
+}
+
+.sky-marker-label {
+  font-size: 0.72rem;
+  white-space: nowrap;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(11, 13, 23, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  text-shadow: none;
+}
+
+.sky-marker[data-type="sun"] { --marker-color: #f4b942; }
+.sky-marker[data-type="moon"] { --marker-color: #d8dee9; }
+.sky-marker[data-type="planet"] { --marker-color: #9fd8a0; }
+.sky-marker[data-type="satellite"] { --marker-color: #6fd6d6; }
+
+.sky-cardinal {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: rgba(246, 248, 250, 0.55);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+}
 
 .space-container {
   max-width: 1000px;
