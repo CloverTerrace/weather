@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T22:40:34.602148Z",
+  "generatedAt": "2026-09-03T22:45:42.359522Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -120,6 +120,44 @@
   ],
   "statements": [
     {
+      "id": "54a5b03a-cb1f-4ee0-828e-5943f0c82780",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:42:00+00:00",
+      "expires": null,
+      "location": "Westmoreland PA",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Latrobe, McChesneytown-Loyalhanna, Derry, Delmont, Lawson Heights, New Alexandria, Youngstown, Crabtree and Slickville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Latrobe, McChesneytown-Loyalhanna, Derry, Delmont, Lawson Heights, New Alexandria, Youngstown, Crabtree and Slickville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/54a5b03a-cb1f-4ee0-828e-5943f0c82780"
+    },
+    {
+      "id": "0dbbbb29-7649-4db5-8809-47c31ac8cee0",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:41:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Armstrong PA-Indiana PA-Washington PA-Westmoreland",
+      "hazard": "PAC003-005-063-125-129-032251- /O.EXP.KPBZ.SV.W.0340.000000T0000Z-260903T2245Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC003-005-063-125-129-032251- /O.EXP.KPBZ.SV.W.0340.000000T0000Z-260903T2245Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 641 PM EDT Thu Sep 3 2026 PAC003-005-063-125-129-032251- /O.EXP.KPBZ.SV.W.0340.000000T0000Z-260903T2245Z/ Allegheny PA-Armstrong PA-Indiana PA-Washington PA-Westmoreland PA-"
+        }
+      ],
+      "url": "https://api.weather.gov/products/0dbbbb29-7649-4db5-8809-47c31ac8cee0"
+    },
+    {
       "id": "40ea51fa-b01c-419f-9ad5-65e3d9ed16cc",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -213,44 +251,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/cd195928-4568-40ee-825b-5d15317860fe"
-    },
-    {
-      "id": "18cd9b4e-0059-4bb2-8588-a143a2d78135",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:27:00+00:00",
-      "expires": null,
-      "location": "Beaver PA-Butler PA",
-      "hazard": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, Monroeville, McMurray, Greensburg, McKeesport, Indiana, Jeannette, Vandergrift, Apollo, Gastonville, Shaler Township, Plum, West Mifflin and North Side Pittsburgh.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Pittsburgh, Penn Hills, Mount Lebanon, Bethel Park, Ross Township, Monroeville, McMurray, Greensburg, McKeesport, Indiana, Jeannette, Vandergrift, Apollo, Gastonville, Shaler Township, Plum, West Mifflin and North Side Pittsburgh."
-        }
-      ],
-      "url": "https://api.weather.gov/products/18cd9b4e-0059-4bb2-8588-a143a2d78135"
-    },
-    {
-      "id": "760ec6dd-9224-4096-99a1-2c0291ba1d04",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T22:24:00+00:00",
-      "expires": null,
-      "location": "Columbiana OH-Washington PA-Hancock WV",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Mount Lebanon, Ross Township,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Mount Lebanon, Ross Township, McCandless Township, Moon Township, Franklin Park, Aliquippa, Shaler Township, North Side Pittsburgh, Hampton Township, Scott Township, Robinson Township, Economy, Dormont, Bellevue, Castle Shannon, Carnegie, Kennedy Township, Ambridge and Wexford.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Pittsburgh, Mount Lebanon, Ross Township, McCandless Township, Moon Township, Franklin Park, Aliquippa, Shaler Township, North Side Pittsburgh, Hampton Township, Scott Township, Robinson Township, Economy, Dormont, Bellevue, Castle Shannon, Carnegie, Kennedy Township, Ambridge and Wexford."
-        }
-      ],
-      "url": "https://api.weather.gov/products/760ec6dd-9224-4096-99a1-2c0291ba1d04"
     }
   ]
 }
