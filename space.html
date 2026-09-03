@@ -46,32 +46,53 @@
     </header>
 
     <div class="space-grid">
-      <!-- kp index card -->
-      <section class="space-card">
+      <!-- kp / space weather card -->
+      <section class="space-card kp-card">
         <h2>Geomagnetic Kp Index</h2>
-        <div class="metric-value" id="kp-value">--</div>
-        <p id="kp-status">Fetching solar activity...</p>
+        <div class="kp-glance">
+          <div class="metric-value" id="kp-value">--</div>
+          <div class="kp-chip" id="kp-chip" data-level="unknown">Fetching solar activity...</div>
+        </div>
+        <div class="kp-sparkline" id="kp-sparkline" aria-label="Recent Kp index trend"></div>
+        <p class="kp-note" id="kp-dark-note"></p>
       </section>
 
-      <!-- moon phase card -->
-      <section class="space-card">
-        <h2>Moon Phase</h2>
-        <div class="metric-value" id="moon-phase">--</div>
-        <p id="moon-illumination">Calculating illumination...</p>
+      <!-- moon card -->
+      <section class="space-card moon-card">
+        <h2>Moon</h2>
+        <div class="moon-card-body">
+          <div class="moon-card-frame">
+            <img id="moon-today-img" class="moon-card-img" alt="Today's moon, as it currently looks from the station">
+          </div>
+          <div class="moon-card-stats">
+            <div class="metric-value" id="moon-phase">--</div>
+            <p id="moon-illumination">Calculating illumination...</p>
+            <ul class="moon-detail-list">
+              <li><span class="moon-detail-label">Moonrise</span><span id="moon-rise">--</span></li>
+              <li><span class="moon-detail-label">Moonset</span><span id="moon-set">--</span></li>
+              <li><span class="moon-detail-label">Next Full Moon</span><span id="moon-next-full">--</span></li>
+              <li><span class="moon-detail-label">Next New Moon</span><span id="moon-next-new">--</span></li>
+            </ul>
+          </div>
+        </div>
       </section>
 
-      <!-- visible constellations card -->
-      <section class="space-card">
+      <!-- tonight's sky card -->
+      <section class="space-card sky-card">
         <h2>Tonight's Sky Highlights</h2>
-        <ul id="constellation-list">
+        <ul id="constellation-list" class="constellation-list">
           <li>Checking seasonal constellations...</li>
+        </ul>
+        <h3 class="sky-subheading">Visible Planets Right Now</h3>
+        <ul id="visible-planets-list" class="planet-list">
+          <li>Checking...</li>
         </ul>
       </section>
     </div>
   </main>
 
   <script src="js/navigation.js"></script>
-  <script src="js/space.js?v=3"></script>
+  <script src="js/space.js?v=4"></script>
   
 </body>
 </html>
