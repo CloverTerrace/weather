@@ -1,4 +1,5 @@
 const SKY_REFRESH_MS = 15 * 60 * 1000; // matches the server render cadence (~15-30min)
+const SKY_REFRESH_MS = 15 * 60 * 1000; // matches the server render cadence (~15-30min)
 
 document.addEventListener('DOMContentLoaded', () => {
   loadLiveSky();
@@ -13,37 +14,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let latestOverlayData = null;
 
-// Load the live 4K sky render + its matching overlay data together, using
-// the same cache-busting timestamp for both so they never show a render
-// and a HUD from two different moments.
-function loadLiveSky() {
+// Synchronously wait for both the background image download and JSON fetch
+// using Promise.all so renderSkyOverlay() only fires when both assets are ready.
+async function loadLiveSky() {
   const timestamp = new Date().getTime();
   const img = document.getElementById('sky-render-img');
+  const titleEl = document.getElementById('apod-title');
+  if (titleEl) titleEl.textContent = 'Live 4K Night Sky View';
 
   img.classList.remove('is-loaded');
-  img.onload = () => {
-    img.classList.add('is-loaded');
-    renderSkyOverlay(); // natural width/height only available once loaded
-  };
-  img.src = `assets/skyrender/sky-bg.png?t=${timestamp}`;
 
-  fetchSkyOverlay(timestamp);
+  const loadImage = new Promise((resolve) => {
+    img.onload = () => {
+      img.classList.add('is-loaded');
+      resolve();
+    };
+    img.src = `assets/skyrender/sky-bg.png?t=${timestamp}`;
+  });
 
-  const titleEl = document.getElementById('apod-title');
-  if (titleEl) {
-    titleEl.textContent = 'Live 4K Night Sky View';
-  }
+  const loadJson = fetch(`assets/skyrender/sky_overlay.json?t=${timestamp}`)
+    .then(res => res.json())
+    .then(data => { latestOverlayData = data; })
+    .catch(() => { latestOverlayData = null; });
+
+  await Promise.all([loadImage, loadJson]);
+  renderSkyOverlay();
 }
 
-async function fetchSkyOverlay(timestamp) {
-  try {
-    const res = await fetch(`assets/skyrender/sky_overlay.json?t=${timestamp}`);
-    latestOverlayData = await res.json();
-    renderSkyOverlay();
-  } catch (err) {
-    latestOverlayData = null;
-  }
-}
 
 // Given the sky-stage container's box and the image's natural pixel size,
 // figure out exactly how `object-fit: cover` scaled/cropped it — needed so
