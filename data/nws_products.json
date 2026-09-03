@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T23:20:36.508220Z",
+  "generatedAt": "2026-09-03T23:25:38.939529Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -164,6 +164,82 @@
   ],
   "statements": [
     {
+      "id": "761ab55c-d067-451b-93e5-c6e6eafe2ce5",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:24:00+00:00",
+      "expires": null,
+      "location": "Fayette PA",
+      "hazard": "PAC051-032334- /O.EXP.KPBZ.TO.W.0058.000000T0000Z-260903T2330Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC051-032334- /O.EXP.KPBZ.TO.W.0058.000000T0000Z-260903T2330Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 724 PM EDT Thu Sep 3 2026 PAC051-032334- /O.EXP.KPBZ.TO.W.0058.000000T0000Z-260903T2330Z/ Fayette PA- 724 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/761ab55c-d067-451b-93e5-c6e6eafe2ce5"
+    },
+    {
+      "id": "6b58ec0a-6b57-4c88-9bc7-bfa874bd3286",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:23:00+00:00",
+      "expires": null,
+      "location": "Westmoreland PA",
+      "hazard": "PAC129-032333- /O.EXP.KPBZ.SV.W.0347.000000T0000Z-260903T2330Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC129-032333- /O.EXP.KPBZ.SV.W.0347.000000T0000Z-260903T2330Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 723 PM EDT Thu Sep 3 2026 PAC129-032333- /O.EXP.KPBZ.SV.W.0347.000000T0000Z-260903T2330Z/ Westmoreland PA- 723 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/6b58ec0a-6b57-4c88-9bc7-bfa874bd3286"
+    },
+    {
+      "id": "b7b90e8e-d3fe-42c4-bc55-becd53c2947b",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:22:00+00:00",
+      "expires": null,
+      "location": "Fayette PA-Indiana PA-Westmoreland PA",
+      "hazard": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Scottdale, Ligonier, Seven Springs, Everson, New Florence, Seward, Bolivar, Laurel Mountain, Armagh, Donegal, Champion, Indian Head, Mill Run, Laurel Mountain State Park, Jones Mills, Acme and Normalville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Scottdale, Ligonier, Seven Springs, Everson, New Florence, Seward, Bolivar, Laurel Mountain, Armagh, Donegal, Champion, Indian Head, Mill Run, Laurel Mountain State Park, Jones Mills, Acme and Normalville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/b7b90e8e-d3fe-42c4-bc55-becd53c2947b"
+    },
+    {
+      "id": "46e28fa6-562d-4211-b6f4-93c79da1c3d3",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:21:00+00:00",
+      "expires": null,
+      "location": "Fayette PA",
+      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Indian Head.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Indian Head."
+        }
+      ],
+      "url": "https://api.weather.gov/products/46e28fa6-562d-4211-b6f4-93c79da1c3d3"
+    },
+    {
       "id": "2063084c-ee04-4736-a066-b409ec17224f",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -219,82 +295,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/4898b8ad-4c43-4cc3-bb16-53a522b0007c"
-    },
-    {
-      "id": "9dbdb6a8-efb4-4c17-9c0c-6a5aa854b58a",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:11:00+00:00",
-      "expires": null,
-      "location": "Fayette PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Ligonier, Laurel Mountain and Laurel Mountain State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Ligonier, Laurel Mountain and Laurel Mountain State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/9dbdb6a8-efb4-4c17-9c0c-6a5aa854b58a"
-    },
-    {
-      "id": "223f8a49-9e54-41a4-acb9-ce1b41400d32",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:09:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA-Fayette PA-Indiana PA-Westmoreland PA",
-      "hazard": "PAC003-051-063-129-032319- /O.EXP.KPBZ.SV.W.0345.000000T0000Z-260903T2315Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC003-051-063-129-032319- /O.EXP.KPBZ.SV.W.0345.000000T0000Z-260903T2315Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 709 PM EDT Thu Sep 3 2026 PAC003-051-063-129-032319- /O.EXP.KPBZ.SV.W.0345.000000T0000Z-260903T2315Z/ Allegheny PA-Fayette PA-Indiana PA-Westmoreland PA- 709 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/223f8a49-9e54-41a4-acb9-ce1b41400d32"
-    },
-    {
-      "id": "fb8e0532-5da5-49b8-84ab-67a3226ea399",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:05:00+00:00",
-      "expires": null,
-      "location": "Westmoreland PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Seven Springs, Champion, Indian Head and Normalville.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Seven Springs, Champion, Indian Head and Normalville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/fb8e0532-5da5-49b8-84ab-67a3226ea399"
-    },
-    {
-      "id": "faf71cb3-8d76-4862-82ff-d7f9f40c576c",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:04:00+00:00",
-      "expires": null,
-      "location": "Fayette PA-Westmoreland PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Latrobe, Mount Pleasant, McChesneytown-Loyalhanna, Derry, Lawson Heights, Ligonier, Seven Springs, Calumet-Norvelt, Youngstown, Laurel Mountain, Donegal, Champion, Loyalhanna ",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Latrobe, Mount Pleasant, McChesneytown-Loyalhanna, Derry, Lawson Heights, Ligonier, Seven Springs, Calumet-Norvelt, Youngstown, Laurel Mountain, Donegal, Champion, Loyalhanna Gorge, Jones Mills, Acme and Laurel Mountain State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/faf71cb3-8d76-4862-82ff-d7f9f40c576c"
     }
   ]
 }
