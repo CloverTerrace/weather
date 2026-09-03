@@ -345,3 +345,43 @@ function compassFromAz(az) {
   const idx = Math.round(az / 22.5) % 16;
   return dirs[idx];
 }
+
+const modal = document.getElementById('celestial-modal');
+const modalContent = document.getElementById('modal-content');
+const closeModalBtn = document.getElementById('close-modal');
+
+closeModalBtn.addEventListener('click', () => {
+  modal.classList.add('hidden');
+});
+
+function openCelestialModal(obj) {
+  modal.classList.remove('hidden');
+  
+  if (obj.type === 'moon') {
+    modalContent.innerHTML = `
+      <h2 style="color: #a5c0ee; margin-top: 0;">The Moon</h2>
+      <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">${obj.phase_name || '--'}</div>
+      <ul class="moon-detail-list">
+        <li><span class="moon-detail-label">Illumination</span><span>${Math.round((obj.illumination || 0) * 100)}%</span></li>
+        <li><span class="moon-detail-label">Moonrise</span><span>${obj.next_moonrise ? formatLocalTime(obj.next_moonrise) : '--'}</span></li>
+        <li><span class="moon-detail-label">Moonset</span><span>${obj.next_moonset ? formatLocalTime(obj.next_moonset) : '--'}</span></li>
+      </ul>
+    `;
+  } else if (obj.type === 'planet') {
+    const magText = typeof obj.magnitude === 'number' ? `Magnitude ${obj.magnitude.toFixed(1)}` : '';
+    modalContent.innerHTML = `
+      <h2 style="color: #a5c0ee; margin-top: 0;">${obj.name}</h2>
+      <div style="font-size: 1.2rem; margin-bottom: 1rem;">${magText}</div>
+      <p style="font-size: 0.9rem; color: rgba(246, 248, 250, 0.8);">
+        Currently ${altDescription(obj.alt)} in the ${compassFromAz(obj.az)}.
+      </p>
+    `;
+  } else {
+    // Fallback for ISS or Sun
+    modalContent.innerHTML = `
+      <h2 style="color: #a5c0ee; margin-top: 0;">${obj.name}</h2>
+      <p style="font-size: 0.9rem;">Type: ${obj.type}</p>
+    `;
+  }
+}
+
