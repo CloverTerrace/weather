@@ -138,35 +138,45 @@ function debounce(fn, wait) {
 }
 
 async function fetchKpIndex() {
-  try {
-    const res = await fetch('https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json');
-    const data = await res.json();
-    
-    let validKp = null;
-    for (let i = data.length - 1; i >= 1; i--) {
-      const val = parseFloat(data[i][1]);
-      if (!isNaN(val)) {
-        validKp = val;
-        break;
+  const kpValEl = document.getElementById('kp-value');
+  const kpStatusEl = document.getElementById('kp-status');
+  
+  // Direct NOAA URL with a CORS proxy fallback for mobile devices
+  const urls = [
+    'https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json',
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json')
+  ];
+
+  for (const url of urls) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) continue;
+      const data = await res.json();
+      
+      let validKp = null;
+      // Loop backward to find the latest valid numeric entry
+      for (let i = data.length - 1; i >= 1; i--) {
+        const val = parseFloat(data[i][1]);
+        if (!isNaN(val)) {
+          validKp = val;
+          break;
+        }
       }
-    }
 
-    const kpValEl = document.getElementById('kp-value');
-    const kpStatusEl = document.getElementById('kp-status');
-
-    if (validKp !== null && kpValEl) {
-      kpValEl.textContent = validKp.toFixed(1);
-      let status = 'Quiet (Poor Aurora / Clear Stargazing)';
-      if (validKp >= 5) status = 'Geomagnetic Storm! (Aurora Likely Visible)';
-      else if (validKp >= 3) status = 'Unsettled / Active Sky';
-      if (kpStatusEl) kpStatusEl.textContent = status;
-    } else if (kpValEl) {
-      kpValEl.textContent = 'N/A';
+      if (validKp !== null && kpValEl) {
+        kpValEl.textContent = validKp.toFixed(1);
+        let status = 'Quiet (Poor Aurora / Clear Stargazing)';
+        if (validKp >= 5) status = 'Geomagnetic Storm! (Aurora Likely Visible)';
+        else if (validKp >= 3) status = 'Unsettled / Active Sky';
+        if (kpStatusEl) kpStatusEl.textContent = status;
+        return; // Successfully fetched, exit loop
+      }
+    } catch (e) {
+      // Try next endpoint if fetch fails
     }
-  } catch (err) {
-    const kpValEl = document.getElementById('kp-value');
-    if (kpValEl) kpValEl.textContent = 'N/A';
   }
+
+  if (kpValEl) kpValEl.textContent = 'N/A';
 }
 
 function calculateMoonPhase() {
