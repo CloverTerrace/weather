@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T21:55:32.241404Z",
+  "generatedAt": "2026-09-03T22:00:37.387110Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -72,6 +72,82 @@
   ],
   "statements": [
     {
+      "id": "359dd709-cca7-4cf5-8388-c5ca43402cdc",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:54:00+00:00",
+      "expires": null,
+      "location": "Harrison OH",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, Wellsburg, Avella,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, Wellsburg, Avella, Toronto, Wintersville, Mingo Junction, Follansbee, Hooverson Heights, Burgettstown, Franklin, Brilliant, Richmond, West Middletown, Colliers, East Steubenville, Sun Valley, Rockdale and Langeloth.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, Wellsburg, Avella, Toronto, Wintersville, Mingo Junction, Follansbee, Hooverson Heights, Burgettstown, Franklin, Brilliant, Richmond, West Middletown, Colliers, East Steubenville, Sun Valley, Rockdale and Langeloth."
+        }
+      ],
+      "url": "https://api.weather.gov/products/359dd709-cca7-4cf5-8388-c5ca43402cdc"
+    },
+    {
+      "id": "b529f825-5557-4f34-a421-21cb0cd0e081",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:52:00+00:00",
+      "expires": null,
+      "location": "Columbiana OH-Allegheny PA-Beaver PA-Butler PA-Washington PA",
+      "hazard": "OHC029-PAC003-007-019-125-WVC029-032202- /O.EXP.KPBZ.SV.W.0335.000000T0000Z-260903T2200Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC029-PAC003-007-019-125-WVC029-032202- /O.EXP.KPBZ.SV.W.0335.000000T0000Z-260903T2200Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 552 PM EDT Thu Sep 3 2026 OHC029-PAC003-007-019-125-WVC029-032202- /O.EXP.KPBZ.SV.W.0335.000000T0000Z-260903T2200Z/ Columbiana OH-Allegheny PA-Beaver PA-Butler PA-Washington PA- Hancock WV-"
+        }
+      ],
+      "url": "https://api.weather.gov/products/b529f825-5557-4f34-a421-21cb0cd0e081"
+    },
+    {
+      "id": "8e633c0f-bb1a-446d-b06b-f91f955ed048",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:51:00+00:00",
+      "expires": null,
+      "location": "Columbiana OH-Jefferson OH-Beaver PA-Hancock WV",
+      "hazard": "OHC029-081-PAC007-WVC029-032201- /O.EXP.KPBZ.SV.W.0337.000000T0000Z-260903T2200Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC029-081-PAC007-WVC029-032201- /O.EXP.KPBZ.SV.W.0337.000000T0000Z-260903T2200Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 551 PM EDT Thu Sep 3 2026 OHC029-081-PAC007-WVC029-032201- /O.EXP.KPBZ.SV.W.0337.000000T0000Z-260903T2200Z/ Columbiana OH-Jefferson OH-Beaver PA-Hancock WV- 551 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/8e633c0f-bb1a-446d-b06b-f91f955ed048"
+    },
+    {
+      "id": "03f3a0d6-8570-4186-96b8-ce72369b065c",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:51:00+00:00",
+      "expires": null,
+      "location": "Armstrong PA-Butler PA-Clarion PA-Jefferson PA",
+      "hazard": "PAC005-019-031-065-032201- /O.EXP.KPBZ.SV.W.0336.000000T0000Z-260903T2200Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC005-019-031-065-032201- /O.EXP.KPBZ.SV.W.0336.000000T0000Z-260903T2200Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 551 PM EDT Thu Sep 3 2026 PAC005-019-031-065-032201- /O.EXP.KPBZ.SV.W.0336.000000T0000Z-260903T2200Z/ Armstrong PA-Butler PA-Clarion PA-Jefferson PA- 551 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/03f3a0d6-8570-4186-96b8-ce72369b065c"
+    },
+    {
       "id": "33c21d2f-d470-4d51-a578-f562d9d3106f",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -127,82 +203,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/affe42c8-ea38-4bcf-bb27-16033a755dc0"
-    },
-    {
-      "id": "9049e46e-4e4e-4cf5-9699-7f5b84303f8d",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:41:00+00:00",
-      "expires": null,
-      "location": "Armstrong PA-Butler PA-Clarion PA-Jefferson PA",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Butler, Kittanning, Rimersburg,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Butler, Kittanning, Rimersburg, Homeacre-Lyndora, Shanor-Northvue, Meridian, Ford City, Meadowood, Oak Hills, New Bethlehem, West Kittanning, Prospect, Chicora, East Brady, Parker, East Butler, Sligo, Worthington, Dayton and Bruin.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Butler, Kittanning, Rimersburg, Homeacre-Lyndora, Shanor-Northvue, Meridian, Ford City, Meadowood, Oak Hills, New Bethlehem, West Kittanning, Prospect, Chicora, East Brady, Parker, East Butler, Sligo, Worthington, Dayton and Bruin."
-        }
-      ],
-      "url": "https://api.weather.gov/products/9049e46e-4e4e-4cf5-9699-7f5b84303f8d"
-    },
-    {
-      "id": "42e9be55-da9a-4222-aa53-6917058af968",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:39:00+00:00",
-      "expires": null,
-      "location": "Columbiana OH-Jefferson OH-Beaver PA-Hancock WV",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... East Liverpool, Wellsville, Toronto,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... East Liverpool, Wellsville, Toronto, Calcutta, Ohioville, Chester, New Cumberland, Newell, Irondale, Empire, Stratton, Rogers, Hammondsville, La Croft, Glenmoor, Beaver Creek State Park, Tomlinson Run State Park and Lake Tomahawk.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... East Liverpool, Wellsville, Toronto, Calcutta, Ohioville, Chester, New Cumberland, Newell, Irondale, Empire, Stratton, Rogers, Hammondsville, La Croft, Glenmoor, Beaver Creek State Park, Tomlinson Run State Park and Lake Tomahawk."
-        }
-      ],
-      "url": "https://api.weather.gov/products/42e9be55-da9a-4222-aa53-6917058af968"
-    },
-    {
-      "id": "18e80f06-3732-4fd8-96e5-a69b98925fd7",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:36:00+00:00",
-      "expires": null,
-      "location": "Carroll OH",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, Wellsburg, Avella,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, Wellsburg, Avella, Toronto, Wintersville, Mingo Junction, Follansbee, Hooverson Heights, Burgettstown, Franklin, Bergholz, Amsterdam, Brilliant, Richmond, New Alexandria, Bloomingdale, West Middletown and Brentwood.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Weirton, Steubenville, Wellsburg, Avella, Toronto, Wintersville, Mingo Junction, Follansbee, Hooverson Heights, Burgettstown, Franklin, Bergholz, Amsterdam, Brilliant, Richmond, New Alexandria, Bloomingdale, West Middletown and Brentwood."
-        }
-      ],
-      "url": "https://api.weather.gov/products/18e80f06-3732-4fd8-96e5-a69b98925fd7"
-    },
-    {
-      "id": "1ba05f02-d447-4476-a6d4-309b4d5418e7",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:33:00+00:00",
-      "expires": null,
-      "location": "Lawrence PA-Venango PA",
-      "hazard": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Butler, Kittanning, Rimersburg, Homeacre-Lyndora, Shanor-Northvue, Meridian, Ford City, Meadowood, Oak Hills, New Bethlehem, West Kittanning, Prospect, Chicora, East Brady, Parker, East Butler, Sligo and Worthington.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Butler, Kittanning, Rimersburg, Homeacre-Lyndora, Shanor-Northvue, Meridian, Ford City, Meadowood, Oak Hills, New Bethlehem, West Kittanning, Prospect, Chicora, East Brady, Parker, East Butler, Sligo and Worthington."
-        }
-      ],
-      "url": "https://api.weather.gov/products/1ba05f02-d447-4476-a6d4-309b4d5418e7"
     }
   ]
 }
