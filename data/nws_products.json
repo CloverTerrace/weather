@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T22:05:36.936044Z",
+  "generatedAt": "2026-09-03T22:10:41.454522Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -71,6 +71,25 @@
     }
   ],
   "statements": [
+    {
+      "id": "16906731-5ccd-4e8b-aea5-3641a5f0f644",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T22:05:00+00:00",
+      "expires": null,
+      "location": "Jefferson OH",
+      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Weirton, Avella, Follansbee, Hooverson Heights, New Cumberland, Burgettstown, Franklin, West Middletown, Langeloth, Slovan, Colliers, Atlasburg, Rockdale, East Steubenville and Sun Valley.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Weirton, Avella, Follansbee, Hooverson Heights, New Cumberland, Burgettstown, Franklin, West Middletown, Langeloth, Slovan, Colliers, Atlasburg, Rockdale, East Steubenville and Sun Valley."
+        }
+      ],
+      "url": "https://api.weather.gov/products/16906731-5ccd-4e8b-aea5-3641a5f0f644"
+    },
     {
       "id": "359dd709-cca7-4cf5-8388-c5ca43402cdc",
       "type": "Severe Weather Statement",
@@ -184,25 +203,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/068ba718-3988-426d-bcbd-358442f1f588"
-    },
-    {
-      "id": "affe42c8-ea38-4bcf-bb27-16033a755dc0",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:42:00+00:00",
-      "expires": null,
-      "location": "Columbiana OH-Jefferson OH-Beaver PA-Hancock WV",
-      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... East Liverpool, Wellsville, Toronto, Calcutta, Ohioville, Chester, New Cumberland, Newell, Irondale, Empire, Stratton, Rogers, Hammondsville, La Croft, Glenmoor, Beaver Creek State Park, Tomlinson Run State Park and Lake Tomahawk.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... East Liverpool, Wellsville, Toronto, Calcutta, Ohioville, Chester, New Cumberland, Newell, Irondale, Empire, Stratton, Rogers, Hammondsville, La Croft, Glenmoor, Beaver Creek State Park, Tomlinson Run State Park and Lake Tomahawk."
-        }
-      ],
-      "url": "https://api.weather.gov/products/affe42c8-ea38-4bcf-bb27-16033a755dc0"
     }
   ]
 }
