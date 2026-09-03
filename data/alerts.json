@@ -1,5 +1,27 @@
 [
   {
+    "id": "urn:oid:2.49.0.1.840.0.941c09b148f90b3231fd847d5f53783306a0a345.001.1",
+    "event": "Severe Thunderstorm Warning",
+    "headline": "Severe Thunderstorm Warning issued September 3 at 5:47PM EDT until September 3 at 6:45PM EDT by NWS Pittsburgh PA",
+    "severity": "Severe",
+    "urgency": "Immediate",
+    "effective": "2026-09-03T17:47:00-04:00",
+    "expires": "2026-09-03T18:45:00-04:00",
+    "senderName": "NWS Pittsburgh PA",
+    "areaDesc": "Allegheny, PA; Armstrong, PA; Beaver, PA; Butler, PA; Indiana, PA; Washington, PA; Westmoreland, PA; Hancock, WV",
+    "details": [
+      {
+        "label": "Areas",
+        "text": "Allegheny, PA; Armstrong, PA; Beaver, PA; Butler, PA; Indiana, PA; Washington, PA; Westmoreland, PA; Hancock, WV"
+      },
+      {
+        "label": "Instructions",
+        "text": "Anyone outdoors should move to shelter inside a well-built structure\nand stay away from windows. These storms are capable of producing\nwidespread damaging winds and large hail."
+      }
+    ],
+    "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.941c09b148f90b3231fd847d5f53783306a0a345.001.1"
+  },
+  {
     "id": "urn:oid:2.49.0.1.840.0.39517d2914479ecb4ff6ddb5e97896099e514878.001.1",
     "event": "Severe Thunderstorm Warning",
     "headline": "Severe Thunderstorm Warning issued September 3 at 5:45PM EDT until September 3 at 6:00PM EDT by NWS Pittsburgh PA",

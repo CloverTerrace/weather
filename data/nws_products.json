@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T21:45:44.021869Z",
+  "generatedAt": "2026-09-03T21:50:46.385879Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -71,6 +71,25 @@
     }
   ],
   "statements": [
+    {
+      "id": "33c21d2f-d470-4d51-a578-f562d9d3106f",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T21:48:00+00:00",
+      "expires": null,
+      "location": "Jefferson OH-Brooke WV-Ohio WV",
+      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect considerable tree damage. Wind damage is also",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Washington, Canonsburg, Avella, Cecil-Bishop, Wolfdale, McGovern, East Washington, McDonald, Houston, Claysville, Eighty Four, Hickory, Taylorstown, West Middletown, Meadow Lands, Atl",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect considerable tree damage. Wind damage is also likely to mobile homes, roofs, and outbuildings. Locations impacted include... Washington, Canonsburg, Avella, Cecil-Bishop, Wolfdale, McGovern, East Washington, McDonald, Houston, Claysville, Eighty Four, Hickory, Taylorstown, West Middletown, Meadow Lands, Atlasburg, Slovan and Midway."
+        }
+      ],
+      "url": "https://api.weather.gov/products/33c21d2f-d470-4d51-a578-f562d9d3106f"
+    },
     {
       "id": "068ba718-3988-426d-bcbd-358442f1f588",
       "type": "Severe Weather Statement",
@@ -184,25 +203,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/1ba05f02-d447-4476-a6d4-309b4d5418e7"
-    },
-    {
-      "id": "162f0ce6-517b-4e78-93f9-fcb2d3979b6d",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T21:31:00+00:00",
-      "expires": null,
-      "location": "Lawrence PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Ross Township, McCandless Township, Cranberry, Moon Township, Butler, Franklin Park, East Liverpool, Aliquippa, Beaver Falls, Monaca, Hampton Township, Robinson Township, Econ",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be heavily damaged. Expect considerable damage to roofs, windows, and vehicles. Extensive tree damage and power outages are likely. Locations impacted include... Ross Township, McCandless Township, Cranberry, Moon Township, Butler, Franklin Park, East Liverpool, Aliquippa, Beaver Falls, Monaca, Hampton Township, Robinson Township, Economy, Bellevue, Kennedy Township, Ambridge, Wexford, Homeacre-Lyndora, West View and Stowe Township."
-        }
-      ],
-      "url": "https://api.weather.gov/products/162f0ce6-517b-4e78-93f9-fcb2d3979b6d"
     }
   ]
 }
