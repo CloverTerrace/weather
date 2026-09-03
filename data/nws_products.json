@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T20:50:43.349243Z",
+  "generatedAt": "2026-09-03T20:55:37.569445Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -72,6 +72,25 @@
   ],
   "statements": [
     {
+      "id": "2bd97deb-68d9-44c4-91f8-ad0181749ea7",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T20:49:00+00:00",
+      "expires": null,
+      "location": "Columbiana OH-Beaver PA-Lawrence PA",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Columbiana, East Palestine, Leetonia, New",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Columbiana, East Palestine, Leetonia, New Waterford, Enon Valley, S.n.p.j. and Negley.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Columbiana, East Palestine, Leetonia, New Waterford, Enon Valley, S.n.p.j. and Negley."
+        }
+      ],
+      "url": "https://api.weather.gov/products/2bd97deb-68d9-44c4-91f8-ad0181749ea7"
+    },
+    {
       "id": "dbf9b9e8-6fb3-48f8-844d-d32678df4761",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -127,82 +146,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/58cbae0d-1d0f-4783-9841-e950b942436f"
-    },
-    {
-      "id": "b63badf0-f6be-45cd-8eb2-ef3c788c6b65",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:30:00+00:00",
-      "expires": null,
-      "location": "Columbiana OH-Beaver PA-Lawrence PA",
-      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Salem, Columbiana, East Palestine, Lisbon, Leetonia, New Waterford, Bessemer, Enon Valley, Rogers, S.n.p.j., Guilford Lake State Park, Negley, Winona, New Garden, North Georgetown and Homeworth.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Salem, Columbiana, East Palestine, Lisbon, Leetonia, New Waterford, Bessemer, Enon Valley, Rogers, S.n.p.j., Guilford Lake State Park, Negley, Winona, New Garden, North Georgetown and Homeworth."
-        }
-      ],
-      "url": "https://api.weather.gov/products/b63badf0-f6be-45cd-8eb2-ef3c788c6b65"
-    },
-    {
-      "id": "cf619020-b89f-456e-88b6-866b7677536d",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:27:00+00:00",
-      "expires": null,
-      "location": "Mercer PA",
-      "hazard": "PAC085-032037- /O.EXP.KPBZ.TO.W.0056.000000T0000Z-260903T2030Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC085-032037- /O.EXP.KPBZ.TO.W.0056.000000T0000Z-260903T2030Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 427 PM EDT Thu Sep 3 2026 PAC085-032037- /O.EXP.KPBZ.TO.W.0056.000000T0000Z-260903T2030Z/ Mercer PA- 427 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/cf619020-b89f-456e-88b6-866b7677536d"
-    },
-    {
-      "id": "e5954c31-bfbe-4d5d-88c3-e505d07946d6",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:24:00+00:00",
-      "expires": null,
-      "location": "Mercer PA",
-      "hazard": "PAC085-032034- /O.EXP.KPBZ.SV.W.0328.000000T0000Z-260903T2030Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC085-032034- /O.EXP.KPBZ.SV.W.0328.000000T0000Z-260903T2030Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 424 PM EDT Thu Sep 3 2026 PAC085-032034- /O.EXP.KPBZ.SV.W.0328.000000T0000Z-260903T2030Z/ Mercer PA- 424 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/e5954c31-bfbe-4d5d-88c3-e505d07946d6"
-    },
-    {
-      "id": "2dfcc581-33b4-4f9d-a0e5-c173b7c1ff1a",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:21:00+00:00",
-      "expires": null,
-      "location": "Mercer PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... New Lebanon and Maurice K Goddard State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... New Lebanon and Maurice K Goddard State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/2dfcc581-33b4-4f9d-a0e5-c173b7c1ff1a"
     }
   ]
 }
