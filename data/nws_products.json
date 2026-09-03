@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T20:35:36.163032Z",
+  "generatedAt": "2026-09-03T20:40:42.452348Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a2242e39a8188fb5aa93faac06d99f2c399cc63c.001.1",
@@ -71,6 +71,44 @@
     }
   ],
   "statements": [
+    {
+      "id": "58cbae0d-1d0f-4783-9841-e950b942436f",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T20:38:00+00:00",
+      "expires": null,
+      "location": "Columbiana OH-Beaver PA-Lawrence PA",
+      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Salem, Columbiana, East Palestine, Leetonia, New Waterford, Bessemer, Enon Valley, Rogers, S.n.p.j., Negley, Guilford Lake State Park, Winona, New Garden and North Georgetown.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Salem, Columbiana, East Palestine, Leetonia, New Waterford, Bessemer, Enon Valley, Rogers, S.n.p.j., Negley, Guilford Lake State Park, Winona, New Garden and North Georgetown."
+        }
+      ],
+      "url": "https://api.weather.gov/products/58cbae0d-1d0f-4783-9841-e950b942436f"
+    },
+    {
+      "id": "b63badf0-f6be-45cd-8eb2-ef3c788c6b65",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T20:30:00+00:00",
+      "expires": null,
+      "location": "Columbiana OH-Beaver PA-Lawrence PA",
+      "hazard": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Salem, Columbiana, East Palestine, Lisbon, Leetonia, New Waterford, Bessemer, Enon Valley, Rogers, S.n.p.j., Guilford Lake State Park, Negley, Winona, New Garden, North Georgetown and Homeworth.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "People and animals outdoors will be injured. Expect hail damage to roofs, siding, windows, and vehicles. Expect wind damage to roofs, siding, and trees. Locations impacted include... Salem, Columbiana, East Palestine, Lisbon, Leetonia, New Waterford, Bessemer, Enon Valley, Rogers, S.n.p.j., Guilford Lake State Park, Negley, Winona, New Garden, North Georgetown and Homeworth."
+        }
+      ],
+      "url": "https://api.weather.gov/products/b63badf0-f6be-45cd-8eb2-ef3c788c6b65"
+    },
     {
       "id": "cf619020-b89f-456e-88b6-866b7677536d",
       "type": "Severe Weather Statement",
@@ -146,63 +184,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/03d9c498-7a0d-4d67-9804-13090a407fd2"
-    },
-    {
-      "id": "63cc3f47-e171-4962-9d36-92c4cdab9747",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:14:00+00:00",
-      "expires": null,
-      "location": "Mercer PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... New Lebanon, Sheakleyville and Maurice K Goddard State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... New Lebanon, Sheakleyville and Maurice K Goddard State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/63cc3f47-e171-4962-9d36-92c4cdab9747"
-    },
-    {
-      "id": "5fd736d1-2b89-4344-a6c8-ccc554a64ed8",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:10:00+00:00",
-      "expires": null,
-      "location": "Muskingum OH",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Cambridge and Kimbolton.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Cambridge and Kimbolton.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Cambridge and Kimbolton."
-        }
-      ],
-      "url": "https://api.weather.gov/products/5fd736d1-2b89-4344-a6c8-ccc554a64ed8"
-    },
-    {
-      "id": "0cc43321-ebb8-4929-b7e0-297d3ffec41a",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T20:07:00+00:00",
-      "expires": null,
-      "location": "Mercer PA",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... New Lebanon, Sheakleyville and Maurice K Goddard State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... New Lebanon, Sheakleyville and Maurice K Goddard State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/0cc43321-ebb8-4929-b7e0-297d3ffec41a"
     }
   ]
 }
