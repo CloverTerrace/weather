@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T17:40:56.122236Z",
+  "generatedAt": "2026-09-04T17:46:00.394279Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.ecf92c5b9e07572b579851f789d232608424e153.001.1",
@@ -78,6 +78,25 @@
   ],
   "statements": [
     {
+      "id": "5947147e-6206-40a8-a760-c8c22d17abe1",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T17:36:00+00:00",
+      "expires": null,
+      "location": "Noble OH",
+      "hazard": "OHC121-041746- /O.EXP.KPBZ.SV.W.0357.000000T0000Z-260904T1745Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC121-041746- /O.EXP.KPBZ.SV.W.0357.000000T0000Z-260904T1745Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 136 PM EDT Fri Sep 4 2026 OHC121-041746- /O.EXP.KPBZ.SV.W.0357.000000T0000Z-260904T1745Z/ Noble OH- 136 PM EDT Fri Sep 4 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/5947147e-6206-40a8-a760-c8c22d17abe1"
+    },
+    {
       "id": "49eb98e1-e290-4f3c-8d72-42e90b264a13",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -114,25 +133,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/1d975afd-82c4-4b8f-8ca1-b81dcbed4c07"
-    },
-    {
-      "id": "993495b7-e9fe-4456-a8e5-f2b016a03e6f",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T17:11:00+00:00",
-      "expires": null,
-      "location": "Noble OH",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Dudley, Dexter City and Harriettsville.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Dudley, Dexter City and Harriettsville.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Dudley, Dexter City and Harriettsville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/993495b7-e9fe-4456-a8e5-f2b016a03e6f"
     }
   ]
 }
