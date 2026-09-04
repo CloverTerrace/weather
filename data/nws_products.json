@@ -1,8 +1,27 @@
 {
-  "generatedAt": "2026-09-04T01:05:37.005218Z",
+  "generatedAt": "2026-09-04T01:10:38.350023Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "ff81ebca-2615-49dc-b6db-eb892eb2d6e9",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T01:07:00+00:00",
+      "expires": null,
+      "location": "Westmoreland PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Uniontown, California, Masontown, Brownsville, Fredericktown-Millsboro, Farmington,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Uniontown, California, Masontown, Brownsville, Fredericktown-Millsboro, Farmington, Perryopolis, Fairchance, Isabella, Dunbar, West Brownsville, Smithfield, Roscoe, Deemston, Fayette City, Allenport, Stockdale and Republic.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Uniontown, California, Masontown, Brownsville, Fredericktown-Millsboro, Farmington, Perryopolis, Fairchance, Isabella, Dunbar, West Brownsville, Smithfield, Roscoe, Deemston, Fayette City, Allenport, Stockdale and Republic."
+        }
+      ],
+      "url": "https://api.weather.gov/products/ff81ebca-2615-49dc-b6db-eb892eb2d6e9"
+    },
     {
       "id": "ccb8dce2-5d5f-44b2-96b3-e4f61e36afd5",
       "type": "Severe Weather Statement",
@@ -21,25 +40,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/ccb8dce2-5d5f-44b2-96b3-e4f61e36afd5"
-    },
-    {
-      "id": "936406c1-9116-403b-b92f-d57898ff3008",
-      "type": "Flood Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T00:38:00+00:00",
-      "expires": null,
-      "location": "/PTTP1.N.ER.000000T0000Z.000000T0000Z.000000T0000Z.NO/",
-      "hazard": "WGUS81 KPBZ 040038 Flood Advisory",
-      "distanceMiles": null,
-      "headline": "Flood Statement",
-      "summary": "WGUS81 KPBZ 040038 Flood Advisory",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 WGUS81 KPBZ 040038 FLSPBZ Flood Advisory 838 PM EDT Thu Sep 3 2026 ...The National Weather Service in Pittsburgh has issued a Flood Advisory for the following rivers in Pennsylvania... Ohio River At Pittsburgh affecting Allegheny County."
-        }
-      ],
-      "url": "https://api.weather.gov/products/936406c1-9116-403b-b92f-d57898ff3008"
     }
   ]
 }
