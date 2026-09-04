@@ -1,11 +1,24 @@
 /* Space Page Layout & Live Sky Styling */
+html {
+  scroll-snap-type: y mandatory;
+}
+
 #space-page {
   min-height: 100vh;
   margin: 0;
   background-color: transparent;
   color: #f6f8fa;
   font-family: 'Figtree', sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#space-page::-webkit-scrollbar {
+  display: none;
 }
 
 @font-face {
@@ -95,9 +108,39 @@
 }
 
 .sky-marker[data-type="sun"] { --marker-color: #f4b942; }
-.sky-marker[data-type="moon"] { --marker-color: #d8dee9; }
 .sky-marker[data-type="planet"] { --marker-color: #9fd8a0; }
 .sky-marker[data-type="satellite"] { --marker-color: #6fd6d6; }
+
+/*----- moon marker: real shaded phase disk instead of a plain dot -----*/
+.moon-disk {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  background: #1c2033;
+  box-shadow: 0 0 8px 1px rgba(216, 222, 233, 0.35);
+}
+
+.moon-lit-half {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  background: #e7ebf2;
+}
+
+.moon-lit-half.waxing { right: 0; }
+.moon-lit-half.waning { left: 0; }
+
+.moon-terminator {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
 
 .sky-cardinal {
   position: absolute;
@@ -109,97 +152,187 @@
   pointer-events: none;
 }
 
-.space-container {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+/*----- Kp alert tiers -----*/
+/* Tier 1 (quiet): nothing renders at all. */
+
+/* Tier 2 (elevated/watch): a small always-visible bar below the card row, part of the dockable chrome. */
+.kp-elevated-bar {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.6rem 1.1rem 0;
+  background: rgba(160, 120, 40, 0.35);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  color: #fce8c2;
+}
+
+.kp-elevated-bar .kp-icon { color: #fbbf24; flex-shrink: 0; }
+
+.kp-elevated-bar.hidden { display: none; }
+
+/* Tier 3 (severe): full-width pinned alert bar, same treatment as a site weather alert. */
+.kp-alert-bar {
+  all: unset;
+  cursor: pointer;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1.25rem;
+  background: linear-gradient(90deg, rgba(133, 92, 24, 0.96), rgba(163, 110, 20, 0.96));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.kp-alert-bar .kp-icon { color: #fce8c2; flex-shrink: 0; }
+
+.kp-alert-bar.hidden { display: none; }
+
+.kp-alert-copy {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.kp-alert-headline {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fce8c2;
+}
+
+.kp-alert-body {
+  font-size: 0.75rem;
+  color: #f0d8ab;
+}
+
+/* push the whole dock (navbar included) down so it clears the fixed severe bar instead of sitting under it */
+body.kp-severe .sky-dock {
+  padding-top: 3.75rem;
+}
+
+@media (max-width: 480px) {
+  body.kp-severe .sky-dock {
+    padding-top: 4.5rem;
+  }
+}
+
+/*----- dockable chrome: navbar + title + swipeable cards, one snap unit -----*/
+.sky-dock {
+  position: relative;
+  z-index: 1;
+  scroll-snap-align: start;
+  transition: padding-top 0.2s ease;
+}
+
+.sky-chrome {
+  position: relative;
+}
+
+.sky-reveal-spacer {
+  height: 100dvh;
+  scroll-snap-align: start;
+  pointer-events: none;
 }
 
 .space-header {
   text-align: center;
-  margin-bottom: 2rem;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+  padding: 0.85rem 1rem 0.4rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 .space-header h1 {
   font-family: 'SF Distant Galaxy', sans-serif;
   letter-spacing: 0.05em;
+  font-size: clamp(1.25rem, 4.5vw, 1.8rem);
+  margin: 0;
 }
 
-.space-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+.scroll-hint {
+  text-align: center;
+  font-size: 0.72rem;
+  color: rgba(246, 248, 250, 0.4);
+  margin: 0.6rem 0 0;
 }
 
-.space-card {
+/*----- swipeable card row -----*/
+.sky-card-row-wrap {
+  position: relative;
+  padding: 0.35rem 0.25rem 0;
+}
+
+.sky-card-row {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  padding: 0 2.25rem 0.35rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.sky-card-row::-webkit-scrollbar {
+  display: none;
+}
+
+.space-card,
+.sky-card {
   background: rgba(18, 22, 34, 0.65);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1.1rem;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
 }
 
-.space-card h2 {
-  font-size: 1.1rem;
+.sky-card {
+  flex: 0 0 240px;
+  scroll-snap-align: start;
+}
+
+.space-card h2,
+.sky-card h2 {
+  font-size: 1.05rem;
   margin-top: 0;
   color: #a5c0ee;
 }
 
-.metric-value {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin: 0.5rem 0;
-}
-
-/*----- kp / space weather card -----*/
-.kp-glance {
+.card-arrow {
+  all: unset;
+  cursor: pointer;
+  position: absolute;
+  top: 42%;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
   display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(11, 13, 23, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f6f8fa;
+  font-size: 1.1rem;
+  line-height: 1;
 }
 
-.kp-glance .metric-value {
-  margin: 0.25rem 0;
-}
+.card-arrow-left { left: 0.15rem; }
+.card-arrow-right { right: 0.15rem; }
 
-.kp-chip {
-  font-size: 0.78rem;
-  padding: 0.25rem 0.65rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  white-space: nowrap;
-}
+.card-arrow.is-disabled { display: none; }
 
-.kp-chip[data-level="low"] { color: #4ade80; border-color: rgba(74, 222, 128, 0.4); }
-.kp-chip[data-level="watch"] { color: #fbbf24; border-color: rgba(251, 191, 36, 0.4); }
-.kp-chip[data-level="elevated"] { color: #fb923c; border-color: rgba(251, 146, 60, 0.4); }
-.kp-chip[data-level="high"] { color: #f87171; border-color: rgba(248, 113, 113, 0.4); }
-
-.kp-sparkline {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 42px;
-  margin: 0.9rem 0 0.4rem;
-}
-
-.kp-bar {
-  flex: 1;
-  min-width: 4px;
-  background: var(--bar-color, #4ade80);
-  border-radius: 2px 2px 0 0;
-  opacity: 0.85;
-}
-
-.kp-note {
-  font-size: 0.8rem;
-  color: rgba(246, 248, 250, 0.65);
-  margin: 0.4rem 0 0;
+@media (pointer: coarse) {
+  .card-arrow { display: none; }
 }
 
 /*----- shared moon & modal details -----*/
@@ -254,52 +387,22 @@
   margin-top: 0.1rem;
 }
 
-.sky-subheading {
-  font-size: 0.92rem;
-  color: #a5c0ee;
-  margin: 1.2rem 0 0;
-  padding-top: 0.9rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.bottom-drawer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  max-height: 40vh;
-  overflow-y: auto;
-  background: rgba(11, 13, 23, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 24px 24px 0 0;
-  padding: 1rem 1.5rem 2rem;
-  z-index: 10;
+/*----- Kp detail modal (opened from the elevated/alert bar) -----*/
+.kp-sparkline {
   display: flex;
-  flex-direction: column;
-  -ms-overflow-style: none;  
-  scrollbar-width: none;  
+  align-items: flex-end;
+  gap: 3px;
+  height: 42px;
+  margin: 0.9rem 0 0.4rem;
 }
 
-.bottom-drawer::-webkit-scrollbar {
-  display: none;
+.kp-bar {
+  flex: 1;
+  min-width: 4px;
+  background: var(--bar-color, #4ade80);
+  border-radius: 2px 2px 0 0;
+  opacity: 0.85;
 }
-
-.drawer-drag-handle {
-  width: 40px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  margin: 0 auto 1.5rem auto;
-}
-
-.drawer-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-} 
-
 
 .glass-modal {
   position: fixed;
@@ -329,8 +432,7 @@
   cursor: pointer;
 }
 
-.site-nav,
-.space-container {
+.site-nav {
   position: relative;
   z-index: 1;
 }
