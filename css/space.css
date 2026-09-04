@@ -330,11 +330,14 @@ body.kp-severe .sky-dock {
 
 .sky-card-row {
   display: flex;
+  align-items: flex-start;
   gap: 0.75rem;
   overflow-x: auto;
+  overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   padding: 0 0.6rem 0.35rem;
+  transition: height 0.3s ease;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -345,6 +348,7 @@ body.kp-severe .sky-dock {
 
 .space-card,
 .sky-card {
+  box-sizing: border-box;
   background: rgba(18, 22, 34, 0.65);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 12px;
@@ -464,6 +468,12 @@ body.kp-severe .sky-dock {
   font-size: 0.78rem;
   color: rgba(246, 248, 250, 0.62);
   margin-top: 0.1rem;
+}
+
+.sky-card-placeholder {
+  font-size: 0.85rem;
+  color: rgba(246, 248, 250, 0.62);
+  margin: 0.5rem 0 0;
 }
 
 /*----- Kp detail modal (opened from the elevated/alert bar) -----*/
