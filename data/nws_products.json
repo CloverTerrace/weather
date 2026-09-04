@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T18:06:00.278280Z",
+  "generatedAt": "2026-09-04T18:11:11.037417Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.ecf92c5b9e07572b579851f789d232608424e153.001.1",
@@ -78,6 +78,48 @@
   ],
   "statements": [
     {
+      "id": "c2ddf0a3-e964-41c0-99dc-a23f44a3ced1",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T18:09:00+00:00",
+      "expires": null,
+      "location": "Marion WV-Monongalia WV",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Terra Alta, Rowlesburg, Newburg, Tunnelton, Hannahsville, Aurora, Israel, Saint",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Terra Alta, Rowlesburg, Newburg, Tunnelton, Hannahsville, Aurora, Israel, Saint George, Pifer Moutain, Cathedral State Park, Lead Mine, Fellowsville, Elgon and Silver Lake.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Terra Alta, Rowlesburg, Newburg, Tunnelton, Hannahsville, Aurora, Israel, Saint George, Pifer Moutain, Cathedral State Park, Lead Mine, Fellowsville, Elgon and Silver Lake."
+        }
+      ],
+      "url": "https://api.weather.gov/products/c2ddf0a3-e964-41c0-99dc-a23f44a3ced1"
+    },
+    {
+      "id": "35181b9c-4982-4e41-9053-e10413285e2a",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-09-04T18:06:00+00:00",
+      "expires": null,
+      "location": "Western Tucker-Eastern Tucker",
+      "hazard": "This afternoon and tonight. Showers and thunderstorms are expected again this afternoon.Some storms could be severe. Damaging wind is the primary threat, but",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "This afternoon and tonight. Showers and thunderstorms are expected again this afternoon.Some storms could be severe. Damaging wind is the primary threat, but large hail is also a possibility. Also, localized flooding is possible in areas that receive multiple thunderstorms.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "This afternoon and tonight. Showers and thunderstorms are expected again this afternoon.Some storms could be severe. Damaging wind is the primary threat, but large hail is also a possibility. Also, localized flooding is possible in areas that receive multiple thunderstorms."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Saturday through Thursday. No hazardous weather is expected at this time."
+        }
+      ],
+      "url": "https://api.weather.gov/products/35181b9c-4982-4e41-9053-e10413285e2a"
+    },
+    {
       "id": "e42abb84-6522-4dd7-a323-d63f2d99fbaf",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -114,44 +156,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/fb4e53f8-2c32-494d-8b9a-da402f7ac1c4"
-    },
-    {
-      "id": "de7b255b-87f5-4065-83e2-d5aff0130025",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T17:47:00+00:00",
-      "expires": null,
-      "location": "Marion WV-Monongalia WV-Preston WV-Tucker WV",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Kingwood, Terra Alta, Rowlesburg,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Kingwood, Terra Alta, Rowlesburg, Pleasant Valley, Winfield, Newburg, Reedsville, Masontown, Albright, Tunnelton, Hannahsville, Israel, Fellowsville, Gladesville, Pifer Moutain, Aurora, Cathedral State Park, Saint George and Browns Chapel.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Kingwood, Terra Alta, Rowlesburg, Pleasant Valley, Winfield, Newburg, Reedsville, Masontown, Albright, Tunnelton, Hannahsville, Israel, Fellowsville, Gladesville, Pifer Moutain, Aurora, Cathedral State Park, Saint George and Browns Chapel."
-        }
-      ],
-      "url": "https://api.weather.gov/products/de7b255b-87f5-4065-83e2-d5aff0130025"
-    },
-    {
-      "id": "5947147e-6206-40a8-a760-c8c22d17abe1",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T17:36:00+00:00",
-      "expires": null,
-      "location": "Noble OH",
-      "hazard": "OHC121-041746- /O.EXP.KPBZ.SV.W.0357.000000T0000Z-260904T1745Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC121-041746- /O.EXP.KPBZ.SV.W.0357.000000T0000Z-260904T1745Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 136 PM EDT Fri Sep 4 2026 OHC121-041746- /O.EXP.KPBZ.SV.W.0357.000000T0000Z-260904T1745Z/ Noble OH- 136 PM EDT Fri Sep 4 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/5947147e-6206-40a8-a760-c8c22d17abe1"
     }
   ]
 }
