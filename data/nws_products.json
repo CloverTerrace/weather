@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T18:20:57.315912Z",
+  "generatedAt": "2026-09-04T18:25:59.602391Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.ecf92c5b9e07572b579851f789d232608424e153.001.1",
@@ -78,6 +78,25 @@
   ],
   "statements": [
     {
+      "id": "64f35169-def8-4a43-8bb7-d1c1ef227f15",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T18:22:00+00:00",
+      "expires": null,
+      "location": "Preston WV-Tucker WV",
+      "hazard": "WVC077-093-041832- /O.EXP.KPBZ.SV.W.0358.000000T0000Z-260904T1830Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "WVC077-093-041832- /O.EXP.KPBZ.SV.W.0358.000000T0000Z-260904T1830Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 222 PM EDT Fri Sep 4 2026 WVC077-093-041832- /O.EXP.KPBZ.SV.W.0358.000000T0000Z-260904T1830Z/ Preston WV-Tucker WV- 222 PM EDT Fri Sep 4 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/64f35169-def8-4a43-8bb7-d1c1ef227f15"
+    },
+    {
       "id": "c2ddf0a3-e964-41c0-99dc-a23f44a3ced1",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -118,25 +137,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/35181b9c-4982-4e41-9053-e10413285e2a"
-    },
-    {
-      "id": "e42abb84-6522-4dd7-a323-d63f2d99fbaf",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T17:58:00+00:00",
-      "expires": null,
-      "location": "Marion WV-Monongalia WV-Preston WV-Tucker WV",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Rowlesburg, Newburg,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Rowlesburg, Newburg, Albright, Tunnelton, Hannahsville, Israel, Fellowsville, Aurora, Pifer Moutain, Cathedral State Park, Saint George, Elgon, Lead Mine, Gladesville and Silver Lake.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Rowlesburg, Newburg, Albright, Tunnelton, Hannahsville, Israel, Fellowsville, Aurora, Pifer Moutain, Cathedral State Park, Saint George, Elgon, Lead Mine, Gladesville and Silver Lake."
-        }
-      ],
-      "url": "https://api.weather.gov/products/e42abb84-6522-4dd7-a323-d63f2d99fbaf"
     }
   ]
 }
