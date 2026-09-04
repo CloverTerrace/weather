@@ -112,6 +112,23 @@ html {
 .sky-marker[data-type="planet"] { --marker-color: #9fd8a0; }
 .sky-marker[data-type="satellite"] { --marker-color: #6fd6d6; }
 
+/*----- constellation highlight glow (tap-to-locate from the info card) -----*/
+.sky-constellation-glow {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(165, 192, 238, 0.5) 45%, transparent 75%);
+  animation: constellation-twinkle 1.4s ease-in-out infinite;
+}
+
+@keyframes constellation-twinkle {
+  0%, 100% { opacity: 0.55; transform: translate(-50%, -50%) scale(0.85); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+}
+
 /*----- moon marker: real shaded phase disk instead of a plain dot -----*/
 .moon-disk {
   width: 20px;
@@ -375,7 +392,11 @@ body.kp-severe .sky-dock {
   font-size: 0.88rem;
 }
 
-.constellation-name,
+.constellation-name {
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .planet-name {
   font-weight: 600;
 }
