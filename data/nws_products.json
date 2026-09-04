@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T17:50:57.672428Z",
+  "generatedAt": "2026-09-04T17:55:56.438355Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.ecf92c5b9e07572b579851f789d232608424e153.001.1",
@@ -78,6 +78,44 @@
   ],
   "statements": [
     {
+      "id": "fb4e53f8-2c32-494d-8b9a-da402f7ac1c4",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-09-04T17:49:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... A Flood Watch has been issued for areas from near the Pittsburgh",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... A Flood Watch has been issued for areas from near the Pittsburgh",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 149 PM EDT Fri Sep 4 2026 .WHAT HAS CHANGED... A Flood Watch has been issued for areas from near the Pittsburgh metro area on south and west. The corridor for the higher severe threat this afternoon has shifted a bit south, towards the I-70"
+        }
+      ],
+      "url": "https://api.weather.gov/products/fb4e53f8-2c32-494d-8b9a-da402f7ac1c4"
+    },
+    {
+      "id": "de7b255b-87f5-4065-83e2-d5aff0130025",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T17:47:00+00:00",
+      "expires": null,
+      "location": "Marion WV-Monongalia WV-Preston WV-Tucker WV",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Kingwood, Terra Alta, Rowlesburg,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Kingwood, Terra Alta, Rowlesburg, Pleasant Valley, Winfield, Newburg, Reedsville, Masontown, Albright, Tunnelton, Hannahsville, Israel, Fellowsville, Gladesville, Pifer Moutain, Aurora, Cathedral State Park, Saint George and Browns Chapel.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Kingwood, Terra Alta, Rowlesburg, Pleasant Valley, Winfield, Newburg, Reedsville, Masontown, Albright, Tunnelton, Hannahsville, Israel, Fellowsville, Gladesville, Pifer Moutain, Aurora, Cathedral State Park, Saint George and Browns Chapel."
+        }
+      ],
+      "url": "https://api.weather.gov/products/de7b255b-87f5-4065-83e2-d5aff0130025"
+    },
+    {
       "id": "5947147e-6206-40a8-a760-c8c22d17abe1",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -114,25 +152,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/49eb98e1-e290-4f3c-8d72-42e90b264a13"
-    },
-    {
-      "id": "1d975afd-82c4-4b8f-8ca1-b81dcbed4c07",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T17:20:00+00:00",
-      "expires": null,
-      "location": "Noble OH",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Dexter City and Harriettsville.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Dexter City and Harriettsville.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Dexter City and Harriettsville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/1d975afd-82c4-4b8f-8ca1-b81dcbed4c07"
     }
   ]
 }
