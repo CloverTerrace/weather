@@ -1,8 +1,46 @@
 {
-  "generatedAt": "2026-09-04T00:30:40.968166Z",
+  "generatedAt": "2026-09-04T00:35:38.130914Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "95799be0-4bbf-4f23-aaea-82600781dedf",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T00:35:00+00:00",
+      "expires": null,
+      "location": "Belmont OH-Jefferson OH-Washington PA-Brooke WV-Marshall WV-Ohio",
+      "hazard": "OHC013-081-PAC125-WVC009-051-069-040045- /O.EXP.KPBZ.SV.W.0350.000000T0000Z-260904T0045Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC013-081-PAC125-WVC009-051-069-040045- /O.EXP.KPBZ.SV.W.0350.000000T0000Z-260904T0045Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 835 PM EDT Thu Sep 3 2026 OHC013-081-PAC125-WVC009-051-069-040045- /O.EXP.KPBZ.SV.W.0350.000000T0000Z-260904T0045Z/ Belmont OH-Jefferson OH-Washington PA-Brooke WV-Marshall WV-Ohio WV-"
+        }
+      ],
+      "url": "https://api.weather.gov/products/95799be0-4bbf-4f23-aaea-82600781dedf"
+    },
+    {
+      "id": "7210914a-0c01-4440-b7b4-5bb7a1889ffe",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T00:33:00+00:00",
+      "expires": null,
+      "location": "Harrison OH",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Wheeling, Martins Ferry, St. Clairsville, Bellaire, Warwood, Bethlehem, West Liberty,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Wheeling, Martins Ferry, St. Clairsville, Bellaire, Warwood, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Shadyside, McMechen, Glen Dale, Tiltonsville, Bridgeport, Benwood, Yorkville and Bethany.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Wheeling, Martins Ferry, St. Clairsville, Bellaire, Warwood, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Shadyside, McMechen, Glen Dale, Tiltonsville, Bridgeport, Benwood, Yorkville and Bethany."
+        }
+      ],
+      "url": "https://api.weather.gov/products/7210914a-0c01-4440-b7b4-5bb7a1889ffe"
+    },
     {
       "id": "c43ce7cc-2247-4139-9d72-993a7090790a",
       "type": "Severe Weather Statement",
@@ -21,25 +59,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/c43ce7cc-2247-4139-9d72-993a7090790a"
-    },
-    {
-      "id": "b458cf0d-1220-4edd-b2f3-ca92a021da7e",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T00:08:00+00:00",
-      "expires": null,
-      "location": "Carroll OH-Tuscarawas OH",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins Ferry, St. Clairsville, Bellaire, Cadiz, Warwood, Wellsburg, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Toronto, Wintersville, Shadyside and Mingo Junction.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins Ferry, St. Clairsville, Bellaire, Cadiz, Warwood, Wellsburg, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Toronto, Wintersville, Shadyside and Mingo Junction."
-        }
-      ],
-      "url": "https://api.weather.gov/products/b458cf0d-1220-4edd-b2f3-ca92a021da7e"
     }
   ]
 }
