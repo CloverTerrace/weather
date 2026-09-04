@@ -4,10 +4,10 @@
       "name": "This Afternoon",
       "temperature": 79,
       "temperatureUnit": "F",
-      "windSpeed": "1 to 6 mph",
+      "windSpeed": "6 mph",
       "windDirection": "W",
-      "shortForecast": "Showers And Thunderstorms Likely",
-      "detailedForecast": "Showers and thunderstorms likely before 3pm, then a chance of showers and thunderstorms. Mostly cloudy, with a high near 79. West wind 1 to 6 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "detailedForecast": "A chance of showers and thunderstorms. Some of the storms could be severe. Mostly cloudy, with a high near 79. West wind around 6 mph. Chance of precipitation is 50%.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 46
     },
@@ -18,7 +18,7 @@
       "windSpeed": "1 to 5 mph",
       "windDirection": "W",
       "shortForecast": "Slight Chance Showers And Thunderstorms then Patchy Fog",
-      "detailedForecast": "A slight chance of showers and thunderstorms before 8pm, then showers and thunderstorms likely between 8pm and 10pm, then a chance of showers and thunderstorms between 10pm and 11pm, then showers and thunderstorms likely between 11pm and midnight, then patchy fog and showers and thunderstorms between midnight and 3am, then areas of fog and showers and thunderstorms likely. Mostly cloudy, with a low around 67. West wind 1 to 5 mph. Chance of precipitation is 80%. New rainfall amounts between a half and three quarters of an inch possible.",
+      "detailedForecast": "A slight chance of showers and thunderstorms before 8pm, then showers and thunderstorms likely between 8pm and 10pm, then a chance of showers and thunderstorms between 10pm and 11pm, then showers and thunderstorms likely between 11pm and midnight, then patchy fog and showers and thunderstorms between midnight and 3am, then areas of fog and showers and thunderstorms likely. Some of the storms could be severe. Mostly cloudy, with a low around 67. West wind 1 to 5 mph. Chance of precipitation is 80%. New rainfall amounts between a half and three quarters of an inch possible.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 83
     },
@@ -47,26 +47,6 @@
   ],
   "hourly": [
     {
-      "startTime": "2026-09-04T13:00:00-04:00",
-      "temperature": 76,
-      "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "SE",
-      "shortForecast": "Chance Showers And Thunderstorms",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 31
-    },
-    {
-      "startTime": "2026-09-04T14:00:00-04:00",
-      "temperature": 79,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "W",
-      "shortForecast": "Showers And Thunderstorms Likely",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 39
-    },
-    {
       "startTime": "2026-09-04T15:00:00-04:00",
       "temperature": 78,
       "temperatureUnit": "F",
@@ -92,7 +72,7 @@
       "temperatureUnit": "F",
       "windSpeed": "6 mph",
       "windDirection": "W",
-      "shortForecast": "Slight Chance Showers And Thunderstorms",
+      "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 28
     },
@@ -285,6 +265,26 @@
       "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 22
+    },
+    {
+      "startTime": "2026-09-05T13:00:00-04:00",
+      "temperature": 78,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "N",
+      "shortForecast": "Slight Chance Rain Showers",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 20
+    },
+    {
+      "startTime": "2026-09-05T14:00:00-04:00",
+      "temperature": 78,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "N",
+      "shortForecast": "Slight Chance Showers And Thunderstorms",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 20
     }
   ]
 }
