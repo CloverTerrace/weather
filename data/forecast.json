@@ -1,18 +1,7 @@
 {
   "periods": [
     {
-      "name": "Overnight",
-      "temperature": 68,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "W",
-      "shortForecast": "Chance Showers And Thunderstorms",
-      "detailedForecast": "A chance of showers and thunderstorms. Mostly cloudy, with a low around 68. West wind around 2 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 27
-    },
-    {
-      "name": "Friday",
+      "name": "Today",
       "temperature": 84,
       "temperatureUnit": "F",
       "windSpeed": "0 to 6 mph",
@@ -23,7 +12,7 @@
       "probabilityOfPrecipitation": 70
     },
     {
-      "name": "Friday Night",
+      "name": "Tonight",
       "temperature": 67,
       "temperatureUnit": "F",
       "windSpeed": "0 to 5 mph",
@@ -43,19 +32,20 @@
       "detailedForecast": "A chance of showers and thunderstorms before 11am, then a chance of showers and thunderstorms between 11am and noon, then a slight chance of showers and thunderstorms between noon and 5pm, then a chance of showers and thunderstorms. Partly sunny, with a high near 80. Northwest wind 0 to 6 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 53
+    },
+    {
+      "name": "Saturday Night",
+      "temperature": 60,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "NE",
+      "shortForecast": "Slight Chance Showers And Thunderstorms then Mostly Clear",
+      "detailedForecast": "A slight chance of showers and thunderstorms before 7pm. Mostly clear, with a low around 60. Northeast wind around 6 mph. Chance of precipitation is 20%.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 15
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-04T05:00:00-04:00",
-      "temperature": 71,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "W",
-      "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 22
-    },
     {
       "startTime": "2026-09-04T06:00:00-04:00",
       "temperature": 70,
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": false,
       "probabilityOfPrecipitation": 47
+    },
+    {
+      "startTime": "2026-09-05T05:00:00-04:00",
+      "temperature": 68,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "W",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 36
     }
   ]
 }
