@@ -1,8 +1,27 @@
 {
-  "generatedAt": "2026-09-04T00:55:34.169024Z",
+  "generatedAt": "2026-09-04T01:00:41.358204Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "ccb8dce2-5d5f-44b2-96b3-e4f61e36afd5",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T00:57:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Monongalia WV",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Uniontown, Monessen, California, Donora, Charleroi, Masontown, Bentleyville,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Uniontown, Monessen, California, Donora, Charleroi, Masontown, Bentleyville, Brownsville, Fredericktown-Millsboro, Farmington, Perryopolis, Fairchance, North Belle Vernon, North Charleroi, Speers, Isabella, Belle Vernon and Dunbar.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Uniontown, Monessen, California, Donora, Charleroi, Masontown, Bentleyville, Brownsville, Fredericktown-Millsboro, Farmington, Perryopolis, Fairchance, North Belle Vernon, North Charleroi, Speers, Isabella, Belle Vernon and Dunbar."
+        }
+      ],
+      "url": "https://api.weather.gov/products/ccb8dce2-5d5f-44b2-96b3-e4f61e36afd5"
+    },
     {
       "id": "936406c1-9116-403b-b92f-d57898ff3008",
       "type": "Flood Statement",
@@ -21,44 +40,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/936406c1-9116-403b-b92f-d57898ff3008"
-    },
-    {
-      "id": "95799be0-4bbf-4f23-aaea-82600781dedf",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T00:35:00+00:00",
-      "expires": null,
-      "location": "Belmont OH-Jefferson OH-Washington PA-Brooke WV-Marshall WV-Ohio",
-      "hazard": "OHC013-081-PAC125-WVC009-051-069-040045- /O.EXP.KPBZ.SV.W.0350.000000T0000Z-260904T0045Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC013-081-PAC125-WVC009-051-069-040045- /O.EXP.KPBZ.SV.W.0350.000000T0000Z-260904T0045Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 835 PM EDT Thu Sep 3 2026 OHC013-081-PAC125-WVC009-051-069-040045- /O.EXP.KPBZ.SV.W.0350.000000T0000Z-260904T0045Z/ Belmont OH-Jefferson OH-Washington PA-Brooke WV-Marshall WV-Ohio WV-"
-        }
-      ],
-      "url": "https://api.weather.gov/products/95799be0-4bbf-4f23-aaea-82600781dedf"
-    },
-    {
-      "id": "7210914a-0c01-4440-b7b4-5bb7a1889ffe",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T00:33:00+00:00",
-      "expires": null,
-      "location": "Harrison OH",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Wheeling, Martins Ferry, St. Clairsville, Bellaire, Warwood, Bethlehem, West Liberty,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Wheeling, Martins Ferry, St. Clairsville, Bellaire, Warwood, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Shadyside, McMechen, Glen Dale, Tiltonsville, Bridgeport, Benwood, Yorkville and Bethany.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Wheeling, Martins Ferry, St. Clairsville, Bellaire, Warwood, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Shadyside, McMechen, Glen Dale, Tiltonsville, Bridgeport, Benwood, Yorkville and Bethany."
-        }
-      ],
-      "url": "https://api.weather.gov/products/7210914a-0c01-4440-b7b4-5bb7a1889ffe"
     }
   ]
 }
