@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T17:55:56.438355Z",
+  "generatedAt": "2026-09-04T18:01:05.206361Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.ecf92c5b9e07572b579851f789d232608424e153.001.1",
@@ -78,6 +78,25 @@
   ],
   "statements": [
     {
+      "id": "e42abb84-6522-4dd7-a323-d63f2d99fbaf",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T17:58:00+00:00",
+      "expires": null,
+      "location": "Marion WV-Monongalia WV-Preston WV-Tucker WV",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Rowlesburg, Newburg,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Rowlesburg, Newburg, Albright, Tunnelton, Hannahsville, Israel, Fellowsville, Aurora, Pifer Moutain, Cathedral State Park, Saint George, Elgon, Lead Mine, Gladesville and Silver Lake.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Kingwood, Terra Alta, Rowlesburg, Newburg, Albright, Tunnelton, Hannahsville, Israel, Fellowsville, Aurora, Pifer Moutain, Cathedral State Park, Saint George, Elgon, Lead Mine, Gladesville and Silver Lake."
+        }
+      ],
+      "url": "https://api.weather.gov/products/e42abb84-6522-4dd7-a323-d63f2d99fbaf"
+    },
+    {
       "id": "fb4e53f8-2c32-494d-8b9a-da402f7ac1c4",
       "type": "Area Forecast Discussion",
       "office": "KPBZ",
@@ -133,25 +152,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/5947147e-6206-40a8-a760-c8c22d17abe1"
-    },
-    {
-      "id": "49eb98e1-e290-4f3c-8d72-42e90b264a13",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T17:34:00+00:00",
-      "expires": null,
-      "location": "Marion WV-Monongalia WV-Preston WV-Tucker WV",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Kingwood, Terra Alta, Rowlesburg,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Kingwood, Terra Alta, Rowlesburg, Pleasant Valley, Winfield, Barrackville, Newburg, Brookhaven, Rivesville, Grant Town, Reedsville, Masontown, Albright, Tunnelton, Hannahsville, Fellowsville, Israel, Gladesville and Browns Chapel.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Kingwood, Terra Alta, Rowlesburg, Pleasant Valley, Winfield, Barrackville, Newburg, Brookhaven, Rivesville, Grant Town, Reedsville, Masontown, Albright, Tunnelton, Hannahsville, Fellowsville, Israel, Gladesville and Browns Chapel."
-        }
-      ],
-      "url": "https://api.weather.gov/products/49eb98e1-e290-4f3c-8d72-42e90b264a13"
     }
   ]
 }
