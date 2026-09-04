@@ -1,97 +1,121 @@
 {
-  "generatedAt": "2026-09-04T02:00:57.587978Z",
+  "generatedAt": "2026-09-04T02:05:31.090044Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "36b2693b-18d3-4a63-8da7-60b605fc1a78",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T01:54:00+00:00",
+      "expires": null,
+      "location": "Fayette PA",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Morgantown, Fairmont, Westover, Kingwood,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Morgantown, Fairmont, Westover, Kingwood, Terra Alta, Rowlesburg, Pleasant Valley, Winfield, Barrackville, Newburg, Brookhaven, Rivesville, Grant Town, Reedsville, Masontown, Albright, Tunnelton, Brandonville, Bruceton Mills and Gladesville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Morgantown, Fairmont, Westover, Kingwood, Terra Alta, Rowlesburg, Pleasant Valley, Winfield, Barrackville, Newburg, Brookhaven, Rivesville, Grant Town, Reedsville, Masontown, Albright, Tunnelton, Brandonville, Bruceton Mills and Gladesville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/36b2693b-18d3-4a63-8da7-60b605fc1a78"
+    },
+    {
+      "id": "2f303e9f-1e92-480b-b5ef-25cedbbaeecc",
+      "type": "Flash Flood Watch",
+      "office": "KPBZ",
+      "issued": "2026-09-04T01:54:00+00:00",
+      "expires": null,
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "WGUS61 KPBZ 040154 Flood Watch",
+      "distanceMiles": null,
+      "headline": "Flash Flood Watch",
+      "summary": "WGUS61 KPBZ 040154 Flood Watch",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 WGUS61 KPBZ 040154 FFAPBZ Flood Watch 954 PM EDT Thu Sep 3 2026 PAZ007>009-015-016-040300- /O.CAN.KPBZ.FA.A.0018.000000T0000Z-260904T0400Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
+        }
+      ],
+      "url": "https://api.weather.gov/products/2f303e9f-1e92-480b-b5ef-25cedbbaeecc"
+    },
+    {
+      "id": "575aec48-6512-48a8-a657-b6178ddb4270",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T01:51:00+00:00",
+      "expires": null,
+      "location": "Marion WV-Monongalia WV",
+      "hazard": "WVC049-061-040201- /O.EXP.KPBZ.SV.W.0353.000000T0000Z-260904T0200Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "WVC049-061-040201- /O.EXP.KPBZ.SV.W.0353.000000T0000Z-260904T0200Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 951 PM EDT Thu Sep 3 2026 WVC049-061-040201- /O.EXP.KPBZ.SV.W.0353.000000T0000Z-260904T0200Z/ Marion WV-Monongalia WV- 951 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/575aec48-6512-48a8-a657-b6178ddb4270"
+    },
+    {
+      "id": "b2be52ed-174a-4783-8ff5-ab37b175004f",
+      "type": "Public Information Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T01:44:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-031-073>078- WVZ001>004-012-021-509>514-041344-",
+      "distanceMiles": null,
+      "headline": "Public Information Statement",
+      "summary": "OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-031-073>078- WVZ001>004-012-021-509>514-041344-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 PNSPBZ OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-031-073>078- WVZ001>004-012-021-509>514-041344- Public Information Statement 944 PM EDT Thu Sep 3 2026 ...PRECIPITATION REPORTS... Location Amount Time/Date Lat/Lon"
+        }
+      ],
+      "url": "https://api.weather.gov/products/b2be52ed-174a-4783-8ff5-ab37b175004f"
+    },
+    {
+      "id": "fdec4a65-a8f3-4ce7-8084-7561f5b46ba0",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T01:40:00+00:00",
+      "expires": null,
+      "location": "Greene PA",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Morgantown, Fairmont, Westover, Kingwood,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Morgantown, Fairmont, Westover, Kingwood, Star City, Terra Alta, Rowlesburg, Pleasant Valley, Winfield, Farmington, Barrackville, Point Marion, Granville, Newburg, Brookhaven, Cassville, Rivesville, Grant Town, Reedsville and Masontown.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Morgantown, Fairmont, Westover, Kingwood, Star City, Terra Alta, Rowlesburg, Pleasant Valley, Winfield, Farmington, Barrackville, Point Marion, Granville, Newburg, Brookhaven, Cassville, Rivesville, Grant Town, Reedsville and Masontown."
+        }
+      ],
+      "url": "https://api.weather.gov/products/fdec4a65-a8f3-4ce7-8084-7561f5b46ba0"
+    },
     {
       "id": "31322706-1375-4b54-9e73-66677124b61e",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
       "issued": "2026-09-04T01:39:00+00:00",
       "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": "Severe Weather Statement",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Severe Weather Statement",
-      "details": [],
-      "url": "https://api.weather.gov/products/31322706-1375-4b54-9e73-66677124b61e"
-    },
-    {
-      "id": "634aa7e0-b6fb-4469-b09f-ec8ed5232433",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T01:26:00+00:00",
-      "expires": null,
-      "location": "Marion WV-Monongalia WV-Wetzel WV",
+      "location": "Wetzel WV",
       "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Mannington, Pleasant Valley,",
       "distanceMiles": null,
       "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Mannington, Pleasant Valley, Winfield, Barrackville, Monongah, Fairview, Cassville, Rivesville, Grant Town, Farmington, Worthington, Idamay, Rachel, Carolina, McCurdyville, Baxter, Daybrook and Metz.",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Mannington, Pleasant Valley, Winfield, Barrackville, Monongah, Fairview, Cassville, Rivesville, Grant Town, Farmington, Worthington, McCurdyville, Baxter, Idamay, Rachel, Carolina, Daybrook and Crown.",
       "details": [
         {
           "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Mannington, Pleasant Valley, Winfield, Barrackville, Monongah, Fairview, Cassville, Rivesville, Grant Town, Farmington, Worthington, Idamay, Rachel, Carolina, McCurdyville, Baxter, Daybrook and Metz."
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Mannington, Pleasant Valley, Winfield, Barrackville, Monongah, Fairview, Cassville, Rivesville, Grant Town, Farmington, Worthington, McCurdyville, Baxter, Idamay, Rachel, Carolina, Daybrook and Crown."
         }
       ],
-      "url": "https://api.weather.gov/products/634aa7e0-b6fb-4469-b09f-ec8ed5232433"
-    },
-    {
-      "id": "5a0c906a-afd0-4eef-8504-7601be191c53",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T01:24:00+00:00",
-      "expires": null,
-      "location": "Fayette PA-Greene PA",
-      "hazard": "PAC051-059-040134- /O.EXP.KPBZ.SV.W.0351.000000T0000Z-260904T0130Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC051-059-040134- /O.EXP.KPBZ.SV.W.0351.000000T0000Z-260904T0130Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 924 PM EDT Thu Sep 3 2026 PAC051-059-040134- /O.EXP.KPBZ.SV.W.0351.000000T0000Z-260904T0130Z/ Fayette PA-Greene PA- 924 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/5a0c906a-afd0-4eef-8504-7601be191c53"
-    },
-    {
-      "id": "b5711d35-01aa-487b-b58b-d95899c57716",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T01:24:00+00:00",
-      "expires": null,
-      "location": "Fayette PA-Greene PA",
-      "hazard": "PAC051-059-040134- /O.EXP.KPBZ.SV.W.0352.000000T0000Z-260904T0130Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC051-059-040134- /O.EXP.KPBZ.SV.W.0352.000000T0000Z-260904T0130Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 924 PM EDT Thu Sep 3 2026 PAC051-059-040134- /O.EXP.KPBZ.SV.W.0352.000000T0000Z-260904T0130Z/ Fayette PA-Greene PA- 924 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/b5711d35-01aa-487b-b58b-d95899c57716"
-    },
-    {
-      "id": "f48a23c3-0bbb-4d79-a1e9-88e6cddfab07",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T01:17:00+00:00",
-      "expires": null,
-      "location": "Washington PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Uniontown, Masontown, Farmington, Fairchance, Dunbar, Smithfield, Nemacolin, New",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Uniontown, Masontown, Farmington, Fairchance, Dunbar, Smithfield, Nemacolin, New Salem, Chalkhill and Ohiopyle.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Uniontown, Masontown, Farmington, Fairchance, Dunbar, Smithfield, Nemacolin, New Salem, Chalkhill and Ohiopyle."
-        }
-      ],
-      "url": "https://api.weather.gov/products/f48a23c3-0bbb-4d79-a1e9-88e6cddfab07"
+      "url": "https://api.weather.gov/products/31322706-1375-4b54-9e73-66677124b61e"
     }
   ]
 }
