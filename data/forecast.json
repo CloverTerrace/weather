@@ -1,17 +1,6 @@
 {
   "periods": [
     {
-      "name": "This Afternoon",
-      "temperature": 79,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "W",
-      "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a high near 79. West wind around 6 mph.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 10
-    },
-    {
       "name": "Tonight",
       "temperature": 67,
       "temperatureUnit": "F",
@@ -43,19 +32,20 @@
       "detailedForecast": "A chance of showers and thunderstorms before 7pm. Partly cloudy, with a low around 59. Northeast wind 3 to 7 mph. Chance of precipitation is 30%.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 28
+    },
+    {
+      "name": "Sunday",
+      "temperature": 79,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "NE",
+      "shortForecast": "Mostly Sunny",
+      "detailedForecast": "Mostly sunny, with a high near 79. Northeast wind around 7 mph.",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-04T17:00:00-04:00",
-      "temperature": 78,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "W",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 10
-    },
     {
       "startTime": "2026-09-04T18:00:00-04:00",
       "temperature": 78,
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 29
+    },
+    {
+      "startTime": "2026-09-05T17:00:00-04:00",
+      "temperature": 79,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "N",
+      "shortForecast": "Slight Chance Showers And Thunderstorms",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 16
     }
   ]
 }
