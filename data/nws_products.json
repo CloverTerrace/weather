@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T00:05:33.118890Z",
+  "generatedAt": "2026-09-04T00:10:39.978722Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.fce49cadee950c665f5d97e3ce0e932ed25cc569.002.1",
@@ -122,6 +122,25 @@
   ],
   "statements": [
     {
+      "id": "b458cf0d-1220-4edd-b2f3-ca92a021da7e",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T00:08:00+00:00",
+      "expires": null,
+      "location": "Carroll OH-Tuscarawas OH",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins Ferry, St. Clairsville, Bellaire, Cadiz, Warwood, Wellsburg, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Toronto, Wintersville, Shadyside and Mingo Junction.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins Ferry, St. Clairsville, Bellaire, Cadiz, Warwood, Wellsburg, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Toronto, Wintersville, Shadyside and Mingo Junction."
+        }
+      ],
+      "url": "https://api.weather.gov/products/b458cf0d-1220-4edd-b2f3-ca92a021da7e"
+    },
+    {
       "id": "427188c2-bfbe-45c1-9af8-e039b83d2443",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -139,44 +158,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/427188c2-bfbe-45c1-9af8-e039b83d2443"
-    },
-    {
-      "id": "ac6d9704-4750-475f-a70a-0291f821fd62",
-      "type": "Non-Precipitation Warnings / Watches / Advisories",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:47:00+00:00",
-      "expires": null,
-      "location": "Tuscarawas-Carroll-Coshocton-Harrison-Jefferson OH-Muskingum",
-      "hazard": "URGENT - WEATHER MESSAGE OHZ039-040-048>050-057>059-068-069-PAZ020-021-029-031-073-075-",
-      "distanceMiles": null,
-      "headline": "Non-Precipitation Warnings / Watches / Advisories",
-      "summary": "URGENT - WEATHER MESSAGE OHZ039-040-048>050-057>059-068-069-PAZ020-021-029-031-073-075-",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 NPWPBZ URGENT - WEATHER MESSAGE 747 PM EDT Thu Sep 3 2026 OHZ039-040-048>050-057>059-068-069-PAZ020-021-029-031-073-075- WVZ001>004-012-021-509-040100- /O.EXP.KPBZ.HT.Y.0003.000000T0000Z-260904T0000Z/ Tuscarawas-Carroll-Coshocton-Harrison-Jefferson OH-Muskingum-"
-        }
-      ],
-      "url": "https://api.weather.gov/products/ac6d9704-4750-475f-a70a-0291f821fd62"
-    },
-    {
-      "id": "c78d5233-0090-4c60-a541-0fa14f1cdb8f",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:46:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... Severe Thunderstorm Watch issued for our entire area through",
-      "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... Severe Thunderstorm Watch issued for our entire area through",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 746 PM EDT Thu Sep 3 2026 .WHAT HAS CHANGED... Severe Thunderstorm Watch issued for our entire area through 10PM. Introduction of an Enhanced Risk (level 3/5) for severe thunderstorms on Thursday."
-        }
-      ],
-      "url": "https://api.weather.gov/products/c78d5233-0090-4c60-a541-0fa14f1cdb8f"
     }
   ]
 }

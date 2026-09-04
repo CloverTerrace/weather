@@ -4,10 +4,10 @@
       "name": "Tonight",
       "temperature": 69,
       "temperatureUnit": "F",
-      "windSpeed": "1 to 6 mph",
+      "windSpeed": "1 to 5 mph",
       "windDirection": "W",
       "shortForecast": "Showers And Thunderstorms Likely then Chance Showers And Thunderstorms",
-      "detailedForecast": "Showers and thunderstorms likely before 11pm, then a chance of showers and thunderstorms between 11pm and 3am, then a chance of showers and thunderstorms. Some of the storms could be severe. Mostly cloudy, with a low around 69. West wind 1 to 6 mph. Chance of precipitation is 60%. New rainfall amounts between a tenth and quarter of an inch possible.",
+      "detailedForecast": "Showers and thunderstorms likely before 11pm, then a chance of showers and thunderstorms between 11pm and 3am, then a chance of showers and thunderstorms. Some of the storms could be severe. Mostly cloudy, with a low around 69. West wind 1 to 5 mph. Chance of precipitation is 60%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 64
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-03T19:00:00-04:00",
-      "temperature": 83,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "W",
-      "shortForecast": "Showers And Thunderstorms Likely",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 55
-    },
     {
       "startTime": "2026-09-03T20:00:00-04:00",
       "temperature": 80,
@@ -285,6 +275,16 @@
       "shortForecast": "Showers And Thunderstorms Likely",
       "isDaytime": false,
       "probabilityOfPrecipitation": 57
+    },
+    {
+      "startTime": "2026-09-04T19:00:00-04:00",
+      "temperature": 78,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "NW",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 48
     }
   ]
 }
