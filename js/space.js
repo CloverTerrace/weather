@@ -1,9 +1,9 @@
 const SKY_REFRESH_MS = 15 * 60 * 1000;
 
 document.addEventListener('DOMContentLoaded', () => {
+  getVisibleConstellations(); // seasonal fallback, shown instantly before live data arrives
   loadLiveSky().catch(() => {});
   fetchKpIndex();
-  getVisibleConstellations();
   setupCardArrows();
 
   window.addEventListener('resize', debounce(() => {
@@ -44,6 +44,7 @@ async function loadLiveSky() {
 
   await Promise.all([loadImage, loadJson]);
   renderSkyOverlay();
+  getVisibleConstellations(); // re-render with real live-sky data, now that it's in
   // the sun-up/down status may have changed, which affects the Kp bar's wording
   if (latestAuroraData) updateKpUI(latestAuroraData);
 }
@@ -312,24 +313,47 @@ const CONSTELLATION_INFO = {
   'Canis Major': { star: 'Sirius', mag: -1.46, fact: 'Home to Sirius, the brightest star in the night sky.' },
 };
 
-function getVisibleConstellations() {
+// Only used as an instant-paint placeholder before real overlay data has
+// loaded — NOT what determines the final list once live data is in.
+function seasonalFallbackNames() {
   const month = new Date().getMonth();
-  const list = document.getElementById('constellation-list');
-  if (!list) return;
-
   const seasonal = {
     Spring: ['Ursa Major', 'Leo', 'Boötes'],
     Summer: ['Cygnus', 'Lyra', 'Aquila', 'Scorpius'],
     Autumn: ['Pegasus', 'Andromeda', 'Cassiopeia'],
     Winter: ['Orion', 'Taurus', 'Gemini', 'Canis Major']
   };
-
   let season = 'Winter';
   if (month >= 2 && month <= 4) season = 'Spring';
   else if (month >= 5 && month <= 7) season = 'Summer';
   else if (month >= 8 && month <= 10) season = 'Autumn';
+  return seasonal[season];
+}
 
-  list.innerHTML = seasonal[season].map(name => {
+function getVisibleConstellations() {
+  const list = document.getElementById('constellation-list');
+  if (!list) return;
+
+  const liveEntries = latestOverlayData && Array.isArray(latestOverlayData.constellations)
+    ? latestOverlayData.constellations.filter(c => c.x !== null && c.x !== undefined && c.y !== null && c.y !== undefined)
+    : null;
+
+  let names;
+  if (liveEntries) {
+    // highest-in-sky first — most useful order for "what am I looking at right now"
+    liveEntries.sort((a, b) => (b.alt ?? -999) - (a.alt ?? -999));
+    names = liveEntries.map(c => c.name);
+  } else {
+    names = seasonalFallbackNames();
+  }
+
+  if (names.length === 0) {
+    list.innerHTML = `<li>None of the tracked constellations are above the horizon right now.</li>`;
+    updateCardArrowVisibility();
+    return;
+  }
+
+  list.innerHTML = names.map(name => {
     const info = CONSTELLATION_INFO[name];
     if (!info) return `<li data-name="${name}"><span class="constellation-name">${name}</span></li>`;
     return `<li data-name="${name}">
@@ -407,6 +431,24 @@ const modalContent = document.getElementById('modal-content');
 const closeModalBtn = document.getElementById('close-modal');
 
 closeModalBtn.addEventListener('click', () => {
+  modal.classList.add('hidden');
+});
+
+// Auto-close on scroll (the page uses scroll-snap to reveal the full sky below
+// the card dock — a modal staying pinned to the screen while that happens
+// reads as broken) and on any click outside the modal itself. Clicks on the
+// elements that *open* the modal are excluded so opening one doesn't
+// immediately re-trigger a close from the same click bubbling to document.
+document.getElementById('space-page').addEventListener('scroll', () => {
+  if (!modal.classList.contains('hidden')) {
+    modal.classList.add('hidden');
+  }
+}, { passive: true });
+
+document.addEventListener('click', (e) => {
+  if (modal.classList.contains('hidden')) return;
+  if (modal.contains(e.target)) return;
+  if (e.target.closest('.sky-marker, #kp-elevated-bar, #kp-alert-bar, .constellation-list li')) return;
   modal.classList.add('hidden');
 });
 
