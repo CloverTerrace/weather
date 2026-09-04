@@ -12,8 +12,12 @@
 
   <!-- live sky render + HUD overlay, pinned to the viewport, sits behind everything else -->
   <div class="sky-stage" aria-hidden="true">
-    <img id="sky-render-img" class="sky-render-img" alt="">
-    <div id="sky-overlay" class="sky-overlay"></div>
+    <div id="sky-viewport" class="sky-viewport">
+      <div id="sky-pan" class="sky-pan">
+        <img id="sky-render-img" class="sky-render-img" alt="">
+        <div id="sky-overlay" class="sky-overlay"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Full-width alert bar, only shown when the Kp index is high enough that aurora is actually likely -->
@@ -72,6 +76,14 @@
               <ul id="constellation-list" class="constellation-list">
                 <li>Checking seasonal constellations...</li>
               </ul>
+            </article>
+            <article class="sky-card">
+              <h2>Visible Planets</h2>
+              <p class="sky-card-placeholder">Planet visibility list coming soon — will show which planets are up right now, in order of altitude.</p>
+            </article>
+            <article class="sky-card">
+              <h2>Tonight's Moon</h2>
+              <p class="sky-card-placeholder">Moon phase, illumination, and rise/set times, placeholder pending live data.</p>
             </article>
           </div>
           <button type="button" class="card-arrow card-arrow-right" id="card-arrow-right" aria-label="Next card">&rsaquo;</button>
