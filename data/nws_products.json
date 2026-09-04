@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T17:30:57.598198Z",
+  "generatedAt": "2026-09-04T17:35:57.831105Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.ecf92c5b9e07572b579851f789d232608424e153.001.1",
@@ -24,8 +24,78 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [],
+  "mesoscaleDiscussions": [
+    {
+      "id": "MD2232",
+      "number": 2232,
+      "issued": "2026-09-04T17:31:00Z",
+      "expires": "2026-09-04T19:30:00Z",
+      "concerning": "Severe potential...Watch likely",
+      "hazard": "Severe potential...Watch likely",
+      "areas": "southeast Ohio...much of West Virginia...western Maryland and northern and western Virginia",
+      "location": "southeast Ohio...much of West Virginia...western Maryland and northern and western Virginia",
+      "distanceMiles": 60.1,
+      "summary": "Scattered storms may produce areas of damaging gusts and marginally severe hail through the afternoon from southeast Ohio into Virginia",
+      "watchProbability": "80 percent",
+      "forecaster": "Jewell/Guyer",
+      "attnWfos": [
+        "AKQ",
+        "CTP",
+        "LWX",
+        "RNK",
+        "PBZ",
+        "RLX"
+      ],
+      "details": [
+        {
+          "label": "Summary",
+          "text": "Scattered storms may produce areas of damaging gusts and marginally severe hail through the afternoon from southeast Ohio into Virginia"
+        },
+        {
+          "label": "Discussion",
+          "text": "Cells have intensified from central into southeast OH, south of the synoptic wind shift and within the instability axis. Precipitable water is high, with moderate instability developing. Midlevel northwesterlies of 30-40 kt are also supporting cellular and mixed storm modes including small bows. Given the destabilizing air mass downstream of the existing storms, gradual upscale growth may occur as outflow production/storm coverage increases"
+        },
+        {
+          "label": "Watch probability",
+          "text": "80 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...55-70 MPH · MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Jewell/Guyer"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...AKQ...CTP...LWX...RNK...PBZ...RLX"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2232.html",
+      "office": "SPC"
+    }
+  ],
   "statements": [
+    {
+      "id": "49eb98e1-e290-4f3c-8d72-42e90b264a13",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T17:34:00+00:00",
+      "expires": null,
+      "location": "Marion WV-Monongalia WV-Preston WV-Tucker WV",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Kingwood, Terra Alta, Rowlesburg,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Kingwood, Terra Alta, Rowlesburg, Pleasant Valley, Winfield, Barrackville, Newburg, Brookhaven, Rivesville, Grant Town, Reedsville, Masontown, Albright, Tunnelton, Hannahsville, Fellowsville, Israel, Gladesville and Browns Chapel.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Fairmont, Kingwood, Terra Alta, Rowlesburg, Pleasant Valley, Winfield, Barrackville, Newburg, Brookhaven, Rivesville, Grant Town, Reedsville, Masontown, Albright, Tunnelton, Hannahsville, Fellowsville, Israel, Gladesville and Browns Chapel."
+        }
+      ],
+      "url": "https://api.weather.gov/products/49eb98e1-e290-4f3c-8d72-42e90b264a13"
+    },
     {
       "id": "1d975afd-82c4-4b8f-8ca1-b81dcbed4c07",
       "type": "Severe Weather Statement",
