@@ -4,20 +4,23 @@ document.addEventListener('DOMContentLoaded', () => {
   loadLiveSky().catch(() => {});
   fetchKpIndex();
   getVisibleConstellations();
+  setupCardArrows();
 
-  window.addEventListener('resize', debounce(renderSkyOverlay, 150));
+  window.addEventListener('resize', debounce(() => {
+    renderSkyOverlay();
+    updateCardArrowVisibility();
+  }, 150));
   window.addEventListener('orientationchange', debounce(renderSkyOverlay, 150));
   setInterval(loadLiveSky, SKY_REFRESH_MS);
+  setInterval(fetchKpIndex, SKY_REFRESH_MS);
 });
 
 let latestOverlayData = null;
+let latestAuroraData = null;
 
 async function loadLiveSky() {
   const timestamp = new Date().getTime();
   const img = document.getElementById('sky-render-img');
-  const titleEl = document.getElementById('apod-title');
-  if (titleEl) titleEl.textContent = '';
-
   if (!img) return;
 
   const loadImage = new Promise((resolve) => {
@@ -41,7 +44,8 @@ async function loadLiveSky() {
 
   await Promise.all([loadImage, loadJson]);
   renderSkyOverlay();
-  updateSpaceWeatherNote();
+  // the sun-up/down status may have changed, which affects the Kp bar's wording
+  if (latestAuroraData) updateKpUI(latestAuroraData);
 }
 
 function computeCoverRect(naturalW, naturalH, containerW, containerH) {
@@ -105,24 +109,52 @@ function renderSkyOverlay() {
     marker.style.top = `${topPct}%`;
     marker.style.cursor = 'pointer';
 
-    const dot = document.createElement('div');
-    dot.className = 'sky-marker-dot';
+    if (obj.type === 'moon') {
+      marker.appendChild(buildMoonDisk(obj));
+    } else {
+      const dot = document.createElement('div');
+      dot.className = 'sky-marker-dot';
+      marker.appendChild(dot);
+    }
 
     const label = document.createElement('div');
     label.className = 'sky-marker-label';
     label.textContent = buildMarkerLabel(obj);
-
-    marker.appendChild(dot);
     marker.appendChild(label);
-    overlay.appendChild(marker);
 
+    overlay.appendChild(marker);
     marker.addEventListener('click', () => openCelestialModal(obj));
   });
 }
 
+// Renders the moon marker as an actual shaded phase disk (lit half + a
+// terminator ellipse that grows/shrinks with illumination) instead of a
+// plain dot plus a percentage label.
+function buildMoonDisk(obj) {
+  const diameter = 20;
+  const illum = typeof obj.illumination === 'number' ? obj.illumination : 0.5;
+  const waxing = !/waning/i.test(obj.phase_name || '');
+
+  const disk = document.createElement('div');
+  disk.className = 'moon-disk';
+
+  const litHalf = document.createElement('div');
+  litHalf.className = `moon-lit-half ${waxing ? 'waxing' : 'waning'}`;
+  disk.appendChild(litHalf);
+
+  const terminator = document.createElement('div');
+  terminator.className = 'moon-terminator';
+  const width = Math.abs(2 * illum - 1) * diameter;
+  terminator.style.width = `${width}px`;
+  terminator.style.background = illum < 0.5 ? '#1c2033' : '#e7ebf2';
+  disk.appendChild(terminator);
+
+  return disk;
+}
+
 function buildMarkerLabel(obj) {
-  if (obj.type === 'moon' && typeof obj.illumination === 'number') {
-    return `Moon ${Math.round(obj.illumination * 100)}%`;
+  if (obj.type === 'moon') {
+    return 'Moon';
   }
   if (obj.type === 'satellite') {
     return obj.sunlit ? 'ISS (visible)' : 'ISS';
@@ -141,34 +173,40 @@ function debounce(fn, wait) {
   };
 }
 
-let latestAuroraData = null;
+/*----- swipeable card row -----*/
+function setupCardArrows() {
+  const row = document.getElementById('sky-card-row');
+  const left = document.getElementById('card-arrow-left');
+  const right = document.getElementById('card-arrow-right');
+  if (!row || !left || !right) return;
 
+  left.addEventListener('click', () => row.scrollBy({ left: -260, behavior: 'smooth' }));
+  right.addEventListener('click', () => row.scrollBy({ left: 260, behavior: 'smooth' }));
+  updateCardArrowVisibility();
+}
+
+function updateCardArrowVisibility() {
+  const row = document.getElementById('sky-card-row');
+  const left = document.getElementById('card-arrow-left');
+  const right = document.getElementById('card-arrow-right');
+  if (!row || !left || !right) return;
+
+  const scrollable = row.scrollWidth > row.clientWidth + 4;
+  left.classList.toggle('is-disabled', !scrollable);
+  right.classList.toggle('is-disabled', !scrollable);
+}
+
+/*----- Kp index: hidden unless activity is actually worth knowing about -----*/
 async function fetchKpIndex() {
-  const kpValEl = document.getElementById('kp-value');
-  const kpChipEl = document.getElementById('kp-chip');
-
   try {
     const res = await fetch(`data/aurora.json?t=${Date.now()}`);
     if (!res.ok) throw new Error(`aurora.json ${res.status}`);
     const data = await res.json();
     latestAuroraData = data;
-
-    if (kpValEl && typeof data.kp === 'number') {
-      kpValEl.textContent = data.kp.toFixed(1);
-    }
-    if (kpChipEl && data.auroraChance) {
-      kpChipEl.textContent = `Aurora chance: ${data.auroraChance}`;
-      kpChipEl.dataset.level = auroraLevelSlug(data.auroraChance);
-    }
-    renderKpSparkline(data.history || []);
-    updateSpaceWeatherNote();
-    return;
+    updateKpUI(data);
   } catch (e) {
-    if (kpValEl) kpValEl.textContent = 'N/A';
-    if (kpChipEl) {
-      kpChipEl.textContent = 'Kp data unavailable';
-      kpChipEl.dataset.level = 'unknown';
-    }
+    latestAuroraData = null;
+    updateKpUI(null);
   }
 }
 
@@ -179,8 +217,50 @@ function auroraLevelSlug(chance) {
   return 'low';
 }
 
-function renderKpSparkline(history) {
-  const sparkEl = document.getElementById('kp-sparkline');
+function auroraContextNote() {
+  const sunIsUp = latestOverlayData && Array.isArray(latestOverlayData.objects)
+    ? latestOverlayData.objects.some(o => o.type === 'sun')
+    : false;
+  return sunIsUp ? 'aurora would be washed out in daylight right now' : 'aurora possible after dark';
+}
+
+function updateKpUI(data) {
+  const elevatedBar = document.getElementById('kp-elevated-bar');
+  const elevatedText = document.getElementById('kp-elevated-text');
+  const alertBar = document.getElementById('kp-alert-bar');
+  const alertHeadline = document.getElementById('kp-alert-headline');
+  const alertBody = document.getElementById('kp-alert-body');
+  if (!elevatedBar || !alertBar) return;
+
+  if (!data || typeof data.kp !== 'number') {
+    elevatedBar.classList.add('hidden');
+    alertBar.classList.add('hidden');
+    document.body.classList.remove('kp-severe');
+    return;
+  }
+
+  const level = auroraLevelSlug(data.auroraChance);
+
+  if (level === 'high') {
+    elevatedBar.classList.add('hidden');
+    alertHeadline.textContent = `Kp ${data.kp.toFixed(1)} — aurora likely tonight`;
+    alertBody.textContent = auroraContextNote();
+    alertBar.classList.remove('hidden');
+    document.body.classList.add('kp-severe');
+  } else if (level === 'elevated' || level === 'watch') {
+    alertBar.classList.add('hidden');
+    document.body.classList.remove('kp-severe');
+    elevatedText.textContent = `Kp elevated — ${auroraContextNote()}`;
+    elevatedBar.classList.remove('hidden');
+  } else {
+    elevatedBar.classList.add('hidden');
+    alertBar.classList.add('hidden');
+    document.body.classList.remove('kp-severe');
+  }
+}
+
+function renderKpSparkline(history, targetId) {
+  const sparkEl = document.getElementById(targetId);
   if (!sparkEl) return;
   sparkEl.innerHTML = '';
   history.forEach(entry => {
@@ -202,13 +282,17 @@ function kpBarColor(kp) {
   return '#4ade80';
 }
 
-function updateSpaceWeatherNote() {
-  const noteEl = document.getElementById('kp-dark-note');
-  if (!noteEl || !latestAuroraData || !latestOverlayData) return;
-  const sunIsUp = latestOverlayData.objects.some(o => o.type === 'sun');
-  noteEl.textContent = sunIsUp
-    ? 'Daylight right now — any aurora would be washed out.'
-    : 'The sun is below the horizon — dark enough for aurora to be visible if it happens.';
+function openKpModal() {
+  modal.classList.remove('hidden');
+  const kp = latestAuroraData && typeof latestAuroraData.kp === 'number' ? latestAuroraData.kp.toFixed(1) : '--';
+  const chance = latestAuroraData && latestAuroraData.auroraChance ? latestAuroraData.auroraChance : 'Unknown';
+  modalContent.innerHTML = `
+    <h2 style="color: #a5c0ee; margin-top: 0;">Geomagnetic Kp Index</h2>
+    <div style="font-size: 1.6rem; font-weight: 700; margin-bottom: 0.25rem;">${kp}</div>
+    <div style="font-size: 0.85rem; color: rgba(246, 248, 250, 0.8); margin-bottom: 0.75rem;">Aurora chance: ${chance}</div>
+    <div class="kp-sparkline" id="modal-kp-sparkline" aria-label="Recent Kp index trend"></div>
+  `;
+  renderKpSparkline((latestAuroraData && latestAuroraData.history) || [], 'modal-kp-sparkline');
 }
 
 const CONSTELLATION_INFO = {
@@ -253,6 +337,8 @@ function getVisibleConstellations() {
       <span class="constellation-fact">Brightest: ${info.star} (mag ${info.mag}) — ${info.fact}</span>
     </li>`;
   }).join('');
+
+  updateCardArrowVisibility();
 }
 
 function formatLocalTime(iso) {
@@ -281,9 +367,12 @@ closeModalBtn.addEventListener('click', () => {
   modal.classList.add('hidden');
 });
 
+document.getElementById('kp-elevated-bar').addEventListener('click', openKpModal);
+document.getElementById('kp-alert-bar').addEventListener('click', openKpModal);
+
 function openCelestialModal(obj) {
   modal.classList.remove('hidden');
-  
+
   if (obj.type === 'moon') {
     modalContent.innerHTML = `
       <h2 style="color: #a5c0ee; margin-top: 0;">The Moon</h2>
