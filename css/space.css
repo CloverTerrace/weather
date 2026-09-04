@@ -138,21 +138,66 @@ html {
 .sky-marker[data-type="planet"] { --marker-color: #9fd8a0; }
 .sky-marker[data-type="satellite"] { --marker-color: #6fd6d6; }
 
-/*----- constellation highlight glow (tap-to-locate from the info card) -----*/
-.sky-constellation-glow {
+/*----- constellation highlight (tap-to-locate from the info card): the
+   full shape — a soft ambient glow over the whole area, faint lines
+   tracing the outline, and a twinkling dot at each star -----*/
+.sky-constellation-highlight {
   position: absolute;
-  transform: translate(-50%, -50%);
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
   pointer-events: none;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(165, 192, 238, 0.5) 45%, transparent 75%);
-  animation: constellation-twinkle 1.4s ease-in-out infinite;
 }
 
-@keyframes constellation-twinkle {
-  0%, 100% { opacity: 0.55; transform: translate(-50%, -50%) scale(0.85); }
-  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+.sky-constellation-field-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(165, 192, 238, 0.26) 0%, rgba(165, 192, 238, 0.1) 45%, transparent 75%);
+  animation: constellation-field-pulse 3.2s ease-in-out infinite;
+}
+
+@keyframes constellation-field-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(0.94); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+.sky-constellation-lines {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.sky-constellation-lines line {
+  stroke: rgba(255, 255, 255, 0.55);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  opacity: 0;
+  animation: constellation-line-fade-in 0.9s ease forwards;
+}
+
+@keyframes constellation-line-fade-in {
+  to { opacity: 0.7; }
+}
+
+.sky-constellation-star {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #a5c0ee 55%, transparent 75%);
+  box-shadow: 0 0 10px 3px rgba(165, 192, 238, 0.65);
+  animation: constellation-star-twinkle 1.8s ease-in-out infinite;
+}
+
+@keyframes constellation-star-twinkle {
+  0%, 100% { opacity: 0.6; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* transient zoom-in when a highlighted constellation is cramped at normal
+   scale — see zoomToConstellation() in space.js. Transition lives on this
+   class only, so ordinary drag-panning stays instant/untransitioned. */
+.sky-pan.is-zooming {
+  transition: transform 0.6s ease, top 0.6s ease;
 }
 
 /*----- moon marker: real shaded phase disk instead of a plain dot -----*/
