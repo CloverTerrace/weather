@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T19:05:58.628523Z",
+  "generatedAt": "2026-09-04T19:10:56.479544Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.ecf92c5b9e07572b579851f789d232608424e153.001.1",
@@ -78,6 +78,25 @@
   ],
   "statements": [
     {
+      "id": "d018882e-9904-4d87-bccd-59fdfa45dfc4",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-09-04T19:03:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... A Flood Watch and Severe Thunderstorm Watch have been issued",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... A Flood Watch and Severe Thunderstorm Watch have been issued",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 303 PM EDT Fri Sep 4 2026 .WHAT HAS CHANGED... A Flood Watch and Severe Thunderstorm Watch have been issued for areas from near the Pittsburgh metro area on south and west. The corridor for the higher severe threat this afternoon has"
+        }
+      ],
+      "url": "https://api.weather.gov/products/d018882e-9904-4d87-bccd-59fdfa45dfc4"
+    },
+    {
       "id": "d7d75e0e-6142-4537-950e-cec9805d7fb0",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -95,25 +114,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/d7d75e0e-6142-4537-950e-cec9805d7fb0"
-    },
-    {
-      "id": "12ce2892-87e7-4162-ad92-ea2da6f9da95",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T18:34:00+00:00",
-      "expires": null,
-      "location": "Tucker WV",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Mainly rural areas of East Central Tucker County.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Mainly rural areas of East Central Tucker County.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Mainly rural areas of East Central Tucker County."
-        }
-      ],
-      "url": "https://api.weather.gov/products/12ce2892-87e7-4162-ad92-ea2da6f9da95"
     }
   ]
 }
