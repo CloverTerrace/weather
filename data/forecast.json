@@ -9,7 +9,7 @@
       "shortForecast": "Mostly Cloudy",
       "detailedForecast": "Mostly cloudy, with a high near 79. West wind around 6 mph.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 10
+      "probabilityOfPrecipitation": 12
     },
     {
       "name": "Tonight",
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-04T16:00:00-04:00",
+      "temperature": 78,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "W",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 12
+    },
     {
       "startTime": "2026-09-04T17:00:00-04:00",
       "temperature": 78,
@@ -275,16 +285,6 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 35
-    },
-    {
-      "startTime": "2026-09-05T16:00:00-04:00",
-      "temperature": 79,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "N",
-      "shortForecast": "Chance Showers And Thunderstorms",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 29
     }
   ]
 }
