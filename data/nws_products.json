@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T00:15:46.080929Z",
+  "generatedAt": "2026-09-04T00:20:37.425362Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.fce49cadee950c665f5d97e3ce0e932ed25cc569.002.1",
@@ -27,17 +27,41 @@
   "mesoscaleDiscussions": [],
   "statements": [
     {
+      "id": "c43ce7cc-2247-4139-9d72-993a7090790a",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T00:19:00+00:00",
+      "expires": null,
+      "location": "Hancock WV",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins Ferry, St. Clairsville, Bellaire, Cadiz, Warwood, Wellsburg, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Shadyside, Mingo Junction and Follansbee.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins Ferry, St. Clairsville, Bellaire, Cadiz, Warwood, Wellsburg, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Shadyside, Mingo Junction and Follansbee."
+        }
+      ],
+      "url": "https://api.weather.gov/products/c43ce7cc-2247-4139-9d72-993a7090790a"
+    },
+    {
       "id": "b458cf0d-1220-4edd-b2f3-ca92a021da7e",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
       "issued": "2026-09-04T00:08:00+00:00",
       "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": "Severe Weather Statement",
+      "location": "Carroll OH-Tuscarawas OH",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins",
       "distanceMiles": null,
       "headline": "Severe Weather Statement",
-      "summary": "Severe Weather Statement",
-      "details": [],
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins Ferry, St. Clairsville, Bellaire, Cadiz, Warwood, Wellsburg, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Toronto, Wintersville, Shadyside and Mingo Junction.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins Ferry, St. Clairsville, Bellaire, Cadiz, Warwood, Wellsburg, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Toronto, Wintersville, Shadyside and Mingo Junction."
+        }
+      ],
       "url": "https://api.weather.gov/products/b458cf0d-1220-4edd-b2f3-ca92a021da7e"
     },
     {
