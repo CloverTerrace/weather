@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadLiveSky().catch(() => {});
   fetchKpIndex();
   setupCardArrows();
+  setupSkyPan();
 
   window.addEventListener('resize', debounce(() => {
     renderSkyOverlay();
@@ -17,6 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let latestOverlayData = null;
 let latestAuroraData = null;
+
+// Sky pan/zoom state. The sky render is a fixed 16:9 image; on narrow
+// (mobile/portrait) viewports it's taller-than-wide, so filling the
+// viewport height leaves extra image width off both sides — panX lets
+// the user drag to explore that hidden east/west sky instead of it just
+// being permanently cropped off like a plain object-fit:cover would do.
+let panX = 0;
+let userHasPanned = false;
+let skyLayout = { scale: 1, paneWidth: 0, paneHeight: 0 };
 
 async function loadLiveSky() {
   const timestamp = new Date().getTime();
@@ -49,47 +59,79 @@ async function loadLiveSky() {
   if (latestAuroraData) updateKpUI(latestAuroraData);
 }
 
-function computeCoverRect(naturalW, naturalH, containerW, containerH) {
-  const scale = Math.max(containerW / naturalW, containerH / naturalH);
+// Chooses a pane size that always fully fills the viewport's height (so
+// nothing is cropped top/bottom) and, when the viewport is narrower than
+// that, leaves the extra image width pannable rather than cropping the
+// east/west sky. Only falls back to filling by width (which can crop
+// top/bottom, matching the old cover behavior) for the rare case of a
+// viewport wider than the image even after a height-fill.
+function computeSkyLayout(naturalW, naturalH, containerW, containerH) {
+  let scale = containerH / naturalH;
+  let paneWidth = naturalW * scale;
+  let paneHeight = containerH;
+  if (paneWidth < containerW) {
+    scale = containerW / naturalW;
+    paneWidth = containerW;
+    paneHeight = naturalH * scale;
+  }
+  return { scale, paneWidth, paneHeight };
+}
+
+// Normalized stereographic (x, y in [-1, 1]) sky coords -> pixel position
+// within the (unpanned) .sky-pan box. Panning is applied separately as a
+// single transform on the whole pane, so every marker stays put relative
+// to the stars around it while dragging.
+function skyToPanPixels(x, y, naturalW, naturalH, scale) {
   return {
-    scale,
-    offsetX: (containerW - naturalW * scale) / 2,
-    offsetY: (containerH - naturalH * scale) / 2,
+    x: ((x + 1) / 2) * naturalW * scale,
+    y: ((1 - y) / 2) * naturalH * scale,
   };
 }
 
-function renderSpaceToPercent(x, y, naturalW, naturalH, cover, containerW, containerH) {
-  const pixelX = ((x + 1) / 2) * naturalW;
-  const pixelY = ((1 - y) / 2) * naturalH;
-  return {
-    leftPct: ((cover.offsetX + pixelX * cover.scale) / containerW) * 100,
-    topPct: ((cover.offsetY + pixelY * cover.scale) / containerH) * 100,
-  };
+function clampPanX(x, paneWidth, containerW) {
+  const minX = Math.min(0, containerW - paneWidth);
+  return Math.max(minX, Math.min(0, x));
 }
 
 function renderSkyOverlay() {
   const img = document.getElementById('sky-render-img');
-  const stage = document.querySelector('.sky-stage');
+  const viewport = document.getElementById('sky-viewport');
+  const pan = document.getElementById('sky-pan');
   const overlay = document.getElementById('sky-overlay');
-  if (!img || !stage || !overlay || !img.naturalWidth) return;
+  if (!img || !viewport || !pan || !overlay || !img.naturalWidth) return;
 
   overlay.innerHTML = '';
-  const containerW = stage.clientWidth;
-  const containerH = stage.clientHeight;
-  const cover = computeCoverRect(img.naturalWidth, img.naturalHeight, containerW, containerH);
+  const containerW = viewport.clientWidth;
+  const containerH = viewport.clientHeight;
+  skyLayout = computeSkyLayout(img.naturalWidth, img.naturalHeight, containerW, containerH);
+  const { scale, paneWidth, paneHeight } = skyLayout;
+
+  pan.style.width = `${paneWidth}px`;
+  pan.style.height = `${paneHeight}px`;
+  pan.style.top = `${(containerH - paneHeight) / 2}px`;
+  img.style.width = `${paneWidth}px`;
+  img.style.height = `${paneHeight}px`;
+
+  const pannable = paneWidth > containerW + 1;
+  pan.classList.toggle('is-pannable', pannable);
+  if (!pannable) {
+    panX = 0;
+  } else if (userHasPanned) {
+    panX = clampPanX(panX, paneWidth, containerW);
+  } else {
+    panX = (containerW - paneWidth) / 2; // start centered, same framing as before
+  }
+  pan.style.transform = `translateX(${panX}px)`;
 
   const cardinals = (latestOverlayData && latestOverlayData.cardinal_points) || {
     N: { x: 0, y: 1 }, E: { x: 1, y: 0 }, S: { x: 0, y: -1 }, W: { x: -1, y: 0 },
   };
   Object.entries(cardinals).forEach(([label, pos]) => {
-    const { leftPct, topPct } = renderSpaceToPercent(
-      pos.x, pos.y, img.naturalWidth, img.naturalHeight, cover, containerW, containerH
-    );
-    if (leftPct < -10 || leftPct > 110 || topPct < -10 || topPct > 110) return;
+    const { x, y } = skyToPanPixels(pos.x, pos.y, img.naturalWidth, img.naturalHeight, scale);
     const tick = document.createElement('div');
     tick.className = 'sky-cardinal';
-    tick.style.left = `${leftPct}%`;
-    tick.style.top = `${topPct}%`;
+    tick.style.left = `${x}px`;
+    tick.style.top = `${y}px`;
     tick.textContent = label;
     overlay.appendChild(tick);
   });
@@ -98,16 +140,13 @@ function renderSkyOverlay() {
 
   latestOverlayData.objects.forEach(obj => {
     if (obj.x === null || obj.x === undefined || obj.y === null || obj.y === undefined) return;
-    const { leftPct, topPct } = renderSpaceToPercent(
-      obj.x, obj.y, img.naturalWidth, img.naturalHeight, cover, containerW, containerH
-    );
-    if (leftPct < -10 || leftPct > 110 || topPct < -10 || topPct > 110) return;
+    const { x, y } = skyToPanPixels(obj.x, obj.y, img.naturalWidth, img.naturalHeight, scale);
 
     const marker = document.createElement('div');
     marker.className = 'sky-marker is-shown';
     marker.dataset.type = obj.type;
-    marker.style.left = `${leftPct}%`;
-    marker.style.top = `${topPct}%`;
+    marker.style.left = `${x}px`;
+    marker.style.top = `${y}px`;
     marker.style.cursor = 'pointer';
 
     if (obj.type === 'moon') {
@@ -166,6 +205,57 @@ function buildMarkerLabel(obj) {
   return obj.name;
 }
 
+/*----- drag-to-pan the sky (mainly relevant on narrow/mobile viewports,
+   where the render's extra width beyond the screen is otherwise hidden) -----*/
+function setupSkyPan() {
+  const viewport = document.getElementById('sky-viewport');
+  const pan = document.getElementById('sky-pan');
+  if (!viewport || !pan) return;
+
+  let dragging = false;
+  let startClientX = 0;
+  let startPanX = 0;
+
+  viewport.addEventListener('pointerdown', (e) => {
+    if (!pan.classList.contains('is-pannable')) return;
+    dragging = true;
+    userHasPanned = true;
+    startClientX = e.clientX;
+    startPanX = panX;
+    pan.classList.add('is-panning');
+    try { viewport.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+
+  viewport.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const dx = e.clientX - startClientX;
+    panX = clampPanX(startPanX + dx, skyLayout.paneWidth, viewport.clientWidth);
+    pan.style.transform = `translateX(${panX}px)`;
+  });
+
+  const endDrag = (e) => {
+    if (!dragging) return;
+    dragging = false;
+    pan.classList.remove('is-panning');
+    try { viewport.releasePointerCapture(e.pointerId); } catch (err) {}
+  };
+  viewport.addEventListener('pointerup', endDrag);
+  viewport.addEventListener('pointercancel', endDrag);
+}
+
+// Brings a given x position (in .sky-pan pixel space) to the center of the
+// viewport, so tapping a constellation in the list scrolls it into view if
+// dragging had left it off-screen.
+function panToPanX(targetX) {
+  const viewport = document.getElementById('sky-viewport');
+  const pan = document.getElementById('sky-pan');
+  if (!viewport || !pan || !pan.classList.contains('is-pannable')) return;
+  const containerW = viewport.clientWidth;
+  panX = clampPanX(containerW / 2 - targetX, skyLayout.paneWidth, containerW);
+  userHasPanned = true;
+  pan.style.transform = `translateX(${panX}px)`;
+}
+
 function debounce(fn, wait) {
   let timeoutId;
   return (...args) => {
@@ -181,8 +271,8 @@ function setupCardArrows() {
   const right = document.getElementById('card-arrow-right');
   if (!row || !left || !right) return;
 
-  left.addEventListener('click', () => row.scrollBy({ left: -260, behavior: 'smooth' }));
-  right.addEventListener('click', () => row.scrollBy({ left: 260, behavior: 'smooth' }));
+  left.addEventListener('click', () => row.scrollBy({ left: -row.clientWidth, behavior: 'smooth' }));
+  right.addEventListener('click', () => row.scrollBy({ left: row.clientWidth, behavior: 'smooth' }));
   updateCardArrowVisibility();
 }
 
@@ -363,10 +453,24 @@ function getVisibleConstellations() {
   }).join('');
 
   list.querySelectorAll('li[data-name]').forEach(li => {
-    li.addEventListener('click', () => highlightConstellation(li.dataset.name));
+    li.addEventListener('click', () => {
+      pulseTapFeedback(li);
+      highlightConstellation(li.dataset.name);
+    });
   });
 
   updateCardArrowVisibility();
+}
+
+// Explicit press feedback for the constellation list rows: a brief
+// highlight/scale pulse plus a light haptic tick where the browser
+// supports it (mainly Android Chrome — no-op elsewhere).
+function pulseTapFeedback(el) {
+  el.classList.remove('is-tapped');
+  void el.offsetWidth; // restart the transition if tapped again quickly
+  el.classList.add('is-tapped');
+  setTimeout(() => el.classList.remove('is-tapped'), 220);
+  if (navigator.vibrate) navigator.vibrate(8);
 }
 
 /*----- tap-to-locate: highlight a constellation's anchor star in the live sky -----*/
@@ -375,8 +479,7 @@ function highlightConstellation(name) {
 
   const overlay = document.getElementById('sky-overlay');
   const img = document.getElementById('sky-render-img');
-  const stage = document.querySelector('.sky-stage');
-  if (!overlay || !img || !stage || !img.naturalWidth) return;
+  if (!overlay || !img || !img.naturalWidth) return;
 
   const entry = latestOverlayData && Array.isArray(latestOverlayData.constellations)
     ? latestOverlayData.constellations.find(c => c.name === name)
@@ -387,17 +490,18 @@ function highlightConstellation(name) {
     return;
   }
 
-  const cover = computeCoverRect(img.naturalWidth, img.naturalHeight, stage.clientWidth, stage.clientHeight);
-  const { leftPct, topPct } = renderSpaceToPercent(
-    entry.x, entry.y, img.naturalWidth, img.naturalHeight, cover, stage.clientWidth, stage.clientHeight
-  );
+  const { x, y } = skyToPanPixels(entry.x, entry.y, img.naturalWidth, img.naturalHeight, skyLayout.scale);
 
   const glow = document.createElement('div');
   glow.className = 'sky-constellation-glow';
-  glow.style.left = `${leftPct}%`;
-  glow.style.top = `${topPct}%`;
+  glow.style.left = `${x}px`;
+  glow.style.top = `${y}px`;
   overlay.appendChild(glow);
   setTimeout(() => glow.remove(), 6000);
+
+  // if dragging had panned this part of the sky off-screen, bring it back
+  // into view so the glow it just placed is actually visible
+  panToPanX(x);
 }
 
 function openConstellationUnavailableNote(name) {
