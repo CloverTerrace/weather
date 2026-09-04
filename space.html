@@ -9,74 +9,87 @@
 </head>
 <body id="space-page">
 
-  <!-- live sky render + HUD overlay, sits behind everything else -->
+  <!-- live sky render + HUD overlay, pinned to the viewport, sits behind everything else -->
   <div class="sky-stage" aria-hidden="true">
     <img id="sky-render-img" class="sky-render-img" alt="">
     <div id="sky-overlay" class="sky-overlay"></div>
   </div>
 
-  <!-- shared navbar -->
-  <nav class="site-nav" aria-label="Clover Terrace Weather sections">
-      <a href="index.html" class="nav-brand">
-        <img src="icons/cloverwx.png" alt="" class="nav-brand-icon">
-        <span></span>
-      </a>
+  <!-- Full-width alert bar, only shown when the Kp index is high enough that aurora is actually likely -->
+  <button type="button" id="kp-alert-bar" class="kp-alert-bar hidden">
+    <svg class="kp-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+    <span class="kp-alert-copy">
+      <strong id="kp-alert-headline" class="kp-alert-headline"></strong>
+      <span id="kp-alert-body" class="kp-alert-body"></span>
+    </span>
+  </button>
 
-      <div class="nav-links">
-          <a href="index.html" data-page="index.html">
-            <img src="icons/thunderstorms-extreme.svg" alt="" class="nav-icon">Home
-          </a>
-          <a href="gardening.html" data-page="gardening.html">
-            <img src="icons/pollen-flower.svg" alt="" class="nav-icon">Garden
-          </a>
-          <button type="button" class="nav-soon" data-coming-soon="Soundings">
-            <img src="icons/windsock.svg" alt="" class="nav-icon">Soundings
-          </button>
-          <a href="space.html" data-page="space.html">
-            <img src="icons/star.svg" alt="" class="nav-icon">Space
-          </a>
-      </div>
-  </nav>
-
-  <!-- Floating Modal for Clicked Celestial Bodies -->
+  <!-- Floating Modal for clicked celestial bodies and Kp detail -->
   <div id="celestial-modal" class="space-card glass-modal hidden" aria-hidden="true">
     <button id="close-modal" class="close-btn" aria-label="Close">&times;</button>
     <div id="modal-content"></div>
   </div>
 
-  <!-- Bottom Drawer for General Info -->
-  <main id="info-drawer" class="bottom-drawer">
-    <div class="drawer-drag-handle"></div>
-    
-    <header class="space-header">
-      <h1>Stargazing & Space Weather</h1>
-      <p id="apod-title"></p>
-    </header>
+  <!-- Dockable chrome: navbar + title + swipeable info cards, as one snap unit.
+       Scrolling down slides this whole block away to reveal the full sky. -->
+  <div class="sky-dock" id="sky-dock">
 
-    <div class="space-grid drawer-grid">
-      <!-- 1. Constellations take priority -->
-      <section class="space-card sky-card">
-        <h2>Tonight's Constellations</h2>
-        <ul id="constellation-list" class="constellation-list">
-          <li>Checking seasonal constellations...</li>
-        </ul>
-      </section>
+    <!-- shared navbar -->
+    <nav class="site-nav" aria-label="Clover Terrace Weather sections">
+        <a href="index.html" class="nav-brand">
+          <img src="icons/cloverwx.png" alt="" class="nav-brand-icon">
+          <span></span>
+        </a>
 
-      <!-- 2. Kp Index moved down -->
-      <section class="space-card kp-card">
-        <h2>Geomagnetic Kp Index</h2>
-        <div class="kp-glance">
-          <div class="metric-value" id="kp-value">--</div>
-          <div class="kp-chip" id="kp-chip" data-level="unknown">Fetching solar activity...</div>
+        <div class="nav-links">
+            <a href="index.html" data-page="index.html">
+              <img src="icons/thunderstorms-extreme.svg" alt="" class="nav-icon">Home
+            </a>
+            <a href="gardening.html" data-page="gardening.html">
+              <img src="icons/pollen-flower.svg" alt="" class="nav-icon">Garden
+            </a>
+            <button type="button" class="nav-soon" data-coming-soon="Soundings">
+              <img src="icons/windsock.svg" alt="" class="nav-icon">Soundings
+            </button>
+            <a href="space.html" data-page="space.html">
+              <img src="icons/star.svg" alt="" class="nav-icon">Space
+            </a>
         </div>
-        <div class="kp-sparkline" id="kp-sparkline" aria-label="Recent Kp index trend"></div>
-        <p class="kp-note" id="kp-dark-note"></p>
-      </section>
+    </nav>
+
+    <div class="sky-chrome" id="sky-chrome">
+      <main id="sky-content">
+        <header class="space-header">
+          <h1>Stargazing &amp; Space Weather</h1>
+        </header>
+
+        <section class="sky-card-row-wrap">
+          <button type="button" class="card-arrow card-arrow-left" id="card-arrow-left" aria-label="Previous card">&lsaquo;</button>
+          <div class="sky-card-row" id="sky-card-row">
+            <article class="sky-card">
+              <h2>Tonight's Constellations</h2>
+              <ul id="constellation-list" class="constellation-list">
+                <li>Checking seasonal constellations...</li>
+              </ul>
+            </article>
+          </div>
+          <button type="button" class="card-arrow card-arrow-right" id="card-arrow-right" aria-label="Next card">&rsaquo;</button>
+        </section>
+
+        <button type="button" id="kp-elevated-bar" class="kp-elevated-bar hidden">
+          <svg class="kp-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          <span id="kp-elevated-text"></span>
+        </button>
+
+        <p class="scroll-hint">Scroll for the full sky &darr;</p>
+      </main>
     </div>
-  </main>
+  </div>
+
+  <div class="sky-reveal-spacer" aria-hidden="true"></div>
 
   <script src="js/navigation.js"></script>
-  <script src="js/space.js?v=5"></script>
-  
+  <script src="js/space.js?v=6"></script>
+
 </body>
 </html>
