@@ -10,8 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', debounce(() => {
     renderSkyOverlay();
     updateCardArrowVisibility();
+    updateActiveCardHeight();
   }, 150));
-  window.addEventListener('orientationchange', debounce(renderSkyOverlay, 150));
+  window.addEventListener('orientationchange', debounce(() => {
+    renderSkyOverlay();
+    updateActiveCardHeight();
+  }, 150));
   setInterval(loadLiveSky, SKY_REFRESH_MS);
   setInterval(fetchKpIndex, SKY_REFRESH_MS);
 });
@@ -59,6 +63,15 @@ async function loadLiveSky() {
   if (latestAuroraData) updateKpUI(latestAuroraData);
 }
 
+// Filling the viewport height exactly (scale=1:1 crop) is what the old
+// object-fit:cover behavior did too, so this isn't new — but it does mean
+// on a narrow phone only a fairly tight vertical slice of the render is
+// ever visible. Backing off slightly lets a bit more sky show at once
+// (small top/bottom letterbox, same navy as the render's own background so
+// it's not visually obvious). Tune this number — or set it back to 1 — once
+// you've seen it against the real generated sky-bg.png.
+const SKY_FIT_PADDING = 0.85;
+
 // Chooses a pane size that always fully fills the viewport's height (so
 // nothing is cropped top/bottom) and, when the viewport is narrower than
 // that, leaves the extra image width pannable rather than cropping the
@@ -66,9 +79,9 @@ async function loadLiveSky() {
 // top/bottom, matching the old cover behavior) for the rare case of a
 // viewport wider than the image even after a height-fill.
 function computeSkyLayout(naturalW, naturalH, containerW, containerH) {
-  let scale = containerH / naturalH;
+  let scale = (containerH / naturalH) * SKY_FIT_PADDING;
   let paneWidth = naturalW * scale;
-  let paneHeight = containerH;
+  let paneHeight = naturalH * scale;
   if (paneWidth < containerW) {
     scale = containerW / naturalW;
     paneWidth = containerW;
@@ -273,7 +286,25 @@ function setupCardArrows() {
 
   left.addEventListener('click', () => row.scrollBy({ left: -row.clientWidth, behavior: 'smooth' }));
   right.addEventListener('click', () => row.scrollBy({ left: row.clientWidth, behavior: 'smooth' }));
+  row.addEventListener('scroll', debounce(updateActiveCardHeight, 80), { passive: true });
   updateCardArrowVisibility();
+  updateActiveCardHeight();
+}
+
+// Sizes the row (and, in turn, the dock + its scrim above it, since they
+// simply follow the row's natural content height) to whichever card is
+// currently swiped into view — not the tallest card in the carousel — so
+// unused vertical space always reads as sky rather than leftover scrim.
+function updateActiveCardHeight() {
+  const row = document.getElementById('sky-card-row');
+  if (!row || !row.children.length) return;
+  const width = row.clientWidth || 1;
+  const index = Math.round(row.scrollLeft / width);
+  const clamped = Math.max(0, Math.min(row.children.length - 1, index));
+  const active = row.children[clamped];
+  if (active) {
+    row.style.height = `${active.scrollHeight}px`;
+  }
 }
 
 function updateCardArrowVisibility() {
@@ -440,6 +471,7 @@ function getVisibleConstellations() {
   if (names.length === 0) {
     list.innerHTML = `<li>None of the tracked constellations are above the horizon right now.</li>`;
     updateCardArrowVisibility();
+    updateActiveCardHeight();
     return;
   }
 
@@ -460,6 +492,7 @@ function getVisibleConstellations() {
   });
 
   updateCardArrowVisibility();
+  updateActiveCardHeight();
 }
 
 // Explicit press feedback for the constellation list rows: a brief
