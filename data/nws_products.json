@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T23:55:35.209604Z",
+  "generatedAt": "2026-09-04T00:00:47.551759Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.fce49cadee950c665f5d97e3ce0e932ed25cc569.002.1",
@@ -122,6 +122,25 @@
   ],
   "statements": [
     {
+      "id": "427188c2-bfbe-45c1-9af8-e039b83d2443",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-03T23:57:00+00:00",
+      "expires": null,
+      "location": "Belmont OH-Carroll OH-Harrison OH-Jefferson OH-Tuscarawas OH",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins Ferry, Uhrichsville, St. Clairsville, Bellaire, Cadiz, Warwood, Wellsburg, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Toronto, Wintersville, Shadyside and Mingo Junction.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Wheeling, Weirton, Steubenville, Martins Ferry, Uhrichsville, St. Clairsville, Bellaire, Cadiz, Warwood, Wellsburg, Bethlehem, West Liberty, Triadelphia, Avella, Clearview, Valley Grove, Toronto, Wintersville, Shadyside and Mingo Junction."
+        }
+      ],
+      "url": "https://api.weather.gov/products/427188c2-bfbe-45c1-9af8-e039b83d2443"
+    },
+    {
       "id": "ac6d9704-4750-475f-a70a-0291f821fd62",
       "type": "Non-Precipitation Warnings / Watches / Advisories",
       "office": "KPBZ",
@@ -158,63 +177,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/c78d5233-0090-4c60-a541-0fa14f1cdb8f"
-    },
-    {
-      "id": "dee99952-202a-44dd-b6f6-82f7410d37a4",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:37:00+00:00",
-      "expires": null,
-      "location": "Fayette PA-Indiana PA-Westmoreland PA",
-      "hazard": "PAC051-063-129-032347- /O.EXP.KPBZ.SV.W.0349.000000T0000Z-260903T2345Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC051-063-129-032347- /O.EXP.KPBZ.SV.W.0349.000000T0000Z-260903T2345Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 737 PM EDT Thu Sep 3 2026 PAC051-063-129-032347- /O.EXP.KPBZ.SV.W.0349.000000T0000Z-260903T2345Z/ Fayette PA-Indiana PA-Westmoreland PA- 737 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/dee99952-202a-44dd-b6f6-82f7410d37a4"
-    },
-    {
-      "id": "7643c45d-cb3e-4512-95b4-9eb6933ad399",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:35:00+00:00",
-      "expires": null,
-      "location": "Lawrence PA-Mercer PA-Venango PA",
-      "hazard": "PAC073-085-121-032345- /O.EXP.KPBZ.SV.W.0348.000000T0000Z-260903T2345Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC073-085-121-032345- /O.EXP.KPBZ.SV.W.0348.000000T0000Z-260903T2345Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 735 PM EDT Thu Sep 3 2026 PAC073-085-121-032345- /O.EXP.KPBZ.SV.W.0348.000000T0000Z-260903T2345Z/ Lawrence PA-Mercer PA-Venango PA- 735 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/7643c45d-cb3e-4512-95b4-9eb6933ad399"
-    },
-    {
-      "id": "a5fed65b-b17f-491b-ac90-7401c514bfdf",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-03T23:33:00+00:00",
-      "expires": null,
-      "location": "Fayette PA-Indiana PA-Westmoreland PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Seven Springs, New Florence, Seward, Laurel Mountain, Armagh, Champion, Indian Head,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Seven Springs, New Florence, Seward, Laurel Mountain, Armagh, Champion, Indian Head, Laurel Mountain State Park, Jones Mills and Normalville.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Seven Springs, New Florence, Seward, Laurel Mountain, Armagh, Champion, Indian Head, Laurel Mountain State Park, Jones Mills and Normalville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/a5fed65b-b17f-491b-ac90-7401c514bfdf"
     }
   ]
 }
