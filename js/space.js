@@ -331,14 +331,57 @@ function getVisibleConstellations() {
 
   list.innerHTML = seasonal[season].map(name => {
     const info = CONSTELLATION_INFO[name];
-    if (!info) return `<li><span class="constellation-name">${name}</span></li>`;
-    return `<li>
+    if (!info) return `<li data-name="${name}"><span class="constellation-name">${name}</span></li>`;
+    return `<li data-name="${name}">
       <span class="constellation-name">${name}</span>
       <span class="constellation-fact">Brightest: ${info.star} (mag ${info.mag}) — ${info.fact}</span>
     </li>`;
   }).join('');
 
+  list.querySelectorAll('li[data-name]').forEach(li => {
+    li.addEventListener('click', () => highlightConstellation(li.dataset.name));
+  });
+
   updateCardArrowVisibility();
+}
+
+/*----- tap-to-locate: highlight a constellation's anchor star in the live sky -----*/
+function highlightConstellation(name) {
+  document.querySelectorAll('.sky-constellation-glow').forEach(el => el.remove());
+
+  const overlay = document.getElementById('sky-overlay');
+  const img = document.getElementById('sky-render-img');
+  const stage = document.querySelector('.sky-stage');
+  if (!overlay || !img || !stage || !img.naturalWidth) return;
+
+  const entry = latestOverlayData && Array.isArray(latestOverlayData.constellations)
+    ? latestOverlayData.constellations.find(c => c.name === name)
+    : null;
+
+  if (!entry || entry.x === null || entry.x === undefined || entry.y === null || entry.y === undefined) {
+    openConstellationUnavailableNote(name);
+    return;
+  }
+
+  const cover = computeCoverRect(img.naturalWidth, img.naturalHeight, stage.clientWidth, stage.clientHeight);
+  const { leftPct, topPct } = renderSpaceToPercent(
+    entry.x, entry.y, img.naturalWidth, img.naturalHeight, cover, stage.clientWidth, stage.clientHeight
+  );
+
+  const glow = document.createElement('div');
+  glow.className = 'sky-constellation-glow';
+  glow.style.left = `${leftPct}%`;
+  glow.style.top = `${topPct}%`;
+  overlay.appendChild(glow);
+  setTimeout(() => glow.remove(), 6000);
+}
+
+function openConstellationUnavailableNote(name) {
+  modal.classList.remove('hidden');
+  modalContent.innerHTML = `
+    <h2 style="color: #a5c0ee; margin-top: 0;">${name}</h2>
+    <p style="font-size: 0.9rem;">Not currently above the horizon from here.</p>
+  `;
 }
 
 function formatLocalTime(iso) {
