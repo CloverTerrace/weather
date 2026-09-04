@@ -8,11 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
   setupSkyPan();
 
   window.addEventListener('resize', debounce(() => {
+    clearConstellationHighlight();
+    revertConstellationZoom();
     renderSkyOverlay();
     updateCardArrowVisibility();
     updateActiveCardHeight();
   }, 150));
   window.addEventListener('orientationchange', debounce(() => {
+    clearConstellationHighlight();
+    revertConstellationZoom();
     renderSkyOverlay();
     updateActiveCardHeight();
   }, 150));
@@ -230,6 +234,9 @@ function setupSkyPan() {
   let startPanX = 0;
 
   viewport.addEventListener('pointerdown', (e) => {
+    // dragging always wins over an in-progress constellation callout — snap
+    // straight back to the normal view so panning is never blocked by it
+    if (constellationZoomActive) revertConstellationZoom();
     if (!pan.classList.contains('is-pannable')) return;
     dragging = true;
     userHasPanned = true;
@@ -506,9 +513,25 @@ function pulseTapFeedback(el) {
   if (navigator.vibrate) navigator.vibrate(8);
 }
 
-/*----- tap-to-locate: highlight a constellation's anchor star in the live sky -----*/
+/*----- tap-to-locate: trace the constellation's actual shape in the live sky -----*/
+const CONSTELLATION_HIGHLIGHT_MS = 7000;
+const CONSTELLATION_ZOOM = 1.6;
+let constellationHighlightTimeout = null;
+let constellationZoomActive = false;
+let preZoomPanX = 0;
+let preZoomTop = '';
+
+function clearConstellationHighlight() {
+  document.querySelectorAll('.sky-constellation-glow, .sky-constellation-highlight').forEach(el => el.remove());
+  if (constellationHighlightTimeout) {
+    clearTimeout(constellationHighlightTimeout);
+    constellationHighlightTimeout = null;
+  }
+}
+
 function highlightConstellation(name) {
-  document.querySelectorAll('.sky-constellation-glow').forEach(el => el.remove());
+  clearConstellationHighlight();
+  revertConstellationZoom();
 
   const overlay = document.getElementById('sky-overlay');
   const img = document.getElementById('sky-render-img');
@@ -518,23 +541,131 @@ function highlightConstellation(name) {
     ? latestOverlayData.constellations.find(c => c.name === name)
     : null;
 
-  if (!entry || entry.x === null || entry.x === undefined || entry.y === null || entry.y === undefined) {
+  const stars = entry && Array.isArray(entry.stars) ? entry.stars : [];
+  const visibleStars = stars
+    .map((s, i) => ({ x: s.x, y: s.y, i }))
+    .filter(s => s.x !== null && s.x !== undefined && s.y !== null && s.y !== undefined);
+
+  if (visibleStars.length === 0) {
     openConstellationUnavailableNote(name);
     return;
   }
 
-  const { x, y } = skyToPanPixels(entry.x, entry.y, img.naturalWidth, img.naturalHeight, skyLayout.scale);
+  // pixel positions for every visible star, in unscaled .sky-pan local space
+  const points = visibleStars.map(s => {
+    const p = skyToPanPixels(s.x, s.y, img.naturalWidth, img.naturalHeight, skyLayout.scale);
+    return { i: s.i, x: p.x, y: p.y };
+  });
 
-  const glow = document.createElement('div');
-  glow.className = 'sky-constellation-glow';
-  glow.style.left = `${x}px`;
-  glow.style.top = `${y}px`;
-  overlay.appendChild(glow);
-  setTimeout(() => glow.remove(), 6000);
+  const xs = points.map(p => p.x);
+  const ys = points.map(p => p.y);
+  const minX = Math.min(...xs), maxX = Math.max(...xs);
+  const minY = Math.min(...ys), maxY = Math.max(...ys);
+  const cx = (minX + maxX) / 2;
+  const cy = (minY + maxY) / 2;
+  const pad = 32; // breathing room around the outermost stars for the ambient glow
 
-  // if dragging had panned this part of the sky off-screen, bring it back
-  // into view so the glow it just placed is actually visible
-  panToPanX(x);
+  const container = document.createElement('div');
+  container.className = 'sky-constellation-highlight';
+  const boxWidth = (maxX - minX) + pad * 2;
+  const boxHeight = (maxY - minY) + pad * 2;
+  container.style.left = `${minX - pad}px`;
+  container.style.top = `${minY - pad}px`;
+  container.style.width = `${boxWidth}px`;
+  container.style.height = `${boxHeight}px`;
+
+  const fieldGlow = document.createElement('div');
+  fieldGlow.className = 'sky-constellation-field-glow';
+  container.appendChild(fieldGlow);
+
+  // faint connecting lines tracing the shape — only between stars that are
+  // actually above the horizon right now
+  const validIndices = new Set(visibleStars.map(s => s.i));
+  const byIndex = new Map(points.map(p => [p.i, p]));
+  const lines = (entry.lines || []).filter(([a, b]) => validIndices.has(a) && validIndices.has(b));
+
+  if (lines.length) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'sky-constellation-lines');
+    svg.style.width = `${boxWidth}px`;
+    svg.style.height = `${boxHeight}px`;
+    lines.forEach(([a, b], idx) => {
+      const p1 = byIndex.get(a), p2 = byIndex.get(b);
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', p1.x - minX + pad);
+      line.setAttribute('y1', p1.y - minY + pad);
+      line.setAttribute('x2', p2.x - minX + pad);
+      line.setAttribute('y2', p2.y - minY + pad);
+      line.style.animationDelay = `${idx * 90}ms`;
+      svg.appendChild(line);
+    });
+    container.appendChild(svg);
+  }
+
+  // small twinkling dot per star, on top of the lines, staggered so they
+  // don't all pulse in lockstep
+  points.forEach((p, idx) => {
+    const dot = document.createElement('div');
+    dot.className = 'sky-constellation-star';
+    dot.style.left = `${p.x - minX + pad}px`;
+    dot.style.top = `${p.y - minY + pad}px`;
+    dot.style.animationDelay = `${idx * 220}ms`;
+    container.appendChild(dot);
+  });
+
+  overlay.appendChild(container);
+  constellationHighlightTimeout = setTimeout(() => {
+    clearConstellationHighlight();
+    revertConstellationZoom();
+  }, CONSTELLATION_HIGHLIGHT_MS);
+
+  // bring it into view if dragging had panned it off-screen; for shapes
+  // small enough on screen to be hard to read, zoom in on them briefly too
+  const zoomed = zoomToConstellation(cx, cy, maxX - minX, maxY - minY);
+  if (!zoomed) panToPanX(cx);
+}
+
+// Briefly scales up .sky-pan (image + overlay together, so the highlighted
+// shape stays pixel-aligned with the real stars under it) centered on the
+// constellation's own midpoint, so a shape that's cramped at normal scale
+// is easier to read. Centering on that exact point first — before scaling —
+// means the zoom only ever reveals more of the area already in view, never
+// content the pan/scroll model can't reach, so full sky panning still works
+// exactly as before once the callout ends. Returns whether it zoomed.
+function zoomToConstellation(cx, cy, spanX, spanY) {
+  const viewport = document.getElementById('sky-viewport');
+  const pan = document.getElementById('sky-pan');
+  if (!viewport || !pan) return false;
+
+  const containerW = viewport.clientWidth;
+  const containerH = viewport.clientHeight;
+  const largestSpan = Math.max(spanX, spanY, 1);
+  if (largestSpan > Math.min(containerW, containerH) * 0.5) return false; // already legible at normal scale
+
+  preZoomPanX = panX;
+  preZoomTop = pan.style.top;
+
+  panX = clampPanX(containerW / 2 - cx, skyLayout.paneWidth, containerW);
+  const topOffset = containerH / 2 - cy;
+
+  pan.classList.add('is-zooming');
+  pan.style.top = `${topOffset}px`;
+  pan.style.transformOrigin = `${cx}px ${cy}px`;
+  pan.style.transform = `translateX(${panX}px) scale(${CONSTELLATION_ZOOM})`;
+  constellationZoomActive = true;
+  return true;
+}
+
+function revertConstellationZoom() {
+  if (!constellationZoomActive) return;
+  const pan = document.getElementById('sky-pan');
+  constellationZoomActive = false;
+  if (!pan) return;
+  panX = preZoomPanX;
+  pan.style.top = preZoomTop;
+  pan.style.transform = `translateX(${panX}px) scale(1)`;
+  pan.style.transformOrigin = '';
+  setTimeout(() => pan.classList.remove('is-zooming'), 650); // let the zoom-out transition finish first
 }
 
 function openConstellationUnavailableNote(name) {
@@ -580,6 +711,8 @@ document.getElementById('space-page').addEventListener('scroll', () => {
   if (!modal.classList.contains('hidden')) {
     modal.classList.add('hidden');
   }
+  clearConstellationHighlight();
+  revertConstellationZoom();
 }, { passive: true });
 
 document.addEventListener('click', (e) => {
