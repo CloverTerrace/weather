@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T17:10:56.785449Z",
+  "generatedAt": "2026-09-04T17:16:00.560536Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.ecf92c5b9e07572b579851f789d232608424e153.001.1",
@@ -25,5 +25,25 @@
     }
   ],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "993495b7-e9fe-4456-a8e5-f2b016a03e6f",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T17:11:00+00:00",
+      "expires": null,
+      "location": "Noble OH",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Dudley, Dexter City and Harriettsville.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Dudley, Dexter City and Harriettsville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Dudley, Dexter City and Harriettsville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/993495b7-e9fe-4456-a8e5-f2b016a03e6f"
+    }
+  ]
 }
