@@ -1,29 +1,68 @@
 {
-  "generatedAt": "2026-09-04T19:50:56.980574Z",
-  "watches": [
+  "generatedAt": "2026-09-04T21:06:36.647981Z",
+  "watches": [],
+  "mesoscaleDiscussions": [],
+  "statements": [
     {
-      "id": "urn:oid:2.49.0.1.840.0.ecf92c5b9e07572b579851f789d232608424e153.001.1",
-      "type": "Flood Watch",
-      "number": null,
-      "issued": "2026-09-04T09:35:00-04:00",
-      "expires": "2026-09-04T17:45:00-04:00",
-      "location": "Tuscarawas; Carroll; Columbiana; Coshocton; Harrison; Jefferson; Muskingum; Guernsey; Belmont; Noble; Monroe; Beaver; Allegheny; Washington; Greene; Westmoreland; Westmoreland Ridges; Fayette; Fayette Ridges; Hancock; Brooke; Ohio; Marshall; Wetzel; Marion; Monongalia; Ridges of Eastern Monongalia and Northwestern Preston; Preston; Eastern Preston",
+      "id": "408cc4d4-6234-4dc0-8718-1170fa63f0b7",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-09-04T20:46:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... The Flood Watch and Severe Thunderstorm Watch have both been",
       "distanceMiles": null,
-      "summary": "Flood Watch issued September 4 at 9:35AM EDT until September 5 at 8:00AM EDT by NWS Pittsburgh PA",
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... The Flood Watch and Severe Thunderstorm Watch have both been",
       "details": [
         {
-          "label": "Areas",
-          "text": "Tuscarawas; Carroll; Columbiana; Coshocton; Harrison; Jefferson; Muskingum; Guernsey; Belmont; Noble; Monroe; Beaver; Allegheny; Washington; Greene; Westmoreland; Westmoreland Ridges; Fayette; Fayette Ridges; Hancock; Brooke; Ohio; Marshall; Wetzel; Marion; Monongalia; Ridges of Eastern Monongalia and Northwestern Preston; Preston; Eastern Preston"
-        },
-        {
-          "label": "Instructions",
-          "text": "You should monitor later forecasts and be prepared to take action\nshould Flash Flood Warnings be issued."
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 446 PM EDT Fri Sep 4 2026 .WHAT HAS CHANGED... The Flood Watch and Severe Thunderstorm Watch have both been canceled. The remainder of the Friday daytime hours should be dry. Uncertainty on timing/location of additional overnight"
         }
       ],
-      "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ecf92c5b9e07572b579851f789d232608424e153.001.1",
-      "office": "NWS Pittsburgh PA"
+      "url": "https://api.weather.gov/products/408cc4d4-6234-4dc0-8718-1170fa63f0b7"
+    },
+    {
+      "id": "a8aa6248-34eb-430e-b3b1-97a787f3702e",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-09-04T20:45:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... THe Flood Watch and Severe Thunderstorm Watch have both been",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... THe Flood Watch and Severe Thunderstorm Watch have both been",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 445 PM EDT Fri Sep 4 2026 .WHAT HAS CHANGED... THe Flood Watch and Severe Thunderstorm Watch have both been canceled. The remainder of the Friday daytime hours should be dry. Uncertainty on timing/location of additional overnight"
+        }
+      ],
+      "url": "https://api.weather.gov/products/a8aa6248-34eb-430e-b3b1-97a787f3702e"
+    },
+    {
+      "id": "a595eec8-24a8-40cb-94ed-8c8165ddf20e",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-09-04T20:36:00+00:00",
+      "expires": null,
+      "location": "Carroll-Columbiana-Harrison-Jefferson OH-Belmont-Monroe-Mercer-Venango-Forest-Lawrence-Butler-Clarion-Jefferson PA-Beaver-Allegheny-Armstrong-Washington-Greene-Westmoreland",
+      "hazard": "Tonight. The probability for widespread hazardous weather is low.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Tonight. The probability for widespread hazardous weather is low.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Tonight. The probability for widespread hazardous weather is low."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Saturday through Thursday. No hazardous weather is expected at this time."
+        }
+      ],
+      "url": "https://api.weather.gov/products/a595eec8-24a8-40cb-94ed-8c8165ddf20e"
     }
-  ],
-  "mesoscaleDiscussions": [],
-  "statements": []
+  ]
 }
