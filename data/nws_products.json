@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T18:31:00.588781Z",
+  "generatedAt": "2026-09-04T18:36:00.556794Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.ecf92c5b9e07572b579851f789d232608424e153.001.1",
@@ -78,6 +78,25 @@
   ],
   "statements": [
     {
+      "id": "12ce2892-87e7-4162-ad92-ea2da6f9da95",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T18:34:00+00:00",
+      "expires": null,
+      "location": "Tucker WV",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Mainly rural areas of East Central Tucker County.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Mainly rural areas of East Central Tucker County.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Mainly rural areas of East Central Tucker County."
+        }
+      ],
+      "url": "https://api.weather.gov/products/12ce2892-87e7-4162-ad92-ea2da6f9da95"
+    },
+    {
       "id": "64f35169-def8-4a43-8bb7-d1c1ef227f15",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -114,29 +133,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/c2ddf0a3-e964-41c0-99dc-a23f44a3ced1"
-    },
-    {
-      "id": "35181b9c-4982-4e41-9053-e10413285e2a",
-      "type": "Hazardous Weather Outlook",
-      "office": "KPBZ",
-      "issued": "2026-09-04T18:06:00+00:00",
-      "expires": null,
-      "location": "Western Tucker-Eastern Tucker",
-      "hazard": "This afternoon and tonight. Showers and thunderstorms are expected again this afternoon.Some storms could be severe. Damaging wind is the primary threat, but",
-      "distanceMiles": null,
-      "headline": "Hazardous Weather Outlook",
-      "summary": "This afternoon and tonight. Showers and thunderstorms are expected again this afternoon.Some storms could be severe. Damaging wind is the primary threat, but large hail is also a possibility. Also, localized flooding is possible in areas that receive multiple thunderstorms.",
-      "details": [
-        {
-          "label": "Today's Hazards",
-          "text": "This afternoon and tonight. Showers and thunderstorms are expected again this afternoon.Some storms could be severe. Damaging wind is the primary threat, but large hail is also a possibility. Also, localized flooding is possible in areas that receive multiple thunderstorms."
-        },
-        {
-          "label": "Extended Outlook",
-          "text": "Saturday through Thursday. No hazardous weather is expected at this time."
-        }
-      ],
-      "url": "https://api.weather.gov/products/35181b9c-4982-4e41-9053-e10413285e2a"
     }
   ]
 }
