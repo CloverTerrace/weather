@@ -1,10 +1,42 @@
 /* Space Page Layout & Live Sky Styling */
+html {
+  scroll-snap-type: y mandatory;
+  background: #0b0d17;
+}
+
 #space-page {
   min-height: 100vh;
   margin: 0;
   background-color: transparent;
   color: #f6f8fa;
   font-family: 'Figtree', sans-serif;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#space-page::-webkit-scrollbar {
+  display: none;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'SF Distant Galaxy';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/SF Distant Galaxy.woff2') format('woff2'); 
+}
+
+/* figtree-regular - latin 🍀*/
+@font-face {
+  font-display: swap;
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/figtree-v9-latin-regular.woff2') format('woff2');
 }
 
 /*----- live sky render + HUD overlay -----*/
@@ -45,7 +77,11 @@
   gap: 0.3rem;
   pointer-events: auto;
   opacity: 1 !important;
-  transition: opacity 0.8s ease;
+  transition: opacity 0.8s ease, transform 0.2s ease;
+}
+
+.sky-marker:hover {
+  transform: translate(-50%, -50%) scale(1.1);
 }
 
 .sky-marker.is-shown {
@@ -73,9 +109,56 @@
 }
 
 .sky-marker[data-type="sun"] { --marker-color: #f4b942; }
-.sky-marker[data-type="moon"] { --marker-color: #d8dee9; }
 .sky-marker[data-type="planet"] { --marker-color: #9fd8a0; }
 .sky-marker[data-type="satellite"] { --marker-color: #6fd6d6; }
+
+/*----- constellation highlight glow (tap-to-locate from the info card) -----*/
+.sky-constellation-glow {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(165, 192, 238, 0.5) 45%, transparent 75%);
+  animation: constellation-twinkle 1.4s ease-in-out infinite;
+}
+
+@keyframes constellation-twinkle {
+  0%, 100% { opacity: 0.55; transform: translate(-50%, -50%) scale(0.85); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+/*----- moon marker: real shaded phase disk instead of a plain dot -----*/
+.moon-disk {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  background: #1c2033;
+  box-shadow: 0 0 8px 1px rgba(216, 222, 233, 0.35);
+}
+
+.moon-lit-half {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  background: #e7ebf2;
+}
+
+.moon-lit-half.waxing { right: 0; }
+.moon-lit-half.waning { left: 0; }
+
+.moon-terminator {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
 
 .sky-cardinal {
   position: absolute;
@@ -87,48 +170,291 @@
   pointer-events: none;
 }
 
-.space-container {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+/*----- Kp alert tiers -----*/
+/* Tier 1 (quiet): nothing renders at all. */
+
+/* Tier 2 (elevated/watch): a small always-visible bar below the card row, part of the dockable chrome. */
+.kp-elevated-bar {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.6rem 1.1rem 0;
+  background: rgba(160, 120, 40, 0.35);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  color: #fce8c2;
+}
+
+.kp-elevated-bar .kp-icon { color: #fbbf24; flex-shrink: 0; }
+
+.kp-elevated-bar.hidden { display: none; }
+
+/* Tier 3 (severe): full-width pinned alert bar, same treatment as a site weather alert. */
+.kp-alert-bar {
+  all: unset;
+  cursor: pointer;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1.25rem;
+  background: linear-gradient(90deg, rgba(133, 92, 24, 0.96), rgba(163, 110, 20, 0.96));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.kp-alert-bar .kp-icon { color: #fce8c2; flex-shrink: 0; }
+
+.kp-alert-bar.hidden { display: none; }
+
+.kp-alert-copy {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.kp-alert-headline {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fce8c2;
+}
+
+.kp-alert-body {
+  font-size: 0.75rem;
+  color: #f0d8ab;
+}
+
+/* push the whole dock (navbar included) down so it clears the fixed severe bar instead of sitting under it */
+body.kp-severe .sky-dock {
+  padding-top: 3.75rem;
+}
+
+@media (max-width: 480px) {
+  body.kp-severe .sky-dock {
+    padding-top: 4.5rem;
+  }
+}
+
+/*----- dockable chrome: navbar + title + swipeable cards, one snap unit -----*/
+.sky-dock {
+  position: relative;
+  z-index: 1;
+  scroll-snap-align: start;
+  transition: padding-top 0.2s ease;
+}
+
+.sky-chrome {
+  position: relative;
+}
+
+.sky-reveal-spacer {
+  height: 100dvh;
+  scroll-snap-align: start;
+  pointer-events: none;
 }
 
 .space-header {
   text-align: center;
-  margin-bottom: 2rem;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+  padding: 0.85rem 1rem 0.4rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
-.space-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+.space-header h1 {
+  font-family: 'SF Distant Galaxy', sans-serif;
+  letter-spacing: 0.05em;
+  font-size: clamp(1.25rem, 4.5vw, 1.8rem);
+  margin: 0;
 }
 
-.space-card {
+.scroll-hint {
+  text-align: center;
+  font-size: 0.72rem;
+  color: rgba(246, 248, 250, 0.4);
+  margin: 0.6rem 0 0;
+}
+
+/*----- swipeable card row -----*/
+.sky-card-row-wrap {
+  position: relative;
+  padding: 0.35rem 0.25rem 0;
+}
+
+.sky-card-row {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  padding: 0 2.25rem 0.35rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.sky-card-row::-webkit-scrollbar {
+  display: none;
+}
+
+.space-card,
+.sky-card {
   background: rgba(18, 22, 34, 0.65);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1.1rem;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
 }
 
-.space-card h2 {
-  font-size: 1.1rem;
+.sky-card {
+  flex: 0 0 240px;
+  scroll-snap-align: start;
+}
+
+.space-card h2,
+.sky-card h2 {
+  font-size: 1.05rem;
   margin-top: 0;
   color: #a5c0ee;
 }
 
-.metric-value {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin: 0.5rem 0;
+.card-arrow {
+  all: unset;
+  cursor: pointer;
+  position: absolute;
+  top: 42%;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(11, 13, 23, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f6f8fa;
+  font-size: 1.1rem;
+  line-height: 1;
 }
 
-.site-nav,
-.space-container {
+.card-arrow-left { left: 0.15rem; }
+.card-arrow-right { right: 0.15rem; }
+
+.card-arrow.is-disabled { display: none; }
+
+@media (pointer: coarse) {
+  .card-arrow { display: none; }
+}
+
+/*----- shared moon & modal details -----*/
+.moon-detail-list {
+  list-style: none;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+}
+
+.moon-detail-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 0.3rem;
+}
+
+.moon-detail-label {
+  color: rgba(246, 248, 250, 0.6);
+}
+
+/*----- tonight's sky card -----*/
+.constellation-list,
+.planet-list {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.constellation-list li,
+.planet-list li {
+  font-size: 0.88rem;
+}
+
+.constellation-name {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.planet-name {
+  font-weight: 600;
+}
+
+.constellation-fact,
+.planet-detail {
+  display: block;
+  font-size: 0.78rem;
+  color: rgba(246, 248, 250, 0.62);
+  margin-top: 0.1rem;
+}
+
+/*----- Kp detail modal (opened from the elevated/alert bar) -----*/
+.kp-sparkline {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 42px;
+  margin: 0.9rem 0 0.4rem;
+}
+
+.kp-bar {
+  flex: 1;
+  min-width: 4px;
+  background: var(--bar-color, #4ade80);
+  border-radius: 2px 2px 0 0;
+  opacity: 0.85;
+}
+
+.glass-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 350px;
+  z-index: 100;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.glass-modal.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #a5c0ee;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.site-nav {
   position: relative;
   z-index: 1;
 }
