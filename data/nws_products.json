@@ -1,8 +1,92 @@
 {
-  "generatedAt": "2026-09-04T03:10:37.646422Z",
+  "generatedAt": "2026-09-04T03:15:39.294595Z",
   "watches": [],
-  "mesoscaleDiscussions": [],
+  "mesoscaleDiscussions": [
+    {
+      "id": "MD2226",
+      "number": 2226,
+      "issued": "2026-09-04T03:13:00Z",
+      "expires": "2026-09-04T04:45:00Z",
+      "concerning": "Severe Thunderstorm Watch 649...652",
+      "hazard": "Severe Thunderstorm Watch 649...652",
+      "areas": "Portions of the Mid-Atlantic",
+      "location": "Portions of the Mid-Atlantic",
+      "distanceMiles": 90.2,
+      "summary": "Multiple areas of strong-to-severe thunderstorms capable of damaging winds will continue this evening and into the overnight hours",
+      "watchProbability": null,
+      "forecaster": "Marsh",
+      "attnWfos": [
+        "PHI",
+        "AKQ",
+        "LWX",
+        "PBZ",
+        "RLX"
+      ],
+      "details": [
+        {
+          "label": "Summary",
+          "text": "Multiple areas of strong-to-severe thunderstorms capable of damaging winds will continue this evening and into the overnight hours"
+        },
+        {
+          "label": "Discussion",
+          "text": "Multiple clusters of strong-to-severe thunderstorms are ongoing across portions of the Mid-Atlantic this evening and should continue into the overnight. One such cluster is the remnants of a small bowing segment that moved southeast out of Pennsylvania and is currently approaching Baltimore, MD. Another, larger cluster, is stretched along a line from easter West Virginia, northern Virginia, and parts of Maryland and moving south-southeast. A third area extends northwest to southeast from northern Virginia toward southern Chesapeake Bay area. The environment across the region remains unstable with MUCAPE ranging from 2000-3000 J/kg with deep-layer shear around 35 knots, which will be more than sufficient to sustain thunderstorms into the overnight hours. Additionally, despite low-level lapse rates being weaker than during the afternoon/evening, DCAPE values around 1000-1200 J/kg will be more than sufficient for damaging outflow winds and perhaps a couple damaging downbursts. At present the most likely corridor of damaging wind potential looks to be along and ahead of the linear MCS moving south-southeast across northern Virginia. This region looks to remain west of the developing warm-air advection showers, is largely undisturbed by previous convection, and lies ahead of a sufficiently organized MCS that has a history of producing wind damage. A southwestward extension of Severe Thunderstorm Watch #652 may be necessary"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK WIND GUST...55-70 MPH"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Marsh"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...PHI...AKQ...LWX...PBZ...RLX"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2226.html",
+      "office": "SPC"
+    }
+  ],
   "statements": [
+    {
+      "id": "b52cacd2-2000-4004-be1f-deec5dcbb30e",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T03:09:00+00:00",
+      "expires": null,
+      "location": "Tucker WV",
+      "hazard": "WVC093-040319- /O.EXP.KPBZ.SV.W.0355.000000T0000Z-260904T0315Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "WVC093-040319- /O.EXP.KPBZ.SV.W.0355.000000T0000Z-260904T0315Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 1109 PM EDT Thu Sep 3 2026 WVC093-040319- /O.EXP.KPBZ.SV.W.0355.000000T0000Z-260904T0315Z/ Tucker WV- 1109 PM EDT Thu Sep 3 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/b52cacd2-2000-4004-be1f-deec5dcbb30e"
+    },
+    {
+      "id": "ee8f5ab8-22b1-4881-8107-1b83274c3610",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T03:06:00+00:00",
+      "expires": null,
+      "location": "Tucker WV",
+      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Parsons, Hendricks, Hambleton, Elk, Red",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Parsons, Hendricks, Hambleton, Elk, Red Creek, Canaan Valley State Park, Cortland, Canaan Hgts and Pheasant Run.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Parsons, Hendricks, Hambleton, Elk, Red Creek, Canaan Valley State Park, Cortland, Canaan Hgts and Pheasant Run."
+        }
+      ],
+      "url": "https://api.weather.gov/products/ee8f5ab8-22b1-4881-8107-1b83274c3610"
+    },
     {
       "id": "6c73b547-dd78-42d6-82d0-b0f783495fef",
       "type": "Severe Weather Statement",
@@ -21,44 +105,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/6c73b547-dd78-42d6-82d0-b0f783495fef"
-    },
-    {
-      "id": "d522b18d-8a2e-4312-8837-8ad034264b55",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T02:44:00+00:00",
-      "expires": null,
-      "location": "Preston WV-Tucker WV",
-      "hazard": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Parsons, Davis, Thomas, Hendricks,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Parsons, Davis, Thomas, Hendricks, Hambleton, Hannahsville, Benbush, Blackwater Falls, Lead Mine, Elk, Davisville, Canaan Valley State Park, Red Creek, Canaan Hgts, Saint George, Cortland, Pheasant Run and Pifer Moutain.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Hail damage to vehicles is expected. Expect wind damage to roofs, siding, and trees. Locations impacted include... Parsons, Davis, Thomas, Hendricks, Hambleton, Hannahsville, Benbush, Blackwater Falls, Lead Mine, Elk, Davisville, Canaan Valley State Park, Red Creek, Canaan Hgts, Saint George, Cortland, Pheasant Run and Pifer Moutain."
-        }
-      ],
-      "url": "https://api.weather.gov/products/d522b18d-8a2e-4312-8837-8ad034264b55"
-    },
-    {
-      "id": "ff72ea6f-1e2a-4b7a-8f17-d74be791c23b",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T02:40:00+00:00",
-      "expires": null,
-      "location": "Preston WV-Tucker WV",
-      "hazard": "WVC077-093-040250- /O.EXP.KPBZ.SV.W.0356.000000T0000Z-260904T0245Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "WVC077-093-040250- /O.EXP.KPBZ.SV.W.0356.000000T0000Z-260904T0245Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 1040 PM EDT Thu Sep 3 2026 WVC077-093-040250- /O.EXP.KPBZ.SV.W.0356.000000T0000Z-260904T0245Z/ Preston WV-Tucker WV- 1040 PM EDT Thu Sep 3 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/ff72ea6f-1e2a-4b7a-8f17-d74be791c23b"
     }
   ]
 }
