@@ -48,14 +48,40 @@ html {
   background: #0b0d17;
 }
 
+.sky-viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  /* let native vertical scroll (revealing the full sky on scroll-snap) keep
+     working while our own pointer handlers own horizontal dragging */
+  touch-action: pan-y;
+}
+
+.sky-pan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}
+
+.sky-pan.is-pannable {
+  cursor: grab;
+}
+
+.sky-pan.is-panning {
+  cursor: grabbing;
+}
+
 .sky-render-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
   display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
   opacity: 0;
   transition: opacity 1.2s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 .sky-render-img.is-loaded {
@@ -251,6 +277,21 @@ body.kp-severe .sky-dock {
   transition: padding-top 0.2s ease;
 }
 
+.sky-dock::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    rgba(6, 8, 16, 0.82) 0%,
+    rgba(6, 8, 16, 0.7) 45%,
+    rgba(6, 8, 16, 0.32) 75%,
+    rgba(6, 8, 16, 0) 100%
+  );
+  pointer-events: none;
+}
+
 .sky-chrome {
   position: relative;
 }
@@ -291,9 +332,9 @@ body.kp-severe .sky-dock {
   display: flex;
   gap: 0.75rem;
   overflow-x: auto;
-  scroll-snap-type: x proximity;
+  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  padding: 0 2.25rem 0.35rem;
+  padding: 0 0.6rem 0.35rem;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -314,7 +355,8 @@ body.kp-severe .sky-dock {
 }
 
 .sky-card {
-  flex: 0 0 240px;
+  flex: 0 0 100%;
+  max-width: 100%;
   scroll-snap-align: start;
 }
 
@@ -390,6 +432,21 @@ body.kp-severe .sky-dock {
 .constellation-list li,
 .planet-list li {
   font-size: 0.88rem;
+}
+
+.constellation-list li[data-name] {
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 0.3rem 0.4rem;
+  margin: -0.3rem -0.4rem;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.constellation-list li[data-name]:active,
+.constellation-list li[data-name].is-tapped {
+  background: rgba(165, 192, 238, 0.18);
+  transform: scale(0.98);
 }
 
 .constellation-name {
