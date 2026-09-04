@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T18:30:02.630408+00:00",
+  "generated_at": "2026-09-04T17:55:37.097567+00:00",
   "location": {
     "lat": 40.610401,
     "lon": -80.277075
@@ -8,47 +8,151 @@
     {
       "name": "Sun",
       "type": "sun",
-      "alt": 53.28,
-      "az": 209.76,
-      "x": -0.1648,
-      "y": -0.2881,
+      "alt": 55.44,
+      "az": 195.68,
+      "x": -0.0841,
+      "y": -0.2995,
       "magnitude": -26.7
+    },
+    {
+      "name": "Moon",
+      "type": "moon",
+      "alt": 12.37,
+      "az": 295.44,
+      "x": -0.7264,
+      "y": 0.3456,
+      "illumination": 0.453
     },
     {
       "name": "Mercury",
       "type": "planet",
-      "alt": 54.15,
-      "az": 198.5,
-      "x": -0.1027,
-      "y": -0.3068,
-      "magnitude": -1.15
+      "alt": 54.68,
+      "az": 182.61,
+      "x": -0.0145,
+      "y": -0.3181,
+      "magnitude": -1.07
     },
     {
       "name": "Venus",
       "type": "planet",
-      "alt": 32.4,
-      "az": 154.49,
-      "x": 0.2368,
-      "y": -0.4962,
-      "magnitude": -4.65
+      "alt": 28.91,
+      "az": 146.02,
+      "x": 0.3299,
+      "y": -0.4893,
+      "magnitude": -4.66
     },
     {
       "name": "Mars",
       "type": "planet",
-      "alt": 26.91,
-      "az": 278.37,
-      "x": -0.6073,
-      "y": 0.0893,
+      "alt": 33.15,
+      "az": 273.27,
+      "x": -0.5403,
+      "y": 0.0309,
       "magnitude": 1.23
     },
     {
       "name": "Jupiter",
       "type": "planet",
-      "alt": 46.03,
-      "az": 250.59,
-      "x": -0.3808,
-      "y": -0.1342,
+      "alt": 51.46,
+      "az": 242.72,
+      "x": -0.3107,
+      "y": -0.1602,
       "magnitude": -1.81
+    },
+    {
+      "name": "Uranus",
+      "type": "planet",
+      "alt": 0.42,
+      "az": 297.9,
+      "x": -0.8773,
+      "y": 0.4644,
+      "magnitude": 5.7
+    }
+  ],
+  "constellations": [
+    {
+      "name": "Ursa Major",
+      "alt": 69.36,
+      "x": 0.1054,
+      "y": 0.1484
+    },
+    {
+      "name": "Leo",
+      "alt": 56.33,
+      "x": -0.1817,
+      "y": -0.242
+    },
+    {
+      "name": "Bo\u00f6tes",
+      "alt": 48.36,
+      "x": 0.3607,
+      "y": -0.1205
+    },
+    {
+      "name": "Cygnus",
+      "alt": 3.76,
+      "x": 0.439,
+      "y": 0.8272
+    },
+    {
+      "name": "Lyra",
+      "alt": 13.6,
+      "x": 0.6034,
+      "y": 0.5052
+    },
+    {
+      "name": "Aquila",
+      "alt": -19.59,
+      "x": null,
+      "y": null
+    },
+    {
+      "name": "Scorpius",
+      "alt": -6.85,
+      "x": null,
+      "y": null
+    },
+    {
+      "name": "Pegasus",
+      "alt": -33.94,
+      "x": null,
+      "y": null
+    },
+    {
+      "name": "Andromeda",
+      "alt": -19.54,
+      "x": null,
+      "y": null
+    },
+    {
+      "name": "Cassiopeia",
+      "alt": 8.48,
+      "x": -0.1481,
+      "y": 0.8492
+    },
+    {
+      "name": "Orion",
+      "alt": -7.89,
+      "x": null,
+      "y": null
+    },
+    {
+      "name": "Taurus",
+      "alt": 1.17,
+      "x": -0.9149,
+      "y": 0.3506
+    },
+    {
+      "name": "Gemini",
+      "alt": 43.17,
+      "x": -0.4327,
+      "y": 0.0183
+    },
+    {
+      "name": "Canis Major",
+      "alt": 2.86,
+      "x": -0.8622,
+      "y": -0.4021
     }
   ],
   "cardinal_points": {
