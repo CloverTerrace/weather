@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T18:40:58.491757Z",
+  "generatedAt": "2026-09-04T18:45:57.472308Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.ecf92c5b9e07572b579851f789d232608424e153.001.1",
@@ -78,6 +78,25 @@
   ],
   "statements": [
     {
+      "id": "d7d75e0e-6142-4537-950e-cec9805d7fb0",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-04T18:42:00+00:00",
+      "expires": null,
+      "location": "Tucker WV",
+      "hazard": "WVC093-041852- /O.CAN.KPBZ.SV.W.0359.000000T0000Z-260904T1930Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "WVC093-041852- /O.CAN.KPBZ.SV.W.0359.000000T0000Z-260904T1930Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 242 PM EDT Fri Sep 4 2026 WVC093-041852- /O.CAN.KPBZ.SV.W.0359.000000T0000Z-260904T1930Z/ Tucker WV- 242 PM EDT Fri Sep 4 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/d7d75e0e-6142-4537-950e-cec9805d7fb0"
+    },
+    {
       "id": "12ce2892-87e7-4162-ad92-ea2da6f9da95",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
@@ -114,25 +133,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/64f35169-def8-4a43-8bb7-d1c1ef227f15"
-    },
-    {
-      "id": "c2ddf0a3-e964-41c0-99dc-a23f44a3ced1",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-04T18:09:00+00:00",
-      "expires": null,
-      "location": "Marion WV-Monongalia WV",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Terra Alta, Rowlesburg, Newburg, Tunnelton, Hannahsville, Aurora, Israel, Saint",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Terra Alta, Rowlesburg, Newburg, Tunnelton, Hannahsville, Aurora, Israel, Saint George, Pifer Moutain, Cathedral State Park, Lead Mine, Fellowsville, Elgon and Silver Lake.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Terra Alta, Rowlesburg, Newburg, Tunnelton, Hannahsville, Aurora, Israel, Saint George, Pifer Moutain, Cathedral State Park, Lead Mine, Fellowsville, Elgon and Silver Lake."
-        }
-      ],
-      "url": "https://api.weather.gov/products/c2ddf0a3-e964-41c0-99dc-a23f44a3ced1"
     }
   ]
 }
