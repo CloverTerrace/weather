@@ -16,6 +16,15 @@
   src: local('JetBrains Mono'), local('SFMono-Regular'), local('Consolas');
 }
 
+/* figtree-regular - latin 🍀*/
+@font-face {
+  font-display: swap;
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/figtree-v9-latin-regular.woff2') format('woff2');
+}
+
 :root {
   --atm-bg: #0d1119;
   --atm-bg-grid: #131a26;
