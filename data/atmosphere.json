@@ -1,0 +1,332 @@
+{
+  "generated_at": "2026-09-05T18:57:08Z",
+  "model_cycle": "2026-09-05T18:00:00Z",
+  "model": "HRRR",
+  "parameters": {
+    "sbcape_j_kg": 1105.0,
+    "sbcin_j_kg": -11.0,
+    "mlcape_j_kg": 659.0,
+    "mlcin_j_kg": -6.0,
+    "srh_0_1km_m2_s2": 5.0,
+    "srh_0_3km_m2_s2": 99.0,
+    "bunkers_right_mover_kt": 5.4,
+    "shear_0_1km_kt": 1.9,
+    "shear_0_6km_kt": 38.2,
+    "lapse_rate_0_3km_c_km": 6.62,
+    "lapse_rate_700_500mb_c_km": 4.89
+  },
+  "profile": [
+    {
+      "pressure_mb": 1000.0,
+      "height_m": 109.0,
+      "temp_c": 25.9,
+      "dewpoint_c": 20.1,
+      "wind_u_kt": -1.3,
+      "wind_v_kt": -4.5
+    },
+    {
+      "pressure_mb": 975.0,
+      "height_m": 331.0,
+      "temp_c": 24.6,
+      "dewpoint_c": 18.9,
+      "wind_u_kt": -1.3,
+      "wind_v_kt": -4.6
+    },
+    {
+      "pressure_mb": 950.0,
+      "height_m": 558.0,
+      "temp_c": 22.4,
+      "dewpoint_c": 17.7,
+      "wind_u_kt": -1.1,
+      "wind_v_kt": -5.4
+    },
+    {
+      "pressure_mb": 925.0,
+      "height_m": 790.0,
+      "temp_c": 19.9,
+      "dewpoint_c": 17.5,
+      "wind_u_kt": -0.5,
+      "wind_v_kt": -5.5
+    },
+    {
+      "pressure_mb": 900.0,
+      "height_m": 1026.0,
+      "temp_c": 17.7,
+      "dewpoint_c": 16.5,
+      "wind_u_kt": -0.1,
+      "wind_v_kt": -5.7
+    },
+    {
+      "pressure_mb": 875.0,
+      "height_m": 1267.0,
+      "temp_c": 16.2,
+      "dewpoint_c": 14.9,
+      "wind_u_kt": 0.1,
+      "wind_v_kt": -6.1
+    },
+    {
+      "pressure_mb": 850.0,
+      "height_m": 1513.0,
+      "temp_c": 14.7,
+      "dewpoint_c": 13.0,
+      "wind_u_kt": 1.1,
+      "wind_v_kt": -7.1
+    },
+    {
+      "pressure_mb": 825.0,
+      "height_m": 1765.0,
+      "temp_c": 13.2,
+      "dewpoint_c": 11.6,
+      "wind_u_kt": 4.4,
+      "wind_v_kt": -8.5
+    },
+    {
+      "pressure_mb": 800.0,
+      "height_m": 2024.0,
+      "temp_c": 11.6,
+      "dewpoint_c": 10.6,
+      "wind_u_kt": 9.3,
+      "wind_v_kt": -9.5
+    },
+    {
+      "pressure_mb": 775.0,
+      "height_m": 2289.0,
+      "temp_c": 10.3,
+      "dewpoint_c": 9.2,
+      "wind_u_kt": 14.2,
+      "wind_v_kt": -9.0
+    },
+    {
+      "pressure_mb": 750.0,
+      "height_m": 2562.0,
+      "temp_c": 8.9,
+      "dewpoint_c": 7.3,
+      "wind_u_kt": 17.8,
+      "wind_v_kt": -8.9
+    },
+    {
+      "pressure_mb": 725.0,
+      "height_m": 2843.0,
+      "temp_c": 7.4,
+      "dewpoint_c": 5.2,
+      "wind_u_kt": 20.6,
+      "wind_v_kt": -9.4
+    },
+    {
+      "pressure_mb": 700.0,
+      "height_m": 3131.0,
+      "temp_c": 5.9,
+      "dewpoint_c": 3.1,
+      "wind_u_kt": 22.4,
+      "wind_v_kt": -10.7
+    },
+    {
+      "pressure_mb": 675.0,
+      "height_m": 3429.0,
+      "temp_c": 4.3,
+      "dewpoint_c": 0.8,
+      "wind_u_kt": 24.4,
+      "wind_v_kt": -13.6
+    },
+    {
+      "pressure_mb": 650.0,
+      "height_m": 3735.0,
+      "temp_c": 2.8,
+      "dewpoint_c": -1.7,
+      "wind_u_kt": 26.4,
+      "wind_v_kt": -16.5
+    },
+    {
+      "pressure_mb": 625.0,
+      "height_m": 4052.0,
+      "temp_c": 1.3,
+      "dewpoint_c": -4.7,
+      "wind_u_kt": 27.9,
+      "wind_v_kt": -18.3
+    },
+    {
+      "pressure_mb": 600.0,
+      "height_m": 4379.0,
+      "temp_c": -0.0,
+      "dewpoint_c": -8.9,
+      "wind_u_kt": 28.4,
+      "wind_v_kt": -20.2
+    },
+    {
+      "pressure_mb": 575.0,
+      "height_m": 4719.0,
+      "temp_c": -1.1,
+      "dewpoint_c": -15.9,
+      "wind_u_kt": 27.4,
+      "wind_v_kt": -22.0
+    },
+    {
+      "pressure_mb": 550.0,
+      "height_m": 5073.0,
+      "temp_c": -2.7,
+      "dewpoint_c": -23.0,
+      "wind_u_kt": 26.0,
+      "wind_v_kt": -24.0
+    },
+    {
+      "pressure_mb": 525.0,
+      "height_m": 5440.0,
+      "temp_c": -4.6,
+      "dewpoint_c": -29.4,
+      "wind_u_kt": 24.4,
+      "wind_v_kt": -26.4
+    },
+    {
+      "pressure_mb": 500.0,
+      "height_m": 5822.0,
+      "temp_c": -7.2,
+      "dewpoint_c": -30.5,
+      "wind_u_kt": 26.3,
+      "wind_v_kt": -28.0
+    },
+    {
+      "pressure_mb": 475.0,
+      "height_m": 6218.0,
+      "temp_c": -10.2,
+      "dewpoint_c": -30.0,
+      "wind_u_kt": 29.2,
+      "wind_v_kt": -28.8
+    },
+    {
+      "pressure_mb": 450.0,
+      "height_m": 6632.0,
+      "temp_c": -13.4,
+      "dewpoint_c": -31.3,
+      "wind_u_kt": 31.6,
+      "wind_v_kt": -26.5
+    },
+    {
+      "pressure_mb": 425.0,
+      "height_m": 7065.0,
+      "temp_c": -16.6,
+      "dewpoint_c": -33.2,
+      "wind_u_kt": 31.9,
+      "wind_v_kt": -25.3
+    },
+    {
+      "pressure_mb": 400.0,
+      "height_m": 7516.0,
+      "temp_c": -19.8,
+      "dewpoint_c": -36.8,
+      "wind_u_kt": 30.3,
+      "wind_v_kt": -25.9
+    },
+    {
+      "pressure_mb": 375.0,
+      "height_m": 7991.0,
+      "temp_c": -23.2,
+      "dewpoint_c": -44.7,
+      "wind_u_kt": 28.1,
+      "wind_v_kt": -27.8
+    },
+    {
+      "pressure_mb": 350.0,
+      "height_m": 8492.0,
+      "temp_c": -27.4,
+      "dewpoint_c": -45.7,
+      "wind_u_kt": 29.8,
+      "wind_v_kt": -27.6
+    },
+    {
+      "pressure_mb": 325.0,
+      "height_m": 9020.0,
+      "temp_c": -31.7,
+      "dewpoint_c": -44.0,
+      "wind_u_kt": 37.9,
+      "wind_v_kt": -26.5
+    },
+    {
+      "pressure_mb": 300.0,
+      "height_m": 9581.0,
+      "temp_c": -35.7,
+      "dewpoint_c": -48.5,
+      "wind_u_kt": 44.3,
+      "wind_v_kt": -23.7
+    },
+    {
+      "pressure_mb": 275.0,
+      "height_m": 10180.0,
+      "temp_c": -39.5,
+      "dewpoint_c": -57.8,
+      "wind_u_kt": 49.7,
+      "wind_v_kt": -18.2
+    },
+    {
+      "pressure_mb": 250.0,
+      "height_m": 10825.0,
+      "temp_c": -43.9,
+      "dewpoint_c": -65.9,
+      "wind_u_kt": 52.9,
+      "wind_v_kt": -15.7
+    },
+    {
+      "pressure_mb": 225.0,
+      "height_m": 11524.0,
+      "temp_c": -48.6,
+      "dewpoint_c": -74.7,
+      "wind_u_kt": 58.7,
+      "wind_v_kt": -12.5
+    },
+    {
+      "pressure_mb": 200.0,
+      "height_m": 12289.0,
+      "temp_c": -53.7,
+      "dewpoint_c": -76.3,
+      "wind_u_kt": 54.4,
+      "wind_v_kt": -11.1
+    },
+    {
+      "pressure_mb": 175.0,
+      "height_m": 13140.0,
+      "temp_c": -56.5,
+      "dewpoint_c": -78.1,
+      "wind_u_kt": 43.9,
+      "wind_v_kt": -19.6
+    },
+    {
+      "pressure_mb": 150.0,
+      "height_m": 14114.0,
+      "temp_c": -58.3,
+      "dewpoint_c": -80.6,
+      "wind_u_kt": 32.8,
+      "wind_v_kt": -27.6
+    },
+    {
+      "pressure_mb": 125.0,
+      "height_m": 15248.0,
+      "temp_c": -62.6,
+      "dewpoint_c": -81.0,
+      "wind_u_kt": 27.6,
+      "wind_v_kt": -18.1
+    },
+    {
+      "pressure_mb": 100.0,
+      "height_m": 16615.0,
+      "temp_c": -63.8,
+      "dewpoint_c": -81.0,
+      "wind_u_kt": 21.1,
+      "wind_v_kt": -18.2
+    },
+    {
+      "pressure_mb": 75.0,
+      "height_m": 18387.0,
+      "temp_c": -61.9,
+      "dewpoint_c": -81.0,
+      "wind_u_kt": 3.6,
+      "wind_v_kt": -7.2
+    },
+    {
+      "pressure_mb": 50.0,
+      "height_m": 20912.0,
+      "temp_c": -57.5,
+      "dewpoint_c": -81.0,
+      "wind_u_kt": -6.0,
+      "wind_v_kt": -4.3
+    }
+  ]
+}
