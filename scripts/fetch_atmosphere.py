@@ -121,6 +121,15 @@ def find_latest_available_cycle():
                 model="hrrr",
                 product="prs",   # pressure-level product
                 fxx=0,           # analysis, not a forecast lead time
+                # Skip NOMADS: it serves the raw GRIB for very-fresh cycles
+                # but doesn't reliably have a matching .idx file yet, and
+                # Herbie's subset download requires that index (confirmed
+                # against a real run: "No index file was found... Download
+                # the full file first" -- not a fluke). AWS/Google/Azure
+                # (the actual NOAA Open Data Dissemination partners) always
+                # publish grib+idx together, so restricting to those three
+                # avoids the failure mode instead of catching it after the fact.
+                priority=["aws", "google", "azure"],
             )
             if H.grib is not None:
                 log.info("Found usable cycle: %sZ (source: %s)", cycle, H.grib_source)
