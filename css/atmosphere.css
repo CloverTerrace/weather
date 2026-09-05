@@ -1,0 +1,428 @@
+/* ==========================================================================
+   Clover Terrace — Atmosphere page
+   Theme: "upper-air observation / flight-instrument telemetry" — a dark
+   instrument-panel palette with amber/cyan readout accents and a monospace
+   numeric face, deliberately distinct from the garden page's parchment/
+   pixel-art look and the space page's photoreal night sky. A faint graph-
+   paper grid nods at skew-T chart paper without trying to BE one.
+   ========================================================================== */
+
+@font-face {
+  /* System monospace stack only -- no custom font file shipped for this
+     page yet. Swap in a real webfont later if you want a more distinctive
+     numeric face; the classes below (.atm-mono) are already scoped so a
+     single @font-face addition is all a future upgrade would need. */
+  font-family: 'Atmosphere Mono Fallback';
+  src: local('JetBrains Mono'), local('SFMono-Regular'), local('Consolas');
+}
+
+:root {
+  --atm-bg: #0d1119;
+  --atm-bg-grid: #131a26;
+  --atm-card: #161d2b;
+  --atm-card-raised: #1c2436;
+  --atm-border: #2a3448;
+  --atm-text: #e8edf5;
+  --atm-muted: #8b96ab;
+  --atm-amber: #f2a94e;
+  --atm-cyan: #5fd0e0;
+  --atm-red: #ef5b5b;
+
+  /* categorical verdict colors, loosely echoing SPC's own outlook palette */
+  --atm-cat-low: #4caf7d;
+  --atm-cat-marginal: #a3c94c;
+  --atm-cat-slight: #e8c14a;
+  --atm-cat-enhanced: #e8863f;
+  --atm-cat-high: #d9548c;
+
+  --atm-mono: 'Atmosphere Mono Fallback', 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --atm-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* so the shared navigation.css (which reads these three) themes itself
+     to match this page instead of falling back to unstyled defaults */
+  --card-color: var(--atm-card);
+  --muted-color: var(--atm-muted);
+  --accent-color: var(--atm-cyan);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--atm-bg);
+  color: var(--atm-text);
+  font-family: var(--atm-sans);
+  min-height: 100%;
+}
+
+body {
+  background-image:
+    linear-gradient(var(--atm-bg-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--atm-bg-grid) 1px, transparent 1px);
+  background-size: 34px 34px;
+  background-position: center top;
+}
+
+a { color: var(--atm-cyan); }
+
+.atmosphere-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.5rem 1.1rem 3rem 1.1rem;
+}
+
+/* ---------- header ---------- */
+.atm-header {
+  padding: 1.25rem 0 0.5rem 0;
+  text-align: left;
+}
+
+.atm-header h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  background: linear-gradient(120deg, var(--atm-amber), var(--atm-cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.atm-subtitle {
+  margin: 0.35rem 0 0 0;
+  color: var(--atm-muted);
+  font-size: 0.95rem;
+  max-width: 62ch;
+}
+
+.atm-model-meta {
+  margin: 0.6rem 0 0 0;
+  font-family: var(--atm-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--atm-cyan);
+  opacity: 0.85;
+}
+
+/* ---------- headline verdict banner ---------- */
+.atm-headline {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding: 1.1rem 1.3rem;
+  border-radius: 14px;
+  border: 1px solid var(--atm-border);
+  background: var(--atm-card-raised);
+  box-shadow: 0 12px 30px -18px rgba(0,0,0,0.6);
+}
+
+.atm-headline-loading { opacity: 0.7; }
+
+.atm-headline-badge {
+  flex: 0 0 auto;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--atm-mono);
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-align: center;
+  line-height: 1.1;
+  background: var(--atm-border);
+  color: var(--atm-text);
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.06);
+}
+
+.atm-headline.cat-low .atm-headline-badge { background: color-mix(in srgb, var(--atm-cat-low) 35%, var(--atm-card-raised)); }
+.atm-headline.cat-marginal .atm-headline-badge { background: color-mix(in srgb, var(--atm-cat-marginal) 35%, var(--atm-card-raised)); }
+.atm-headline.cat-slight .atm-headline-badge { background: color-mix(in srgb, var(--atm-cat-slight) 40%, var(--atm-card-raised)); }
+.atm-headline.cat-enhanced .atm-headline-badge { background: color-mix(in srgb, var(--atm-cat-enhanced) 45%, var(--atm-card-raised)); }
+.atm-headline.cat-high .atm-headline-badge { background: color-mix(in srgb, var(--atm-cat-high) 50%, var(--atm-card-raised)); }
+
+.atm-headline-copy h2 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.atm-headline-copy p {
+  margin: 0;
+  color: var(--atm-muted);
+  font-size: 0.9rem;
+  max-width: 60ch;
+}
+
+/* ---------- parameter card row ---------- */
+.atm-card-row-wrap {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.atm-card-row {
+  display: flex;
+  gap: 0.9rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 0.15rem;
+}
+
+.atm-card-row::-webkit-scrollbar { display: none; }
+
+.atm-card {
+  scroll-snap-align: start;
+  flex: 0 0 82%;
+  background: var(--atm-card);
+  border: 1px solid var(--atm-border);
+  border-radius: 14px;
+  padding: 1.1rem 1.2rem 1rem 1.2rem;
+}
+
+.atm-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.atm-card-icon { font-size: 1.05em; }
+
+.atm-card-plain {
+  margin: 0 0 0.85rem 0;
+  color: var(--atm-text);
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.atm-card-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--atm-border);
+}
+
+.atm-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.atm-stat-sub .atm-stat-label,
+.atm-stat-sub .atm-stat-value {
+  opacity: 0.75;
+  font-size: 0.85em;
+}
+
+.atm-stat-label {
+  color: var(--atm-muted);
+  font-size: 0.78rem;
+}
+
+.atm-stat-value {
+  font-family: var(--atm-mono);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--atm-amber);
+  white-space: nowrap;
+}
+
+.atm-explainer {
+  margin-top: 0.85rem;
+  font-size: 0.82rem;
+}
+
+.atm-explainer summary {
+  cursor: pointer;
+  color: var(--atm-cyan);
+  font-weight: 600;
+  list-style: none;
+}
+
+.atm-explainer summary::-webkit-details-marker { display: none; }
+
+.atm-explainer summary::before {
+  content: '▸';
+  display: inline-block;
+  margin-right: 0.35em;
+  transition: transform 0.15s ease;
+}
+
+.atm-explainer[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.atm-explainer p {
+  color: var(--atm-muted);
+  line-height: 1.5;
+  margin: 0.6rem 0;
+}
+
+.atm-threshold-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--atm-mono);
+  font-size: 0.74rem;
+  margin-top: 0.4rem;
+}
+
+.atm-threshold-table td,
+.atm-threshold-table th {
+  padding: 0.28rem 0.4rem;
+  border-bottom: 1px solid var(--atm-border);
+  text-align: left;
+}
+
+.atm-threshold-table th {
+  color: var(--atm-cyan);
+  font-weight: 600;
+}
+
+/* mobile paging arrows */
+.atm-card-arrow {
+  display: none;
+}
+
+@media (max-width: 850px) {
+  .atm-card-arrow {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 2rem;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--atm-border);
+    background: color-mix(in srgb, var(--atm-bg) 75%, transparent);
+    color: var(--atm-text);
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  .atm-card-arrow-left { left: -0.4rem; }
+  .atm-card-arrow-right { right: -0.4rem; }
+}
+
+@media (min-width: 851px) {
+  .atm-card-row {
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .atm-card {
+    flex: 1 1 0;
+  }
+}
+
+/* ---------- chart / wind panels ---------- */
+.atm-panel {
+  margin-top: 1.75rem;
+  background: var(--atm-card);
+  border: 1px solid var(--atm-border);
+  border-radius: 14px;
+  padding: 1.2rem 1.3rem 1.4rem 1.3rem;
+}
+
+.atm-panel-header h2 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.1rem;
+}
+
+.atm-panel-subtitle {
+  margin: 0;
+  color: var(--atm-muted);
+  font-size: 0.85rem;
+  max-width: 65ch;
+}
+
+.atm-chart-wrap {
+  margin-top: 1rem;
+  position: relative;
+  height: 420px;
+}
+
+.atm-chart-note {
+  margin: 0.75rem 0 0 0;
+  color: var(--atm-muted);
+  font-size: 0.74rem;
+  font-style: italic;
+}
+
+.atm-wind-table-wrap {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.atm-wind-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--atm-mono);
+  font-size: 0.85rem;
+}
+
+.atm-wind-table th {
+  text-align: left;
+  color: var(--atm-cyan);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid var(--atm-border);
+}
+
+.atm-wind-table td {
+  padding: 0.5rem 0.5rem;
+  border-bottom: 1px solid var(--atm-border);
+}
+
+.atm-wind-table tr:last-child td { border-bottom: none; }
+
+.atm-wind-dir-arrow {
+  display: inline-block;
+  margin-right: 0.5em;
+}
+
+.atm-wind-loading { color: var(--atm-muted); font-family: var(--atm-sans); }
+
+/* ---------- footer ---------- */
+.atm-footer {
+  margin-top: 2.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--atm-border);
+}
+
+.atm-footer p {
+  color: var(--atm-muted);
+  font-size: 0.76rem;
+  line-height: 1.55;
+  max-width: 75ch;
+}
+
+/* ---------- desktop layout: chart + params side by side ---------- */
+@media (min-width: 851px) {
+  .atmosphere-content {
+    padding-top: 0.25rem;
+  }
+
+  #atm-sounding-panel {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- mobile: reserve space for the fixed bottom nav ---------- */
+@media (max-width: 850px) {
+  body {
+    padding-bottom: calc(var(--site-nav-mobile-total, 60px) + 0.5rem);
+  }
+}
