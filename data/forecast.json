@@ -7,9 +7,9 @@
       "windSpeed": "6 mph",
       "windDirection": "N",
       "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "detailedForecast": "A slight chance of showers and thunderstorms before 3pm. Partly sunny, with a high near 79. North wind around 6 mph. Chance of precipitation is 20%.",
+      "detailedForecast": "A chance of rain showers before 2pm, then a slight chance of showers and thunderstorms between 2pm and 3pm. Partly sunny, with a high near 79. North wind around 6 mph. Chance of precipitation is 30%.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 20
+      "probabilityOfPrecipitation": 28
     },
     {
       "name": "Tonight",
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-05T13:00:00-04:00",
+      "temperature": 78,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "NE",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 28
+    },
     {
       "startTime": "2026-09-05T14:00:00-04:00",
       "temperature": 76,
@@ -269,16 +279,6 @@
     {
       "startTime": "2026-09-06T12:00:00-04:00",
       "temperature": 73,
-      "temperatureUnit": "F",
-      "windSpeed": "7 mph",
-      "windDirection": "NE",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-09-06T13:00:00-04:00",
-      "temperature": 75,
       "temperatureUnit": "F",
       "windSpeed": "7 mph",
       "windDirection": "NE",
