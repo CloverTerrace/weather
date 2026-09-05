@@ -133,6 +133,36 @@ def find_latest_available_cycle():
     return None, None
 
 
+def _nearest_grid_indices(ds, lat, lon):
+    """
+    HRRR's native grid is a Lambert Conformal Conic projection, not a plain
+    lat/lon grid -- cfgrib exposes 'latitude'/'longitude' as 2-D coordinates
+    that vary across BOTH grid axes, not a clean 1-D axis. That means
+    `.sel(latitude=..., longitude=..., method="nearest")` can't build an
+    index at all (xarray raises "Could not automatically create PandasIndex
+    for coord 'latitude' with 2 dimensions" -- confirmed against a real
+    HRRR run, not theoretical). The fix: brute-force the nearest grid cell
+    by distance across the 2-D lat/lon fields, then select by integer
+    position instead of by coordinate value. Dimension names aren't
+    hardcoded ('y'/'x' vs 'yc'/'xc' vs other cfgrib conventions vary), read
+    them off the coordinate itself so this works regardless.
+    """
+    import numpy as np
+
+    lat2d = ds["latitude"].values
+    lon2d = ds["longitude"].values
+    lon_target = lon % 360  # HRRR longitudes run 0-360
+
+    # Planar distance in degrees is plenty precise at HRRR's ~3km spacing
+    # (no need for a full haversine at this scale).
+    dist2 = (lat2d - lat) ** 2 + (lon2d - lon_target) ** 2
+    flat_idx = np.argmin(dist2)
+    iy, ix = np.unravel_index(flat_idx, dist2.shape)
+
+    dim_y, dim_x = ds["latitude"].dims  # e.g. ('y', 'x') -- read, not assumed
+    return {dim_y: int(iy), dim_x: int(ix)}
+
+
 def load_profile(H) -> "Profile":
     """
     Download just the fields we need for this lat/lon and return a Profile
@@ -147,7 +177,7 @@ def load_profile(H) -> "Profile":
     # HRRR's wgrib2 inventory labels these like "500 mb" per level; Herbie's
     # xarray() groups same-variable-different-level fields into one
     # DataArray with an `isobaricInhPa` dimension automatically via cfgrib.
-    search = r":(TMP|DPT|UGRD|VGRD|HGT):\d+ mb:"
+    search = r":(?:TMP|DPT|UGRD|VGRD|HGT):\d+ mb:"
     ds = H.xarray(search, remove_grib=True)
 
     # H.xarray() can return either one Dataset or a list of Datasets
@@ -157,11 +187,8 @@ def load_profile(H) -> "Profile":
     else:
         merged = ds
 
-    point = merged.sel(
-        latitude=STATION_LAT % 360,  # HRRR longitudes are 0-360; if using
-        longitude=STATION_LON % 360,  # -180-180 lon, %360 normalizes it
-        method="nearest",
-    )
+    indexers = _nearest_grid_indices(merged, STATION_LAT, STATION_LON)
+    point = merged.isel(indexers)
 
     # Sort ascending by pressure descending (surface first) -- MetPy's
     # sounding functions expect pressure decreasing with height, i.e.
