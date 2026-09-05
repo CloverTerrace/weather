@@ -4,10 +4,10 @@
       "name": "This Afternoon",
       "temperature": 80,
       "temperatureUnit": "F",
-      "windSpeed": "2 to 6 mph",
+      "windSpeed": "6 mph",
       "windDirection": "N",
       "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "detailedForecast": "A chance of rain showers between 1pm and 2pm, then a slight chance of showers and thunderstorms between 2pm and 3pm. Mostly cloudy, with a high near 80. North wind 2 to 6 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
+      "detailedForecast": "A chance of rain showers before 2pm, then a slight chance of showers and thunderstorms between 2pm and 3pm. Partly sunny, with a high near 80. North wind around 6 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 28
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-05T12:00:00-04:00",
-      "temperature": 75,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 9
-    },
     {
       "startTime": "2026-09-05T13:00:00-04:00",
       "temperature": 77,
@@ -281,6 +271,16 @@
       "temperature": 71,
       "temperatureUnit": "F",
       "windSpeed": "6 mph",
+      "windDirection": "NE",
+      "shortForecast": "Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-06T12:00:00-04:00",
+      "temperature": 73,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
       "windDirection": "NE",
       "shortForecast": "Sunny",
       "isDaytime": true,
