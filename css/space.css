@@ -566,7 +566,37 @@ body.kp-severe .sky-dock {
   cursor: pointer;
 }
 
-.site-nav {
-  position: relative;
-  z-index: 1;
+/* .site-nav's position now comes from navigation.css: relative/in-flow as
+   part of the scrolling .sky-dock on desktop, fixed-to-the-bottom on
+   mobile. Scoped to desktop only here so the mobile rule isn't cancelled
+   back to position:relative by this equal-specificity, later-loaded rule. */
+@media (min-width: 851px) {
+  .site-nav {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* The live sky render is a fixed, full-viewport background with its own
+   tappable markers (constellations/planets/ISS) positioned by JS as a
+   percentage of however object-fit:cover crops it -- on a typical
+   portrait phone the image's full height maps ~1:1 to the viewport
+   height (width is what gets cropped), so without this the bottom
+   nav bar would end up sitting directly on top of real, tappable sky
+   content near the southern horizon instead of just blank space.
+   Pulling .sky-stage's bottom edge up by the bar's height means
+   computeCoverRect()/renderSpaceToPercent() (which measure the actual
+   container at render time) simply give the sky a shorter window to
+   render into -- the horizon crop line moves up to meet the bar
+   instead of any marker ending up hidden behind it. */
+@media (max-width: 850px) {
+  .sky-stage {
+    bottom: var(--site-nav-mobile-total, 60px);
+  }
+
+  /* safety margin in case the in-flow dock content (cards + kp bars)
+     ever grows tall enough to reach the screen's bottom edge */
+  .sky-chrome {
+    padding-bottom: var(--site-nav-mobile-total, 60px);
+  }
 }

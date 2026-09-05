@@ -348,12 +348,21 @@ img.pixel,
 }
 
 .garden-heading,
-.garden-page .site-nav,
 .garden-intro,
 .garden-stat-row,
 .garden-band-credit {
   position: relative;
   z-index: 5;
+}
+
+/* .site-nav's own position now comes from navigation.css: relative/in-flow
+   on desktop, fixed-to-the-bottom on mobile. Only re-assert position:relative
+   here on desktop, where this page still wants it in flow at that z-index. */
+@media (min-width: 851px) {
+  .garden-page .site-nav {
+    position: relative;
+    z-index: 5;
+  }
 }
 
 .garden-border {
@@ -507,12 +516,6 @@ img.pixel,
   font-size: 0.66rem !important;
 }
 
-@media (max-width: 850px) {
-  .garden-page .site-nav a,
-  .garden-page .site-nav button {
-    font-size: clamp(0.42rem, 1.7vw, 0.5rem) !important;
-  }
-}
 .garden-page .site-nav a:hover,
 .garden-page .site-nav button:hover {
   background: rgba(255, 255, 255, 0.08) !important;
@@ -525,19 +528,54 @@ img.pixel,
   box-shadow: inset 0 -2px 0 var(--garden-accent-active-text) !important;
 }
 
-.garden-page .site-nav {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  left: 0;
-  right: 0;
-  margin: 0;
-  box-sizing: border-box;
-  max-width: none;               
-  border-radius: 0 !important;   
-  border-left: none !important;  
-  border-right: none !important; 
-  border-top: none !important;
+@media (min-width: 851px) {
+  .garden-page .site-nav {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin: 0;
+    box-sizing: border-box;
+    max-width: none;
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+  }
+}
+
+/* Mobile: position/height/bottom-anchoring come from navigation.css's
+   shared fixed bottom bar -- this only carries over the garden page's
+   full-bleed/no-radius treatment, with the visible accent border and
+   drop shadow mirrored to the bar's new top edge (it now sits flush
+   against the screen's bottom edge, so a bottom border/downward shadow
+   no longer makes sense there). */
+@media (max-width: 850px) {
+  .garden-page .site-nav {
+    z-index: 10;
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin: 0;
+    box-sizing: border-box;
+    max-width: none;
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    border-top: 2px solid var(--garden-accent-border) !important;
+    box-shadow: 0 -4px 0 rgba(0, 0, 0, 0.25) !important;
+  }
+}
+
+/* Reserve space at the bottom of the page (mobile only) so the fixed nav
+   bar can never cover this page's real content -- same fix applied to
+   site.css, using navigation.css's shared --site-nav-mobile-total var. */
+@media (max-width: 850px) {
+  body {
+    padding-bottom: calc(var(--site-nav-mobile-total, 60px) + 1rem) !important;
+  }
 }
 
 /* -----------------------------------------------------------------

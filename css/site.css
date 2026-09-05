@@ -5399,3 +5399,24 @@ svg circle, svg polygon, svg line {
 body {
   padding-top: 0 !important;
 }
+
+/* navigation.css now anchors .site-nav as a fixed bar at the bottom of the
+   viewport on mobile widths (<=850px), taking it out of normal document
+   flow. Without this, the page's real last content (and this page's own
+   fixed-position theme-egg button) would end up sitting underneath it.
+   --site-nav-mobile-total (defined in navigation.css) is the bar's full
+   height including the safe-area inset, so this stays correct even if
+   that number ever changes. */
+@media (max-width: 850px) {
+  body {
+    padding-bottom: calc(var(--site-nav-mobile-total, 60px) + 1rem) !important;
+  }
+
+  #theme-egg-trigger {
+    bottom: calc(var(--site-nav-mobile-total, 60px) + 10px);
+  }
+
+  #theme-preview-panel {
+    bottom: calc(var(--site-nav-mobile-total, 60px) + 48px);
+  }
+}
