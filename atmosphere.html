@@ -15,8 +15,7 @@
 </head>
 <body id="atmosphere-page">
 
-  <!-- shared navbar -- identical structure to gardening.html/space.html so
-       navigation.js/navigation.css need no changes for this page -->
+  <!-- shared navbar -->
   <nav class="site-nav" aria-label="Clover Terrace Weather sections">
     <a href="index.html" class="nav-brand">
       <img src="icons/cloverwx.png" alt="" class="nav-brand-icon">
@@ -47,9 +46,7 @@
       <p id="atm-model-meta" class="atm-model-meta">Loading latest model run&hellip;</p>
     </header>
 
-    <!-- Plain-language headline verdict -- the "newbie" entry point. Nerds
-         can skip straight past it to the cards/chart below; nobody is
-         forced to read a wall of numbers just to get the gist. -->
+    <!-- headline -->
     <section id="atm-headline" class="atm-headline atm-headline-loading" aria-live="polite">
       <div class="atm-headline-badge" id="atm-headline-badge">&mdash;</div>
       <div class="atm-headline-copy">
@@ -58,9 +55,7 @@
       </div>
     </section>
 
-    <!-- Swipeable parameter card row on mobile (same interaction pattern as
-         space.html's sky-card-row, so it feels native to returning
-         visitors), a plain grid on desktop. -->
+    <!-- swipeable parameter card row on mobile -->
     <section class="atm-card-row-wrap">
       <button type="button" class="atm-card-arrow atm-card-arrow-left" id="atm-card-arrow-left" aria-label="Previous card">&lsaquo;</button>
 
@@ -160,7 +155,7 @@
       <button type="button" class="atm-card-arrow atm-card-arrow-right" id="atm-card-arrow-right" aria-label="Next card">&rsaquo;</button>
     </section>
 
-    <!-- The sounding chart -- the "look at the actual profile" section for
+    <!-- the sounding chart -- the "look at the actual profile" section for
          people who want more than a category label. -->
     <section class="atm-panel" id="atm-sounding-panel">
       <div class="atm-panel-header">
@@ -173,7 +168,7 @@
       <p class="atm-chart-note">This is a simplified profile (not a full meteorological skew-T diagram) &mdash; altitude is approximate height above sea level, not adjusted for local elevation.</p>
     </section>
 
-    <!-- Wind-by-level table -- gives wind info without needing full barb
+    <!-- wind-by-level table -- gives wind info without needing full barb
          rendering, which Chart.js can't do natively. -->
     <section class="atm-panel" id="atm-wind-panel">
       <div class="atm-panel-header">
@@ -193,7 +188,7 @@
     </section>
 
     <footer class="atm-footer">
-      <p>Modeled from the latest available HRRR (High-Resolution Rapid Refresh) model run for this exact location &mdash; refreshed roughly hourly. This is a forecast model output, not a direct measurement, and it's one ingredients-based read on one model run, not an official forecast. For the real severe-weather outlook, see the SPC Outlook on the <a href="index.html">main dashboard</a>.</p>
+      <p>Modeled from the latest available HRRR (High-Resolution Rapid Refresh) model run for this exact location &mdash; refreshed roughly hourly.</p>
     </footer>
 
   </main>
