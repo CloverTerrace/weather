@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10151f">
+  <title>Atmosphere ~ Clover Terrace</title>
+  <meta name="description" content="Live HRRR-modeled atmospheric profile for Clover Terrace: instability, wind shear, storm-relative helicity, and lapse rates, updated hourly.">
+
+  <link rel="icon" href="icons/icon-192.png" sizes="any">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+  <link rel="stylesheet" href="css/navigation.css">
+  <link rel="stylesheet" href="css/atmosphere.css">
+</head>
+<body id="atmosphere-page">
+
+  <!-- shared navbar -- identical structure to gardening.html/space.html so
+       navigation.js/navigation.css need no changes for this page -->
+  <nav class="site-nav" aria-label="Clover Terrace Weather sections">
+    <a href="index.html" class="nav-brand">
+      <img src="icons/cloverwx.png" alt="" class="nav-brand-icon">
+      <span></span>
+    </a>
+
+    <div class="nav-links">
+      <a href="index.html" data-page="index.html">
+        <img src="icons/thunderstorms-extreme.svg" alt="" class="nav-icon">Home
+      </a>
+      <a href="gardening.html" data-page="gardening.html">
+        <img src="icons/pollen-flower.svg" alt="" class="nav-icon">Garden
+      </a>
+      <a href="atmosphere.html" data-page="atmosphere.html">
+        <img src="icons/windsock.svg" alt="" class="nav-icon">Atmosphere
+      </a>
+      <a href="space.html" data-page="space.html">
+        <img src="icons/star.svg" alt="" class="nav-icon">Space
+      </a>
+    </div>
+  </nav>
+
+  <main id="atmosphere-content" class="atmosphere-content">
+
+    <header class="atm-header">
+      <h1>Atmosphere</h1>
+      <p class="atm-subtitle">A live vertical profile of the sky above Clover Terrace — modeled, not measured, updated hourly.</p>
+      <p id="atm-model-meta" class="atm-model-meta">Loading latest model run&hellip;</p>
+    </header>
+
+    <!-- Plain-language headline verdict -- the "newbie" entry point. Nerds
+         can skip straight past it to the cards/chart below; nobody is
+         forced to read a wall of numbers just to get the gist. -->
+    <section id="atm-headline" class="atm-headline atm-headline-loading" aria-live="polite">
+      <div class="atm-headline-badge" id="atm-headline-badge">&mdash;</div>
+      <div class="atm-headline-copy">
+        <h2 id="atm-headline-title">Reading the atmosphere&hellip;</h2>
+        <p id="atm-headline-body">Hang tight, pulling the latest model profile.</p>
+      </div>
+    </section>
+
+    <!-- Swipeable parameter card row on mobile (same interaction pattern as
+         space.html's sky-card-row, so it feels native to returning
+         visitors), a plain grid on desktop. -->
+    <section class="atm-card-row-wrap">
+      <button type="button" class="atm-card-arrow atm-card-arrow-left" id="atm-card-arrow-left" aria-label="Previous card">&lsaquo;</button>
+
+      <div class="atm-card-row" id="atm-card-row">
+
+        <article class="atm-card" id="card-instability">
+          <h3><span class="atm-card-icon" aria-hidden="true">&#9889;</span> Instability</h3>
+          <p class="atm-card-plain" id="instability-plain">&mdash;</p>
+          <div class="atm-card-stats">
+            <div class="atm-stat">
+              <span class="atm-stat-label">Surface-Based CAPE</span>
+              <span class="atm-stat-value" id="stat-sbcape">&ndash;&ndash;</span>
+            </div>
+            <div class="atm-stat">
+              <span class="atm-stat-label">Mixed-Layer CAPE</span>
+              <span class="atm-stat-value" id="stat-mlcape">&ndash;&ndash;</span>
+            </div>
+            <div class="atm-stat atm-stat-sub">
+              <span class="atm-stat-label">CIN (cap strength)</span>
+              <span class="atm-stat-value" id="stat-cin">&ndash;&ndash;</span>
+            </div>
+          </div>
+          <details class="atm-explainer">
+            <summary>What does this mean?</summary>
+            <p>CAPE ("Convective Available Potential Energy") is a measure of how much fuel is available for a rising thunderstorm updraft &mdash; think of it as the size of the tank, in Joules per kilogram of air. Higher numbers mean a storm that does form can grow taller and stronger. CIN ("Convective Inhibition") is the opposite: a layer of warm air aloft acting like a lid, holding storms down until something forces air through it. Some CIN is normal and even helpful &mdash; it lets energy build up before storms break out.</p>
+            <table class="atm-threshold-table">
+              <tr><td>&lt; 100 J/kg</td><td>Stable</td></tr>
+              <tr><td>100&ndash;1000 J/kg</td><td>Weak</td></tr>
+              <tr><td>1000&ndash;2500 J/kg</td><td>Moderate</td></tr>
+              <tr><td>2500&ndash;4000 J/kg</td><td>Strong</td></tr>
+              <tr><td>&gt; 4000 J/kg</td><td>Extreme</td></tr>
+            </table>
+          </details>
+        </article>
+
+        <article class="atm-card" id="card-wind-profile">
+          <h3><span class="atm-card-icon" aria-hidden="true">&#127786;&#65039;</span> Wind Profile</h3>
+          <p class="atm-card-plain" id="wind-profile-plain">&mdash;</p>
+          <div class="atm-card-stats">
+            <div class="atm-stat">
+              <span class="atm-stat-label">0&ndash;6km Bulk Shear</span>
+              <span class="atm-stat-value" id="stat-shear6">&ndash;&ndash;</span>
+            </div>
+            <div class="atm-stat">
+              <span class="atm-stat-label">0&ndash;1km Bulk Shear</span>
+              <span class="atm-stat-value" id="stat-shear1">&ndash;&ndash;</span>
+            </div>
+            <div class="atm-stat atm-stat-sub">
+              <span class="atm-stat-label">0&ndash;3km Storm-Relative Helicity</span>
+              <span class="atm-stat-value" id="stat-srh3">&ndash;&ndash;</span>
+            </div>
+            <div class="atm-stat atm-stat-sub">
+              <span class="atm-stat-label">0&ndash;1km Storm-Relative Helicity</span>
+              <span class="atm-stat-value" id="stat-srh1">&ndash;&ndash;</span>
+            </div>
+          </div>
+          <details class="atm-explainer">
+            <summary>What does this mean?</summary>
+            <p>Shear is how much wind speed and direction change with height &mdash; strong shear organizes a storm's updraft and downdraft so they don't choke each other out, which is what lets a storm grow big and long-lived instead of collapsing after 20 minutes. Storm-Relative Helicity (SRH) measures how much that changing wind would make an updraft spin, relative to how a storm itself is expected to move. High SRH in the lowest kilometer or so is the ingredient most closely tied to tornado potential.</p>
+            <table class="atm-threshold-table">
+              <tr><th colspan="2">0&ndash;6km Shear</th></tr>
+              <tr><td>&lt; 20 kt</td><td>Weak / unorganized</td></tr>
+              <tr><td>20&ndash;35 kt</td><td>Moderate (multicell)</td></tr>
+              <tr><td>35&ndash;50 kt</td><td>Strong (supercells possible)</td></tr>
+              <tr><td>&gt; 50 kt</td><td>Extreme</td></tr>
+            </table>
+          </details>
+        </article>
+
+        <article class="atm-card" id="card-lapse-rates">
+          <h3><span class="atm-card-icon" aria-hidden="true">&#128200;</span> Lapse Rates</h3>
+          <p class="atm-card-plain" id="lapse-plain">&mdash;</p>
+          <div class="atm-card-stats">
+            <div class="atm-stat">
+              <span class="atm-stat-label">700&ndash;500mb</span>
+              <span class="atm-stat-value" id="stat-lapse-mid">&ndash;&ndash;</span>
+            </div>
+            <div class="atm-stat">
+              <span class="atm-stat-label">0&ndash;3km AGL</span>
+              <span class="atm-stat-value" id="stat-lapse-low">&ndash;&ndash;</span>
+            </div>
+          </div>
+          <details class="atm-explainer">
+            <summary>What does this mean?</summary>
+            <p>Lapse rate is how fast temperature drops as you go up. A steep mid-level (700&ndash;500mb) lapse rate means the air a couple miles up is unusually cold relative to the surface &mdash; that temperature difference is what lets warm surface air keep accelerating upward instead of leveling off, which is part of why steep lapse rates favor stronger updrafts and larger hail.</p>
+            <table class="atm-threshold-table">
+              <tr><td>&lt; 6.0 &deg;C/km</td><td>Modest</td></tr>
+              <tr><td>6.0&ndash;7.0 &deg;C/km</td><td>Steepening</td></tr>
+              <tr><td>7.0&ndash;8.0 &deg;C/km</td><td>Steep</td></tr>
+              <tr><td>&gt; 8.0 &deg;C/km</td><td>Very steep</td></tr>
+            </table>
+          </details>
+        </article>
+
+      </div>
+
+      <button type="button" class="atm-card-arrow atm-card-arrow-right" id="atm-card-arrow-right" aria-label="Next card">&rsaquo;</button>
+    </section>
+
+    <!-- The sounding chart -- the "look at the actual profile" section for
+         people who want more than a category label. -->
+    <section class="atm-panel" id="atm-sounding-panel">
+      <div class="atm-panel-header">
+        <h2>Vertical Profile</h2>
+        <p class="atm-panel-subtitle">Temperature and dew point from the surface up. Where the two lines run close together, the air is moist; the wider the gap, the drier that layer is.</p>
+      </div>
+      <div class="atm-chart-wrap">
+        <canvas id="sounding-chart" height="420" aria-label="Temperature and dew point vs. altitude" role="img"></canvas>
+      </div>
+      <p class="atm-chart-note">This is a simplified profile (not a full meteorological skew-T diagram) &mdash; altitude is approximate height above sea level, not adjusted for local elevation.</p>
+    </section>
+
+    <!-- Wind-by-level table -- gives wind info without needing full barb
+         rendering, which Chart.js can't do natively. -->
+    <section class="atm-panel" id="atm-wind-panel">
+      <div class="atm-panel-header">
+        <h2>Wind by Level</h2>
+        <p class="atm-panel-subtitle">How wind speed and direction change with height.</p>
+      </div>
+      <div class="atm-wind-table-wrap">
+        <table class="atm-wind-table" id="atm-wind-table">
+          <thead>
+            <tr><th>Level</th><th>Wind</th></tr>
+          </thead>
+          <tbody id="atm-wind-table-body">
+            <tr><td colspan="2" class="atm-wind-loading">Loading&hellip;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="atm-footer">
+      <p>Modeled from the latest available HRRR (High-Resolution Rapid Refresh) model run for this exact location &mdash; refreshed roughly hourly. This is a forecast model output, not a direct measurement, and it's one ingredients-based read on one model run, not an official forecast. For the real severe-weather outlook, see the SPC Outlook on the <a href="index.html">main dashboard</a>.</p>
+    </footer>
+
+  </main>
+
+  <script src="chart.umd.min.js"></script>
+  <script src="js/navigation.js" defer></script>
+  <script src="js/atmosphere.js"></script>
+
+</body>
+</html>
