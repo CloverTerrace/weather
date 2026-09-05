@@ -246,12 +246,7 @@ img.pixel,
   top: 100%;
   transform: translate(-50%, 0);
   opacity: 0;
-  z-index: 2; /* keeps the sun/moon above the star sparkles and clouds
-                 (.garden-sky-sprite, z-index: 1) regardless of DOM
-                 order -- z-index:auto siblings paint below any sibling
-                 with an explicit z-index, no matter which comes first
-                 in the markup, which is why the stars used to render
-                 in front of the moon. */
+  z-index: 2; /* keeps the sun/moon above the star sparkles and clouds */
   background-repeat: no-repeat;
   background-size: contain;
   transition: top 2.4s ease, left 1s ease, opacity 1.6s ease, transform 1s ease;
@@ -400,14 +395,6 @@ img.pixel,
   --vine-edge-right: url("../assets/garden/summer/borders/vine-edge-right.png");
 }
 
-/* Keyed off :root (<html>), NOT body, because the FOUC-prevention
-   script in gardening.html's <head> sets data-garden-season on
-   document.documentElement synchronously before <body> even exists --
-   these rules need to see that same element to resolve correctly on
-   first paint. If this were scoped to body[data-garden-season] again,
-   it would only pick up the season once js/gardening.js's deferred
-   updateCurrentSeasonDisplay() runs, which is exactly the flash of
-   summer terrain/vines this was set up to avoid. */
 :root[data-garden-season="spring"] .garden-world {
   --season-path: "../assets/garden/spring/";
   --season-grass: url("../assets/garden/spring/terrain/grass.png");
@@ -446,17 +433,8 @@ img.pixel,
   --vine-edge-left: url("../assets/garden/winter/borders/vine-edge-left.png");
   --vine-edge-right: url("../assets/garden/winter/borders/vine-edge-right.png");
 }
-/* --- season badge ---
-   Was a small inline pill crammed into the "Currently" heading;
-   rebuilt as a real visual tile (icon stacked over the season name)
-   that fills the .garden-season-container grid cell (see
-   .garden-hero-layout) -- a "bottom center" tile on desktop, and a
-   tile filling the square next to the temperature on mobile. Still
-   borrows the hero card's own "readout chip" language (same
-   translucent bg/border vars .garden-readout uses on this card) and
-   the pixel font the h2 is set in, and still recolors in step with
-   the card at dawn/day/dusk/night via the same vars. */
 
+/* --- season badge ---*/
 .garden-season-tag {
   display: flex;
   flex-direction: column;
@@ -483,8 +461,7 @@ img.pixel,
  }
 
 /* seasonal decorative <img> elements begin hidden and are revealed only
-   after a successful load. This prevents empty/broken image boxes from ever
-   participating in desktop layout. */
+   after a successful load.*/
 .garden-page img[hidden] {
   display: none !important;
 }
@@ -509,7 +486,6 @@ img.pixel,
 }
 .garden-page .site-nav a,
 .garden-page .site-nav button {
-  font-family: var(--font-pixel) !important;
   letter-spacing: 0 !important;
   color: var(--garden-accent-text) !important;
   transition: color 1.2s ease;
@@ -545,7 +521,7 @@ img.pixel,
   }
 }
 
-/* Mobile: position/height/bottom-anchoring come from navigation.css's
+/* mobile: position/height/bottom-anchoring come from navigation.css's
    shared fixed bottom bar -- this only carries over the garden page's
    full-bleed/no-radius treatment, with the visible accent border and
    drop shadow mirrored to the bar's new top edge (it now sits flush
@@ -569,7 +545,7 @@ img.pixel,
   }
 }
 
-/* Reserve space at the bottom of the page (mobile only) so the fixed nav
+/* reserve space at the bottom of the page (mobile only) so the fixed nav
    bar can never cover this page's real content -- same fix applied to
    site.css, using navigation.css's shared --site-nav-mobile-total var. */
 @media (max-width: 850px) {
