@@ -296,11 +296,13 @@
         parsing: false,
         scales: {
           x: {
+            type: 'linear',
             title: { display: true, text: 'Temperature (\u00b0C)', color: '#8b96ab' },
             ticks: { color: '#8b96ab' },
             grid: { color: 'rgba(255,255,255,0.06)' },
           },
           y: {
+            type: 'linear',
             title: { display: true, text: 'Altitude (m)', color: '#8b96ab' },
             ticks: { color: '#8b96ab' },
             grid: { color: 'rgba(255,255,255,0.06)' },
@@ -376,6 +378,27 @@
     right.addEventListener('click', function () { scrollByCard(1); });
   }
 
+  // ---------- Meteocons override (emoji -> icon file, same pattern as
+  // the garden page's data-icon override: silently keeps the emoji if
+  // the icon file isn't there yet, no hard dependency) ----------
+
+  function initAtmosphereIconOverrides() {
+    document.querySelectorAll('[data-icon]').forEach(function (el) {
+      var name = el.getAttribute('data-icon');
+      if (!name) return;
+      var img = new Image();
+      img.alt = '';
+      img.className = 'atm-card-icon-img';
+      img.onload = function () {
+        el.replaceWith(img);
+      };
+      img.onerror = function () {
+        // icon file doesn't exist (yet) at this path -- keep the emoji.
+      };
+      img.src = 'icons/' + name + '.svg';
+    });
+  }
+
   // ---------- boot ----------
 
   function loadAtmosphere() {
@@ -401,6 +424,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     initCardPaging();
+    initAtmosphereIconOverrides();
     loadAtmosphere();
   });
 })();
