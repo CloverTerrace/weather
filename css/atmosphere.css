@@ -1,17 +1,8 @@
 /* ==========================================================================
-   Clover Terrace — Atmosphere page
-   Theme: "upper-air observation / flight-instrument telemetry" — a dark
-   instrument-panel palette with amber/cyan readout accents and a monospace
-   numeric face, deliberately distinct from the garden page's parchment/
-   pixel-art look and the space page's photoreal night sky. A faint graph-
-   paper grid nods at skew-T chart paper without trying to BE one.
+   clover terrace — atmosphere page
    ========================================================================== */
 
 @font-face {
-  /* System monospace stack only -- no custom font file shipped for this
-     page yet. Swap in a real webfont later if you want a more distinctive
-     numeric face; the classes below (.atm-mono) are already scoped so a
-     single @font-face addition is all a future upgrade would need. */
   font-family: 'Atmosphere Mono Fallback';
   src: local('JetBrains Mono'), local('SFMono-Regular'), local('Consolas');
 }
