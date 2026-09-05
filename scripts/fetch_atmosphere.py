@@ -231,23 +231,32 @@ def compute_parameters(prof: Profile) -> dict:
 
     out = {}
 
+    def r(value, digits):
+        """round() a pint/numpy scalar down to a plain JSON-safe Python
+        float. GRIB data is float32 -- round() on a numpy float32 returns
+        another numpy float32, and Python's json module can't serialize
+        ANY numpy numeric type (confirmed against a real run: this was
+        the actual cause of the 'Object of type float32 is not JSON
+        serializable' failure, not the rounding itself)."""
+        return round(float(value), digits)
+
     # --- CAPE / CIN -------------------------------------------------
     sb_cape, sb_cin = mpcalc.surface_based_cape_cin(p, T, Td)
-    out["sbcape_j_kg"] = round(sb_cape.to("J/kg").magnitude, 0)
-    out["sbcin_j_kg"] = round(sb_cin.to("J/kg").magnitude, 0)
+    out["sbcape_j_kg"] = r(sb_cape.to("J/kg").magnitude, 0)
+    out["sbcin_j_kg"] = r(sb_cin.to("J/kg").magnitude, 0)
 
     ml_cape, ml_cin = mpcalc.mixed_layer_cape_cin(p, T, Td, depth=100 * units.hPa)
-    out["mlcape_j_kg"] = round(ml_cape.to("J/kg").magnitude, 0)
-    out["mlcin_j_kg"] = round(ml_cin.to("J/kg").magnitude, 0)
+    out["mlcape_j_kg"] = r(ml_cape.to("J/kg").magnitude, 0)
+    out["mlcin_j_kg"] = r(ml_cin.to("J/kg").magnitude, 0)
 
     # --- Storm motion + helicity -------------------------------------
     try:
         rm, lm, mean_wind = mpcalc.bunkers_storm_motion(p, u, v, z)
         srh_1km = mpcalc.storm_relative_helicity(z, u, v, depth=1 * units.km, storm_u=rm[0], storm_v=rm[1])
         srh_3km = mpcalc.storm_relative_helicity(z, u, v, depth=3 * units.km, storm_u=rm[0], storm_v=rm[1])
-        out["srh_0_1km_m2_s2"] = round(srh_1km[0].to("m^2/s^2").magnitude, 0)
-        out["srh_0_3km_m2_s2"] = round(srh_3km[0].to("m^2/s^2").magnitude, 0)
-        out["bunkers_right_mover_kt"] = round(rm[0].to("knot").magnitude, 1)
+        out["srh_0_1km_m2_s2"] = r(srh_1km[0].to("m^2/s^2").magnitude, 0)
+        out["srh_0_3km_m2_s2"] = r(srh_3km[0].to("m^2/s^2").magnitude, 0)
+        out["bunkers_right_mover_kt"] = r(rm[0].to("knot").magnitude, 1)
     except Exception as exc:
         log.warning("Storm motion / SRH calc failed: %s", exc)
         out["srh_0_1km_m2_s2"] = None
@@ -256,41 +265,35 @@ def compute_parameters(prof: Profile) -> dict:
     # --- Bulk shear ----------------------------------------------------
     shear_1km_u, shear_1km_v = mpcalc.bulk_shear(p, u, v, height=z, depth=1 * units.km)
     shear_6km_u, shear_6km_v = mpcalc.bulk_shear(p, u, v, height=z, depth=6 * units.km)
-    out["shear_0_1km_kt"] = round(
-        mpcalc.wind_speed(shear_1km_u, shear_1km_v).to("knot").magnitude, 1
-    )
-    out["shear_0_6km_kt"] = round(
-        mpcalc.wind_speed(shear_6km_u, shear_6km_v).to("knot").magnitude, 1
-    )
+    out["shear_0_1km_kt"] = r(mpcalc.wind_speed(shear_1km_u, shear_1km_v).to("knot").magnitude, 1)
+    out["shear_0_6km_kt"] = r(mpcalc.wind_speed(shear_6km_u, shear_6km_v).to("knot").magnitude, 1)
 
     # --- Lapse rates -----------------------------------------------
-    # 0-3km AGL lapse rate (simple ΔT/Δz against height AGL, not MetPy's
-    # environmental_lapse_rate helper, since we want a fixed AGL layer
-    # rather than a pressure-bounded one).
+    # 0-3km AGL lapse rate: simple ΔT/Δz against height AGL.
     agl = z - z[0]
     try:
         idx_3km = int(np.argmin(np.abs(agl.to("km").magnitude - 3.0)))
-        dz = (z[idx_3km] - z[0]).to("km").magnitude
-        dT = (T[0] - T[idx_3km]).to("delta_degC").magnitude
+        dz = float((z[idx_3km] - z[0]).to("km").magnitude)
+        dT = float((T[0] - T[idx_3km]).to("delta_degC").magnitude)
         out["lapse_rate_0_3km_c_km"] = round(dT / dz, 2) if dz > 0 else None
     except Exception as exc:
         log.warning("0-3km lapse rate calc failed: %s", exc)
         out["lapse_rate_0_3km_c_km"] = None
 
     # 700-500mb lapse rate (the classic "mid-level steepness" SPC metric).
+    # NOTE: there is no mpcalc.lapse_rate(bottom=..., depth=...) helper in
+    # MetPy's actual API (confirmed against a real run: AttributeError,
+    # not a fluke) -- this is computed directly rather than pretending
+    # there's a built-in to fall back FROM.
     try:
-        lr_700_500 = mpcalc.lapse_rate(p, T, height=z, bottom=700 * units.hPa, depth=200 * units.hPa)
-        out["lapse_rate_700_500mb_c_km"] = round(abs(lr_700_500.to("delta_degC/km").magnitude), 2)
+        i700 = int(np.argmin(np.abs(p.magnitude - 700)))
+        i500 = int(np.argmin(np.abs(p.magnitude - 500)))
+        dz = float((z[i500] - z[i700]).to("km").magnitude)
+        dT = float((T[i700] - T[i500]).to("delta_degC").magnitude)
+        out["lapse_rate_700_500mb_c_km"] = round(dT / dz, 2) if dz else None
     except Exception as exc:
-        log.warning("700-500mb lapse rate calc failed (falling back to manual): %s", exc)
-        try:
-            i700 = int(np.argmin(np.abs(p.magnitude - 700)))
-            i500 = int(np.argmin(np.abs(p.magnitude - 500)))
-            dz = (z[i500] - z[i700]).to("km").magnitude
-            dT = (T[i700] - T[i500]).to("delta_degC").magnitude
-            out["lapse_rate_700_500mb_c_km"] = round(dT / dz, 2) if dz else None
-        except Exception:
-            out["lapse_rate_700_500mb_c_km"] = None
+        log.warning("700-500mb lapse rate calc failed: %s", exc)
+        out["lapse_rate_700_500mb_c_km"] = None
 
     return out
 
