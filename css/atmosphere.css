@@ -480,6 +480,244 @@ a { color: var(--atm-cyan); }
 
 .atm-wind-loading { font-family: var(--atm-body); color: var(--atm-muted); }
 
+/* ---------- SPC Outlooks (Convective + Thunderstorm) ---------- */
+/* migrated from the main page's Storm Center card -- same interaction
+   pattern (scroll-snap carousel + thumbnail drawer), restyled into this
+   page's dark/cyan theme instead of the main dashboard's card language. */
+
+.outlook-category-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.outlook-category-tab {
+  min-width: 0;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--atm-border);
+  color: var(--atm-muted);
+  padding: 9px 8px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-family: var(--atm-header);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.outlook-category-tab:hover { background: rgba(255,255,255,0.06); }
+
+.outlook-category-tab.active {
+  background: rgba(255,255,255,0.08);
+  border-color: var(--atm-cyan);
+  color: var(--atm-text);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.outlook-category-panel { display: none; }
+.outlook-category-panel.active { display: block; }
+
+.outlook-current-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: 0 0 0.5rem;
+  color: var(--atm-muted);
+  font-family: var(--atm-number);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.outlook-current-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--atm-cyan);
+  box-shadow: 0 0 7px var(--atm-cyan);
+  opacity: 0.85;
+}
+
+.outlook-scroll {
+  position: relative;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 1rem;
+  scrollbar-width: none;
+  border-radius: 10px;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+}
+
+.outlook-scroll::-webkit-scrollbar { display: none; }
+
+.outlook-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  text-align: center;
+  min-width: 0;
+}
+
+.outlook-viewport {
+  width: 100%;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--atm-card-raised);
+}
+
+.outlook-slide img,
+.thunderstorm-primary-slide img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 58vh;
+  object-fit: contain;
+  border-radius: 8px;
+  margin: 0 auto;
+}
+
+.outlook-thumbnails,
+.thunderstorm-thumb-grid {
+  display: flex;
+  gap: 0.65rem;
+  width: 100%;
+  overflow-x: auto;
+  padding: 0.7rem 2px 2px;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+}
+
+.outlook-thumbnails::-webkit-scrollbar,
+.thunderstorm-thumb-grid::-webkit-scrollbar { display: none; }
+
+.outlook-thumb,
+.thunderstorm-thumb {
+  flex: 0 0 118px;
+  min-width: 0;
+  padding: 0;
+  border: 1px solid var(--atm-border);
+  border-radius: 9px;
+  background: var(--atm-card-raised);
+  color: var(--atm-muted);
+  cursor: pointer;
+  overflow: hidden;
+  scroll-snap-align: start;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.outlook-thumb:hover,
+.thunderstorm-thumb:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.16);
+}
+
+.outlook-thumb.active,
+.thunderstorm-thumb.active {
+  border-color: var(--atm-cyan);
+  background: rgba(255,255,255,0.07);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--atm-cyan) 35%, transparent);
+}
+
+.outlook-thumb:focus-visible,
+.thunderstorm-thumb:focus-visible {
+  outline: 2px solid var(--atm-cyan);
+  outline-offset: 2px;
+}
+
+.outlook-thumb img,
+.thunderstorm-thumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.28 / 1;
+  object-fit: contain;
+  background: rgba(0,0,0,0.15);
+}
+
+.outlook-thumb-label,
+.thunderstorm-thumb-label {
+  display: block;
+  padding: 0.38rem 0.45rem 0.42rem;
+  font-family: var(--atm-number);
+  font-size: 0.68rem;
+  line-height: 1.1;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.outlook-thumb.current .outlook-thumb-label::before,
+.thunderstorm-thumb.current .thunderstorm-thumb-label::before { content: none; }
+
+.outlook-nav-hint {
+  text-align: center;
+  margin-top: 0.4rem;
+  color: var(--atm-muted);
+  font-family: var(--atm-number);
+  font-size: 0.63rem;
+  opacity: 0.65;
+}
+
+.thunderstorm-outlook-panel { width: 100%; }
+.thunderstorm-period-grid { display: block; width: 100%; }
+.thunderstorm-primary-scroll { margin: 0; }
+.thunderstorm-primary-slide { flex-basis: 100%; }
+
+.thunderstorm-period-label {
+  text-align: center;
+  color: var(--atm-muted);
+  font-family: var(--atm-number);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.thunderstorm-empty {
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border: 1px dashed var(--atm-border);
+  border-radius: 10px;
+  color: var(--atm-muted);
+  font-family: var(--atm-body);
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.outlook-note {
+  color: var(--atm-muted);
+  font-size: 0.68rem;
+  margin: 0.6rem 0 0;
+  font-family: var(--atm-body);
+  text-align: center;
+  opacity: 0.75;
+}
+
+@media (max-width: 520px) {
+  .outlook-viewport { min-height: 170px; }
+  .outlook-slide img,
+  .thunderstorm-primary-slide img { max-height: 50vh; }
+  .outlook-thumb,
+  .thunderstorm-thumb { flex-basis: 104px; }
+  .outlook-category-tab { font-size: 0.76rem; padding: 8px 6px; }
+}
+
 /* ---------- forecast discussion (MDs + AFD/HWO/SPS/PNS) ---------- */
 .atm-discussion-list {
   margin-top: 1rem;
