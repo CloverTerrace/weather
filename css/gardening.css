@@ -16,11 +16,11 @@
   --good: #3f7d2c;
   --warn: #b5762a;
   --danger: #a5352f;
-  --font-pixel: 'alagard', monospace;
+  --font-pixel: 'pixelta', monospace;
   --font-fantasy: 'alagard', monospace;
-  --font-initial: 'Cross Stitch Initials', monospace;
-  --font-crossx: 'Cross Stitch Regular', monospace;
-  --font-body: 'alagard', monospace;
+  --font-secondary: 'perfectdos', monospace;
+  --font-cardheader: 'perfectdos2', monospace;
+  --font-body: 'birch leaf', monospace;
   --font-header: 'Macondo', 'Press Start 2P', monospace;
 
   /* nav + hero-card accent -- purple by default (night), recolored per
@@ -159,16 +159,15 @@ img.pixel,
   justify-content: center;
 }
 
-/* figtree-regular - latin 🍀*/
+/* perfect dos-regular - latin 🍀*/
 @font-face {
   font-display: swap;
-  font-family: 'Figtree';
+  font-family: 'perfectDOS';
   font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/figtree-v9-latin-regular.woff2') format('woff2');
+  src: url('../fonts/Perfect DOS VGA 437 Win.woff2') format('woff2');
 }
 
-/* alagard font */
+/* alagard pixel font */
 @font-face {
   font-display: swap;
   font-family: 'alagard';
@@ -177,23 +176,40 @@ img.pixel,
   src: url('../fonts/alagard.woff2') format('woff2');
 }
 
-/* crosstitch initials font */
+/* leaf1 font */
 @font-face {
   font-display: swap;
-  font-family: 'Cross Stitch Initials';
+  font-family: 'leaf1';
   font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/Cross Stitch Initials.woff2') format('woff2');
+  src: url('../fonts/leaf1.woff2') format('woff2');
 }
 
-/* crosstitch font */
+/* pixelta font */
 @font-face {
   font-display: swap;
-  font-family: 'Cross Stitch Regular';
+  font-family: 'pixelta';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/Cross Stitch Regular.woff2') format('woff2');
+  src: url('../fonts/Pixelta.woff2') format('woff2');
 }
+
+/* birch leaf */
+@font-face {
+    font-display: swap;
+    font-family: 'birch leaf'
+    font-style: normal;
+    src: url ('../fonts/BirchLeaf.woff2') format('woff2');
+}
+
+
+/* birch leaf */
+@font-face {
+    font-display: swap;
+    font-family: 'perfectdos2'
+    font-style: normal;
+    src: url ('../fonts/Perfect DOS VGA 437.woff2') format('woff2');
+}
+
 
 /* -----------------------------------------------------------------
    garden world / terrain foundation
