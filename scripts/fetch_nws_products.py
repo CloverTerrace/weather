@@ -705,6 +705,7 @@ def fetch_nws_updates(limit: int = MAX_NWS_UPDATES) -> list[dict]:
 
         items.append({
             "id": source_id,
+            "code": code,
             "type": product_name,
             "office": props.get("issuingOffice") or WFO,
             "issued": props.get("issuanceTime"),
