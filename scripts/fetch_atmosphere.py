@@ -322,6 +322,51 @@ def profile_to_json(prof: Profile) -> list:
     return rows
 
 
+CAPE_HISTORY_MAX_ENTRIES = 24  # ~24 HRRR cycles = 1 day of hourly readings,
+                                 # comfortably covering the main page's 3h
+                                 # trend window and 6h sparkline window with
+                                 # room to spare
+
+
+def build_cape_history(existing_payload: dict, cycle_iso: str, params: dict) -> list:
+    """
+    Append this cycle's CAPE reading to whatever history already exists in
+    the previous atmosphere.json, trimmed to CAPE_HISTORY_MAX_ENTRIES.
+
+    Mirrors fetch_aurora.py's rolling-history approach for its Kp trend --
+    same idea, applied here so the main page's existing CAPE trend
+    arrow/sparkline (previously fed by fetch_cape.py's Open-Meteo history)
+    keeps working once it switches to reading HRRR CAPE from this file
+    instead. This only ever gets called when main() is about to write a
+    genuinely NEW cycle (the idempotency check above returns early
+    otherwise), so history naturally grows once per real HRRR cycle, not
+    once per workflow run.
+    """
+    history = existing_payload.get("cape_history") or []
+    # defensive: drop anything malformed rather than let one bad entry
+    # break every subsequent run.
+    history = [h for h in history if isinstance(h, dict) and h.get("time")]
+
+    history.append({
+        "time": cycle_iso,
+        "sbcape_j_kg": params.get("sbcape_j_kg"),
+        "mlcape_j_kg": params.get("mlcape_j_kg"),
+    })
+
+    # de-dupe by cycle time (defends against a manual re-run of the same
+    # cycle somehow reaching this point) and keep the most recent entries.
+    seen = set()
+    deduped = []
+    for entry in reversed(history):
+        if entry["time"] in seen:
+            continue
+        seen.add(entry["time"])
+        deduped.append(entry)
+    deduped.reverse()
+
+    return deduped[-CAPE_HISTORY_MAX_ENTRIES:]
+
+
 def main() -> int:
     H, cycle = find_latest_available_cycle()
     if H is None:
@@ -331,31 +376,38 @@ def main() -> int:
 
     cycle_iso = cycle.strftime("%Y-%m-%dT%H:00:00Z")
 
-    # Idempotency check: skip the (slower) download + compute work entirely
-    # if we already have this exact cycle written out.
+    # Read whatever's already there once, up front -- used both for the
+    # idempotency check below AND (if we do proceed) as the base for
+    # cape_history, so this is the only place the existing file gets read.
+    existing_payload = {}
     if OUTPUT_PATH.exists():
         try:
-            existing = json.loads(OUTPUT_PATH.read_text())
-            if existing.get("model_cycle") == cycle_iso:
-                log.info("atmosphere.json already reflects cycle %s -- nothing to do.", cycle_iso)
-                return 0
+            existing_payload = json.loads(OUTPUT_PATH.read_text())
         except (json.JSONDecodeError, OSError):
-            pass  # corrupt/missing existing file -- just proceed and overwrite
+            existing_payload = {}  # corrupt/missing -- proceed as if empty
+
+    # Idempotency check: skip the (slower) download + compute work entirely
+    # if we already have this exact cycle written out.
+    if existing_payload.get("model_cycle") == cycle_iso:
+        log.info("atmosphere.json already reflects cycle %s -- nothing to do.", cycle_iso)
+        return 0
 
     prof = load_profile(H)
     params = compute_parameters(prof)
+    cape_history = build_cape_history(existing_payload, cycle_iso, params)
 
     payload = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "model_cycle": cycle_iso,
         "model": "HRRR",
         "parameters": params,
+        "cape_history": cape_history,
         "profile": profile_to_json(prof),
     }
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(json.dumps(payload, indent=2))
-    log.info("Wrote %s (cycle %s)", OUTPUT_PATH, cycle_iso)
+    log.info("Wrote %s (cycle %s, %d cape_history entries)", OUTPUT_PATH, cycle_iso, len(cape_history))
     return 0
 
 
