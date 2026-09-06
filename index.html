@@ -244,12 +244,9 @@
           <span class="nws-tab-label nws-tab-label-short">Watches</span>
           <span class="nws-tab-count" id="nws-count-watches">0</span>
         </button>
-        <button class="nws-tab" type="button" role="tab" aria-selected="false" aria-controls="nws-panel-md" data-target="nws-panel-md">
-          <span class="card-icon"><img src="icons/thunderstorms.svg" alt=""></span>
-          <span class="nws-tab-label nws-tab-label-full">Mesoscale Discussions</span>
-          <span class="nws-tab-label nws-tab-label-short">MDs</span>
-          <span class="nws-tab-count" id="nws-count-md">0</span>
-        </button>
+        <!-- Mesoscale Discussions moved to the Atmosphere page (analytical/
+             predictive content) -- see atmosphere.html's Forecast Discussion
+             panel. This tab intentionally no longer exists here. -->
         <button class="nws-tab" type="button" role="tab" aria-selected="false" aria-controls="nws-panel-statements" data-target="nws-panel-statements">
           <span class="card-icon"><img src="icons/code-yellow.svg" alt=""></span>
           <span class="nws-tab-label nws-tab-label-full">NWS Updates</span>
@@ -260,9 +257,6 @@
 
       <div class="nws-panel active" id="nws-panel-watches" role="tabpanel">
         <div class="nws-list" id="nws-list-watches"><div class="nws-empty">No active watches.</div></div>
-      </div>
-      <div class="nws-panel" id="nws-panel-md" role="tabpanel">
-        <div class="nws-list" id="nws-list-md"><div class="nws-empty">No recent mesoscale discussions.</div></div>
       </div>
       <div class="nws-panel" id="nws-panel-statements" role="tabpanel">
         <div class="nws-list" id="nws-list-statements"><div class="nws-empty">No recent NWS updates.</div></div>
