@@ -933,15 +933,21 @@
     }
   }
 
-  // rolling CAPE history (written by fetch_cape.py each workflow run)
+  // rolling CAPE history -- was fetch_cape.py's Open-Meteo-based
+  // data/cape_history.json; now reads the same cape_history array
+  // fetch_atmosphere.py builds from the HRRR model instead (see
+  // build_cape_history() there). Reshaped to {time, cape} here so the
+  // existing trend-arrow/sparkline code (getCapeTrend, sparklinePoints)
+  // doesn't need to know the field is now called sbcape_j_kg.
   async function loadCapeHistory() {
     try {
-      const url = `data/cape_history.json?t=${Date.now()}`;
+      const url = `data/atmosphere.json?t=${Date.now()}`;
       const res = await fetch(url, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const history = await res.json();
+      const payload = await res.json();
+      const history = payload.cape_history;
       if (Array.isArray(history) && history.length > 0) {
-        capeHistory = history;
+        capeHistory = history.map(h => ({ time: h.time, cape: h.sbcape_j_kg }));
         if (lastWeatherData) renderCards(lastWeatherData);
       }
     } catch (err) {
@@ -3708,15 +3714,15 @@ const THEMES = {
     const aqUrl = `data/air_quality.json?t=${Date.now()}`;
     const alertUrl = `data/alerts.json?t=${Date.now()}`;
     const auroraUrl = `data/aurora.json?t=${Date.now()}`;
-    const capeUrl = `data/cape.json?t=${Date.now()}`;
+    const atmosphereUrl = `data/atmosphere.json?t=${Date.now()}`;
     const wuUrl = `${WU_BACKUP_URL}?t=${Date.now()}`;
 
-    const [res, aqRes, alertRes, auroraRes, capeRes, wuRes] = await Promise.all([
+    const [res, aqRes, alertRes, auroraRes, atmosphereRes, wuRes] = await Promise.all([
       fetch(url, { cache: 'no-store' }),
       fetch(aqUrl, { cache: 'no-store' }).catch(() => null),
       fetch(alertUrl, { cache: 'no-store' }).catch(() => null),
       fetch(auroraUrl, { cache: 'no-store' }).catch(() => null),
-      fetch(capeUrl, { cache: 'no-store' }).catch(() => null),
+      fetch(atmosphereUrl, { cache: 'no-store' }).catch(() => null),
       fetch(wuUrl, { cache: 'no-store' }).catch(() => null),
     ]);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -3747,10 +3753,11 @@ const THEMES = {
       currentAurora = await auroraRes.json();
       try { updateSkyBadges(); } catch (e) { console.warn('Could not update sky badges:', e.message); }
     }
-    if (capeRes && capeRes.ok) {
+    if (atmosphereRes && atmosphereRes.ok) {
       try {
-        const capeData = await capeRes.json();
-        if (capeData.cape !== undefined) data.cape = capeData.cape;
+        const atmosphereData = await atmosphereRes.json();
+        const sbcape = atmosphereData.parameters && atmosphereData.parameters.sbcape_j_kg;
+        if (sbcape !== undefined) data.cape = sbcape;
       } catch (e) { /* leave data.cape unset -- card falls back to '--' */ }
     }
     let alerts = [];
