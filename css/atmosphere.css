@@ -480,6 +480,61 @@ a { color: var(--atm-cyan); }
 
 .atm-wind-loading { font-family: var(--atm-body); color: var(--atm-muted); }
 
+/* ---------- forecast discussion (MDs + AFD/HWO/SPS/PNS) ---------- */
+.atm-discussion-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.atm-discussion-empty {
+  font-family: var(--atm-body);
+  color: var(--atm-muted);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.atm-discussion-item {
+  background: var(--atm-card-raised);
+  border: 1px solid var(--atm-border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+
+.atm-discussion-item-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.atm-discussion-type {
+  font-family: var(--atm-header);
+  font-size: 0.95rem;
+  color: var(--atm-cyan);
+}
+
+.atm-discussion-age {
+  font-family: var(--atm-number);
+  font-size: 0.7rem;
+  color: var(--atm-muted);
+  white-space: nowrap;
+}
+
+.atm-discussion-summary {
+  margin: 0.4rem 0 0 0;
+  font-family: var(--atm-body);
+  color: var(--atm-text);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.atm-discussion-item .atm-explainer p {
+  font-family: var(--atm-body);
+}
+
 /* ---------- footer ---------- */
 .atm-footer {
   margin-top: 2.25rem;
