@@ -63,8 +63,11 @@
   --atm-cat-enhanced: #e8863f;
   --atm-cat-high: #d9548c;
 
-  --atm-mono: Royalacid_o, 'Atmosphere Mono Fallback', 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-  --atm-sans: Figteee, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --atm-mono: 'Atmosphere Mono Fallback', 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --atm-sans: Figtree, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --atm-body: Figtree;
+  --atm-header: Great Warrior;
+  --atm-header1: consolas;
 
   /* so the shared navigation.css (which reads these three) themes itself
      to match this page instead of falling back to unstyled defaults */
@@ -104,11 +107,13 @@ a { color: var(--atm-cyan); }
 .atm-header {
   padding: 1.25rem 0 0.5rem 0;
   text-align: left;
+  font-family: var(--atm-header);
 }
 
 .atm-header h1 {
   margin: 0;
   font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-family: var(--atm-header1);
   font-weight: 800;
   letter-spacing: 0.01em;
   background: linear-gradient(120deg, var(--atm-amber), var(--atm-cyan));
