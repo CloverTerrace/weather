@@ -2,7 +2,7 @@
     🍀🌹 CLOVER TERRACE — GARDENING WEATHER 🌹🍀
    ===================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 :root {
   --ink: #3b2a1a;
@@ -16,12 +16,18 @@
   --good: #3f7d2c;
   --warn: #b5762a;
   --danger: #a5352f;
-  --font-pixel: 'pixelta', monospace;
-  --font-fantasy: 'alagard', monospace;
-  --font-secondary: 'perfectdos', monospace;
-  --font-cardheader: 'perfectdos2', monospace;
-  --font-body: 'birch leaf', monospace;
-  --font-header: 'Macondo', 'Press Start 2P', monospace;
+  /* Two-font system, deliberately. alagard carries the page's one big
+     whimsical moment -- the "Garden Weather" title -- and perfectDOS
+     (a clean pixel terminal face) does everything else: card headers,
+     stat numbers, captions, footer, badge. Six half-wired pixel fonts
+     fighting each other was the root of "everything looks off"; one
+     display face + one workhorse face reads as a considered choice
+     instead of a font sampler. pixelta / VT323 / leaf1 / perfectdos2
+     stay declared via @font-face below (harmless, and fixed so they
+     actually load) in case a future page wants a one-off accent --
+     nothing here references them yet. */
+  --font-display: 'alagard', 'Press Start 2P', monospace;
+  --font-body: 'perfectDOS', monospace;
 
   /* nav + hero-card accent -- purple by default (night), recolored per
      data-garden-time by updateGardenSky() in gardening.js so these two
@@ -193,21 +199,24 @@ img.pixel,
   src: url('../fonts/Pixelta.woff2') format('woff2');
 }
 
-/* birch leaf */
+/* birch leaf -- was missing a semicolon after font-family, which
+   invalidated the whole rule, so this face silently never loaded and
+   --font-body fell all the way back to the browser's default
+   monospace. fixed; not currently used by any variable (see the
+   --font-body comment above), but available for a future accent. */
 @font-face {
     font-display: swap;
-    font-family: 'birch leaf'
+    font-family: 'birch leaf';
     font-style: normal;
-    src: url ('../fonts/BirchLeaf.woff2') format('woff2');
+    src: url('../fonts/BirchLeaf.woff2') format('woff2');
 }
 
-
-/* birch leaf */
+/* perfectdos2 -- same missing-semicolon bug as birch leaf above. */
 @font-face {
     font-display: swap;
-    font-family: 'perfectdos2'
+    font-family: 'perfectdos2';
     font-style: normal;
-    src: url ('../fonts/Perfect DOS VGA 437.woff2') format('woff2');
+    src: url('../fonts/Perfect DOS VGA 437.woff2') format('woff2');
 }
 
 
@@ -501,8 +510,8 @@ img.pixel,
   border: 1px solid var(--garden-hero-readout-border);
   border-radius: 16px;
   padding: 0.9rem 1.3rem;
-  font-family: var(--font-fantasy);
-  font-size: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
   letter-spacing: 0.02em;
   color: var(--garden-hero-heading);
   transition: background 1.2s ease, border-color 1.2s ease, color 1.2s ease;
@@ -514,13 +523,36 @@ img.pixel,
  image-rendering: pixelated; /* Keeps the pixel art crisp */
  }
 
+/* the page's one deliberate ambient animation: the season badge
+   breathes gently, like a lantern, since it's the single element that
+   names "what garden moment you're in" -- everything else stays
+   still so this one signal reads instead of competing with a dozen
+   other hovers/entrances. */
+@keyframes garden-badge-breathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+  50% { box-shadow: 0 0 16px 3px var(--garden-hero-readout-border); }
+}
+.garden-season-tag {
+  animation: garden-badge-breathe 5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .garden-season-tag { animation: none; }
+}
+
 /* seasonal decorative <img> elements begin hidden and are revealed only
    after a successful load.*/
 .garden-page img[hidden] {
   display: none !important;
 }
 
- .garden-season-tag {
+/* this block used to be missing its @media wrapper entirely -- a
+   stray, unguarded "width:100%; height:100%" on .garden-season-tag
+   was firing at every screen size, stretching the season badge to
+   fill its grid cell on desktop instead of staying a compact pill.
+   it's meant to apply only once the hero layout stacks (560px, same
+   breakpoint as .garden-hero-layout below). */
+@media (max-width: 560px) {
+  .garden-season-tag {
     width: 100%;
     height: 100%;
     min-width: 0;
@@ -543,7 +575,7 @@ img.pixel,
   letter-spacing: 0 !important;
   color: var(--garden-accent-text) !important;
   transition: color 1.2s ease;
-  font-size: 0.66rem !important;
+  font-size: 0.78rem !important;
 }
 
 .garden-page .site-nav a:hover,
@@ -636,8 +668,8 @@ img.pixel,
 }
 
 .garden-heading h1 {
-  font-family: var(--font-header);
-  font-size: clamp(1.3rem, 4.5vw, 2.6rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 5.5vw, 2.8rem);
   color: #ffffff;
   text-shadow: 1px 1px 0 var(--purple-deep);
   margin: 0.4rem 0 0.7rem;
@@ -758,7 +790,7 @@ img.pixel,
    ----------------------------------------------------------------- */
 .garden-stat-row {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   align-items: stretch;
   gap: 1rem;
   max-width: 1180px;
@@ -775,16 +807,12 @@ img.pixel,
   flex-direction: column;
   gap: 0.1rem;
 }
-.garden-stat-card h2 {
-  font-family: var(--font-pixel);
-  font-size: 0.6rem;
-  line-height: 1.4;
-  color: #7a5a30;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin: 0 0 0.75rem;
-}
+/* .garden-stat-card is also .garden-card (see gardening.html), and
+   .garden-card h2 further down this file targets the exact same
+   elements with equal specificity -- being later in the cascade, it
+   silently won every property here (0.72rem/1.5 line-height beat this
+   rule's 0.6rem/1.4 on every stat card). Removed the dead duplicate
+   instead of leaving two rules pretending to both apply. */
 .garden-stat-icon { font-size: 1rem; }
 .garden-stat-value {
   font-size: 2rem;
@@ -993,9 +1021,9 @@ img.pixel,
 .garden-tree-companion.tc-4 { right: 22%; bottom: -4%; width: 11%; }
 
 .garden-card h2 {
-  font-family: var(--font-pixel);
-  font-size: 0.72rem;
-  line-height: 1.5;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.4;
   color: #7a5a30;
   display: flex;
   align-items: center;
@@ -1133,7 +1161,7 @@ img.pixel,
 /* huge temperature reading */
 .garden-hero-temp-large {
   grid-area: temp;
-  font-family: var(--font-header);
+  font-family: var(--font-body);
   font-size: 4.5rem;
   line-height: 1;
   color: var(--garden-hero-value);
@@ -1439,6 +1467,30 @@ button.garden-sprite {
   height:5px;
   background:#d47a43;
   box-shadow:3px 2px 0 #9b5135;
+}
+
+/* fireflies -- only make sense once it's dark, so they're hidden by
+   day/dawn rather than gated in JS (keeps garden-sprites.js's season
+   check simple, and means they fade in/out with the same
+   data-garden-time attribute everything else already reacts to). */
+.garden-ambient-summer {
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:#fff6b0;
+  box-shadow:0 0 6px 2px rgba(255,240,150,.85);
+}
+:root[data-garden-time="day"] .garden-ambient-summer,
+:root[data-garden-time="dawn"] .garden-ambient-summer {
+  display:none;
+}
+
+.garden-ambient-winter {
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:#eaf6ff;
+  box-shadow:0 0 4px 1px rgba(230,245,255,.75);
 }
 
 @keyframes garden-ambient-float {
