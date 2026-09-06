@@ -66,8 +66,9 @@
   --atm-mono: 'Atmosphere Mono Fallback', 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   --atm-sans: Figtree, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --atm-body: Figtree;
-  --atm-header: Great Warrior;
+  --atm-header: consolas;
   --atm-header1: consolas;
+  --atm-number: consolas;
 
   /* so the shared navigation.css (which reads these three) themes itself
      to match this page instead of falling back to unstyled defaults */
@@ -131,7 +132,7 @@ a { color: var(--atm-cyan); }
 
 .atm-model-meta {
   margin: 0.6rem 0 0 0;
-  font-family: var(--atm-mono);
+  font-family: var(--atm-consolas);
   font-size: 0.72rem;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -269,7 +270,7 @@ a { color: var(--atm-cyan); }
 }
 
 .atm-stat-value {
-  font-family: var(--atm-mono);
+  font-family: var(--atm-number);
   font-weight: 700;
   font-size: 0.95rem;
   color: var(--atm-amber);
@@ -310,7 +311,7 @@ a { color: var(--atm-cyan); }
 .atm-threshold-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: var(--atm-mono);
+  font-family: var(--atm-number);
   font-size: 0.74rem;
   margin-top: 0.4rem;
 }
@@ -406,7 +407,7 @@ a { color: var(--atm-cyan); }
 .atm-wind-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: var(--atm-mono);
+  font-family: var(--atm-number);
   font-size: 0.85rem;
 }
 
