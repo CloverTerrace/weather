@@ -125,7 +125,11 @@
   function renderAmbient(layer,s,w){
     if(!layer) return;
     layer.replaceChildren();
-    const count = s==='autumn' ? Math.min(12,Math.floor(w/180)) : s==='spring' ? Math.min(10,Math.floor(w/220)) : 0;
+    const count = s==='autumn' ? Math.min(12,Math.floor(w/180))
+      : s==='spring' ? Math.min(10,Math.floor(w/220))
+      : s==='summer' ? Math.min(9,Math.floor(w/240))
+      : s==='winter' ? Math.min(8,Math.floor(w/260))
+      : 0;
     for(let i=0;i<count;i++){
       const p=document.createElement('span');
       p.className=`garden-ambient-particle garden-ambient-${s}`;

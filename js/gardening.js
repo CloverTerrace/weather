@@ -258,6 +258,73 @@
     setStatCard({ valueId: 'frost-value', statusId: 'frost-status-word', captionId: 'frost-caption', value, status, cls, caption });
   }
 
+  // ---------- daylight (sunrise / sunset / day length) ----------
+  // SunCalc is already loaded for the sky animation, so this is real
+  // data the page wasn't using yet -- no new dependency.
+  function computeDaylight(now) {
+    if (typeof SunCalc === 'undefined') return null;
+    const times = SunCalc.getTimes(now, LAT, LON);
+    if (!times.sunrise || !times.sunset || isNaN(times.sunrise) || isNaN(times.sunset)) return null;
+
+    const ms = times.sunset - times.sunrise;
+    if (ms <= 0) return null;
+    const hours = Math.floor(ms / 3600000);
+    const minutes = Math.round((ms % 3600000) / 60000);
+
+    const fmtTime = d => new Intl.DateTimeFormat('en-US', {
+      timeZone: STATION_TIMEZONE,
+      hour: 'numeric',
+      minute: '2-digit'
+    }).format(d);
+
+    return {
+      sunrise: fmtTime(times.sunrise),
+      sunset: fmtTime(times.sunset),
+      length: `${hours}h ${minutes}m`
+    };
+  }
+
+  function renderDaylight() {
+    const info = computeDaylight(new Date());
+    if (!info) return;
+    setStatCard({
+      valueId: 'daylight-value',
+      statusId: 'daylight-status',
+      captionId: 'daylight-caption',
+      value: info.length,
+      status: `${info.sunrise} – ${info.sunset}`,
+      cls: 'info',
+      caption: 'Sunrise to sunset today.'
+    });
+  }
+
+  // ---------- moon phase (planting folklore) ----------
+  // phase runs 0 (new) -> 0.5 (full) -> 1 (new again); buckets below
+  // follow the traditional "plant above-ground crops while waxing,
+  // root crops while waning" gardening lore.
+  const MOON_PHASES = [
+    { max: 0.02, name: 'New Moon', tip: 'A fresh start — good day to plan next plantings.' },
+    { max: 0.48, name: 'Waxing', tip: 'Folklore favors sowing leafy, above-ground crops now.' },
+    { max: 0.52, name: 'Full Moon', tip: 'Traditionally a night to harvest, not to sow.' },
+    { max: 0.98, name: 'Waning', tip: 'Folklore favors root crops, bulbs, and transplanting now.' },
+    { max: 1.01, name: 'New Moon', tip: 'A fresh start — good day to plan next plantings.' }
+  ];
+
+  function renderMoonPhase() {
+    if (typeof SunCalc === 'undefined') return;
+    const illum = SunCalc.getMoonIllumination(new Date());
+    const phase = MOON_PHASES.find(p => illum.phase <= p.max) || MOON_PHASES[MOON_PHASES.length - 1];
+    setStatCard({
+      valueId: 'moon-value',
+      statusId: 'moon-status',
+      captionId: 'moon-caption',
+      value: `${Math.round(illum.fraction * 100)}%`,
+      status: phase.name,
+      cls: 'info',
+      caption: phase.tip
+    });
+  }
+
   // latest data from each source, kept around so the sky/weather-fx
   // system (below) can reclassify conditions whenever either one updates,
   // without the two fetches racing each other.
@@ -755,6 +822,8 @@
     initGardenWeatherFx();
     initGardenDetails();
     renderSeasonCountdown();
+    renderDaylight();
+    renderMoonPhase();
 
     const results = await Promise.allSettled([
       loadStation(),
@@ -783,4 +852,6 @@
   setInterval(() => loadStation().catch(() => {}), 60 * 1000);
   setInterval(() => loadNws().catch(() => {}), 15 * 60 * 1000);
   setInterval(renderSeasonCountdown, 60 * 60 * 1000);
+  setInterval(renderDaylight, 60 * 60 * 1000);
+  setInterval(renderMoonPhase, 60 * 60 * 1000);
 })();
