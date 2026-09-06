@@ -16,8 +16,11 @@
   --good: #3f7d2c;
   --warn: #b5762a;
   --danger: #a5352f;
-  --font-pixel: 'Press Start 2P', monospace;
-  --font-body: 'VT323', monospace;
+  --font-pixel: 'alagard', monospace;
+  --font-fantasy: 'alagard', monospace;
+  --font-initial: 'Cross Stitch Initials', monospace;
+  --font-crossx: 'Cross Stitch Regular', monospace;
+  --font-body: 'alagard', monospace;
   --font-header: 'Macondo', 'Press Start 2P', monospace;
 
   /* nav + hero-card accent -- purple by default (night), recolored per
@@ -156,6 +159,41 @@ img.pixel,
   justify-content: center;
 }
 
+/* figtree-regular - latin 🍀*/
+@font-face {
+  font-display: swap;
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/figtree-v9-latin-regular.woff2') format('woff2');
+}
+
+/* alagard font */
+@font-face {
+  font-display: swap;
+  font-family: 'alagard';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/alagard.woff2') format('woff2');
+}
+
+/* crosstitch initials font */
+@font-face {
+  font-display: swap;
+  font-family: 'Cross Stitch Initials';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/Cross Stitch Initials.woff2') format('woff2');
+}
+
+/* crosstitch font */
+@font-face {
+  font-display: swap;
+  font-family: 'Cross Stitch Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/Cross Stitch Regular.woff2') format('woff2');
+}
 
 /* -----------------------------------------------------------------
    garden world / terrain foundation
@@ -447,7 +485,7 @@ img.pixel,
   border: 1px solid var(--garden-hero-readout-border);
   border-radius: 16px;
   padding: 0.9rem 1.3rem;
-  font-family: var(--font-pixel);
+  font-family: var(--font-fantasy);
   font-size: 0.75rem;
   letter-spacing: 0.02em;
   color: var(--garden-hero-heading);
@@ -521,12 +559,6 @@ img.pixel,
   }
 }
 
-/* mobile: position/height/bottom-anchoring come from navigation.css's
-   shared fixed bottom bar -- this only carries over the garden page's
-   full-bleed/no-radius treatment, with the visible accent border and
-   drop shadow mirrored to the bar's new top edge (it now sits flush
-   against the screen's bottom edge, so a bottom border/downward shadow
-   no longer makes sense there). */
 @media (max-width: 850px) {
   .garden-page .site-nav {
     z-index: 10;
@@ -661,12 +693,7 @@ img.pixel,
 }
 
 
-/* drifting png cloud sprites, and CSS-drawn twinkling star sparkles.
-   Stars used to be <img src="assets/scene/star.png">, but that asset
-   renders as a plain soft circle -- opacity-pulsing a circle just
-   reads as a blinking dot, not a twinkle. Drawn as a 4-point sparkle
-   shape directly in CSS instead (see .star below), so there's no
-   image asset to depend on and it unambiguously reads as a star. */
+/* drifting png cloud sprites, and CSS-drawn twinkling star sparkles. */
 .garden-sky-sprite {
   position: absolute;
   pointer-events: none;
@@ -688,7 +715,7 @@ img.pixel,
 
 /* 4-point sparkle, drawn with clip-path -- width/height come from each
    star's inline style in gardening.html (equal, so the sparkle stays
-   square). A real glow now accompanies it (the old rule specified
+   square). a real glow now accompanies it (the old rule specified
    drop-shadow(...0px...), a 0px blur, which rendered no glow at all). */
 .garden-sky-sprite.star {
   background: #fff9ea;
@@ -832,13 +859,7 @@ img.pixel,
   height: auto;
   z-index: 5;
 }
-/* top/bottom/side offsets below are expressed as a ratio of the
-   corner's own width (calc(var(--vine-corner-w) * ratio)) rather than
-   fixed px, so they scale down in lockstep with --vine-corner-w at the
-   850px breakpoint. Fixed px offsets (the old -30px/-22px etc.) were
-   only ever correct at the 108px desktop size -- at the 78px mobile
-   size the same fixed offset is proportionally too large, which is
-   what was pushing the top corners up above where they should sit. */
+
 .garden-hero-vine.tl { top: calc(var(--vine-corner-w, 108px) * -0.278); left: calc(var(--vine-corner-w, 108px) * -0.204); }
 .garden-hero-vine.tr { top: calc(var(--vine-corner-w, 108px) * -0.278); right: calc(var(--vine-corner-w, 108px) * -0.204); }
 .garden-hero-vine.bl { bottom: calc(var(--vine-corner-bottom-w, 106px) * -0.245); left: calc(var(--vine-corner-bottom-w, 106px) * -0.208); width: var(--vine-corner-bottom-w, 106px); }
@@ -853,29 +874,11 @@ img.pixel,
 .garden-hero-vine.edge-bottom img {
   display: block;
   width: 100%;
-  max-width: var(--vine-edge-bottom-max-w, 340px); /* keeps the motif from
-                        ballooning on wide desktop cards, since width:100% +
-                        height:auto scales the rendered height right along
-                        with the card width. Overridable per-season via
-                        --vine-edge-bottom-max-w (see autumn's tighter value,
-                        which brings the bottom garland down to match the
-                        top edge's size instead of the oversized default). */
+  max-width: var(--vine-edge-bottom-max-w, 340px);
   height: auto;
   margin: 0 auto;
 }
 
-/* top edge: anchored by its BOTTOM edge to the card's top border
-   (bottom: 100%, i.e. flush with y=0 of the card), not by a small
-   fixed top offset -- for a tall ornament (pumpkin sitting above a
-   horizontal vine bar) a small top:-Npx offset only pulls a sliver of
-   it above the card, leaving most of the artwork sitting inside the
-   card instead of hugging the border the way the corners do.
-   margin-bottom pulls it back down by a small amount, proportional to
-   its own width, for the same slight overlap-onto-the-border look the
-   corners have, rather than floating with a gap above the card.
-   Sized to match --vine-corner-w directly -- the same scale as its
-   sibling vine corners -- instead of its own separate (oversized)
-   width, so it also auto-shrinks at the 850px breakpoint with them. */
 .garden-hero-vine.edge-top {
   top: auto;
   bottom: 100%;
@@ -900,12 +903,6 @@ img.pixel,
   width: var(--vine-edge-side-w, 30px);
   background-repeat: repeat-y;
   background-position: top center;
-  /* height:auto here preserves each tile's own native aspect ratio at
-     this fixed width, instead of stretching one copy to fill the whole
-     card height (which also blows up the width proportionally -- the
-     bug from last round). The vine is meant to repeat down the card,
-     same as the old summer-only version, just at each season's own
-     correct proportions rather than a guessed fixed height. */
   background-size: var(--vine-edge-side-w, 30px) auto;
 }
 .garden-hero-vine.edge-left {
@@ -920,12 +917,7 @@ img.pixel,
 @media (max-width: 850px) {
   :root { --vine-corner-w: 78px; --vine-corner-bottom-w: 76px; --vine-edge-side-w: 22px; }
   .garden-hero-card { padding: 1.3rem 1.1rem 2.2rem; }
-  /* autumn's +1px bump (see the base :root[data-garden-season="autumn"]
-     block above) has higher specificity than the plain :root rule right
-     above, so without a mobile-scoped value of its own it would win at
-     every width and lock autumn's corners at the desktop 109/107px size
-     even on phones. Redeclaring it here keeps autumn's border 1px bigger
-     than every other season while still shrinking at this breakpoint. */
+  
   :root[data-garden-season="autumn"] .garden-world {
     --vine-corner-w: 79px;
     --vine-corner-bottom-w: 77px;
@@ -939,7 +931,7 @@ img.pixel,
    inside .garden-stat-row on narrow screens, landing in the empty grid
    cell next to Rain Forecast. tree + companion sprite art is swapped
    per-season by updateSeasonalTreeArt() (gardening.js), same trigger
-   the rest of the sprite system reacts to -- never hardcode a season
+   the rest of the sprite system reacts to. never hardcode a season
    folder in the src attributes here.
    ----------------------------------------------------------------- */
 .garden-hero-tree {
@@ -1097,13 +1089,7 @@ img.pixel,
   padding: 0.35rem;
   border-top: 2px solid #16102b;
 }
-/* --- colorful accent card ---
-   CSS Grid with named areas instead of flex, specifically so the
-   season badge (grid-area: badge) can be repositioned per breakpoint
-   just by redefining grid-template-areas, without moving it in the
-   DOM: desktop centers it full-width below temp/stats (the "bottom
-   center" space that used to just be empty); mobile puts it beside
-   the temperature instead, filling that column. */
+/* --- colorful accent card --- */
 .garden-hero-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1146,10 +1132,6 @@ img.pixel,
 }
 
 @media (max-width: 560px) {
-  /* the temp now shares its row with the season badge instead of
-     having the full card width to itself, so it needs to fit a
-     narrower column -- scaled down proportionally rather than left to
-     overflow/wrap awkwardly. */
   .garden-hero-temp-large { font-size: 3rem; }
   .garden-hero-temp-unit { font-size: 1.4rem; }
 }
@@ -1225,9 +1207,6 @@ img.pixel,
     text-align: center;
   }
   .garden-heading h1 {
-    /* previously shrunk to 1rem (16px) here -- smaller than the
-       desktop clamp()'s own floor of 1.3rem -- which is why the title
-       read as undersized on phones. */
     font-size: 1.9rem;
   }
   .garden-readout-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
