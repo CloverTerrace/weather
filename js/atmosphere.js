@@ -477,6 +477,274 @@
       });
   }
 
+  // ---------- SPC Outlooks (Convective + Thunderstorm) ----------
+  // Moved here from the main page's Storm Center card -- this is SPC's
+  // own categorical/probabilistic outlook product, so it belongs with the
+  // rest of the instability/storm-atmosphere content on this page instead
+  // of competing with active NWS watches/warnings on the main dashboard.
+
+  function getCurrentUtcHour() {
+    return new Date().getUTCHours();
+  }
+
+  function thunderstormPeriodIsCurrent(period) {
+    var hour = getCurrentUtcHour();
+    var start = Number(period.start_hour);
+    var end = Number(period.end_hour);
+    if (!isFinite(start) || !isFinite(end)) return false;
+    return start < end ? (hour >= start && hour < end) : (hour >= start || hour < end);
+  }
+
+  function scrollOutlookToSlide(scroller, slide, smooth) {
+    if (!scroller || !slide) return;
+    scroller.scrollTo({
+      left: slide.offsetLeft,
+      behavior: smooth === false ? 'auto' : 'smooth'
+    });
+  }
+
+  function initOutlookViewer(opts) {
+    var scrollerId = opts.scrollerId;
+    var thumbSelector = opts.thumbSelector;
+    var slideSelector = opts.slideSelector;
+    var currentIndex = opts.currentIndex || 0;
+    var currentLabelId = opts.currentLabelId || null;
+    var labelPrefix = opts.labelPrefix || 'Viewing';
+
+    var scroller = document.getElementById(scrollerId);
+    var thumbs = Array.prototype.slice.call(document.querySelectorAll(thumbSelector));
+    var slides = Array.prototype.slice.call(document.querySelectorAll(slideSelector));
+    if (!scroller || !slides.length) return;
+
+    var activeIndex = Math.max(0, Math.min(currentIndex, slides.length - 1));
+    var scrollTimer = null;
+
+    function syncThumbs() {
+      thumbs.forEach(function (thumb, i) {
+        var isActive = i === activeIndex;
+        thumb.classList.toggle('active', isActive);
+        thumb.setAttribute('aria-current', isActive ? 'true' : 'false');
+        thumb.hidden = isActive;
+      });
+    }
+
+    function setActive(index, smooth) {
+      if (!slides.length) return;
+      activeIndex = Math.max(0, Math.min(index, slides.length - 1));
+      syncThumbs();
+      var slideLabel = (slides[activeIndex] && slides[activeIndex].getAttribute('aria-label')) || '';
+      if (currentLabelId) {
+        var label = document.getElementById(currentLabelId);
+        if (label) {
+          label.textContent = activeIndex === 0 ? ('Right now \u00b7 ' + slideLabel) : (labelPrefix + ' \u00b7 ' + slideLabel);
+        }
+      }
+      // thunderstorm slides carry their own compact period label.
+      slides.forEach(function (slide, i) {
+        var periodLabel = slide.querySelector('.thunderstorm-period-label');
+        if (!periodLabel) return;
+        var base = slide.getAttribute('aria-label') || '';
+        var original = periodLabel.dataset.periodLabel || base;
+        periodLabel.dataset.periodLabel = original;
+        periodLabel.textContent = i === activeIndex
+          ? (i === currentIndex ? ('Right now \u00b7 ' + original) : (labelPrefix + ' \u00b7 ' + original))
+          : original;
+      });
+      scrollOutlookToSlide(scroller, slides[activeIndex], smooth);
+    }
+
+    thumbs.forEach(function (thumb, index) {
+      thumb.addEventListener('click', function () { setActive(index, true); });
+    });
+
+    scroller.addEventListener('scroll', function () {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(function () {
+        var distances = slides.map(function (slide) { return Math.abs(slide.offsetLeft - scroller.scrollLeft); });
+        var nearest = distances.indexOf(Math.min.apply(Math, distances));
+        if (nearest >= 0 && nearest !== activeIndex) setActive(nearest, false);
+      }, 80);
+    }, { passive: true });
+
+    setActive(activeIndex, false);
+  }
+
+  function loadThunderstormOutlooks(cacheBust) {
+    cacheBust = cacheBust || Date.now();
+    var grid = document.getElementById('thunderstorm-period-grid');
+    var note = document.getElementById('thunderstorm-outlook-note');
+    if (!grid) return;
+
+    fetch('data/outlook-thunderstorm.json?t=' + cacheBust, { cache: 'no-store' })
+      .then(function (response) {
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return response.json();
+      })
+      .then(function (manifest) {
+        var periods = Array.isArray(manifest.periods) ? manifest.periods : [];
+
+        grid.innerHTML = '';
+        if (!periods.length) {
+          grid.innerHTML = '<div class="thunderstorm-empty">No current Thunderstorm Outlook periods are available.</div>';
+          if (note) note.textContent = '';
+          return;
+        }
+
+        // prefer the period valid right now. if the current clock falls
+        // between SPC blocks, fall back to the first live period.
+        var currentIndex = periods.findIndex(thunderstormPeriodIsCurrent);
+        if (currentIndex < 0) currentIndex = 0;
+
+        var scroller = document.createElement('div');
+        scroller.className = 'outlook-scroll thunderstorm-primary-scroll';
+        scroller.id = 'thunderstorm-primary-scroll';
+        scroller.setAttribute('aria-label', 'SPC Thunderstorm Outlook periods');
+
+        var thumbs = document.createElement('div');
+        thumbs.className = 'thunderstorm-thumb-grid';
+        thumbs.id = 'thunderstorm-thumb-grid';
+        thumbs.setAttribute('aria-label', 'Choose thunderstorm outlook period');
+
+        periods.forEach(function (period, index) {
+          var labelText = period.label || (period.start_hour + 'Z\u2013' + period.end_hour + 'Z');
+          var isCurrent = index === currentIndex;
+          var cacheFile = period.file + '?t=' + cacheBust;
+
+          var slide = document.createElement('div');
+          slide.className = 'outlook-slide thunderstorm-primary-slide';
+          slide.id = 'thunderstorm-slide-' + index;
+          slide.setAttribute('role', 'group');
+          slide.setAttribute('aria-label', labelText);
+
+          var label = document.createElement('div');
+          label.className = 'thunderstorm-period-label';
+          label.textContent = labelText;
+          label.dataset.periodLabel = labelText;
+
+          var viewport = document.createElement('div');
+          viewport.className = 'outlook-viewport';
+
+          var img = document.createElement('img');
+          img.src = cacheFile;
+          img.alt = 'SPC Thunderstorm Outlook ' + labelText;
+          img.decoding = 'async';
+          img.loading = index === currentIndex ? 'eager' : 'lazy';
+
+          var thumb = document.createElement('button');
+          thumb.className = 'thunderstorm-thumb' + (isCurrent ? ' active current' : '');
+          thumb.type = 'button';
+          thumb.setAttribute('aria-label', 'Open Thunderstorm Outlook ' + labelText);
+          thumb.setAttribute('aria-current', isCurrent ? 'true' : 'false');
+          thumb.dataset.index = String(index);
+
+          img.addEventListener('error', function () {
+            slide.remove();
+            thumb.remove();
+          });
+
+          viewport.appendChild(img);
+          slide.appendChild(label);
+          slide.appendChild(viewport);
+
+          var thumbImg = document.createElement('img');
+          thumbImg.src = cacheFile;
+          thumbImg.alt = '';
+          thumbImg.loading = 'lazy';
+          var thumbLabel = document.createElement('span');
+          thumbLabel.className = 'thunderstorm-thumb-label';
+          thumbLabel.textContent = labelText;
+          thumb.appendChild(thumbImg);
+          thumb.appendChild(thumbLabel);
+
+          thumb.addEventListener('click', function () {
+            var target = document.getElementById('thunderstorm-slide-' + index);
+            scrollOutlookToSlide(scroller, target, true);
+          });
+
+          scroller.appendChild(slide);
+          thumbs.appendChild(thumb);
+        });
+
+        grid.appendChild(scroller);
+        grid.appendChild(thumbs);
+
+        initOutlookViewer({
+          scrollerId: 'thunderstorm-primary-scroll',
+          thumbSelector: '#thunderstorm-thumb-grid .thunderstorm-thumb',
+          slideSelector: '#thunderstorm-primary-scroll .thunderstorm-primary-slide',
+          currentIndex: currentIndex
+        });
+
+        if (note) {
+          var updated = manifest.updated_at_utc
+            ? new Date(manifest.updated_at_utc).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' })
+            : '';
+          note.textContent = updated ? ('Updated ' + updated) : '';
+        }
+      })
+      .catch(function (err) {
+        console.warn('Could not load Thunderstorm Outlook manifest:', err);
+        grid.innerHTML = '<div class="thunderstorm-empty">Thunderstorm Outlook data is temporarily unavailable.</div>';
+        if (note) note.textContent = '';
+      });
+  }
+
+  function refreshOutlookImages() {
+    var t = Date.now();
+    var files = [
+      ['outlook-img-day1', 'data/outlook-day1.png?t=' + t],
+      ['outlook-img-day2', 'data/outlook-day2.png?t=' + t],
+      ['outlook-img-day3', 'data/outlook-day3.png?t=' + t]
+    ];
+    files.forEach(function (pair) {
+      var img = document.getElementById(pair[0]);
+      if (img) img.src = pair[1];
+    });
+
+    var day48 = document.getElementById('outlook-img-day48');
+    if (day48) {
+      day48.onerror = function () {
+        day48.onerror = null;
+        day48.src = 'data/outlook-day4-8.png?t=' + t;
+      };
+      day48.src = 'data/outlook-day4-8.gif?t=' + t;
+    }
+
+    // keep the compact preview drawer synchronized with the live images.
+    document.querySelectorAll('#outlook-thumbnails img').forEach(function (img) {
+      var src = img.getAttribute('src') || '';
+      img.src = src.split('?')[0] + '?t=' + t;
+    });
+
+    loadThunderstormOutlooks(t);
+  }
+
+  function initOutlookCategoryTabs() {
+    var tabs = document.querySelectorAll('#outlook-category-tabs .outlook-category-tab');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (t) {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.querySelectorAll('.outlook-category-panel').forEach(function (p) { p.classList.remove('active'); });
+        document.getElementById(tab.dataset.target).classList.add('active');
+      });
+    });
+  }
+
+  function initOutlookCarousel() {
+    initOutlookViewer({
+      scrollerId: 'outlook-scroll',
+      thumbSelector: '#outlook-thumbnails .outlook-thumb',
+      slideSelector: '#outlook-scroll .outlook-slide',
+      currentIndex: 0,
+      currentLabelId: 'outlook-current-label'
+    });
+  }
+
   // ---------- boot ----------
 
   function loadAtmosphere() {
@@ -505,5 +773,9 @@
     initAtmosphereIconOverrides();
     loadAtmosphere();
     loadDiscussionPanel();
+    initOutlookCarousel();
+    initOutlookCategoryTabs();
+    loadThunderstormOutlooks();
+    setInterval(refreshOutlookImages, 30 * 60 * 1000);
   });
 })();

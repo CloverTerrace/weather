@@ -1160,253 +1160,6 @@
     });
   }
 
-  async function refreshOutlookImages() {
-    const t = Date.now();
-    const files = [
-      ['outlook-img-day1', `data/outlook-day1.png?t=${t}`],
-      ['outlook-img-day2', `data/outlook-day2.png?t=${t}`],
-      ['outlook-img-day3', `data/outlook-day3.png?t=${t}`],
-    ];
-    files.forEach(([id, src]) => {
-      const img = document.getElementById(id);
-      if (img) img.src = src;
-    });
-
-    const day48 = document.getElementById('outlook-img-day48');
-    if (day48) {
-      day48.onerror = () => {
-        day48.onerror = null;
-        day48.src = `data/outlook-day4-8.png?t=${t}`;
-      };
-      day48.src = `data/outlook-day4-8.gif?t=${t}`;
-    }
-
-    // keep the compact preview drawer synchronized with the live images.
-    document.querySelectorAll('#outlook-thumbnails img').forEach(img => {
-      const src = img.getAttribute('src') || '';
-      img.src = src.split('?')[0] + `?t=${t}`;
-    });
-
-    await loadThunderstormOutlooks(t);
-  }
-
-  function getCurrentUtcHour() {
-    return new Date().getUTCHours();
-  }
-
-  function thunderstormPeriodIsCurrent(period) {
-    const hour = getCurrentUtcHour();
-    const start = Number(period.start_hour);
-    const end = Number(period.end_hour);
-    if (!Number.isFinite(start) || !Number.isFinite(end)) return false;
-    return start < end ? (hour >= start && hour < end) : (hour >= start || hour < end);
-  }
-
-  function scrollOutlookToSlide(scroller, slide, smooth = true) {
-    if (!scroller || !slide) return;
-    scroller.scrollTo({
-      left: slide.offsetLeft,
-      behavior: smooth ? 'smooth' : 'auto'
-    });
-  }
-
-  function initOutlookViewer({ scrollerId, thumbSelector, slideSelector, currentIndex = 0, currentLabelId = null, labelPrefix = 'Viewing' }) {
-    const scroller = document.getElementById(scrollerId);
-    const thumbs = Array.from(document.querySelectorAll(thumbSelector));
-    const slides = Array.from(document.querySelectorAll(slideSelector));
-    if (!scroller || !slides.length) return;
-
-    let activeIndex = Math.max(0, Math.min(currentIndex, slides.length - 1));
-    let scrollTimer = null;
-
-    const syncThumbs = () => {
-      thumbs.forEach((thumb, i) => {
-        const isActive = i === activeIndex;
-        thumb.classList.toggle('active', isActive);
-        thumb.setAttribute('aria-current', isActive ? 'true' : 'false');
-        thumb.hidden = isActive;
-      });
-    };
-
-    const setActive = (index, smooth = true) => {
-      if (!slides.length) return;
-      activeIndex = Math.max(0, Math.min(index, slides.length - 1));
-      syncThumbs();
-      const slideLabel = slides[activeIndex]?.getAttribute('aria-label') || '';
-      if (currentLabelId) {
-        const label = document.getElementById(currentLabelId);
-        if (label) {
-          label.textContent = activeIndex === 0 ? `Right now · ${slideLabel}` : `${labelPrefix} · ${slideLabel}`;
-        }
-      }
-      // thunderstorm slides carry their own compact period label.
-      slides.forEach((slide, i) => {
-        const periodLabel = slide.querySelector('.thunderstorm-period-label');
-        if (!periodLabel) return;
-        const base = slide.getAttribute('aria-label') || '';
-        const original = periodLabel.dataset.periodLabel || base;
-        periodLabel.dataset.periodLabel = original;
-        periodLabel.textContent = i === activeIndex
-          ? (i === currentIndex ? `Right now · ${original}` : `${labelPrefix} · ${original}`)
-          : original;
-      });
-      scrollOutlookToSlide(scroller, slides[activeIndex], smooth);
-    };
-
-    thumbs.forEach((thumb, index) => {
-      thumb.addEventListener('click', () => setActive(index, true));
-    });
-
-    scroller.addEventListener('scroll', () => {
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(() => {
-        const distances = slides.map(slide => Math.abs(slide.offsetLeft - scroller.scrollLeft));
-        const nearest = distances.indexOf(Math.min(...distances));
-        if (nearest >= 0 && nearest !== activeIndex) setActive(nearest, false);
-      }, 80);
-    }, { passive: true });
-
-    setActive(activeIndex, false);
-  }
-
-  async function loadThunderstormOutlooks(cacheBust = Date.now()) {
-    const grid = document.getElementById('thunderstorm-period-grid');
-    const note = document.getElementById('thunderstorm-outlook-note');
-    if (!grid) return;
-
-    try {
-      const response = await fetch(`data/outlook-thunderstorm.json?t=${cacheBust}`, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const manifest = await response.json();
-      const periods = Array.isArray(manifest.periods) ? manifest.periods : [];
-
-      grid.innerHTML = '';
-      if (!periods.length) {
-        grid.innerHTML = '<div class="thunderstorm-empty">No current Thunderstorm Outlook periods are available.</div>';
-        if (note) note.textContent = '';
-        return;
-      }
-
-      // prefer the period valid right now. if the current clock falls between
-      // SPC blocks, fall back to the first live period in the manifest.
-      let currentIndex = periods.findIndex(thunderstormPeriodIsCurrent);
-      if (currentIndex < 0) currentIndex = 0;
-
-      const scroller = document.createElement('div');
-      scroller.className = 'outlook-scroll thunderstorm-primary-scroll';
-      scroller.id = 'thunderstorm-primary-scroll';
-      scroller.setAttribute('aria-label', 'SPC Thunderstorm Outlook periods');
-
-      const thumbs = document.createElement('div');
-      thumbs.className = 'thunderstorm-thumb-grid';
-      thumbs.id = 'thunderstorm-thumb-grid';
-      thumbs.setAttribute('aria-label', 'Choose thunderstorm outlook period');
-
-      periods.forEach((period, index) => {
-        const labelText = period.label || `${period.start_hour}Z–${period.end_hour}Z`;
-        const isCurrent = index === currentIndex;
-        const cacheFile = `${period.file}?t=${cacheBust}`;
-
-        const slide = document.createElement('div');
-        slide.className = 'outlook-slide thunderstorm-primary-slide';
-        slide.id = `thunderstorm-slide-${index}`;
-        slide.setAttribute('role', 'group');
-        slide.setAttribute('aria-label', labelText);
-
-        const label = document.createElement('div');
-        label.className = 'thunderstorm-period-label';
-        label.textContent = labelText;
-        label.dataset.periodLabel = labelText;
-
-        const viewport = document.createElement('div');
-        viewport.className = 'outlook-viewport';
-
-        const img = document.createElement('img');
-        img.src = cacheFile;
-        img.alt = `SPC Thunderstorm Outlook ${labelText}`;
-        img.decoding = 'async';
-        img.loading = index === currentIndex ? 'eager' : 'lazy';
-        img.addEventListener('error', () => {
-          slide.remove();
-          thumb.remove();
-        });
-
-        viewport.appendChild(img);
-        slide.append(label, viewport);
-
-        const thumb = document.createElement('button');
-        thumb.className = `thunderstorm-thumb${isCurrent ? ' active current' : ''}`;
-        thumb.type = 'button';
-        thumb.setAttribute('aria-label', `Open Thunderstorm Outlook ${labelText}`);
-        thumb.setAttribute('aria-current', isCurrent ? 'true' : 'false');
-        thumb.dataset.index = String(index);
-
-        const thumbImg = document.createElement('img');
-        thumbImg.src = cacheFile;
-        thumbImg.alt = '';
-        thumbImg.loading = 'lazy';
-        const thumbLabel = document.createElement('span');
-        thumbLabel.className = 'thunderstorm-thumb-label';
-        thumbLabel.textContent = labelText;
-        thumb.append(thumbImg, thumbLabel);
-
-        thumb.addEventListener('click', () => {
-          const target = document.getElementById(`thunderstorm-slide-${index}`);
-          scrollOutlookToSlide(scroller, target, true);
-        });
-
-        scroller.appendChild(slide);
-        thumbs.appendChild(thumb);
-      });
-
-      grid.append(scroller, thumbs);
-
-      initOutlookViewer({
-        scrollerId: 'thunderstorm-primary-scroll',
-        thumbSelector: '#thunderstorm-thumb-grid .thunderstorm-thumb',
-        slideSelector: '#thunderstorm-primary-scroll .thunderstorm-primary-slide',
-        currentIndex
-      });
-
-      if (note) {
-        const updated = manifest.updated_at_utc
-          ? new Date(manifest.updated_at_utc).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' })
-          : '';
-        note.textContent = updated ? `Updated ${updated}` : '';
-      }
-    } catch (err) {
-      console.warn('Could not load Thunderstorm Outlook manifest:', err);
-      grid.innerHTML = '<div class="thunderstorm-empty">Thunderstorm Outlook data is temporarily unavailable.</div>';
-      if (note) note.textContent = '';
-    }
-  }
-
-  function initOutlookCategoryTabs() {
-     const tabs = document.querySelectorAll('#outlook-category-tabs .outlook-category-tab');
-     tabs.forEach(tab => {
-       tab.addEventListener('click', () => {
-         tabs.forEach(t => {
-           t.classList.remove('active');
-           t.setAttribute('aria-selected', 'false');
-         });
-         tab.classList.add('active');
-         tab.setAttribute('aria-selected', 'true');
-         document.querySelectorAll('.outlook-category-panel').forEach(p => p.classList.remove('active'));
-         document.getElementById(tab.dataset.target).classList.add('active');
-       });
-     });
-  }
-
-  function initOutlookCarousel() {
-     initOutlookViewer({
-       scrollerId: 'outlook-scroll',
-       thumbSelector: '#outlook-thumbnails .outlook-thumb',
-       slideSelector: '#outlook-scroll .outlook-slide',
-       currentIndex: 0,
-       currentLabelId: 'outlook-current-label' 
-     });
-  }
-
   // ---------- maps card ----------
   const RADAR_LAT = 40.616;
   const RADAR_LON = -80.274;
@@ -3581,16 +3334,6 @@ const THEMES = {
     if (countWatches) countWatches.textContent = watches.length;
     if (countStatements) countStatements.textContent = statements.length;
 
-    // local-area focus: with nothing active for the KPBZ forecast area
-    // across either feed, the tabs/panels are just empty chrome -- collapse
-    // the whole top section (and its divider) so the card shows only the
-    // SPC Convective/Thunderstorm outlooks below.
-    const hasStormTopContent = (watches.length + statements.length) > 0;
-    const stormTop = document.getElementById('storm-top');
-    const stormDivider = document.getElementById('storm-desk-divider');
-    if (stormTop) stormTop.classList.toggle('storm-top-hidden', !hasStormTopContent);
-    if (stormDivider) stormDivider.classList.toggle('storm-top-hidden', !hasStormTopContent);
-
     // a tornado watch/warning deserves to be seen without opening a tab:
     // pulse the watches tab for as long as one is live, and jump to it
     // automatically the moment one appears (only on that transition -- see
@@ -3868,7 +3611,6 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
     await loadHistory(true);
     await loadCapeHistory();
     await loadForecast(true);
-    refreshOutlookImages();
 
     const triggered = await triggerWorkflow();
     if (triggered) {
@@ -4092,15 +3834,11 @@ function toggleMobileTimelapse() {
   loadHistory();
   loadCapeHistory();
   loadForecast();
-  loadThunderstormOutlooks();
   setInterval(loadData, REFRESH_INTERVAL_MS);
   setInterval(updateStatusLine, 15000); 
   setInterval(loadHistory, 5 * 60 * 1000);
   setInterval(loadCapeHistory, 5 * 60 * 1000);
   setInterval(loadForecast, 30 * 60 * 1000);
-  setInterval(refreshOutlookImages, 30 * 60 * 1000);
-  initOutlookCarousel();
-  initOutlookCategoryTabs();
   initChartTabs();
   initRangeButtons();
   initWeatherFx();
