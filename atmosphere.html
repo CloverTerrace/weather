@@ -43,24 +43,20 @@
 
     <header class="atm-header">
       <h1>Atmosphere</h1>
-      <p class="atm-subtitle">A live vertical profile of the sky above Clover Terrace — modeled, not measured, updated hourly.</p>
+      <p class="atm-subtitle">A live vertical profile of the sky above Clover Terrace. Updated hourly.</p>
       <p id="atm-model-meta" class="atm-model-meta">Loading latest model run&hellip;</p>
     </header>
 
-    <!-- Plain-language headline verdict -- the "newbie" entry point. Nerds
-         can skip straight past it to the cards/chart below; nobody is
-         forced to read a wall of numbers just to get the gist. -->
+    <!-- headline -->
     <section id="atm-headline" class="atm-headline atm-headline-loading" aria-live="polite">
       <div class="atm-headline-badge" id="atm-headline-badge">&mdash;</div>
       <div class="atm-headline-copy">
         <h2 id="atm-headline-title">Reading the atmosphere&hellip;</h2>
-        <p id="atm-headline-body">Hang tight, pulling the latest model profile.</p>
+        <p id="atm-headline-body">pulling the latest model profile..</p>
       </div>
     </section>
 
-    <!-- Swipeable parameter card row on mobile (same interaction pattern as
-         space.html's sky-card-row, so it feels native to returning
-         visitors), a plain grid on desktop. -->
+    <!-- swipeable parameter card row on mobile. -->
     <section class="atm-card-row-wrap">
       <button type="button" class="atm-card-arrow atm-card-arrow-left" id="atm-card-arrow-left" aria-label="Previous card">&lsaquo;</button>
 
@@ -119,7 +115,7 @@
           </div>
           <details class="atm-explainer">
             <summary>What does this mean?</summary>
-            <p>Shear is how much wind speed and direction change with height &mdash; strong shear organizes a storm's updraft and downdraft so they don't choke each other out, which is what lets a storm grow big and long-lived instead of collapsing after 20 minutes. Storm-Relative Helicity (SRH) measures how much that changing wind would make an updraft spin, relative to how a storm itself is expected to move. High SRH in the lowest kilometer or so is the ingredient most closely tied to tornado potential.</p>
+            <p>Shear is how much wind speed and direction change with height &mdash; strong shear organizes a storm's updraft and downdraft so they don't choke each other out, which is what lets a storm grow big and long-lived instead of collapsing after 20 minutes. Storm-Relative Helicity (SRH) measures how much that changing wind would make an updraft spin, relative to how a storm itself is expected to move. High SRH in the lowest kilometer or so is the ingredient watched for tornado potential.</p>
             <table class="atm-threshold-table">
               <tr><th colspan="2">0&ndash;6km Shear</th></tr>
               <tr><td>&lt; 20 kt</td><td>Weak / unorganized</td></tr>
