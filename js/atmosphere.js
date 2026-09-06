@@ -399,6 +399,84 @@
     });
   }
 
+  // ---------- Forecast Discussion (MDs + AFD/HWO/SPS/PNS) ----------
+  // Shares data/nws_products.json with the main page -- that page filters
+  // to active-hazard codes (SVS/RFW/NPW/FFA/FLS) and keeps all watches;
+  // this page takes everything analytical/predictive: all Mesoscale
+  // Discussions, plus these 4 forecaster-discussion product codes.
+  var ATMOSPHERE_STATEMENT_CODES = { AFD: 1, HWO: 1, SPS: 1, PNS: 1 };
+
+  function escapeAtmHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function discussionItemHtml(item, kindLabel) {
+    var title = escapeAtmHtml(item.type || kindLabel) + (item.number ? ' #' + escapeAtmHtml(item.number) : '');
+    var ago = timeAgoLabel(item.issued);
+    var summary = escapeAtmHtml(item.summary || item.headline || '');
+    var details = Array.isArray(item.details) ? item.details : [];
+    var detailsHtml = details.map(function (d) {
+      return '<p>' + escapeAtmHtml(d.label ? d.label + ': ' : '') + escapeAtmHtml(d.text) + '</p>';
+    }).join('');
+
+    return '' +
+      '<article class="atm-discussion-item">' +
+        '<div class="atm-discussion-item-head">' +
+          '<span class="atm-discussion-type">' + title + '</span>' +
+          (ago ? '<span class="atm-discussion-age">' + escapeAtmHtml(ago) + '</span>' : '') +
+        '</div>' +
+        (summary ? '<p class="atm-discussion-summary">' + summary + '</p>' : '') +
+        (detailsHtml ? '<details class="atm-explainer"><summary>Full text</summary>' + detailsHtml + '</details>' : '') +
+      '</article>';
+  }
+
+  function renderDiscussionPanel(payload) {
+    var list = document.getElementById('atm-discussion-list');
+    var empty = document.getElementById('atm-discussion-empty');
+    if (!list) return;
+
+    var mds = (payload && payload.mesoscaleDiscussions) || [];
+    var statements = ((payload && payload.statements) || []).filter(function (s) {
+      return ATMOSPHERE_STATEMENT_CODES.hasOwnProperty(s.code);
+    });
+
+    var combined = mds.map(function (m) { return { item: m, kind: 'Mesoscale Discussion' }; })
+      .concat(statements.map(function (s) { return { item: s, kind: 'NWS Update' }; }));
+
+    combined.sort(function (a, b) {
+      return new Date(b.item.issued || 0) - new Date(a.item.issued || 0);
+    });
+
+    if (!combined.length) {
+      list.innerHTML = '';
+      if (empty) {
+        empty.textContent = 'No current mesoscale discussions or forecaster updates for this area.';
+        list.appendChild(empty);
+      }
+      return;
+    }
+
+    list.innerHTML = combined.map(function (row) { return discussionItemHtml(row.item, row.kind); }).join('');
+  }
+
+  function loadDiscussionPanel() {
+    fetch('data/nws_products.json?t=' + Date.now())
+      .then(function (res) {
+        if (!res.ok) throw new Error('nws_products.json not available (' + res.status + ')');
+        return res.json();
+      })
+      .then(renderDiscussionPanel)
+      .catch(function () {
+        var empty = document.getElementById('atm-discussion-empty');
+        if (empty) empty.textContent = 'Forecast discussion feed temporarily unavailable.';
+      });
+  }
+
   // ---------- boot ----------
 
   function loadAtmosphere() {
@@ -426,5 +504,6 @@
     initCardPaging();
     initAtmosphereIconOverrides();
     loadAtmosphere();
+    loadDiscussionPanel();
   });
 })();

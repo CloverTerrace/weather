@@ -3286,7 +3286,15 @@ const THEMES = {
 
   //*  ------------ 🌪️ NWS / SPC ISSUANCES (watches, mesoscale discussions, statements) 🌪️ ----------- *//
   //
-  let nwsProducts = { watches: [], mesoscaleDiscussions: [], statements: [] };
+  let nwsProducts = { watches: [], statements: [] };
+
+  // Mesoscale Discussions (analytical/predictive) moved to the Atmosphere
+  // page -- this page only tracks active-hazard product codes: an update
+  // to an already-active Warning (SVS), a fire-weather Warning (RFW),
+  // active advisories (NPW), or flood watch/statement updates (FFA/FLS).
+  // AFD/HWO/SPS/PNS (forecaster discussion) render on Atmosphere instead
+  // -- see fetch_nws_products.py's NWS_UPDATE_CODES for what each code is.
+  const MAIN_STATEMENT_CODES = new Set(['SVS', 'RFW', 'NPW', 'FFA', 'FLS']);
   // tracks the previous render's tornado-watch state so to avoid repeat switching
   let nwsPrevHasTornadoWatch = false;
 
@@ -3544,41 +3552,34 @@ const THEMES = {
   }
 
   // the single closest + most severe thing worth a user's attention right
-  // now: a local warning/watch/advisory always wins (guaranteed to cover
-  // the station), falling back to the nearest still-live Mesoscale
-  // Discussion (which is NOT point-queried and can be states away) only
-  // when there's no local alert at all.
-  function computePrimaryAlert(watches, mds) {
+  // now: a local warning/watch/advisory. Mesoscale Discussions used to be
+  // a fallback here when nothing local was active, but MDs moved to the
+  // Atmosphere page (see MAIN_STATEMENT_CODES above) -- this page no
+  // longer tracks them at all, so there's no fallback left to compute.
+  function computePrimaryAlert(watches) {
     if (watches.length) return { id: watches[0].id, tab: 'nws-panel-watches' };
-    const liveMds = (mds || []).filter(m => isNwsItemLive(m, 'md'));
-    if (liveMds.length) {
-      const closest = [...liveMds].sort((a, b) => (a.distanceMiles ?? Infinity) - (b.distanceMiles ?? Infinity))[0];
-      return { id: closest.id, tab: 'nws-panel-md' };
-    }
     return null;
   }
 
   function renderNwsProducts() {
     const combinedWatches = buildCombinedWatchesList();
-    const mdsRaw = nwsProducts.mesoscaleDiscussions || [];
-    const primary = computePrimaryAlert(combinedWatches.filter(w => isNwsItemLive(w, 'watch')), mdsRaw);
+    const primary = computePrimaryAlert(combinedWatches.filter(w => isNwsItemLive(w, 'watch')));
+
+    const mainStatements = (nwsProducts.statements || []).filter(s => MAIN_STATEMENT_CODES.has(s.code));
 
     const watches = renderNwsList('nws-list-watches', combinedWatches, 'No active watches or warnings.', 'Watch', 'watch', primary);
-    const mds = renderNwsList('nws-list-md', mdsRaw, 'No active or very recent mesoscale discussions.', 'Mesoscale Discussion', 'md', primary);
-    const statements = renderNwsList('nws-list-statements', nwsProducts.statements || [], 'No recent NWS updates.', 'NWS Update', 'statement', primary);
+    const statements = renderNwsList('nws-list-statements', mainStatements, 'No recent NWS updates.', 'NWS Update', 'statement', primary);
 
     const countWatches = document.getElementById('nws-count-watches');
-    const countMd = document.getElementById('nws-count-md');
     const countStatements = document.getElementById('nws-count-statements');
     if (countWatches) countWatches.textContent = watches.length;
-    if (countMd) countMd.textContent = mds.length;
     if (countStatements) countStatements.textContent = statements.length;
 
     // local-area focus: with nothing active for the KPBZ forecast area
-    // across any of the three feeds, the tabs/panels are just empty chrome
-    // -- collapse the whole top section (and its divider) so the card
-    // shows only the SPC Convective/Thunderstorm outlooks below.
-    const hasStormTopContent = (watches.length + mds.length + statements.length) > 0;
+    // across either feed, the tabs/panels are just empty chrome -- collapse
+    // the whole top section (and its divider) so the card shows only the
+    // SPC Convective/Thunderstorm outlooks below.
+    const hasStormTopContent = (watches.length + statements.length) > 0;
     const stormTop = document.getElementById('storm-top');
     const stormDivider = document.getElementById('storm-desk-divider');
     if (stormTop) stormTop.classList.toggle('storm-top-hidden', !hasStormTopContent);
@@ -3637,7 +3638,8 @@ const THEMES = {
       nwsProducts = {
         generatedAt: json.generatedAt || null,
         watches: json.watches || [],
-        mesoscaleDiscussions: json.mesoscaleDiscussions || [],
+        // mesoscaleDiscussions intentionally not stored here -- this page
+        // no longer renders them (moved to the Atmosphere page).
         statements: json.statements || [],
       };
       renderNwsProducts();
