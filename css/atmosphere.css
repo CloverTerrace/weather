@@ -63,12 +63,39 @@
   --atm-cat-enhanced: #e8863f;
   --atm-cat-high: #d9548c;
 
-  --atm-mono: 'Atmosphere Mono Fallback', 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-  --atm-sans: Figtree, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --atm-body: Figtree;
-  --atm-header: consolas;
-  --atm-header1: consolas;
-  --atm-number: consolas;
+  /* ---- raw font stacks (the actual @font-face names + fallbacks) ---- */
+  --atm-mono-stack: 'Atmosphere Mono Fallback', 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --atm-sans-stack: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* ---- semantic type roles: one var per JOB on the page, not per font.
+     Everything else in this file should reference these four, never a
+     raw font stack or a literal font name directly -- that's what makes
+     "swap what Tornado points to" a one-line change instead of a find/
+     replace across the whole file. ---- */
+
+  /* The big "Atmosphere" H1 ONLY -- nothing else should ever use this. */
+  --atm-title: 'Great Warrior', var(--atm-sans-stack);
+
+  /* Card headers ("Instability", "Wind Profile"...) and panel headers
+     ("Vertical Profile", "Wind by Level") -- decorative but still legible
+     at ~1rem, unlike an outline face. Royalacid/Royalacid_o are sitting
+     here as declared-but-unused alternatives -- Royalacid_o especially
+     is an OUTLINE cut, which tends to lose legibility at small header
+     sizes, so it's a better fit for something large/decorative later
+     (the verdict badge circle, maybe) than for body-adjacent headers.
+     Swap the first name below to try either. */
+  --atm-header: 'Tornado', Georgia, serif;
+
+  /* All non-numeric copy: subtitles, plain-language sentences, explainer
+     paragraphs, footer, loading states. This is the page's actual
+     reading font. */
+  --atm-body: var(--atm-sans-stack);
+
+  /* Every literal data readout: stat values, the model-cycle line, the
+     verdict badge (SLGT/HIGH/etc.), threshold tables, the wind table.
+     Points at the mono stack rather than duplicating it, so fixing the
+     mono fallback chain in one place fixes it everywhere this is used. */
+  --atm-number: var(--atm-mono-stack);
 
   /* so the shared navigation.css (which reads these three) themes itself
      to match this page instead of falling back to unstyled defaults */
@@ -84,7 +111,7 @@ html, body {
   padding: 0;
   background: var(--atm-bg);
   color: var(--atm-text);
-  font-family: var(--atm-sans);
+  font-family: var(--atm-body);
   min-height: 100%;
 }
 
@@ -108,14 +135,20 @@ a { color: var(--atm-cyan); }
 .atm-header {
   padding: 1.25rem 0 0.5rem 0;
   text-align: left;
-  font-family: var(--atm-header);
+  /* deliberately no font-family here -- this wrapper used to set one and
+     leak it into .atm-subtitle/.atm-model-meta by inheritance. Each child
+     below declares its own role explicitly instead. */
 }
 
 .atm-header h1 {
   margin: 0;
   font-size: clamp(1.8rem, 5vw, 2.6rem);
-  font-family: var(--atm-header1);
-  font-weight: 800;
+  font-family: var(--atm-title);
+  /* a single-cut display face like Great Warrior has no real bold weight
+     to switch to -- forcing 800 here just makes the browser synthesize a
+     fake bold, which usually looks thickened/blurry on display fonts.
+     Letting the face render at its own natural weight looks cleaner. */
+  font-weight: 400;
   letter-spacing: 0.01em;
   background: linear-gradient(120deg, var(--atm-amber), var(--atm-cyan));
   -webkit-background-clip: text;
@@ -125,6 +158,7 @@ a { color: var(--atm-cyan); }
 
 .atm-subtitle {
   margin: 0.35rem 0 0 0;
+  font-family: var(--atm-body);
   color: var(--atm-muted);
   font-size: 0.95rem;
   max-width: 62ch;
@@ -132,7 +166,7 @@ a { color: var(--atm-cyan); }
 
 .atm-model-meta {
   margin: 0.6rem 0 0 0;
-  font-family: var(--atm-consolas);
+  font-family: var(--atm-number);
   font-size: 0.72rem;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -163,7 +197,7 @@ a { color: var(--atm-cyan); }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--atm-mono);
+  font-family: var(--atm-number);
   font-weight: 700;
   font-size: 0.72rem;
   text-align: center;
@@ -181,12 +215,14 @@ a { color: var(--atm-cyan); }
 
 .atm-headline-copy h2 {
   margin: 0 0 0.25rem 0;
+  font-family: var(--atm-header);
   font-size: 1.15rem;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .atm-headline-copy p {
   margin: 0;
+  font-family: var(--atm-body);
   color: var(--atm-muted);
   font-size: 0.9rem;
   max-width: 60ch;
@@ -221,7 +257,9 @@ a { color: var(--atm-cyan); }
 
 .atm-card h3 {
   margin: 0 0 0.5rem 0;
-  font-size: 1rem;
+  font-family: var(--atm-header);
+  font-size: 1.05rem;
+  font-weight: 400;
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -238,6 +276,7 @@ a { color: var(--atm-cyan); }
 
 .atm-card-plain {
   margin: 0 0 0.85rem 0;
+  font-family: var(--atm-body);
   color: var(--atm-text);
   font-size: 0.88rem;
   line-height: 1.4;
@@ -265,6 +304,7 @@ a { color: var(--atm-cyan); }
 }
 
 .atm-stat-label {
+  font-family: var(--atm-body);
   color: var(--atm-muted);
   font-size: 0.78rem;
 }
@@ -279,6 +319,7 @@ a { color: var(--atm-cyan); }
 
 .atm-explainer {
   margin-top: 0.85rem;
+  font-family: var(--atm-body);
   font-size: 0.82rem;
 }
 
@@ -376,11 +417,14 @@ a { color: var(--atm-cyan); }
 
 .atm-panel-header h2 {
   margin: 0 0 0.25rem 0;
-  font-size: 1.1rem;
+  font-family: var(--atm-header);
+  font-size: 1.15rem;
+  font-weight: 400;
 }
 
 .atm-panel-subtitle {
   margin: 0;
+  font-family: var(--atm-body);
   color: var(--atm-muted);
   font-size: 0.85rem;
   max-width: 65ch;
@@ -394,6 +438,7 @@ a { color: var(--atm-cyan); }
 
 .atm-chart-note {
   margin: 0.75rem 0 0 0;
+  font-family: var(--atm-body);
   color: var(--atm-muted);
   font-size: 0.74rem;
   font-style: italic;
@@ -433,7 +478,7 @@ a { color: var(--atm-cyan); }
   margin-right: 0.5em;
 }
 
-.atm-wind-loading { color: var(--atm-muted); font-family: var(--atm-sans); }
+.atm-wind-loading { font-family: var(--atm-body); color: var(--atm-muted); }
 
 /* ---------- footer ---------- */
 .atm-footer {
@@ -443,6 +488,7 @@ a { color: var(--atm-cyan); }
 }
 
 .atm-footer p {
+  font-family: var(--atm-body);
   color: var(--atm-muted);
   font-size: 0.76rem;
   line-height: 1.55;
