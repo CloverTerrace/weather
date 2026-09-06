@@ -1,20 +1,48 @@
 /* ==========================================================================
-   Clover Terrace — Atmosphere page
-   Theme: "upper-air observation / flight-instrument telemetry" — a dark
-   instrument-panel palette with amber/cyan readout accents and a monospace
-   numeric face, deliberately distinct from the garden page's parchment/
-   pixel-art look and the space page's photoreal night sky. A faint graph-
-   paper grid nods at skew-T chart paper without trying to BE one.
+   Clover Terrace — atmosphere page
    ========================================================================== */
 
 @font-face {
-  /* System monospace stack only -- no custom font file shipped for this
-     page yet. Swap in a real webfont later if you want a more distinctive
-     numeric face; the classes below (.atm-mono) are already scoped so a
-     single @font-face addition is all a future upgrade would need. */
   font-family: 'Atmosphere Mono Fallback';
   src: local('JetBrains Mono'), local('SFMono-Regular'), local('Consolas');
 }
+
+/* great warrior font */
+@font-face {
+  font-display: swap;
+  font-family: 'Great Warrior';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/Great Warrior.woff2') format('woff2');
+}
+
+/* royal acid outline font */
+@font-face {
+  font-display: swap;
+  font-family: 'Royalacid_o';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/Royalacid_o.woff2') format('woff2');
+}
+
+/* royal acid font */
+@font-face {
+  font-display: swap;
+  font-family: 'Royalacid';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/Royalacid.woff2') format('woff2');
+}
+
+/* tornado font */
+@font-face {
+  font-display: swap;
+  font-family: 'Tornado';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/Tornado Serif Font - Demo.woff2') format('woff2');
+}
+
 
 :root {
   --atm-bg: #0d1119;
@@ -35,8 +63,8 @@
   --atm-cat-enhanced: #e8863f;
   --atm-cat-high: #d9548c;
 
-  --atm-mono: 'Atmosphere Mono Fallback', 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-  --atm-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --atm-mono: Royalacid_o, 'Atmosphere Mono Fallback', 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --atm-sans: Figteee, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* so the shared navigation.css (which reads these three) themes itself
      to match this page instead of falling back to unstyled defaults */
