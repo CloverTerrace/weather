@@ -3264,34 +3264,59 @@ const THEMES = {
     return combined;
   }
 
-  // the single closest + most severe thing worth a user's attention right
-  // now: a local warning/watch/advisory. Mesoscale Discussions used to be
-  // a fallback here when nothing local was active, but MDs moved to the
-  // Atmosphere page (see MAIN_STATEMENT_CODES above) -- this page no
-  // longer tracks them at all, so there's no fallback left to compute.
   function computePrimaryAlert(watches) {
-    if (watches.length) return { id: watches[0].id, tab: 'nws-panel-watches' };
-    return null;
-  }
+  if (watches.length) return { id: watches[0].id, tab: 'nws-panel-watches' };
+  return null;
+}
 
-  function renderNwsProducts() {
-    const combinedWatches = buildCombinedWatchesList();
-    const primary = computePrimaryAlert(combinedWatches.filter(w => isNwsItemLive(w, 'watch')));
+// hide the Storm Center unless there is at least one active
+// local warning, watch, or advisory.
+function updateStormCenterVisibility(activeWatches) {
+  const stormCenter = document.querySelector('.outlook-card');
+  if (!stormCenter) return;
 
-    const mainStatements = (nwsProducts.statements || []).filter(s => MAIN_STATEMENT_CODES.has(s.code));
+  stormCenter.hidden = !Array.isArray(activeWatches) || activeWatches.length === 0;
+}
 
-    const watches = renderNwsList('nws-list-watches', combinedWatches, 'No active watches or warnings.', 'Watch', 'watch', primary);
-    const statements = renderNwsList('nws-list-statements', mainStatements, 'No recent NWS updates.', 'NWS Update', 'statement', primary);
+function renderNwsProducts() {
+  const combinedWatches = buildCombinedWatchesList();
+  const primary = computePrimaryAlert(
+    combinedWatches.filter(w => isNwsItemLive(w, 'watch'))
+  );
 
-    const countWatches = document.getElementById('nws-count-watches');
-    const countStatements = document.getElementById('nws-count-statements');
-    if (countWatches) countWatches.textContent = watches.length;
-    if (countStatements) countStatements.textContent = statements.length;
+  const mainStatements = (nwsProducts.statements || [])
+    .filter(s => MAIN_STATEMENT_CODES.has(s.code));
+
+  const watches = renderNwsList(
+    'nws-list-watches',
+    combinedWatches,
+    'No active watches or warnings.',
+    'Watch',
+    'watch',
+    primary
+  );
+
+  // hide the entire Storm Center when there are no active alerts.
+  updateStormCenterVisibility(watches);
+
+  const statements = renderNwsList(
+    'nws-list-statements',
+    mainStatements,
+    'No recent NWS updates.',
+    'NWS Update',
+    'statement',
+    primary
+  );
+
+  const countWatches = document.getElementById('nws-count-watches');
+  const countStatements = document.getElementById('nws-count-statements');
+  if (countWatches) countWatches.textContent = watches.length;
+  if (countStatements) countStatements.textContent = statements.length;
 
     // a tornado watch/warning deserves to be seen without opening a tab:
     // pulse the watches tab for as long as one is live, and jump to it
     // automatically the moment one appears (only on that transition -- see
-    // nwsPrevHasTornadoWatch above -- so it doesn't fight the user later).
+    // nwsPrevHasTornadoWatch above so it doesn't fight the user later).
     const hasTornadoWatch = watches.some(w => (w.type || '').toLowerCase().includes('tornado'));
     const watchTab = document.querySelector('#nws-tabs .nws-tab[data-target="nws-panel-watches"]');
     if (watchTab) {
