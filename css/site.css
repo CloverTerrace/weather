@@ -326,11 +326,26 @@ h1 {
 .sensor-hero {
   width: 100%;
   min-height: 0;
+  touch-action: pan-y;
+}
+@keyframes heroSlideInRight {
+  from { opacity: 0; transform: translateX(22px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes heroSlideInLeft {
+  from { opacity: 0; transform: translateX(-22px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.sensor-hero.hero-anim-in-right { animation: heroSlideInRight 0.22s ease-out; }
+.sensor-hero.hero-anim-in-left  { animation: heroSlideInLeft 0.22s ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .sensor-hero.hero-anim-in-right,
+  .sensor-hero.hero-anim-in-left { animation: none; }
 }
 .glance-strip {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
   background: var(--card-corner-glow), var(--card-color);
   border: var(--card-accent-border);
   border-radius: 12px;
@@ -340,16 +355,17 @@ h1 {
   .glance-strip {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2px 0.6rem;
+    gap: 1px 0.6rem;
   }
 }
 .glance-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 20px minmax(3.6em, auto) 1.1em minmax(0, 1fr);
   align-items: center;
-  gap: 0.5rem;
+  column-gap: 0.55rem;
   width: 100%;
   min-width: 0;
-  padding: 0.42rem 0.55rem;
+  padding: 0.4rem 0.55rem;
   border-radius: 8px;
   background: transparent;
   border: 1px solid transparent;
@@ -358,10 +374,14 @@ h1 {
   font-family: var(--font-grid-label);
   color: inherit;
   -webkit-tap-highlight-color: transparent;
+  touch-action: pan-y;
+}
+.glance-item:nth-child(even) {
+  background: color-mix(in srgb, var(--label-color, #9aa8b5) 6%, transparent);
 }
 .glance-item:hover,
 .glance-item:focus-visible {
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.09);
   outline: none;
 }
 .glance-item.active {
@@ -372,7 +392,6 @@ h1 {
   color: #e2913f;
 }
 .glance-item-icon {
-  flex: 0 0 20px;
   width: 20px;
   height: 20px;
   display: flex;
@@ -381,7 +400,6 @@ h1 {
 }
 .glance-item-icon img { width: 100%; height: 100%; object-fit: contain; }
 .glance-item-value {
-  flex: 0 0 auto;
   font-weight: 600;
   font-size: 0.92rem;
   white-space: nowrap;
@@ -393,13 +411,11 @@ h1 {
   margin-left: 0.15em;
 }
 .glance-item-trend {
-  flex: 0 0 1em;
   text-align: center;
   font-size: 0.8rem;
   opacity: 0.9;
 }
 .glance-item-context {
-  flex: 1 1 auto;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -410,6 +426,7 @@ h1 {
 }
 @media (max-width: 380px) {
   .glance-item-context { display: none; }
+  .glance-item { grid-template-columns: 20px minmax(3.6em, auto) 1.1em; }
 }
 .lightning-map-toggle-btn {
   align-self: flex-start;
