@@ -355,7 +355,7 @@ h1 {
   border: 1px solid transparent;
   cursor: pointer;
   text-align: left;
-  font-family: inherit;
+  font-family: var(--font-grid-label);
   color: inherit;
   -webkit-tap-highlight-color: transparent;
 }
