@@ -382,13 +382,7 @@ h1 {
 .glance-item:nth-child(even) {
   background: color-mix(in srgb, var(--label-color, #9aa8b5) 6%, transparent);
 }
-/* the rule above stripes by DOM order, which reads correctly as
-   alternating rows in the single-column list -- but once the strip
-   becomes the 2-up grid below, "even" means "everything in the right
-   column," producing a solid left/right split instead of row stripes.
-   override with a row-aware pattern once that grid is active (must come
-   after the base rule above -- @container carries no extra specificity,
-   so later-in-file is what lets this win). */
+
 @container sensorpanel (min-width: 460px) {
   .glance-item:nth-child(even) { background: transparent; }
   .glance-item:nth-child(4n+3),
@@ -2713,17 +2707,12 @@ body.fx-active-cloudy .fx-clouds {
     background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 55%, rgba(205,217,235,0.35) 100%);
     filter: blur(4px);
   }
-/* wide, flattened puff used as a single "base" layer under each cloud's
-     rounded top puffs -- the flat-bottomed, piled-up-on-top look is what
-     actually reads as "cumulus" rather than a generic cloud blob. */
+
 .cloud-puff.cloud-base {
     border-radius: 50% 50% 28% 28% / 65% 65% 20% 20%;
     background: radial-gradient(circle at 40% 15%, rgba(255,255,255,0.7) 0%, rgba(205,217,235,0.4) 70%);
   }
-/* iridescent variant -- a soft nacreous/mother-of-pearl wash (blush pink,
-     pale lavender, warm peach, sky blue) layered under the same white
-     highlight so it reads as light catching the cloud, not a rainbow
-     sticker. Slow hue-rotate keeps it drifting/shimmering rather than static. */
+/* iridescent cloud variant . */
 .cloud-puff.iridescent {
     background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.92) 0%, rgba(255,214,232,0.5) 32%, rgba(214,222,255,0.48) 55%, rgba(255,232,210,0.45) 78%, rgba(210,235,250,0.4) 100%);
     animation: fx-iridescent-shimmer 16s ease-in-out infinite;
@@ -2971,10 +2960,7 @@ svg circle, svg polygon, svg line {
 #grid.grid .card.solar-card     { order: 6; }
 #grid.grid .card.aqi-card       { order: 7; }
 #grid.grid .card.river-card     { order: 8; }}
-/* whatever width the square-tile grid above settles a card into, keep
-     the wind compass / dual-value rows from ever feeling cramped. this
-     reacts to the card's own rendered width, so it works no matter how
-     many columns the grid is showing. */
+
 @container card (max-width: 300px) {
     .wind-priority-row,
     .pressure-priority-row,
