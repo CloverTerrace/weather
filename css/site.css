@@ -348,6 +348,118 @@ h1 {
     width: 100%;
     align-items: stretch;
   }
+
+/* ---------- hero tile + glance strip ---------- */
+/* replaces the old two-column card stack (.grid/.grid-column above, now
+   unused dead weight left in place -- nothing targets #grid/.grid anymore
+   since the container below uses a fresh id/class deliberately, to avoid
+   any of the old desktop bento-grid rules (order/aspect-ratio/absolute
+   headers, further down this file) reaching in via descendant selectors). */
+.tile-stage {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+.tile-hero {
+    width: 100%;
+  }
+
+.tile-hero .card {
+    width: 100%;
+    max-width: none;
+    padding: 1.6rem 1.5rem;
+    transition: opacity 0.15s ease;
+  }
+
+.tile-glance-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.6rem;
+  }
+
+.tile-glance-row {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: var(--card-color);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 0.6rem 0.75rem;
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    color: var(--text-color);
+    appearance: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+.tile-glance-row:hover { border-color: rgba(255,255,255,0.18); }
+
+.tile-glance-row:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+  }
+
+.tile-glance-row.active {
+    border-color: var(--accent-color);
+    background: color-mix(in srgb, var(--accent-color) 12%, var(--card-color));
+  }
+
+.tile-glance-icon img {
+    width: 1.3em;
+    height: 1.3em;
+    display: block;
+    flex: 0 0 auto;
+  }
+
+.tile-glance-label {
+    font-family: var(--font-details);
+    font-size: 0.66rem;
+    color: var(--muted-color);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+.tile-glance-value {
+    font-weight: 700;
+    font-size: 0.92rem;
+    white-space: nowrap;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: baseline;
+    gap: 0.2em;
+  }
+
+.tile-glance-value .unit {
+    font-size: 0.7em;
+    font-weight: 500;
+    color: var(--muted-color);
+  }
+
+.tile-glance-sub { display: none; }
+
+@media (min-width: 480px) {
+  .tile-glance-sub {
+    display: inline;
+    font-size: 0.66rem;
+    color: var(--muted-color);
+    margin-left: 0.35rem;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 900px) {
+  .tile-stage { max-width: 680px; }
+}
 .card {
     background: var(--card-corner-glow), var(--card-color);
     border: var(--card-accent-border);
