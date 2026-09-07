@@ -326,6 +326,9 @@ h1 {
 .sensor-hero {
   width: 100%;
   min-height: 0;
+  position: relative; /* anchors .lightning-map-panel's inset:0 to the hero
+                          itself -- without this it has no positioned
+                          ancestor and sizes against the page instead. */
   touch-action: pan-y;
 }
 @keyframes heroSlideInRight {
@@ -378,6 +381,20 @@ h1 {
 }
 .glance-item:nth-child(even) {
   background: color-mix(in srgb, var(--label-color, #9aa8b5) 6%, transparent);
+}
+/* the rule above stripes by DOM order, which reads correctly as
+   alternating rows in the single-column list -- but once the strip
+   becomes the 2-up grid below, "even" means "everything in the right
+   column," producing a solid left/right split instead of row stripes.
+   override with a row-aware pattern once that grid is active (must come
+   after the base rule above -- @container carries no extra specificity,
+   so later-in-file is what lets this win). */
+@container sensorpanel (min-width: 460px) {
+  .glance-item:nth-child(even) { background: transparent; }
+  .glance-item:nth-child(4n+3),
+  .glance-item:nth-child(4n) {
+    background: color-mix(in srgb, var(--label-color, #9aa8b5) 6%, transparent);
+  }
 }
 .glance-item:hover,
 .glance-item:focus-visible {
