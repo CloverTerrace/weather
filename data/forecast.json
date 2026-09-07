@@ -13,12 +13,12 @@
     },
     {
       "name": "Labor Day",
-      "temperature": 81,
+      "temperature": 80,
       "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "E",
+      "windSpeed": "5 mph",
+      "windDirection": "NE",
       "shortForecast": "Sunny",
-      "detailedForecast": "Sunny, with a high near 81. East wind around 3 mph.",
+      "detailedForecast": "Sunny, with a high near 80. Northeast wind around 5 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -26,10 +26,10 @@
       "name": "Monday Night",
       "temperature": 57,
       "temperatureUnit": "F",
-      "windSpeed": "3 mph",
+      "windSpeed": "0 to 3 mph",
       "windDirection": "E",
       "shortForecast": "Mostly Clear",
-      "detailedForecast": "Mostly clear, with a low around 57. East wind around 3 mph.",
+      "detailedForecast": "Mostly clear, with a low around 57. East wind 0 to 3 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -48,7 +48,7 @@
   "hourly": [
     {
       "startTime": "2026-09-06T23:00:00-04:00",
-      "temperature": 61,
+      "temperature": 60,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "N",
@@ -60,7 +60,7 @@
       "startTime": "2026-09-07T00:00:00-04:00",
       "temperature": 61,
       "temperatureUnit": "F",
-      "windSpeed": "3 mph",
+      "windSpeed": "5 mph",
       "windDirection": "N",
       "shortForecast": "Clear",
       "isDaytime": false,
@@ -70,7 +70,7 @@
       "startTime": "2026-09-07T01:00:00-04:00",
       "temperature": 61,
       "temperatureUnit": "F",
-      "windSpeed": "3 mph",
+      "windSpeed": "5 mph",
       "windDirection": "NE",
       "shortForecast": "Clear",
       "isDaytime": false,
@@ -88,16 +88,6 @@
     },
     {
       "startTime": "2026-09-07T03:00:00-04:00",
-      "temperature": 61,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "NE",
-      "shortForecast": "Mostly Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-09-07T04:00:00-04:00",
       "temperature": 60,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
@@ -107,8 +97,18 @@
       "probabilityOfPrecipitation": 0
     },
     {
-      "startTime": "2026-09-07T05:00:00-04:00",
+      "startTime": "2026-09-07T04:00:00-04:00",
       "temperature": 59,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "NE",
+      "shortForecast": "Mostly Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-07T05:00:00-04:00",
+      "temperature": 58,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
       "windDirection": "NE",
@@ -170,9 +170,9 @@
       "startTime": "2026-09-07T11:00:00-04:00",
       "temperature": 72,
       "temperatureUnit": "F",
-      "windSpeed": "3 mph",
+      "windSpeed": "5 mph",
       "windDirection": "E",
-      "shortForecast": "Mostly Sunny",
+      "shortForecast": "Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -182,17 +182,17 @@
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
       "windDirection": "E",
-      "shortForecast": "Mostly Sunny",
+      "shortForecast": "Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
     {
       "startTime": "2026-09-07T13:00:00-04:00",
-      "temperature": 77,
+      "temperature": 76,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
       "windDirection": "E",
-      "shortForecast": "Mostly Sunny",
+      "shortForecast": "Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -201,8 +201,8 @@
       "temperature": 78,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
-      "windDirection": "NE",
-      "shortForecast": "Sunny",
+      "windDirection": "E",
+      "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -221,7 +221,7 @@
       "temperature": 80,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
-      "windDirection": "E",
+      "windDirection": "NE",
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
@@ -231,7 +231,7 @@
       "temperature": 79,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
-      "windDirection": "E",
+      "windDirection": "NE",
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
@@ -241,7 +241,7 @@
       "temperature": 77,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
-      "windDirection": "E",
+      "windDirection": "NE",
       "shortForecast": "Partly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
@@ -251,7 +251,7 @@
       "temperature": 75,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "E",
+      "windDirection": "NE",
       "shortForecast": "Mostly Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
@@ -261,18 +261,18 @@
       "temperature": 69,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "E",
-      "shortForecast": "Partly Cloudy",
+      "windDirection": "NE",
+      "shortForecast": "Mostly Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
     {
       "startTime": "2026-09-07T21:00:00-04:00",
-      "temperature": 68,
+      "temperature": 67,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "NE",
-      "shortForecast": "Clear",
+      "windDirection": "E",
+      "shortForecast": "Mostly Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -281,8 +281,8 @@
       "temperature": 66,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "NE",
-      "shortForecast": "Clear",
+      "windDirection": "E",
+      "shortForecast": "Mostly Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
