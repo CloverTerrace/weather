@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#10151f">
   <title>Atmosphere ~ Clover Terrace</title>
-  <meta name="description" content="Live HRRR-modeled atmospheric profile for Clover Terrace: instability, wind shear, storm-relative helicity, and lapse rates, updated hourly.">
+  <meta name="description" content="Live HRRR-modeled mesoanalysis and SPC outlooks for Clover Terrace.">
 
   <link rel="icon" href="icons/icon-192.png" sizes="any">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -47,9 +47,6 @@
       <p id="atm-model-meta" class="atm-model-meta">Loading latest model run&hellip;</p>
     </header>
 
-    <!-- Plain-language headline verdict -- the "newbie" entry point. Nerds
-         can skip straight past it to the cards/chart below; nobody is
-         forced to read a wall of numbers just to get the gist. -->
     <section id="atm-headline" class="atm-headline atm-headline-loading" aria-live="polite">
       <div class="atm-headline-badge" id="atm-headline-badge">&mdash;</div>
       <div class="atm-headline-copy">
@@ -58,9 +55,7 @@
       </div>
     </section>
 
-    <!-- Swipeable parameter card row on mobile (same interaction pattern as
-         space.html's sky-card-row, so it feels native to returning
-         visitors), a plain grid on desktop. -->
+    <!-- swipeable parameter card row on mobile. -->
     <section class="atm-card-row-wrap">
       <button type="button" class="atm-card-arrow atm-card-arrow-left" id="atm-card-arrow-left" aria-label="Previous card">&lsaquo;</button>
 
@@ -175,8 +170,7 @@
       <button type="button" class="atm-card-arrow atm-card-arrow-right" id="atm-card-arrow-right" aria-label="Next card">&rsaquo;</button>
     </section>
 
-    <!-- The sounding chart -- the "look at the actual profile" section for
-         people who want more than a category label. -->
+    <!-- the sounding chart. -->
     <section class="atm-panel" id="atm-sounding-panel">
       <div class="atm-panel-header">
         <h2>Vertical Profile</h2>
@@ -188,11 +182,7 @@
       <p class="atm-chart-note">This is a simplified profile (not a full meteorological skew-T diagram) &mdash; altitude is approximate height above sea level, not adjusted for local elevation.</p>
     </section>
 
-    <!-- SPC Convective + Thunderstorm Outlooks -- moved here from the main
-         page's Storm Center card. This is SPC's own categorical/probabilistic
-         product, so it belongs alongside the rest of this page's
-         instability/storm-atmosphere content rather than on the main
-         dashboard, which stays focused on active watches/warnings. -->
+    <!-- SPC Convective + Thunderstorm Outlooks -->
     <section class="atm-panel" id="atm-outlook-panel">
       <div class="atm-panel-header">
         <h2>SPC Outlooks</h2>
@@ -261,10 +251,7 @@
     </section>
 
     <!-- SPC Mesoscale Discussions + forecaster-discussion NWS products
-         (AFD/HWO/SPS/PNS) -- moved here from the main page's Storm Center,
-         since these are analytical/predictive content rather than active
-         hazards. Active watches/warnings/advisories still live on the main
-         page, where they belong for visibility during an actual event. -->
+         (AFD/HWO/SPS/PNS)  -->
     <section class="atm-panel" id="atm-discussion-panel">
       <div class="atm-panel-header">
         <h2>Forecast Discussion</h2>
@@ -276,7 +263,7 @@
     </section>
 
     <footer class="atm-footer">
-      <p>Modeled from the latest available HRRR (High-Resolution Rapid Refresh) model run for this exact location &mdash; refreshed roughly hourly. This is a forecast model output, not a direct measurement, and it's one ingredients-based read on one model run, not an official forecast &mdash; the SPC Outlook above is the official product. For active watches, warnings, and advisories, see the <a href="index.html">main dashboard</a>.</p>
+      <p>Modeled from the latest available HRRR (High-Resolution Rapid Refresh) model run for this exact location, refreshed roughly hourly. The SPC Outlook above is the official product. For active watches, warnings, and advisories, see the <a href="index.html">main dashboard</a>.</p>
     </footer>
 
   </main>
