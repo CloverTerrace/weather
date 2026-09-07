@@ -181,7 +181,7 @@
   }
 
 
-  const grid = document.getElementById('tile-stage');
+  const grid = document.getElementById('grid');
   const subtitle = document.getElementById('subtitle');
   const status = document.getElementById('status');
   const errorBanner = document.getElementById('error-banner');
@@ -196,16 +196,7 @@
   let isRefreshing = false;
   let fullHistory = [];
   let capeHistory = [];
-  // which sensor tile is currently shown full-size in the hero slot --
-  // persists across data refreshes so a refresh doesn't reset the user's
-  // choice. Falls back to the first available tile if this key's tile
-  // isn't present in a given render (e.g. 'river' when USGS data is down).
-  let activeTileKey = 'tempHum';
 
-  // cards the user has tapped open. renderCards() rebuilds the whole
-  // grid every refresh cycle, this tracks expand state across that
-  // rebuild instead of losing it every 60s.
-  const expandedCards = new Set();
 
   // calculates vapor pressure deficit based on T and RH
   function calculateVPD(tempF, humidity) {
@@ -492,6 +483,27 @@
   const PRESSURE_TREND_WINDOW_HOURS = 3;
   const PRESSURE_TREND_THRESHOLD = 0.03;
 
+  // generic small trend arrow for the glance strip / hero, based on the
+  // change in a given history field over a short window (no fixed
+  // per-field threshold the way pressure/CAPE trends have).
+  function getSimpleTrend(history, fieldKey, windowHours, threshold = 0) {
+    if (!history || history.length < 2) return null;
+    const latest = history[history.length - 1];
+    if (!latest || latest[fieldKey] === undefined || latest[fieldKey] === null) return null;
+    const targetTime = Date.now() - windowHours * 60 * 60 * 1000;
+    let closest = null, closestDiff = Infinity;
+    history.forEach(entry => {
+      if (entry[fieldKey] === undefined || entry[fieldKey] === null) return;
+      const diff = Math.abs(new Date(entry.time).getTime() - targetTime);
+      if (diff < closestDiff) { closestDiff = diff; closest = entry; }
+    });
+    if (!closest) return null;
+    const delta = latest[fieldKey] - closest[fieldKey];
+    if (delta > threshold) return { arrow: '▲', className: 'trend-rising', delta };
+    if (delta < -threshold) return { arrow: '▼', className: 'trend-falling', delta };
+    return { arrow: '→', className: 'trend-steady', delta };
+  }
+
   function getPressureTrend(history, fieldKey = 'pressure') {
     if (!history || history.length < 2) return null;
     const latest = history[history.length - 1];
@@ -592,99 +604,76 @@
     return history.filter(entry => new Date(entry.time).getTime() >= cutoff);
   }
 
-  // sensor-card interaction
-  function makeCardExpandable(cardEl, key, title, renderPanel) {
-    cardEl.classList.add('card-expandable');
-    cardEl.setAttribute('tabindex', '0');
-    cardEl.setAttribute('role', 'button');
-    cardEl.setAttribute('aria-expanded', 'false');
-    cardEl.dataset.expandHint = title;
+  // ---------- hero + glance-strip sensor interaction ----------
+  // the 8 sensor readings share ONE interaction: tap a row in the glance
+  // strip and it becomes the big hero card up top. userSelectedHero locks
+  // in the person's own choice; until they tap something, the hero follows
+  // whichever reading renderCards() judges most notable (see autoKey there).
+  let userSelectedHero = null;
+  let latestSensors = null;
+  let latestAutoKey = null;
 
-    const existingContent = Array.from(cardEl.childNodes);
-    const inner = document.createElement('div');
-    inner.className = 'card-flip-inner';
-
-    const front = document.createElement('div');
-    front.className = 'card-flip-front';
-    existingContent.forEach(node => front.appendChild(node));
-
-    const hint = document.createElement('div');
-    hint.className = 'card-expand-hint';
-    hint.textContent = `tap for ${title} ↗`;
-    front.appendChild(hint);
-
-    const back = document.createElement('div');
-    back.className = 'card-flip-back';
-
-    const panel = document.createElement('div');
-    panel.className = 'card-expand-panel';
-    back.append(panel);
-    inner.append(front, back);
-    cardEl.appendChild(inner);
-
-    const isOpen = () => expandedCards.has(key);
-
-    const setOpen = (open) => {
-      if (open) {
-        // only one ordinary card should be open at a time.
-        document.querySelectorAll('.card.card-flipped').forEach(other => {
-          if (other === cardEl) return;
-          other.classList.remove('card-flipped');
-          other.setAttribute('aria-expanded', 'false');
-          const otherHint = other.querySelector('.card-expand-hint');
-          if (otherHint) otherHint.textContent = `tap for ${other.dataset.expandHint || 'more data'} ↗`;
-        });
-        expandedCards.clear();
-        expandedCards.add(key);
-        renderPanel(panel);
-      } else {
-        expandedCards.delete(key);
-      }
-      cardEl.classList.toggle('card-flipped', open);
-      cardEl.setAttribute('aria-expanded', String(open));
-      hint.textContent = open ? 'tap card to return ↩' : `tap for ${title} ↗`;
-    };
-
-    cardEl.addEventListener('click', (e) => {
-      if (e.target.closest('a, button, details, summary')) return;
-      setOpen(!isOpen());
-    });
-
-    cardEl.addEventListener('keydown', (e) => {
-      if (e.target.closest('input, textarea, select')) return;
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        setOpen(!isOpen());
-      }
-      if (e.key === 'Escape' && isOpen()) setOpen(false);
-    });
-
-    if (isOpen()) setOpen(true);
+  function pickActiveHeroKey(sensors, autoKey) {
+    const validKeys = sensors.map(s => s.key);
+    if (userSelectedHero && validKeys.includes(userSelectedHero)) return userSelectedHero;
+    if (autoKey && validKeys.includes(autoKey)) return autoKey;
+    return validKeys.includes('temp') ? 'temp' : validKeys[0];
   }
 
-  function closeOpenSensorCards() {
-    expandedCards.clear();
-    document.querySelectorAll('.card.card-flipped').forEach(card => {
-      card.classList.remove('card-flipped');
-      card.setAttribute('aria-expanded', 'false');
-      const hint = card.querySelector('.card-expand-hint');
-      if (hint) hint.textContent = `tap for ${card.dataset.expandHint || 'more data'} ↗`;
-    });
-    document.querySelectorAll('.lightning-card.lightning-map-open').forEach(card => {
-      card.classList.remove('lightning-map-open');
-      card.setAttribute('aria-expanded', 'false');
+  function renderGlanceStrip(sensors, activeKey) {
+    const strip = document.getElementById('glance-strip');
+    if (!strip) return;
+    strip.innerHTML = sensors.map(s => `
+      <button type="button" class="glance-item${s.key === activeKey ? ' active' : ''}${s.notable ? ' notable' : ''}"
+              data-key="${s.key}" aria-pressed="${s.key === activeKey}">
+        <span class="glance-item-icon"><img src="${s.iconSrc}" alt=""></span>
+        <span class="glance-item-value">${s.glanceValueHtml}</span>
+        <span class="glance-item-trend${s.trend ? ' ' + s.trend.className : ''}">${s.trend ? s.trend.arrow : ''}</span>
+        <span class="glance-item-context">${s.glanceContext || ''}</span>
+      </button>
+    `).join('');
+    strip.querySelectorAll('.glance-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.key === activeKey) return;
+        userSelectedHero = btn.dataset.key;
+        renderActiveHero();
+      });
     });
   }
 
-  let sensorDismissTimer = null;
-  document.addEventListener('click', (event) => {
-    if (event.target.closest('#grid .card.card-expandable, #grid .lightning-card')) return;
-    closeOpenSensorCards();
-  });
-  window.addEventListener('scroll', () => {
-    if (sensorDismissTimer) cancelAnimationFrame(sensorDismissTimer);
-    sensorDismissTimer = requestAnimationFrame(closeOpenSensorCards);
-  }, { passive: true });
+  function renderHero(sensors, activeKey) {
+    const heroEl = document.getElementById('sensor-hero');
+    if (!heroEl) return;
+    const sensor = sensors.find(s => s.key === activeKey) || sensors[0];
+    if (!sensor) return;
+
+    // preserve an already-open lightning map if lightning stays the hero
+    // across a rebuild (e.g. the ~60s data refresh).
+    const wasLightningOpen = heroEl.classList.contains('lightning-map-open') && sensor.key === 'lightning';
+    const preservedPanel = wasLightningOpen ? heroEl.querySelector('.lightning-map-panel') : null;
+    const preservedBackdrop = wasLightningOpen ? heroEl.querySelector('.lightning-map-backdrop') : null;
+    if (preservedPanel) document.body.appendChild(preservedPanel);
+    if (preservedBackdrop) document.body.appendChild(preservedBackdrop);
+
+    heroEl.className = `card combo-card sensor-hero ${sensor.className}`;
+    heroEl.innerHTML = sensor.heroHtml;
+
+    if (wasLightningOpen && preservedPanel) {
+      if (preservedBackdrop) heroEl.appendChild(preservedBackdrop);
+      heroEl.appendChild(preservedPanel);
+      heroEl.classList.add('lightning-map-open');
+    }
+
+    if (typeof sensor.attachHero === 'function') sensor.attachHero(heroEl);
+  }
+
+  function renderActiveHero() {
+    if (!latestSensors) return;
+    const activeKey = pickActiveHeroKey(latestSensors, latestAutoKey);
+    renderHero(latestSensors, activeKey);
+    renderGlanceStrip(latestSensors, activeKey);
+  }
+
 
   function renderChart(history) {
     const labels = history.map(entry => entry.time);
@@ -2446,133 +2435,18 @@ const THEMES = {
   
   //*  ------------🌪️ !! HTML FOR ⛅️ECOWITT WEATHER STATION CARDS + 💨PURPLEAIR AQI + 💧USGS FLOOD GAUGE 🌪️----------- *//
   
-  // ---------- hero tile + glance strip ----------
-  // replaces the old two-column stack: one tile gets the full, richly
-  // detailed card treatment in the hero slot; every tile (including the
-  // active one) also gets a compact always-visible row in the strip below,
-  // so nothing requires a tap/swipe to be seen at a glance. Tapping a
-  // strip row promotes that tile into the hero slot.
-  function renderTileStage(tiles) {
-    if (!tiles.length) return;
-    if (!tiles.some(t => t.key === activeTileKey)) {
-      activeTileKey = tiles[0].key;
-    }
-
-    grid.innerHTML = `
-      <div class="tile-hero" id="tile-hero"></div>
-      <div class="tile-glance-strip" id="tile-glance-strip"></div>
-    `;
-    const heroEl = document.getElementById('tile-hero');
-    const stripEl = document.getElementById('tile-glance-strip');
-
-    const active = tiles.find(t => t.key === activeTileKey) || tiles[0];
-    heroEl.appendChild(active.el);
-
-    tiles.forEach(t => {
-      const row = document.createElement('button');
-      row.type = 'button';
-      row.className = 'tile-glance-row' + (t.key === active.key ? ' active' : '');
-      row.setAttribute('aria-pressed', t.key === active.key ? 'true' : 'false');
-      row.innerHTML = `
-        <span class="tile-glance-icon"><img src="${t.glance.icon}" alt=""></span>
-        <span class="tile-glance-label">${t.glance.label}</span>
-        <span class="tile-glance-value">${t.glance.value}<span class="unit">${t.glance.unit || ''}</span>${t.glance.trendHtml || ''}</span>
-        ${t.glance.sub ? `<span class="tile-glance-sub">${t.glance.sub}</span>` : ''}
-      `;
-      row.addEventListener('click', () => {
-        if (activeTileKey === t.key) return;
-        activeTileKey = t.key;
-        renderTileStage(tiles);
-      });
-      stripEl.appendChild(row);
-    });
-  }
+  //*  ------------🌪️ !! HTML FOR ⛅️ECOWITT WEATHER STATION CARDS + 💨PURPLEAIR AQI + 💧USGS FLOOD GAUGE 🌪️----------- *//
+  //
+  // the 8 readings share one interaction: whichever row is tapped in the
+  // compact glance strip becomes the big "hero" card up top -- no separate
+  // tap-to-expand mechanic layered on top of that, no swipe needed to see
+  // any of the 8 at a glance. renderCards() rebuilds the sensor defs every
+  // refresh cycle; renderActiveHero() (called from a strip click) re-uses
+  // the most recent defs without waiting for the next data refresh.
 
   function renderCards(data) {
-    // prevent lightning map from refreshing with page 
-    const openLightningCard = grid.querySelector('.lightning-card.lightning-map-open');
-    const preservedLightningPanel = openLightningCard?.querySelector('.lightning-map-panel') || null;
-    const preservedLightningBackdrop = openLightningCard?.querySelector('.lightning-map-backdrop') || null;
-    if (preservedLightningPanel) document.body.appendChild(preservedLightningPanel);
-    if (preservedLightningBackdrop) document.body.appendChild(preservedLightningBackdrop);
-
-    const tiles = [];
     const extSafe = (key) => getExtremesSafe(fullHistory, cachedTodaysExtremes, data, key);
-    
-    // 1. temperature & humidity card
-    const tExt = extSafe('temp');
-    const hExt = extSafe('humidity');
-    const vpd = calculateVPD(data.temp, data.humidity);
-    
-    let feelsLike = data.temp;
-    if (data.temp >= 80 && data.heatIndex) feelsLike = data.heatIndex;
-    else if (data.temp <= 50 && data.windChill) feelsLike = data.windChill;
-    const dewptComfort = getDewpointComfort(data.dewpt);
 
-    const tempHumCard = document.createElement('div');
-    tempHumCard.className = 'card combo-card temp-card';
-    tempHumCard.innerHTML = `
-      <div class="priority-card-head">
-        <div class="priority-icon"><img src="icons/thermometer-fahrenheit.svg" alt=""></div>
-        <div class="priority-heading">Temperature</div>
-      </div>
-      <div class="glance-row priority-glance-row temp-glance-row">
-         <div class="glance-col glance-primary">
-            <div class="label">Feels Like</div>
-            <div class="value priority-value">${formatVal(feelsLike, 1)}<span class="unit">°F</span></div>
-            <span class="glance-sub"><span class="glance-sub-label">actual</span> ${formatVal(data.temp, 1)}°F</span>
-         </div>
-         <div class="glance-col">
-            <div class="label">Dew Point</div>
-            <div class="value priority-value">${formatVal(data.dewpt, 1)}<span class="unit">°F</span></div>
-            <span class="glance-sub">${dewptComfort}</span>
-         </div>
-      </div>
-      <div class="priority-context">RH ${formatVal(data.humidity, 0)}% <span>·</span> ${vpd} kPa VPD</div>
-    `;
-    tiles.push({
-      key: 'tempHum',
-      el: tempHumCard,
-      glance: { icon: 'icons/thermometer-fahrenheit.svg', label: 'Temperature', value: formatVal(feelsLike, 1), unit: '°F', sub: 'feels like' }
-    });
-    makeCardExpandable(tempHumCard, 'tempHum', 'more temperature & humidity data', (panel) => {
-      const vpdNum = parseFloat(vpd);
-      const vpdColor = isNaN(vpdNum) ? 'var(--muted-color)' : (vpdNum < 0.4 ? '#7ab8ff' : vpdNum > 1.6 ? '#e2a355' : '#6fbf8f');
-      const vpdGauge = gaugeBarHtml({
-        label: 'Vapor Pressure Deficit',
-        valueText: `${vpd} kPa${dewptComfort ? ' · ' + dewptComfort : ''}`,
-        value: isNaN(vpdNum) ? null : vpdNum, min: 0, max: 2.4,
-        zones: [
-          { from: 0, to: 0.4, color: '#5b8fd9' },
-          { from: 0.4, to: 1.6, color: '#54ab7c' },
-          { from: 1.6, to: 2.4, color: '#c98a3d' }
-        ],
-        scaleLeft: 'Muggy', scaleRight: 'Dry',
-        markerColor: vpdColor
-      });
-      const humGauge = gaugeBarHtml({
-        label: 'Humidity Today',
-        valueText: `${formatVal(data.humidity, 0)}%`,
-        value: data.humidity, min: 0, max: 100,
-        zones: [{ from: 0, to: 100, color: '#3d6b8f' }],
-        scaleLeft: `Low ${formatVal(hExt.min.val, 0)}%`,
-        scaleRight: `High ${formatVal(hExt.max.val, 0)}%`
-      });
-      panel.innerHTML = `
-        <div class="detail-panel">
-          ${vpdGauge}
-          <div class="stat-chip-row">
-            ${statChip('Heat Index', data.heatIndex != null ? formatVal(data.heatIndex, 1) + '°F' : '--')}
-            ${statChip('Wind Chill', data.windChill != null ? formatVal(data.windChill, 1) + '°F' : '--')}
-            ${statChip('Dew Pt. Depr.', (data.temp != null && data.dewpt != null) ? formatVal(data.temp - data.dewpt, 1) + '°F' : '--')}
-          </div>
-          ${humGauge}
-          <div class="extra-data-note">VPD below ~0.4 kPa tends to feel muggy/stagnant; above ~1.6 kPa the air is pulling moisture quickly and feels drier.</div>
-        </div>`;
-    });
-
-
-  
     // horizontal range gauge
     function gaugeBarHtml({ label, valueText, value, min, max, zones, scaleLeft, scaleRight, markerColor }) {
       const pct = (v) => Math.max(0, Math.min(100, ((v - min) / (max - min)) * 100));
@@ -2612,87 +2486,125 @@ const THEMES = {
         </div>`;
     }
 
-    function detailPanelHtml(groups, note = '') {
-      const groupsHtml = groups.map(group => `
-        <details class="detail-section" open>
-          <summary>${group.title}</summary>
-          <div class="detail-section-body">
-            <div class="extra-data-list">
-              ${group.rows.join('')}
-            </div>
-          </div>
-        </details>
-      `).join('');
-      return `
-        <div class="detail-panel">
-          ${groupsHtml}
-          ${note ? `<div class="extra-data-note">${note}</div>` : ''}
-        </div>
-      `;
-    }
+    const sensors = [];
 
-  // 2. wind card
+    // 1. temperature & humidity
+    const tExt = extSafe('temp');
+    const hExt = extSafe('humidity');
+    const vpd = calculateVPD(data.temp, data.humidity);
+    let feelsLike = data.temp;
+    if (data.temp >= 80 && data.heatIndex) feelsLike = data.heatIndex;
+    else if (data.temp <= 50 && data.windChill) feelsLike = data.windChill;
+    const dewptComfort = getDewpointComfort(data.dewpt);
+    const tempTrend = getSimpleTrend(fullHistory, 'temp', 1, 1.5);
+    const vpdNum = parseFloat(vpd);
+    const vpdColor = isNaN(vpdNum) ? 'var(--muted-color)' : (vpdNum < 0.4 ? '#7ab8ff' : vpdNum > 1.6 ? '#e2a355' : '#6fbf8f');
+    sensors.push({
+      key: 'temp', className: 'temp-card', iconSrc: 'icons/thermometer-fahrenheit.svg',
+      trend: tempTrend,
+      glanceValueHtml: `${formatVal(feelsLike, 1)}<span class="unit">°F</span>`,
+      glanceContext: `actual ${formatVal(data.temp, 1)}° · dew ${formatVal(data.dewpt, 1)}°`,
+      heroHtml: `
+        <div class="priority-card-head">
+          <div class="priority-icon"><img src="icons/thermometer-fahrenheit.svg" alt=""></div>
+          <div class="priority-heading">Temperature</div>
+        </div>
+        <div class="glance-row priority-glance-row temp-glance-row">
+           <div class="glance-col glance-primary">
+              <div class="label">Feels Like</div>
+              <div class="value priority-value">${formatVal(feelsLike, 1)}<span class="unit">°F</span></div>
+              <span class="glance-sub"><span class="glance-sub-label">actual</span> ${formatVal(data.temp, 1)}°F</span>
+           </div>
+           <div class="glance-col">
+              <div class="label">Dew Point</div>
+              <div class="value priority-value">${formatVal(data.dewpt, 1)}<span class="unit">°F</span></div>
+              <span class="glance-sub">${dewptComfort}</span>
+           </div>
+        </div>
+        <div class="priority-context">RH ${formatVal(data.humidity, 0)}% <span>·</span> ${vpd} kPa VPD</div>
+        <div class="detail-panel">
+          ${gaugeBarHtml({
+            label: 'Vapor Pressure Deficit',
+            valueText: `${vpd} kPa${dewptComfort ? ' · ' + dewptComfort : ''}`,
+            value: isNaN(vpdNum) ? null : vpdNum, min: 0, max: 2.4,
+            zones: [
+              { from: 0, to: 0.4, color: '#5b8fd9' },
+              { from: 0.4, to: 1.6, color: '#54ab7c' },
+              { from: 1.6, to: 2.4, color: '#c98a3d' }
+            ],
+            scaleLeft: 'Muggy', scaleRight: 'Dry',
+            markerColor: vpdColor
+          })}
+          <div class="stat-chip-row">
+            ${statChip('Heat Index', data.heatIndex != null ? formatVal(data.heatIndex, 1) + '°F' : '--')}
+            ${statChip('Wind Chill', data.windChill != null ? formatVal(data.windChill, 1) + '°F' : '--')}
+            ${statChip('Dew Pt. Depr.', (data.temp != null && data.dewpt != null) ? formatVal(data.temp - data.dewpt, 1) + '°F' : '--')}
+          </div>
+          ${gaugeBarHtml({
+            label: 'Humidity Today',
+            valueText: `${formatVal(data.humidity, 0)}%`,
+            value: data.humidity, min: 0, max: 100,
+            zones: [{ from: 0, to: 100, color: '#3d6b8f' }],
+            scaleLeft: `Low ${formatVal(hExt.min.val, 0)}%`,
+            scaleRight: `High ${formatVal(hExt.max.val, 0)}%`
+          })}
+          <div class="extra-data-note">VPD below ~0.4 kPa tends to feel muggy/stagnant; above ~1.6 kPa the air is pulling moisture quickly and feels drier.</div>
+        </div>`
+    });
+
+    // 2. wind
     const wsExt = extSafe('windSpeed');
     const wgExt = extSafe('windGust');
-    const windCard = document.createElement('div');
-    windCard.className = 'card combo-card wind-card';
-    windCard.innerHTML = `
-      <div class="priority-card-head">
-        <div class="priority-icon"><img src="icons/windmill.svg" alt=""></div>
-        <div class="priority-heading">Wind</div>
-      </div>
-      <div class="wind-priority-row">
-        <div class="wind-priority-metric">
-          <div class="value priority-value">${formatVal(data.windSpeed, 1)}<span class="unit">mph</span></div>
-          <span class="wind-metric-label">Sustained</span>
-          <div class="wind-metric-peak"><span class="wind-metric-peak-label">Peak</span><span class="wind-metric-peak-value">${formatVal(wsExt.max.val, 1)}<span class="unit">mph</span></span></div>
+    const windTrend = getSimpleTrend(fullHistory, 'windSpeed', 1, 3);
+    const gustFactor = (data.windSpeed && data.windGust) ? (data.windGust / Math.max(data.windSpeed, 0.1)) : null;
+    sensors.push({
+      key: 'wind', className: 'wind-card', iconSrc: 'icons/windmill.svg',
+      trend: windTrend,
+      glanceValueHtml: `${formatVal(data.windSpeed, 1)}<span class="unit">mph</span>`,
+      glanceContext: `${degreesToCardinal16(data.winddir || 0)} · gust ${formatVal(data.windGust, 1)} mph`,
+      heroHtml: `
+        <div class="priority-card-head">
+          <div class="priority-icon"><img src="icons/windmill.svg" alt=""></div>
+          <div class="priority-heading">Wind</div>
         </div>
-        <div class="wind-priority-metric">
-          <div class="value priority-value">${formatVal(data.windGust, 1)}<span class="unit">mph</span></div>
-          <span class="wind-metric-label">Gust</span>
-          <div class="wind-metric-peak"><span class="wind-metric-peak-label">Peak</span><span class="wind-metric-peak-value">${formatVal(wgExt.max.val, 1)}<span class="unit">mph</span></span></div>
+        <div class="wind-priority-row">
+          <div class="wind-priority-metric">
+            <div class="value priority-value">${formatVal(data.windSpeed, 1)}<span class="unit">mph</span></div>
+            <span class="wind-metric-label">Sustained</span>
+            <div class="wind-metric-peak"><span class="wind-metric-peak-label">Peak</span><span class="wind-metric-peak-value">${formatVal(wsExt.max.val, 1)}<span class="unit">mph</span></span></div>
+          </div>
+          <div class="wind-priority-metric">
+            <div class="value priority-value">${formatVal(data.windGust, 1)}<span class="unit">mph</span></div>
+            <span class="wind-metric-label">Gust</span>
+            <div class="wind-metric-peak"><span class="wind-metric-peak-label">Peak</span><span class="wind-metric-peak-value">${formatVal(wgExt.max.val, 1)}<span class="unit">mph</span></span></div>
+          </div>
         </div>
-      </div>
-      <div class="priority-context">${degreesToCardinal16(data.winddir || 0)} · ${getBeaufortLabel(data.windSpeed)}</div>
-    `;
-    tiles.push({
-      key: 'wind',
-      el: windCard,
-      glance: { icon: 'icons/windmill.svg', label: 'Wind', value: formatVal(data.windSpeed, 1), unit: 'mph', sub: degreesToCardinal16(data.winddir || 0) }
-    });
-    makeCardExpandable(windCard, 'wind', 'more wind data', (panel) => {
-      const gustFactor = (data.windSpeed && data.windGust) ? (data.windGust / Math.max(data.windSpeed, 0.1)) : null;
-      const gustGauge = gaugeBarHtml({
-        label: 'Gust Factor',
-        valueText: gustFactor ? `${gustFactor.toFixed(2)}×` : '--',
-        value: gustFactor, min: 1, max: 2.2,
-        zones: [
-          { from: 1, to: 1.3, color: '#54ab7c' },
-          { from: 1.3, to: 1.6, color: '#d9c34a' },
-          { from: 1.6, to: 2.0, color: '#e2913f' },
-          { from: 2.0, to: 2.2, color: '#e2593f' }
-        ],
-        scaleLeft: 'Steady', scaleRight: 'Extreme'
-      });
-      panel.innerHTML = `
+        <div class="priority-context">${degreesToCardinal16(data.winddir || 0)} · ${getBeaufortLabel(data.windSpeed)}</div>
         <div class="detail-panel">
           <div class="wind-back-layout">
             <div class="wind-back-compass">${buildWindCompassHtml(false, data.winddir || 0)}</div>
           </div>
-          ${gustGauge}
+          ${gaugeBarHtml({
+            label: 'Gust Factor',
+            valueText: gustFactor ? `${gustFactor.toFixed(2)}×` : '--',
+            value: gustFactor, min: 1, max: 2.2,
+            zones: [
+              { from: 1, to: 1.3, color: '#54ab7c' },
+              { from: 1.3, to: 1.6, color: '#d9c34a' },
+              { from: 1.6, to: 2.0, color: '#e2913f' },
+              { from: 2.0, to: 2.2, color: '#e2593f' }
+            ],
+            scaleLeft: 'Steady', scaleRight: 'Extreme'
+          })}
           <div class="extra-data-note">A gust factor above ~1.5× indicates increasingly gusty flow; elevated ratios during storms can be a useful downburst clue.</div>
-        </div>`;
+        </div>`
     });
 
-
-
-    // 3. pressure/cape card -- relative (elevation-corrected) pressure only
+    // 3. pressure/cape -- relative (elevation-corrected) pressure only
     const pExt = extSafe('pressure');
     const pTrend = getPressureTrend(fullHistory, 'pressure');
-
-    const primaryTrend = pTrend;
-    const trendRateHtml = (primaryTrend && primaryTrend.deltaPerHour !== undefined)
-      ? `${primaryTrend.deltaPerHour >= 0 ? '+' : ''}${primaryTrend.deltaPerHour.toFixed(3)} inHg/hr`
+    const trendRateHtml = (pTrend && pTrend.deltaPerHour !== undefined)
+      ? `${pTrend.deltaPerHour >= 0 ? '+' : ''}${pTrend.deltaPerHour.toFixed(3)} inHg/hr`
       : 'trend building…';
 
     function getPressureLevelNote(val) {
@@ -2702,131 +2614,108 @@ const THEMES = {
       return 'Low';
     }
     const pLevel = getPressureLevelNote(data.pressure);
-
-    const pressureCard = document.createElement('div');
-    pressureCard.className = 'card combo-card pressure-card';
     const capeTrend = getCapeTrend(capeHistory);
     const sparklineHtml = buildPressureCapeSparkline(fullHistory, capeHistory);
-    pressureCard.innerHTML = `
-      <div class="priority-card-head">
-        <div class="priority-icon"><img src="icons/barometer.svg" alt=""></div>
-        <div class="priority-heading">STORM POTENTIAL</div>
-      </div>
-      <div class="glance-row priority-glance-row pressure-glance-row">
-         <div class="glance-col glance-primary">
-            <div class="label">Pressure</div>
-            <div class="value priority-value">${formatVal(data.pressure, 2)}<span class="unit">inHg</span>${primaryTrend ? `<span class="pressure-trend ${primaryTrend.className}">${primaryTrend.arrow}</span>` : ''}</div>
-         </div>
-         <div class="glance-col">
-            <div class="label">CAPE</div>
-            <div class="value priority-value">${data.cape != null ? formatVal(data.cape, 0) : '--'}<span class="unit">J/kg</span>${capeTrend ? `<span class="pressure-trend ${capeTrend.className}">${capeTrend.arrow}</span>` : ''}</div>
-         </div>
-      </div>
-      ${sparklineHtml ? `<div class="pressure-cape-spark">${sparklineHtml}</div>` : ''}
-      <div class="storm-note compact-storm-note">${getStormPotentialNote(primaryTrend, trendRateHtml, data.cape)}</div>
-    `;
-    tiles.push({
-      key: 'pressure',
-      el: pressureCard,
-      glance: {
-        icon: 'icons/barometer.svg', label: 'Pressure',
-        value: formatVal(data.pressure, 2), unit: 'inHg',
-        trendHtml: primaryTrend ? `<span class="pressure-trend ${primaryTrend.className}">${primaryTrend.arrow}</span>` : '',
-        sub: pLevel || ''
-      }
-    });
-    makeCardExpandable(pressureCard, 'pressure', 'more pressure data', (panel) => {
-      const pressGauge = gaugeBarHtml({
-        label: 'Barometer',
-        valueText: `${formatVal(data.pressure, 2)} inHg${pLevel ? ' · ' + pLevel : ''}`,
-        value: data.pressure, min: 29.5, max: 30.5,
-        zones: [
-          { from: 29.5, to: 29.8, color: '#e2593f' },
-          { from: 29.8, to: 30.0, color: '#d9c34a' },
-          { from: 30.0, to: 30.2, color: '#54ab7c' },
-          { from: 30.2, to: 30.5, color: '#5b8fd9' }
-        ],
-        scaleLeft: 'Low', scaleRight: 'High'
-      });
-      const capeVal = data.cape;
-      const capeColor = (capeVal == null) ? 'var(--muted-color)'
-        : capeVal < 100 ? 'var(--muted-color)'
-        : capeVal < 1000 ? '#54ab7c'
-        : capeVal < 2500 ? '#d9c34a'
-        : capeVal < 4000 ? '#e2913f' : '#e2593f';
-      const capeGauge = gaugeBarHtml({
-        label: 'CAPE (Instability)',
-        valueText: `${capeVal != null ? formatVal(capeVal, 0) + ' J/kg' : '--'}`,
-        value: capeVal, min: 0, max: 4200,
-        zones: [
-          { from: 0, to: 100, color: 'rgba(255,255,255,0.12)' },
-          { from: 100, to: 1000, color: '#54ab7c' },
-          { from: 1000, to: 2500, color: '#d9c34a' },
-          { from: 2500, to: 4000, color: '#e2913f' },
-          { from: 4000, to: 4200, color: '#e2593f' }
-        ],
-        scaleLeft: 'Stable', scaleRight: 'Extreme',
-        markerColor: capeColor
-      });
-      panel.innerHTML = `
+    sensors.push({
+      key: 'pressure', className: 'pressure-card', iconSrc: 'icons/barometer.svg',
+      trend: pTrend,
+      glanceValueHtml: `${formatVal(data.pressure, 2)}<span class="unit">inHg</span>`,
+      glanceContext: `${pLevel || ''}${data.cape != null ? ' · CAPE ' + formatVal(data.cape, 0) : ''}`,
+      heroHtml: `
+        <div class="priority-card-head">
+          <div class="priority-icon"><img src="icons/barometer.svg" alt=""></div>
+          <div class="priority-heading">STORM POTENTIAL</div>
+        </div>
+        <div class="glance-row priority-glance-row pressure-glance-row">
+           <div class="glance-col glance-primary">
+              <div class="label">Pressure</div>
+              <div class="value priority-value">${formatVal(data.pressure, 2)}<span class="unit">inHg</span>${pTrend ? `<span class="pressure-trend ${pTrend.className}">${pTrend.arrow}</span>` : ''}</div>
+           </div>
+           <div class="glance-col">
+              <div class="label">CAPE</div>
+              <div class="value priority-value">${data.cape != null ? formatVal(data.cape, 0) : '--'}<span class="unit">J/kg</span>${capeTrend ? `<span class="pressure-trend ${capeTrend.className}">${capeTrend.arrow}</span>` : ''}</div>
+           </div>
+        </div>
+        ${sparklineHtml ? `<div class="pressure-cape-spark">${sparklineHtml}</div>` : ''}
+        <div class="storm-note compact-storm-note">${getStormPotentialNote(pTrend, trendRateHtml, data.cape)}</div>
         <div class="detail-panel">
-          ${pressGauge}
+          ${gaugeBarHtml({
+            label: 'Barometer',
+            valueText: `${formatVal(data.pressure, 2)} inHg${pLevel ? ' · ' + pLevel : ''}`,
+            value: data.pressure, min: 29.5, max: 30.5,
+            zones: [
+              { from: 29.5, to: 29.8, color: '#e2593f' },
+              { from: 29.8, to: 30.0, color: '#d9c34a' },
+              { from: 30.0, to: 30.2, color: '#54ab7c' },
+              { from: 30.2, to: 30.5, color: '#5b8fd9' }
+            ],
+            scaleLeft: 'Low', scaleRight: 'High'
+          })}
           <div class="stat-chip-row">
             ${statChip('High', `${formatVal(pExt.max.val, 2)}`)}
             ${statChip('Low', `${formatVal(pExt.min.val, 2)}`)}
             ${statChip('Δ3h', pTrend && pTrend.delta !== undefined ? (pTrend.delta >= 0 ? '+' : '') + pTrend.delta.toFixed(3) : '--')}
           </div>
-          ${capeGauge}
+          ${gaugeBarHtml({
+            label: 'CAPE (Instability)',
+            valueText: `${data.cape != null ? formatVal(data.cape, 0) + ' J/kg' : '--'}`,
+            value: data.cape, min: 0, max: 4200,
+            zones: [
+              { from: 0, to: 100, color: 'rgba(255,255,255,0.12)' },
+              { from: 100, to: 1000, color: '#54ab7c' },
+              { from: 1000, to: 2500, color: '#d9c34a' },
+              { from: 2500, to: 4000, color: '#e2913f' },
+              { from: 4000, to: 4200, color: '#e2593f' }
+            ],
+            scaleLeft: 'Stable', scaleRight: 'Extreme',
+            markerColor: (data.cape == null) ? 'var(--muted-color)'
+              : data.cape < 100 ? 'var(--muted-color)'
+              : data.cape < 1000 ? '#54ab7c'
+              : data.cape < 2500 ? '#d9c34a'
+              : data.cape < 4000 ? '#e2913f' : '#e2593f'
+          })}
           <div class="extra-data-note">CAPE is modeled (HRRR, hourly), not sensor-measured — it's storm fuel available, not a forecast that one will occur.</div>
-        </div>`;
+        </div>`
     });
 
-
-    // 4. precipitation card
+    // 4. precipitation
     const prExt = extSafe('precipRate');
     const isCurrentlyRaining = data.precipRate !== undefined && data.precipRate !== null && data.precipRate > 0;
     const likelyFrozen = data.temp !== null && data.temp !== undefined && data.temp <= 34;
-    const precipCard = document.createElement('div');
-    precipCard.className = 'card combo-card precip-card';
-    const precipLabelHtml = `<div class="label" style="margin-bottom: 10px;"><span class="card-icon"><img src="icons/raindrop-measure.svg" alt=""></span>Precipitation</div>`;
-    if (isCurrentlyRaining) {
-      precipCard.innerHTML = `
-        ${precipLabelHtml}
+    const totals = [
+      { label: 'Today', val: data.precipTotal },
+      { label: 'Week', val: data.precipTotalWeek },
+      { label: 'Month', val: data.precipTotalMonth },
+      { label: 'Year', val: data.precipTotalYear }
+    ];
+    const maxTotal = Math.max(...totals.map(t => (typeof t.val === 'number' ? t.val : 0)), 0.01);
+    const hourPop = currentForecastHourly && currentForecastHourly[0] && currentForecastHourly[0].probabilityOfPrecipitation != null
+      ? `${currentForecastHourly[0].probabilityOfPrecipitation}%`
+      : '--';
+    sensors.push({
+      key: 'precip', className: 'precip-card', iconSrc: 'icons/raindrop-measure.svg',
+      trend: null,
+      glanceValueHtml: isCurrentlyRaining
+        ? `${formatVal(data.precipRate, 2)}<span class="unit">in/hr</span>`
+        : `${formatVal(data.precipTotal, 2)}<span class="unit">in</span>`,
+      glanceContext: isCurrentlyRaining
+        ? `${formatVal(data.precipTotal, 2)} in today${likelyFrozen ? ' · frozen/mixed?' : ''}`
+        : `peak ${formatVal(prExt.max.val, 2)} in/hr today${likelyFrozen ? ' · frozen/mixed?' : ''}`,
+      heroHtml: `
+        <div class="label" style="margin-bottom: 10px;"><span class="card-icon"><img src="icons/raindrop-measure.svg" alt=""></span>Precipitation</div>
+        ${isCurrentlyRaining ? `
         <div class="priority-single-value">
           <div class="value priority-value">${formatVal(data.precipRate, 2)}<span class="unit">in/hr</span></div>
           <span class="glance-sub">current rate</span>
         </div>
         <div class="priority-context">${formatVal(data.precipTotal, 2)} in today · peak ${formatVal(prExt.max.val, 2)} in/hr${likelyFrozen ? ' · likely frozen/mixed' : ''}</div>
-      `;
-    } else {
-      precipCard.innerHTML = `
-        ${precipLabelHtml}
+        ` : `
         <div class="priority-single-value">
           <div class="value priority-value">${formatVal(data.precipTotal, 2)}<span class="unit">in</span></div>
           <span class="glance-sub">today</span>
         </div>
         <div class="priority-context">peak ${formatVal(prExt.max.val, 2)} in/hr today${likelyFrozen ? ' · likely frozen/mixed' : ''}</div>
-      `;
-    }
-    tiles.push({
-      key: 'precip',
-      el: precipCard,
-      glance: isCurrentlyRaining
-        ? { icon: 'icons/raindrop-measure.svg', label: 'Precipitation', value: formatVal(data.precipRate, 2), unit: 'in/hr', sub: 'current rate' }
-        : { icon: 'icons/raindrop-measure.svg', label: 'Precipitation', value: formatVal(data.precipTotal, 2), unit: 'in', sub: 'today' }
-    });
-    makeCardExpandable(precipCard, 'precip', 'more precipitation data', (panel) => {
-      const totals = [
-        { label: 'Today', val: data.precipTotal },
-        { label: 'Week', val: data.precipTotalWeek },
-        { label: 'Month', val: data.precipTotalMonth },
-        { label: 'Year', val: data.precipTotalYear }
-      ];
-      const maxTotal = Math.max(...totals.map(t => (typeof t.val === 'number' ? t.val : 0)), 0.01);
-      const hourPop = currentForecastHourly && currentForecastHourly[0] && currentForecastHourly[0].probabilityOfPrecipitation != null
-        ? `${currentForecastHourly[0].probabilityOfPrecipitation}%`
-        : '--';
-      panel.innerHTML = `
+        `}
         <div class="detail-panel">
           <div class="bar-compare-list">
             ${totals.map(t => barCompareRow(t.label, t.val, maxTotal, 'in', '#5b9fd9')).join('')}
@@ -2837,164 +2726,174 @@ const THEMES = {
             ${statChip('Rain Chance (this hr)', hourPop, '#5b9fd9')}
           </div>
           ${likelyFrozen ? `<div class="extra-data-note">Temps at/below ~34°F — today's precipitation may be frozen or mixed.</div>` : ''}
-        </div>`;
+        </div>`
     });
 
-    // 4.5 lightning card 
-    // the live maps are created when the card is expanded
+    // 5. lightning -- the only sensor whose hero has its own extra affordance
+    // (a live strike map), toggled independently of which hero is showing.
     const lightningHasData = data.lightningStrikeCount !== undefined && data.lightningStrikeCount !== null;
     const lastStrikeMs = data.lightningLastStrike ? new Date(data.lightningLastStrike).getTime() : null;
-    const lightningCard = document.createElement('div');
-    lightningCard.className = 'card combo-card lightning-card';
-    lightningCard.innerHTML = `
-      <div class="priority-card-head">
-        <div class="priority-icon"><img src="icons/lightning-bolt.svg" alt=""></div>
-        <div class="priority-heading">Lightning</div>
-      </div>
-      <div class="lightning-priority-row">
-        <div class="priority-single-value">
-          <div class="value priority-value">${formatVal(data.lightningStrikeCount, 0)}</div>
-          <span class="glance-sub">strikes today</span>
+    sensors.push({
+      key: 'lightning', className: 'lightning-card', iconSrc: 'icons/lightning-bolt.svg',
+      trend: null,
+      glanceValueHtml: `${formatVal(data.lightningStrikeCount, 0)}`,
+      glanceContext: lastStrikeMs
+        ? `${data.lightningDistance != null ? formatVal(data.lightningDistance, 1) + ' mi · ' : ''}last ${formatShortTime(data.lightningLastStrike)}`
+        : (lightningHasData ? 'no recent strike' : 'sensor data unavailable'),
+      heroHtml: `
+        <div class="priority-card-head">
+          <div class="priority-icon"><img src="icons/lightning-bolt.svg" alt=""></div>
+          <div class="priority-heading">Lightning</div>
         </div>
-        <div class="priority-single-value">
-          <div class="value priority-value">${data.lightningDistance != null ? formatVal(data.lightningDistance, 1) : '--'}<span class="unit">mi</span></div>
-          <span class="glance-sub">nearest</span>
+        <div class="lightning-priority-row">
+          <div class="priority-single-value">
+            <div class="value priority-value">${formatVal(data.lightningStrikeCount, 0)}</div>
+            <span class="glance-sub">strikes today</span>
+          </div>
+          <div class="priority-single-value">
+            <div class="value priority-value">${data.lightningDistance != null ? formatVal(data.lightningDistance, 1) : '--'}<span class="unit">mi</span></div>
+            <span class="glance-sub">nearest</span>
+          </div>
         </div>
-      </div>
-      <div class="priority-context">${lastStrikeMs ? `last strike ${formatShortTime(data.lightningLastStrike)}` : (lightningHasData ? 'no recent strike detected' : 'sensor data unavailable')}</div>
-    `;
-    tiles.push({
-      key: 'lightning',
-      el: lightningCard,
-      glance: { icon: 'icons/lightning-bolt.svg', label: 'Lightning', value: formatVal(data.lightningStrikeCount, 0), unit: '', sub: 'strikes today' }
-    });
-    lightningCard.classList.add('lightning-map-trigger');
-    lightningCard.setAttribute('tabindex', '0');
-    lightningCard.setAttribute('role', 'button');
-    lightningCard.setAttribute('aria-expanded', 'false');
+        <div class="priority-context">${lastStrikeMs ? `last strike ${formatShortTime(data.lightningLastStrike)}` : (lightningHasData ? 'no recent strike detected' : 'sensor data unavailable')}</div>
+        <button type="button" class="lightning-map-toggle-btn">View live strike map</button>`,
+      attachHero(heroEl) {
+        const attachLightningMapListeners = () => {
+          heroEl.querySelector('.lightning-map-close')?.addEventListener('click', (e) => { e.stopPropagation(); toggleLightningMap(false); });
+          heroEl.querySelector('.lightning-map-backdrop')?.addEventListener('click', (e) => { e.stopPropagation(); toggleLightningMap(false); });
+        };
 
-    const attachLightningMapListeners = () => {
-      lightningCard.querySelector('.lightning-map-close')?.addEventListener('click', (e) => { e.stopPropagation(); toggleLightningMap(false); });
-      lightningCard.querySelector('.lightning-map-backdrop')?.addEventListener('click', (e) => { e.stopPropagation(); toggleLightningMap(false); });
-    };
+        const toggleBtn = heroEl.querySelector('.lightning-map-toggle-btn');
 
-    const toggleLightningMap = (open) => {
-      const current = lightningCard.querySelector('.lightning-map-panel');
-      if (open) {
-        closeOpenSensorCards();
-        if (!current) {
-          lightningCard.insertAdjacentHTML('beforeend', `
-            <div class="lightning-map-backdrop"></div>
-            <div class="lightning-map-panel">
-              <div class="lightning-map-tabs">
-                <button type="button" class="lightning-map-tab active" data-target="lightning-map-panel-glm">Our Data (GLM)</button>
-                <button type="button" class="lightning-map-tab" data-target="lightning-map-panel-bo">Blitzortung</button>
-              </div>
-              <div class="lightning-map-views">
-                <div class="lightning-map-view active" id="lightning-map-panel-glm">
-                  <div class="lightning-glm-map" id="lightning-glm-map"></div>
-                  <div class="lightning-map-caption" id="lightning-glm-caption">Loading recent flashes…</div>
-                </div>
-                <div class="lightning-map-view" id="lightning-map-panel-bo">
-                  <iframe class="lightning-map-frame" data-src="https://map.blitzortung.org/#3.7/40.616/-80.274" title="Live lightning map" loading="lazy" frameborder="0" scrolling="no" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
-                  <div class="lightning-map-caption">Live lightning activity · Blitzortung.org</div>
-                </div>
-              </div>
-              <button type="button" class="lightning-map-close">close map ×</button>
-            </div>`);
+        const toggleLightningMap = (open) => {
+          const current = heroEl.querySelector('.lightning-map-panel');
+          if (open) {
+            if (!current) {
+              heroEl.insertAdjacentHTML('beforeend', `
+                <div class="lightning-map-backdrop"></div>
+                <div class="lightning-map-panel">
+                  <div class="lightning-map-tabs">
+                    <button type="button" class="lightning-map-tab active" data-target="lightning-map-panel-glm">Our Data (GLM)</button>
+                    <button type="button" class="lightning-map-tab" data-target="lightning-map-panel-bo">Blitzortung</button>
+                  </div>
+                  <div class="lightning-map-views">
+                    <div class="lightning-map-view active" id="lightning-map-panel-glm">
+                      <div class="lightning-glm-map" id="lightning-glm-map"></div>
+                      <div class="lightning-map-caption" id="lightning-glm-caption">Loading recent flashes…</div>
+                    </div>
+                    <div class="lightning-map-view" id="lightning-map-panel-bo">
+                      <iframe class="lightning-map-frame" data-src="https://map.blitzortung.org/#3.7/40.616/-80.274" title="Live lightning map" loading="lazy" frameborder="0" scrolling="no" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
+                      <div class="lightning-map-caption">Live lightning activity · Blitzortung.org</div>
+                    </div>
+                  </div>
+                  <button type="button" class="lightning-map-close">close map ×</button>
+                </div>`);
+              attachLightningMapListeners();
+              initLightningMapTabs(heroEl);
+            }
+            heroEl.classList.add('lightning-map-open');
+            toggleBtn?.setAttribute('aria-expanded', 'true');
+            if (toggleBtn) toggleBtn.textContent = 'Hide live strike map';
+            setTimeout(() => lightningGlmMap && lightningGlmMap.invalidateSize(), 50);
+          } else {
+            heroEl.classList.remove('lightning-map-open');
+            toggleBtn?.setAttribute('aria-expanded', 'false');
+            if (toggleBtn) toggleBtn.textContent = 'View live strike map';
+          }
+        };
+
+        if (heroEl.classList.contains('lightning-map-open') && heroEl.querySelector('.lightning-map-panel')) {
           attachLightningMapListeners();
-          initLightningMapTabs(lightningCard);
+          initLightningMapTabs(heroEl);
+          toggleBtn?.setAttribute('aria-expanded', 'true');
+          if (toggleBtn) toggleBtn.textContent = 'Hide live strike map';
+          setTimeout(() => lightningGlmMap && lightningGlmMap.invalidateSize(), 50);
         }
-      
-        lightningCard.classList.add('lightning-map-open');
-        lightningCard.setAttribute('aria-expanded', 'true');
-        setTimeout(() => lightningGlmMap && lightningGlmMap.invalidateSize(), 50);
-      } else {
-        lightningCard.classList.remove('lightning-map-open');
-        lightningCard.setAttribute('aria-expanded', 'false');
+
+        toggleBtn?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleLightningMap(!heroEl.classList.contains('lightning-map-open'));
+        });
+        heroEl.addEventListener('keydown', (e) => {
+          if (e.target.closest('button, a, iframe, input')) return;
+          if (e.key === 'Escape') toggleLightningMap(false);
+        });
       }
-    };
-
-    if (preservedLightningPanel) {
-      if (preservedLightningBackdrop) lightningCard.appendChild(preservedLightningBackdrop);
-      lightningCard.appendChild(preservedLightningPanel);
-      attachLightningMapListeners();
-      initLightningMapTabs(lightningCard);
-      setTimeout(() => lightningGlmMap && lightningGlmMap.invalidateSize(), 50);
-      lightningCard.classList.add('lightning-map-open');
-      lightningCard.setAttribute('aria-expanded', 'true');
-    }
-
-    lightningCard.addEventListener('click', (e) => {
-      if (e.target.closest('button, a, iframe')) return;
-      toggleLightningMap(!lightningCard.classList.contains('lightning-map-open'));
-    });
-    lightningCard.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleLightningMap(!lightningCard.classList.contains('lightning-map-open')); }
-      if (e.key === 'Escape') toggleLightningMap(false);
     });
 
-    // 5. solar & UV card
+    // 6. solar & UV
     const sExt = extSafe('solarRadiation');
     const uExt = extSafe('uv');
     const uvCat = getUvRiskCategory(data.uv);
-    const solarUvCard = document.createElement('div');
-    solarUvCard.className = 'card combo-card solar-card';
-    solarUvCard.innerHTML = `
-      <div class="priority-card-head">
-        <div class="priority-icon"><img src="icons/solarrad.svg" alt=""></div>
-        <div class="priority-heading">Solar &amp; UV</div>
-      </div>
-      <div class="combo-row priority-dual-row">
-        <div class="combo-col">
-          <div class="value priority-value">${formatVal(data.solarRadiation, 0)}<span class="unit">W/m²</span></div>
-          <span class="glance-sub">solar</span>
+    sensors.push({
+      key: 'solarUv', className: 'solar-card', iconSrc: 'icons/solarrad.svg',
+      trend: null,
+      glanceValueHtml: `${formatVal(data.uv, 1)}<span class="unit">UV</span>`,
+      glanceContext: `${formatVal(data.solarRadiation, 0)} W/m² · <span style="color:${uvCat.color};">${uvCat.label}</span>`,
+      heroHtml: `
+        <div class="priority-card-head">
+          <div class="priority-icon"><img src="icons/solarrad.svg" alt=""></div>
+          <div class="priority-heading">Solar &amp; UV</div>
         </div>
-        <div class="combo-col">
-          <div class="value priority-value">${formatVal(data.uv, 1)}</div>
-          <span class="glance-sub">UV index</span>
+        <div class="combo-row priority-dual-row">
+          <div class="combo-col">
+            <div class="value priority-value">${formatVal(data.solarRadiation, 0)}<span class="unit">W/m²</span></div>
+            <span class="glance-sub">solar</span>
+          </div>
+          <div class="combo-col">
+            <div class="value priority-value">${formatVal(data.uv, 1)}</div>
+            <span class="glance-sub">UV index</span>
+          </div>
         </div>
-      </div>
-      <div class="priority-context">Risk <span style="color: ${uvCat.color};">${uvCat.label}</span></div>
-    `;
-    tiles.push({
-      key: 'solarUv',
-      el: solarUvCard,
-      glance: { icon: 'icons/solarrad.svg', label: 'Solar & UV', value: formatVal(data.uv, 1), unit: ' UV', sub: `${formatVal(data.solarRadiation, 0)} W/m²` }
-    });
-    makeCardExpandable(solarUvCard, 'solarUv', 'more solar & UV data', (panel) => {
-      const uvGauge = gaugeBarHtml({
-        label: 'UV Index',
-        valueText: `${formatVal(data.uv, 1)} · ${uvCat.label}`,
-        value: data.uv, min: 0, max: 12,
-        zones: [
-          { from: 0, to: 3, color: '#8fd6a8' },
-          { from: 3, to: 6, color: '#ffe27a' },
-          { from: 6, to: 8, color: '#ffb347' },
-          { from: 8, to: 11, color: '#ff7e67' },
-          { from: 11, to: 12, color: '#c792ff' }
-        ],
-        scaleLeft: 'Low', scaleRight: 'Extreme',
-        markerColor: uvCat.color
-      });
-      panel.innerHTML = `
+        <div class="priority-context">Risk <span style="color: ${uvCat.color};">${uvCat.label}</span></div>
         <div class="detail-panel">
-          ${uvGauge}
+          ${gaugeBarHtml({
+            label: 'UV Index',
+            valueText: `${formatVal(data.uv, 1)} · ${uvCat.label}`,
+            value: data.uv, min: 0, max: 12,
+            zones: [
+              { from: 0, to: 3, color: '#8fd6a8' },
+              { from: 3, to: 6, color: '#ffe27a' },
+              { from: 6, to: 8, color: '#ffb347' },
+              { from: 8, to: 11, color: '#ff7e67' },
+              { from: 11, to: 12, color: '#c792ff' }
+            ],
+            scaleLeft: 'Low', scaleRight: 'Extreme',
+            markerColor: uvCat.color
+          })}
           <div class="stat-chip-row">
             ${statChip('Peak UV Today', `${formatVal(uExt.max.val, 1)} · ${formatShortTime(uExt.max.time)}`)}
             ${statChip('Peak Radiation', `${formatVal(sExt.max.val, 0)} W/m² · ${formatShortTime(sExt.max.time)}`)}
           </div>
-        </div>`;
+        </div>`
     });
 
-    // 6. AQI card
+    // 7. AQI (only if we have a reading)
     if (data.aqiDisplay) {
-        const aqiColor = getAqiColor(data.aqi);
-        const styledAqi = data.aqiDisplay.replace(/(\([^)]*\))/, '<span class="aqi-category" style="font-size:0.44em; display:block; margin-top:5px;">$1</span>');
-        const aqiDesc = getAqiDescription(data.aqi);
-        const aqiCard = document.createElement('div');
-        aqiCard.className = 'card combo-card aqi-card';
-        aqiCard.innerHTML = `
+      const aqiColor = getAqiColor(data.aqi);
+      const styledAqi = data.aqiDisplay.replace(/(\([^)]*\))/, '<span class="aqi-category" style="font-size:0.44em; display:block; margin-top:5px;">$1</span>');
+      const aqiDesc = getAqiDescription(data.aqi);
+      const aqiTrend = getSimpleTrend(fullHistory, 'aqi', 3, 12);
+      const aqiScaleRows = [
+        ['0–50', 'Good', '#54ab7c'],
+        ['51–100', 'Moderate', '#c9a800'],
+        ['101–150', 'Unhealthy (Sensitive)', '#ff7e00'],
+        ['151–200', 'Unhealthy', '#ff4136'],
+        ['201–300', 'Very Unhealthy', '#8f3f97'],
+        ['301+', 'Hazardous', '#7e0023'],
+      ];
+      const pmVals = [
+        { label: 'PM1.0', val: data.pm1 },
+        { label: 'PM2.5', val: data.pm25 },
+        { label: 'PM10.0', val: data.pm10 }
+      ];
+      const pmMax = Math.max(...pmVals.map(p => (typeof p.val === 'number' ? p.val : 0)), 1);
+      sensors.push({
+        key: 'aqi', className: 'aqi-card', iconSrc: 'icons/air-quality.svg',
+        trend: aqiTrend,
+        glanceValueHtml: `<span${aqiColor ? ` style="color:${aqiColor};"` : ''}>${formatVal(data.aqi, 0)}</span>`,
+        glanceContext: aqiDesc,
+        heroHtml: `
           <div class="priority-card-head">
             <div class="priority-icon"><img src="icons/air-quality.svg" alt="" onerror="this.parentElement.style.display='none'"></div>
             <div class="priority-heading">Air Quality</div>
@@ -3003,116 +2902,99 @@ const THEMES = {
             <div class="value priority-value" style="color: ${aqiColor || 'inherit'};">${styledAqi}</div>
             <div class="aqi-summary">${aqiDesc}</div>
           </div>
-        `;
-        tiles.push({
-          key: 'aqi',
-          el: aqiCard,
-          glance: { icon: 'icons/air-quality.svg', label: 'Air Quality', value: formatVal(data.aqi, 0), unit: '', sub: aqiDesc }
-        });
-        makeCardExpandable(aqiCard, 'aqi', 'more air quality data', (panel) => {
-          const aqiScaleRows = [
-            ['0–50', 'Good', '#54ab7c'],
-            ['51–100', 'Moderate', '#c9a800'],
-            ['101–150', 'Unhealthy (Sensitive)', '#ff7e00'],
-            ['151–200', 'Unhealthy', '#ff4136'],
-            ['201–300', 'Very Unhealthy', '#8f3f97'],
-            ['301+', 'Hazardous', '#7e0023'],
-          ];
-          const aqiGauge = gaugeBarHtml({
-            label: 'Air Quality Index',
-            valueText: data.aqiDisplay,
-            value: data.aqi, min: 0, max: 310,
-            zones: [
-              { from: 0, to: 50, color: '#54ab7c' },
-              { from: 50, to: 100, color: '#c9a800' },
-              { from: 100, to: 150, color: '#ff7e00' },
-              { from: 150, to: 200, color: '#ff4136' },
-              { from: 200, to: 300, color: '#8f3f97' },
-              { from: 300, to: 310, color: '#7e0023' }
-            ],
-            scaleLeft: 'Good', scaleRight: 'Hazardous',
-            markerColor: aqiColor
-          });
-          const pmVals = [
-            { label: 'PM1.0', val: data.pm1 },
-            { label: 'PM2.5', val: data.pm25 },
-            { label: 'PM10.0', val: data.pm10 }
-          ];
-          const pmMax = Math.max(...pmVals.map(p => (typeof p.val === 'number' ? p.val : 0)), 1);
-          const aqiLegendHtml = `<div class="aqi-scale-compact aqi-scale-legend">${
-            aqiScaleRows.map(([range, label, color]) => `
-              <span class="aqi-legend-chip"><span class="aqi-scale-dot" style="background:${color};"></span>${label}</span>
-            `).join('')
-          }</div>`;
-          panel.innerHTML = `
-            <div class="detail-panel">
-              ${aqiGauge}
-              <div class="bar-compare-list">
-                ${pmVals.map(p => barCompareRow(p.label, p.val, pmMax, 'µg/m³', aqiColor || '#8fa6bf', 1)).join('')}
-              </div>
-              ${aqiLegendHtml}
-              <div class="extra-data-note">AQI here is calculated from PM2.5 only — PM1.0/PM10.0 shown for reference.</div>
-            </div>`;
-        });
+          <div class="detail-panel">
+            ${gaugeBarHtml({
+              label: 'Air Quality Index',
+              valueText: data.aqiDisplay,
+              value: data.aqi, min: 0, max: 310,
+              zones: [
+                { from: 0, to: 50, color: '#54ab7c' },
+                { from: 50, to: 100, color: '#c9a800' },
+                { from: 100, to: 150, color: '#ff7e00' },
+                { from: 150, to: 200, color: '#ff4136' },
+                { from: 200, to: 300, color: '#8f3f97' },
+                { from: 300, to: 310, color: '#7e0023' }
+              ],
+              scaleLeft: 'Good', scaleRight: 'Hazardous',
+              markerColor: aqiColor
+            })}
+            <div class="bar-compare-list">
+              ${pmVals.map(p => barCompareRow(p.label, p.val, pmMax, 'µg/m³', aqiColor || '#8fa6bf', 1)).join('')}
+            </div>
+            <div class="aqi-scale-compact aqi-scale-legend">${
+              aqiScaleRows.map(([range, label, color]) => `
+                <span class="aqi-legend-chip"><span class="aqi-scale-dot" style="background:${color};"></span>${label}</span>
+              `).join('')
+            }</div>
+            <div class="extra-data-note">AQI here is calculated from PM2.5 only — PM1.0/PM10.0 shown for reference.</div>
+          </div>`
+      });
     }
 
-        // 7. USGS river gauge
+    // 8. USGS river gauge (only if we have a reading)
     if (currentUsgs) {
-       const usgsCard = document.createElement('div');
-       usgsCard.className = 'card combo-card river-card';
-       usgsCard.title = `${currentUsgs.siteName} — USGS ${USGS_SITE_ID}`;
-       const rTrendHtml = currentUsgs.trend ? `<span class="pressure-trend ${currentUsgs.trend.className}" title="${currentUsgs.trend.label} over 3h">${currentUsgs.trend.arrow}</span>` : '';
-       
-       const riverMax = getTodayMaxRiver(usgsHistory) || cachedRiverMax;
-       const peakStageText = riverMax ? `${riverMax.val.toFixed(2)} ft` : '--';
-       const cfsText = currentUsgs.dischargeCfs != null ? `${currentUsgs.dischargeCfs.toLocaleString()} cfs` : '-- cfs';
-
-       usgsCard.innerHTML = `
+      const rTrendHtml = currentUsgs.trend ? `<span class="pressure-trend ${currentUsgs.trend.className}" title="${currentUsgs.trend.label} over 3h">${currentUsgs.trend.arrow}</span>` : '';
+      const riverMax = getTodayMaxRiver(usgsHistory) || cachedRiverMax;
+      const peakStageText = riverMax ? `${riverMax.val.toFixed(2)} ft` : '--';
+      const cfsText = currentUsgs.dischargeCfs != null ? `${currentUsgs.dischargeCfs.toLocaleString()} cfs` : '-- cfs';
+      const stageNote = getDashieldsStageNote(currentUsgs.gageHeight);
+      const gh = currentUsgs.gageHeight;
+      const gaugeMax = DASHIELDS_STAGES[DASHIELDS_STAGES.length - 1].ft + 4;
+      const zones = [{ from: 0, to: DASHIELDS_STAGES[0].ft, color: '#3d6b8f' }];
+      DASHIELDS_STAGES.forEach((s, i) => {
+        const next = DASHIELDS_STAGES[i + 1] ? DASHIELDS_STAGES[i + 1].ft : gaugeMax;
+        zones.push({ from: s.ft, to: next, color: s.color });
+      });
+      sensors.push({
+        key: 'river', className: 'river-card', iconSrc: 'icons/water-alert.svg',
+        trend: currentUsgs.trend,
+        glanceValueHtml: `${gh.toFixed(2)}<span class="unit">ft</span>`,
+        glanceContext: `Dashields · ${stageNote ? stageNote.text : (currentUsgs.trend ? currentUsgs.trend.label : 'trend unavailable')}`,
+        heroHtml: `
           <div class="priority-card-head">
             <div class="priority-icon"><img src="icons/water-alert.svg" alt="" onerror="this.parentElement.style.display='none'"></div>
             <div class="priority-heading">River Gauge</div>
           </div>
           <div class="pressure-priority-row">
-            <div class="value priority-value">${currentUsgs.gageHeight.toFixed(2)}<span class="unit">ft</span></div>
+            <div class="value priority-value">${gh.toFixed(2)}<span class="unit">ft</span></div>
             ${rTrendHtml}
           </div>
           <div class="priority-context">Dashields · ${currentUsgs.trend ? currentUsgs.trend.label : 'trend unavailable'}</div>
           <div class="priority-context">peak ${peakStageText} · ${cfsText}</div>
-       `;
-       tiles.push({
-         key: 'river',
-         el: usgsCard,
-         glance: { icon: 'icons/water-alert.svg', label: 'River Gauge', value: currentUsgs.gageHeight.toFixed(2), unit: 'ft', trendHtml: rTrendHtml, sub: 'Dashields' }
-       });
-       makeCardExpandable(usgsCard, 'river', 'more river gauge data', (panel) => {
-         const stageNote = getDashieldsStageNote(currentUsgs.gageHeight);
-         const gh = currentUsgs.gageHeight;
-         const gaugeMax = DASHIELDS_STAGES[DASHIELDS_STAGES.length - 1].ft + 4;
-         const zones = [{ from: 0, to: DASHIELDS_STAGES[0].ft, color: '#3d6b8f' }];
-         DASHIELDS_STAGES.forEach((s, i) => {
-           const next = DASHIELDS_STAGES[i + 1] ? DASHIELDS_STAGES[i + 1].ft : gaugeMax;
-           zones.push({ from: s.ft, to: next, color: s.color });
-         });
-         const riverGauge = gaugeBarHtml({
-           label: 'Gage Height vs. Flood Stages',
-           valueText: `${gh.toFixed(2)} ft`,
-           value: gh, min: 0, max: gaugeMax,
-           zones,
-           scaleLeft: '0 ft', scaleRight: `${gaugeMax.toFixed(0)} ft`,
-           markerColor: stageNote ? stageNote.color : undefined
-         });
-         panel.innerHTML = `
-           <div class="detail-panel">
-             ${riverGauge}
-             <div class="stat-chip-row">
-               ${DASHIELDS_STAGES.map(s => statChip(s.label, `${s.ft.toFixed(1)} ft`, s.color)).join('')}
-             </div>
-             ${stageNote ? `<div class="extra-data-note">Current: ${gh.toFixed(2)} ft — <span style="color:${stageNote.color};">${stageNote.text}</span></div>` : ''}
-           </div>`;
-       });
+          <div class="detail-panel">
+            ${gaugeBarHtml({
+              label: 'Gage Height vs. Flood Stages',
+              valueText: `${gh.toFixed(2)} ft`,
+              value: gh, min: 0, max: gaugeMax,
+              zones,
+              scaleLeft: '0 ft', scaleRight: `${gaugeMax.toFixed(0)} ft`,
+              markerColor: stageNote ? stageNote.color : undefined
+            })}
+            <div class="stat-chip-row">
+              ${DASHIELDS_STAGES.map(s => statChip(s.label, `${s.ft.toFixed(1)} ft`, s.color)).join('')}
+            </div>
+            ${stageNote ? `<div class="extra-data-note">Current: ${gh.toFixed(2)} ft — <span style="color:${stageNote.color};">${stageNote.text}</span></div>` : ''}
+          </div>`
+      });
     }
 
-    renderTileStage(tiles);
+    // ---------- auto-promote: which reading (if any) is notable right now ----------
+    let autoKey = null;
+    if (lastStrikeMs && (Date.now() - lastStrikeMs) < 10 * 60 * 1000 &&
+        data.lightningDistance != null && data.lightningDistance <= 15) {
+      autoKey = 'lightning';
+    } else if (data.precipRate != null && data.precipRate > 0.05) {
+      autoKey = 'precip';
+    } else if (pTrend && pTrend.className === 'trend-falling') {
+      autoKey = 'pressure';
+    } else if (data.aqi != null && data.aqi > 100) {
+      autoKey = 'aqi';
+    }
+    sensors.forEach(s => { s.notable = (s.key === autoKey); });
+
+    latestSensors = sensors;
+    latestAutoKey = autoKey;
+    renderActiveHero();
   }
 
   //*  ------------ 🌪️ NWS / SPC ISSUANCES (watches, mesoscale discussions, statements) 🌪️ ----------- *//
@@ -3405,13 +3287,6 @@ const THEMES = {
     const countStatements = document.getElementById('nws-count-statements');
     if (countWatches) countWatches.textContent = watches.length;
     if (countStatements) countStatements.textContent = statements.length;
-
-    // the whole card is only ever populated during an actual active
-    // weather event now (SPC Outlooks moved to atmosphere.html) -- hide it
-    // entirely rather than showing an empty "nothing active" card on a
-    // calm day.
-    const stormCard = document.querySelector('.outlook-card');
-    if (stormCard) stormCard.classList.toggle('storm-center-hidden', watches.length === 0 && statements.length === 0);
 
     // a tornado watch/warning deserves to be seen without opening a tab:
     // pulse the watches tab for as long as one is live, and jump to it
@@ -3707,9 +3582,11 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
     startCooldownCountdown();
   }
 
-  // desktop-only composition: move the existing live camera tile into the
-  // 3x3 weather grid and move the non-urgent Sky & Space card below Forecast.
-  // below 851px both cards return to their original DOM locations so the
+  // desktop-only composition: move the non-urgent Sky & Space card below
+  // Forecast. the live camera tile now stays put in the right rail at
+  // every width -- the sensor grid (#grid) is a hero + glance strip, not
+  // a 3x3 tile grid with a 9th square to fill.
+  // below 851px cards return to their original DOM locations so the
   // mobile/tablet remains unchanged.
   (function initDesktopComposition() {
     const dashboardGrid = document.querySelector('.dashboard-grid');
