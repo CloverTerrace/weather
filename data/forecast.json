@@ -4,21 +4,21 @@
       "name": "Tonight",
       "temperature": 57,
       "temperatureUnit": "F",
-      "windSpeed": "5 mph",
+      "windSpeed": "0 to 5 mph",
       "windDirection": "NE",
       "shortForecast": "Clear",
-      "detailedForecast": "Clear, with a low around 57. Northeast wind around 5 mph.",
+      "detailedForecast": "Clear, with a low around 57. Northeast wind 0 to 5 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
     {
       "name": "Labor Day",
-      "temperature": 80,
+      "temperature": 81,
       "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "NE",
+      "windSpeed": "3 mph",
+      "windDirection": "E",
       "shortForecast": "Sunny",
-      "detailedForecast": "Sunny, with a high near 80. Northeast wind around 5 mph.",
+      "detailedForecast": "Sunny, with a high near 81. East wind around 3 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -26,10 +26,10 @@
       "name": "Monday Night",
       "temperature": 57,
       "temperatureUnit": "F",
-      "windSpeed": "0 to 3 mph",
+      "windSpeed": "3 mph",
       "windDirection": "E",
       "shortForecast": "Mostly Clear",
-      "detailedForecast": "Mostly clear, with a low around 57. East wind 0 to 3 mph.",
+      "detailedForecast": "Mostly clear, with a low around 57. East wind around 3 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-06T23:00:00-04:00",
-      "temperature": 60,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "N",
-      "shortForecast": "Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-09-07T00:00:00-04:00",
       "temperature": 61,
@@ -281,6 +271,16 @@
       "temperature": 66,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
+      "windDirection": "E",
+      "shortForecast": "Mostly Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-07T23:00:00-04:00",
+      "temperature": 64,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
       "windDirection": "E",
       "shortForecast": "Mostly Clear",
       "isDaytime": false,
