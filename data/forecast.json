@@ -1,17 +1,6 @@
 {
   "periods": [
     {
-      "name": "Overnight",
-      "temperature": 57,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "NE",
-      "shortForecast": "Mostly Clear",
-      "detailedForecast": "Mostly clear, with a low around 57. Northeast wind around 3 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
       "name": "Labor Day",
       "temperature": 80,
       "temperatureUnit": "F",
@@ -23,7 +12,7 @@
       "probabilityOfPrecipitation": 0
     },
     {
-      "name": "Monday Night",
+      "name": "Tonight",
       "temperature": 57,
       "temperatureUnit": "F",
       "windSpeed": "0 to 3 mph",
@@ -42,6 +31,17 @@
       "shortForecast": "Mostly Sunny",
       "detailedForecast": "Mostly sunny, with a high near 84. South wind 0 to 3 mph.",
       "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Tuesday Night",
+      "temperature": 65,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "S",
+      "shortForecast": "Partly Cloudy",
+      "detailedForecast": "Partly cloudy, with a low around 65. South wind around 5 mph.",
+      "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
   ],
