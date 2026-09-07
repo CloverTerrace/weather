@@ -7,12 +7,7 @@
     --muted-color: #ffffff;
     --font-family: Macondo, system-ui, -apple-system, sans-serif;
 
-    /* ---------- shared "accent frame" (Storm Center treatment) ----------
-       one place to define the tinted border and corner glow so every
-       card/tile can reuse them and they all stay in sync with whatever
-       --accent-color the current theme sets. (a thin top gradient bar
-       lived here too at first, but got pulled site-wide -- it made an
-       inconsistent transition on mobile between tiles with/without it.) */
+    /* ---------- shared "accent frame"---------*/
     --card-accent-border: 1px solid color-mix(in srgb, var(--accent-color) 18%, rgba(255,255,255,0.09));
     --card-corner-glow:
       radial-gradient(circle at 8% -10%, color-mix(in srgb, var(--accent-color) 12%, transparent), transparent 48%),
@@ -28,11 +23,6 @@
     --font-grid-value: Figtree, Tahoma, sans-serif;    /* ALL numeric readouts inside the dashboard grid tiles — both the large "current" number and the smaller "peak"/secondary number beneath it. size is the only thing that differs between the two tiers; font + color stay the same */
 
     /* ---------- grid tile color roles ---------- */
-    /* every dashboard tile (#grid.grid) draws its numbers from --value-color
-       and its descriptive text from --label-color, so both stay consistent
-       across every tile and every size tier (current vs. peak, heading vs.
-       caption) without needing per-card overrides. both default to existing
-       theme colors, so nothing changes visually until a theme overrides them. */
     --value-color: var(--accent-color);                /* dashboard tile numbers — current value AND the smaller peak/secondary value beneath it */
     --label-color: var(--muted-color);                  /* dashboard tile descriptive text — headings, column labels, captions, context lines */
 
@@ -40,10 +30,7 @@
     --icon-shadow: drop-shadow(0 1px 2px rgba(0,0,0,0.16));
   }
 * { box-sizing: border-box; }
-/* 💜 changes the default color for the tap-highlight flash on every tappable 
-  thing site-wide. can't reappear on any future tappable element. themed 
-  press feedback for the tiles that actually need touch confirmation lives on
-  .card-expandable and .lightning-map-trigger below. 💜 */
+/* 💜 changes the default color for the tap-highlight flash 💜 */
 * {
     -webkit-tap-highlight-color: transparent;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -326,14 +313,7 @@ h1 {
 @media (max-width: 560px) {.priority-value { font-size: 1.9rem !important; }
 .priority-compass { flex-basis: 92px; }
 .wind-priority-row { gap: 0.4rem; }}
-/* hero + glance-strip ⛅
-   one big "hero" card (full today's-card treatment) sits above a compact
-   strip holding all 8 readings at once. tapping a strip row swaps it into
-   the hero slot -- that's the only interaction; there's no separate
-   expand/collapse layered on top of it. #grid used to carry the `.grid`
-   two-column card layout -- that class is retired along with the old
-   flip-card system, so `.grid`/`.grid-column` below are unused now and
-   kept only so nothing else that might reference them breaks. */
+/* hero + glance-strip ⛅*/
 #grid.sensor-panel {
   container-type: inline-size;
   container-name: sensorpanel;
@@ -649,8 +629,7 @@ h1 {
     font-size: 0.85rem;
     user-select: none;
   }
-/* ---------- "link back" badge row ----------
-                badges made by me 🌪️ */
+/* ---------- "link back" badge row --------🌪️ */
 .footer-badges {
     display: flex;
     flex-wrap: wrap;
@@ -1031,7 +1010,7 @@ h1 {
     margin: 1px 3px;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.09), transparent);
   }
-/* ---------- tile-back visual components ----------*/
+/* ---------- tile visual components ----------*/
 .gauge-bar { padding: 2px 2px 0; }
 .gauge-bar + .gauge-bar { margin-top: 10px; }
 .gauge-bar-head {
@@ -1485,8 +1464,7 @@ h1 {
     padding-top: 10px;
     border-top: 1px solid rgba(255,255,255,0.07);
   }
-/* forecaster prose reads as running text with a quiet rail, not a boxed
-     card -- it should feel like reading, not like more instrument boxes. */
+
 .nws-detail-block {
     min-width: 0;
     padding-left: 9px;
@@ -1568,9 +1546,7 @@ h1 {
     max-width: 900px;
     margin-top: 1.5rem;
   }
-/* header + body are one continuous card: no gap, and the seam between
-     them is a hairline divider rather than two separately-rounded boxes
-     floating apart. Corners only round on the outside of the whole shape. */
+
 .charts-dropdown-body {
     background: var(--card-corner-glow), var(--card-color);
     border: var(--card-accent-border);
@@ -1593,16 +1569,9 @@ h1 {
     font-size: 0.9rem;
     font-family: var(--font-card-heading);
   }
-/* one chart visible at a time -- switched via .chart-tabs, styled to
-     match the existing .map-tabs / .map-tab pattern used by the radar
-     card so this doesn't read as a separate, bolted-on control. */
+/* one chart visible at a time */
 .chart-tabs {
     display: flex;
-    /* left-aligned, not centered: with 6 tabs this row overflows at
-       mobile widths, and centering overflowing flex content leaves
-       scrollLeft:0 already past the true start -- the first tab stays
-       clipped with no way to scroll back to it. flex-start keeps the
-       scrollable range's zero point at the actual first tab. */
     justify-content: flex-start;
     flex-wrap: nowrap;
     gap: clamp(0.3rem, 1.5vw, 0.5rem);
@@ -2041,8 +2010,7 @@ body.theme-extreme-heat-night #weather-fx::after {
     text-align: center;
   }
 /* live radar controls -- product toggle (reflectivity/velocity), overlay
-     toggles (warnings/lightning/settings), and the frame scrubber. Reuses
-     the .quake-range-btn look for visual consistency with the other tab. */
+     toggles (warnings/lightning/settings), and the frame scrubber */
 .radar-controls {
     display: flex;
     justify-content: space-between;
@@ -2453,9 +2421,7 @@ body.fx-active-smoke .fx-smoke {
    visual language: reuses the same hazard icon + left-border color coding
    already established by .nws-badge-* in Storm Center (getNwsHazardVisual),
    so the top banner and the Storm Center card read as one consistent
-   system instead of two. Distinguishing warning vs watch/advisory/statement
-   is structural (filled vs outlined), not just a color swap -- and no
-   emoji, so it doesn't depend on the OS/browser's emoji font. */
+   system instead of two. */
 #alert-banners {
   width: 100%;
   display: flex;
@@ -2487,33 +2453,17 @@ body.fx-active-smoke .fx-smoke {
 .alert-banner.nws-badge-flood  { --hz: #5ba8ff; }
 .alert-banner.nws-badge-winter { --hz: #cfe8ff; }
 .alert-banner.nws-badge-other  { --hz: var(--muted-color); }
-/* --hz-safe is what text/borders actually use. On dark-card themes it's
-   just --hz at full strength -- these hazard colors were picked to pop
-   against a dark card. On light-card themes (sunny, cloudy: body carries
-   .theme-light-card) the same pale/mid-tone hz colors sit close in
-   lightness to the card itself (worst case: pale-ice "winter" #cfe8ff on
-   an already-near-white card), so it's darkened here to hold contrast --
-   the hue stays intact, only the lightness drops. */
 .alert-banner { --hz-safe: var(--hz); }
 body.theme-light-card .alert-banner {
   --hz-safe: color-mix(in srgb, var(--hz) 60%, #12202c 40%);
 }
-/* warning: filled, high urgency -- should be impossible to skim past.
-   Tinting --hz into the theme's own --card-color (rather than a
-   hardcoded dark base) means this automatically becomes a light pastel
-   card with dark text on light-card themes, and a dark tinted card with
-   light text everywhere else -- always the theme's own guaranteed-
-   readable pairing, just with a hazard tint over it. */
+/* warning: filled, high urgency  */
 .alert-banner.kind-warning {
   background: color-mix(in srgb, var(--hz) 30%, var(--card-color) 70%);
   border-left: 4px solid var(--hz-safe);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
 }
-/* watch / advisory / statement: outlined, lower urgency -- a heads-up,
-   not an order to act. Previously a near-invisible white-glass overlay,
-   which assumed a dark card underneath to read against -- on a light-card
-   theme sitting directly on a colored page background that overlay adds
-   no contrast at all. Same --card-color-based tint as above, just lighter. */
+/* watch / advisory / statement: outlined, lower urgency */
 .alert-banner.kind-watch,
 .alert-banner.kind-advisory,
 .alert-banner.kind-statement {
@@ -2541,12 +2491,6 @@ body.theme-light-card .alert-banner {
   font-size: 0.68rem;
   margin-bottom: 0.35rem;
   font-family: inherit;
-  /* not --hz-safe: at this size the label needs 4.5:1 text contrast, and
-     a hazard-colored label against its own hazard-tinted background falls
-     well short of that on several themes. The border stripe, background
-     tint, and icon already carry the color identity at the more forgiving
-     3:1 UI-component bar, so the label just inherits the same
-     guaranteed-legible color as the rest of the banner's text. */
   color: var(--text-color);
   opacity: 0.8;
 }
@@ -2561,11 +2505,6 @@ body.theme-light-card .alert-banner {
   font-size: 0.85rem;
   line-height: 1.4;
   font-family: inherit;
-  /* not --muted-color: it's tuned for contrast against the plain
-     --card-color, and a warning's more heavily hz-tinted background pulls
-     it below 4.5:1 on light-card themes. --text-color's contrast is
-     guaranteed regardless of tint; de-emphasis still reads through the
-     smaller, non-bold weight relative to the event line above it. */
   color: var(--text-color);
   opacity: 0.85;
 }
@@ -3522,16 +3461,7 @@ h1 .weather-icon-img,
       min-height: 100%;
     }}
 /* 🌩️~*~*~*~*~🌩️ STORM CENTER 🌩️~*~*~*~*~🌩️ */
-/* this card's accent-tinted border and corner glow are the same
-     --card-accent-border / --card-corner-glow treatment now shared by
-     every card and tile on the page (this is where it started). the
-     old layered drop shadow was dropped -- it fought the themed
-     backgrounds instead of complementing them -- and the thin top
-     gradient bar this card used to have on its own was also removed
-     site-wide (it made an inconsistent transition on mobile between
-     sensor tiles, which never had it, and everything else, which did).
-     this card just gets a slightly bigger radius and left-aligned text
-     on top of the shared .camera-card frame. */
+/* this card's accent-tinted border and corner glow */
 .outlook-card {
     position: relative;
     text-align: left;
@@ -3567,9 +3497,7 @@ h1 .weather-icon-img,
     padding: 4px 11px 4px 9px;
     font-size: 0.64rem;
   }
-/* points to the Atmosphere page, where the SPC Convective/Thunderstorm
-   Outlook tabs now live -- replaces that section at the bottom of this
-   card so there's still a way to reach it from the main page. */
+
 .storm-center-atm-link {
     margin-top: 1rem;
     padding-top: 0.9rem;
@@ -4349,27 +4277,13 @@ h1 .weather-icon-img,
       box-shadow: 0 24px 64px rgba(0,0,0,0.45);
     }}
 .nws-meta-item { white-space: nowrap; }
-/* =====================================================================
-   Nav sits flush against the top of the screen, at every screen size
-   ---------------------------------------------------------------------
-   .site-nav sits first in the markup, directly inside #page-content --
-   the same position it already occupies on the gardening page -- so no
-   flex/grid reordering or wrapper-flattening is needed here, just the
-   same top-edge treatment the gardening page uses. This used to be
-   scoped to mobile widths only (<=850px), leaving desktop with the
-   body's normal 2rem top padding -- which is what floated the navbar
-   as a gapped card up top on wide screens instead of sitting flush.
-   Zeroing it unconditionally lets navigation.css's now-unconditional
-   full-bleed .site-nav rule sit flush at every width, not just mobile.
-   The side/bottom body padding this page still relies on is untouched
-   -- only the top value changes. The navbar's own margin-bottom
-   (navigation.css) still provides the gap before the title below it. */
+
 body {
   padding-top: 0 !important;
 }
 /* navigation.css now anchors .site-nav as a fixed bar at the bottom of the
    viewport on mobile widths (<=850px), taking it out of normal document
-   flow. Without this, the page's real last content (and this page's own
+   flow. Without this, the page's last content (and this page's own
    fixed-position theme-egg button) would end up sitting underneath it.
    --site-nav-mobile-total (defined in navigation.css) is the bar's full
    height including the safe-area inset, so this stays correct even if
