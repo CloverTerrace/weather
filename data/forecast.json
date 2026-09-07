@@ -5,9 +5,9 @@
       "temperature": 57,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
-      "windDirection": "N",
-      "shortForecast": "Mostly Clear",
-      "detailedForecast": "Mostly clear, with a low around 57. North wind around 5 mph.",
+      "windDirection": "NE",
+      "shortForecast": "Clear",
+      "detailedForecast": "Clear, with a low around 57. Northeast wind around 5 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-06T21:00:00-04:00",
-      "temperature": 68,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "NE",
-      "shortForecast": "Mostly Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-09-06T22:00:00-04:00",
       "temperature": 67,
@@ -283,6 +273,16 @@
       "windSpeed": "2 mph",
       "windDirection": "E",
       "shortForecast": "Partly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-07T21:00:00-04:00",
+      "temperature": 68,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "NE",
+      "shortForecast": "Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
