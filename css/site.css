@@ -373,6 +373,18 @@ h1 {
     max-width: none;
     padding: 1.6rem 1.5rem;
     transition: opacity 0.15s ease;
+    border: 1px solid color-mix(in srgb, var(--accent-color) 32%, rgba(255,255,255,0.09));
+    box-shadow: 0 10px 32px -14px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.03) inset;
+  }
+
+.tile-hero .priority-icon {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+  }
+
+.tile-hero .priority-heading {
+    font-size: 0.9rem;
   }
 
 .tile-glance-strip {
@@ -3558,6 +3570,7 @@ h1 .weather-icon-img,
     border: var(--card-accent-border);
     box-shadow: none;
   }
+.outlook-card.storm-center-hidden { display: none; }
 /* title + live-status readout share one row, title left / status right --
      replaces the old centered stack so the card reads like a proper panel
      header instead of a plain centered card title. */
