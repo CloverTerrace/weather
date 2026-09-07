@@ -181,7 +181,7 @@
   }
 
 
-  const grid = document.getElementById('grid');
+  const grid = document.getElementById('tile-stage');
   const subtitle = document.getElementById('subtitle');
   const status = document.getElementById('status');
   const errorBanner = document.getElementById('error-banner');
@@ -196,6 +196,11 @@
   let isRefreshing = false;
   let fullHistory = [];
   let capeHistory = [];
+  // which sensor tile is currently shown full-size in the hero slot --
+  // persists across data refreshes so a refresh doesn't reset the user's
+  // choice. Falls back to the first available tile if this key's tile
+  // isn't present in a given render (e.g. 'river' when USGS data is down).
+  let activeTileKey = 'tempHum';
 
   // cards the user has tapped open. renderCards() rebuilds the whole
   // grid every refresh cycle, this tracks expand state across that
@@ -2441,12 +2446,49 @@ const THEMES = {
   
   //*  ------------🌪️ !! HTML FOR ⛅️ECOWITT WEATHER STATION CARDS + 💨PURPLEAIR AQI + 💧USGS FLOOD GAUGE 🌪️----------- *//
   
-  function renderCards(data) {
-    // on desktop the live camera tile moves into #grid.
-    // saves existing DOM node across the weather-card rebuild so
-    // a refresh won't remove the camera from the desktop layout.
-    const desktopCameraTile = grid.querySelector('.desktop-camera-tile');
+  // ---------- hero tile + glance strip ----------
+  // replaces the old two-column stack: one tile gets the full, richly
+  // detailed card treatment in the hero slot; every tile (including the
+  // active one) also gets a compact always-visible row in the strip below,
+  // so nothing requires a tap/swipe to be seen at a glance. Tapping a
+  // strip row promotes that tile into the hero slot.
+  function renderTileStage(tiles) {
+    if (!tiles.length) return;
+    if (!tiles.some(t => t.key === activeTileKey)) {
+      activeTileKey = tiles[0].key;
+    }
 
+    grid.innerHTML = `
+      <div class="tile-hero" id="tile-hero"></div>
+      <div class="tile-glance-strip" id="tile-glance-strip"></div>
+    `;
+    const heroEl = document.getElementById('tile-hero');
+    const stripEl = document.getElementById('tile-glance-strip');
+
+    const active = tiles.find(t => t.key === activeTileKey) || tiles[0];
+    heroEl.appendChild(active.el);
+
+    tiles.forEach(t => {
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'tile-glance-row' + (t.key === active.key ? ' active' : '');
+      row.setAttribute('aria-pressed', t.key === active.key ? 'true' : 'false');
+      row.innerHTML = `
+        <span class="tile-glance-icon"><img src="${t.glance.icon}" alt=""></span>
+        <span class="tile-glance-label">${t.glance.label}</span>
+        <span class="tile-glance-value">${t.glance.value}<span class="unit">${t.glance.unit || ''}</span>${t.glance.trendHtml || ''}</span>
+        ${t.glance.sub ? `<span class="tile-glance-sub">${t.glance.sub}</span>` : ''}
+      `;
+      row.addEventListener('click', () => {
+        if (activeTileKey === t.key) return;
+        activeTileKey = t.key;
+        renderTileStage(tiles);
+      });
+      stripEl.appendChild(row);
+    });
+  }
+
+  function renderCards(data) {
     // prevent lightning map from refreshing with page 
     const openLightningCard = grid.querySelector('.lightning-card.lightning-map-open');
     const preservedLightningPanel = openLightningCard?.querySelector('.lightning-map-panel') || null;
@@ -2454,12 +2496,7 @@ const THEMES = {
     if (preservedLightningPanel) document.body.appendChild(preservedLightningPanel);
     if (preservedLightningBackdrop) document.body.appendChild(preservedLightningBackdrop);
 
-    grid.innerHTML = `
-      <div class="grid-column" id="grid-column-left"></div>
-      <div class="grid-column" id="grid-column-right"></div>
-    `;
-    const gridLeft = document.getElementById('grid-column-left');
-    const gridRight = document.getElementById('grid-column-right');
+    const tiles = [];
     const extSafe = (key) => getExtremesSafe(fullHistory, cachedTodaysExtremes, data, key);
     
     // 1. temperature & humidity card
@@ -2493,7 +2530,11 @@ const THEMES = {
       </div>
       <div class="priority-context">RH ${formatVal(data.humidity, 0)}% <span>·</span> ${vpd} kPa VPD</div>
     `;
-    gridLeft.appendChild(tempHumCard);
+    tiles.push({
+      key: 'tempHum',
+      el: tempHumCard,
+      glance: { icon: 'icons/thermometer-fahrenheit.svg', label: 'Temperature', value: formatVal(feelsLike, 1), unit: '°F', sub: 'feels like' }
+    });
     makeCardExpandable(tempHumCard, 'tempHum', 'more temperature & humidity data', (panel) => {
       const vpdNum = parseFloat(vpd);
       const vpdColor = isNaN(vpdNum) ? 'var(--muted-color)' : (vpdNum < 0.4 ? '#7ab8ff' : vpdNum > 1.6 ? '#e2a355' : '#6fbf8f');
@@ -2614,7 +2655,11 @@ const THEMES = {
       </div>
       <div class="priority-context">${degreesToCardinal16(data.winddir || 0)} · ${getBeaufortLabel(data.windSpeed)}</div>
     `;
-    gridRight.appendChild(windCard);
+    tiles.push({
+      key: 'wind',
+      el: windCard,
+      glance: { icon: 'icons/windmill.svg', label: 'Wind', value: formatVal(data.windSpeed, 1), unit: 'mph', sub: degreesToCardinal16(data.winddir || 0) }
+    });
     makeCardExpandable(windCard, 'wind', 'more wind data', (panel) => {
       const gustFactor = (data.windSpeed && data.windGust) ? (data.windGust / Math.max(data.windSpeed, 0.1)) : null;
       const gustGauge = gaugeBarHtml({
@@ -2680,7 +2725,16 @@ const THEMES = {
       ${sparklineHtml ? `<div class="pressure-cape-spark">${sparklineHtml}</div>` : ''}
       <div class="storm-note compact-storm-note">${getStormPotentialNote(primaryTrend, trendRateHtml, data.cape)}</div>
     `;
-    gridLeft.appendChild(pressureCard);
+    tiles.push({
+      key: 'pressure',
+      el: pressureCard,
+      glance: {
+        icon: 'icons/barometer.svg', label: 'Pressure',
+        value: formatVal(data.pressure, 2), unit: 'inHg',
+        trendHtml: primaryTrend ? `<span class="pressure-trend ${primaryTrend.className}">${primaryTrend.arrow}</span>` : '',
+        sub: pLevel || ''
+      }
+    });
     makeCardExpandable(pressureCard, 'pressure', 'more pressure data', (panel) => {
       const pressGauge = gaugeBarHtml({
         label: 'Barometer',
@@ -2754,7 +2808,13 @@ const THEMES = {
         <div class="priority-context">peak ${formatVal(prExt.max.val, 2)} in/hr today${likelyFrozen ? ' · likely frozen/mixed' : ''}</div>
       `;
     }
-    gridRight.appendChild(precipCard);
+    tiles.push({
+      key: 'precip',
+      el: precipCard,
+      glance: isCurrentlyRaining
+        ? { icon: 'icons/raindrop-measure.svg', label: 'Precipitation', value: formatVal(data.precipRate, 2), unit: 'in/hr', sub: 'current rate' }
+        : { icon: 'icons/raindrop-measure.svg', label: 'Precipitation', value: formatVal(data.precipTotal, 2), unit: 'in', sub: 'today' }
+    });
     makeCardExpandable(precipCard, 'precip', 'more precipitation data', (panel) => {
       const totals = [
         { label: 'Today', val: data.precipTotal },
@@ -2803,7 +2863,11 @@ const THEMES = {
       </div>
       <div class="priority-context">${lastStrikeMs ? `last strike ${formatShortTime(data.lightningLastStrike)}` : (lightningHasData ? 'no recent strike detected' : 'sensor data unavailable')}</div>
     `;
-    gridLeft.appendChild(lightningCard);
+    tiles.push({
+      key: 'lightning',
+      el: lightningCard,
+      glance: { icon: 'icons/lightning-bolt.svg', label: 'Lightning', value: formatVal(data.lightningStrikeCount, 0), unit: '', sub: 'strikes today' }
+    });
     lightningCard.classList.add('lightning-map-trigger');
     lightningCard.setAttribute('tabindex', '0');
     lightningCard.setAttribute('role', 'button');
@@ -2893,7 +2957,11 @@ const THEMES = {
       </div>
       <div class="priority-context">Risk <span style="color: ${uvCat.color};">${uvCat.label}</span></div>
     `;
-    gridRight.appendChild(solarUvCard);
+    tiles.push({
+      key: 'solarUv',
+      el: solarUvCard,
+      glance: { icon: 'icons/solarrad.svg', label: 'Solar & UV', value: formatVal(data.uv, 1), unit: ' UV', sub: `${formatVal(data.solarRadiation, 0)} W/m²` }
+    });
     makeCardExpandable(solarUvCard, 'solarUv', 'more solar & UV data', (panel) => {
       const uvGauge = gaugeBarHtml({
         label: 'UV Index',
@@ -2936,7 +3004,11 @@ const THEMES = {
             <div class="aqi-summary">${aqiDesc}</div>
           </div>
         `;
-        gridLeft.appendChild(aqiCard);
+        tiles.push({
+          key: 'aqi',
+          el: aqiCard,
+          glance: { icon: 'icons/air-quality.svg', label: 'Air Quality', value: formatVal(data.aqi, 0), unit: '', sub: aqiDesc }
+        });
         makeCardExpandable(aqiCard, 'aqi', 'more air quality data', (panel) => {
           const aqiScaleRows = [
             ['0–50', 'Good', '#54ab7c'],
@@ -3007,7 +3079,11 @@ const THEMES = {
           <div class="priority-context">Dashields · ${currentUsgs.trend ? currentUsgs.trend.label : 'trend unavailable'}</div>
           <div class="priority-context">peak ${peakStageText} · ${cfsText}</div>
        `;
-       gridRight.appendChild(usgsCard);
+       tiles.push({
+         key: 'river',
+         el: usgsCard,
+         glance: { icon: 'icons/water-alert.svg', label: 'River Gauge', value: currentUsgs.gageHeight.toFixed(2), unit: 'ft', trendHtml: rTrendHtml, sub: 'Dashields' }
+       });
        makeCardExpandable(usgsCard, 'river', 'more river gauge data', (panel) => {
          const stageNote = getDashieldsStageNote(currentUsgs.gageHeight);
          const gh = currentUsgs.gageHeight;
@@ -3036,11 +3112,7 @@ const THEMES = {
        });
     }
 
-    // protect camera from grid reload 
-    if (desktopCameraTile && window.matchMedia('(min-width: 851px)').matches) {
-      desktopCameraTile.classList.add('desktop-camera-tile');
-      grid.appendChild(desktopCameraTile);
-    }
+    renderTileStage(tiles);
   }
 
   //*  ------------ 🌪️ NWS / SPC ISSUANCES (watches, mesoscale discussions, statements) 🌪️ ----------- *//
@@ -3634,7 +3706,6 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
   // mobile/tablet remains unchanged.
   (function initDesktopComposition() {
     const dashboardGrid = document.querySelector('.dashboard-grid');
-    const weatherGrid = document.getElementById('grid');
     const leftRail = document.querySelector('.desktop-left-rail');
     const rightRail = document.querySelector('.desktop-right-rail');
     const forecastCard = document.querySelector('.desktop-left-rail .forecast-card');
@@ -3644,20 +3715,15 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
     const webToolsGrid = document.querySelector('.web-tools-grid');
     const radarCard = document.querySelector('.web-tools-grid > .weather-map-card');
     const chartsDropdown = document.querySelector('.web-tools-grid > .charts-dropdown');
-    if (!dashboardGrid || !weatherGrid || !leftRail || !rightRail || !forecastCard || !cameraCard || !skyCard) return;
+    if (!dashboardGrid || !leftRail || !rightRail || !forecastCard || !cameraCard || !skyCard) return;
 
     const desktopQuery = window.matchMedia('(min-width: 851px)');
-    const originalCameraNextSibling = cameraCard.nextElementSibling;
     const originalSkyNextSibling = skyCard.nextElementSibling;
     const originalRadarNextSibling = radarCard ? radarCard.nextElementSibling : null;
     const originalChartsDropdownNextSibling = chartsDropdown ? chartsDropdown.nextElementSibling : null;
 
     function syncDesktopComposition() {
       if (desktopQuery.matches) {
-        if (cameraCard.parentElement !== weatherGrid) {
-          cameraCard.classList.add('desktop-camera-tile');
-          weatherGrid.appendChild(cameraCard);
-        }
         if (skyCard.parentElement !== leftRail) {
           skyCard.classList.add('desktop-sky-card');
           leftRail.insertBefore(skyCard, forecastCard.nextElementSibling);
@@ -3671,15 +3737,6 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
           leftRail.appendChild(chartsDropdown);
         }
       } else {
-        cameraCard.classList.remove('desktop-camera-tile');
-        if (cameraCard.parentElement !== dashboardGrid) {
-          if (originalCameraNextSibling && originalCameraNextSibling.parentElement === dashboardGrid) {
-            dashboardGrid.insertBefore(cameraCard, originalCameraNextSibling);
-          } else {
-            dashboardGrid.insertBefore(cameraCard, dashboardGrid.firstElementChild);
-          }
-        }
-
         skyCard.classList.remove('desktop-sky-card');
         if (skyCard.parentElement !== dashboardGrid) {
           if (originalSkyNextSibling && originalSkyNextSibling.parentElement === dashboardGrid) {
