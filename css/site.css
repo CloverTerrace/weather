@@ -326,152 +326,123 @@ h1 {
 @media (max-width: 560px) {.priority-value { font-size: 1.9rem !important; }
 .priority-compass { flex-basis: 92px; }
 .wind-priority-row { gap: 0.4rem; }}
-@media (max-width: 850px) {.grid {
-      grid-template-columns: 1fr;
-    }}
-/* combo grid system ☔
-  the weather cards use two independent vertical columns rather than a conventional CSS grid. 
-  prevents an expanded card from changing the vertical position of the card beside it. */
-.grid {
+/* hero + glance-strip ⛅
+   one big "hero" card (full today's-card treatment) sits above a compact
+   strip holding all 8 readings at once. tapping a strip row swaps it into
+   the hero slot -- that's the only interaction; there's no separate
+   expand/collapse layered on top of it. #grid used to carry the `.grid`
+   two-column card layout -- that class is retired along with the old
+   flip-card system, so `.grid`/`.grid-column` below are unused now and
+   kept only so nothing else that might reference them breaks. */
+#grid.sensor-panel {
+  container-type: inline-size;
+  container-name: sensorpanel;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  width: 100%;
+  max-width: 900px;
+}
+.sensor-hero {
+  width: 100%;
+  min-height: 0;
+}
+.glance-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--card-corner-glow), var(--card-color);
+  border: var(--card-accent-border);
+  border-radius: 12px;
+  padding: 0.4rem;
+}
+@container sensorpanel (min-width: 460px) {
+  .glance-strip {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 900px;
-    align-items: start;
-  }
-.grid-column {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    min-width: 0;
-    width: 100%;
-    align-items: stretch;
-  }
-
-/* ---------- hero tile + glance strip ---------- */
-/* replaces the old two-column card stack (.grid/.grid-column above, now
-   unused dead weight left in place -- nothing targets #grid/.grid anymore
-   since the container below uses a fresh id/class deliberately, to avoid
-   any of the old desktop bento-grid rules (order/aspect-ratio/absolute
-   headers, further down this file) reaching in via descendant selectors). */
-.tile-stage {
-    display: flex;
-    flex-direction: column;
-    gap: 1.15rem;
-    width: 100%;
-    max-width: 620px;
-    margin: 0 auto;
-  }
-
-.tile-hero {
-    width: 100%;
-  }
-
-.tile-hero .card {
-    width: 100%;
-    max-width: none;
-    padding: 1.6rem 1.5rem;
-    transition: opacity 0.15s ease;
-    border: 1px solid color-mix(in srgb, var(--accent-color) 32%, rgba(255,255,255,0.09));
-    box-shadow: 0 10px 32px -14px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.03) inset;
-  }
-
-.tile-hero .priority-icon {
-    width: 42px;
-    height: 42px;
-    flex: 0 0 42px;
-  }
-
-.tile-hero .priority-heading {
-    font-size: 0.9rem;
-  }
-
-.tile-glance-strip {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 0.6rem;
-  }
-
-.tile-glance-row {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-    background: var(--card-color);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 10px;
-    padding: 0.6rem 0.75rem;
-    cursor: pointer;
-    text-align: left;
-    font: inherit;
-    color: var(--text-color);
-    appearance: none;
-    transition: border-color 0.2s ease, background 0.2s ease;
-  }
-
-.tile-glance-row:hover { border-color: rgba(255,255,255,0.18); }
-
-.tile-glance-row:focus-visible {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 2px;
-  }
-
-.tile-glance-row.active {
-    border-color: var(--accent-color);
-    background: color-mix(in srgb, var(--accent-color) 12%, var(--card-color));
-  }
-
-.tile-glance-icon img {
-    width: 1.3em;
-    height: 1.3em;
-    display: block;
-    flex: 0 0 auto;
-  }
-
-.tile-glance-label {
-    font-family: var(--font-details);
-    font-size: 0.66rem;
-    color: var(--muted-color);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    flex: 1 1 auto;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-.tile-glance-value {
-    font-weight: 700;
-    font-size: 0.92rem;
-    white-space: nowrap;
-    flex: 0 0 auto;
-    display: flex;
-    align-items: baseline;
-    gap: 0.2em;
-  }
-
-.tile-glance-value .unit {
-    font-size: 0.7em;
-    font-weight: 500;
-    color: var(--muted-color);
-  }
-
-.tile-glance-sub { display: none; }
-
-@media (min-width: 480px) {
-  .tile-glance-sub {
-    display: inline;
-    font-size: 0.66rem;
-    color: var(--muted-color);
-    margin-left: 0.35rem;
-    white-space: nowrap;
+    gap: 2px 0.6rem;
   }
 }
-
-@media (min-width: 900px) {
-  .tile-stage { max-width: 680px; }
+.glance-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 0;
+  padding: 0.42rem 0.55rem;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
+.glance-item:hover,
+.glance-item:focus-visible {
+  background: rgba(255,255,255,0.06);
+  outline: none;
+}
+.glance-item.active {
+  background: color-mix(in srgb, var(--accent-color, #5b9fd9) 18%, transparent);
+  border-color: color-mix(in srgb, var(--accent-color, #5b9fd9) 55%, transparent);
+}
+.glance-item.notable:not(.active) .glance-item-value {
+  color: #e2913f;
+}
+.glance-item-icon {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.glance-item-icon img { width: 100%; height: 100%; object-fit: contain; }
+.glance-item-value {
+  flex: 0 0 auto;
+  font-weight: 600;
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+.glance-item-value .unit {
+  font-size: 0.68em;
+  font-weight: 500;
+  opacity: 0.75;
+  margin-left: 0.15em;
+}
+.glance-item-trend {
+  flex: 0 0 1em;
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+.glance-item-context {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.72rem;
+  color: var(--label-color, #9aa8b5);
+  text-align: right;
+}
+@media (max-width: 380px) {
+  .glance-item-context { display: none; }
+}
+.lightning-map-toggle-btn {
+  align-self: flex-start;
+  margin-top: 0.6rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  color: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.lightning-map-toggle-btn:hover { background: rgba(255,255,255,0.12); }
 .card {
     background: var(--card-corner-glow), var(--card-color);
     border: var(--card-accent-border);
@@ -3282,7 +3253,7 @@ h1 .weather-icon-img,
       min-width: 0;
       gap: clamp(1rem, 1.5vw, 1.5rem);
     }
-.desktop-left-rail #grid {
+.desktop-left-rail #grid.grid {
       width: 100% !important;
       max-width: none !important;
       grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
@@ -3570,7 +3541,6 @@ h1 .weather-icon-img,
     border: var(--card-accent-border);
     box-shadow: none;
   }
-.outlook-card.storm-center-hidden { display: none; }
 /* title + live-status readout share one row, title left / status right --
      replaces the old centered stack so the card reads like a proper panel
      header instead of a plain centered card title. */
@@ -3735,7 +3705,7 @@ h1 .weather-icon-img,
     .desktop-right-rail {
       gap: clamp(0.9rem, 1.15vw, 1.2rem);
     }
-.desktop-left-rail #grid {
+.desktop-left-rail #grid.grid {
       grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
       grid-auto-rows: auto !important;
       gap: clamp(0.85rem, 1vw, 1rem) !important;
@@ -4351,11 +4321,13 @@ h1 .weather-icon-img,
 .card-flip-back { padding: 0.65rem; }
 .card-flip-back .card-expand-panel { max-height: min(520px, calc(100vh - 6rem)) !important; }
 .lightning-map-panel { inset: 0.1rem; }}
-/* 🌩️ DESKTOP ONLY: make the lightning map full screen on desktop. mobile keeps its original inset:0 in-tile behavior above.*/
-@media (min-width: 851px) {.desktop-left-rail #grid.grid .lightning-card.lightning-map-open {
+/* 🌩️ DESKTOP ONLY: make the lightning map full screen on desktop, whenever
+   lightning happens to be the hero. mobile keeps its original inset:0
+   in-hero behavior above. */
+@media (min-width: 851px) {#grid .sensor-hero.lightning-map-open {
       z-index: 5000 !important;
     }
-.desktop-left-rail #grid.grid .lightning-card.lightning-map-open .lightning-map-backdrop {
+#grid .sensor-hero.lightning-map-open .lightning-map-backdrop {
       display: block;
       position: fixed !important;
       inset: 0 !important;
@@ -4363,7 +4335,7 @@ h1 .weather-icon-img,
       z-index: 4999 !important;
       cursor: pointer;
     }
-.desktop-left-rail #grid.grid .lightning-card .lightning-map-panel {
+#grid .sensor-hero .lightning-map-panel {
       position: fixed !important;
       inset: auto !important;
       top: 50% !important;
