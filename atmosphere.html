@@ -154,7 +154,22 @@
             </table>
           </details>
         </article>
-
+        
+        <article class="atm-card" id="card-wind-levels">
+          <h3><span class="atm-card-icon" data-icon="windsock" aria-hidden="true">&#127891;</span> Wind by Level</h3>
+          <p class="atm-card-plain">How wind speed and direction change with height.</p>
+          <div class="atm-wind-table-wrap">
+            <table class="atm-wind-table" id="atm-wind-table">
+              <thead>
+                <tr><th>Level</th><th>Wind</th></tr>
+              </thead>
+              <tbody id="atm-wind-table-body">
+                <tr><td colspan="2" class="atm-wind-loading">Loading&hellip;</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+        
       </div>
 
       <button type="button" class="atm-card-arrow atm-card-arrow-right" id="atm-card-arrow-right" aria-label="Next card">&rsaquo;</button>
@@ -171,25 +186,6 @@
         <canvas id="sounding-chart" height="420" aria-label="Temperature and dew point vs. altitude" role="img"></canvas>
       </div>
       <p class="atm-chart-note">This is a simplified profile (not a full meteorological skew-T diagram) &mdash; altitude is approximate height above sea level, not adjusted for local elevation.</p>
-    </section>
-
-    <!-- Wind-by-level table -- gives wind info without needing full barb
-         rendering, which Chart.js can't do natively. -->
-    <section class="atm-panel" id="atm-wind-panel">
-      <div class="atm-panel-header">
-        <h2>Wind by Level</h2>
-        <p class="atm-panel-subtitle">How wind speed and direction change with height.</p>
-      </div>
-      <div class="atm-wind-table-wrap">
-        <table class="atm-wind-table" id="atm-wind-table">
-          <thead>
-            <tr><th>Level</th><th>Wind</th></tr>
-          </thead>
-          <tbody id="atm-wind-table-body">
-            <tr><td colspan="2" class="atm-wind-loading">Loading&hellip;</td></tr>
-          </tbody>
-        </table>
-      </div>
     </section>
 
     <!-- SPC Convective + Thunderstorm Outlooks -- moved here from the main
