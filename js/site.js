@@ -3406,6 +3406,13 @@ const THEMES = {
     if (countWatches) countWatches.textContent = watches.length;
     if (countStatements) countStatements.textContent = statements.length;
 
+    // the whole card is only ever populated during an actual active
+    // weather event now (SPC Outlooks moved to atmosphere.html) -- hide it
+    // entirely rather than showing an empty "nothing active" card on a
+    // calm day.
+    const stormCard = document.querySelector('.outlook-card');
+    if (stormCard) stormCard.classList.toggle('storm-center-hidden', watches.length === 0 && statements.length === 0);
+
     // a tornado watch/warning deserves to be seen without opening a tab:
     // pulse the watches tab for as long as one is live, and jump to it
     // automatically the moment one appears (only on that transition -- see
