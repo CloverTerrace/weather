@@ -605,10 +605,13 @@
   }
 
   // ---------- hero + glance-strip sensor interaction ----------
-  // the 8 sensor readings share ONE interaction: tap a row in the glance
-  // strip and it becomes the big hero card up top. userSelectedHero locks
-  // in the person's own choice; until they tap something, the hero follows
-  // whichever reading renderCards() judges most notable (see autoKey there).
+  // the 8 sensor readings share ONE interaction, reachable two ways: tap a
+  // row in the glance strip, or swipe the hero card itself left/right to
+  // step through the same order. Either one becomes the person's own
+  // choice (userSelectedHero) and both keep the strip's highlighted row in
+  // sync, via the same renderActiveHero() path. Until they touch either
+  // one, the hero follows whichever reading renderCards() judges most
+  // notable (see autoKey there).
   let userSelectedHero = null;
   let latestSensors = null;
   let latestAutoKey = null;
@@ -641,11 +644,36 @@
     });
   }
 
+  // plays a short slide-in for the hero's new content. `dir` is +1 when the
+  // new reading is "forward" of the old one (glance strip order), -1 when
+  // it's "backward" -- same sense whether the change came from a swipe or
+  // from tapping a different strip row, so the motion always matches which
+  // way the content conceptually moved.
+  function playHeroSwapAnim(heroEl, dir) {
+    if (!dir) return;
+    heroEl.classList.remove('hero-anim-in-left', 'hero-anim-in-right');
+    void heroEl.offsetWidth; // force reflow so the animation can restart
+    heroEl.classList.add(dir > 0 ? 'hero-anim-in-right' : 'hero-anim-in-left');
+  }
+
   function renderHero(sensors, activeKey) {
     const heroEl = document.getElementById('sensor-hero');
     if (!heroEl) return;
     const sensor = sensors.find(s => s.key === activeKey) || sensors[0];
     if (!sensor) return;
+
+    const prevKey = heroEl.dataset.activeKey || null;
+    let dir = 0;
+    if (prevKey && prevKey !== sensor.key) {
+      const prevIdx = sensors.findIndex(s => s.key === prevKey);
+      const newIdx = sensors.findIndex(s => s.key === sensor.key);
+      if (prevIdx !== -1 && newIdx !== -1) {
+        const n = sensors.length;
+        const forward = (newIdx - prevIdx + n) % n;
+        const backward = (prevIdx - newIdx + n) % n;
+        dir = forward <= backward ? 1 : -1;
+      }
+    }
 
     // preserve an already-open lightning map if lightning stays the hero
     // across a rebuild (e.g. the ~60s data refresh).
@@ -656,6 +684,7 @@
     if (preservedBackdrop) document.body.appendChild(preservedBackdrop);
 
     heroEl.className = `card combo-card sensor-hero ${sensor.className}`;
+    heroEl.dataset.activeKey = sensor.key;
     heroEl.innerHTML = sensor.heroHtml;
 
     if (wasLightningOpen && preservedPanel) {
@@ -665,6 +694,7 @@
     }
 
     if (typeof sensor.attachHero === 'function') sensor.attachHero(heroEl);
+    playHeroSwapAnim(heroEl, dir);
   }
 
   function renderActiveHero() {
@@ -673,6 +703,57 @@
     renderHero(latestSensors, activeKey);
     renderGlanceStrip(latestSensors, activeKey);
   }
+
+  // steps the hero forward/back through the glance strip's own order --
+  // used by the swipe gesture below. wraps around at either end.
+  function stepHero(direction) {
+    if (!latestSensors || !latestSensors.length) return;
+    const activeKey = pickActiveHeroKey(latestSensors, latestAutoKey);
+    const idx = latestSensors.findIndex(s => s.key === activeKey);
+    if (idx === -1) return;
+    const nextIdx = (idx + direction + latestSensors.length) % latestSensors.length;
+    userSelectedHero = latestSensors[nextIdx].key;
+    renderActiveHero();
+  }
+
+  // swipe the hero card itself to step through the same 8 readings the
+  // glance strip holds -- attached once, since renderHero() only ever
+  // replaces #sensor-hero's *contents*, never the element itself.
+  (function attachHeroSwipe() {
+    const heroEl = document.getElementById('sensor-hero');
+    if (!heroEl) return;
+    const SWIPE_THRESHOLD = 40;
+    let startX = 0, startY = 0, tracking = false;
+
+    heroEl.addEventListener('touchstart', (e) => {
+      if (heroEl.classList.contains('lightning-map-open')) { tracking = false; return; }
+      if (e.touches.length !== 1) { tracking = false; return; }
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      tracking = true;
+    }, { passive: true });
+
+    heroEl.addEventListener('touchmove', (e) => {
+      if (!tracking || e.touches.length !== 1) return;
+      const dx = e.touches[0].clientX - startX;
+      const dy = e.touches[0].clientY - startY;
+      // once a swipe reads as clearly horizontal, stop the page from
+      // scrolling vertically underneath the gesture.
+      if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy)) e.preventDefault();
+    }, { passive: false });
+
+    heroEl.addEventListener('touchend', (e) => {
+      if (!tracking) return;
+      tracking = false;
+      const touch = e.changedTouches[0];
+      const dx = touch.clientX - startX;
+      const dy = touch.clientY - startY;
+      if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+      stepHero(dx < 0 ? 1 : -1);
+    }, { passive: true });
+
+    heroEl.addEventListener('touchcancel', () => { tracking = false; }, { passive: true });
+  })();
 
 
   function renderChart(history) {
@@ -2882,6 +2963,14 @@ const THEMES = {
         ['201–300', 'Very Unhealthy', '#8f3f97'],
         ['301+', 'Hazardous', '#7e0023'],
       ];
+      // short category label for the glance strip -- aqiDesc above is a
+      // full sentence, too long for the strip's one-line rows.
+      const aqiCategoryShort = data.aqi == null ? ''
+        : data.aqi <= 50 ? 'Good'
+        : data.aqi <= 100 ? 'Moderate'
+        : data.aqi <= 150 ? 'Unhealthy (Sensitive)'
+        : data.aqi <= 200 ? 'Unhealthy'
+        : data.aqi <= 300 ? 'Very Unhealthy' : 'Hazardous';
       const pmVals = [
         { label: 'PM1.0', val: data.pm1 },
         { label: 'PM2.5', val: data.pm25 },
@@ -2892,7 +2981,7 @@ const THEMES = {
         key: 'aqi', className: 'aqi-card', iconSrc: 'icons/air-quality.svg',
         trend: aqiTrend,
         glanceValueHtml: `<span${aqiColor ? ` style="color:${aqiColor};"` : ''}>${formatVal(data.aqi, 0)}</span>`,
-        glanceContext: aqiDesc,
+        glanceContext: aqiCategoryShort,
         heroHtml: `
           <div class="priority-card-head">
             <div class="priority-icon"><img src="icons/air-quality.svg" alt="" onerror="this.parentElement.style.display='none'"></div>
