@@ -1,17 +1,6 @@
 {
   "periods": [
     {
-      "name": "Labor Day",
-      "temperature": 80,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "E",
-      "shortForecast": "Sunny",
-      "detailedForecast": "Sunny, with a high near 80. East wind around 2 mph.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
       "name": "Tonight",
       "temperature": 58,
       "temperatureUnit": "F",
@@ -43,19 +32,20 @@
       "detailedForecast": "Partly cloudy, with a low around 65. South wind around 5 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Wednesday",
+      "temperature": 86,
+      "temperatureUnit": "F",
+      "windSpeed": "5 to 13 mph",
+      "windDirection": "SW",
+      "shortForecast": "Mostly Sunny",
+      "detailedForecast": "Mostly sunny, with a high near 86. Southwest wind 5 to 13 mph, with gusts as high as 25 mph.",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 6
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-07T17:00:00-04:00",
-      "temperature": 79,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "E",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-09-07T18:00:00-04:00",
       "temperature": 77,
@@ -282,6 +272,16 @@
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "SW",
+      "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-08T17:00:00-04:00",
+      "temperature": 83,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "S",
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
