@@ -3696,54 +3696,46 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
     startCooldownCountdown();
   }
 
-  // desktop-only composition: move the non-urgent Sky & Space card below
-  // Forecast. the live camera tile now stays put in the right rail at
-  // every width -- the sensor grid (#grid) is a hero + glance strip, not
-  // a 3x3 tile grid with a 9th square to fill.
-  // below 851px cards return to their original DOM locations so the
-  // mobile/tablet remains unchanged.
+  // desktop-only composition ("what goes where" pass):
+  //  left rail  = conditions & outlook: hero+strip, Forecast, Radar/map
+  //  right rail = sky & visual: Camera, Storm Center (when active), Skytracker
+  //  Historical Data spans the full width below both rails, rather than
+  //  competing for space inside either column -- it's easily the tallest
+  //  card and its chart wants the extra width anyway.
+  // Skytracker itself never needs to move: .dashboard-grid already
+  // collapses to display:contents on desktop (see .desktop-right-rail
+  // .dashboard-grid), so its children -- Camera, Skytracker, Storm Center --
+  // already lay out as direct flex items of the right rail; a plain CSS
+  // `order` on .sky-card places it after Storm Center. Radar and Historical
+  // Data live in the separate .web-tools-grid section outside either rail,
+  // so those two still need an actual DOM move on desktop, reverted below
+  // 851px so mobile/tablet is untouched.
   (function initDesktopComposition() {
-    const dashboardGrid = document.querySelector('.dashboard-grid');
+    const dashboardLayout = document.querySelector('.desktop-dashboard-layout');
     const leftRail = document.querySelector('.desktop-left-rail');
     const rightRail = document.querySelector('.desktop-right-rail');
     const forecastCard = document.querySelector('.desktop-left-rail .forecast-card');
     const cameraCard = document.getElementById('camera-img')?.closest('.camera-card');
-    const skyCard = document.getElementById('sky-box')?.closest('.camera-card');
-    const stormCard = document.querySelector('.dashboard-grid .outlook-card');
     const webToolsGrid = document.querySelector('.web-tools-grid');
     const radarCard = document.querySelector('.web-tools-grid > .weather-map-card');
     const chartsDropdown = document.querySelector('.web-tools-grid > .charts-dropdown');
-    if (!dashboardGrid || !leftRail || !rightRail || !forecastCard || !cameraCard || !skyCard) return;
+    if (!dashboardLayout || !leftRail || !rightRail || !forecastCard || !cameraCard) return;
 
     const desktopQuery = window.matchMedia('(min-width: 851px)');
-    const originalSkyNextSibling = skyCard.nextElementSibling;
     const originalRadarNextSibling = radarCard ? radarCard.nextElementSibling : null;
     const originalChartsDropdownNextSibling = chartsDropdown ? chartsDropdown.nextElementSibling : null;
 
     function syncDesktopComposition() {
       if (desktopQuery.matches) {
-        if (skyCard.parentElement !== leftRail) {
-          skyCard.classList.add('desktop-sky-card');
-          leftRail.insertBefore(skyCard, forecastCard.nextElementSibling);
-        }
-        if (radarCard && rightRail && radarCard.parentElement !== rightRail) {
+        if (radarCard && leftRail && radarCard.parentElement !== leftRail) {
           radarCard.classList.add('desktop-radar-card');
-          rightRail.appendChild(radarCard);
+          leftRail.appendChild(radarCard);
         }
-        if (chartsDropdown && chartsDropdown.parentElement !== leftRail) {
+        if (chartsDropdown && dashboardLayout && chartsDropdown.parentElement !== dashboardLayout) {
           chartsDropdown.classList.add('desktop-charts-dropdown');
-          leftRail.appendChild(chartsDropdown);
+          dashboardLayout.appendChild(chartsDropdown);
         }
       } else {
-        skyCard.classList.remove('desktop-sky-card');
-        if (skyCard.parentElement !== dashboardGrid) {
-          if (originalSkyNextSibling && originalSkyNextSibling.parentElement === dashboardGrid) {
-            dashboardGrid.insertBefore(skyCard, originalSkyNextSibling);
-          } else {
-            dashboardGrid.insertBefore(skyCard, stormCard);
-          }
-        }
-
         if (radarCard && webToolsGrid) {
           radarCard.classList.remove('desktop-radar-card');
           if (radarCard.parentElement !== webToolsGrid) {
