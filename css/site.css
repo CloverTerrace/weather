@@ -181,12 +181,11 @@ h1 {
     transform-origin: center;
   }
 /* 🌙 NASA's dial-a-moon print images (the same source .sky-body-frame /
-     .moon-body-img use in the day-night-overlay transition) are square
-     photos with a lot of built-in black padding around the actual moon
-     disc. a plain img at any size just shows that padding scaled up
-     along with it. same fix as .sky-body-frame: a fixed-size, clipped
-     circular frame with the image scaled up past its edges. more moon
-     less border 🌙 */
+     .moon-body-img use in the Sky & Space card below) are square photos
+     with a lot of built-in black padding around the actual moon disc.
+     a plain img at any size just shows that padding scaled up along with
+     it. same fix as .sky-body-frame: a fixed-size, clipped circular
+     frame with the image scaled up past its edges. more moon less border 🌙 */
 .weather-icon-moon-frame {
      display: flex;
      align-items: center;
@@ -1825,10 +1824,6 @@ body.theme-extreme-heat-night #weather-fx::after {
     background: #000;
     box-shadow: 0 3px 12px rgba(0,0,0,0.18);
   }
-/* despite the "mobile" name (a holdover from when this was mobile-only),
-   this button + its video are now always shown on the camera card, on
-   both mobile and desktop, so the time lapse is reachable without
-   opening the lightbox. */
 .camera-mobile-timelapse-btn {
     display: block;
     width: min(100%, 22rem);
@@ -2747,10 +2742,6 @@ body.fx-active-cloudy .fx-clouds {
 #weather-fx {
       display: none !important;
     }}
-/* .sky-body-frame / .sun-body-img / .moon-body-img are still used by the
-   day-night-overlay transition (index.html) even though the Skytracker
-   card that used to share them was simplified away -- don't remove
-   these on the assumption they're sky-card-only. */
 .sky-body-frame {
     width: 72px;
     height: 72px;
@@ -2769,6 +2760,37 @@ body.fx-active-cloudy .fx-clouds {
     height: 100%;
     object-fit: cover;
     transform: scale(1.8);
+  }
+.sky-card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+.sky-card-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: var(--muted-color);
+    font-family: var(--font-details);
+    font-size: 0.76rem;
+    line-height: 1.4;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+.sky-card:hover .sky-card-hint,
+  .sky-card:focus-visible .sky-card-hint {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.12);
+    color: var(--text-color);
+  }
+.sky-card:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
   }
 .sky-badges {
     display: flex;
@@ -3941,6 +3963,7 @@ h1 .weather-icon-img,
       width: 100%;
       margin: 0 !important;
       padding: 0.85rem !important;
+      min-height: 0 !important;
       border-radius: 13px;
     }
 .desktop-right-rail .sky-card h2 { margin-bottom: 0.45rem; font-size: clamp(0.78rem, 0.9vw, 0.98rem); }
@@ -4299,3 +4322,105 @@ body {
 #theme-preview-panel {
     bottom: calc(var(--site-nav-mobile-total, 60px) + 48px);
   }}
+
+/* ================================================
+   BENTO GRID (desktop, 851px+) -- replaces the old
+   two-rail split with one explicit CSS Grid so cards
+   claim only the width/height they need instead of
+   forcing everything into two even columns. Added
+   after all the rail-era rules above; !important is
+   used throughout so this reliably wins regardless of
+   where those older rules sit in the cascade.
+
+   .desktop-left-rail / .desktop-right-rail / the
+   right rail's .dashboard-grid keep their existing
+   display:contents behavior (unchanged), so their
+   children -- #grid.sensor-panel (hero + glance strip,
+   kept together since glance-strip's 2-column layout
+   depends on a container query on #grid.sensor-panel's
+   own width, so it can't be flattened separately),
+   .forecast-card, the dynamically-appended
+   .desktop-radar-card, .camera-photo-card, .sky-card,
+   and .outlook-card -- all become direct items of this
+   grid. .desktop-charts-dropdown (Historical Data) is
+   appended straight onto .desktop-dashboard-layout by
+   initDesktopComposition() already, so it's a direct
+   item without any extra flattening.
+   ================================================ */
+@media (min-width: 851px) {
+  .desktop-dashboard-layout {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-template-areas:
+      "hero hero camera camera"
+      "hero hero camera camera"
+      "forecast forecast forecast forecast"
+      "sky sky storm storm" !important;
+    gap: clamp(1rem, 1.5vw, 1.5rem) !important;
+    align-items: stretch !important;
+  }
+  /* Storm Center hides whenever there are no active watches/statements
+     (see updateStormCenterVisibility() in site.js) -- when that happens,
+     it also toggles this class so Sky Conditions can claim the full row
+     instead of leaving an empty cell behind. */
+  .desktop-dashboard-layout.storm-hidden {
+    grid-template-areas:
+      "hero hero camera camera"
+      "hero hero camera camera"
+      "forecast forecast forecast forecast"
+      "sky sky sky sky" !important;
+  }
+
+  .desktop-dashboard-layout #grid.sensor-panel {
+    grid-area: hero !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+  .desktop-dashboard-layout .camera-photo-card {
+    grid-area: camera !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+  .desktop-dashboard-layout .forecast-card {
+    grid-area: forecast !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+  .desktop-dashboard-layout .sky-card {
+    grid-area: sky !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+  .desktop-dashboard-layout .outlook-card {
+    grid-area: storm !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+  .desktop-dashboard-layout .forecast-periods {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  /* Radar and Historical Data are auto-placed (no grid-area of their
+     own) into whatever rows come after the four above -- explicit
+     order keeps Radar first and both spanning the full width, matching
+     how they've always displayed. */
+  .desktop-dashboard-layout .desktop-radar-card {
+    grid-column: 1 / -1 !important;
+    order: 10 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+  .desktop-dashboard-layout > .desktop-charts-dropdown {
+    grid-column: 1 / -1 !important;
+    order: 20 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+}
