@@ -382,7 +382,13 @@ h1 {
 .glance-item:nth-child(even) {
   background: color-mix(in srgb, var(--label-color, #9aa8b5) 6%, transparent);
 }
-
+/* the rule above stripes by DOM order, which reads correctly as
+   alternating rows in the single-column list -- but once the strip
+   becomes the 2-up grid below, "even" means "everything in the right
+   column," producing a solid left/right split instead of row stripes.
+   override with a row-aware pattern once that grid is active (must come
+   after the base rule above -- @container carries no extra specificity,
+   so later-in-file is what lets this win). */
 @container sensorpanel (min-width: 460px) {
   .glance-item:nth-child(even) { background: transparent; }
   .glance-item:nth-child(4n+3),
@@ -2707,12 +2713,17 @@ body.fx-active-cloudy .fx-clouds {
     background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 55%, rgba(205,217,235,0.35) 100%);
     filter: blur(4px);
   }
-
+/* wide, flattened puff used as a single "base" layer under each cloud's
+     rounded top puffs -- the flat-bottomed, piled-up-on-top look is what
+     actually reads as "cumulus" rather than a generic cloud blob. */
 .cloud-puff.cloud-base {
     border-radius: 50% 50% 28% 28% / 65% 65% 20% 20%;
     background: radial-gradient(circle at 40% 15%, rgba(255,255,255,0.7) 0%, rgba(205,217,235,0.4) 70%);
   }
-/* iridescent cloud variant . */
+/* iridescent variant -- a soft nacreous/mother-of-pearl wash (blush pink,
+     pale lavender, warm peach, sky blue) layered under the same white
+     highlight so it reads as light catching the cloud, not a rainbow
+     sticker. Slow hue-rotate keeps it drifting/shimmering rather than static. */
 .cloud-puff.iridescent {
     background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.92) 0%, rgba(255,214,232,0.5) 32%, rgba(214,222,255,0.48) 55%, rgba(255,232,210,0.45) 78%, rgba(210,235,250,0.4) 100%);
     animation: fx-iridescent-shimmer 16s ease-in-out infinite;
@@ -2960,7 +2971,10 @@ svg circle, svg polygon, svg line {
 #grid.grid .card.solar-card     { order: 6; }
 #grid.grid .card.aqi-card       { order: 7; }
 #grid.grid .card.river-card     { order: 8; }}
-
+/* whatever width the square-tile grid above settles a card into, keep
+     the wind compass / dual-value rows from ever feeling cramped. this
+     reacts to the card's own rendered width, so it works no matter how
+     many columns the grid is showing. */
 @container card (max-width: 300px) {
     .wind-priority-row,
     .pressure-priority-row,
@@ -3272,8 +3286,11 @@ h1 .weather-icon-img,
       max-width: none;
       margin: 0;
     }
-.desktop-left-rail > .desktop-charts-dropdown {
-      order: 4;
+/* Historical Data spans the full width of the dashboard, below both
+   rails, rather than living inside either column -- see
+   initDesktopComposition() in site.js. */
+.desktop-dashboard-layout > .desktop-charts-dropdown {
+      grid-column: 1 / -1;
       width: 100%;
       max-width: none;
       margin: 0;
@@ -3953,7 +3970,7 @@ h1 .weather-icon-img,
 .desktop-left-rail .forecast-period .period-temp { font-size: 0.98rem; }
 .desktop-left-rail .forecast-period .period-short { font-size: 0.62rem; line-height: 1.18; }
 .desktop-left-rail .forecast-period .period-wind { font-size: 0.55rem; }
-.desktop-left-rail > .desktop-sky-card {
+.desktop-right-rail .sky-card {
       order: 3;
       width: 100%;
       margin: 0 !important;
@@ -3961,10 +3978,14 @@ h1 .weather-icon-img,
       min-height: 300px !important;
       border-radius: 13px;
     }
-.desktop-left-rail > .desktop-sky-card h2 { margin-bottom: 0.45rem; font-size: clamp(0.78rem, 0.9vw, 0.98rem); }
-.desktop-left-rail > .desktop-sky-card .sky-box { min-height: 190px; height: clamp(190px, 15vw, 235px); }
-.desktop-left-rail > .desktop-sky-card .sunmoon-details { margin-top: 0.55rem; font-size: 0.7rem; }
-.desktop-left-rail > .desktop-sky-card .sky-badges { margin-top: 0.45rem; gap: 0.5rem; font-size: 0.67rem; }
+.desktop-right-rail .sky-card h2 { margin-bottom: 0.45rem; font-size: clamp(0.78rem, 0.9vw, 0.98rem); }
+.desktop-right-rail .sky-card .sky-box { min-height: 190px; height: clamp(190px, 15vw, 235px); }
+.desktop-right-rail .sky-card .sunmoon-details { margin-top: 0.55rem; font-size: 0.7rem; }
+.desktop-right-rail .sky-card .sky-badges { margin-top: 0.45rem; gap: 0.5rem; font-size: 0.67rem; }
+/* .dashboard-grid collapses to display:contents on desktop, so Camera,
+   Storm Center, and Skytracker (immediately above) all lay out as direct
+   flex items of .desktop-right-rail -- order alone controls Camera (default
+   0) -> Storm Center (1) -> Skytracker (3), no DOM move needed for either. */
 .desktop-right-rail .dashboard-grid { display: contents !important; }
 .desktop-right-rail .outlook-card {
       order: 1;
@@ -3974,17 +3995,16 @@ h1 .weather-icon-img,
       min-height: 0;
       height: auto;
     }
-.desktop-right-rail .desktop-radar-card {
+.desktop-left-rail .desktop-radar-card {
       order: 2;
-      grid-column: 1 / -1;
       width: 100%;
       max-width: none !important;
       margin: 0 !important;
       padding: 0.9rem !important;
       border-radius: 13px;
     }
-.desktop-right-rail .desktop-radar-card .rainviewer-map,
-    .desktop-right-rail .desktop-radar-card .map-panel iframe {
+.desktop-left-rail .desktop-radar-card .rainviewer-map,
+    .desktop-left-rail .desktop-radar-card .map-panel iframe {
       height: clamp(320px, 30vw, 460px) !important;
     }
 .web-tools-grid {
@@ -4062,9 +4082,9 @@ h1 .weather-icon-img,
 .desktop-left-rail .forecast-period .period-temp { font-size: clamp(0.98rem, 0.95vw, 1.3rem); }
 .desktop-left-rail .forecast-period .period-short { font-size: clamp(0.62rem, 0.62vw, 0.82rem); }
 .desktop-left-rail .forecast-period .period-wind { font-size: clamp(0.55rem, 0.55vw, 0.74rem); }
-.desktop-left-rail > .desktop-sky-card h2 { font-size: clamp(0.78rem, 0.9vw, 1.2rem); }
-.desktop-left-rail > .desktop-sky-card .sunmoon-details { font-size: clamp(0.7rem, 0.72vw, 0.92rem); }
-.desktop-left-rail > .desktop-sky-card .sky-badges { font-size: clamp(0.67rem, 0.7vw, 0.88rem); }}
+.desktop-right-rail .sky-card h2 { font-size: clamp(0.78rem, 0.9vw, 1.2rem); }
+.desktop-right-rail .sky-card .sunmoon-details { font-size: clamp(0.7rem, 0.72vw, 0.92rem); }
+.desktop-right-rail .sky-card .sky-badges { font-size: clamp(0.67rem, 0.7vw, 0.88rem); }}
 @media (min-width: 851px) and (max-width: 1120px) {.desktop-dashboard-layout { grid-template-columns: minmax(0, 1.18fr) minmax(390px, 0.95fr) !important; }}
 @media (max-width: 850px) {#grid.grid {
       display: grid !important;
