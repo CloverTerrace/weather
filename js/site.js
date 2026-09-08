@@ -2049,7 +2049,8 @@
     }
   }
 
-  // ---------- sun & moon tracker ----------
+  // ---------- sky watch (stargazing/aurora badges) ----------
+  // lat/lon still used by updateStarBoost()'s day/night check below.
   const SUNMOON_LAT = 40.604;
   const SUNMOON_LON = -80.286;
 
@@ -2073,20 +2074,6 @@
 
   function getMoonPhaseImageUrl(phase) {
     return MOON_PHASE_IMAGES[getMoonPhaseIndex(phase)];
-  }
-
-  function renderMoonPhaseImage(el, phase) {
-    const imageUrl = getMoonPhaseImageUrl(phase);
-    if (imageUrl) {
-      el.innerHTML = `<div class="sky-body-frame"><img class="moon-body-img" src="${imageUrl}" alt="Moon phase"></div>`;
-    } else {
-      el.innerHTML = `<div class="sky-body-frame"><div class="moon-body-newmoon"></div></div>`;
-    }
-  }
-
-  function getMoonPhaseName(phase) {
-    const names = ['New Moon', 'Waxing Crescent', 'First Quarter', 'Waxing Gibbous', 'Full Moon', 'Waning Gibbous', 'Last Quarter', 'Waning Crescent'];
-    return names[getMoonPhaseIndex(phase)];
   }
 
   let currentForecastPeriods = [];
@@ -2150,49 +2137,14 @@
     document.body.classList.toggle('fx-stars-boost', isNight && clearAndGood && !auroraActive);
   }
 
-  function positionSkyBody(el, altitudeRad, azimuthRad) {
-    const altDeg = altitudeRad * 180 / Math.PI;
-    const azDeg = azimuthRad * 180 / Math.PI;
-    const leftPercent = ((azDeg + 180) / 360) * 100;
-    const clampedAlt = Math.max(-15, Math.min(90, altDeg));
-    const topPercent = 88 - ((clampedAlt + 15) / 105) * 74;
-    const opacity = altDeg <= -15 ? 0 : Math.min(1, (altDeg + 15) / 15);
-    el.style.left = `${leftPercent}%`;
-    el.style.top = `${topPercent}%`;
-    el.style.opacity = opacity;
-  }
-
-  function updateSunMoonTracker() {
-    const now = new Date();
-    const sunPos = SunCalc.getPosition(now, SUNMOON_LAT, SUNMOON_LON);
-    const sunTimes = SunCalc.getTimes(now, SUNMOON_LAT, SUNMOON_LON);
-    const moonPos = SunCalc.getMoonPosition(now, SUNMOON_LAT, SUNMOON_LON);
-    const moonIllum = SunCalc.getMoonIllumination(now);
-    const moonTimes = SunCalc.getMoonTimes(now, SUNMOON_LAT, SUNMOON_LON);
-
-    positionSkyBody(document.getElementById('sun-body'), sunPos.altitude, sunPos.azimuth);
-    positionSkyBody(document.getElementById('moon-body'), moonPos.altitude, moonPos.azimuth);
-    renderMoonPhaseImage(document.getElementById('moon-body'), moonIllum.phase);
-
-    const fmt = (d) => d ? d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : '—';
-    let moonRiseSetText;
-    if (moonTimes.alwaysUp) moonRiseSetText = 'Up all day';
-    else if (moonTimes.alwaysDown) moonRiseSetText = 'Down all day';
-    else moonRiseSetText = `${fmt(moonTimes.rise)} / ${fmt(moonTimes.set)}`;
-
-    document.getElementById('sunmoon-details').innerHTML = `
-      <div><strong>Sunrise</strong><br>${fmt(sunTimes.sunrise)}</div>
-      <div><strong>Solar Noon</strong><br>${fmt(sunTimes.solarNoon)}</div>
-      <div><strong>Sunset</strong><br>${fmt(sunTimes.sunset)}</div>
-      <div><strong>Moonrise / Moonset</strong><br>${moonRiseSetText}</div>
-      <div><strong>Moon Phase</strong><br>${getMoonPhaseName(moonIllum.phase)} (${Math.round(moonIllum.fraction * 100)}%)</div>
-    `;
+  // Skytracker card now only shows the stargazing/aurora badges (the
+  // full sun/moon position tracker + rise/set details moved to the
+  // Space page) -- updateSkyBadges() is fully self-contained (computes
+  // moon illumination and night-check itself via SunCalc), so this is
+  // just a periodic refresh for it.
+  function initSkyWatch() {
     updateSkyBadges();
-  }
-
-  function initSunMoonTracker() {
-    updateSunMoonTracker();
-    setInterval(updateSunMoonTracker, 60 * 1000); 
+    setInterval(updateSkyBadges, 60 * 1000);
   }
 
 
@@ -3891,7 +3843,7 @@ function toggleMobileTimelapse() {
   initWeatherFx();
   populateThemePreviewRow();
   initThemeEasterEgg();
-  initSunMoonTracker();
+  initSkyWatch();
   initForecastCardFlip();
   initMapTabs();
   initRadarMap();
