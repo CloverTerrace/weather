@@ -203,24 +203,21 @@
     <div class="desktop-right-rail">
       <div class="dashboard-grid">
 
-  <div class="camera-card">
+  <div class="camera-card camera-photo-card">
     <h2>Camera</h2>
     <img id="camera-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
     <video id="camera-mobile-timelapse-video" class="camera-mobile-timelapse-video" controls playsinline preload="metadata" aria-label="Yesterday's station camera time lapse"></video>
     <button id="camera-mobile-timelapse-btn" class="camera-mobile-timelapse-btn" type="button">Yesterday's Time Lapse</button>
   </div>
     
-  <div class="camera-card sky-card">
-    <h2>Skytracker</h2>
+  <a class="camera-card sky-card" href="space.html" aria-label="Sky Conditions — view live sky tracking and moon phase on the Space page">
+    <h2>Sky Conditions</h2>
     <div class="sky-badges" id="sky-badges"></div>
-    <div class="storm-center-atm-link">
-      <a href="space.html">
-        <span class="card-icon"><img src="icons/star.svg" alt=""></span>
-        See the live sky map, moon phase, and more on the Space page
-        <span class="storm-center-atm-arrow">&rarr;</span>
-      </a>
+    <div class="sky-card-hint">
+      View live sky tracking &amp; moon phase on the Space page
+      <span class="storm-center-atm-arrow">&rarr;</span>
     </div>
-  </div>    
+  </a>
 
   <div class="camera-card outlook-card">
     <div class="outlook-card-header">
@@ -231,11 +228,12 @@
       </div>
     </div>
 
-    <!-- This card is always in the DOM, but hidden/shown at runtime by
-         updateStormCenterVisibility() in site.js -- it only appears when
-         there's at least one active local watch/warning. That JS-driven
-         hide is the current intentional behavior (this has flip-flopped
-         before, hence needing this note). -->
+    <!-- each tab below has its own "No active ___" empty state, but the
+         whole card still hides via updateStormCenterVisibility() in site.js
+         whenever there are no active watches/statements at all -- that's
+         intentional (see .desktop-dashboard-layout.storm-hidden in
+         site.css, which lets Sky Conditions expand to fill the freed
+         space on desktop instead of leaving a gap). -->
     <div class="storm-top" id="storm-top">
       <div class="nws-tabs" id="nws-tabs" role="tablist" aria-label="Storm alerts and discussions">
         <button class="nws-tab active" type="button" role="tab" aria-selected="true" aria-controls="nws-panel-watches" data-target="nws-panel-watches">
