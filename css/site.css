@@ -181,11 +181,12 @@ h1 {
     transform-origin: center;
   }
 /* 🌙 NASA's dial-a-moon print images (the same source .sky-body-frame /
-     .moon-body-img use in the Sky & Space card below) are square photos
-     with a lot of built-in black padding around the actual moon disc.
-     a plain img at any size just shows that padding scaled up along with
-     it. same fix as .sky-body-frame: a fixed-size, clipped circular
-     frame with the image scaled up past its edges. more moon less border 🌙 */
+     .moon-body-img use in the day-night-overlay transition) are square
+     photos with a lot of built-in black padding around the actual moon
+     disc. a plain img at any size just shows that padding scaled up
+     along with it. same fix as .sky-body-frame: a fixed-size, clipped
+     circular frame with the image scaled up past its edges. more moon
+     less border 🌙 */
 .weather-icon-moon-frame {
      display: flex;
      align-items: center;
@@ -1824,8 +1825,12 @@ body.theme-extreme-heat-night #weather-fx::after {
     background: #000;
     box-shadow: 0 3px 12px rgba(0,0,0,0.18);
   }
+/* despite the "mobile" name (a holdover from when this was mobile-only),
+   this button + its video are now always shown on the camera card, on
+   both mobile and desktop, so the time lapse is reachable without
+   opening the lightbox. */
 .camera-mobile-timelapse-btn {
-    display: none;
+    display: block;
     width: min(100%, 22rem);
     margin: 0.85rem auto 0;
     padding: 0.8rem 1.1rem;
@@ -2742,21 +2747,10 @@ body.fx-active-cloudy .fx-clouds {
 #weather-fx {
       display: none !important;
     }}
-/* 🌌 sky & space skytracking box */
-.sky-box {
-    position: relative;
-    width: 100%;
-    height: 220px;
-    background: linear-gradient(to bottom, #05070d, #0d1b2e 55%, #1b3358 100%);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 1rem;
-  }
-.sky-body {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    transition: left 1s linear, top 1s linear, opacity 0.5s ease;
-  }
+/* .sky-body-frame / .sun-body-img / .moon-body-img are still used by the
+   day-night-overlay transition (index.html) even though the Skytracker
+   card that used to share them was simplified away -- don't remove
+   these on the assumption they're sky-card-only. */
 .sky-body-frame {
     width: 72px;
     height: 72px;
@@ -2775,31 +2769,6 @@ body.fx-active-cloudy .fx-clouds {
     height: 100%;
     object-fit: cover;
     transform: scale(1.8);
-  }
-.moon-body-newmoon {
-    width: 100%;
-    height: 100%;
-    background: #141414;
-  }
-.horizon-line {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 20%;
-    border-top: 1px dashed rgba(255, 255, 255, 0.3);
-  }
-/* sky & space card details */
-.sunmoon-details {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--muted-color);
-    text-align: left;
-    font-family: var(--font-body);
-  }
-.sunmoon-details strong {
-    color: var(--accent-color);
   }
 .sky-badges {
     display: flex;
@@ -3478,9 +3447,6 @@ h1 .weather-icon-img,
     border-radius: 10px;
     background: var(--card-color);
   }
-@media (max-width: 850px) {.camera-mobile-timelapse-btn {
-      display: block;
-    }}
 /* desktop information guidelines */
 @media (min-width: 1100px) {.forecast-periods {
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -3975,12 +3941,9 @@ h1 .weather-icon-img,
       width: 100%;
       margin: 0 !important;
       padding: 0.85rem !important;
-      min-height: 300px !important;
       border-radius: 13px;
     }
 .desktop-right-rail .sky-card h2 { margin-bottom: 0.45rem; font-size: clamp(0.78rem, 0.9vw, 0.98rem); }
-.desktop-right-rail .sky-card .sky-box { min-height: 190px; height: clamp(190px, 15vw, 235px); }
-.desktop-right-rail .sky-card .sunmoon-details { margin-top: 0.55rem; font-size: 0.7rem; }
 .desktop-right-rail .sky-card .sky-badges { margin-top: 0.45rem; gap: 0.5rem; font-size: 0.67rem; }
 /* .dashboard-grid collapses to display:contents on desktop, so Camera,
    Storm Center, and Skytracker (immediately above) all lay out as direct
@@ -4083,7 +4046,6 @@ h1 .weather-icon-img,
 .desktop-left-rail .forecast-period .period-short { font-size: clamp(0.62rem, 0.62vw, 0.82rem); }
 .desktop-left-rail .forecast-period .period-wind { font-size: clamp(0.55rem, 0.55vw, 0.74rem); }
 .desktop-right-rail .sky-card h2 { font-size: clamp(0.78rem, 0.9vw, 1.2rem); }
-.desktop-right-rail .sky-card .sunmoon-details { font-size: clamp(0.7rem, 0.72vw, 0.92rem); }
 .desktop-right-rail .sky-card .sky-badges { font-size: clamp(0.67rem, 0.7vw, 0.88rem); }}
 @media (min-width: 851px) and (max-width: 1120px) {.desktop-dashboard-layout { grid-template-columns: minmax(0, 1.18fr) minmax(390px, 0.95fr) !important; }}
 @media (max-width: 850px) {#grid.grid {
