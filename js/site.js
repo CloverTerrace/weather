@@ -2049,8 +2049,7 @@
     }
   }
 
-  // ---------- sky watch (stargazing/aurora badges) ----------
-  // lat/lon still used by updateStarBoost()'s day/night check below.
+  // ---------- sun & moon tracker ----------
   const SUNMOON_LAT = 40.604;
   const SUNMOON_LON = -80.286;
 
@@ -2137,12 +2136,7 @@
     document.body.classList.toggle('fx-stars-boost', isNight && clearAndGood && !auroraActive);
   }
 
-  // Skytracker card now only shows the stargazing/aurora badges (the
-  // full sun/moon position tracker + rise/set details moved to the
-  // Space page) -- updateSkyBadges() is fully self-contained (computes
-  // moon illumination and night-check itself via SunCalc), so this is
-  // just a periodic refresh for it.
-  function initSkyWatch() {
+  function initSkyBadges() {
     updateSkyBadges();
     setInterval(updateSkyBadges, 60 * 1000);
   }
@@ -3316,7 +3310,12 @@ function updateStormCenterVisibility(activeWatches) {
   const stormCenter = document.querySelector('.outlook-card');
   if (!stormCenter) return;
 
-  stormCenter.hidden = !Array.isArray(activeWatches) || activeWatches.length === 0;
+  const isHidden = !Array.isArray(activeWatches) || activeWatches.length === 0;
+  stormCenter.hidden = isHidden;
+  // lets the desktop bento grid give Sky Conditions the freed-up space
+  // instead of leaving an empty cell where Storm Center would have been --
+  // see .desktop-dashboard-layout.storm-hidden in site.css.
+  document.querySelector('.desktop-dashboard-layout')?.classList.toggle('storm-hidden', isHidden);
 }
 
 function renderNwsProducts() {
@@ -3843,7 +3842,7 @@ function toggleMobileTimelapse() {
   initWeatherFx();
   populateThemePreviewRow();
   initThemeEasterEgg();
-  initSkyWatch();
+  initSkyBadges();
   initForecastCardFlip();
   initMapTabs();
   initRadarMap();
