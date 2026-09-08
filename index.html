@@ -212,18 +212,15 @@
     
   <div class="camera-card sky-card">
     <h2>Skytracker</h2>
-    <div class="sky-box" id="sky-box">
-      <div class="sky-body" id="sun-body">
-        <div class="sky-body-frame">
-          <img class="sun-body-img" src="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_512_HMII.jpg" alt="Current sun" onerror="this.replaceWith(document.createTextNode('☀️'));">
-        </div>
-      </div>
-      <div class="sky-body" id="moon-body"></div>
-      <div class="horizon-line"></div>
-    </div>
-    <div class="sunmoon-details" id="sunmoon-details"></div>
     <div class="sky-badges" id="sky-badges"></div>
- </div>    
+    <div class="storm-center-atm-link">
+      <a href="space.html">
+        <span class="card-icon"><img src="icons/star.svg" alt=""></span>
+        See the live sky map, moon phase, and more on the Space page
+        <span class="storm-center-atm-arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>    
 
   <div class="camera-card outlook-card">
     <div class="outlook-card-header">
@@ -234,9 +231,11 @@
       </div>
     </div>
 
-    <!-- always shown now that SPC Outlooks moved to atmosphere.html -- each
-         tab has its own "No active ___" empty state below, so there's no
-         more empty-chrome case to hide. -->
+    <!-- This card is always in the DOM, but hidden/shown at runtime by
+         updateStormCenterVisibility() in site.js -- it only appears when
+         there's at least one active local watch/warning. That JS-driven
+         hide is the current intentional behavior (this has flip-flopped
+         before, hence needing this note). -->
     <div class="storm-top" id="storm-top">
       <div class="nws-tabs" id="nws-tabs" role="tablist" aria-label="Storm alerts and discussions">
         <button class="nws-tab active" type="button" role="tab" aria-selected="true" aria-controls="nws-panel-watches" data-target="nws-panel-watches">
