@@ -1,6 +1,51 @@
 {
-  "generatedAt": "2026-09-08T18:35:54.217015Z",
+  "generatedAt": "2026-09-08T18:41:05.715984Z",
   "watches": [],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "d371d9fb-7d70-4679-8edb-60c631da2a76",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-09-08T18:40:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Update to Key Messages.",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Update to Key Messages.",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 240 PM EDT Tue Sep 8 2026 .WHAT HAS CHANGED... Update to Key Messages. && .KEY MESSAGES..."
+        }
+      ],
+      "url": "https://api.weather.gov/products/d371d9fb-7d70-4679-8edb-60c631da2a76"
+    },
+    {
+      "id": "490fe645-8c4d-46a6-80ad-3f8cedfd00df",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-09-08T18:40:00+00:00",
+      "expires": null,
+      "location": "Western Tucker-Eastern Tucker",
+      "hazard": "This afternoon and tonight. Hazardous weather is not expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "This afternoon and tonight. Hazardous weather is not expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "This afternoon and tonight. Hazardous weather is not expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Wednesday through Monday. There is a low probability for thunderstorms late Wednesday evening into very early Thursday morning to maintain a gusty to locally damaging wind threat. Additionally, a threat for repeated rounds of heavier rain through this period could result in localized flash flooding. If confidence in a more widespread threat develops, a Flood Watch may be needed."
+        }
+      ],
+      "url": "https://api.weather.gov/products/490fe645-8c4d-46a6-80ad-3f8cedfd00df"
+    }
+  ]
 }
