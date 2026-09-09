@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T23:10:42.308896Z",
+  "generatedAt": "2026-09-09T23:15:44.959924Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a012a99de5e955160dc07c2ef13ade7f55fe19fc.002.1",
@@ -27,6 +27,46 @@
   "mesoscaleDiscussions": [],
   "statements": [
     {
+      "id": "b11a1d0f-8809-40a6-9823-9e99e6c0f885",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-09T23:13:00+00:00",
+      "expires": null,
+      "location": "Carroll OH-Columbiana OH-Jefferson OH",
+      "hazard": "OHC019-029-081-092323- /O.CAN.KPBZ.SV.W.0361.000000T0000Z-260909T2330Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC019-029-081-092323- /O.CAN.KPBZ.SV.W.0361.000000T0000Z-260909T2330Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 713 PM EDT Wed Sep 9 2026 OHC019-029-081-092323- /O.CAN.KPBZ.SV.W.0361.000000T0000Z-260909T2330Z/ Carroll OH-Columbiana OH-Jefferson OH- 713 PM EDT Wed Sep 9 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/b11a1d0f-8809-40a6-9823-9e99e6c0f885"
+    },
+    {
+      "id": "d81b0453-cd1b-4dd3-9b41-be6dae47b2a1",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-09T23:06:00+00:00",
+      "expires": null,
+      "location": "Carroll OH-Columbiana OH-Jefferson OH",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Columbiana, Wellsville, Carrollton, Calcutta, Lisbon, New Waterford, Salineville,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Columbiana, Wellsville, Carrollton, Calcutta, Lisbon, New Waterford, Salineville, Bergholz, Amsterdam, Irondale, Dellroy, Rogers, Summitville, Mechanicstown, Hammondsville, Harlem Springs, Kilgore, Glenmoor, La Croft and Beaver Creek State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Columbiana, Wellsville, Carrollton, Calcutta, Lisbon, New Waterford, Salineville, Bergholz, Amsterdam, Irondale, Dellroy, Rogers, Summitville, Mechanicstown, Hammondsville, Harlem Springs, Kilgore, Glenmoor, La Croft and Beaver Creek State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/d81b0453-cd1b-4dd3-9b41-be6dae47b2a1"
+    },
+    {
       "id": "e91f8258-0e59-41b9-b2cc-6321918b29cf",
       "code": "SVS",
       "type": "Severe Weather Statement",
@@ -45,26 +85,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/e91f8258-0e59-41b9-b2cc-6321918b29cf"
-    },
-    {
-      "id": "d972ea58-41ea-4f58-8456-76a337d51d0c",
-      "code": "SVS",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-09T22:42:00+00:00",
-      "expires": null,
-      "location": "Carroll OH-Columbiana OH",
-      "hazard": "OHC019-029-092252- /O.EXP.KPBZ.SV.W.0360.000000T0000Z-260909T2245Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC019-029-092252- /O.EXP.KPBZ.SV.W.0360.000000T0000Z-260909T2245Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 642 PM EDT Wed Sep 9 2026 OHC019-029-092252- /O.EXP.KPBZ.SV.W.0360.000000T0000Z-260909T2245Z/ Carroll OH-Columbiana OH- 642 PM EDT Wed Sep 9 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/d972ea58-41ea-4f58-8456-76a337d51d0c"
     }
   ]
 }
