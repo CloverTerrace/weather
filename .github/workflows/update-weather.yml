@@ -52,6 +52,10 @@ jobs:
           PURPLEAIR_API_KEY: ${{ secrets.PURPLEAIR_API_KEY }}
         run: python scripts/fetch_air_quality.py
 
+      - name: Fetch NWS Weather Story
+        continue-on-error: true
+        run: python scripts/fetch_weather_story.py
+  
       - name: Fetch current SPC outlook
         continue-on-error: true
         run: python scripts/fetch_outlook.py
