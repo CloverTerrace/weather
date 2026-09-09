@@ -3331,9 +3331,9 @@ function updateStormCenterVisibility(activeWatches) {
 
   const isHidden = !Array.isArray(activeWatches) || activeWatches.length === 0;
   stormCenter.hidden = isHidden;
-  // lets the desktop bento grid give Forecast the freed-up space instead
-  // of leaving an empty cell where Storm Center would have been --
-  // see .desktop-dashboard-layout.storm-hidden in site.css.
+  // Forecast stays fixed under Camera+Sky either way, so this class no
+  // longer changes the grid layout -- kept in case the empty storm cell
+  // ever wants its own styling (e.g. a placeholder or dimmed background).
   document.querySelector('.desktop-dashboard-layout')?.classList.toggle('storm-hidden', isHidden);
 }
 
