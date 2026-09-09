@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T23:35:42.530321Z",
+  "generatedAt": "2026-09-09T23:40:44.909645Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a012a99de5e955160dc07c2ef13ade7f55fe19fc.002.1",
@@ -26,6 +26,46 @@
   ],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "6dfa055a-3ebd-444b-b05d-0e7960877558",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-09T23:40:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Beaver PA-Washington PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Ross Township, McCandless Township, Moon Township, Franklin Park, Aliquippa, Robinson",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Ross Township, McCandless Township, Moon Township, Franklin Park, Aliquippa, Robinson Township, Economy, Bellevue, Kennedy Township, Ambridge, Wexford, West View, Stowe Township, McKees Rocks, Crafton, Coraopolis, Avalon and Baden.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Ross Township, McCandless Township, Moon Township, Franklin Park, Aliquippa, Robinson Township, Economy, Bellevue, Kennedy Township, Ambridge, Wexford, West View, Stowe Township, McKees Rocks, Crafton, Coraopolis, Avalon and Baden."
+        }
+      ],
+      "url": "https://api.weather.gov/products/6dfa055a-3ebd-444b-b05d-0e7960877558"
+    },
+    {
+      "id": "e9d0b58f-191d-4078-8ac8-a279a232700e",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-09T23:38:00+00:00",
+      "expires": null,
+      "location": "Beaver PA",
+      "hazard": "PAC007-092348- /O.CAN.KPBZ.TO.W.0060.000000T0000Z-260910T0000Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC007-092348- /O.CAN.KPBZ.TO.W.0060.000000T0000Z-260910T0000Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 738 PM EDT Wed Sep 9 2026 PAC007-092348- /O.CAN.KPBZ.TO.W.0060.000000T0000Z-260910T0000Z/ Beaver PA- 738 PM EDT Wed Sep 9 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/e9d0b58f-191d-4078-8ac8-a279a232700e"
+    },
     {
       "id": "f89271d8-6fcb-493e-83a2-29bb8c867438",
       "code": "AFD",
@@ -105,26 +145,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/65f3c175-500f-43f4-aec8-2a22a6aa3efc"
-    },
-    {
-      "id": "b11a1d0f-8809-40a6-9823-9e99e6c0f885",
-      "code": "SVS",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-09T23:13:00+00:00",
-      "expires": null,
-      "location": "Carroll OH-Columbiana OH-Jefferson OH",
-      "hazard": "OHC019-029-081-092323- /O.CAN.KPBZ.SV.W.0361.000000T0000Z-260909T2330Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "OHC019-029-081-092323- /O.CAN.KPBZ.SV.W.0361.000000T0000Z-260909T2330Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 713 PM EDT Wed Sep 9 2026 OHC019-029-081-092323- /O.CAN.KPBZ.SV.W.0361.000000T0000Z-260909T2330Z/ Carroll OH-Columbiana OH-Jefferson OH- 713 PM EDT Wed Sep 9 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/b11a1d0f-8809-40a6-9823-9e99e6c0f885"
     }
   ]
 }
