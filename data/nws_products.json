@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T20:45:45.186745Z",
+  "generatedAt": "2026-09-09T20:50:51.602075Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.088648617bd5c12c28df55d82f3a7ff4ee0bba5a.001.1",
@@ -24,6 +24,52 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [],
+  "mesoscaleDiscussions": [
+    {
+      "id": "MD2274",
+      "number": 2274,
+      "issued": "2026-09-09T20:42:00Z",
+      "expires": "2026-09-09T22:15:00Z",
+      "concerning": "Severe Thunderstorm Watch 665",
+      "hazard": "Severe Thunderstorm Watch 665",
+      "areas": "portions of northern Ohio into northwestern Pennsylvania and far western New York",
+      "location": "portions of northern Ohio into northwestern Pennsylvania and far western New York",
+      "distanceMiles": 0.0,
+      "summary": "A few damaging gusts may accompany the stronger storms over the next few hours. A brief tornado cannot be ruled out",
+      "watchProbability": null,
+      "forecaster": "Squitieri",
+      "attnWfos": [
+        "BGM",
+        "BUF",
+        "CTP",
+        "PBZ",
+        "CLE"
+      ],
+      "details": [
+        {
+          "label": "Summary",
+          "text": "A few damaging gusts may accompany the stronger storms over the next few hours. A brief tornado cannot be ruled out"
+        },
+        {
+          "label": "Discussion",
+          "text": "Multicells, transient supercells, and short line segments have become established along/ahead of a surface trough. These storms are overspreading a boundary layer characterized by 80s/70s F surface temperatures/dewpoints, where 1000-1500 J/kg MLCAPE is in place, along with 30-40 kts of effective bulk shear. The current thinking is that these storms will maintain their intensity and continue to pose a risk for a few damaging gusts. A brief tornado also cannot be ruled out, especially for any storms that anchor on the baroclinic boundary, roughly established along the OH/PA/NY border area"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...55-70 MPH"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Squitieri"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...BGM...BUF...CTP...PBZ...CLE"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2274.html",
+      "office": "SPC"
+    }
+  ],
   "statements": []
 }
