@@ -1248,7 +1248,12 @@ h1 {
 /* compact status strip: three related information sources, one visual group. */
 .nws-tabs {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* was repeat(3, ...) from when this card had a 3rd "Mesoscale
+       Discussions" tab; that tab moved to the Atmosphere page (see
+       index.html) but this was never updated, so it was reserving an
+       empty 3rd column -- Watches/NWS Updates only ever filled 2/3 of
+       the row, leaving a dead gap on both mobile and desktop. */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 6px;
     margin-bottom: 0.9rem;
   }
@@ -1565,7 +1570,7 @@ h1 {
     box-shadow: 0 0 7px var(--accent-color);
     opacity: 0.8;
   }
-@media (max-width: 520px) {.nws-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+@media (max-width: 520px) {.nws-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
 .nws-tab { min-height: 43px; padding: 6px 4px; font-size: 0.61rem; gap: 3px; }
 .nws-tab .card-icon { display: none; }
 .nws-tab .nws-tab-count { min-width: 18px; padding: 1px 4px; font-size: 0.57rem; }
@@ -3541,6 +3546,17 @@ h1 .weather-icon-img,
   }
 .nws-item-title {
     font-size: clamp(0.88rem, 1.05vw, 0.98rem);
+  }
+/* Storm Center now spans the full 2-column desktop grid, so without a
+   measure cap this paragraph-style text stretches edge-to-edge into
+   ~170-character lines -- reads like a mobile card just blown up wide
+   rather than a page designed for that width. Capping it keeps lines
+   readable and leaves the leftover width as intentional right margin.
+   No effect on mobile, since the card is already narrower than 70ch. */
+.nws-headline-value,
+.nws-location-text,
+.nws-detail-text {
+    max-width: 70ch;
   }
 .nws-headline-value {
     font-size: clamp(0.85rem, 0.95vw, 0.94rem);
