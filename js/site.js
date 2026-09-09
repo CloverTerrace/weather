@@ -2126,6 +2126,7 @@
     }
     container.innerHTML = badgesHtml;
     updateStarBoost(stars.label);
+    updateSkyConnector();
   }
 
   function updateStarBoost(stargazingLabel) {
@@ -2134,6 +2135,24 @@
     const auroraActive = !!(currentAurora && currentAurora.kp >= AURORA_KP_THRESHOLD);
     const clearAndGood = stargazingLabel === 'Excellent' || stargazingLabel === 'Good';
     document.body.classList.toggle('fx-stars-boost', isNight && clearAndGood && !auroraActive);
+  }
+
+  // shown only when the aurora is strong enough that the station camera
+  // might actually catch it in frame -- reuses the same currentAurora.kp /
+  // AURORA_KP_THRESHOLD check already used for the starfield boost above.
+  // this is the one moment the photo and the conditions strip below it
+  // are allowed to relate directly, because it's the one moment that's true.
+  function updateSkyConnector() {
+    const connector = document.getElementById('sky-connector');
+    if (!connector) return;
+    const auroraActive = !!(currentAurora && currentAurora.kp >= AURORA_KP_THRESHOLD);
+    if (auroraActive) {
+      connector.textContent = `Kp ${currentAurora.kp} — this may be visible in the feed above.`;
+      connector.hidden = false;
+    } else {
+      connector.hidden = true;
+      connector.textContent = '';
+    }
   }
 
   function initSkyBadges() {
@@ -3312,8 +3331,8 @@ function updateStormCenterVisibility(activeWatches) {
 
   const isHidden = !Array.isArray(activeWatches) || activeWatches.length === 0;
   stormCenter.hidden = isHidden;
-  // lets the desktop bento grid give Sky Conditions the freed-up space
-  // instead of leaving an empty cell where Storm Center would have been --
+  // lets the desktop bento grid give Forecast the freed-up space instead
+  // of leaving an empty cell where Storm Center would have been --
   // see .desktop-dashboard-layout.storm-hidden in site.css.
   document.querySelector('.desktop-dashboard-layout')?.classList.toggle('storm-hidden', isHidden);
 }
@@ -3649,18 +3668,19 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
 
   // desktop-only composition ("what goes where" pass):
   //  left rail  = conditions & outlook: hero+strip, Forecast, Radar/map
-  //  right rail = sky & visual: Camera, Storm Center (when active), Skytracker
+  //  right rail = sky & visual: Camera+Sky (live feed + tonight's viewing
+  //    conditions, merged into one card), Storm Center (when active)
   //  Historical Data spans the full width below both rails, rather than
   //  competing for space inside either column -- it's easily the tallest
   //  card and its chart wants the extra width anyway.
-  // Skytracker itself never needs to move: .dashboard-grid already
+  // Camera+Sky and Storm Center never need to move: .dashboard-grid already
   // collapses to display:contents on desktop (see .desktop-right-rail
-  // .dashboard-grid), so its children -- Camera, Skytracker, Storm Center --
-  // already lay out as direct flex items of the right rail; a plain CSS
-  // `order` on .sky-card places it after Storm Center. Radar and Historical
-  // Data live in the separate .web-tools-grid section outside either rail,
-  // so those two still need an actual DOM move on desktop, reverted below
-  // 851px so mobile/tablet is untouched.
+  // .dashboard-grid), so its children lay out as direct items of the bento
+  // grid, each with its own explicit grid-area (see the BENTO GRID section
+  // in site.css). Radar and Historical Data live in the separate
+  // .web-tools-grid section outside either rail, so those two still need
+  // an actual DOM move on desktop, reverted below 851px so mobile/tablet
+  // is untouched.
   (function initDesktopComposition() {
     const dashboardLayout = document.querySelector('.desktop-dashboard-layout');
     const leftRail = document.querySelector('.desktop-left-rail');
