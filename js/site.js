@@ -3669,15 +3669,16 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
   // desktop-only composition ("what goes where" pass):
   //  left rail  = conditions & outlook: hero+strip, Forecast, Radar/map
   //  right rail = sky & visual: Camera+Sky (live feed + tonight's viewing
-  //    conditions, merged into one card), Storm Center (when active)
-  //  Historical Data spans the full width below both rails, rather than
-  //  competing for space inside either column -- it's easily the tallest
-  //  card and its chart wants the extra width anyway.
+  //    conditions, merged into one card), Storm Center
+  //  Storm Center and Historical Data both span the full width below the
+  //  rails (Storm Center directly above Radar, via `order` in the BENTO
+  //  GRID section of site.css) rather than competing for space inside
+  //  either column.
   // Camera+Sky and Storm Center never need to move: .dashboard-grid already
   // collapses to display:contents on desktop (see .desktop-right-rail
   // .dashboard-grid), so its children lay out as direct items of the bento
-  // grid, each with its own explicit grid-area (see the BENTO GRID section
-  // in site.css). Radar and Historical Data live in the separate
+  // grid, each placed per the BENTO GRID section in site.css. Radar and
+  // Historical Data live in the separate
   // .web-tools-grid section outside either rail, so those two still need
   // an actual DOM move on desktop, reverted below 851px so mobile/tablet
   // is untouched.
