@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-09-09T22:15:45.052660Z",
+  "generatedAt": "2026-09-09T22:20:47.722405Z",
   "watches": [
     {
-      "id": "urn:oid:2.49.0.1.840.0.088648617bd5c12c28df55d82f3a7ff4ee0bba5a.001.1",
+      "id": "urn:oid:2.49.0.1.840.0.a012a99de5e955160dc07c2ef13ade7f55fe19fc.002.1",
       "type": "Severe Thunderstorm Watch",
       "number": null,
-      "issued": "2026-09-09T14:51:00-04:00",
+      "issued": "2026-09-09T18:15:00-04:00",
       "expires": "2026-09-09T23:00:00-04:00",
       "location": "Carroll, OH; Columbiana, OH; Coshocton, OH; Harrison, OH; Jefferson, OH; Tuscarawas, OH; Armstrong, PA; Beaver, PA; Butler, PA; Clarion, PA; Forest, PA; Jefferson, PA; Lawrence, PA; Mercer, PA; Venango, PA; Hancock, WV",
       "distanceMiles": null,
-      "summary": "Severe Thunderstorm Watch issued September 9 at 2:51PM EDT until September 9 at 11:00PM EDT by NWS Pittsburgh PA",
+      "summary": "Severe Thunderstorm Watch issued September 9 at 6:15PM EDT until September 9 at 11:00PM EDT by NWS Pittsburgh PA",
       "details": [
         {
           "label": "Areas",
@@ -17,13 +17,58 @@
         },
         {
           "label": "Alert detail",
-          "text": "665 IN EFFECT UNTIL 11 PM EDT THIS EVENING FOR THE FOLLOWING\nAREAS\n\nIN OHIO THIS WATCH INCLUDES 6 COUNTIES\n\nIN EAST CENTRAL OHIO\n\nCARROLL               COLUMBIANA            COSHOCTON\nHARRISON              JEFFERSON OH          TUSCARAWAS\n\nIN PENNSYLVANIA THIS WATCH INCLUDES 9 COUNTIES\n\nIN NORTHWEST PENNSYLVANIA\n\nFOREST                MERCER                VENANGO\n\nIN WEST CENTRAL PENNSYLVANIA\n\nARMSTRONG             BUTLER                CLARION\nJEFFERSON PA\n\nIN WESTERN PENNSYLVANIA\n\nBEAVER                LAWRENCE\n\nIN WEST VIRGINIA THIS WATCH INCLUDES 1 COUNTY\n\nIN THE NORTHERN PANHANDLE OF WEST VIRGINIA\n\nHANCOCK\n\nTHIS INCLUDES THE CITIES OF ALIQUIPPA, AMBRIDGE, BEAVER FALLS,\nBROOKVILLE, BUTLER, CADIZ, CARROLLTON, CLARION, COLUMBIANA,\nCOSHOCTON, DOVER, EAST LIVERPOOL, ELLWOOD CITY, FORD CITY,\nFRANKLIN, GROVE CITY, HERMITAGE, KITTANNING, MONACA, NEW CASTLE,\nNEW PHILADELPHIA, OIL CITY, PUNXSUTAWNEY, SALEM, SHARON,\nSTEUBENVILLE, TIONESTA, AND WEIRTON."
+          "text": "SEVERE THUNDERSTORM WATCH 665 REMAINS VALID UNTIL 11 PM EDT THIS\nEVENING FOR THE FOLLOWING AREAS\n\nIN OHIO THIS WATCH INCLUDES 6 COUNTIES\n\nIN EAST CENTRAL OHIO\n\nCARROLL               COLUMBIANA            COSHOCTON\nHARRISON              JEFFERSON OH          TUSCARAWAS\n\nIN PENNSYLVANIA THIS WATCH INCLUDES 9 COUNTIES\n\nIN NORTHWEST PENNSYLVANIA\n\nFOREST                MERCER                VENANGO\n\nIN WEST CENTRAL PENNSYLVANIA\n\nARMSTRONG             BUTLER                CLARION\nJEFFERSON PA\n\nIN WESTERN PENNSYLVANIA\n\nBEAVER                LAWRENCE\n\nIN WEST VIRGINIA THIS WATCH INCLUDES 1 COUNTY\n\nIN THE NORTHERN PANHANDLE OF WEST VIRGINIA\n\nHANCOCK\n\nTHIS INCLUDES THE CITIES OF ALIQUIPPA, AMBRIDGE, BEAVER FALLS,\nBROOKVILLE, BUTLER, CADIZ, CARROLLTON, CLARION, COLUMBIANA,\nCOSHOCTON, DOVER, EAST LIVERPOOL, ELLWOOD CITY, FORD CITY,\nFRANKLIN, GROVE CITY, HERMITAGE, KITTANNING, MONACA, NEW CASTLE,\nNEW PHILADELPHIA, OIL CITY, PUNXSUTAWNEY, SALEM, SHARON,\nSTEUBENVILLE, TIONESTA, AND WEIRTON."
         }
       ],
-      "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.088648617bd5c12c28df55d82f3a7ff4ee0bba5a.001.1",
+      "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a012a99de5e955160dc07c2ef13ade7f55fe19fc.002.1",
       "office": "NWS Pittsburgh PA"
     }
   ],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "4ca80b99-f802-45bd-9cf9-3309684f0de8",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-09-09T22:17:00+00:00",
+      "expires": null,
+      "location": "Tuscarawas-Carroll-Columbiana-Coshocton-Harrison-Jefferson OH-Mercer-Venango-Forest-Lawrence-Butler-Clarion-Jefferson PA-Beaver-Allegheny-Armstrong-Washington-Westmoreland-Higher Elevations of Westmor",
+      "hazard": "Tonight. No hazardous weather is expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Thursday through Tuesday. No hazardous weather is expected at this time."
+        }
+      ],
+      "url": "https://api.weather.gov/products/4ca80b99-f802-45bd-9cf9-3309684f0de8"
+    },
+    {
+      "id": "b5d566df-e275-4600-8dac-f9ca50598679",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-09T22:17:00+00:00",
+      "expires": null,
+      "location": "Carroll OH-Columbiana OH",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Salem, Lisbon, Augusta, Malvern, Hanoverton, East Rochester, North Georgetown, New",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Salem, Lisbon, Augusta, Malvern, Hanoverton, East Rochester, North Georgetown, New Garden, Homeworth, Winona and Guilford Lake State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Salem, Lisbon, Augusta, Malvern, Hanoverton, East Rochester, North Georgetown, New Garden, Homeworth, Winona and Guilford Lake State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/b5d566df-e275-4600-8dac-f9ca50598679"
+    }
+  ]
 }
