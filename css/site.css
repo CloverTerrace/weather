@@ -3963,9 +3963,10 @@ body {
    initDesktopComposition() already, so it's a direct
    item without any extra flattening.
 
-   Hero+Camera and Forecast get named grid-areas (rows 1-3
-   below); Storm Center, Radar, and Historical Data are all
-   full-width rows placed by `order` instead, in that order,
+   Hero, Camera, and Forecast get named grid-areas, with Forecast
+   permanently occupying the same right-side width directly below the
+   Camera. Storm Center, Radar, and Historical Data are the only
+   full-width rows, placed by `order` instead, in that order,
    so Storm Center always lands directly above Radar. Storm
    Center hides entirely whenever there are no active
    watches/statements (see updateStormCenterVisibility() in
@@ -3978,8 +3979,7 @@ body {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     grid-template-areas:
       "hero hero camera camera"
-      "hero hero camera camera"
-      "forecast forecast forecast forecast" !important;
+      "hero hero forecast forecast" !important;
     gap: clamp(1rem, 1.5vw, 1.5rem) !important;
     align-items: stretch !important;
   }
@@ -4010,10 +4010,10 @@ body {
   }
 
   /* Storm Center, Radar, and Historical Data are auto-placed (no
-     grid-area of their own) into whatever rows come after the named
-     areas above -- explicit order keeps Storm Center first (so it
-     sits directly above Radar), then Radar, then Historical Data,
-     each spanning the full width. */
+     grid-area of their own) into rows after the Hero/Camera/Forecast
+     bento. Explicit order keeps Storm Center first (so it sits directly
+     above Radar), then Radar, then Historical Data; these are the only
+     cards that span the full desktop width. */
   .desktop-dashboard-layout .outlook-card {
     grid-column: 1 / -1 !important;
     order: 5 !important;
