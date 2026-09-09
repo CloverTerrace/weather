@@ -203,21 +203,36 @@
     <div class="desktop-right-rail">
       <div class="dashboard-grid">
 
-  <div class="camera-card camera-photo-card">
-    <h2>Camera</h2>
-    <img id="camera-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
-    <video id="camera-mobile-timelapse-video" class="camera-mobile-timelapse-video" controls playsinline preload="metadata" aria-label="Yesterday's station camera time lapse"></video>
-    <button id="camera-mobile-timelapse-btn" class="camera-mobile-timelapse-btn" type="button">Yesterday's Time Lapse</button>
-  </div>
-    
-  <a class="camera-card sky-card" href="space.html" aria-label="Sky Conditions — view live sky tracking and moon phase on the Space page">
-    <h2>Sky Conditions</h2>
-    <div class="sky-badges" id="sky-badges"></div>
-    <div class="sky-card-hint">
-      View live sky tracking &amp; moon phase on the Space page
-      <span class="storm-center-atm-arrow">&rarr;</span>
+  <div class="camera-card camera-photo-card sky-photo-card">
+    <div class="sky-photo-header">
+      <h2>Sky</h2>
+      <span class="sky-live-dot" aria-hidden="true"></span>
+      <span class="sky-live-label">Live</span>
     </div>
-  </a>
+
+    <div class="sky-photo-frame">
+      <img id="camera-img" src="https://clover-wx-camera-1028879236258.us-central1.run.app/camera/latest.jpg" alt="Latest snapshot from the weather station camera">
+    </div>
+
+    <!-- shown only when aurora activity is strong enough that the camera
+         might actually catch it -- see updateSkyConnector() in site.js -->
+    <div class="sky-connector" id="sky-connector" hidden></div>
+
+    <div class="sky-conditions">
+      <span class="sky-conditions-label">Viewing tonight</span>
+      <div class="sky-badges" id="sky-badges"></div>
+    </div>
+
+    <video id="camera-mobile-timelapse-video" class="camera-mobile-timelapse-video" controls playsinline preload="metadata" aria-label="Yesterday's station camera time lapse"></video>
+
+    <div class="sky-photo-actions">
+      <button id="camera-mobile-timelapse-btn" class="camera-mobile-timelapse-btn" type="button">Yesterday's Time Lapse</button>
+      <a class="sky-photo-link" href="space.html">
+        View live sky tracking &amp; moon phase
+        <span class="storm-center-atm-arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
 
   <div class="camera-card outlook-card">
     <div class="outlook-card-header">
