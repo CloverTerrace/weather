@@ -1,6 +1,29 @@
 {
-  "generatedAt": "2026-09-09T18:50:50.124231Z",
-  "watches": [],
+  "generatedAt": "2026-09-09T18:55:51.780818Z",
+  "watches": [
+    {
+      "id": "urn:oid:2.49.0.1.840.0.088648617bd5c12c28df55d82f3a7ff4ee0bba5a.001.1",
+      "type": "Severe Thunderstorm Watch",
+      "number": null,
+      "issued": "2026-09-09T14:51:00-04:00",
+      "expires": "2026-09-09T23:00:00-04:00",
+      "location": "Carroll, OH; Columbiana, OH; Coshocton, OH; Harrison, OH; Jefferson, OH; Tuscarawas, OH; Armstrong, PA; Beaver, PA; Butler, PA; Clarion, PA; Forest, PA; Jefferson, PA; Lawrence, PA; Mercer, PA; Venango, PA; Hancock, WV",
+      "distanceMiles": null,
+      "summary": "Severe Thunderstorm Watch issued September 9 at 2:51PM EDT until September 9 at 11:00PM EDT by NWS Pittsburgh PA",
+      "details": [
+        {
+          "label": "Areas",
+          "text": "Carroll, OH; Columbiana, OH; Coshocton, OH; Harrison, OH; Jefferson, OH; Tuscarawas, OH; Armstrong, PA; Beaver, PA; Butler, PA; Clarion, PA; Forest, PA; Jefferson, PA; Lawrence, PA; Mercer, PA; Venango, PA; Hancock, WV"
+        },
+        {
+          "label": "Alert detail",
+          "text": "665 IN EFFECT UNTIL 11 PM EDT THIS EVENING FOR THE FOLLOWING\nAREAS\n\nIN OHIO THIS WATCH INCLUDES 6 COUNTIES\n\nIN EAST CENTRAL OHIO\n\nCARROLL               COLUMBIANA            COSHOCTON\nHARRISON              JEFFERSON OH          TUSCARAWAS\n\nIN PENNSYLVANIA THIS WATCH INCLUDES 9 COUNTIES\n\nIN NORTHWEST PENNSYLVANIA\n\nFOREST                MERCER                VENANGO\n\nIN WEST CENTRAL PENNSYLVANIA\n\nARMSTRONG             BUTLER                CLARION\nJEFFERSON PA\n\nIN WESTERN PENNSYLVANIA\n\nBEAVER                LAWRENCE\n\nIN WEST VIRGINIA THIS WATCH INCLUDES 1 COUNTY\n\nIN THE NORTHERN PANHANDLE OF WEST VIRGINIA\n\nHANCOCK\n\nTHIS INCLUDES THE CITIES OF ALIQUIPPA, AMBRIDGE, BEAVER FALLS,\nBROOKVILLE, BUTLER, CADIZ, CARROLLTON, CLARION, COLUMBIANA,\nCOSHOCTON, DOVER, EAST LIVERPOOL, ELLWOOD CITY, FORD CITY,\nFRANKLIN, GROVE CITY, HERMITAGE, KITTANNING, MONACA, NEW CASTLE,\nNEW PHILADELPHIA, OIL CITY, PUNXSUTAWNEY, SALEM, SHARON,\nSTEUBENVILLE, TIONESTA, AND WEIRTON."
+        }
+      ],
+      "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.088648617bd5c12c28df55d82f3a7ff4ee0bba5a.001.1",
+      "office": "NWS Pittsburgh PA"
+    }
+  ],
   "mesoscaleDiscussions": [
     {
       "id": "MD2273",
@@ -54,5 +77,30 @@
       "office": "SPC"
     }
   ],
-  "statements": []
+  "statements": [
+    {
+      "id": "148bc2e3-793a-4374-9d4f-4c077ce911b4",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-09-09T18:53:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "This afternoon and tonight. No hazardous weather is expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "This afternoon and tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "This afternoon and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Thursday through Tuesday. No hazardous weather is expected at this time."
+        }
+      ],
+      "url": "https://api.weather.gov/products/148bc2e3-793a-4374-9d4f-4c077ce911b4"
+    }
+  ]
 }
