@@ -1937,8 +1937,7 @@ body.theme-extreme-heat-night #weather-fx::after {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.75rem;
-    margin-top: auto;
-    padding-top: 0.85rem;
+    margin-top: 0.85rem;
   }
 .sky-photo-link {
     display: flex;
@@ -3955,15 +3954,10 @@ body {
     align-items: stretch !important;
   }
   /* Storm Center hides whenever there are no active watches/statements
-     (see updateStormCenterVisibility() in site.js) -- when that happens,
-     it also toggles this class so Forecast can claim the full row
-     instead of leaving an empty cell behind. */
-  .desktop-dashboard-layout.storm-hidden {
-    grid-template-areas:
-      "hero hero camera camera"
-      "hero hero camera camera"
-      "forecast forecast forecast forecast" !important;
-  }
+     (see updateStormCenterVisibility() in site.js). Forecast stays put
+     under Camera+Sky either way -- Radar and Historical Data below are
+     meant to be the only full-width cards, so nothing expands to fill
+     the empty storm cell; it's just left blank. */
 
   .desktop-dashboard-layout #grid.sensor-panel {
     grid-area: hero !important;
@@ -3976,6 +3970,9 @@ body {
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
+    /* content-sized, not stretched to match hero's height -- stretching
+       it was the source of the dead space above the action buttons */
+    align-self: start !important;
   }
   .desktop-dashboard-layout .forecast-card {
     grid-area: forecast !important;
