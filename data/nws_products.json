@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T19:20:50.172995Z",
+  "generatedAt": "2026-09-09T19:25:47.690493Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.088648617bd5c12c28df55d82f3a7ff4ee0bba5a.001.1",
@@ -77,30 +77,5 @@
       "office": "SPC"
     }
   ],
-  "statements": [
-    {
-      "id": "148bc2e3-793a-4374-9d4f-4c077ce911b4",
-      "code": "HWO",
-      "type": "Hazardous Weather Outlook",
-      "office": "KPBZ",
-      "issued": "2026-09-09T18:53:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": "This afternoon and tonight. No hazardous weather is expected at this time.",
-      "distanceMiles": null,
-      "headline": "Hazardous Weather Outlook",
-      "summary": "This afternoon and tonight. No hazardous weather is expected at this time.",
-      "details": [
-        {
-          "label": "Today's Hazards",
-          "text": "This afternoon and tonight. No hazardous weather is expected at this time."
-        },
-        {
-          "label": "Extended Outlook",
-          "text": "Thursday through Tuesday. No hazardous weather is expected at this time."
-        }
-      ],
-      "url": "https://api.weather.gov/products/148bc2e3-793a-4374-9d4f-4c077ce911b4"
-    }
-  ]
+  "statements": []
 }
