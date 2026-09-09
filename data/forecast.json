@@ -9,7 +9,7 @@
       "shortForecast": "Mostly Cloudy",
       "detailedForecast": "Mostly cloudy, with a low around 67. South wind around 5 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 2
+      "probabilityOfPrecipitation": 1
     },
     {
       "name": "Wednesday",
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-08T20:00:00-04:00",
+      "temperature": 75,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "SE",
+      "shortForecast": "Partly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-09-08T21:00:00-04:00",
       "temperature": 73,
@@ -275,16 +285,6 @@
       "shortForecast": "Mostly Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 8
-    },
-    {
-      "startTime": "2026-09-09T20:00:00-04:00",
-      "temperature": 79,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "SW",
-      "shortForecast": "Chance Showers And Thunderstorms",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 25
     }
   ]
 }
