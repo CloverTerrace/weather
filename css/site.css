@@ -1880,17 +1880,21 @@ body.theme-extreme-heat-night #weather-fx::after {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.35; }
   }
+/* the frame is sized by the image's own aspect ratio (no forced height,
+   no object-fit: cover) -- cropping the photo to fill a stretched card
+   was cutting off the sides on narrower cards where the row is tall
+   relative to its width. min-height is just a loading placeholder so
+   the card doesn't collapse to 0 before the image decodes. */
 .sky-photo-frame {
-    flex: 1;
-    min-height: 180px;
+    min-height: 160px;
     border-radius: 8px;
     overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
   }
 .sky-photo-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     display: block;
+    width: 100%;
+    height: auto;
     border-radius: 8px;
     margin: 0;
   }
@@ -1933,7 +1937,8 @@ body.theme-extreme-heat-night #weather-fx::after {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.75rem;
-    margin-top: 0.85rem;
+    margin-top: auto;
+    padding-top: 0.85rem;
   }
 .sky-photo-link {
     display: flex;
