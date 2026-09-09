@@ -3477,6 +3477,27 @@ h1 .weather-icon-img,
     font-size: 0.64rem;
   }
 
+/* the "right now" situation-desk graphic -- full-bleed within the card's
+   padding, capped so it can't dominate the card on very wide desktop
+   rows now that Storm Center spans the full grid width. */
+.storm-desk-story {
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+    line-height: 0;
+  }
+.storm-desk-story img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: min(46vw, 480px);
+    object-fit: contain;
+    margin: 0 auto;
+  }
+.storm-desk-story[hidden] { display: none; }
+
 .storm-center-atm-link {
     margin-top: 1rem;
     padding-top: 0.9rem;
@@ -3941,6 +3962,15 @@ body {
    appended straight onto .desktop-dashboard-layout by
    initDesktopComposition() already, so it's a direct
    item without any extra flattening.
+
+   Hero+Camera and Forecast get named grid-areas (rows 1-3
+   below); Storm Center, Radar, and Historical Data are all
+   full-width rows placed by `order` instead, in that order,
+   so Storm Center always lands directly above Radar. Storm
+   Center hides entirely whenever there are no active
+   watches/statements (see updateStormCenterVisibility() in
+   site.js) -- as its own row rather than sharing one with
+   Forecast, hiding it just collapses that row cleanly.
    ================================================ */
 @media (min-width: 851px) {
   .desktop-dashboard-layout {
@@ -3949,15 +3979,10 @@ body {
     grid-template-areas:
       "hero hero camera camera"
       "hero hero camera camera"
-      "storm storm forecast forecast" !important;
+      "forecast forecast forecast forecast" !important;
     gap: clamp(1rem, 1.5vw, 1.5rem) !important;
     align-items: stretch !important;
   }
-  /* Storm Center hides whenever there are no active watches/statements
-     (see updateStormCenterVisibility() in site.js). Forecast stays put
-     under Camera+Sky either way -- Radar and Historical Data below are
-     meant to be the only full-width cards, so nothing expands to fill
-     the empty storm cell; it's just left blank. */
 
   .desktop-dashboard-layout #grid.sensor-panel {
     grid-area: hero !important;
@@ -3980,20 +4005,22 @@ body {
     max-width: none !important;
     margin: 0 !important;
   }
-  .desktop-dashboard-layout .outlook-card {
-    grid-area: storm !important;
-    width: 100% !important;
-    max-width: none !important;
-    margin: 0 !important;
-  }
   .desktop-dashboard-layout .forecast-periods {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   }
 
-  /* Radar and Historical Data are auto-placed (no grid-area of their
-     own) into whatever rows come after the four above -- explicit
-     order keeps Radar first and both spanning the full width, matching
-     how they've always displayed. */
+  /* Storm Center, Radar, and Historical Data are auto-placed (no
+     grid-area of their own) into whatever rows come after the named
+     areas above -- explicit order keeps Storm Center first (so it
+     sits directly above Radar), then Radar, then Historical Data,
+     each spanning the full width. */
+  .desktop-dashboard-layout .outlook-card {
+    grid-column: 1 / -1 !important;
+    order: 5 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
   .desktop-dashboard-layout .desktop-radar-card {
     grid-column: 1 / -1 !important;
     order: 10 !important;
