@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T22:45:41.752279Z",
+  "generatedAt": "2026-09-09T22:50:42.464824Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a012a99de5e955160dc07c2ef13ade7f55fe19fc.002.1",
@@ -27,48 +27,24 @@
   "mesoscaleDiscussions": [],
   "statements": [
     {
-      "id": "4ca80b99-f802-45bd-9cf9-3309684f0de8",
-      "code": "HWO",
-      "type": "Hazardous Weather Outlook",
-      "office": "KPBZ",
-      "issued": "2026-09-09T22:17:00+00:00",
-      "expires": null,
-      "location": "Tuscarawas-Carroll-Columbiana-Coshocton-Harrison-Jefferson OH-Mercer-Venango-Forest-Lawrence-Butler-Clarion-Jefferson PA-Beaver-Allegheny-Armstrong-Washington-Westmoreland-Higher Elevations of Westmor",
-      "hazard": "Tonight. No hazardous weather is expected at this time.",
-      "distanceMiles": null,
-      "headline": "Hazardous Weather Outlook",
-      "summary": "Tonight. No hazardous weather is expected at this time.",
-      "details": [
-        {
-          "label": "Today's Hazards",
-          "text": "Tonight. No hazardous weather is expected at this time."
-        },
-        {
-          "label": "Extended Outlook",
-          "text": "Thursday through Tuesday. No hazardous weather is expected at this time."
-        }
-      ],
-      "url": "https://api.weather.gov/products/4ca80b99-f802-45bd-9cf9-3309684f0de8"
-    },
-    {
-      "id": "b5d566df-e275-4600-8dac-f9ca50598679",
+      "id": "d972ea58-41ea-4f58-8456-76a337d51d0c",
       "code": "SVS",
       "type": "Severe Weather Statement",
       "office": "KPBZ",
-      "issued": "2026-09-09T22:17:00+00:00",
+      "issued": "2026-09-09T22:42:00+00:00",
       "expires": null,
       "location": "Carroll OH-Columbiana OH",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Salem, Lisbon, Augusta, Malvern, Hanoverton, East Rochester, North Georgetown, New",
+      "hazard": "OHC019-029-092252- /O.EXP.KPBZ.SV.W.0360.000000T0000Z-260909T2245Z/",
       "distanceMiles": null,
       "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Salem, Lisbon, Augusta, Malvern, Hanoverton, East Rochester, North Georgetown, New Garden, Homeworth, Winona and Guilford Lake State Park.",
+      "summary": "OHC019-029-092252- /O.EXP.KPBZ.SV.W.0360.000000T0000Z-260909T2245Z/",
       "details": [
         {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Salem, Lisbon, Augusta, Malvern, Hanoverton, East Rochester, North Georgetown, New Garden, Homeworth, Winona and Guilford Lake State Park."
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 642 PM EDT Wed Sep 9 2026 OHC019-029-092252- /O.EXP.KPBZ.SV.W.0360.000000T0000Z-260909T2245Z/ Carroll OH-Columbiana OH- 642 PM EDT Wed Sep 9 2026"
         }
       ],
-      "url": "https://api.weather.gov/products/b5d566df-e275-4600-8dac-f9ca50598679"
+      "url": "https://api.weather.gov/products/d972ea58-41ea-4f58-8456-76a337d51d0c"
     }
   ]
 }
