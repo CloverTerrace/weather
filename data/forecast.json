@@ -1,6 +1,17 @@
 {
   "periods": [
     {
+      "name": "This Afternoon",
+      "temperature": 86,
+      "temperatureUnit": "F",
+      "windSpeed": "12 mph",
+      "windDirection": "SW",
+      "shortForecast": "Isolated Rain Showers",
+      "detailedForecast": "Isolated rain showers before 4pm. Mostly sunny, with a high near 86. Southwest wind around 12 mph, with gusts as high as 23 mph.",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 10
+    },
+    {
       "name": "Tonight",
       "temperature": 70,
       "temperatureUnit": "F",
@@ -32,20 +43,19 @@
       "detailedForecast": "A chance of showers and thunderstorms before 8pm. Mostly cloudy, with a low around 59. North wind around 3 mph. Chance of precipitation is 40%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 42
-    },
-    {
-      "name": "Friday",
-      "temperature": 78,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "NE",
-      "shortForecast": "Sunny",
-      "detailedForecast": "Sunny, with a high near 78. Northeast wind around 3 mph.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-09T17:00:00-04:00",
+      "temperature": 85,
+      "temperatureUnit": "F",
+      "windSpeed": "12 mph",
+      "windDirection": "SW",
+      "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 9
+    },
     {
       "startTime": "2026-09-09T18:00:00-04:00",
       "temperature": 84,
@@ -275,16 +285,6 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 44
-    },
-    {
-      "startTime": "2026-09-10T17:00:00-04:00",
-      "temperature": 75,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "W",
-      "shortForecast": "Chance Showers And Thunderstorms",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 40
     }
   ]
 }
