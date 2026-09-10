@@ -1,15 +1,25 @@
 // Clover Terrace Weather — service worker
-// Version 6: multi-page shell + fresh CSS/JS
+// Version 9: full 4-page shell + genuinely-bypassed network-first fetch
 //
 // HTML, CSS and JS use NETWORK-FIRST so GitHub Pages updates are picked up
 // promptly. Cached copies remain available as an offline fallback.
 // Live data files are NEVER cached by this worker.
+//
+// NOTE: bump this CACHE_NAME (and the matching ?v= on every local css/js
+// reference in each page's <head>/<body>) together, every time any shell
+// file changes. Bumping this alone forces old caches to be deleted on
+// activate; bumping the ?v= alone forces a fresh fetch even when a
+// network-first fetch would otherwise be satisfied by the browser's own
+// (non-Cache-Storage) HTTP cache -- see the explicit {cache:'reload'}
+// below for why that HTTP-cache layer needed its own fix too.
 
-const CACHE_NAME = 'weather-app-shell-v6';
+const CACHE_NAME = 'weather-app-shell-v9';
 
 const SHELL_FILES = [
   './index.html',
   './gardening.html',
+  './atmosphere.html',
+  './space.html',
   './manifest.json',
 
   './icons/icon-192.png',
@@ -21,10 +31,15 @@ const SHELL_FILES = [
   './css/site.css',
   './css/navigation.css',
   './css/gardening.css',
+  './css/atmosphere.css',
+  './css/space.css',
 
   './js/navigation.js',
+  './js/site.js',
   './js/gardening.js',
   './js/garden-sprites.js',
+  './js/atmosphere.js',
+  './js/space.js',
 ];
 
 self.addEventListener('install', (event) => {
@@ -72,7 +87,11 @@ self.addEventListener('fetch', (event) => {
 
   if (request.mode === 'navigate') {
     event.respondWith(
-      fetch(request)
+      // {cache:'reload'} matters here: without it, "network first" can
+      // silently be satisfied by the browser's own HTTP cache (GitHub
+      // Pages sends Cache-Control headers) instead of actually going to
+      // the network, which defeats the point of this whole branch.
+      fetch(request, { cache: 'reload' })
         .then((response) => {
           const copy = response.clone();
 
@@ -110,7 +129,8 @@ self.addEventListener('fetch', (event) => {
 
   if (isCSS || isJS) {
     event.respondWith(
-      fetch(request)
+      // same {cache:'reload'} fix as the HTML branch above.
+      fetch(request, { cache: 'reload' })
         .then((response) => {
           if (response.ok) {
             const copy = response.clone();
