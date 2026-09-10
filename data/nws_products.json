@@ -1,27 +1,47 @@
 {
-  "generatedAt": "2026-09-10T07:50:41.731699Z",
+  "generatedAt": "2026-09-10T07:55:46.258758Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
     {
-      "id": "72870acb-9136-4248-bae2-42d5e0d534ad",
-      "code": "AFD",
-      "type": "Area Forecast Discussion",
+      "id": "ee8285ed-b950-4c25-9239-e9d6e43ed6e4",
+      "code": "FLS",
+      "type": "Flood Statement",
       "office": "KPBZ",
-      "issued": "2026-09-10T07:21:00+00:00",
+      "issued": "2026-09-10T07:50:00+00:00",
       "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... Update to Key Messages and Aviation Discussion.",
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "WGUS81 KPBZ 100750 OHC019-029-081-WVC029-100800-",
       "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... Update to Key Messages and Aviation Discussion.",
+      "headline": "Flood Statement",
+      "summary": "WGUS81 KPBZ 100750 OHC019-029-081-WVC029-100800-",
       "details": [
         {
           "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 321 AM EDT Thu Sep 10 2026 .WHAT HAS CHANGED... Update to Key Messages and Aviation Discussion. && .KEY MESSAGES..."
+          "text": "000 WGUS81 KPBZ 100750 FLSPBZ Flood Statement 350 AM EDT Thu Sep 10 2026 OHC019-029-081-WVC029-100800- /O.CAN.KPBZ.FA.W.0048.000000T0000Z-260910T1030Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
         }
       ],
-      "url": "https://api.weather.gov/products/72870acb-9136-4248-bae2-42d5e0d534ad"
+      "url": "https://api.weather.gov/products/ee8285ed-b950-4c25-9239-e9d6e43ed6e4"
+    },
+    {
+      "id": "1e12de01-d2cb-4b00-8f46-bd1f715789b2",
+      "code": "PNS",
+      "type": "Public Information Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-10T07:47:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-031-073>078- WVZ001>004-012-021-509>514-101947-",
+      "distanceMiles": null,
+      "headline": "Public Information Statement",
+      "summary": "OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-031-073>078- WVZ001>004-012-021-509>514-101947-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 PNSPBZ OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-031-073>078- WVZ001>004-012-021-509>514-101947- Public Information Statement 347 AM EDT Thu Sep 10 2026 ...PRECIPITATION REPORTS OVER THE LAST 24 HOURS... Location Amount Time/Date Provider"
+        }
+      ],
+      "url": "https://api.weather.gov/products/1e12de01-d2cb-4b00-8f46-bd1f715789b2"
     }
   ]
 }
