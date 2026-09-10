@@ -572,10 +572,15 @@ img.pixel,
 }
 .garden-page .site-nav a,
 .garden-page .site-nav button {
-  letter-spacing: 0 !important;
   color: var(--garden-accent-text) !important;
   transition: color 1.2s ease;
-  font-size: 0.78rem !important;
+  /* font-size and letter-spacing deliberately NOT overridden here anymore
+     -- they used to be pinned to 0.78rem/0 on this page regardless of
+     viewport, which fought navigation.css's own responsive sizing
+     (0.84rem desktop / 0.68rem mobile) and made the shared-element nav
+     view-transition between pages visibly reflow/snap instead of
+     morphing smoothly. Colors/background/border/shadow below are this
+     page's "sheen"; sizing now stays standard site-wide. */
 }
 
 .garden-page .site-nav a:hover,

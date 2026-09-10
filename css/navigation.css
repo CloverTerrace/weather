@@ -1,5 +1,29 @@
 /* Clover Terrace — shared site navigation */
 
+/* Figtree lives here (not in each page's own stylesheet) because the
+   navbar is the one piece of UI every page shares verbatim, and the nav
+   rules below hard-code 'Figtree' as its font. gardening.css and
+   atmosphere.css never declared this font-face themselves, so on those
+   two pages the name resolved to nothing and silently fell through to
+   each page's own --font-body (gardening: the pixel-art perfectDOS face)
+   or a bare sans-serif fallback (atmosphere) -- different metrics on
+   every page, which is exactly what made the shared-element nav
+   view-transition below feel "jumpy" between pages. Declaring it once,
+   centrally, guarantees the same font is available everywhere the shared
+   nav renders, regardless of what a given page's own CSS does or doesn't
+   declare. (site.css and space.css also declare this font-face
+   themselves, redundantly -- harmless, the browser dedupes the fetch by
+   URL, but navigation.css is now the one copy that's actually load-bearing.)
+   Preload this file from every page's <head> alongside whatever
+   page-specific display font it also preloads. */
+@font-face {
+  font-display: swap;
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/figtree-v9-latin-regular.woff2') format('woff2');
+}
+
 @view-transition {
   navigation: auto;
 }

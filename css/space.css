@@ -4,6 +4,20 @@ html {
   background: #0b0d17;
 }
 
+:root {
+  /* navigation.css reads these three to skin the shared nav -- previously
+     undefined here, so the nav rendered with a plain transparent/blurred
+     background and a hardcoded pale-blue fallback border instead of an
+     intentional look. Matched to this page's own dark-navy card /
+     off-white text / sky-blue accent palette (same blue used for
+     headers, sky markers, and the constellation glow elsewhere on this
+     page) so the nav reads as "this page's sheen," not an unstyled
+     default. */
+  --card-color: #12162a;
+  --muted-color: rgba(246, 248, 250, 0.72);
+  --accent-color: #a5c0ee;
+}
+
 #space-page {
   min-height: 100vh;
   margin: 0;
