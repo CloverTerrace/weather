@@ -4,10 +4,10 @@
       "name": "Tonight",
       "temperature": 62,
       "temperatureUnit": "F",
-      "windSpeed": "0 to 5 mph",
+      "windSpeed": "0 to 3 mph",
       "windDirection": "N",
       "shortForecast": "Slight Chance Showers And Thunderstorms then Areas Of Fog",
-      "detailedForecast": "A slight chance of showers and thunderstorms before midnight, then areas of fog and a slight chance of rain showers. Mostly cloudy, with a low around 62. North wind 0 to 5 mph. Chance of precipitation is 20%.",
+      "detailedForecast": "A slight chance of showers and thunderstorms before midnight, then areas of fog and a slight chance of rain showers. Mostly cloudy, with a low around 62. North wind 0 to 3 mph. Chance of precipitation is 20%.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 22
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-10T18:00:00-04:00",
-      "temperature": 78,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "NW",
-      "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 22
-    },
     {
       "startTime": "2026-09-10T19:00:00-04:00",
       "temperature": 75,
@@ -284,6 +274,16 @@
       "windDirection": "E",
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-11T18:00:00-04:00",
+      "temperature": 78,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "E",
+      "shortForecast": "Partly Cloudy",
+      "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
   ]
