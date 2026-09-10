@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T00:55:39.645320Z",
+  "generatedAt": "2026-09-10T01:00:42.330543Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.a216cc3da79a65eb813ec6f322d45f4cf503f105.002.1",
@@ -27,6 +27,26 @@
   "mesoscaleDiscussions": [],
   "statements": [
     {
+      "id": "2ddd32ec-92f4-4d09-89f7-e76003fa11a7",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-10T00:51:00+00:00",
+      "expires": null,
+      "location": "Coshocton OH-Tuscarawas OH",
+      "hazard": "OHC031-157-100101- /O.EXP.KPBZ.SV.W.0363.000000T0000Z-260910T0100Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "OHC031-157-100101- /O.EXP.KPBZ.SV.W.0363.000000T0000Z-260910T0100Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 851 PM EDT Wed Sep 9 2026 OHC031-157-100101- /O.EXP.KPBZ.SV.W.0363.000000T0000Z-260910T0100Z/ Coshocton OH-Tuscarawas OH- 851 PM EDT Wed Sep 9 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/2ddd32ec-92f4-4d09-89f7-e76003fa11a7"
+    },
+    {
       "id": "1fb2ce45-365b-4fc7-a59b-a3bd90525d01",
       "code": "SVS",
       "type": "Severe Weather Statement",
@@ -45,46 +65,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/1fb2ce45-365b-4fc7-a59b-a3bd90525d01"
-    },
-    {
-      "id": "f7a05b42-0ead-4418-8354-0a7ba6c987d1",
-      "code": "SVS",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-10T00:28:00+00:00",
-      "expires": null,
-      "location": "Coshocton OH-Tuscarawas OH",
-      "hazard": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur.",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Chili and Bakersville.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows and vehicles will occur. Tree damage is likely. Locations impacted include... Chili and Bakersville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/f7a05b42-0ead-4418-8354-0a7ba6c987d1"
-    },
-    {
-      "id": "0895cf5a-205e-4ba2-a0d9-c05214896d2e",
-      "code": "SVS",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-10T00:28:00+00:00",
-      "expires": null,
-      "location": "Coshocton OH-Tuscarawas OH",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Coshocton, Newcomerstown, West Lafayette, Warsaw, Port Washington, Stone Creek,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Coshocton, Newcomerstown, West Lafayette, Warsaw, Port Washington, Stone Creek, Plainfield, Chili and Bakersville.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Coshocton, Newcomerstown, West Lafayette, Warsaw, Port Washington, Stone Creek, Plainfield, Chili and Bakersville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/0895cf5a-205e-4ba2-a0d9-c05214896d2e"
     }
   ]
 }
