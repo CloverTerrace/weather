@@ -3237,6 +3237,18 @@ svg circle, svg polygon, svg line {
     background: rgba(255,255,255,0.22);
     outline: none;
   }
+/* mobile-first: #page-content is a centered flex column (align-items:
+   center), so without an explicit width this wrapper shrink-wraps to
+   its widest descendant instead of filling the viewport -- on mobile
+   that's the forecast card's hourly strip, which then forces the
+   whole page wider than the screen instead of scrolling internally
+   (it has its own overflow-x:auto, but that only clips once this
+   ancestor actually has a definite width to clip against). The
+   min-width:851px rules below still swap this to a bento grid on
+   desktop, unaffected by this. */
+.desktop-dashboard-layout {
+  width: 100%;
+}
 @media (min-width: 851px) {
   /* rails collapse so their children (hero grid, forecast, camera,
      sky, storm) become direct items of the bento grid below --
@@ -3276,6 +3288,19 @@ h1 .weather-icon-img,
     }
 #subtitle { margin-bottom: clamp(1.1rem, 1.8vw, 1.6rem); }
 }
+/* ⚠️ CLEANUP NOTE: everything from here down to the .web-tools-grid
+   max-width:1050px override below reads like it belongs inside the
+   `@media (min-width: 851px)` block just above (h1/#subtitle layout) --
+   it's sitting outside it, unscoped, applying at every width including
+   mobile. Audited (Sept 2026) and confirmed NOT an active bug like
+   .desktop-dashboard-layout was: every width value here is written as
+   min(Xvw, Ypx) or clamp(...), which is self-limiting and can never
+   exceed the viewport on its own. The one non-self-limiting piece
+   (.web-tools-grid's old flat 300px column minimum) has been hardened
+   below to min(300px, 40vw) so it can't overflow either, independent of
+   the max-width:1050px override it used to rely on entirely. Still
+   worth properly re-homing into the media query above someday -- flagged
+   here so a future pass doesn't need to re-derive this. */
 #page-content {
     width: min(100%, 1320px);
     padding-inline: clamp(0.45rem, 1.5vw, 1.1rem);
@@ -3338,7 +3363,13 @@ h1 .weather-icon-img,
 .web-tools-grid {
     width: min(82vw, 1320px);
     display: grid;
-    grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.85fr);
+    /* min(300px, 40vw) instead of a bare 300px: this two-column layout
+       only actually applies above 1050px (see the max-width:1050px
+       override below, which forces a single column under that), where
+       40vw is always > 300px so this is a no-op -- it's a safety net in
+       case that override ever moves/goes missing, so this column can't
+       force horizontal overflow on a narrow screen on its own. */
+    grid-template-columns: minmax(0, 1.55fr) minmax(min(300px, 40vw), 0.85fr);
     gap: clamp(0.95rem, 1.35vw, 1.35rem);
     align-items: start;
     margin-top: clamp(1rem, 1.8vw, 1.5rem);
