@@ -29,12 +29,21 @@ let latestAuroraData = null;
 
 // Sky pan/zoom state. The sky render is a fixed 16:9 image; on narrow
 // (mobile/portrait) viewports it's taller-than-wide, so filling the
-// viewport height leaves extra image width off both sides — panX lets
-// the user drag to explore that hidden east/west sky instead of it just
-// being permanently cropped off like a plain object-fit:cover would do.
+// viewport height leaves extra image width off both sides — panX/panY let
+// the user drag to explore that hidden sky instead of it just being
+// permanently cropped off like a plain object-fit:cover would do. zoomScale
+// is a separate, user-controlled magnification on top of that base fit —
+// pinch, ctrl/trackpad-wheel, or the +/- buttons — so the sky is fully
+// explorable without touching the browser's own page zoom.
 let panX = 0;
+let panY = 0;
+let zoomScale = 1;
 let userHasPanned = false;
 let skyLayout = { scale: 1, paneWidth: 0, paneHeight: 0 };
+
+const MIN_ZOOM = 1;
+const MAX_ZOOM = 3;
+const ZOOM_STEP = 0.5;
 
 async function loadLiveSky() {
   const timestamp = new Date().getTime();
@@ -105,9 +114,58 @@ function skyToPanPixels(x, y, naturalW, naturalH, scale) {
   };
 }
 
-function clampPanX(x, paneWidth, containerW) {
-  const minX = Math.min(0, containerW - paneWidth);
-  return Math.max(minX, Math.min(0, x));
+// Clamps panX/panY against the current zoomScale and re-applies left/top/
+// transform to .sky-pan. Centers on either axis when the (scaled) content
+// no longer overflows the viewport on that axis — same "no drag needed"
+// framing the old single-axis version had, just generalized to 2D + zoom.
+function clampAndApplyPan() {
+  const viewport = document.getElementById('sky-viewport');
+  const pan = document.getElementById('sky-pan');
+  if (!viewport || !pan) return;
+
+  const containerW = viewport.clientWidth;
+  const containerH = viewport.clientHeight;
+  const scaledW = skyLayout.paneWidth * zoomScale;
+  const scaledH = skyLayout.paneHeight * zoomScale;
+
+  panX = scaledW <= containerW
+    ? (containerW - scaledW) / 2
+    : Math.max(containerW - scaledW, Math.min(0, panX));
+  panY = scaledH <= containerH
+    ? (containerH - scaledH) / 2
+    : Math.max(containerH - scaledH, Math.min(0, panY));
+
+  const pannable = scaledW > containerW + 1 || scaledH > containerH + 1;
+  pan.classList.toggle('is-pannable', pannable);
+  // once zoomed in, the viewport claims vertical drag gestures for itself
+  // instead of handing them to the page's own scroll-snap — otherwise a
+  // vertical pan drag and "scroll to reveal the full sky" fight each other
+  viewport.classList.toggle('is-zoomable', zoomScale > 1.001);
+
+  pan.style.left = `${panX}px`;
+  pan.style.top = `${panY}px`;
+  pan.style.transform = `scale(${zoomScale})`;
+  updateZoomButtonState();
+}
+
+// Zooms to newZoom while keeping whatever's under (focalX, focalY) —
+// viewport-relative pixel coords — visually fixed in place, the standard
+// "zoom toward the cursor/pinch midpoint" behavior.
+function setZoom(newZoom, focalX, focalY) {
+  newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, newZoom));
+  if (Math.abs(newZoom - zoomScale) < 0.001) return;
+  const ratio = newZoom / zoomScale;
+  panX = focalX - (focalX - panX) * ratio;
+  panY = focalY - (focalY - panY) * ratio;
+  zoomScale = newZoom;
+  clampAndApplyPan();
+}
+
+function updateZoomButtonState() {
+  const zoomIn = document.getElementById('sky-zoom-in');
+  const zoomOut = document.getElementById('sky-zoom-out');
+  if (zoomIn) zoomIn.classList.toggle('is-disabled', zoomScale >= MAX_ZOOM - 0.001);
+  if (zoomOut) zoomOut.classList.toggle('is-disabled', zoomScale <= MIN_ZOOM + 0.001);
 }
 
 function renderSkyOverlay() {
@@ -125,20 +183,16 @@ function renderSkyOverlay() {
 
   pan.style.width = `${paneWidth}px`;
   pan.style.height = `${paneHeight}px`;
-  pan.style.top = `${(containerH - paneHeight) / 2}px`;
   img.style.width = `${paneWidth}px`;
   img.style.height = `${paneHeight}px`;
 
-  const pannable = paneWidth > containerW + 1;
-  pan.classList.toggle('is-pannable', pannable);
-  if (!pannable) {
-    panX = 0;
-  } else if (userHasPanned) {
-    panX = clampPanX(panX, paneWidth, containerW);
-  } else {
-    panX = (containerW - paneWidth) / 2; // start centered, same framing as before
+  if (!userHasPanned) {
+    // start centered, same framing as before, but accounting for whatever
+    // zoom level is currently active
+    panX = (containerW - paneWidth * zoomScale) / 2;
+    panY = (containerH - paneHeight * zoomScale) / 2;
   }
-  pan.style.transform = `translateX(${panX}px)`;
+  clampAndApplyPan();
 
   const cardinals = (latestOverlayData && latestOverlayData.cardinal_points) || {
     N: { x: 0, y: 1 }, E: { x: 1, y: 0 }, S: { x: 0, y: -1 }, W: { x: -1, y: 0 },
@@ -152,6 +206,11 @@ function renderSkyOverlay() {
     tick.textContent = label;
     overlay.appendChild(tick);
   });
+
+  // constellation tap targets go in before the sun/moon/planet markers, so
+  // where the two overlap the real celestial-object markers stay on top
+  // and clickable
+  renderConstellationHotspots();
 
   if (!latestOverlayData || !Array.isArray(latestOverlayData.objects)) return;
 
@@ -181,6 +240,40 @@ function renderSkyOverlay() {
 
     overlay.appendChild(marker);
     marker.addEventListener('click', () => openCelestialModal(obj));
+  });
+}
+
+// Invisible tap target over each constellation's own star field in the live
+// sky — lets someone who's spotted a shape themselves tap it directly to
+// confirm what they're looking at, the same trace-and-name reveal the card
+// list triggers, just entered from the sky itself. Left unstyled/invisible
+// on purpose: a visible outline would give the shape away before the tap.
+function renderConstellationHotspots() {
+  const overlay = document.getElementById('sky-overlay');
+  const img = document.getElementById('sky-render-img');
+  if (!overlay || !img || !img.naturalWidth) return;
+  if (!latestOverlayData || !Array.isArray(latestOverlayData.constellations)) return;
+
+  latestOverlayData.constellations.forEach(entry => {
+    const stars = Array.isArray(entry.stars) ? entry.stars : [];
+    const visibleStars = stars.filter(s => s.x !== null && s.x !== undefined && s.y !== null && s.y !== undefined);
+    if (visibleStars.length === 0) return;
+
+    const points = visibleStars.map(s => skyToPanPixels(s.x, s.y, img.naturalWidth, img.naturalHeight, skyLayout.scale));
+    const xs = points.map(p => p.x);
+    const ys = points.map(p => p.y);
+    const minX = Math.min(...xs), maxX = Math.max(...xs);
+    const minY = Math.min(...ys), maxY = Math.max(...ys);
+    const pad = 24; // tap tolerance around the outermost stars
+
+    const hotspot = document.createElement('div');
+    hotspot.className = 'sky-constellation-hotspot';
+    hotspot.style.left = `${minX - pad}px`;
+    hotspot.style.top = `${minY - pad}px`;
+    hotspot.style.width = `${(maxX - minX) + pad * 2}px`;
+    hotspot.style.height = `${(maxY - minY) + pad * 2}px`;
+    hotspot.addEventListener('click', () => highlightConstellation(entry.name));
+    overlay.appendChild(hotspot);
   });
 }
 
@@ -222,58 +315,131 @@ function buildMarkerLabel(obj) {
   return obj.name;
 }
 
-/*----- drag-to-pan the sky (mainly relevant on narrow/mobile viewports,
-   where the render's extra width beyond the screen is otherwise hidden) -----*/
+/*----- drag-to-pan + pinch/wheel/button zoom on the sky (2D, and
+   independent of the page's own zoom — panning is always relevant on
+   narrow/mobile viewports where the render's extra width is otherwise
+   hidden; zooming is available everywhere as a way to explore in detail) -----*/
 function setupSkyPan() {
   const viewport = document.getElementById('sky-viewport');
   const pan = document.getElementById('sky-pan');
   if (!viewport || !pan) return;
 
+  const activePointers = new Map(); // pointerId -> last known {x, y} (clientX/Y)
   let dragging = false;
   let startClientX = 0;
+  let startClientY = 0;
   let startPanX = 0;
+  let startPanY = 0;
+  let pinchStartDist = 0;
+  let pinchStartZoom = 1;
+  let pinchMidpoint = { x: 0, y: 0 };
+
+  function viewportPoint(clientX, clientY) {
+    const rect = viewport.getBoundingClientRect();
+    return { x: clientX - rect.left, y: clientY - rect.top };
+  }
 
   viewport.addEventListener('pointerdown', (e) => {
-    // dragging always wins over an in-progress constellation callout — snap
-    // straight back to the normal view so panning is never blocked by it
+    // any new touch always wins over an in-progress constellation callout —
+    // snap straight back to the normal view so it never blocks panning/zoom
     if (constellationZoomActive) revertConstellationZoom();
-    if (!pan.classList.contains('is-pannable')) return;
+    activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    try { viewport.setPointerCapture(e.pointerId); } catch (err) {}
+
+    if (activePointers.size === 2) {
+      dragging = false;
+      const pts = [...activePointers.values()];
+      pinchStartDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) || 1;
+      pinchStartZoom = zoomScale;
+      const midClientX = (pts[0].x + pts[1].x) / 2;
+      const midClientY = (pts[0].y + pts[1].y) / 2;
+      pinchMidpoint = viewportPoint(midClientX, midClientY);
+      return;
+    }
+
     dragging = true;
     userHasPanned = true;
     startClientX = e.clientX;
+    startClientY = e.clientY;
     startPanX = panX;
+    startPanY = panY;
     pan.classList.add('is-panning');
-    try { viewport.setPointerCapture(e.pointerId); } catch (err) {}
   });
 
   viewport.addEventListener('pointermove', (e) => {
+    if (!activePointers.has(e.pointerId)) return;
+    activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if (activePointers.size === 2) {
+      const pts = [...activePointers.values()];
+      const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) || 1;
+      userHasPanned = true;
+      setZoom(pinchStartZoom * (dist / pinchStartDist), pinchMidpoint.x, pinchMidpoint.y);
+      return;
+    }
+
     if (!dragging) return;
-    const dx = e.clientX - startClientX;
-    panX = clampPanX(startPanX + dx, skyLayout.paneWidth, viewport.clientWidth);
-    pan.style.transform = `translateX(${panX}px)`;
+    panX = startPanX + (e.clientX - startClientX);
+    panY = startPanY + (e.clientY - startClientY);
+    clampAndApplyPan();
   });
 
-  const endDrag = (e) => {
-    if (!dragging) return;
-    dragging = false;
-    pan.classList.remove('is-panning');
+  const endPointer = (e) => {
+    activePointers.delete(e.pointerId);
     try { viewport.releasePointerCapture(e.pointerId); } catch (err) {}
+    if (activePointers.size < 2) pinchStartDist = 0;
+    if (activePointers.size === 0) {
+      dragging = false;
+      pan.classList.remove('is-panning');
+    }
   };
-  viewport.addEventListener('pointerup', endDrag);
-  viewport.addEventListener('pointercancel', endDrag);
+  viewport.addEventListener('pointerup', endPointer);
+  viewport.addEventListener('pointercancel', endPointer);
+
+  // Desktop: ctrl/cmd + wheel zooms toward the cursor (this is also how
+  // Chrome/Firefox report a trackpad pinch gesture). A plain wheel is left
+  // alone so it keeps scrolling the page as normal.
+  viewport.addEventListener('wheel', (e) => {
+    if (!e.ctrlKey && !e.metaKey) return;
+    if (constellationZoomActive) revertConstellationZoom();
+    e.preventDefault();
+    const { x, y } = viewportPoint(e.clientX, e.clientY);
+    userHasPanned = true;
+    setZoom(zoomScale - e.deltaY * 0.01, x, y);
+  }, { passive: false });
+
+  const zoomInBtn = document.getElementById('sky-zoom-in');
+  const zoomOutBtn = document.getElementById('sky-zoom-out');
+  if (zoomInBtn) zoomInBtn.addEventListener('click', () => stepZoom(ZOOM_STEP));
+  if (zoomOutBtn) zoomOutBtn.addEventListener('click', () => stepZoom(-ZOOM_STEP));
 }
 
-// Brings a given x position (in .sky-pan pixel space) to the center of the
-// viewport, so tapping a constellation in the list scrolls it into view if
-// dragging had left it off-screen.
-function panToPanX(targetX) {
+// Zoom-button step, animated (unlike pinch/wheel, which stay instant so
+// they track the gesture 1:1), centered on the viewport's own middle.
+function stepZoom(delta) {
   const viewport = document.getElementById('sky-viewport');
   const pan = document.getElementById('sky-pan');
-  if (!viewport || !pan || !pan.classList.contains('is-pannable')) return;
-  const containerW = viewport.clientWidth;
-  panX = clampPanX(containerW / 2 - targetX, skyLayout.paneWidth, containerW);
+  if (!viewport || !pan) return;
+  if (constellationZoomActive) revertConstellationZoom();
   userHasPanned = true;
-  pan.style.transform = `translateX(${panX}px)`;
+  pan.classList.add('is-zoom-transitioning');
+  setZoom(zoomScale + delta, viewport.clientWidth / 2, viewport.clientHeight / 2);
+  setTimeout(() => pan.classList.remove('is-zoom-transitioning'), 260);
+}
+
+// Brings a given point (in .sky-pan local pixel space) to the center of the
+// viewport, so tapping a constellation in the list or on the sky itself
+// scrolls it into view if dragging/zoom had left it off-screen.
+function panToPoint(cx, cy) {
+  const viewport = document.getElementById('sky-viewport');
+  const pan = document.getElementById('sky-pan');
+  if (!viewport || !pan) return;
+  const containerW = viewport.clientWidth;
+  const containerH = viewport.clientHeight;
+  panX = containerW / 2 - cx * zoomScale;
+  panY = containerH / 2 - cy * zoomScale;
+  userHasPanned = true;
+  clampAndApplyPan();
 }
 
 function debounce(fn, wait) {
@@ -302,6 +468,13 @@ function setupCardArrows() {
 // simply follow the row's natural content height) to whichever card is
 // currently swiped into view — not the tallest card in the carousel — so
 // unused vertical space always reads as sky rather than leftover scrim.
+// Capped at CARD_ROW_MAX_VH of the viewport: a long constellation list no
+// longer forces the whole dock to grow until it eats the live sky — past
+// the cap the card itself scrolls internally (see .sky-card overflow-y in
+// space.css), so "swipe to the next card" stays a choice, not the only
+// way to get the sky back.
+const CARD_ROW_MAX_VH = 0.4;
+
 function updateActiveCardHeight() {
   const row = document.getElementById('sky-card-row');
   if (!row || !row.children.length) return;
@@ -310,7 +483,8 @@ function updateActiveCardHeight() {
   const clamped = Math.max(0, Math.min(row.children.length - 1, index));
   const active = row.children[clamped];
   if (active) {
-    row.style.height = `${active.scrollHeight}px`;
+    const maxHeight = window.innerHeight * CARD_ROW_MAX_VH;
+    row.style.height = `${Math.min(active.scrollHeight, maxHeight)}px`;
   }
 }
 
@@ -519,7 +693,8 @@ const CONSTELLATION_ZOOM = 1.6;
 let constellationHighlightTimeout = null;
 let constellationZoomActive = false;
 let preZoomPanX = 0;
-let preZoomTop = '';
+let preZoomPanY = 0;
+let preZoomScale = 1;
 
 function clearConstellationHighlight() {
   document.querySelectorAll('.sky-constellation-glow, .sky-constellation-highlight').forEach(el => el.remove());
@@ -578,6 +753,11 @@ function highlightConstellation(name) {
   fieldGlow.className = 'sky-constellation-field-glow';
   container.appendChild(fieldGlow);
 
+  const nameLabel = document.createElement('div');
+  nameLabel.className = 'sky-constellation-name-label';
+  nameLabel.textContent = name;
+  container.appendChild(nameLabel);
+
   // faint connecting lines tracing the shape — only between stars that are
   // actually above the horizon right now
   const validIndices = new Set(visibleStars.map(s => s.i));
@@ -619,23 +799,25 @@ function highlightConstellation(name) {
     revertConstellationZoom();
   }, CONSTELLATION_HIGHLIGHT_MS);
 
-  // bring it into view if dragging had panned it off-screen; for shapes
-  // small enough on screen to be hard to read, zoom in on them briefly too
+  // bring it into view if dragging/zoom had panned it off-screen; for
+  // shapes small enough on screen to be hard to read, zoom in on them
+  // briefly too (unless the user's already dialed in their own zoom level,
+  // in which case just recenter and leave that alone)
   const zoomed = zoomToConstellation(cx, cy, maxX - minX, maxY - minY);
-  if (!zoomed) panToPanX(cx);
+  if (!zoomed) panToPoint(cx, cy);
 }
 
 // Briefly scales up .sky-pan (image + overlay together, so the highlighted
 // shape stays pixel-aligned with the real stars under it) centered on the
 // constellation's own midpoint, so a shape that's cramped at normal scale
-// is easier to read. Centering on that exact point first — before scaling —
-// means the zoom only ever reveals more of the area already in view, never
-// content the pan/scroll model can't reach, so full sky panning still works
-// exactly as before once the callout ends. Returns whether it zoomed.
+// is easier to read. Skipped when the user already has their own manual
+// zoom active — an unrequested extra zoom would fight the level they chose
+// and be jarring when it auto-reverts. Returns whether it zoomed.
 function zoomToConstellation(cx, cy, spanX, spanY) {
   const viewport = document.getElementById('sky-viewport');
   const pan = document.getElementById('sky-pan');
   if (!viewport || !pan) return false;
+  if (zoomScale > 1.05) return false;
 
   const containerW = viewport.clientWidth;
   const containerH = viewport.clientHeight;
@@ -643,16 +825,15 @@ function zoomToConstellation(cx, cy, spanX, spanY) {
   if (largestSpan > Math.min(containerW, containerH) * 0.5) return false; // already legible at normal scale
 
   preZoomPanX = panX;
-  preZoomTop = pan.style.top;
-
-  panX = clampPanX(containerW / 2 - cx, skyLayout.paneWidth, containerW);
-  const topOffset = containerH / 2 - cy;
+  preZoomPanY = panY;
+  preZoomScale = zoomScale;
 
   pan.classList.add('is-zooming');
-  pan.style.top = `${topOffset}px`;
-  pan.style.transformOrigin = `${cx}px ${cy}px`;
-  pan.style.transform = `translateX(${panX}px) scale(${CONSTELLATION_ZOOM})`;
+  zoomScale = Math.min(MAX_ZOOM, CONSTELLATION_ZOOM);
+  panX = containerW / 2 - cx * zoomScale;
+  panY = containerH / 2 - cy * zoomScale;
   constellationZoomActive = true;
+  clampAndApplyPan();
   return true;
 }
 
@@ -661,10 +842,10 @@ function revertConstellationZoom() {
   const pan = document.getElementById('sky-pan');
   constellationZoomActive = false;
   if (!pan) return;
+  zoomScale = preZoomScale;
   panX = preZoomPanX;
-  pan.style.top = preZoomTop;
-  pan.style.transform = `translateX(${panX}px) scale(1)`;
-  pan.style.transformOrigin = '';
+  panY = preZoomPanY;
+  clampAndApplyPan();
   setTimeout(() => pan.classList.remove('is-zooming'), 650); // let the zoom-out transition finish first
 }
 
