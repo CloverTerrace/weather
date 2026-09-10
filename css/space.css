@@ -71,11 +71,20 @@ html {
   touch-action: pan-y;
 }
 
+/* once the user has zoomed in, the sky itself can overflow vertically too —
+   claim vertical drag gestures for our own 2D pan instead of handing them
+   to the page's scroll-snap, so panning and "scroll to reveal full sky"
+   don't fight each other. Set/cleared by clampAndApplyPan() in space.js. */
+.sky-viewport.is-zoomable {
+  touch-action: none;
+}
+
 .sky-pan {
   position: absolute;
   top: 0;
   left: 0;
-  will-change: transform;
+  transform-origin: 0 0;
+  will-change: transform, left, top;
 }
 
 .sky-pan.is-pannable {
@@ -191,6 +200,38 @@ html {
   to { opacity: 0.7; }
 }
 
+/* invisible tap target placed directly over a constellation's real star
+   field — see renderConstellationHotspots() in space.js */
+.sky-constellation-hotspot {
+  position: absolute;
+  cursor: pointer;
+  pointer-events: auto;
+  background: transparent;
+}
+
+.sky-constellation-name-label {
+  position: absolute;
+  top: -1.7rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(11, 13, 23, 0.75);
+  border: 1px solid rgba(165, 192, 238, 0.4);
+  color: #a5c0ee;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  animation: constellation-label-fade-in 0.5s ease forwards;
+}
+
+@keyframes constellation-label-fade-in {
+  to { opacity: 1; }
+}
+
 .sky-constellation-star {
   position: absolute;
   width: 10px;
@@ -211,7 +252,14 @@ html {
    scale — see zoomToConstellation() in space.js. Transition lives on this
    class only, so ordinary drag-panning stays instant/untransitioned. */
 .sky-pan.is-zooming {
-  transition: transform 0.6s ease, top 0.6s ease;
+  transition: transform 0.6s ease, top 0.6s ease, left 0.6s ease;
+}
+
+/* same idea for the +/- zoom buttons: a quick eased step rather than an
+   instant jump. Pinch and ctrl/wheel zoom skip this — they stay untransitioned
+   so the sky tracks the gesture 1:1. */
+.sky-pan.is-zoom-transitioning {
+  transition: transform 0.25s ease, top 0.25s ease, left 0.25s ease;
 }
 
 /*----- moon marker: real shaded phase disk instead of a plain dot -----*/
@@ -252,6 +300,53 @@ html {
   letter-spacing: 0.06em;
   color: rgba(246, 248, 250, 0.55);
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+}
+
+/*----- sky zoom controls (+/-): a fixed, always-available alternative to
+   pinch/ctrl+wheel, so zooming into the sky map is discoverable without a
+   trackpad or touchscreen -----*/
+.sky-zoom-controls {
+  position: fixed;
+  right: 0.9rem;
+  bottom: calc(var(--site-nav-mobile-total, 60px) + 0.9rem);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+@media (min-width: 851px) {
+  .sky-zoom-controls {
+    bottom: 1.1rem;
+  }
+}
+
+.sky-zoom-btn {
+  all: unset;
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(11, 13, 23, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f6f8fa;
+  font-size: 1.15rem;
+  line-height: 1;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.sky-zoom-btn:active {
+  transform: scale(0.92);
+}
+
+.sky-zoom-btn.is-disabled {
+  opacity: 0.35;
   pointer-events: none;
 }
 
@@ -420,7 +515,21 @@ body.kp-severe .sky-dock {
 .sky-card {
   flex: 0 0 100%;
   max-width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   scroll-snap-align: start;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+.sky-card::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sky-card::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
 }
 
 .space-card h2,
