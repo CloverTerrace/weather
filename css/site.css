@@ -3989,11 +3989,28 @@ body {
     align-items: start !important;
   }
 
+  /* The left column (hero + glance-strip) spans both bento rows, while
+     the right column stacks Sky (row 1) on top of Forecast (row 2) --
+     so the left column's total height is whatever Sky+Forecast add up
+     to naturally. Left as align-items:start (the grid default above),
+     hero+glance-strip would just sit at their own content height,
+     leaving a gap under the shorter column whenever the hero card
+     (which resizes per selected sensor) is short. Stretching the hero
+     grid item to the full row-span height and letting the glance-strip
+     (not the hero card itself) absorb that height via flex-grow keeps
+     both upper columns close to equal length without distorting the
+     hero card. */
   .desktop-dashboard-layout #grid.sensor-panel {
     grid-area: hero !important;
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
+    align-self: stretch !important;
+  }
+  .desktop-dashboard-layout #grid.sensor-panel .sensor-hero {
+    /* always its own content size -- never grown or shrunk to help fill
+       the column, so it stays visually consistent across sensors */
+    flex: 0 0 auto !important;
   }
   .desktop-dashboard-layout .camera-photo-card {
     grid-area: camera !important;
@@ -4009,6 +4026,12 @@ body {
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
+    /* when a tall hero (e.g. the wind compass) plus the glance-strip's
+       own minimum content height push row 2 taller than Forecast's
+       natural height -- or the back face's 48-hour summary is simply
+       taller than the front -- stretch to fill that row instead of
+       leaving a gap beside it. */
+    align-self: stretch !important;
   }
   .desktop-dashboard-layout .forecast-periods {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
@@ -4022,6 +4045,17 @@ body {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: 1px 0.6rem !important;
+    /* absorb whatever height the hero card doesn't use, so the strip
+       -- not empty space below it -- closes the gap against the
+       Sky+Forecast column */
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    /* with grid-auto-rows left at its default `auto`, align-content:
+       stretch distributes any extra height across the item rows
+       themselves rather than padding the bottom of the strip, so the
+       rows genuinely use the space (more breathing room per item)
+       instead of just reserving it */
+    align-content: stretch !important;
   }
   .desktop-dashboard-layout #grid.sensor-panel .glance-item:nth-child(even) {
     background: transparent;
