@@ -47,20 +47,10 @@
   ],
   "hourly": [
     {
-      "startTime": "2026-09-10T06:00:00-04:00",
-      "temperature": 70,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "W",
-      "shortForecast": "Partly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 4
-    },
-    {
       "startTime": "2026-09-10T07:00:00-04:00",
       "temperature": 70,
       "temperatureUnit": "F",
-      "windSpeed": "2 mph",
+      "windSpeed": "1 mph",
       "windDirection": "W",
       "shortForecast": "Patchy Fog",
       "isDaytime": true,
@@ -150,7 +140,7 @@
       "startTime": "2026-09-10T16:00:00-04:00",
       "temperature": 78,
       "temperatureUnit": "F",
-      "windSpeed": "5 mph",
+      "windSpeed": "6 mph",
       "windDirection": "W",
       "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": true,
@@ -161,7 +151,7 @@
       "temperature": 78,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
-      "windDirection": "NW",
+      "windDirection": "W",
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 25
@@ -171,7 +161,7 @@
       "temperature": 76,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
-      "windDirection": "NW",
+      "windDirection": "W",
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": false,
       "probabilityOfPrecipitation": 27
@@ -181,7 +171,7 @@
       "temperature": 74,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
-      "windDirection": "NW",
+      "windDirection": "W",
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": false,
       "probabilityOfPrecipitation": 28
@@ -191,7 +181,7 @@
       "temperature": 72,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "N",
+      "windDirection": "NW",
       "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": false,
       "probabilityOfPrecipitation": 21
@@ -220,8 +210,8 @@
       "startTime": "2026-09-10T23:00:00-04:00",
       "temperature": 68,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "N",
+      "windSpeed": "0 mph",
+      "windDirection": "",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 5
@@ -230,8 +220,8 @@
       "startTime": "2026-09-11T00:00:00-04:00",
       "temperature": 67,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "N",
+      "windSpeed": "0 mph",
+      "windDirection": "",
       "shortForecast": "Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 4
@@ -240,8 +230,8 @@
       "startTime": "2026-09-11T01:00:00-04:00",
       "temperature": 66,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "N",
+      "windSpeed": "0 mph",
+      "windDirection": "",
       "shortForecast": "Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 2
@@ -250,8 +240,8 @@
       "startTime": "2026-09-11T02:00:00-04:00",
       "temperature": 66,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "N",
+      "windSpeed": "0 mph",
+      "windDirection": "",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 2
@@ -260,8 +250,8 @@
       "startTime": "2026-09-11T03:00:00-04:00",
       "temperature": 65,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "N",
+      "windSpeed": "0 mph",
+      "windDirection": "",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 1
@@ -284,6 +274,16 @@
       "windDirection": "N",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-11T06:00:00-04:00",
+      "temperature": 62,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "N",
+      "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
       "probabilityOfPrecipitation": 0
     }
   ]
