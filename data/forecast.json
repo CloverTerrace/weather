@@ -4,12 +4,12 @@
       "name": "Overnight",
       "temperature": 70,
       "temperatureUnit": "F",
-      "windSpeed": "6 mph",
+      "windSpeed": "3 to 7 mph",
       "windDirection": "W",
-      "shortForecast": "Slight Chance Showers And Thunderstorms",
-      "detailedForecast": "A slight chance of showers and thunderstorms before 2am. Mostly cloudy, with a low around 70. West wind around 6 mph. Chance of precipitation is 20%.",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "detailedForecast": "A chance of showers and thunderstorms before 2am. Mostly cloudy, with a low around 70. West wind 3 to 7 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 19
+      "probabilityOfPrecipitation": 33
     },
     {
       "name": "Thursday",
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-10T00:00:00-04:00",
+      "temperature": 72,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "SW",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 33
+    },
     {
       "startTime": "2026-09-10T01:00:00-04:00",
       "temperature": 72,
@@ -275,16 +285,6 @@
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 5
-    },
-    {
-      "startTime": "2026-09-11T00:00:00-04:00",
-      "temperature": 67,
-      "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "N",
-      "shortForecast": "Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 4
     }
   ]
 }
