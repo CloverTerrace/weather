@@ -148,7 +148,7 @@ h1 {
     font-weight: 600;
     font-family: var(--font-page-title);
     color: var(--title-color);
-    text-shadow: 0 2px 6px rgba(0,0,0,0.14);
+    text-shadow: 0 1px 10px rgba(0,0,0,0.1);
   }
 .weather-icon-img {
     height: 1.1em;
@@ -353,6 +353,10 @@ h1 {
   border: var(--card-accent-border);
   border-radius: 12px;
   padding: 0.4rem;
+  /* matches .card / .camera-card's shadow -- it shares their background,
+     border, and radius, but as a plain div (not .card) never inherited
+     the shadow that goes with that look */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 @container sensorpanel (min-width: 460px) {
   .glance-strip {
@@ -4017,9 +4021,12 @@ body {
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
-    /* content-sized, not stretched to match hero's height -- stretching
-       it was the source of the dead space above the action buttons */
-    align-self: start !important;
+    /* now stretched (see .sky-photo-frame below) so the growth lands
+       inside the photo frame -- not as dead space below the card's
+       content, which is what content-sizing here used to avoid */
+    align-self: stretch !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
   .desktop-dashboard-layout .forecast-card {
     grid-area: forecast !important;
@@ -4065,17 +4072,47 @@ body {
     background: color-mix(in srgb, var(--label-color, #9aa8b5) 6%, transparent);
   }
 
-  /* The Sky card should be compact enough that the right half of the
-     first bento row stays visually balanced with the station panel. */
+  /* Rows are only taller here because align-content: stretch above gave
+     them room -- so let the description actually use it instead of
+     staying clipped to one line. Wrapping (capped at 3 lines so one
+     unusually long description can't dominate the grid) makes the
+     strip's extra height read as "more detail," not just "more
+     padding." A shorter row still shows one clipped line exactly like
+     before -- this only kicks in when the row is tall enough to wrap. */
+  .desktop-dashboard-layout #grid.sensor-panel .glance-item-context {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: clip;
+    line-height: 1.3;
+  }
+
+  /* The Sky card stays compact by default (padding/gaps unchanged), but
+     now that .camera-photo-card can be stretched taller than its own
+     content (see align-self: stretch above), the frame -- not blank
+     space below the actions -- needs to be what absorbs that height.
+     flex: 1 lets the frame claim it; centering + contain on the image
+     then let the photo grow into that room without cropping or
+     distorting it. header/conditions/actions stay their natural size
+     since they aren't flex-grown. */
   .desktop-dashboard-layout .sky-photo-card {
     padding: clamp(0.75rem, 1vw, 1rem) !important;
   }
   .desktop-dashboard-layout .sky-photo-frame {
-    width: min(100%, 520px) !important;
+    width: min(100%, 560px) !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
   .desktop-dashboard-layout .sky-photo-frame img {
-    width: 94% !important;
-    max-height: 250px !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: 94% !important;
+    max-height: 100% !important;
     object-fit: contain !important;
   }
   .desktop-dashboard-layout .sky-conditions {
