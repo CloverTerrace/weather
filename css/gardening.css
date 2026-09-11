@@ -635,9 +635,14 @@ img.pixel,
 
 /* reserve space at the bottom of the page (mobile only) so the fixed nav
    bar can never cover this page's real content -- same fix applied to
-   site.css, using navigation.css's shared --site-nav-mobile-total var. */
+   site.css, using navigation.css's shared --site-nav-mobile-total var.
+   Reserved on the footer itself (not `body`) so the footer's own dark
+   green background fills that space -- reserving it on `body` left a
+   sliver of body's own grass background peeking through between the
+   footer and the fixed nav bar, since the footer (the last element in
+   the page) doesn't stretch to cover space added as body's padding. */
 @media (max-width: 850px) {
-  body {
+  .garden-band-credit {
     padding-bottom: calc(var(--site-nav-mobile-total, 60px) + 1rem) !important;
   }
 }
@@ -1109,6 +1114,9 @@ img.pixel,
   justify-content: center;
   gap: 0.15rem 0.65rem;
 }
+.garden-footer-links[hidden] {
+  display: none;
+}
 .garden-footer-links a {
   color: #f5e7b8;
   text-decoration: underline;
@@ -1121,6 +1129,14 @@ img.pixel,
   align-items: center;
   gap: 0.6rem;
   margin-bottom: 0.3rem;
+}
+/* `display: flex` above beats the UA stylesheet's `[hidden] { display:
+   none }` rule (an author style always wins over a UA one at equal
+   specificity), so without this override the badge row showed through
+   -- broken-image icons and all -- even while the `hidden` attribute
+   was still set and the fallback script hadn't unhidden it. */
+.garden-footer-badges[hidden] {
+  display: none;
 }
 .garden-footer-badges a {
   display: inline-flex;
