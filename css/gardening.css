@@ -228,9 +228,12 @@ img.pixel,
   isolation: isolate;
   width: 100%;
   min-width: 0;
-  min-height: 100vh;
-  min-height: 100svh;
-  min-height: 100dvh;
+  /* sized to its own content (nav + hero + stat cards), not forced to
+     fill the viewport -- a forced 100vh/100svh/100dvh here left a slab
+     of empty grass terrain below short content, pushing the footer
+     down off-screen. the terrain/sky/border layers are all `inset:0`
+     on this element, so they still cover exactly the real content
+     height with no gap either way. */
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -1110,6 +1113,24 @@ img.pixel,
   color: #f5e7b8;
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+.garden-footer-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.3rem;
+}
+.garden-footer-badges a {
+  display: inline-flex;
+  line-height: 0;
+}
+.garden-footer-badges img {
+  height: 28px;
+  width: auto;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.35));
 }
 .garden-footer-sources {
   margin-top: 0.45rem;
