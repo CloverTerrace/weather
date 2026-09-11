@@ -1864,19 +1864,6 @@ body.theme-extreme-heat-night #weather-fx::after {
     display: flex;
     flex-direction: column;
   }
-.sky-photo-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.45rem;
-    margin-bottom: 0.65rem;
-  }
-  .sky-photo-header h2 {
-    margin: 0;
-  }
-  .sky-photo-header .card-icon {
-    flex: 0 0 22px;
-  }
 /* the frame is sized by the image's own aspect ratio (no forced height,
    no object-fit: cover) -- cropping the photo to fill a stretched card
    was cutting off the sides on narrower cards where the row is tall
@@ -3684,7 +3671,7 @@ h1 .weather-icon-img,
 .desktop-left-rail .forecast-period .period-temp { font-size: 0.98rem; }
 .desktop-left-rail .forecast-period .period-short { font-size: 0.62rem; line-height: 1.18; }
 .desktop-left-rail .forecast-period .period-wind { font-size: 0.55rem; }
-.desktop-right-rail .sky-photo-header h2 { font-size: clamp(0.78rem, 0.9vw, 0.98rem); }
+.desktop-right-rail .sky-photo-card h2 { font-size: clamp(0.78rem, 0.9vw, 0.98rem); }
 .desktop-right-rail .sky-conditions-label { font-size: 0.67rem; }
 .desktop-right-rail .sky-badges { gap: 0.5rem; font-size: 0.67rem; }
 /* .dashboard-grid is display:contents (below) so Camera+Sky and Storm
@@ -3724,7 +3711,7 @@ h1 .weather-icon-img,
 .desktop-left-rail .forecast-period .period-temp { font-size: clamp(0.98rem, 0.95vw, 1.3rem); }
 .desktop-left-rail .forecast-period .period-short { font-size: clamp(0.62rem, 0.62vw, 0.82rem); }
 .desktop-left-rail .forecast-period .period-wind { font-size: clamp(0.55rem, 0.55vw, 0.74rem); }
-.desktop-right-rail .sky-photo-header h2 { font-size: clamp(0.78rem, 0.9vw, 1.2rem); }
+.desktop-right-rail .sky-photo-card h2 { font-size: clamp(0.78rem, 0.9vw, 1.2rem); }
 .desktop-right-rail .sky-badges { font-size: clamp(0.67rem, 0.7vw, 0.88rem); }}
 @media (max-width: 850px) {#grid.grid {
       display: grid !important;
