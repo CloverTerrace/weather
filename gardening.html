@@ -392,7 +392,22 @@
   <script src="js/garden-sprites.js?v=9" defer></script>
   <footer class="garden-band-credit" aria-label="Garden resources and credits">
 <img src="assets/garden/summer/flowers/icon-rose.png" class="garden-footer-icon" alt=""> Clover Terrace — grown with care
-  <div class="garden-footer-links">
+
+    <!-- retro badge graphics, one per resource link below. starts hidden;
+         the script at the end of the footer only reveals this row (and
+         hides the plain-text link row) once every badge .png actually
+         loads, so dropping the art into assets/garden/footer/ later is
+         the only step needed to switch the footer over -- no markup
+         changes. a partially-filled folder falls back to the text
+         links rather than showing a mix of badges and broken images. -->
+    <div class="garden-footer-badges" id="garden-footer-badges" hidden>
+      <a href="https://planthardiness.ars.usda.gov/" target="_blank" rel="noopener"><img src="assets/garden/footer/badge-usda-hardiness.png" alt="USDA Hardiness Map"></a>
+      <a href="https://www.weather.gov/pbz/" target="_blank" rel="noopener"><img src="assets/garden/footer/badge-nws-pittsburgh.png" alt="NWS Pittsburgh"></a>
+      <a href="https://www.nrcs.usda.gov/resources/data-and-reports/web-soil-survey" target="_blank" rel="noopener"><img src="assets/garden/footer/badge-usda-soil-survey.png" alt="USDA Web Soil Survey"></a>
+      <a href="https://www.weather.gov/documentation/services-web-api" target="_blank" rel="noopener"><img src="assets/garden/footer/badge-nws-api.png" alt="NWS API"></a>
+    </div>
+
+  <div class="garden-footer-links" id="garden-footer-links">
           <a href="https://planthardiness.ars.usda.gov/" target="_blank" rel="noopener">USDA Hardiness Map</a>
           <span aria-hidden="true">·</span>
           <a href="https://www.weather.gov/pbz/" target="_blank" rel="noopener">NWS Pittsburgh</a>
@@ -405,5 +420,32 @@
           Live station: GW7673 - Aliquippa · Forecast: National Weather Service 
         </div>
   </footer>
+
+  <script>
+    // swap the footer's text links for the retro badge row above, but
+    // only once every badge .png is confirmed to actually load -- keeps
+    // the footer from ever showing broken-image icons while the art is
+    // still being drawn/uploaded.
+    (function () {
+      var badgeRow = document.getElementById('garden-footer-badges');
+      var linkRow = document.getElementById('garden-footer-links');
+      if (!badgeRow || !linkRow) return;
+      var imgs = badgeRow.querySelectorAll('img');
+      var checks = Array.prototype.map.call(imgs, function (img) {
+        return new Promise(function (resolve) {
+          var probe = new Image();
+          probe.onload = function () { resolve(true); };
+          probe.onerror = function () { resolve(false); };
+          probe.src = img.src;
+        });
+      });
+      Promise.all(checks).then(function (allLoaded) {
+        if (allLoaded.every(Boolean)) {
+          linkRow.hidden = true;
+          badgeRow.hidden = false;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
