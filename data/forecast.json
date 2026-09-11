@@ -4,10 +4,10 @@
       "name": "This Afternoon",
       "temperature": 81,
       "temperatureUnit": "F",
-      "windSpeed": "2 mph",
+      "windSpeed": "3 mph",
       "windDirection": "NE",
-      "shortForecast": "Sunny",
-      "detailedForecast": "Sunny, with a high near 81. Northeast wind around 2 mph.",
+      "shortForecast": "Mostly Sunny",
+      "detailedForecast": "Mostly sunny, with a high near 81. Northeast wind around 3 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -17,8 +17,8 @@
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "E",
-      "shortForecast": "Partly Cloudy",
-      "detailedForecast": "Partly cloudy, with a low around 63. East wind around 2 mph.",
+      "shortForecast": "Mostly Cloudy",
+      "detailedForecast": "Mostly cloudy, with a low around 63. East wind around 2 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -47,21 +47,11 @@
   ],
   "hourly": [
     {
-      "startTime": "2026-09-11T12:00:00-04:00",
-      "temperature": 76,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "NW",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
       "startTime": "2026-09-11T13:00:00-04:00",
       "temperature": 78,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "NE",
+      "windSpeed": "3 mph",
+      "windDirection": "N",
       "shortForecast": "Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
@@ -92,7 +82,7 @@
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
       "windDirection": "NE",
-      "shortForecast": "Sunny",
+      "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -122,7 +112,7 @@
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "E",
-      "shortForecast": "Mostly Clear",
+      "shortForecast": "Partly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -172,7 +162,7 @@
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "E",
-      "shortForecast": "Mostly Cloudy",
+      "shortForecast": "Partly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -192,7 +182,7 @@
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "E",
-      "shortForecast": "Partly Cloudy",
+      "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 27
+    },
+    {
+      "startTime": "2026-09-12T12:00:00-04:00",
+      "temperature": 76,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "S",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 38
     }
   ]
 }
