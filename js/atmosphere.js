@@ -84,15 +84,15 @@
 
     var levels = [
       { max: 1, key: 'low', label: 'Low', badge: 'LOW',
-        body: 'The atmosphere is stable right now \u2014 not much fuel and not much organization for storms to work with.' },
+        body: 'The atmosphere is stable right now\u002c not much fuel or organization for storms to work with.' },
       { max: 3, key: 'marginal', label: 'Marginal', badge: 'MRGL',
-        body: 'A little instability and shear are in place. Any storms that fire would likely stay ordinary, but keep an eye on trends.' },
+        body: 'A little instability and shear in place. Any storms that fire would likely stay ordinary, but stay weather-aware.' },
       { max: 5, key: 'slight', label: 'Slight', badge: 'SLGT',
-        body: 'There\u2019s a real combination of fuel and organization today \u2014 an isolated stronger storm wouldn\u2019t be a surprise if one develops.' },
+        body: 'There\u2019s a decent combination of fuel & organization today \u2014 development of an isolated stronger storm wouldn\u2019t be a surprise.' },
       { max: 7, key: 'enhanced', label: 'Enhanced', badge: 'ENH',
-        body: 'Instability and wind shear are both meaningfully in play \u2014 conditions favor storms that can organize and sustain themselves if they fire.' },
+        body: 'Instability and wind shear are both in play\u002c conditions favor storms that can organize and sustain themselves if they fire.' },
       { max: 10, key: 'high', label: 'High', badge: 'HIGH',
-        body: 'A potent combination of instability and shear is present \u2014 the classic ingredients for strong, organized storms are all on the table.' },
+        body: 'A potent combination of instability and shear is present\u002c the classic ingredients for strong, organized storms are all on the table.' },
     ];
 
     for (var i = 0; i < levels.length; i++) {
@@ -141,7 +141,7 @@
     section.classList.add('cat-' + verdict.key);
     badgeEl.textContent = verdict.badge;
     titleEl.textContent = verdict.label + ' storm potential';
-    bodyEl.textContent = verdict.body + ' A simplified read from this one model run \u2014 not the official forecast.';
+    bodyEl.textContent = verdict.body + '';
   }
 
   function renderInstabilityCard(p) {
@@ -158,11 +158,11 @@
       return;
     }
     var lines = {
-      stable: 'Very little energy available \u2014 storms would struggle to build much vertical growth today.',
-      weak: 'A modest amount of energy is available \u2014 enough for showers or weak storms to develop.',
-      moderate: 'A solid amount of energy is available \u2014 storms that fire could build into real thunderstorms.',
-      strong: 'A large amount of energy is available \u2014 storms could grow tall and strong if they develop.',
-      extreme: 'An exceptional amount of energy is available \u2014 any storm that develops has huge room to grow.',
+      stable: 'Very little energy available\u002c storms would struggle to build vertical growth today.',
+      weak: 'A modest amount of energy is available\u002c enough for showers or weak storms to develop.',
+      moderate: 'A solid amount of energy is available\u002c storms that fire could build into moderate thunderstorms.',
+      strong: 'A large amount of energy is available\u002c storms could grow tall and strong if they develop.',
+      extreme: 'An exceptional amount of energy is available\u002c any storm that develops has massive room to grow.',
     };
     plain.textContent = lines[mlcape.key] || '';
   }
@@ -211,9 +211,9 @@
     }
     var lines = {
       modest: 'Temperatures aloft aren\u2019t dropping off unusually fast \u2014 a fairly ordinary profile.',
-      steepening: 'Temperatures aloft are dropping off a bit faster than average, giving rising air a modest extra boost.',
-      steep: 'Temperatures aloft are dropping off quickly \u2014 that cold air overhead helps rising surface air keep accelerating upward.',
-      'very-steep': 'Temperatures aloft are dropping off very quickly \u2014 close to the steepest this atmosphere can support, which strongly favors vigorous updrafts.',
+      steepening: 'Temperatures aloft are dropping off a bit faster than average, giving rising air a small extra boost.',
+      steep: 'Temperatures aloft are dropping off quickly and cold air overhead is keeping the rising surface air accelerating upward.',
+      'very-steep': 'Temperatures aloft are dropping off very quickly\u002c close to the steepest this atmosphere can support, which strongly favors vigorous updrafts.',
     };
     plain.textContent = lines[cat.key] || '';
   }
@@ -323,9 +323,8 @@
       var row = nearestLevel(profile, lvl.target);
       if (!row) return '';
       var speedKt = Math.sqrt(row.wind_u_kt * row.wind_u_kt + row.wind_v_kt * row.wind_v_kt);
-      // meteorological "from" direction
       var fromDeg = (Math.atan2(-row.wind_u_kt, -row.wind_v_kt) * 180 / Math.PI + 360) % 360;
-      var arrowRotation = (fromDeg + 180) % 360; // arrow points where wind is going
+      var arrowRotation = (fromDeg + 180) % 360; 
       return '<tr>' +
         '<td>' + lvl.label + '</td>' +
         '<td><span class="atm-wind-dir-arrow" style="display:inline-block;transform:rotate(' + arrowRotation.toFixed(0) + 'deg)">\u2191</span>' +
