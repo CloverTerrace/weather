@@ -63,38 +63,20 @@
   --atm-cat-enhanced: #e8863f;
   --atm-cat-high: #d9548c;
 
-  /* ---- raw font stacks (the actual @font-face names + fallbacks) ---- */
+  /* ---- raw font stacks ---- */
   --atm-mono-stack: 'Atmosphere Mono Fallback', 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   --atm-sans-stack: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  /* ---- semantic type roles: one var per JOB on the page, not per font.
-     Everything else in this file should reference these four, never a
-     raw font stack or a literal font name directly -- that's what makes
-     "swap what Tornado points to" a one-line change instead of a find/
-     replace across the whole file. ---- */
-
-  /* The big "Atmosphere" H1 ONLY -- nothing else should ever use this. */
+  /* "Atmosphere" H1 ONLY. */
   --atm-title: 'Great Warrior', var(--atm-sans-stack);
 
-  /* Card headers ("Instability", "Wind Profile"...) and panel headers
-     ("Vertical Profile", "Wind by Level") -- decorative but still legible
-     at ~1rem, unlike an outline face. Royalacid/Royalacid_o are sitting
-     here as declared-but-unused alternatives -- Royalacid_o especially
-     is an OUTLINE cut, which tends to lose legibility at small header
-     sizes, so it's a better fit for something large/decorative later
-     (the verdict badge circle, maybe) than for body-adjacent headers.
-     Swap the first name below to try either. */
+  /* card headers ("Instability", "Wind Profile"...) */
   --atm-header: 'Tornado', Georgia, serif;
 
-  /* All non-numeric copy: subtitles, plain-language sentences, explainer
-     paragraphs, footer, loading states. This is the page's actual
-     reading font. */
+  /* all non-numeric text */
   --atm-body: var(--atm-sans-stack);
 
-  /* Every literal data readout: stat values, the model-cycle line, the
-     verdict badge (SLGT/HIGH/etc.), threshold tables, the wind table.
-     Points at the mono stack rather than duplicating it, so fixing the
-     mono fallback chain in one place fixes it everywhere this is used. */
+  /* data readouts: stat values, numbers, all that jazz. */
   --atm-number: var(--atm-mono-stack);
 
   /* so the shared navigation.css (which reads these three) themes itself
@@ -135,19 +117,12 @@ a { color: var(--atm-cyan); }
 .atm-header {
   padding: 1.25rem 0 0.5rem 0;
   text-align: left;
-  /* deliberately no font-family here -- this wrapper used to set one and
-     leak it into .atm-subtitle/.atm-model-meta by inheritance. Each child
-     below declares its own role explicitly instead. */
 }
 
 .atm-header h1 {
   margin: 0;
   font-size: clamp(1.8rem, 5vw, 2.6rem);
   font-family: var(--atm-title);
-  /* a single-cut display face like Great Warrior has no real bold weight
-     to switch to -- forcing 800 here just makes the browser synthesize a
-     fake bold, which usually looks thickened/blurry on display fonts.
-     Letting the face render at its own natural weight looks cleaner. */
   font-weight: 400;
   letter-spacing: 0.01em;
   background: linear-gradient(120deg, var(--atm-amber), var(--atm-cyan));
@@ -174,7 +149,7 @@ a { color: var(--atm-cyan); }
   opacity: 0.85;
 }
 
-/* ---------- headline verdict banner ---------- */
+/* ---- headline verdict banner ---- */
 .atm-headline {
   display: flex;
   align-items: center;
@@ -228,7 +203,7 @@ a { color: var(--atm-cyan); }
   max-width: 60ch;
 }
 
-/* ---------- parameter card row ---------- */
+/* ---- parameter card row ---- */
 .atm-card-row-wrap {
   position: relative;
   margin-top: 1.5rem;
@@ -406,7 +381,7 @@ a { color: var(--atm-cyan); }
   }
 }
 
-/* ---------- chart / wind panels ---------- */
+/* ---- chart / wind panels ---- */
 .atm-panel {
   margin-top: 1.75rem;
   background: var(--atm-card);
@@ -480,10 +455,7 @@ a { color: var(--atm-cyan); }
 
 .atm-wind-loading { font-family: var(--atm-body); color: var(--atm-muted); }
 
-/* ---------- SPC Outlooks (Convective + Thunderstorm) ---------- */
-/* migrated from the main page's Storm Center card -- same interaction
-   pattern (scroll-snap carousel + thumbnail drawer), restyled into this
-   page's dark/cyan theme instead of the main dashboard's card language. */
+/* ---- SPC Outlooks (Convective + Thunderstorm) ---- */
 
 .outlook-category-tabs {
   display: grid;
@@ -773,7 +745,7 @@ a { color: var(--atm-cyan); }
   font-family: var(--atm-body);
 }
 
-/* ---------- footer ---------- */
+/* ---- footer ---- */
 .atm-footer {
   margin-top: 2.25rem;
   padding-top: 1rem;
@@ -788,7 +760,7 @@ a { color: var(--atm-cyan); }
   max-width: 75ch;
 }
 
-/* ---------- desktop layout: chart + params side by side ---------- */
+/* ---- desktop layout: chart + params side by side ---- */
 @media (min-width: 851px) {
   .atmosphere-content {
     padding-top: 0.25rem;
@@ -800,7 +772,7 @@ a { color: var(--atm-cyan); }
   }
 }
 
-/* ---------- mobile: reserve space for the fixed bottom nav ---------- */
+/* ---- mobile: reserve space for the fixed bottom nav ---- */
 @media (max-width: 850px) {
   body {
     padding-bottom: calc(var(--site-nav-mobile-total, 60px) + 0.5rem);
