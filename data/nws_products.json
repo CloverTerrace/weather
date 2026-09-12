@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T17:25:49.849669Z",
+  "generatedAt": "2026-09-12T21:50:50.253812Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.e7c1c47a61347e8a8ffddd0ce6533ed5897cbaf4.001.1",
@@ -27,24 +27,24 @@
   "mesoscaleDiscussions": [],
   "statements": [
     {
-      "id": "eb8a5fc8-10f3-4592-85cd-ad0d7596258e",
-      "code": "AFD",
-      "type": "Area Forecast Discussion",
+      "id": "620dc787-0ad2-4e29-8622-27d6b2ee9273",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
       "office": "KPBZ",
-      "issued": "2026-09-12T17:00:00+00:00",
+      "issued": "2026-09-12T21:34:00+00:00",
       "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... The Flood Watch has been expanded to the rest of the forecast area.",
+      "location": "Armstrong PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Derry, Ligonier, Clymer, New Florence, Seward, Bolivar, Cherry Tree, Youngstown,",
       "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... The Flood Watch has been expanded to the rest of the forecast area.",
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Derry, Ligonier, Clymer, New Florence, Seward, Bolivar, Cherry Tree, Youngstown, Laurel Mountain, Armagh, Commodore, Yellow Creek State Park, Loyalhanna Gorge and Laurel Mountain State Park.",
       "details": [
         {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 100 PM EDT Sat Sep 12 2026 .WHAT HAS CHANGED... The Flood Watch has been expanded to the rest of the forecast area. Isolated severe storm threats also now encompass more of the area today. Confidence in the Sunday severe threat is decreasing."
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Derry, Ligonier, Clymer, New Florence, Seward, Bolivar, Cherry Tree, Youngstown, Laurel Mountain, Armagh, Commodore, Yellow Creek State Park, Loyalhanna Gorge and Laurel Mountain State Park."
         }
       ],
-      "url": "https://api.weather.gov/products/eb8a5fc8-10f3-4592-85cd-ad0d7596258e"
+      "url": "https://api.weather.gov/products/620dc787-0ad2-4e29-8622-27d6b2ee9273"
     }
   ]
 }
