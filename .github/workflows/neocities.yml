@@ -24,15 +24,9 @@ jobs:
           rm -rf _site
           mkdir -p _site
 
-          cp index.html _site/
-          cp manifest.json _site/
-          cp suncalc.js _site/
-          cp chart.umd.min.js _site/
-
-          cp -R data _site/
-          cp -R fonts _site/
-          cp -R icons _site/
-          cp -R scripts _site/
+          # Copy entire repository except git files and workflow files
+          find . -maxdepth 1 -type f \( -name "*.html" -o -name "*.json" -o -name "*.js" -o -name "*.css" \) -exec cp {} _site/ \;
+          find . -maxdepth 1 -type d \( -not -name "." -not -name ".." -not -name ".git" -not -name ".github" -not -name "_site" \) -exec cp -R {} _site/ \;
 
       - name: Get current weather data
         run: |
