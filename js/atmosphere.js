@@ -240,8 +240,12 @@
       return;
     }
 
-    var tempPoints = profile.map(function (row) { return { x: row.temp_c, y: row.height_m }; });
-    var dewPoints = profile.map(function (row) { return { x: row.dewpoint_c, y: row.height_m }; });
+    // height_agl_m is height above THIS station's ground (backend splices
+    // in a true surface point and subtracts local terrain height from
+    // every level -- see fetch_atmosphere.py). Fall back to raw height_m
+    // for any older cached JSON that predates that field.
+    var tempPoints = profile.map(function (row) { return { x: row.temp_c, y: row.height_agl_m != null ? row.height_agl_m : row.height_m }; });
+    var dewPoints = profile.map(function (row) { return { x: row.dewpoint_c, y: row.height_agl_m != null ? row.height_agl_m : row.height_m }; });
 
     if (soundingChart) soundingChart.destroy();
 
@@ -282,7 +286,7 @@
           },
           y: {
             type: 'linear',
-            title: { display: true, text: 'Altitude (m)', color: '#8b96ab' },
+            title: { display: true, text: 'Altitude (m AGL)', color: '#8b96ab' },
             ticks: { color: '#8b96ab' },
             grid: { color: 'rgba(255,255,255,0.06)' },
           },
