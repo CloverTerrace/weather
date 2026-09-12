@@ -19,8 +19,7 @@
 </head>
 <body id="atmosphere-page">
 
-  <!-- shared navbar -- identical structure to gardening.html/space.html so
-       navigation.js/navigation.css need no changes for this page -->
+  <!-- shared navbar -->
   <nav class="site-nav" aria-label="Clover Terrace Weather sections">
     <a href="index.html" class="nav-brand">
       <img src="icons/cloverwx.png" alt="" class="nav-brand-icon">
@@ -47,15 +46,15 @@
 
     <header class="atm-header">
       <h1>Atmosphere</h1>
-      <p class="atm-subtitle">A live vertical profile of the sky above Clover Terrace — modeled, not measured, updated hourly.</p>
+      <p class="atm-subtitle">A live vertical profile of the sky above Clover Terrace. Modeled and updated hourly.</p>
       <p id="atm-model-meta" class="atm-model-meta">Loading latest model run&hellip;</p>
     </header>
 
     <section id="atm-headline" class="atm-headline atm-headline-loading" aria-live="polite">
       <div class="atm-headline-badge" id="atm-headline-badge">&mdash;</div>
       <div class="atm-headline-copy">
-        <h2 id="atm-headline-title">Reading the atmosphere&hellip;</h2>
-        <p id="atm-headline-body">Hang tight, pulling the latest model profile.</p>
+        <h2 id="atm-headline-title">reading the atmosphere&hellip;</h2>
+        <p id="atm-headline-body">pulling the latest model profile.</p>
       </div>
     </section>
 
@@ -84,7 +83,7 @@
           </div>
           <details class="atm-explainer">
             <summary>What does this mean?</summary>
-            <p>CAPE ("Convective Available Potential Energy") is a measure of how much fuel is available for a rising thunderstorm updraft &mdash; think of it as the size of the tank, in Joules per kilogram of air. Higher numbers mean a storm that does form can grow taller and stronger. CIN ("Convective Inhibition") is the opposite: a layer of warm air aloft acting like a lid, holding storms down until something forces air through it. Some CIN is normal and even helpful &mdash; it lets energy build up before storms break out.</p>
+            <p>CAPE ("Convective Available Potential Energy") is a measure of how much fuel is available for a rising thunderstorm updraft. Think of it as the size of the fuel tank, in Joules per kilogram of air. Higher numbers mean a storm that does form can grow taller and stronger. CIN ("Convective Inhibition") is the opposite: a layer of warm air aloft acting like a lid, holding storms down until something forces air through it. Some CIN is normal and even helpful, it lets energy build up before storms break out.</p>
             <table class="atm-threshold-table">
               <tr><td>&lt; 100 J/kg</td><td>Stable</td></tr>
               <tr><td>100&ndash;1000 J/kg</td><td>Weak</td></tr>
