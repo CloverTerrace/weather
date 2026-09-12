@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T11:10:51.251972Z",
+  "generatedAt": "2026-09-12T11:15:48.992788Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.1aaa2d8f2e0cff82774336530286f5843c300f7d.001.1",
@@ -25,5 +25,26 @@
     }
   ],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "70d02423-60ca-4b7e-80ac-4e819eac7db7",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-09-12T11:11:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... The Flood Watch has been expanded to the rest of the forecast",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... The Flood Watch has been expanded to the rest of the forecast",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 711 AM EDT Sat Sep 12 2026 .WHAT HAS CHANGED... The Flood Watch has been expanded to the rest of the forecast area. Isolated severe storm threats also now encompass more of the area today."
+        }
+      ],
+      "url": "https://api.weather.gov/products/70d02423-60ca-4b7e-80ac-4e819eac7db7"
+    }
+  ]
 }
