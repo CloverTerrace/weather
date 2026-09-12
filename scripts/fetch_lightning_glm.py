@@ -76,7 +76,11 @@ BOX_DEG = 1.35
 WINDOW_MINUTES = 15               # how far back to look for flashes
 OUTPUT_PATH = "data/lightning_glm.json"
 
-s3 = boto3.client("s3", config=Config(signature_version=UNSIGNED))
+s3 = boto3.client(
+    "s3",
+    region_name="us-east-1",  # NOAA GOES buckets live here; pin explicitly
+    config=Config(signature_version=UNSIGNED),
+)
 
 
 def hour_prefixes(now_utc, minutes_back):
