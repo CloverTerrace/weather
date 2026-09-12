@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T15:40:54.602020Z",
+  "generatedAt": "2026-09-12T15:45:58.018538Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.e7c1c47a61347e8a8ffddd0ce6533ed5897cbaf4.001.1",
@@ -25,5 +25,30 @@
     }
   ],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "8ee25e8f-b7b1-40e1-a23e-e91e0be74a29",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-09-12T15:41:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "This afternoon and tonight. Flood Watch. Thunderstorms are also possible during the afternoon hours that may produce strong to marginally severe wind gusts.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "This afternoon and tonight. Flood Watch. Thunderstorms are also possible during the afternoon hours that may produce strong to marginally severe wind gusts.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "This afternoon and tonight. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Flood Watch. Thunderstorms are also possible during the afternoon hours that may produce strong to marginally severe wind gusts."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Sunday through Friday. Another round of at least scattered thunderstorms is possible Sunday afternoon and evening along a cold front. The stronger storms may produce isolated instances of damaging wind gusts and large hail."
+        }
+      ],
+      "url": "https://api.weather.gov/products/8ee25e8f-b7b1-40e1-a23e-e91e0be74a29"
+    }
+  ]
 }
