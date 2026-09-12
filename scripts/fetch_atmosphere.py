@@ -39,6 +39,16 @@ Design notes (read before editing):
   pressure grid, need hybrid-to-pressure interpolation) -- flagging it as
   a possible v2, not attempting it here.
 
+- True surface, not the lowest isobaric level. Isobaric levels are fixed
+  pressure surfaces, not terrain-following, so for a station above sea
+  level the 1000mb (and sometimes 975mb) level can sit below the actual
+  ground -- an extrapolated value, not real atmosphere. load_profile()
+  pulls HRRR's own terrain height + true 2m/10m surface fields (see
+  _load_surface_point()), drops any isobaric level below that terrain
+  height, and splices the real surface observation in as the new bottom
+  of the profile before anything else (CAPE, shear, SRH, lapse rates,
+  the frontend chart) is computed from it.
+
 - NOT execution-tested. This sandbox has no network access to NOMADS/NODD,
   so Herbie's download step and the exact GRIB field names used in the
   search regex below could not be verified live. The field-name regex is
@@ -172,12 +182,71 @@ def _nearest_grid_indices(ds, lat, lon):
     return {dim_y: int(iy), dim_x: int(ix)}
 
 
+def _load_surface_point(H) -> dict:
+    """
+    Pull HRRR's own terrain height plus true near-surface fields (2m temp/
+    dewpoint, 10m wind, surface pressure) for this grid cell.
+
+    Why this is a SEPARATE Herbie fetch rather than folded into the
+    isobaric search in load_profile(): cfgrib names fields by GRIB
+    shortName, and the isobaric temperature/dewpoint/wind fields share
+    shortNames ('t', 'dpt', 'u', 'v') with these surface-level fields --
+    merging both into one Dataset lets one silently clobber the other.
+    Keeping them as two independent subsets avoids that entirely.
+
+    Field-name mapping used below (standard cfgrib/ecCodes shortNames for
+    these GRIB2 parameters -- stable across models, but like the rest of
+    this script's field access, worth confirming against a real
+    `sfc_point.data_vars` on first run rather than trusting blindly):
+        HGT:surface            -> orog  (model terrain height, m MSL)
+        PRES:surface            -> sp    (Pa)
+        TMP:2 m above ground    -> t2m   (K)
+        DPT:2 m above ground    -> d2m   (K)
+        UGRD:10 m above ground  -> u10   (m/s)
+        VGRD:10 m above ground  -> v10   (m/s)
+    """
+    import xarray as xr
+    from metpy.units import units
+
+    search = (
+        r":HGT:surface:|:PRES:surface:|:TMP:2 m above ground:"
+        r"|:DPT:2 m above ground:|:(?:UGRD|VGRD):10 m above ground:"
+    )
+    ds = H.xarray(search, remove_grib=True)
+    merged = xr.merge(ds, compat="override") if isinstance(ds, list) else ds
+
+    indexers = _nearest_grid_indices(merged, STATION_LAT, STATION_LON)
+    point = merged.isel(indexers)
+
+    missing = [name for name in ("orog", "sp", "t2m", "d2m", "u10", "v10") if name not in point]
+    if missing:
+        # Don't guess at alternate names silently -- log what's actually
+        # there so a real run's logs tell you exactly what to fix, same
+        # spirit as the other "confirmed against a real run" notes above.
+        log.warning(
+            "Surface fetch missing expected var(s) %s -- available: %s",
+            missing, list(point.data_vars),
+        )
+
+    return {
+        "terrain_m": float(point["orog"].values),
+        "pressure_mb": float(point["sp"].values) / 100.0,  # Pa -> hPa
+        "temp_c": float((point["t2m"].values * units.kelvin).to("degC").magnitude),
+        "dewpoint_c": float((point["d2m"].values * units.kelvin).to("degC").magnitude),
+        "u_ms": float(point["u10"].values),
+        "v_ms": float(point["v10"].values),
+    }
+
+
 def load_profile(H) -> "Profile":
     """
     Download just the fields we need for this lat/lon and return a Profile
     with 1-D arrays (surface-to-top) of pressure, height, temperature,
-    dewpoint, and wind components, all as MetPy pint.Quantity arrays.
+    dewpoint, and wind components, all as MetPy pint.Quantity arrays --
+    with the true surface (not a below-ground isobaric extrapolation)
+    spliced in as the bottom point. See _load_surface_point() for why.
     """
+    import numpy as np
     import xarray as xr
     import metpy.calc as mpcalc
     from metpy.units import units
@@ -212,7 +281,44 @@ def load_profile(H) -> "Profile":
     u = point["u"].values * units("m/s")
     v = point["v"].values * units("m/s")
 
-    return Profile(pressure=p, height=height, temperature=T, dewpoint=Td, u=u, v=v)
+    # ---------------------------------------------------------------
+    # Splice in the true surface. HRRR's isobaric levels are fixed
+    # PRESSURE surfaces, not terrain-following -- for any station above
+    # roughly sea level, the lowest one or two of them (1000mb, and on
+    # low-pressure days sometimes 975mb) sit BELOW the model's actual
+    # terrain. HRRR still returns a temperature/dewpoint/wind there, but
+    # it's an extrapolation into the ground, not real atmosphere.
+    # Confirmed against this station's real elevation (~287m): the
+    # previously-reported "surface" height of ~105m was just the
+    # textbook height of the 1000mb surface everywhere on Earth, not
+    # this station's ground.
+    #
+    # Fix: drop every isobaric level at or below the model's own terrain
+    # height, then prepend a real surface observation (terrain height,
+    # 2m temp/dewpoint, 10m wind, surface pressure) as the new bottom of
+    # the profile -- the same approach SPC-style soundings use.
+    # ---------------------------------------------------------------
+    sfc = _load_surface_point(H)
+
+    keep = height.magnitude > sfc["terrain_m"]
+    if not keep.any():
+        # Pathological (e.g. a very-low-pressure day pushes even 700mb
+        # underground) -- fall back to keeping everything rather than
+        # emitting an empty profile.
+        log.warning("All isobaric levels fell below terrain height (%.0fm) -- keeping full stack.", sfc["terrain_m"])
+        keep = np.ones_like(height.magnitude, dtype=bool)
+
+    p, height, T, Td, u, v = (arr[keep] for arr in (p, height, T, Td, u, v))
+
+    p = np.concatenate([[sfc["pressure_mb"]], p.magnitude]) * units.hPa
+    height = np.concatenate([[sfc["terrain_m"]], height.magnitude]) * units.meter
+    T = np.concatenate([[sfc["temp_c"]], T.to("degC").magnitude]) * units.degC
+    Td = np.concatenate([[sfc["dewpoint_c"]], Td.to("degC").magnitude]) * units.degC
+    u = np.concatenate([[sfc["u_ms"]], u.to("m/s").magnitude]) * units("m/s")
+    v = np.concatenate([[sfc["v_ms"]], v.to("m/s").magnitude]) * units("m/s")
+
+    return Profile(pressure=p, height=height, temperature=T, dewpoint=Td, u=u, v=v,
+                    elevation_m=sfc["terrain_m"])
 
 
 @dataclass
@@ -223,6 +329,7 @@ class Profile:
     dewpoint: "any"
     u: "any"
     v: "any"
+    elevation_m: float
 
 
 def compute_parameters(prof: Profile) -> dict:
@@ -308,12 +415,21 @@ def compute_parameters(prof: Profile) -> dict:
 
 
 def profile_to_json(prof: Profile) -> list:
-    """Full profile (for a skew-T or simple sounding chart on the frontend)."""
+    """Full profile (for a skew-T or simple sounding chart on the frontend).
+
+    height_m stays MSL (matches the raw model field, useful for anyone
+    cross-checking against a real skew-T). height_agl_m is height above
+    THIS station's ground (height_m - prof.elevation_m) -- that's what
+    the frontend chart plots now, so the visible profile starts at 0
+    instead of at an arbitrary MSL offset.
+    """
     rows = []
     for i in range(len(prof.pressure)):
+        height_m = float(prof.height[i].magnitude)
         rows.append({
             "pressure_mb": round(float(prof.pressure[i].magnitude), 1),
-            "height_m": round(float(prof.height[i].magnitude), 0),
+            "height_m": round(height_m, 0),
+            "height_agl_m": round(height_m - prof.elevation_m, 0),
             "temp_c": round(float(prof.temperature[i].magnitude), 1),
             "dewpoint_c": round(float(prof.dewpoint[i].magnitude), 1),
             "wind_u_kt": round(float(prof.u[i].to("knot").magnitude), 1),
@@ -400,6 +516,11 @@ def main() -> int:
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "model_cycle": cycle_iso,
         "model": "HRRR",
+        # Station elevation (m), used by the frontend chart caption and
+        # already implied by every height_agl_m value below -- not
+        # coordinate-shaped, so this doesn't touch the lat/lon-fuzzing
+        # the rest of the site does for the map/radar.
+        "station_elevation_m": round(prof.elevation_m),
         "parameters": params,
         "cape_history": cape_history,
         "profile": profile_to_json(prof),
