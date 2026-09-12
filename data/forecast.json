@@ -1,17 +1,6 @@
 {
   "periods": [
     {
-      "name": "This Afternoon",
-      "temperature": 84,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "SW",
-      "shortForecast": "Showers And Thunderstorms Likely",
-      "detailedForecast": "Showers and thunderstorms likely. Cloudy, with a high near 84. Southwest wind around 5 mph. Chance of precipitation is 60%. New rainfall amounts less than a tenth of an inch possible.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 61
-    },
-    {
       "name": "Tonight",
       "temperature": 67,
       "temperatureUnit": "F",
@@ -43,19 +32,20 @@
       "detailedForecast": "A chance of showers and thunderstorms before 7pm, then showers and thunderstorms likely between 7pm and 8pm, then a chance of showers and thunderstorms between 8pm and 2am. Mostly cloudy, with a low around 57. Northwest wind 5 to 8 mph. Chance of precipitation is 60%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 55
+    },
+    {
+      "name": "Monday",
+      "temperature": 72,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "N",
+      "shortForecast": "Sunny",
+      "detailedForecast": "Sunny, with a high near 72. North wind around 7 mph.",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-12T17:00:00-04:00",
-      "temperature": 81,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "SW",
-      "shortForecast": "Showers And Thunderstorms Likely",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 61
-    },
     {
       "startTime": "2026-09-12T18:00:00-04:00",
       "temperature": 79,
@@ -285,6 +275,16 @@
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 5
+    },
+    {
+      "startTime": "2026-09-13T17:00:00-04:00",
+      "temperature": 81,
+      "temperatureUnit": "F",
+      "windSpeed": "8 mph",
+      "windDirection": "W",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 26
     }
   ]
 }
