@@ -3142,6 +3142,50 @@ const THEMES = {
     return useful.join('\n').replace(/\n{2,}/g, '\n').trim();
   }
 
+  // The one county the station actually sits in -- surfaced first/bold in
+  // NWS product location lists. NWS area strings list every county/zone a
+  // product covers (often 20-40+, semicolon-separated), which is genuinely
+  // useful for commute planning but buries the hazard info if shown in full
+  // up front. See buildNwsLocationHtml below.
+  const NWS_HOME_COUNTY = 'Beaver';
+
+  // Splits an NWS "areaDesc"-style location string on its semicolon
+  // delimiter. Some products (e.g. area forecast discussions) use a single
+  // free-text location with no semicolons -- isList tells the caller not to
+  // try to treat that as a county list.
+  function parseNwsLocationList(location) {
+    if (!location) return { items: [], isList: false };
+    const parts = location.split(';').map(s => s.trim()).filter(Boolean);
+    return { items: parts, isList: parts.length > 1 };
+  }
+
+  // Builds the Location block markup: the home county (if present in the
+  // list) shown first and bolded, everything else tucked behind a
+  // "+N more counties affected" toggle so the hazard/meta info above it
+  // isn't pushed below a wall of county names. Falls back to the plain
+  // location text when the product isn't a semicolon-delimited area list.
+  function buildNwsLocationHtml(location) {
+    const parsed = parseNwsLocationList(location);
+    if (!parsed.isList) {
+      return `<div class="nws-location-text">${escapeNwsHtml(location || 'Location not available')}</div>`;
+    }
+    const homeRe = new RegExp(`(^|\\s)${NWS_HOME_COUNTY}(\\s|$)`, 'i');
+    const homeIdx = parsed.items.findIndex(c => homeRe.test(c));
+    const homeCounty = homeIdx >= 0 ? parsed.items[homeIdx] : null;
+    const rest = homeCounty ? parsed.items.filter((c, i) => i !== homeIdx) : parsed.items.slice(1);
+    const leadCounty = homeCounty || parsed.items[0];
+    const leadHtml = homeCounty
+      ? `<span class="nws-location-home">${escapeNwsHtml(leadCounty)}</span>`
+      : escapeNwsHtml(leadCounty);
+    const toggleHtml = rest.length ? `
+      <button type="button" class="nws-location-toggle" aria-expanded="false">
+        <span class="nws-location-toggle-label">+${rest.length} more ${rest.length === 1 ? 'county' : 'counties'} affected</span>
+      </button>
+      <div class="nws-location-rest">${escapeNwsHtml(rest.join('; '))}</div>
+    ` : '';
+    return `<div class="nws-location-text">${leadHtml}${toggleHtml}</div>`;
+  }
+
   function getNwsDetails(item) {
     if (Array.isArray(item.details) && item.details.length) {
       const seen = new Set();
@@ -3197,7 +3241,14 @@ const THEMES = {
       ? `<div class="nws-time-bar"><div class="nws-time-bar-fill" style="width:${remaining.pct.toFixed(1)}%"></div></div>`
       : '';
 
-    const details = getNwsDetails(item);
+    // "Areas" detail blocks usually just repeat the same county list already
+    // shown (and now expandable) in the Location block above -- drop the
+    // duplicate rather than showing the wall of counties twice.
+    const normLocation = location.toLowerCase().replace(/\s+/g, ' ').trim();
+    const details = getNwsDetails(item).filter(d => {
+      if (d.label.toLowerCase() !== 'areas') return true;
+      return d.text.toLowerCase().replace(/\s+/g, ' ').trim() !== normLocation;
+    });
     const detailsHtml = details.map(d => `
       <div class="nws-detail-block">
         <div class="nws-detail-label">${escapeNwsHtml(d.label)}</div>
@@ -3229,7 +3280,7 @@ const THEMES = {
 
             <div class="nws-location">
               <div class="nws-location-label">Location</div>
-              <div class="nws-location-text">${escapeNwsHtml(location || 'Location not available')}</div>
+              ${buildNwsLocationHtml(location)}
             </div>
 
             ${detailsHtml ? `<div class="nws-item-hint">view discussion</div><div class="nws-item-details">${detailsHtml}</div>` : ''}
@@ -3261,8 +3312,17 @@ const THEMES = {
     container.querySelectorAll('.nws-item').forEach(el => {
       el.addEventListener('click', (event) => {
         if (event.target.closest('a')) return;
+        if (event.target.closest('.nws-location-toggle')) return;
         if (!el.querySelector('.nws-item-details')) return;
         el.classList.toggle('expanded');
+      });
+    });
+    container.querySelectorAll('.nws-location-toggle').forEach(btn => {
+      btn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        btn.closest('.nws-location-text').classList.toggle('locations-expanded', !expanded);
       });
     });
     return sortedItems;
