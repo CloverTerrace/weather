@@ -82,16 +82,24 @@ s3 = boto3.client("s3", config=Config(signature_version=UNSIGNED))
 def hour_prefixes(now_utc, minutes_back):
     """Yield the S3 prefixes for every UTC hour folder the requested
     window could touch (usually just the current hour, plus the previous
-    hour when running near the top of an hour)."""
+    hour when running near the top of an hour).
+
+    Walks actual hour boundaries from the window's start through now_utc,
+    inclusive -- NOT fixed-size ticks. A fixed tick size bigger than the
+    window (the previous 20-minute-step version) could overshoot now_utc
+    on its very first step and never actually reach the current hour,
+    silently skipping the folder with the newest, most-active flashes
+    whenever the job ran in the first few minutes of an hour.
+    """
     start = now_utc - datetime.timedelta(minutes=minutes_back)
     seen = set()
-    t = start
+    t = start.replace(minute=0, second=0, microsecond=0)
     while t <= now_utc:
         key = (t.year, t.timetuple().tm_yday, t.hour)
         if key not in seen:
             seen.add(key)
             yield f"{PRODUCT_PREFIX}/{t.year}/{t.timetuple().tm_yday:03d}/{t.hour:02d}/"
-        t += datetime.timedelta(minutes=20)
+        t += datetime.timedelta(hours=1)
 
 
 def list_recent_keys(now_utc, minutes_back):
