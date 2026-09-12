@@ -1,18 +1,11 @@
-/* Clover Terrace — Atmosphere page
-   Fetches data/atmosphere.json (written by scripts/fetch_atmosphere.py) and
-   renders the headline verdict, parameter cards, sounding chart, and
-   wind-by-level table. Written defensively: the backend piece of this
-   feature may not have run yet (or may fail on a given cycle, same
-   continue-on-error pattern as every other fetch_*.py step), so every
-   render function tolerates missing/partial data rather than throwing.
-*/
-
+/* Clover Terrace — atmosphere page
+   fetches data/atmosphere.json (written by scripts/fetch_atmosphere.py) and
+   renders the headline, parameter cards, sounding chart, and
+   wind by level table */
 (function () {
   'use strict';
 
   var DATA_URL = 'data/atmosphere.json';
-
-  // ---------- small formatting helpers ----------
 
   function fmtNum(value, digits) {
     if (value === null || value === undefined || Number.isNaN(value)) return '\u2013\u2013';
@@ -31,10 +24,7 @@
   }
 
   function windDirArrowChar(deg) {
-    // arrow points in the direction the wind is blowing TOWARD (visually
-    // intuitive), while the label text uses the meteorological "from"
-    // convention -- so rotate the arrow 180deg from the "from" direction.
-    return deg; // rotation handled via inline style where used
+    return deg;
   }
 
   function timeAgoLabel(isoString) {
@@ -47,8 +37,6 @@
     var hrs = Math.round(mins / 60);
     return hrs + (hrs === 1 ? ' hour ago' : ' hours ago');
   }
-
-  // ---------- category thresholds (standard SPC-style breakpoints) ----------
 
   function capeCategory(j) {
     if (j === null || j === undefined) return null;
@@ -84,11 +72,6 @@
     return { key: 'very-steep', label: 'Very steep', score: 3 };
   }
 
-  // ---------- composite "storm potential" verdict ----------
-  // A simple, transparent ingredients-based score -- NOT the official SPC
-  // outlook, and the footer/headline text says so. Combines mixed-layer
-  // CAPE, 0-6km shear, and 0-3km SRH into one 0-10 score, bucketed into
-  // 5 levels that echo (but don't claim to BE) SPC's own categorical names.
   function computeVerdict(p) {
     var mlcape = capeCategory(p.mlcape_j_kg);
     var shear = shearCategory(p.shear_0_6km_kt);
@@ -117,8 +100,6 @@
     }
     return levels[levels.length - 1];
   }
-
-  // ---------- rendering ----------
 
   function renderModelMeta(payload) {
     var el = document.getElementById('atm-model-meta');
@@ -244,8 +225,6 @@
     renderLapseCard(p);
   }
 
-  // ---------- sounding chart ----------
-
   var soundingChart = null;
 
   function renderSoundingChart(payload) {
@@ -315,8 +294,6 @@
     });
   }
 
-  // ---------- wind-by-level table ----------
-
   var WIND_TABLE_LEVELS = [
     { label: 'Surface', target: 1000 },
     { label: '850 mb', target: 850 },
@@ -360,8 +337,6 @@
     body.innerHTML = rows || '<tr><td colspan="2" class="atm-wind-loading">No wind data available for this run.</td></tr>';
   }
 
-  // ---------- mobile card-row paging ----------
-
   function initCardPaging() {
     var row = document.getElementById('atm-card-row');
     var left = document.getElementById('atm-card-arrow-left');
@@ -378,10 +353,6 @@
     right.addEventListener('click', function () { scrollByCard(1); });
   }
 
-  // ---------- Meteocons override (emoji -> icon file, same pattern as
-  // the garden page's data-icon override: silently keeps the emoji if
-  // the icon file isn't there yet, no hard dependency) ----------
-
   function initAtmosphereIconOverrides() {
     document.querySelectorAll('[data-icon]').forEach(function (el) {
       var name = el.getAttribute('data-icon');
@@ -393,17 +364,12 @@
         el.replaceWith(img);
       };
       img.onerror = function () {
-        // icon file doesn't exist (yet) at this path -- keep the emoji.
       };
       img.src = 'icons/' + name + '.svg';
     });
   }
 
-  // ---------- Forecast Discussion (MDs + AFD/HWO/SPS/PNS) ----------
-  // Shares data/nws_products.json with the main page -- that page filters
-  // to active-hazard codes (SVS/RFW/NPW/FFA/FLS) and keeps all watches;
-  // this page takes everything analytical/predictive: all Mesoscale
-  // Discussions, plus these 4 forecaster-discussion product codes.
+  // ---- Forecast Discussion (MDs + AFD/HWO/SPS/PNS) -----
   var ATMOSPHERE_STATEMENT_CODES = { AFD: 1, HWO: 1, SPS: 1, PNS: 1 };
 
   function escapeAtmHtml(value) {
@@ -477,12 +443,6 @@
       });
   }
 
-  // ---------- SPC Outlooks (Convective + Thunderstorm) ----------
-  // Moved here from the main page's Storm Center card -- this is SPC's
-  // own categorical/probabilistic outlook product, so it belongs with the
-  // rest of the instability/storm-atmosphere content on this page instead
-  // of competing with active NWS watches/warnings on the main dashboard.
-
   function getCurrentUtcHour() {
     return new Date().getUTCHours();
   }
@@ -539,7 +499,6 @@
           label.textContent = activeIndex === 0 ? ('Right now \u00b7 ' + slideLabel) : (labelPrefix + ' \u00b7 ' + slideLabel);
         }
       }
-      // thunderstorm slides carry their own compact period label.
       slides.forEach(function (slide, i) {
         var periodLabel = slide.querySelector('.thunderstorm-period-label');
         if (!periodLabel) return;
@@ -589,9 +548,6 @@
           if (note) note.textContent = '';
           return;
         }
-
-        // prefer the period valid right now. if the current clock falls
-        // between SPC blocks, fall back to the first live period.
         var currentIndex = periods.findIndex(thunderstormPeriodIsCurrent);
         if (currentIndex < 0) currentIndex = 0;
 
@@ -709,8 +665,6 @@
       };
       day48.src = 'data/outlook-day4-8.gif?t=' + t;
     }
-
-    // keep the compact preview drawer synchronized with the live images.
     document.querySelectorAll('#outlook-thumbnails img').forEach(function (img) {
       var src = img.getAttribute('src') || '';
       img.src = src.split('?')[0] + '?t=' + t;
@@ -744,8 +698,6 @@
       currentLabelId: 'outlook-current-label'
     });
   }
-
-  // ---------- boot ----------
 
   function loadAtmosphere() {
     fetch(DATA_URL + '?t=' + Date.now())
