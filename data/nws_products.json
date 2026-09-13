@@ -1,8 +1,28 @@
 {
-  "generatedAt": "2026-09-13T23:05:55.318355Z",
+  "generatedAt": "2026-09-13T23:10:56.339197Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "ce345e37-965c-496d-9c0e-31d996b66f43",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-13T23:05:00+00:00",
+      "expires": null,
+      "location": "Noble OH",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Dudley, Dexter City and Harriettsville.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Dudley, Dexter City and Harriettsville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Dudley, Dexter City and Harriettsville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/ce345e37-965c-496d-9c0e-31d996b66f43"
+    },
     {
       "id": "24c866cf-16cf-4dd8-9032-982533641891",
       "code": "SVS",
@@ -62,26 +82,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/089c85c5-a0ca-4ff4-8465-5510bd85b2c2"
-    },
-    {
-      "id": "30d9d7d7-435d-4851-8c65-4451ac245212",
-      "code": "SVS",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-13T22:40:00+00:00",
-      "expires": null,
-      "location": "Beaver PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Cranberry, Hampton Township, Wexford, Seven Fields, Gibsonia, Mars, Pine Township,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Cranberry, Hampton Township, Wexford, Seven Fields, Gibsonia, Mars, Pine Township, Saxonburg, Bradfordwoods, Curtisville, Valencia, Callery and Warrendale.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Cranberry, Hampton Township, Wexford, Seven Fields, Gibsonia, Mars, Pine Township, Saxonburg, Bradfordwoods, Curtisville, Valencia, Callery and Warrendale."
-        }
-      ],
-      "url": "https://api.weather.gov/products/30d9d7d7-435d-4851-8c65-4451ac245212"
     }
   ]
 }
