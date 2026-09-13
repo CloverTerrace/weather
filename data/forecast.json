@@ -7,9 +7,9 @@
       "windSpeed": "2 mph",
       "windDirection": "S",
       "shortForecast": "Patchy Fog",
-      "detailedForecast": "Patchy fog and showers and thunderstorms likely before 11pm, then patchy fog and a chance of showers and thunderstorms between 11pm and 2am, then patchy fog and a slight chance of rain showers. Mostly cloudy, with a low around 67. South wind around 2 mph. Chance of precipitation is 60%. New rainfall amounts between a tenth and quarter of an inch possible.",
+      "detailedForecast": "Patchy fog and a chance of showers and thunderstorms before 2am, then patchy fog and a slight chance of rain showers. Mostly cloudy, with a low around 67. South wind around 2 mph. Chance of precipitation is 50%. New rainfall amounts between a tenth and quarter of an inch possible.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 64
+      "probabilityOfPrecipitation": 54
     },
     {
       "name": "Sunday",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-12T23:00:00-04:00",
-      "temperature": 71,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "S",
-      "shortForecast": "Patchy Fog",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 54
-    },
     {
       "startTime": "2026-09-13T00:00:00-04:00",
       "temperature": 70,
@@ -162,7 +152,7 @@
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
       "windDirection": "W",
-      "shortForecast": "Cloudy",
+      "shortForecast": "Mostly Cloudy",
       "isDaytime": true,
       "probabilityOfPrecipitation": 1
     },
@@ -182,7 +172,7 @@
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "W",
-      "shortForecast": "Mostly Cloudy",
+      "shortForecast": "Partly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -202,7 +192,7 @@
       "temperatureUnit": "F",
       "windSpeed": "6 mph",
       "windDirection": "W",
-      "shortForecast": "Mostly Sunny",
+      "shortForecast": "Partly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 2
     },
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": false,
       "probabilityOfPrecipitation": 27
+    },
+    {
+      "startTime": "2026-09-13T23:00:00-04:00",
+      "temperature": 68,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "NW",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 29
     }
   ]
 }
