@@ -143,7 +143,7 @@
           </div>
           <details class="atm-explainer">
             <summary>What does this mean?</summary>
-            <p>Lapse rate is how fast temperature drops as you go up. A steep mid-level (700&ndash;500mb) lapse rate means the air a couple miles up is unusually cold relative to the surface &mdash; that temperature difference is what lets warm surface air keep accelerating upward instead of leveling off, which is part of why steep lapse rates favor stronger updrafts and larger hail.</p>
+            <p>Lapse rate is how fast temperature drops as you go up. A steep mid-level (700&ndash;500mb) lapse rate means the air a couple miles up is unusually cold relative to the surface, that temperature difference is what lets warm surface air keep accelerating upward instead of leveling off- which is part of why steep lapse rates favor stronger updrafts and larger hail.</p>
             <table class="atm-threshold-table">
               <tr><td>&lt; 6.0 &deg;C/km</td><td>Modest</td></tr>
               <tr><td>6.0&ndash;7.0 &deg;C/km</td><td>Steepening</td></tr>
@@ -155,7 +155,7 @@
         
         <article class="atm-card" id="card-wind-levels">
           <h3><span class="atm-card-icon" data-icon="windsock" aria-hidden="true">&#127891;</span> Wind by Level</h3>
-          <p class="atm-card-plain">How wind speed and direction change with height.</p>
+          <p class="atm-card-plain">How wind speed & direction change with height.</p>
           <div class="atm-wind-table-wrap">
             <table class="atm-wind-table" id="atm-wind-table">
               <thead>
@@ -177,19 +177,19 @@
     <section class="atm-panel" id="atm-sounding-panel">
       <div class="atm-panel-header">
         <h2>Vertical Profile</h2>
-        <p class="atm-panel-subtitle">Temperature and dew point from the surface up. Where the two lines run close together, the air is moist; the wider the gap, the drier that layer is.</p>
+        <p class="atm-panel-subtitle"><!--Temperature and dew point from the surface up. Where the two lines run close together, the air is moist; the wider the gap, the drier that layer is.--></p>
       </div>
       <div class="atm-chart-wrap">
         <canvas id="sounding-chart" height="420" aria-label="Temperature and dew point vs. altitude" role="img"></canvas>
       </div>
-      <p class="atm-chart-note">This is a simplified profile (not a full meteorological skew-T diagram) &mdash; altitude is height above ground at the station, using the model's local terrain height.</p>
+      <p class="atm-chart-note">This is a simplified profile. Altitude is height above ground at the station, using the model's local terrain height.</p>
     </section>
 
     <!-- SPC Convective + Thunderstorm Outlooks -->
     <section class="atm-panel" id="atm-outlook-panel">
       <div class="atm-panel-header">
         <h2>SPC Outlooks</h2>
-        <p class="atm-panel-subtitle">The Storm Prediction Center's own categorical outlook &mdash; the official product this page's model read is meant to complement, not replace.</p>
+        <p class="atm-panel-subtitle"></p>
       </div>
 
       <div class="outlook-category-tabs" id="outlook-category-tabs" role="tablist" aria-label="SPC outlook products">
@@ -258,7 +258,7 @@
     <section class="atm-panel" id="atm-discussion-panel">
       <div class="atm-panel-header">
         <h2>Forecast Discussion</h2>
-        <p class="atm-panel-subtitle">SPC's short-fuse analysis of areas being watched, plus the local forecaster's own reasoning behind the forecast.</p>
+        <p class="atm-panel-subtitle"></p>
       </div>
       <div class="atm-discussion-list" id="atm-discussion-list">
         <p class="atm-discussion-empty" id="atm-discussion-empty">Loading&hellip;</p>
@@ -266,7 +266,7 @@
     </section>
 
     <footer class="atm-footer">
-      <p>Modeled from the latest available HRRR (High-Resolution Rapid Refresh) model run for this exact location, refreshed roughly hourly. The SPC Outlook above is the official product. For active watches, warnings, and advisories, see the <a href="index.html">main dashboard</a>.</p>
+      <p>Modeled from the latest available HRRR (High-Resolution Rapid Refresh) model run for this exact location, refreshed hourly. The SPC Outlook above is the official product. For the current weather and any active watches, warnings, and advisories, see the <a href="index.html">main dashboard</a>.</p>
     </footer>
 
   </main>
