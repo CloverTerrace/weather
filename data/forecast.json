@@ -4,10 +4,10 @@
       "name": "Today",
       "temperature": 83,
       "temperatureUnit": "F",
-      "windSpeed": "1 to 8 mph",
+      "windSpeed": "2 to 8 mph",
       "windDirection": "W",
-      "shortForecast": "Patchy Fog then Chance Showers And Thunderstorms",
-      "detailedForecast": "Patchy fog and a slight chance of rain showers before 8am, then a chance of showers and thunderstorms. Partly sunny, with a high near 83. West wind 1 to 8 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
+      "shortForecast": "Partly Sunny then Chance Showers And Thunderstorms",
+      "detailedForecast": "A chance of showers and thunderstorms after 5pm. Partly sunny, with a high near 83. West wind 2 to 8 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 29
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-13T08:00:00-04:00",
-      "temperature": 68,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "W",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 2
-    },
     {
       "startTime": "2026-09-13T09:00:00-04:00",
       "temperature": 69,
@@ -281,6 +271,16 @@
       "temperature": 57,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
+      "windDirection": "N",
+      "shortForecast": "Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-14T08:00:00-04:00",
+      "temperature": 57,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
       "windDirection": "N",
       "shortForecast": "Sunny",
       "isDaytime": true,
