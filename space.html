@@ -12,7 +12,7 @@
 </head>
 <body id="space-page">
 
-  <!-- live sky render + HUD overlay, pinned to the viewport, sits behind everything else -->
+  <!-- live sky render + HUD overlay✨ -->
   <div class="sky-stage" aria-hidden="true">
     <div id="sky-viewport" class="sky-viewport">
       <div id="sky-pan" class="sky-pan">
@@ -22,14 +22,13 @@
     </div>
   </div>
 
-  <!-- Zoom controls for the live sky map, kept outside the aria-hidden sky-stage
-       (which is purely decorative) so they stay in the accessibility tree -->
+  <!-- zoomies -->
   <div class="sky-zoom-controls" id="sky-zoom-controls">
     <button type="button" id="sky-zoom-in" class="sky-zoom-btn" aria-label="Zoom in on sky map">+</button>
     <button type="button" id="sky-zoom-out" class="sky-zoom-btn" aria-label="Zoom out on sky map">&minus;</button>
   </div>
 
-  <!-- Full-width alert bar, only shown when the Kp index is high enough that aurora is actually likely -->
+  <!-- solar storm alert -->
   <button type="button" id="kp-alert-bar" class="kp-alert-bar hidden">
     <svg class="kp-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
     <span class="kp-alert-copy">
@@ -44,8 +43,7 @@
     <div id="modal-content"></div>
   </div>
 
-  <!-- Dockable chrome: navbar + title + swipeable info cards, as one snap unit.
-       Scrolling down slides this whole block away to reveal the full sky. -->
+  
   <div class="sky-dock" id="sky-dock">
 
     <!-- shared navbar -->
