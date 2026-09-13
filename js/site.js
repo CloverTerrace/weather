@@ -2165,11 +2165,11 @@
 
   
   const WINDY_WIND_MPH = 11;           
-  const THUNDERSTORM_WIND_MPH = 15;    
+  const THUNDERSTORM_WIND_MPH = 14;    
   const RAIN_PRECIP_INHR = 0.01;
   const EXTREME_HEAT_TEMP_F = 90;      
   const AQI_SMOKE_THRESHOLD = 150;
-  const LIGHTNING_NEARBY_MI = 15;      // our own sensor's typical CG detection range
+  const LIGHTNING_NEARBY_MI = 15;      // our sensor's CG detection range
   const LIGHTNING_RECENT_MIN = 15;     // how fresh a strike has to be to count as "active" nearby
 
 function getAqiColor(aqi) {
@@ -2214,11 +2214,6 @@ const THEMES = {
     tornadoNight:      { bg: '#141d0d', card: '#1c2814', accent: '#8fae4a', muted: '#d4e8a8', text: '#ffffff', title: '#ffffff', icon: '🌪️🌙', meteocon: 'tornado-alert-night.svg', iconImg: 'icons/themes/tornadoNight.png', fonts: { title: "Tornado" } },
   };
 
-  // reads the hour directly out of the station's own obsTimeLocal string
-  // (via parseStationTime) -- NOT the visitor's browser clock. don't
-  // "simplify" this to Date.now() or a browser-local Date -- 
-  // the day/night theme reflects conditions at the station,
-  // not wherever the page happens to be open.
   function isNightTime(data) {
     const hour = parseStationTime(data.obsTimeLocal).getHours();
     return hour < 6 || hour >= 20;
@@ -2265,10 +2260,6 @@ const THEMES = {
     else clearTimeout(lightningTimer);
   }
 
-  // "nearby" lightning for theme purposes = our own sensor's most recent
-  // strike is both close (within LIGHTNING_NEARBY_MI) and fresh (within
-  // LIGHTNING_RECENT_MIN) -- lightningStrikeCount is a today-so-far total
-  // and isn't useful on its own for "is it happening right now".
   function isLightningNearby(data) {
     if (data.lightningDistance == null || data.lightningDistance > LIGHTNING_NEARBY_MI) return false;
     if (!data.lightningLastStrike) return false;
@@ -2299,9 +2290,7 @@ const THEMES = {
   }
 
   //  🌈☀️💜 title-bar weather icon 💜🍀🌪️ 
-  // title-bar icon next to the page heading scoped to the
-  // plain 'night' theme only (clear sky, nothing else going on)
-  // diff night variants (rainyNight, snowyNight, extremeHeatNight, ...)
+  
   function setThemeIcon(theme, themeKey) {
     const el = document.getElementById('weather-icon');
     el.innerHTML = '';
@@ -2481,15 +2470,6 @@ const THEMES = {
   
   //*  ------------🌪️ !! HTML FOR ⛅️ECOWITT WEATHER STATION CARDS + 💨PURPLEAIR AQI + 💧USGS FLOOD GAUGE 🌪️----------- *//
   
-  //*  ------------🌪️ !! HTML FOR ⛅️ECOWITT WEATHER STATION CARDS + 💨PURPLEAIR AQI + 💧USGS FLOOD GAUGE 🌪️----------- *//
-  //
-  // the 8 readings share one interaction: whichever row is tapped in the
-  // compact glance strip becomes the big "hero" card up top -- no separate
-  // tap-to-expand mechanic layered on top of that, no swipe needed to see
-  // any of the 8 at a glance. renderCards() rebuilds the sensor defs every
-  // refresh cycle; renderActiveHero() (called from a strip click) re-uses
-  // the most recent defs without waiting for the next data refresh.
-
   function renderCards(data) {
     const extSafe = (key) => getExtremesSafe(fullHistory, cachedTodaysExtremes, data, key);
 
@@ -3032,7 +3012,7 @@ const THEMES = {
       });
     }
 
-    // ---------- auto-promote: which reading (if any) is notable right now ----------
+    // ---------- auto-promote: which reading is notable right now ----------
     let autoKey = null;
     if (lastStrikeMs && (Date.now() - lastStrikeMs) < 10 * 60 * 1000 &&
         data.lightningDistance != null && data.lightningDistance <= 15) {
@@ -3051,26 +3031,14 @@ const THEMES = {
     renderActiveHero();
   }
 
-  //*  ------------ 🌪️ NWS / SPC ISSUANCES (watches, mesoscale discussions, statements) 🌪️ ----------- *//
-  //
+  //*  ----- 🌪️ NWS / SPC ISSUANCES (watches, mesoscale discussions, statements) 🌪️ ----- *//
   let nwsProducts = { watches: [], statements: [] };
 
-  // Mesoscale Discussions (analytical/predictive) moved to the Atmosphere
-  // page -- this page only tracks active-hazard product codes: an update
-  // to an already-active Warning (SVS), a fire-weather Warning (RFW),
-  // active advisories (NPW), or flood watch/statement updates (FFA/FLS).
-  // AFD/HWO/SPS/PNS (forecaster discussion) render on Atmosphere instead
-  // -- see fetch_nws_products.py's NWS_UPDATE_CODES for what each code is.
   const MAIN_STATEMENT_CODES = new Set(['SVS', 'RFW', 'NPW', 'FFA', 'FLS']);
-  // tracks the previous render's tornado-watch state so to avoid repeat switching
   let nwsPrevHasTornadoWatch = false;
-
-  // the raw point-alert feed (data/alerts.json)
   let currentPointAlerts = [];
-  // only auto-switch Storm Center to the closest/most-severe item once per load
   let primaryAlertAutoSelected = false;
 
-  // maps a product's hazard type to a meteocon + a left-border color class
   function escapeNwsHtml(value) {
     return String(value ?? '')
       .replace(/&/g, '&amp;')
@@ -3142,28 +3110,14 @@ const THEMES = {
     return useful.join('\n').replace(/\n{2,}/g, '\n').trim();
   }
 
-  // The one county the station actually sits in -- surfaced first/bold in
-  // NWS product location lists. NWS area strings list every county/zone a
-  // product covers (often 20-40+, semicolon-separated), which is genuinely
-  // useful for commute planning but buries the hazard info if shown in full
-  // up front. See buildNwsLocationHtml below.
   const NWS_HOME_COUNTY = 'Beaver';
 
-  // Splits an NWS "areaDesc"-style location string on its semicolon
-  // delimiter. Some products (e.g. area forecast discussions) use a single
-  // free-text location with no semicolons -- isList tells the caller not to
-  // try to treat that as a county list.
   function parseNwsLocationList(location) {
     if (!location) return { items: [], isList: false };
     const parts = location.split(';').map(s => s.trim()).filter(Boolean);
     return { items: parts, isList: parts.length > 1 };
   }
 
-  // Builds the Location block markup: the home county (if present in the
-  // list) shown first and bolded, everything else tucked behind a
-  // "+N more counties affected" toggle so the hazard/meta info above it
-  // isn't pushed below a wall of county names. Falls back to the plain
-  // location text when the product isn't a semicolon-delimited area list.
   function buildNwsLocationHtml(location) {
     const parsed = parseNwsLocationList(location);
     if (!parsed.isList) {
@@ -3199,8 +3153,6 @@ const THEMES = {
           return true;
         });
     }
-    // older feeds sometimes expose one large fullText field. split into
-    // readable blocks, remove repeated page chrome, and cap each block
     const raw = cleanNwsDetailText(item.fullText || '');
     if (!raw) return [];
     const chunks = raw.split(/\n\s*\n/).map(x => x.trim()).filter(Boolean);
@@ -3241,9 +3193,6 @@ const THEMES = {
       ? `<div class="nws-time-bar"><div class="nws-time-bar-fill" style="width:${remaining.pct.toFixed(1)}%"></div></div>`
       : '';
 
-    // "Areas" detail blocks usually just repeat the same county list already
-    // shown (and now expandable) in the Location block above -- drop the
-    // duplicate rather than showing the wall of counties twice.
     const normLocation = location.toLowerCase().replace(/\s+/g, ' ').trim();
     const details = getNwsDetails(item).filter(d => {
       if (d.label.toLowerCase() !== 'areas') return true;
@@ -3328,12 +3277,6 @@ const THEMES = {
     return sortedItems;
   }
 
-  // data/alerts.json and nws_products.json's "watches" section both query
-  // the same NWS point-alerts endpoint for the station's exact coordinates
-  // -- so anything in either one is already guaranteed to cover the
-  // station (that's what a point query means). Any item with "watch" in
-  // its event name can legitimately show up in *both* feeds with the same
-  // id; this adapts + dedupes them into one list for the Storm Center tab.
   const ALERT_KIND_RANK = { warning: 0, watch: 1, advisory: 2, statement: 3 };
   const ALERT_SEVERITY_RANK = { extreme: 0, severe: 1, moderate: 2, minor: 3, unknown: 4 };
 
@@ -3345,8 +3288,6 @@ const THEMES = {
     return 'statement';
   }
 
-  // reshapes a raw data/alerts.json entry into the same shape
-  // buildNwsItemHtml() already knows how to render.
   function adaptPointAlert(alert) {
     return {
       id: alert.id,
@@ -3355,7 +3296,7 @@ const THEMES = {
       expires: alert.expires,
       location: alert.areaDesc || null,
       hazard: alert.headline || alert.event,
-      distanceMiles: null, // point-queried -- always local to the station, not a "distance away"
+      distanceMiles: null,
       details: alert.details || [],
       url: alert.url || null,
       office: alert.senderName,
@@ -3383,17 +3324,12 @@ const THEMES = {
   return null;
 }
 
-// hide the Storm Center unless there is at least one active
-// local warning, watch, or advisory.
 function updateStormCenterVisibility(activeWatches) {
   const stormCenter = document.querySelector('.outlook-card');
   if (!stormCenter) return;
 
   const isHidden = !Array.isArray(activeWatches) || activeWatches.length === 0;
   stormCenter.hidden = isHidden;
-  // Forecast stays fixed under Camera+Sky either way, so this class no
-  // longer changes the grid layout -- kept in case the empty storm cell
-  // ever wants its own styling (e.g. a placeholder or dimmed background).
   document.querySelector('.desktop-dashboard-layout')?.classList.toggle('storm-hidden', isHidden);
 }
 
@@ -3432,10 +3368,6 @@ function renderNwsProducts() {
   if (countWatches) countWatches.textContent = watches.length;
   if (countStatements) countStatements.textContent = statements.length;
 
-    // a tornado watch/warning deserves to be seen without opening a tab:
-    // pulse the watches tab for as long as one is live, and jump to it
-    // automatically the moment one appears (only on that transition -- see
-    // nwsPrevHasTornadoWatch above so it doesn't fight the user later).
     const hasTornadoWatch = watches.some(w => (w.type || '').toLowerCase().includes('tornado'));
     const watchTab = document.querySelector('#nws-tabs .nws-tab[data-target="nws-panel-watches"]');
     if (watchTab) {
@@ -3446,9 +3378,6 @@ function renderNwsProducts() {
     }
     nwsPrevHasTornadoWatch = hasTornadoWatch;
 
-    // on first load only, make sure the closest + most severe item's own
-    // tab is the one showing -- after that, leave tab navigation to the
-    // user (matches the tornado-watch precedent above).
     if (primary && !primaryAlertAutoSelected) {
       const primaryTab = document.querySelector(`#nws-tabs .nws-tab[data-target="${primary.tab}"]`);
       if (primaryTab && !primaryTab.classList.contains('active')) primaryTab.click();
@@ -3476,7 +3405,6 @@ function renderNwsProducts() {
      });
    }
 
-  // fetches the compact SPC/NWS product feed generated by GitHub Actions.
   async function loadNwsProducts() {
     try {
       const res = await fetch(`data/nws_products.json?t=${Date.now()}`, { cache: 'no-store' });
@@ -3485,8 +3413,6 @@ function renderNwsProducts() {
       nwsProducts = {
         generatedAt: json.generatedAt || null,
         watches: json.watches || [],
-        // mesoscaleDiscussions intentionally not stored here -- this page
-        // no longer renders them (moved to the Atmosphere page).
         statements: json.statements || [],
       };
       renderNwsProducts();
@@ -3495,9 +3421,6 @@ function renderNwsProducts() {
     }
   }
 
-  // plain-text-registers without relying on hue, and
-  // pairs with the structural filled-vs-outlined treatment in CSS so
-  // warning vs watch/advisory/statement reads as two diff types of urgency
   const ALERT_KIND_LABELS = {
     warning:   'Warning \u2014 act now',
     watch:     'Watch \u2014 conditions possible',
@@ -3582,8 +3505,6 @@ function renderNwsProducts() {
 
     if (aqRes && aqRes.ok) {
       const aqData = await aqRes.json();
-      // only pull in the specific AQI fields the UI actually uses, so inaccurate purpleair
-      // sensor array values dont end up replacing the weather station's real data
       if (aqData.aqi !== undefined) data.aqi = aqData.aqi;
       if (aqData.aqiDisplay !== undefined) data.aqiDisplay = aqData.aqiDisplay;
       if (aqData.pm1 !== undefined) data.pm1 = aqData.pm1;
@@ -3629,13 +3550,6 @@ function renderNwsProducts() {
       localStorage.setItem('cloverWeatherDataCache', JSON.stringify({
         data,
         alerts,
-        // renderCards() (above) already ran getExtremesSafe for every field
-        // this tick, so cachedTodaysExtremes holds the merged/live-extended
-        // peaks, persist that directly. recomputing from fullHistory here
-        // would silently throw away any live-value extension and write a
-        // weaker snapshot, which then gets replayed by hydrateFromCache()
-        // on the next reload (like a backgrounded mobile tab getting
-        // reclaimed and reloaded), undoing the accumulated peak.
         todaysExtremes: cachedTodaysExtremes,
         usgs: currentUsgs,
         riverMax: getTodayMaxRiver(usgsHistory),
@@ -3726,22 +3640,6 @@ const REFRESH_COOLDOWN_MS = 10 * 60 * 1000;
     startCooldownCountdown();
   }
 
-  // desktop-only composition ("what goes where" pass):
-  //  left rail  = conditions & outlook: hero+strip, Forecast, Radar/map
-  //  right rail = sky & visual: Camera+Sky (live feed + tonight's viewing
-  //    conditions, merged into one card), Storm Center
-  //  Storm Center and Historical Data both span the full width below the
-  //  rails (Storm Center directly above Radar, via `order` in the BENTO
-  //  GRID section of site.css) rather than competing for space inside
-  //  either column.
-  // Camera+Sky and Storm Center never need to move: .dashboard-grid already
-  // collapses to display:contents on desktop (see .desktop-right-rail
-  // .dashboard-grid), so its children lay out as direct items of the bento
-  // grid, each placed per the BENTO GRID section in site.css. Radar and
-  // Historical Data live in the separate
-  // .web-tools-grid section outside either rail, so those two still need
-  // an actual DOM move on desktop, reverted below 851px so mobile/tablet
-  // is untouched.
   (function initDesktopComposition() {
     const dashboardLayout = document.querySelector('.desktop-dashboard-layout');
     const leftRail = document.querySelector('.desktop-left-rail');
