@@ -1,8 +1,48 @@
 {
-  "generatedAt": "2026-09-13T22:55:52.448706Z",
+  "generatedAt": "2026-09-13T23:01:05.506222Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "24c866cf-16cf-4dd8-9032-982533641891",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-13T22:55:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Butler PA",
+      "hazard": "PAC003-019-132305- /O.EXP.KPBZ.SV.W.0370.000000T0000Z-260913T2300Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC003-019-132305- /O.EXP.KPBZ.SV.W.0370.000000T0000Z-260913T2300Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 655 PM EDT Sun Sep 13 2026 PAC003-019-132305- /O.EXP.KPBZ.SV.W.0370.000000T0000Z-260913T2300Z/ Allegheny PA-Butler PA- 655 PM EDT Sun Sep 13 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/24c866cf-16cf-4dd8-9032-982533641891"
+    },
+    {
+      "id": "be7de2c2-964e-4b27-8c2a-353ee470a447",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-13T22:53:00+00:00",
+      "expires": null,
+      "location": "Noble OH",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Caldwell, Dudley, Belle Valley, Dexter City and Harriettsville.",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Caldwell, Dudley, Belle Valley, Dexter City and Harriettsville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Caldwell, Dudley, Belle Valley, Dexter City and Harriettsville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/be7de2c2-964e-4b27-8c2a-353ee470a447"
+    },
     {
       "id": "089c85c5-a0ca-4ff4-8465-5510bd85b2c2",
       "code": "SVS",
@@ -42,26 +82,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/30d9d7d7-435d-4851-8c65-4451ac245212"
-    },
-    {
-      "id": "6285983c-5b65-4616-bfb4-4a3a89f87469",
-      "code": "SVS",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-09-13T22:29:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA-Beaver PA-Butler PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Cranberry, Hampton Township, Economy, Wexford, Seven Fields, Gibsonia, Evans City,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Cranberry, Hampton Township, Economy, Wexford, Seven Fields, Gibsonia, Evans City, Mars, Pine Township, Conway, Saxonburg, Bradfordwoods, Curtisville, Valencia, Callery and Warrendale.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Cranberry, Hampton Township, Economy, Wexford, Seven Fields, Gibsonia, Evans City, Mars, Pine Township, Conway, Saxonburg, Bradfordwoods, Curtisville, Valencia, Callery and Warrendale."
-        }
-      ],
-      "url": "https://api.weather.gov/products/6285983c-5b65-4616-bfb4-4a3a89f87469"
     }
   ]
 }
