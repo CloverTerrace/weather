@@ -97,6 +97,42 @@
 
 <body>
   <div id="garden-page-content" class="garden-page">
+    <!-- Moved out of .garden-world: that element has `overflow: hidden`
+         (needed to contain the tiled terrain/sky/sprite layers) and is
+         sized to its own content, not the full page. A position:fixed
+         descendant still gets clipped to an overflow:hidden ancestor's
+         box even though its containing block is the viewport, so the
+         fixed bottom nav was disappearing the moment .garden-world's box
+         scrolled out of view -- i.e. exactly once you scrolled into the
+         footer. Living here, as a sibling of .garden-world inside
+         .garden-page instead, keeps every `.garden-page .site-nav`
+         selector working (still a descendant of .garden-page) while
+         removing it from the clipping ancestor. Desktop's in-flow
+         `position: relative` placement is unaffected since .garden-page
+         is a plain block container, not a flex column that depended on
+         this being .garden-world's first child. -->
+    <nav class="site-nav" aria-label="Clover Terrace Weather sections">
+      <a href="index.html" class="nav-brand">
+        <img src="icons/cloverwx.png" alt="" class="nav-brand-icon">
+        <span></span>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" data-page="index.html">
+          <img src="icons/thunderstorms-extreme.svg" alt="" class="nav-icon">Home
+        </a>
+        <a href="gardening.html" data-page="gardening.html">
+          <img src="icons/pollen-flower.svg" alt="" class="nav-icon">Garden
+        </a>
+        <a href="atmosphere.html" data-page="atmosphere.html">
+            <img src="icons/windsock.svg" alt="" class="nav-icon">Atmosphere
+        </a>
+        <a href="space.html" data-page="space.html">
+          <img src="icons/star.svg" alt="" class="nav-icon">Space
+        </a>
+      </div>
+    </nav>
+
     <div class="garden-world">
       <div class="garden-layer garden-terrain" aria-hidden="true"></div>
 
@@ -133,29 +169,6 @@
         <div class="garden-fx-snow" id="garden-fx-snow"></div>
       </div>
 
-<nav class="site-nav" aria-label="Clover Terrace Weather sections">
-  <a href="index.html" class="nav-brand">
-    <img src="icons/cloverwx.png" alt="" class="nav-brand-icon">
-    <span></span>
-  </a>
-
-  <div class="nav-links">
-    <a href="index.html" data-page="index.html">
-      <img src="icons/thunderstorms-extreme.svg" alt="" class="nav-icon">Home
-    </a>
-    <a href="gardening.html" data-page="gardening.html">
-      <img src="icons/pollen-flower.svg" alt="" class="nav-icon">Garden
-    </a>
-    <a href="atmosphere.html" data-page="atmosphere.html">
-        <img src="icons/windsock.svg" alt="" class="nav-icon">Atmosphere
-    </a>
-    <a href="space.html" data-page="space.html">
-      <img src="icons/star.svg" alt="" class="nav-icon">Space
-    </a>
-  </div>
-</nav>
-
-      
     <div class="garden-hero">
       <header class="garden-heading">
         <h1><span class="garden-celestial-slot" id="garden-celestial-slot" aria-hidden="true"></span>Garden Weather</h1>
