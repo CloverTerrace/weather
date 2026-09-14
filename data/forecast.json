@@ -4,12 +4,12 @@
       "name": "Overnight",
       "temperature": 56,
       "temperatureUnit": "F",
-      "windSpeed": "7 mph",
+      "windSpeed": "0 to 7 mph",
       "windDirection": "NW",
       "shortForecast": "Mostly Clear",
-      "detailedForecast": "Mostly clear, with a low around 56. Northwest wind around 7 mph.",
+      "detailedForecast": "Mostly clear, with a low around 56. Northwest wind 0 to 7 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 0
+      "probabilityOfPrecipitation": 2
     },
     {
       "name": "Monday",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-14T04:00:00-04:00",
-      "temperature": 60,
-      "temperatureUnit": "F",
-      "windSpeed": "7 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-09-14T05:00:00-04:00",
       "temperature": 59,
@@ -283,6 +273,16 @@
       "windSpeed": "1 mph",
       "windDirection": "E",
       "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-15T04:00:00-04:00",
+      "temperature": 52,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "SE",
+      "shortForecast": "Partly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
