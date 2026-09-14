@@ -9,7 +9,7 @@
       "shortForecast": "Partly Cloudy",
       "detailedForecast": "Partly cloudy, with a low around 56. Northwest wind around 6 mph. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 5
+      "probabilityOfPrecipitation": 3
     },
     {
       "name": "Monday",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-14T00:00:00-04:00",
-      "temperature": 65,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 5
-    },
     {
       "startTime": "2026-09-14T01:00:00-04:00",
       "temperature": 64,
@@ -283,6 +273,16 @@
       "windSpeed": "1 mph",
       "windDirection": "E",
       "shortForecast": "Partly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-15T00:00:00-04:00",
+      "temperature": 56,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "E",
+      "shortForecast": "Mostly Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
