@@ -47,8 +47,18 @@
   ],
   "hourly": [
     {
-      "startTime": "2026-09-15T19:00:00-04:00",
+      "startTime": "2026-09-15T18:00:00-04:00",
       "temperature": 78,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "SW",
+      "shortForecast": "Mostly Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-15T19:00:00-04:00",
+      "temperature": 77,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "S",
@@ -58,7 +68,7 @@
     },
     {
       "startTime": "2026-09-15T20:00:00-04:00",
-      "temperature": 75,
+      "temperature": 74,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
       "windDirection": "S",
@@ -68,7 +78,7 @@
     },
     {
       "startTime": "2026-09-15T21:00:00-04:00",
-      "temperature": 72,
+      "temperature": 71,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
       "windDirection": "S",
@@ -275,16 +285,6 @@
       "shortForecast": "Scattered Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 33
-    },
-    {
-      "startTime": "2026-09-16T18:00:00-04:00",
-      "temperature": 83,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "N",
-      "shortForecast": "Scattered Showers And Thunderstorms",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 37
     }
   ]
 }
