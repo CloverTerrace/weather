@@ -1,6 +1,51 @@
 {
-  "generatedAt": "2026-09-15T04:30:48.666550Z",
+  "generatedAt": "2026-09-15T04:35:53.375737Z",
   "watches": [],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "e42e7560-539f-4386-ab46-a214d14bdd77",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-09-15T04:33:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Today and tonight. No hazardous weather is expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Wednesday through Monday. There is a low probability of flash flooding late Wednesday into early Friday."
+        }
+      ],
+      "url": "https://api.weather.gov/products/e42e7560-539f-4386-ab46-a214d14bdd77"
+    },
+    {
+      "id": "15deb5c7-adbf-42b7-8824-155597aeda52",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-09-15T04:31:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... No significant changes made to the forecast.",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... No significant changes made to the forecast.",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 1231 AM EDT Tue Sep 15 2026 .WHAT HAS CHANGED... No significant changes made to the forecast. && .KEY MESSAGES..."
+        }
+      ],
+      "url": "https://api.weather.gov/products/15deb5c7-adbf-42b7-8824-155597aeda52"
+    }
+  ]
 }
