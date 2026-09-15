@@ -4,10 +4,10 @@
       "name": "Today",
       "temperature": 81,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 7 mph",
+      "windSpeed": "1 to 7 mph",
       "windDirection": "S",
       "shortForecast": "Sunny",
-      "detailedForecast": "Sunny, with a high near 81. South wind 3 to 7 mph.",
+      "detailedForecast": "Sunny, with a high near 81. South wind 1 to 7 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 1
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-15T10:00:00-04:00",
+      "temperature": 65,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "SE",
+      "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-09-15T11:00:00-04:00",
       "temperature": 70,
@@ -275,16 +285,6 @@
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 1
-    },
-    {
-      "startTime": "2026-09-16T10:00:00-04:00",
-      "temperature": 72,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "S",
-      "shortForecast": "Mostly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
     }
   ]
 }
