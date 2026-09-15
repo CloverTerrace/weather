@@ -88,7 +88,7 @@
       { max: 3, key: 'marginal', label: 'Marginal', badge: 'MRGL',
         body: 'A little instability and shear in place. Any storms that fire would likely stay ordinary, but stay weather-aware.' },
       { max: 5, key: 'slight', label: 'Slight', badge: 'SLGT',
-        body: 'There\u2019s a decent combination of fuel & organization today \u2014 development of an isolated stronger storm wouldn\u2019t be a surprise.' },
+        body: 'There\u2019s a decent combination of fuel & organization today\u002c development of an isolated stronger storm wouldn\u2019t be a surprise.' },
       { max: 7, key: 'enhanced', label: 'Enhanced', badge: 'ENH',
         body: 'Instability and wind shear are both in play\u002c conditions favor storms that can organize and sustain themselves if they fire.' },
       { max: 10, key: 'high', label: 'High', badge: 'HIGH',
@@ -133,7 +133,7 @@
     var verdict = computeVerdict(payload.parameters);
     if (!verdict) {
       titleEl.textContent = 'Not enough data';
-      bodyEl.textContent = 'This model run is missing the parameters needed for a summary read \u2014 the individual cards below may still have partial data.';
+      bodyEl.textContent = 'This model run is missing the parameters needed for a summary read. The individual cards below may still have partial data.';
       badgeEl.textContent = '\u2013\u2013';
       return;
     }
@@ -210,10 +210,10 @@
       return;
     }
     var lines = {
-      modest: 'Temperatures aloft aren\u2019t dropping off unusually fast \u2014 a fairly ordinary profile.',
+      modest: 'Temperatures aloft aren\u2019t dropping off unusually fast. Ordinary profile.',
       steepening: 'Temperatures aloft are dropping off a bit faster than average, giving rising air a small extra boost.',
       steep: 'Temperatures aloft are dropping off quickly and cold air overhead is keeping the rising surface air accelerating upward.',
-      'very-steep': 'Temperatures aloft are dropping off very quickly\u002c close to the steepest this atmosphere can support, which strongly favors vigorous updrafts.',
+      'very-steep': 'Temperatures aloft are dropping off very quickly. Close to the steepest this atmosphere can support, which strongly favors vigorous updrafts.',
     };
     plain.textContent = lines[cat.key] || '';
   }
