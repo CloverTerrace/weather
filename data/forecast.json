@@ -5,9 +5,9 @@
       "temperature": 50,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
-      "windDirection": "SE",
+      "windDirection": "E",
       "shortForecast": "Patchy Fog",
-      "detailedForecast": "Patchy fog before 4am. Partly cloudy, with a low around 50. Southeast wind around 3 mph.",
+      "detailedForecast": "Patchy fog before 4am. Partly cloudy, with a low around 50. East wind around 3 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-15T03:00:00-04:00",
-      "temperature": 52,
-      "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "SE",
-      "shortForecast": "Patchy Fog",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-09-15T04:00:00-04:00",
       "temperature": 52,
@@ -283,6 +273,16 @@
       "windSpeed": "2 mph",
       "windDirection": "S",
       "shortForecast": "Mostly Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 2
+    },
+    {
+      "startTime": "2026-09-16T03:00:00-04:00",
+      "temperature": 64,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "S",
+      "shortForecast": "Partly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 2
     }
