@@ -1,61 +1,51 @@
 {
   "periods": [
     {
-      "name": "Today",
+      "name": "This Afternoon",
       "temperature": 81,
       "temperatureUnit": "F",
-      "windSpeed": "1 to 7 mph",
+      "windSpeed": "7 mph",
       "windDirection": "S",
       "shortForecast": "Sunny",
-      "detailedForecast": "Sunny, with a high near 81. South wind 1 to 7 mph.",
+      "detailedForecast": "Sunny, with a high near 81. South wind around 7 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 1
     },
     {
       "name": "Tonight",
-      "temperature": 62,
+      "temperature": 64,
       "temperatureUnit": "F",
-      "windSpeed": "2 to 6 mph",
-      "windDirection": "S",
+      "windSpeed": "5 mph",
+      "windDirection": "SE",
       "shortForecast": "Mostly Clear",
-      "detailedForecast": "Mostly clear, with a low around 62. South wind 2 to 6 mph.",
+      "detailedForecast": "Mostly clear, with a low around 64. Southeast wind around 5 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 3
+      "probabilityOfPrecipitation": 2
     },
     {
       "name": "Wednesday",
-      "temperature": 85,
+      "temperature": 86,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "S",
-      "shortForecast": "Mostly Sunny then Slight Chance Rain Showers",
-      "detailedForecast": "A slight chance of rain showers between 4pm and 5pm. Mostly sunny, with a high near 85. South wind around 2 mph. Chance of precipitation is 20%.",
+      "shortForecast": "Mostly Sunny then Scattered Showers And Thunderstorms",
+      "detailedForecast": "Scattered showers and thunderstorms after 4pm. Mostly sunny, with a high near 86. South wind around 2 mph. Chance of precipitation is 30%.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 16
+      "probabilityOfPrecipitation": 33
     },
     {
       "name": "Wednesday Night",
       "temperature": 68,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "W",
-      "shortForecast": "Chance Showers And Thunderstorms",
-      "detailedForecast": "A chance of showers and thunderstorms. Mostly cloudy, with a low around 68. West wind around 2 mph. Chance of precipitation is 30%. New rainfall amounts between a tenth and quarter of an inch possible.",
+      "windDirection": "N",
+      "shortForecast": "Scattered Showers And Thunderstorms",
+      "detailedForecast": "Scattered showers and thunderstorms before 8pm, then scattered showers and thunderstorms between 8pm and 10pm, then scattered showers and thunderstorms. Mostly cloudy, with a low around 68. North wind around 2 mph. Chance of precipitation is 40%. New rainfall amounts between a tenth and quarter of an inch possible.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 33
+      "probabilityOfPrecipitation": 37
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-15T11:00:00-04:00",
-      "temperature": 70,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "S",
-      "shortForecast": "Mostly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-09-15T12:00:00-04:00",
       "temperature": 73,
@@ -285,6 +275,16 @@
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-16T11:00:00-04:00",
+      "temperature": 76,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "S",
+      "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 2
     }
   ]
 }
