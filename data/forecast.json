@@ -1,13 +1,13 @@
 {
   "periods": [
     {
-      "name": "Tonight",
+      "name": "Overnight",
       "temperature": 50,
       "temperatureUnit": "F",
-      "windSpeed": "0 to 3 mph",
+      "windSpeed": "3 mph",
       "windDirection": "SE",
-      "shortForecast": "Partly Cloudy then Patchy Fog",
-      "detailedForecast": "Patchy fog between 1am and 4am. Partly cloudy, with a low around 50. Southeast wind 0 to 3 mph.",
+      "shortForecast": "Patchy Fog",
+      "detailedForecast": "Patchy fog between 1am and 4am. Partly cloudy, with a low around 50. Southeast wind around 3 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-14T23:00:00-04:00",
-      "temperature": 54,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Mostly Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-09-15T00:00:00-04:00",
       "temperature": 54,
@@ -285,6 +275,16 @@
       "shortForecast": "Mostly Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-15T23:00:00-04:00",
+      "temperature": 68,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "S",
+      "shortForecast": "Mostly Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 1
     }
   ]
 }
