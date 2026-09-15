@@ -1,18 +1,7 @@
 {
   "periods": [
     {
-      "name": "Overnight",
-      "temperature": 50,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "E",
-      "shortForecast": "Partly Cloudy",
-      "detailedForecast": "Partly cloudy, with a low around 50. East wind around 3 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "name": "Tuesday",
+      "name": "Today",
       "temperature": 81,
       "temperatureUnit": "F",
       "windSpeed": "3 to 7 mph",
@@ -23,7 +12,7 @@
       "probabilityOfPrecipitation": 2
     },
     {
-      "name": "Tuesday Night",
+      "name": "Tonight",
       "temperature": 62,
       "temperatureUnit": "F",
       "windSpeed": "2 to 6 mph",
@@ -43,6 +32,17 @@
       "detailedForecast": "A slight chance of rain showers between 4pm and 5pm. Mostly sunny, with a high near 85. South wind around 2 mph. Chance of precipitation is 20%.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 16
+    },
+    {
+      "name": "Wednesday Night",
+      "temperature": 68,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "W",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "detailedForecast": "A chance of showers and thunderstorms. Mostly cloudy, with a low around 68. West wind around 2 mph. Chance of precipitation is 30%. New rainfall amounts between a tenth and quarter of an inch possible.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 33
     }
   ],
   "hourly": [
