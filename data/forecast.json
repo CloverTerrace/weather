@@ -1,17 +1,6 @@
 {
   "periods": [
     {
-      "name": "This Afternoon",
-      "temperature": 86,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "W",
-      "shortForecast": "Chance Showers And Thunderstorms",
-      "detailedForecast": "A chance of showers and thunderstorms. Partly sunny, with a high near 86. West wind around 3 mph. Chance of precipitation is 40%.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 43
-    },
-    {
       "name": "Tonight",
       "temperature": 69,
       "temperatureUnit": "F",
@@ -43,19 +32,20 @@
       "detailedForecast": "A chance of showers and thunderstorms before 1am. Mostly cloudy, with a low around 65. Northwest wind around 5 mph. Chance of precipitation is 40%.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 43
+    },
+    {
+      "name": "Friday",
+      "temperature": 80,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "N",
+      "shortForecast": "Mostly Sunny",
+      "detailedForecast": "Mostly sunny, with a high near 80. North wind around 6 mph.",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 1
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-16T17:00:00-04:00",
-      "temperature": 84,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "W",
-      "shortForecast": "Chance Showers And Thunderstorms",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 43
-    },
     {
       "startTime": "2026-09-16T18:00:00-04:00",
       "temperature": 82,
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 46
+    },
+    {
+      "startTime": "2026-09-17T17:00:00-04:00",
+      "temperature": 80,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "NW",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 51
     }
   ]
 }
