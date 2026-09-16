@@ -1,27 +1,55 @@
 {
-  "generatedAt": "2026-09-16T04:50:47.043437Z",
+  "generatedAt": "2026-09-16T04:56:05.801961Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
     {
-      "id": "d62955c5-2e09-4a93-ac21-cfd83413d2a7",
-      "code": "AFD",
-      "type": "Area Forecast Discussion",
+      "id": "95682d9d-c264-4632-a0db-23bfad350d93",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
       "office": "KPBZ",
-      "issued": "2026-09-16T04:18:00+00:00",
+      "issued": "2026-09-16T04:49:00+00:00",
       "expires": null,
       "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... Update to Aviation Discussion.",
+      "hazard": "Today and tonight. Scattered thunderstorms pose a low, but non-zero severe weather and flood risk this afternoon/evening.",
       "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... Update to Aviation Discussion.",
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. Scattered thunderstorms pose a low, but non-zero severe weather and flood risk this afternoon/evening.",
       "details": [
         {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 1218 AM EDT Wed Sep 16 2026 .WHAT HAS CHANGED... Update to Aviation Discussion. && .KEY MESSAGES..."
+          "label": "Today's Hazards",
+          "text": "Today and tonight. Scattered thunderstorms pose a low, but non-zero severe weather and flood risk this afternoon/evening."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Thursday through Tuesday. Thunderstorms pose a low, but non-zero severe weather and flood risk Thursday."
         }
       ],
-      "url": "https://api.weather.gov/products/d62955c5-2e09-4a93-ac21-cfd83413d2a7"
+      "url": "https://api.weather.gov/products/95682d9d-c264-4632-a0db-23bfad350d93"
+    },
+    {
+      "id": "6684c21c-8ce5-4f84-bee5-c08475773538",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-09-16T04:41:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Today and tonight. Scattered thunderstorms pose a low, but non-zero severe weather and flood risk this afternoon/evening.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. Scattered thunderstorms pose a low, but non-zero severe weather and flood risk this afternoon/evening.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. Scattered thunderstorms pose a low, but non-zero severe weather and flood risk this afternoon/evening."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Thursday through Tuesday. Thunderstorms pose a low, but non-zero severe weather and flood risk Thursday."
+        }
+      ],
+      "url": "https://api.weather.gov/products/6684c21c-8ce5-4f84-bee5-c08475773538"
     }
   ]
 }
