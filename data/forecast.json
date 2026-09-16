@@ -6,10 +6,10 @@
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "W",
-      "shortForecast": "Showers And Thunderstorms Likely",
-      "detailedForecast": "Showers and thunderstorms likely before 4pm, then a chance of showers and thunderstorms. Partly sunny, with a high near 86. West wind around 5 mph. Chance of precipitation is 60%. New rainfall amounts less than a tenth of an inch possible.",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "detailedForecast": "A chance of showers and thunderstorms. Partly sunny, with a high near 86. West wind around 5 mph. Chance of precipitation is 50%.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 59
+      "probabilityOfPrecipitation": 47
     },
     {
       "name": "Tonight",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-16T15:00:00-04:00",
-      "temperature": 86,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "W",
-      "shortForecast": "Showers And Thunderstorms Likely",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 59
-    },
     {
       "startTime": "2026-09-16T16:00:00-04:00",
       "temperature": 84,
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 37
+    },
+    {
+      "startTime": "2026-09-17T15:00:00-04:00",
+      "temperature": 83,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "W",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 50
     }
   ]
 }
