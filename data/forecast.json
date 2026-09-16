@@ -4,10 +4,10 @@
       "name": "Tonight",
       "temperature": 64,
       "temperatureUnit": "F",
-      "windSpeed": "3 mph",
+      "windSpeed": "5 mph",
       "windDirection": "S",
       "shortForecast": "Mostly Clear",
-      "detailedForecast": "Mostly clear, with a low around 64. South wind around 3 mph.",
+      "detailedForecast": "Mostly clear, with a low around 64. South wind around 5 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 2
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-15T21:00:00-04:00",
-      "temperature": 72,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "S",
-      "shortForecast": "Mostly Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-09-15T22:00:00-04:00",
       "temperature": 70,
@@ -285,6 +275,16 @@
       "shortForecast": "Scattered Showers And Thunderstorms",
       "isDaytime": false,
       "probabilityOfPrecipitation": 27
+    },
+    {
+      "startTime": "2026-09-16T21:00:00-04:00",
+      "temperature": 74,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Scattered Showers And Thunderstorms",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 25
     }
   ]
 }
