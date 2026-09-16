@@ -5,9 +5,9 @@
       "temperature": 62,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "S",
+      "windDirection": "SE",
       "shortForecast": "Mostly Clear",
-      "detailedForecast": "Mostly clear, with a low around 62. South wind around 2 mph.",
+      "detailedForecast": "Mostly clear, with a low around 62. Southeast wind around 2 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 1
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-16T03:00:00-04:00",
-      "temperature": 67,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "SE",
-      "shortForecast": "Mostly Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-09-16T04:00:00-04:00",
       "temperature": 66,
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": false,
       "probabilityOfPrecipitation": 36
+    },
+    {
+      "startTime": "2026-09-17T03:00:00-04:00",
+      "temperature": 70,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 12
     }
   ]
 }
