@@ -1,7 +1,7 @@
 {
   "periods": [
     {
-      "name": "Tonight",
+      "name": "Overnight",
       "temperature": 69,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-17T00:00:00-04:00",
-      "temperature": 71,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Slight Chance Rain Showers",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 19
-    },
     {
       "startTime": "2026-09-17T01:00:00-04:00",
       "temperature": 71,
@@ -285,6 +275,16 @@
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 14
+    },
+    {
+      "startTime": "2026-09-18T00:00:00-04:00",
+      "temperature": 70,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "N",
+      "shortForecast": "Slight Chance Showers And Thunderstorms",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 15
     }
   ]
 }
