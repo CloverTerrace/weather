@@ -1,13 +1,13 @@
 {
   "periods": [
     {
-      "name": "Overnight",
+      "name": "Tonight",
       "temperature": 69,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
       "windDirection": "SW",
-      "shortForecast": "Chance Rain Showers",
-      "detailedForecast": "A chance of rain showers before 4am, then areas of fog and a chance of rain showers. Mostly cloudy, with a low around 69. Southwest wind around 1 mph. Chance of precipitation is 30%.",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "detailedForecast": "A chance of showers and thunderstorms before 4am, then areas of fog and a chance of rain showers. Mostly cloudy, with a low around 69. Southwest wind around 1 mph. Chance of precipitation is 30%.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 30
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-16T23:00:00-04:00",
+      "temperature": 72,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 27
+    },
     {
       "startTime": "2026-09-17T00:00:00-04:00",
       "temperature": 71,
@@ -275,16 +285,6 @@
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 10
-    },
-    {
-      "startTime": "2026-09-17T23:00:00-04:00",
-      "temperature": 71,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "N",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 14
     }
   ]
 }
