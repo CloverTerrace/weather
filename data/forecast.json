@@ -6,8 +6,8 @@
       "temperatureUnit": "F",
       "windSpeed": "6 mph",
       "windDirection": "NW",
-      "shortForecast": "Chance Rain Showers",
-      "detailedForecast": "A chance of rain showers before 4am, then patchy fog. Mostly cloudy, with a low around 66. Northwest wind around 6 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "detailedForecast": "A chance of showers and thunderstorms before 4am, then patchy fog. Mostly cloudy, with a low around 66. Northwest wind around 6 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 53
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-17T18:00:00-04:00",
+      "temperature": 79,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "W",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 42
+    },
     {
       "startTime": "2026-09-17T19:00:00-04:00",
       "temperature": 77,
@@ -274,16 +284,6 @@
       "windDirection": "N",
       "shortForecast": "Sunny",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-09-18T18:00:00-04:00",
-      "temperature": 75,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "N",
-      "shortForecast": "Mostly Clear",
-      "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
   ]
