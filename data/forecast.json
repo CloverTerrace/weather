@@ -6,8 +6,8 @@
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
       "windDirection": "S",
-      "shortForecast": "Areas Of Fog",
-      "detailedForecast": "Areas of fog and a chance of showers and thunderstorms before 5am, then patchy fog and a chance of showers and thunderstorms. Mostly cloudy, with a low around 69. South wind around 1 mph. Chance of precipitation is 40%. New rainfall amounts less than a tenth of an inch possible.",
+      "shortForecast": "Patchy Fog",
+      "detailedForecast": "Patchy fog and a chance of showers and thunderstorms before 3am, then areas of fog and a chance of showers and thunderstorms between 3am and 5am, then patchy fog and a chance of showers and thunderstorms. Mostly cloudy, with a low around 69. South wind around 1 mph. Chance of precipitation is 40%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 40
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-17T02:00:00-04:00",
+      "temperature": 72,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Patchy Fog",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 34
+    },
     {
       "startTime": "2026-09-17T03:00:00-04:00",
       "temperature": 71,
@@ -275,16 +285,6 @@
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 2
-    },
-    {
-      "startTime": "2026-09-18T02:00:00-04:00",
-      "temperature": 68,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "N",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 5
     }
   ]
 }
