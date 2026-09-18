@@ -5,9 +5,9 @@
       "temperature": 77,
       "temperatureUnit": "F",
       "windSpeed": "7 mph",
-      "windDirection": "N",
-      "shortForecast": "Partly Sunny",
-      "detailedForecast": "Partly sunny, with a high near 77. North wind around 7 mph.",
+      "windDirection": "NW",
+      "shortForecast": "Mostly Sunny",
+      "detailedForecast": "Mostly sunny, with a high near 77. Northwest wind around 7 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 10
     },
@@ -47,21 +47,11 @@
   ],
   "hourly": [
     {
-      "startTime": "2026-09-18T13:00:00-04:00",
+      "startTime": "2026-09-18T14:00:00-04:00",
       "temperature": 75,
       "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "N",
-      "shortForecast": "Partly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 5
-    },
-    {
-      "startTime": "2026-09-18T14:00:00-04:00",
-      "temperature": 76,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "N",
+      "windSpeed": "7 mph",
+      "windDirection": "SW",
       "shortForecast": "Partly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 5
@@ -285,6 +275,16 @@
       "shortForecast": "Mostly Cloudy",
       "isDaytime": true,
       "probabilityOfPrecipitation": 6
+    },
+    {
+      "startTime": "2026-09-19T13:00:00-04:00",
+      "temperature": 74,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "E",
+      "shortForecast": "Partly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 8
     }
   ]
 }
