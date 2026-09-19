@@ -1,13 +1,13 @@
 {
   "periods": [
     {
-      "name": "Today",
+      "name": "This Afternoon",
       "temperature": 78,
       "temperatureUnit": "F",
-      "windSpeed": "5 mph",
+      "windSpeed": "3 mph",
       "windDirection": "E",
       "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a high near 78. East wind around 5 mph.",
+      "detailedForecast": "Mostly cloudy, with a high near 78. East wind around 3 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 5
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-19T11:00:00-04:00",
-      "temperature": 68,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "E",
-      "shortForecast": "Partly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 5
-    },
     {
       "startTime": "2026-09-19T12:00:00-04:00",
       "temperature": 71,
@@ -285,6 +275,16 @@
       "shortForecast": "Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 76
+    },
+    {
+      "startTime": "2026-09-20T11:00:00-04:00",
+      "temperature": 72,
+      "temperatureUnit": "F",
+      "windSpeed": "8 mph",
+      "windDirection": "SW",
+      "shortForecast": "Showers And Thunderstorms",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 94
     }
   ]
 }
