@@ -6,10 +6,10 @@
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
       "windDirection": "SE",
-      "shortForecast": "Partly Sunny",
-      "detailedForecast": "Partly sunny, with a high near 78. Southeast wind around 3 mph.",
+      "shortForecast": "Slight Chance Rain Showers",
+      "detailedForecast": "A slight chance of rain showers before 2pm. Mostly cloudy, with a high near 78. Southeast wind around 3 mph. Chance of precipitation is 20%.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 10
+      "probabilityOfPrecipitation": 16
     },
     {
       "name": "Tonight",
@@ -47,6 +47,16 @@
   ],
   "hourly": [
     {
+      "startTime": "2026-09-19T13:00:00-04:00",
+      "temperature": 73,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "SE",
+      "shortForecast": "Slight Chance Rain Showers",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 16
+    },
+    {
       "startTime": "2026-09-19T14:00:00-04:00",
       "temperature": 75,
       "temperatureUnit": "F",
@@ -62,7 +72,7 @@
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "SE",
-      "shortForecast": "Partly Sunny",
+      "shortForecast": "Mostly Cloudy",
       "isDaytime": true,
       "probabilityOfPrecipitation": 5
     },
@@ -72,7 +82,7 @@
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "SE",
-      "shortForecast": "Partly Sunny",
+      "shortForecast": "Mostly Cloudy",
       "isDaytime": true,
       "probabilityOfPrecipitation": 3
     },
@@ -275,16 +285,6 @@
       "shortForecast": "Showers And Thunderstorms Likely",
       "isDaytime": true,
       "probabilityOfPrecipitation": 73
-    },
-    {
-      "startTime": "2026-09-20T13:00:00-04:00",
-      "temperature": 74,
-      "temperatureUnit": "F",
-      "windSpeed": "8 mph",
-      "windDirection": "SW",
-      "shortForecast": "Showers And Thunderstorms Likely",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 58
     }
   ]
 }
