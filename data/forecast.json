@@ -47,31 +47,41 @@
   ],
   "hourly": [
     {
-      "startTime": "2026-09-19T17:00:00-04:00",
-      "temperature": 70,
+      "startTime": "2026-09-19T16:00:00-04:00",
+      "temperature": 72,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "S",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Partly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 8
+    },
+    {
+      "startTime": "2026-09-19T17:00:00-04:00",
+      "temperature": 74,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "E",
       "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 17
     },
     {
       "startTime": "2026-09-19T18:00:00-04:00",
-      "temperature": 70,
+      "temperature": 73,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "S",
+      "windSpeed": "2 mph",
+      "windDirection": "E",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 9
     },
     {
       "startTime": "2026-09-19T19:00:00-04:00",
-      "temperature": 69,
+      "temperature": 71,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "SE",
+      "windDirection": "E",
       "shortForecast": "Chance Rain Showers",
       "isDaytime": false,
       "probabilityOfPrecipitation": 45
@@ -81,7 +91,7 @@
       "temperature": 69,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "SE",
+      "windDirection": "E",
       "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": false,
       "probabilityOfPrecipitation": 18
@@ -275,16 +285,6 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 52
-    },
-    {
-      "startTime": "2026-09-20T16:00:00-04:00",
-      "temperature": 75,
-      "temperatureUnit": "F",
-      "windSpeed": "7 mph",
-      "windDirection": "NW",
-      "shortForecast": "Chance Showers And Thunderstorms",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 48
     }
   ]
 }
