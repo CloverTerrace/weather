@@ -9,7 +9,7 @@
       "shortForecast": "Partly Sunny",
       "detailedForecast": "Partly sunny, with a high near 78. East wind around 5 mph.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 13
+      "probabilityOfPrecipitation": 5
     },
     {
       "name": "Tonight",
@@ -47,6 +47,16 @@
   ],
   "hourly": [
     {
+      "startTime": "2026-09-19T08:00:00-04:00",
+      "temperature": 59,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "E",
+      "shortForecast": "Partly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 1
+    },
+    {
       "startTime": "2026-09-19T09:00:00-04:00",
       "temperature": 61,
       "temperatureUnit": "F",
@@ -54,7 +64,7 @@
       "windDirection": "E",
       "shortForecast": "Partly Sunny",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 10
+      "probabilityOfPrecipitation": 1
     },
     {
       "startTime": "2026-09-19T10:00:00-04:00",
@@ -64,7 +74,7 @@
       "windDirection": "E",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 13
+      "probabilityOfPrecipitation": 1
     },
     {
       "startTime": "2026-09-19T11:00:00-04:00",
@@ -74,7 +84,7 @@
       "windDirection": "E",
       "shortForecast": "Partly Sunny",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 5
+      "probabilityOfPrecipitation": 2
     },
     {
       "startTime": "2026-09-19T12:00:00-04:00",
@@ -275,16 +285,6 @@
       "shortForecast": "Showers And Thunderstorms Likely",
       "isDaytime": true,
       "probabilityOfPrecipitation": 65
-    },
-    {
-      "startTime": "2026-09-20T08:00:00-04:00",
-      "temperature": 66,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "S",
-      "shortForecast": "Showers And Thunderstorms",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 81
     }
   ]
 }
