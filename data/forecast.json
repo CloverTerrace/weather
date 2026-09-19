@@ -5,9 +5,9 @@
       "temperature": 74,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
-      "windDirection": "E",
+      "windDirection": "SE",
       "shortForecast": "Slight Chance Rain Showers",
-      "detailedForecast": "A slight chance of rain showers. Partly sunny, with a high near 74. East wind around 3 mph. Chance of precipitation is 20%.",
+      "detailedForecast": "A slight chance of rain showers after 5pm. Partly sunny, with a high near 74. Southeast wind around 3 mph. Chance of precipitation is 20%.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 17
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-19T16:00:00-04:00",
+      "temperature": 72,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "SE",
+      "shortForecast": "Partly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 8
+    },
     {
       "startTime": "2026-09-19T17:00:00-04:00",
       "temperature": 74,
@@ -275,16 +285,6 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 52
-    },
-    {
-      "startTime": "2026-09-20T16:00:00-04:00",
-      "temperature": 75,
-      "temperatureUnit": "F",
-      "windSpeed": "7 mph",
-      "windDirection": "NW",
-      "shortForecast": "Chance Showers And Thunderstorms",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 48
     }
   ]
 }
