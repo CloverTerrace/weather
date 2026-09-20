@@ -4,12 +4,12 @@
       "name": "Today",
       "temperature": 76,
       "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "NW",
+      "windSpeed": "2 to 6 mph",
+      "windDirection": "W",
       "shortForecast": "Patchy Fog",
-      "detailedForecast": "Patchy fog and a chance of showers and thunderstorms before noon, then patchy fog and scattered showers and thunderstorms between noon and 4pm, then isolated showers and thunderstorms between 4pm and 5pm. Mostly cloudy, with a high near 76. Northwest wind around 6 mph. Chance of precipitation is 70%. New rainfall amounts between a tenth and quarter of an inch possible.",
+      "detailedForecast": "Patchy fog and scattered showers and thunderstorms before 8am, then patchy fog and showers and thunderstorms between 8am and noon, then patchy fog and scattered showers and thunderstorms between noon and 4pm, then isolated showers and thunderstorms between 4pm and 5pm. Cloudy, with a high near 76. West wind 2 to 6 mph. Chance of precipitation is 90%. New rainfall amounts between a quarter and half of an inch possible.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 69
+      "probabilityOfPrecipitation": 93
     },
     {
       "name": "Tonight",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-20T10:00:00-04:00",
-      "temperature": 70,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "W",
-      "shortForecast": "Patchy Fog",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 69
-    },
     {
       "startTime": "2026-09-20T11:00:00-04:00",
       "temperature": 71,
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 67
+    },
+    {
+      "startTime": "2026-09-21T10:00:00-04:00",
+      "temperature": 60,
+      "temperatureUnit": "F",
+      "windSpeed": "10 mph",
+      "windDirection": "NE",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 68
     }
   ]
 }
