@@ -4,10 +4,10 @@
       "name": "This Afternoon",
       "temperature": 74,
       "temperatureUnit": "F",
-      "windSpeed": "6 mph",
+      "windSpeed": "2 to 6 mph",
       "windDirection": "NW",
-      "shortForecast": "Showers And Thunderstorms Likely",
-      "detailedForecast": "Showers and thunderstorms likely. Mostly cloudy, with a high near 74. Northwest wind around 6 mph. Chance of precipitation is 70%.",
+      "shortForecast": "Patchy Fog",
+      "detailedForecast": "Patchy fog and showers and thunderstorms likely. Mostly cloudy, with a high near 74. Northwest wind 2 to 6 mph. Chance of precipitation is 70%.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 66
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-20T15:00:00-04:00",
-      "temperature": 74,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "NW",
-      "shortForecast": "Showers And Thunderstorms Likely",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 66
-    },
     {
       "startTime": "2026-09-20T16:00:00-04:00",
       "temperature": 74,
@@ -285,6 +275,16 @@
       "shortForecast": "Showers And Thunderstorms Likely",
       "isDaytime": true,
       "probabilityOfPrecipitation": 66
+    },
+    {
+      "startTime": "2026-09-21T15:00:00-04:00",
+      "temperature": 63,
+      "temperatureUnit": "F",
+      "windSpeed": "10 mph",
+      "windDirection": "E",
+      "shortForecast": "Showers And Thunderstorms Likely",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 67
     }
   ]
 }
