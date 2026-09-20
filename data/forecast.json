@@ -4,10 +4,10 @@
       "name": "Today",
       "temperature": 76,
       "temperatureUnit": "F",
-      "windSpeed": "6 mph",
+      "windSpeed": "2 to 6 mph",
       "windDirection": "W",
       "shortForecast": "Patchy Fog",
-      "detailedForecast": "Patchy fog and showers and thunderstorms before noon, then patchy fog and scattered showers and thunderstorms between noon and 4pm, then isolated showers and thunderstorms between 4pm and 5pm. Mostly cloudy, with a high near 76. West wind around 6 mph. Chance of precipitation is 90%. New rainfall amounts between a quarter and half of an inch possible.",
+      "detailedForecast": "Patchy fog and scattered showers and thunderstorms before 8am, then patchy fog and showers and thunderstorms between 8am and noon, then patchy fog and scattered showers and thunderstorms between noon and 4pm, then isolated showers and thunderstorms between 4pm and 5pm. Cloudy, with a high near 76. West wind 2 to 6 mph. Chance of precipitation is 90%. New rainfall amounts between a quarter and half of an inch possible.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 93
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-20T09:00:00-04:00",
-      "temperature": 68,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "SW",
-      "shortForecast": "Patchy Fog",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 93
-    },
     {
       "startTime": "2026-09-20T10:00:00-04:00",
       "temperature": 70,
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 63
+    },
+    {
+      "startTime": "2026-09-21T09:00:00-04:00",
+      "temperature": 58,
+      "temperatureUnit": "F",
+      "windSpeed": "9 mph",
+      "windDirection": "NE",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 67
     }
   ]
 }
