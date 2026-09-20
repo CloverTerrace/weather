@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-09-20T23:36:32.062488Z",
+  "generatedAt": "2026-09-20T23:41:39.257871Z",
   "watches": [
     {
-      "id": "urn:oid:2.49.0.1.840.0.8f0aea39a388dc591faf361715ec7d7f6364df36.001.1",
+      "id": "urn:oid:2.49.0.1.840.0.b4fe9ffc95dd503098b5fd957174392a3a6e979a.001.1",
       "type": "Flood Watch",
       "number": null,
-      "issued": "2026-09-20T12:00:00-04:00",
-      "expires": "2026-09-20T20:00:00-04:00",
+      "issued": "2026-09-20T19:38:00-04:00",
+      "expires": "2026-09-21T06:00:00-04:00",
       "location": "Tuscarawas; Carroll; Columbiana; Coshocton; Harrison; Jefferson; Muskingum; Guernsey; Belmont; Noble; Monroe; Beaver; Allegheny; Washington; Greene; Westmoreland; Westmoreland Ridges; Fayette; Fayette Ridges; Hancock; Brooke; Ohio; Marshall; Wetzel; Marion; Monongalia; Ridges of Eastern Monongalia and Northwestern Preston; Preston; Eastern Preston; Western Tucker; Eastern Tucker",
       "distanceMiles": null,
-      "summary": "Flood Watch issued September 20 at 12:00PM EDT until September 21 at 12:00PM EDT by NWS Pittsburgh PA",
+      "summary": "Flood Watch issued September 20 at 7:38PM EDT until September 21 at 12:00PM EDT by NWS Pittsburgh PA",
       "details": [
         {
           "label": "Areas",
@@ -20,31 +20,31 @@
           "text": "You should monitor later forecasts and be prepared to take action\nshould Flash Flood Warnings be issued."
         }
       ],
-      "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8f0aea39a388dc591faf361715ec7d7f6364df36.001.1",
+      "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b4fe9ffc95dd503098b5fd957174392a3a6e979a.001.1",
       "office": "NWS Pittsburgh PA"
     }
   ],
   "mesoscaleDiscussions": [],
   "statements": [
     {
-      "id": "64e3b7f0-f15d-4a80-aabe-2f8bd51d8221",
-      "code": "FLS",
-      "type": "Flood Statement",
+      "id": "d1442251-8971-45a1-8efe-945e30fda833",
+      "code": "FFA",
+      "type": "Flash Flood Watch",
       "office": "KPBZ",
-      "issued": "2026-09-20T23:09:00+00:00",
+      "issued": "2026-09-20T23:38:00+00:00",
       "expires": null,
       "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
-      "hazard": "WGUS81 KPBZ 202309 OHC013-031-059-067-081-157-202319-",
+      "hazard": "WGUS61 KPBZ 202338 Flood Watch",
       "distanceMiles": null,
-      "headline": "Flood Statement",
-      "summary": "WGUS81 KPBZ 202309 OHC013-031-059-067-081-157-202319-",
+      "headline": "Flash Flood Watch",
+      "summary": "WGUS61 KPBZ 202338 Flood Watch",
       "details": [
         {
           "label": "Product detail",
-          "text": "000 WGUS81 KPBZ 202309 FLSPBZ Flood Statement 709 PM EDT Sun Sep 20 2026 OHC013-031-059-067-081-157-202319- /O.EXP.KPBZ.FA.W.0054.000000T0000Z-260920T2315Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
+          "text": "000 WGUS61 KPBZ 202338 FFAPBZ Flood Watch 738 PM EDT Sun Sep 20 2026 OHZ039>041-048>050-057>059-068-069-PAZ020-021-029-031-073>076- WVZ001>004-012-021-509>514-211000- /O.CON.KPBZ.FA.A.0021.000000T0000Z-260921T1600Z/"
         }
       ],
-      "url": "https://api.weather.gov/products/64e3b7f0-f15d-4a80-aabe-2f8bd51d8221"
+      "url": "https://api.weather.gov/products/d1442251-8971-45a1-8efe-945e30fda833"
     }
   ]
 }
