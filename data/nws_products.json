@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T14:46:35.685641Z",
+  "generatedAt": "2026-09-21T14:51:39.864209Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.32f41006ee0e4252b0fc5ad9cc6b3780c789dde7.001.1",
@@ -25,5 +25,26 @@
     }
   ],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "ce371693-ce77-49ac-a0ba-a19a8679c871",
+      "code": "FLS",
+      "type": "Flood Statement",
+      "office": "KPBZ",
+      "issued": "2026-09-21T14:51:00+00:00",
+      "expires": null,
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "WGUS81 KPBZ 211451 OHC121-212100-",
+      "distanceMiles": null,
+      "headline": "Flood Statement",
+      "summary": "WGUS81 KPBZ 211451 OHC121-212100-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 WGUS81 KPBZ 211451 FLSPBZ Flood Statement 1051 AM EDT Mon Sep 21 2026 OHC121-212100- /O.CON.KPBZ.FA.W.0058.000000T0000Z-260921T2100Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
+        }
+      ],
+      "url": "https://api.weather.gov/products/ce371693-ce77-49ac-a0ba-a19a8679c871"
+    }
+  ]
 }
