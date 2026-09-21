@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T15:46:34.856881Z",
+  "generatedAt": "2026-09-21T15:51:36.815530Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.d2d059e51e63885c1fb814fecdef6760648051ae.001.1",
@@ -25,5 +25,26 @@
     }
   ],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "44d49554-4cb2-4c7b-8979-ab7aa490dfb6",
+      "code": "FFA",
+      "type": "Flash Flood Watch",
+      "office": "KPBZ",
+      "issued": "2026-09-21T15:43:00+00:00",
+      "expires": null,
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "WGUS61 KPBZ 211543 URGENT - IMMEDIATE BROADCAST REQUESTED",
+      "distanceMiles": null,
+      "headline": "Flash Flood Watch",
+      "summary": "WGUS61 KPBZ 211543 URGENT - IMMEDIATE BROADCAST REQUESTED",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 WGUS61 KPBZ 211543 FFAPBZ URGENT - IMMEDIATE BROADCAST REQUESTED Flood Watch 1143 AM EDT Mon Sep 21 2026 OHZ039>041-048>050-057-058-PAZ020-WVZ001-211645- /O.EXP.KPBZ.FA.A.0021.000000T0000Z-260921T1600Z/"
+        }
+      ],
+      "url": "https://api.weather.gov/products/44d49554-4cb2-4c7b-8979-ab7aa490dfb6"
+    }
+  ]
 }
