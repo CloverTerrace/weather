@@ -7,9 +7,9 @@
       "windSpeed": "10 mph",
       "windDirection": "NE",
       "shortForecast": "Patchy Fog",
-      "detailedForecast": "Patchy fog and showers and thunderstorms likely. Cloudy, with a high near 63. Northeast wind around 10 mph, with gusts as high as 23 mph. Chance of precipitation is 70%. New rainfall amounts between a quarter and half of an inch possible.",
+      "detailedForecast": "Patchy fog and showers and thunderstorms. Cloudy, with a high near 63. Northeast wind around 10 mph, with gusts as high as 23 mph. Chance of precipitation is 80%. New rainfall amounts between a quarter and half of an inch possible.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 71
+      "probabilityOfPrecipitation": 81
     },
     {
       "name": "Tonight",
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-21T10:00:00-04:00",
+      "temperature": 59,
+      "temperatureUnit": "F",
+      "windSpeed": "10 mph",
+      "windDirection": "NE",
+      "shortForecast": "Patchy Fog",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 81
+    },
     {
       "startTime": "2026-09-21T11:00:00-04:00",
       "temperature": 59,
@@ -275,16 +285,6 @@
       "shortForecast": "Chance Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 32
-    },
-    {
-      "startTime": "2026-09-22T10:00:00-04:00",
-      "temperature": 59,
-      "temperatureUnit": "F",
-      "windSpeed": "12 mph",
-      "windDirection": "E",
-      "shortForecast": "Chance Rain Showers",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 52
     }
   ]
 }
