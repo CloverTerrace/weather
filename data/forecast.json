@@ -1,7 +1,18 @@
 {
   "periods": [
     {
-      "name": "Today",
+      "name": "Overnight",
+      "temperature": 57,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "NE",
+      "shortForecast": "Rain Showers Likely",
+      "detailedForecast": "Rain showers likely and patchy fog. Mostly cloudy, with a low around 57. Northeast wind around 6 mph. Chance of precipitation is 70%. New rainfall amounts less than a tenth of an inch possible.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 72
+    },
+    {
+      "name": "Monday",
       "temperature": 63,
       "temperatureUnit": "F",
       "windSpeed": "10 mph",
@@ -12,7 +23,7 @@
       "probabilityOfPrecipitation": 81
     },
     {
-      "name": "Tonight",
+      "name": "Monday Night",
       "temperature": 56,
       "temperatureUnit": "F",
       "windSpeed": "12 mph",
@@ -32,20 +43,19 @@
       "detailedForecast": "Rain showers likely. Cloudy, with a high near 64. East wind around 13 mph, with gusts as high as 24 mph. Chance of precipitation is 60%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 57
-    },
-    {
-      "name": "Tuesday Night",
-      "temperature": 53,
-      "temperatureUnit": "F",
-      "windSpeed": "14 mph",
-      "windDirection": "E",
-      "shortForecast": "Rain Showers Likely",
-      "detailedForecast": "Rain showers likely. Cloudy, with a low around 53. East wind around 14 mph, with gusts as high as 26 mph. Chance of precipitation is 70%. New rainfall amounts between a tenth and quarter of an inch possible.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 72
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-21T05:00:00-04:00",
+      "temperature": 60,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "NE",
+      "shortForecast": "Rain Showers Likely",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 72
+    },
     {
       "startTime": "2026-09-21T06:00:00-04:00",
       "temperature": 59,
@@ -275,16 +285,6 @@
       "shortForecast": "Chance Rain Showers",
       "isDaytime": false,
       "probabilityOfPrecipitation": 31
-    },
-    {
-      "startTime": "2026-09-22T05:00:00-04:00",
-      "temperature": 57,
-      "temperatureUnit": "F",
-      "windSpeed": "10 mph",
-      "windDirection": "E",
-      "shortForecast": "Chance Rain Showers",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 44
     }
   ]
 }
