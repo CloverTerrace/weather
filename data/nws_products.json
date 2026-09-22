@@ -1,27 +1,51 @@
 {
-  "generatedAt": "2026-09-22T23:51:39.069205Z",
+  "generatedAt": "2026-09-22T23:56:33.871157Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
     {
-      "id": "0ea7f0b5-c029-4a5c-9905-142fe8057995",
-      "code": "AFD",
-      "type": "Area Forecast Discussion",
+      "id": "7e41a4ea-5c9b-460c-8a7b-6518f5ffb423",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
       "office": "KPBZ",
-      "issued": "2026-09-22T23:23:00+00:00",
+      "issued": "2026-09-22T23:54:00+00:00",
       "expires": null,
       "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... Flood Watch cancelled for eastern Ohio, northern WV panhandle,",
+      "hazard": "Tonight. No hazardous weather is expected at this time.",
       "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... Flood Watch cancelled for eastern Ohio, northern WV panhandle,",
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Wednesday through Monday. No hazardous weather is expected at this time."
+        }
+      ],
+      "url": "https://api.weather.gov/products/7e41a4ea-5c9b-460c-8a7b-6518f5ffb423"
+    },
+    {
+      "id": "c8629276-eab6-4f68-a983-f29c3afa6cbd",
+      "code": "FFA",
+      "type": "Flash Flood Watch",
+      "office": "KPBZ",
+      "issued": "2026-09-22T23:52:00+00:00",
+      "expires": null,
+      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
+      "hazard": "WGUS61 KPBZ 222352 Flood Watch",
+      "distanceMiles": null,
+      "headline": "Flash Flood Watch",
+      "summary": "WGUS61 KPBZ 222352 Flood Watch",
       "details": [
         {
           "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 723 PM EDT Tue Sep 22 2026 .WHAT HAS CHANGED... Flood Watch cancelled for eastern Ohio, northern WV panhandle, and most of southwestern PA. Unsettled weather continues through mid- week, but confidence is increasing in a dry"
+          "text": "000 WGUS61 KPBZ 222352 FFAPBZ Flood Watch 752 PM EDT Tue Sep 22 2026 PAZ074-076-WVZ012-021-509>514-230100- /O.CAN.KPBZ.FA.A.0021.000000T0000Z-260923T1200Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
         }
       ],
-      "url": "https://api.weather.gov/products/0ea7f0b5-c029-4a5c-9905-142fe8057995"
+      "url": "https://api.weather.gov/products/c8629276-eab6-4f68-a983-f29c3afa6cbd"
     }
   ]
 }
