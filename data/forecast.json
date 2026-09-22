@@ -4,10 +4,10 @@
       "name": "This Afternoon",
       "temperature": 62,
       "temperatureUnit": "F",
-      "windSpeed": "8 to 13 mph",
+      "windSpeed": "13 mph",
       "windDirection": "E",
       "shortForecast": "Chance Rain Showers",
-      "detailedForecast": "A chance of rain showers and patchy fog. Cloudy, with a high near 62. East wind 8 to 13 mph, with gusts as high as 25 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
+      "detailedForecast": "A chance of rain showers before 4pm, then a chance of rain showers and patchy fog. Cloudy, with a high near 62. East wind around 13 mph, with gusts as high as 25 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 53
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-22T13:00:00-04:00",
+      "temperature": 60,
+      "temperatureUnit": "F",
+      "windSpeed": "10 mph",
+      "windDirection": "E",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 53
+    },
     {
       "startTime": "2026-09-22T14:00:00-04:00",
       "temperature": 61,
@@ -275,16 +285,6 @@
       "shortForecast": "Partly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 5
-    },
-    {
-      "startTime": "2026-09-23T13:00:00-04:00",
-      "temperature": 61,
-      "temperatureUnit": "F",
-      "windSpeed": "13 mph",
-      "windDirection": "E",
-      "shortForecast": "Partly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 9
     }
   ]
 }
