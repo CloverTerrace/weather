@@ -1,15 +1,15 @@
 {
   "periods": [
     {
-      "name": "Tonight",
+      "name": "Overnight",
       "temperature": 56,
       "temperatureUnit": "F",
-      "windSpeed": "12 mph",
+      "windSpeed": "10 mph",
       "windDirection": "E",
-      "shortForecast": "Rain Showers",
-      "detailedForecast": "Rain showers. Cloudy, with a low around 56. East wind around 12 mph, with gusts as high as 23 mph. Chance of precipitation is 80%. New rainfall amounts less than a tenth of an inch possible.",
+      "shortForecast": "Chance Rain Showers",
+      "detailedForecast": "A chance of rain showers. Cloudy, with a low around 56. East wind around 10 mph, with gusts as high as 22 mph. Chance of precipitation is 50%.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 81
+      "probabilityOfPrecipitation": 48
     },
     {
       "name": "Tuesday",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-21T23:00:00-04:00",
-      "temperature": 58,
-      "temperatureUnit": "F",
-      "windSpeed": "10 mph",
-      "windDirection": "NE",
-      "shortForecast": "Rain Showers Likely",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 69
-    },
     {
       "startTime": "2026-09-22T00:00:00-04:00",
       "temperature": 58,
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Rain Showers",
       "isDaytime": false,
       "probabilityOfPrecipitation": 44
+    },
+    {
+      "startTime": "2026-09-22T23:00:00-04:00",
+      "temperature": 57,
+      "temperatureUnit": "F",
+      "windSpeed": "14 mph",
+      "windDirection": "E",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 47
     }
   ]
 }
