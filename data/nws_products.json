@@ -1,51 +1,27 @@
 {
-  "generatedAt": "2026-09-23T00:26:31.435324Z",
+  "generatedAt": "2026-09-23T00:31:50.466620Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
     {
-      "id": "7e41a4ea-5c9b-460c-8a7b-6518f5ffb423",
-      "code": "HWO",
-      "type": "Hazardous Weather Outlook",
+      "id": "0dfaede5-797d-4d92-b39f-a8db36762b02",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
       "office": "KPBZ",
-      "issued": "2026-09-22T23:54:00+00:00",
+      "issued": "2026-09-23T00:25:00+00:00",
       "expires": null,
       "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": "Tonight. No hazardous weather is expected at this time.",
+      "hazard": ".WHAT HAS CHANGED... The remainder of the Flood Watch has been cancelled. Unsettled",
       "distanceMiles": null,
-      "headline": "Hazardous Weather Outlook",
-      "summary": "Tonight. No hazardous weather is expected at this time.",
-      "details": [
-        {
-          "label": "Today's Hazards",
-          "text": "Tonight. No hazardous weather is expected at this time."
-        },
-        {
-          "label": "Extended Outlook",
-          "text": "Wednesday through Monday. No hazardous weather is expected at this time."
-        }
-      ],
-      "url": "https://api.weather.gov/products/7e41a4ea-5c9b-460c-8a7b-6518f5ffb423"
-    },
-    {
-      "id": "c8629276-eab6-4f68-a983-f29c3afa6cbd",
-      "code": "FFA",
-      "type": "Flash Flood Watch",
-      "office": "KPBZ",
-      "issued": "2026-09-22T23:52:00+00:00",
-      "expires": null,
-      "location": "/00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/",
-      "hazard": "WGUS61 KPBZ 222352 Flood Watch",
-      "distanceMiles": null,
-      "headline": "Flash Flood Watch",
-      "summary": "WGUS61 KPBZ 222352 Flood Watch",
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... The remainder of the Flood Watch has been cancelled. Unsettled",
       "details": [
         {
           "label": "Product detail",
-          "text": "000 WGUS61 KPBZ 222352 FFAPBZ Flood Watch 752 PM EDT Tue Sep 22 2026 PAZ074-076-WVZ012-021-509>514-230100- /O.CAN.KPBZ.FA.A.0021.000000T0000Z-260923T1200Z/ /00000.0.ER.000000T0000Z.000000T0000Z.000000T0000Z.OO/"
+          "text": "000 AFDPBZ Area Forecast Discussion 825 PM EDT Tue Sep 22 2026 .WHAT HAS CHANGED... The remainder of the Flood Watch has been cancelled. Unsettled weather continues through mid- week, but confidence is increasing in a dry upcoming weekend.&&"
         }
       ],
-      "url": "https://api.weather.gov/products/c8629276-eab6-4f68-a983-f29c3afa6cbd"
+      "url": "https://api.weather.gov/products/0dfaede5-797d-4d92-b39f-a8db36762b02"
     }
   ]
 }
