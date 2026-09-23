@@ -4,10 +4,10 @@
       "name": "This Afternoon",
       "temperature": 64,
       "temperatureUnit": "F",
-      "windSpeed": "12 mph",
+      "windSpeed": "6 to 10 mph",
       "windDirection": "E",
       "shortForecast": "Mostly Sunny",
-      "detailedForecast": "Mostly sunny, with a high near 64. East wind around 12 mph.",
+      "detailedForecast": "Mostly sunny, with a high near 64. East wind 6 to 10 mph, with gusts as high as 21 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 10
     },
@@ -24,12 +24,12 @@
     },
     {
       "name": "Thursday",
-      "temperature": 67,
+      "temperature": 66,
       "temperatureUnit": "F",
       "windSpeed": "9 mph",
       "windDirection": "E",
       "shortForecast": "Mostly Sunny",
-      "detailedForecast": "Mostly sunny, with a high near 67. East wind around 9 mph.",
+      "detailedForecast": "Mostly sunny, with a high near 66. East wind around 9 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-23T13:00:00-04:00",
+      "temperature": 62,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "E",
+      "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 10
+    },
     {
       "startTime": "2026-09-23T14:00:00-04:00",
       "temperature": 63,
@@ -269,16 +279,6 @@
     {
       "startTime": "2026-09-24T12:00:00-04:00",
       "temperature": 60,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "E",
-      "shortForecast": "Mostly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-09-24T13:00:00-04:00",
-      "temperature": 63,
       "temperatureUnit": "F",
       "windSpeed": "9 mph",
       "windDirection": "E",
