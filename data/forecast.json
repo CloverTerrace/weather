@@ -1,15 +1,15 @@
 {
   "periods": [
     {
-      "name": "Tonight",
+      "name": "Overnight",
       "temperature": 50,
       "temperatureUnit": "F",
-      "windSpeed": "6 to 10 mph",
+      "windSpeed": "8 mph",
       "windDirection": "E",
       "shortForecast": "Partly Cloudy",
-      "detailedForecast": "Partly cloudy, with a low around 50. East wind 6 to 10 mph, with gusts as high as 22 mph.",
+      "detailedForecast": "Partly cloudy, with a low around 50. East wind around 8 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 6
+      "probabilityOfPrecipitation": 0
     },
     {
       "name": "Thursday",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-23T23:00:00-04:00",
-      "temperature": 57,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "E",
-      "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 6
-    },
     {
       "startTime": "2026-09-24T00:00:00-04:00",
       "temperature": 56,
@@ -279,6 +269,16 @@
     {
       "startTime": "2026-09-24T22:00:00-04:00",
       "temperature": 52,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "NE",
+      "shortForecast": "Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-24T23:00:00-04:00",
+      "temperature": 51,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "NE",
