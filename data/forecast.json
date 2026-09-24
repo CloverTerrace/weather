@@ -1,7 +1,18 @@
 {
   "periods": [
     {
-      "name": "Today",
+      "name": "Overnight",
+      "temperature": 50,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "E",
+      "shortForecast": "Mostly Cloudy",
+      "detailedForecast": "Mostly cloudy, with a low around 50. East wind around 7 mph.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Thursday",
       "temperature": 66,
       "temperatureUnit": "F",
       "windSpeed": "9 mph",
@@ -12,7 +23,7 @@
       "probabilityOfPrecipitation": 0
     },
     {
-      "name": "Tonight",
+      "name": "Thursday Night",
       "temperature": 44,
       "temperatureUnit": "F",
       "windSpeed": "2 to 7 mph",
@@ -32,20 +43,19 @@
       "detailedForecast": "Sunny, with a high near 71. North wind 2 to 7 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
-    },
-    {
-      "name": "Friday Night",
-      "temperature": 47,
-      "temperatureUnit": "F",
-      "windSpeed": "2 to 6 mph",
-      "windDirection": "N",
-      "shortForecast": "Mostly Clear",
-      "detailedForecast": "Mostly clear, with a low around 47. North wind 2 to 6 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-24T05:00:00-04:00",
+      "temperature": 53,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "E",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-09-24T06:00:00-04:00",
       "temperature": 52,
@@ -269,16 +279,6 @@
     {
       "startTime": "2026-09-25T04:00:00-04:00",
       "temperature": 46,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "N",
-      "shortForecast": "Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-09-25T05:00:00-04:00",
-      "temperature": 45,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "N",
