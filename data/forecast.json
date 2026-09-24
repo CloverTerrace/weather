@@ -4,10 +4,10 @@
       "name": "Tonight",
       "temperature": 43,
       "temperatureUnit": "F",
-      "windSpeed": "5 mph",
+      "windSpeed": "2 to 7 mph",
       "windDirection": "NE",
       "shortForecast": "Clear",
-      "detailedForecast": "Clear, with a low around 43. Northeast wind around 5 mph.",
+      "detailedForecast": "Clear, with a low around 43. Northeast wind 2 to 7 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-24T18:00:00-04:00",
+      "temperature": 64,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "E",
+      "shortForecast": "Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-09-24T19:00:00-04:00",
       "temperature": 60,
@@ -274,16 +284,6 @@
       "windDirection": "N",
       "shortForecast": "Sunny",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-09-25T18:00:00-04:00",
-      "temperature": 66,
-      "temperatureUnit": "F",
-      "windSpeed": "7 mph",
-      "windDirection": "N",
-      "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
   ]
