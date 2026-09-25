@@ -7,7 +7,7 @@
       "windSpeed": "2 to 7 mph",
       "windDirection": "NE",
       "shortForecast": "Patchy Fog then Sunny",
-      "detailedForecast": "Patchy fog between 7am and 8am. Sunny, with a high near 70. Northeast wind 2 to 7 mph.",
+      "detailedForecast": "Patchy fog before 8am. Sunny, with a high near 70. Northeast wind 2 to 7 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-25T06:00:00-04:00",
-      "temperature": 45,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "N",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-09-25T07:00:00-04:00",
       "temperature": 44,
@@ -284,6 +274,16 @@
       "windDirection": "N",
       "shortForecast": "Partly Cloudy",
       "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-26T06:00:00-04:00",
+      "temperature": 48,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "N",
+      "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
       "probabilityOfPrecipitation": 0
     }
   ]
