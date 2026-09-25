@@ -1,27 +1,31 @@
 {
-  "generatedAt": "2026-09-25T18:26:35.926639Z",
+  "generatedAt": "2026-09-25T18:31:32.129923Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
     {
-      "id": "756db46e-f193-463a-ac0d-b47968056260",
-      "code": "AFD",
-      "type": "Area Forecast Discussion",
+      "id": "43e5c21d-842d-464f-94a1-55a8c53ea62c",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
       "office": "KPBZ",
-      "issued": "2026-09-25T18:02:00+00:00",
+      "issued": "2026-09-25T17:15:00+00:00",
       "expires": null,
       "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... No significant changes made.",
+      "hazard": "This afternoon and tonight. No hazardous weather is expected at this time.",
       "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... No significant changes made.",
+      "headline": "Hazardous Weather Outlook",
+      "summary": "This afternoon and tonight. No hazardous weather is expected at this time.",
       "details": [
         {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 202 PM EDT Fri Sep 25 2026 .WHAT HAS CHANGED... No significant changes made. && .KEY MESSAGES..."
+          "label": "Today's Hazards",
+          "text": "This afternoon and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Saturday through Thursday. No hazardous weather is expected at this time."
         }
       ],
-      "url": "https://api.weather.gov/products/756db46e-f193-463a-ac0d-b47968056260"
+      "url": "https://api.weather.gov/products/43e5c21d-842d-464f-94a1-55a8c53ea62c"
     }
   ]
 }
