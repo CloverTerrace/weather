@@ -1,27 +1,31 @@
 {
-  "generatedAt": "2026-09-25T06:21:33.438994Z",
+  "generatedAt": "2026-09-25T06:27:05.593876Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
     {
-      "id": "14b44d68-d6df-41f6-9a2c-c2888143e4e9",
-      "code": "AFD",
-      "type": "Area Forecast Discussion",
+      "id": "c53fde5e-c060-4dbc-bda3-21020a8c980b",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
       "office": "KPBZ",
-      "issued": "2026-09-25T05:41:00+00:00",
+      "issued": "2026-09-25T06:20:00+00:00",
       "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... Daytime highs were increased a touch mid to late next week.",
+      "location": "Higher Elevations of Fayette-Preston-Eastern Preston-Western Tucker-Eastern Tucker",
+      "hazard": "Today and tonight. Frost Advisory.",
       "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... Daytime highs were increased a touch mid to late next week.",
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. Frost Advisory.",
       "details": [
         {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 141 AM EDT Fri Sep 25 2026 .WHAT HAS CHANGED... Daytime highs were increased a touch mid to late next week. && .KEY MESSAGES..."
+          "label": "Today's Hazards",
+          "text": "Today and tonight. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Frost Advisory."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Saturday through Thursday. No hazardous weather is expected at this time."
         }
       ],
-      "url": "https://api.weather.gov/products/14b44d68-d6df-41f6-9a2c-c2888143e4e9"
+      "url": "https://api.weather.gov/products/c53fde5e-c060-4dbc-bda3-21020a8c980b"
     }
   ]
 }
