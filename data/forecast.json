@@ -2,12 +2,12 @@
   "periods": [
     {
       "name": "Overnight",
-      "temperature": 49,
+      "temperature": 48,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "NW",
       "shortForecast": "Partly Cloudy",
-      "detailedForecast": "Partly cloudy, with a low around 49. Northwest wind around 5 mph.",
+      "detailedForecast": "Partly cloudy, with a low around 48. Northwest wind around 5 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -15,10 +15,10 @@
       "name": "Saturday",
       "temperature": 71,
       "temperatureUnit": "F",
-      "windSpeed": "5 to 13 mph",
+      "windSpeed": "2 to 13 mph",
       "windDirection": "N",
       "shortForecast": "Mostly Sunny",
-      "detailedForecast": "Mostly sunny, with a high near 71. North wind 5 to 13 mph, with gusts as high as 24 mph.",
+      "detailedForecast": "Mostly sunny, with a high near 71. North wind 2 to 13 mph, with gusts as high as 24 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -47,16 +47,6 @@
   ],
   "hourly": [
     {
-      "startTime": "2026-09-26T04:00:00-04:00",
-      "temperature": 50,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "N",
-      "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
       "startTime": "2026-09-26T05:00:00-04:00",
       "temperature": 50,
       "temperatureUnit": "F",
@@ -68,11 +58,11 @@
     },
     {
       "startTime": "2026-09-26T06:00:00-04:00",
-      "temperature": 50,
+      "temperature": 49,
       "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Sunny",
+      "windSpeed": "2 mph",
+      "windDirection": "W",
+      "shortForecast": "Partly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -278,6 +268,16 @@
     },
     {
       "startTime": "2026-09-27T03:00:00-04:00",
+      "temperature": 55,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "N",
+      "shortForecast": "Partly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-27T04:00:00-04:00",
       "temperature": 55,
       "temperatureUnit": "F",
       "windSpeed": "6 mph",
