@@ -4,10 +4,10 @@
       "name": "Tonight",
       "temperature": 57,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 10 mph",
+      "windSpeed": "3 to 12 mph",
       "windDirection": "N",
       "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 57. North wind 3 to 10 mph, with gusts as high as 24 mph.",
+      "detailedForecast": "Mostly cloudy, with a low around 57. North wind 3 to 12 mph, with gusts as high as 25 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 8
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-27T18:00:00-04:00",
+      "temperature": 68,
+      "temperatureUnit": "F",
+      "windSpeed": "12 mph",
+      "windDirection": "N",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 2
+    },
     {
       "startTime": "2026-09-27T19:00:00-04:00",
       "temperature": 64,
@@ -274,16 +284,6 @@
       "windDirection": "NW",
       "shortForecast": "Cloudy",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 3
-    },
-    {
-      "startTime": "2026-09-28T18:00:00-04:00",
-      "temperature": 67,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
       "probabilityOfPrecipitation": 3
     }
   ]
