@@ -1,18 +1,29 @@
 {
   "periods": [
     {
-      "name": "Today",
+      "name": "Overnight",
+      "temperature": 49,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "NW",
+      "shortForecast": "Partly Cloudy",
+      "detailedForecast": "Partly cloudy, with a low around 49. Northwest wind around 6 mph.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Sunday",
       "temperature": 71,
       "temperatureUnit": "F",
-      "windSpeed": "2 to 13 mph",
+      "windSpeed": "5 to 13 mph",
       "windDirection": "NW",
       "shortForecast": "Mostly Sunny",
-      "detailedForecast": "Mostly sunny, with a high near 71. Northwest wind 2 to 13 mph, with gusts as high as 24 mph.",
+      "detailedForecast": "Mostly sunny, with a high near 71. Northwest wind 5 to 13 mph, with gusts as high as 24 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 1
     },
     {
-      "name": "Tonight",
+      "name": "Sunday Night",
       "temperature": 57,
       "temperatureUnit": "F",
       "windSpeed": "3 to 12 mph",
@@ -32,26 +43,25 @@
       "detailedForecast": "Mostly cloudy, with a high near 68. Northwest wind around 6 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 6
-    },
-    {
-      "name": "Monday Night",
-      "temperature": 57,
-      "temperatureUnit": "F",
-      "windSpeed": "0 to 5 mph",
-      "windDirection": "N",
-      "shortForecast": "Areas Of Fog",
-      "detailedForecast": "Areas of fog after 10pm. Mostly cloudy, with a low around 57. North wind 0 to 5 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 4
     }
   ],
   "hourly": [
     {
+      "startTime": "2026-09-27T05:00:00-04:00",
+      "temperature": 54,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "NW",
+      "shortForecast": "Partly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
       "startTime": "2026-09-27T06:00:00-04:00",
       "temperature": 53,
       "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "SW",
+      "windSpeed": "5 mph",
+      "windDirection": "W",
       "shortForecast": "Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
@@ -60,8 +70,8 @@
       "startTime": "2026-09-27T07:00:00-04:00",
       "temperature": 54,
       "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "W",
+      "windSpeed": "7 mph",
+      "windDirection": "NW",
       "shortForecast": "Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
@@ -268,16 +278,6 @@
     },
     {
       "startTime": "2026-09-28T04:00:00-04:00",
-      "temperature": 58,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "N",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 6
-    },
-    {
-      "startTime": "2026-09-28T05:00:00-04:00",
       "temperature": 58,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
