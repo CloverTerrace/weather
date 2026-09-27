@@ -1,18 +1,7 @@
 {
   "periods": [
     {
-      "name": "Overnight",
-      "temperature": 49,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "NW",
-      "shortForecast": "Partly Cloudy",
-      "detailedForecast": "Partly cloudy, with a low around 49. Northwest wind around 6 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "name": "Sunday",
+      "name": "Today",
       "temperature": 71,
       "temperatureUnit": "F",
       "windSpeed": "2 to 13 mph",
@@ -23,7 +12,7 @@
       "probabilityOfPrecipitation": 1
     },
     {
-      "name": "Sunday Night",
+      "name": "Tonight",
       "temperature": 57,
       "temperatureUnit": "F",
       "windSpeed": "3 to 12 mph",
@@ -43,19 +32,20 @@
       "detailedForecast": "Mostly cloudy, with a high near 68. Northwest wind around 6 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 6
+    },
+    {
+      "name": "Monday Night",
+      "temperature": 57,
+      "temperatureUnit": "F",
+      "windSpeed": "0 to 5 mph",
+      "windDirection": "N",
+      "shortForecast": "Areas Of Fog",
+      "detailedForecast": "Areas of fog after 10pm. Mostly cloudy, with a low around 57. North wind 0 to 5 mph.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 4
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-27T05:00:00-04:00",
-      "temperature": 54,
-      "temperatureUnit": "F",
-      "windSpeed": "6 mph",
-      "windDirection": "NW",
-      "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-09-27T06:00:00-04:00",
       "temperature": 53,
@@ -278,6 +268,16 @@
     },
     {
       "startTime": "2026-09-28T04:00:00-04:00",
+      "temperature": 58,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "N",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 6
+    },
+    {
+      "startTime": "2026-09-28T05:00:00-04:00",
       "temperature": 58,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
