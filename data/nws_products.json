@@ -1,8 +1,48 @@
 {
-  "generatedAt": "2026-09-27T05:56:17.685390Z",
+  "generatedAt": "2026-09-27T06:01:44.020032Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "c01f1c85-1854-4418-8e3a-2daaee2ffc70",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-09-27T06:00:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Updated Key Message 1. Updated Aviation discussion for 06z",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Updated Key Message 1. Updated Aviation discussion for 06z",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 200 AM EDT Sun Sep 27 2026 .WHAT HAS CHANGED... Updated Key Message 1. Updated Aviation discussion for 06z TAFs. &&"
+        }
+      ],
+      "url": "https://api.weather.gov/products/c01f1c85-1854-4418-8e3a-2daaee2ffc70"
+    },
+    {
+      "id": "09d8dde1-74b8-4d25-a24f-be93ad977fe8",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-09-27T05:39:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Updated Aviation discussion for 06z TAFs.",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Updated Aviation discussion for 06z TAFs.",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 139 AM EDT Sun Sep 27 2026 .WHAT HAS CHANGED... Updated Aviation discussion for 06z TAFs. && .KEY MESSAGES..."
+        }
+      ],
+      "url": "https://api.weather.gov/products/09d8dde1-74b8-4d25-a24f-be93ad977fe8"
+    },
     {
       "id": "65d170a4-f732-4f27-ab95-63b16ced7f8d",
       "code": "HWO",
@@ -26,26 +66,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/65d170a4-f732-4f27-ab95-63b16ced7f8d"
-    },
-    {
-      "id": "09d8dde1-74b8-4d25-a24f-be93ad977fe8",
-      "code": "AFD",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-09-27T05:39:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... Updated Aviation discussion for 06z TAFs.",
-      "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... Updated Aviation discussion for 06z TAFs.",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 139 AM EDT Sun Sep 27 2026 .WHAT HAS CHANGED... Updated Aviation discussion for 06z TAFs. && .KEY MESSAGES..."
-        }
-      ],
-      "url": "https://api.weather.gov/products/09d8dde1-74b8-4d25-a24f-be93ad977fe8"
     }
   ]
 }
