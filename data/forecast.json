@@ -4,10 +4,10 @@
       "name": "Overnight",
       "temperature": 57,
       "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "W",
+      "windSpeed": "1 mph",
+      "windDirection": "SW",
       "shortForecast": "Cloudy",
-      "detailedForecast": "Cloudy, with a low around 57. West wind around 3 mph.",
+      "detailedForecast": "Cloudy, with a low around 57. Southwest wind around 1 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 3
     },
@@ -47,8 +47,8 @@
   ],
   "hourly": [
     {
-      "startTime": "2026-09-28T03:00:00-04:00",
-      "temperature": 59,
+      "startTime": "2026-09-28T04:00:00-04:00",
+      "temperature": 58,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
       "windDirection": "SW",
@@ -57,21 +57,11 @@
       "probabilityOfPrecipitation": 3
     },
     {
-      "startTime": "2026-09-28T04:00:00-04:00",
+      "startTime": "2026-09-28T05:00:00-04:00",
       "temperature": 58,
       "temperatureUnit": "F",
-      "windSpeed": "2 mph",
+      "windSpeed": "1 mph",
       "windDirection": "W",
-      "shortForecast": "Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 3
-    },
-    {
-      "startTime": "2026-09-28T05:00:00-04:00",
-      "temperature": 57,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "NW",
       "shortForecast": "Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 2
@@ -80,7 +70,7 @@
       "startTime": "2026-09-28T06:00:00-04:00",
       "temperature": 57,
       "temperatureUnit": "F",
-      "windSpeed": "3 mph",
+      "windSpeed": "2 mph",
       "windDirection": "NW",
       "shortForecast": "Cloudy",
       "isDaytime": true,
@@ -285,6 +275,16 @@
       "shortForecast": "Areas Of Fog",
       "isDaytime": false,
       "probabilityOfPrecipitation": 1
+    },
+    {
+      "startTime": "2026-09-29T03:00:00-04:00",
+      "temperature": 57,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Areas Of Fog",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
     }
   ]
 }
