@@ -5,11 +5,11 @@
       "temperature": 66,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
-      "windDirection": "NW",
+      "windDirection": "N",
       "shortForecast": "Patchy Drizzle",
-      "detailedForecast": "Patchy drizzle and a slight chance of rain. Cloudy, with a high near 66. Northwest wind around 5 mph. Chance of precipitation is 20%.",
+      "detailedForecast": "Patchy drizzle and a slight chance of rain. Cloudy, with a high near 66. North wind around 5 mph. Chance of precipitation is 20%.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 21
+      "probabilityOfPrecipitation": 16
     },
     {
       "name": "Tonight",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-28T16:00:00-04:00",
-      "temperature": 65,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "NW",
-      "shortForecast": "Patchy Drizzle",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 21
-    },
     {
       "startTime": "2026-09-28T17:00:00-04:00",
       "temperature": 65,
@@ -283,6 +273,16 @@
       "windSpeed": "1 mph",
       "windDirection": "W",
       "shortForecast": "Partly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-29T16:00:00-04:00",
+      "temperature": 74,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     }
