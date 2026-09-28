@@ -9,7 +9,7 @@
       "shortForecast": "Patchy Fog",
       "detailedForecast": "Patchy fog after 11pm. Mostly cloudy, with a low around 57. North wind around 2 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 5
+      "probabilityOfPrecipitation": 9
     },
     {
       "name": "Tuesday",
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-28T18:00:00-04:00",
+      "temperature": 65,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 9
+    },
     {
       "startTime": "2026-09-28T19:00:00-04:00",
       "temperature": 64,
@@ -274,16 +284,6 @@
       "windDirection": "",
       "shortForecast": "Partly Sunny",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-09-29T18:00:00-04:00",
-      "temperature": 73,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
   ]
