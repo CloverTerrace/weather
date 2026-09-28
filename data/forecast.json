@@ -7,7 +7,7 @@
       "windSpeed": "5 mph",
       "windDirection": "NW",
       "shortForecast": "Chance Light Rain",
-      "detailedForecast": "A chance of rain and patchy drizzle before 4pm, then patchy drizzle and a slight chance of rain. Cloudy, with a high near 66. Northwest wind around 5 mph. Chance of precipitation is 30%.",
+      "detailedForecast": "Patchy drizzle before 2pm, then a chance of rain and patchy drizzle between 2pm and 4pm, then patchy drizzle and a slight chance of rain. Cloudy, with a high near 66. Northwest wind around 5 mph. Chance of precipitation is 30%.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 29
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-28T13:00:00-04:00",
+      "temperature": 63,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "W",
+      "shortForecast": "Patchy Drizzle",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 13
+    },
     {
       "startTime": "2026-09-28T14:00:00-04:00",
       "temperature": 64,
@@ -273,16 +283,6 @@
       "windSpeed": "0 mph",
       "windDirection": "",
       "shortForecast": "Mostly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-09-29T13:00:00-04:00",
-      "temperature": 72,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Partly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     }
