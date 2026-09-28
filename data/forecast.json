@@ -4,10 +4,10 @@
       "name": "Today",
       "temperature": 68,
       "temperatureUnit": "F",
-      "windSpeed": "1 to 5 mph",
-      "windDirection": "NW",
+      "windSpeed": "5 mph",
+      "windDirection": "N",
       "shortForecast": "Cloudy",
-      "detailedForecast": "Cloudy, with a high near 68. Northwest wind 1 to 5 mph.",
+      "detailedForecast": "Cloudy, with a high near 68. North wind around 5 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 4
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-28T08:00:00-04:00",
+      "temperature": 60,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "NW",
+      "shortForecast": "Cloudy",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 3
+    },
     {
       "startTime": "2026-09-28T09:00:00-04:00",
       "temperature": 60,
@@ -268,16 +278,6 @@
     },
     {
       "startTime": "2026-09-29T07:00:00-04:00",
-      "temperature": 58,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Areas Of Fog",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-09-29T08:00:00-04:00",
       "temperature": 58,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
