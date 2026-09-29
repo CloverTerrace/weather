@@ -1,28 +1,8 @@
 {
-  "generatedAt": "2026-09-29T17:05:56.919186Z",
+  "generatedAt": "2026-09-29T17:15:57.040949Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
-    {
-      "id": "e4bda03d-1506-4003-bfa4-b370db87729a",
-      "code": "AFD",
-      "type": "Area Forecast Discussion",
-      "office": "KPBZ",
-      "issued": "2026-09-29T17:00:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... Upcoming weekend precipitation chances have decreased, otherwise",
-      "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... Upcoming weekend precipitation chances have decreased, otherwise",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 100 PM EDT Tue Sep 29 2026 .WHAT HAS CHANGED... Upcoming weekend precipitation chances have decreased, otherwise no major changes were made to the latest forecast. &&"
-        }
-      ],
-      "url": "https://api.weather.gov/products/e4bda03d-1506-4003-bfa4-b370db87729a"
-    },
     {
       "id": "ec622ca6-d3a4-47f3-9c6b-a58779178360",
       "code": "HWO",
@@ -46,6 +26,26 @@
         }
       ],
       "url": "https://api.weather.gov/products/ec622ca6-d3a4-47f3-9c6b-a58779178360"
+    },
+    {
+      "id": "e4bda03d-1506-4003-bfa4-b370db87729a",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-09-29T17:00:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Upcoming weekend precipitation chances have decreased, otherwise",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Upcoming weekend precipitation chances have decreased, otherwise",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 100 PM EDT Tue Sep 29 2026 .WHAT HAS CHANGED... Upcoming weekend precipitation chances have decreased, otherwise no major changes were made to the latest forecast. &&"
+        }
+      ],
+      "url": "https://api.weather.gov/products/e4bda03d-1506-4003-bfa4-b370db87729a"
     }
   ]
 }
