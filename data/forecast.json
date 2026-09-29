@@ -1,13 +1,13 @@
 {
   "periods": [
     {
-      "name": "Today",
+      "name": "This Afternoon",
       "temperature": 75,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
-      "windDirection": "S",
+      "windDirection": "SW",
       "shortForecast": "Partly Sunny",
-      "detailedForecast": "Partly sunny, with a high near 75. South wind around 1 mph.",
+      "detailedForecast": "Partly sunny, with a high near 75. Southwest wind around 1 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-09-29T11:00:00-04:00",
-      "temperature": 67,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Partly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-09-29T12:00:00-04:00",
       "temperature": 70,
@@ -283,6 +273,16 @@
       "windSpeed": "1 mph",
       "windDirection": "S",
       "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-09-30T11:00:00-04:00",
+      "temperature": 69,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "S",
+      "shortForecast": "Partly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     }
