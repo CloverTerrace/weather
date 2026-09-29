@@ -6,8 +6,8 @@
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
-      "shortForecast": "Patchy Fog",
-      "detailedForecast": "Patchy fog. Cloudy, with a low around 57. Wind around 0 mph.",
+      "shortForecast": "Areas Of Fog",
+      "detailedForecast": "Areas of fog. Cloudy, with a low around 57. Wind around 0 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -17,8 +17,8 @@
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
       "windDirection": "N",
-      "shortForecast": "Areas Of Fog then Mostly Cloudy",
-      "detailedForecast": "Areas of fog before 10am. Mostly cloudy, with a high near 75. North wind around 1 mph.",
+      "shortForecast": "Areas Of Fog then Partly Sunny",
+      "detailedForecast": "Areas of fog before 10am. Partly sunny, with a high near 75. North wind around 1 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 1
     },
@@ -47,8 +47,18 @@
   ],
   "hourly": [
     {
+      "startTime": "2026-09-29T04:00:00-04:00",
+      "temperature": 57,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Areas Of Fog",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
       "startTime": "2026-09-29T05:00:00-04:00",
-      "temperature": 58,
+      "temperature": 57,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
@@ -58,7 +68,7 @@
     },
     {
       "startTime": "2026-09-29T06:00:00-04:00",
-      "temperature": 58,
+      "temperature": 57,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
@@ -268,16 +278,6 @@
     },
     {
       "startTime": "2026-09-30T03:00:00-04:00",
-      "temperature": 56,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Areas Of Fog",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-09-30T04:00:00-04:00",
       "temperature": 56,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
