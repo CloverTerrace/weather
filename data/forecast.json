@@ -4,10 +4,10 @@
       "name": "Today",
       "temperature": 77,
       "temperatureUnit": "F",
-      "windSpeed": "1 to 5 mph",
+      "windSpeed": "0 to 5 mph",
       "windDirection": "S",
       "shortForecast": "Areas Of Fog then Partly Sunny",
-      "detailedForecast": "Areas of fog before 10am. Partly sunny, with a high near 77. South wind 1 to 5 mph.",
+      "detailedForecast": "Areas of fog before 10am. Partly sunny, with a high near 77. South wind 0 to 5 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-30T07:00:00-04:00",
+      "temperature": 52,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Areas Of Fog",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-09-30T08:00:00-04:00",
       "temperature": 53,
@@ -273,16 +283,6 @@
       "windSpeed": "3 mph",
       "windDirection": "S",
       "shortForecast": "Partly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 8
-    },
-    {
-      "startTime": "2026-10-01T07:00:00-04:00",
-      "temperature": 63,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "S",
-      "shortForecast": "Mostly Cloudy",
       "isDaytime": true,
       "probabilityOfPrecipitation": 8
     }
