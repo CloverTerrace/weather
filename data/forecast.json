@@ -31,21 +31,31 @@
       "shortForecast": "Mostly Cloudy",
       "detailedForecast": "Mostly cloudy, with a low around 63. South wind around 3 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 10
+      "probabilityOfPrecipitation": 9
     },
     {
       "name": "Thursday",
       "temperature": 80,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 9 mph",
+      "windSpeed": "3 to 8 mph",
       "windDirection": "S",
       "shortForecast": "Partly Sunny",
-      "detailedForecast": "Partly sunny, with a high near 80. South wind 3 to 9 mph.",
+      "detailedForecast": "Partly sunny, with a high near 80. South wind 3 to 8 mph.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 9
+      "probabilityOfPrecipitation": 2
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-09-30T00:00:00-04:00",
+      "temperature": 59,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Mostly Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-09-30T01:00:00-04:00",
       "temperature": 58,
@@ -275,16 +285,6 @@
       "shortForecast": "Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 3
-    },
-    {
-      "startTime": "2026-10-01T00:00:00-04:00",
-      "temperature": 65,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "S",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 4
     }
   ]
 }
