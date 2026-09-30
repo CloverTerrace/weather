@@ -1,27 +1,31 @@
 {
-  "generatedAt": "2026-09-30T17:10:50.415055Z",
+  "generatedAt": "2026-09-30T17:15:50.832748Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
     {
-      "id": "efefd2b4-2019-44fe-a2c8-6635d738ccac",
-      "code": "AFD",
-      "type": "Area Forecast Discussion",
+      "id": "164dcbf3-e615-4254-9a17-67fe2e7adc27",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
       "office": "KPBZ",
-      "issued": "2026-09-30T16:40:00+00:00",
+      "issued": "2026-09-30T17:09:00+00:00",
       "expires": null,
       "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... Rain chances for the weekend continue to gradually shift",
+      "hazard": "This afternoon and tonight. No hazardous weather is expected at this time.",
       "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... Rain chances for the weekend continue to gradually shift",
+      "headline": "Hazardous Weather Outlook",
+      "summary": "This afternoon and tonight. No hazardous weather is expected at this time.",
       "details": [
         {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 1240 PM EDT Wed Sep 30 2026 .WHAT HAS CHANGED... Rain chances for the weekend continue to gradually shift southward, otherwise no major changes were made to the latest forecast."
+          "label": "Today's Hazards",
+          "text": "This afternoon and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Thursday through Tuesday. No hazardous weather is expected at this time."
         }
       ],
-      "url": "https://api.weather.gov/products/efefd2b4-2019-44fe-a2c8-6635d738ccac"
+      "url": "https://api.weather.gov/products/164dcbf3-e615-4254-9a17-67fe2e7adc27"
     }
   ]
 }
