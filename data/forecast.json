@@ -1,18 +1,7 @@
 {
   "periods": [
     {
-      "name": "Overnight",
-      "temperature": 62,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "S",
-      "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 62. South wind around 3 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 4
-    },
-    {
-      "name": "Thursday",
+      "name": "Today",
       "temperature": 82,
       "temperatureUnit": "F",
       "windSpeed": "5 to 9 mph",
@@ -23,7 +12,7 @@
       "probabilityOfPrecipitation": 4
     },
     {
-      "name": "Thursday Night",
+      "name": "Tonight",
       "temperature": 64,
       "temperatureUnit": "F",
       "windSpeed": "8 mph",
@@ -40,22 +29,23 @@
       "windSpeed": "9 mph",
       "windDirection": "W",
       "shortForecast": "Rain Showers",
-      "detailedForecast": "Rain showers after 9am. Mostly cloudy, with a high near 73. West wind around 9 mph. Chance of precipitation is 100%. New rainfall amounts between a quarter and half of an inch possible.",
+      "detailedForecast": "Rain showers after 9am. Mostly cloudy. High near 73, with temperatures falling to around 61 in the afternoon. West wind around 9 mph. Chance of precipitation is 100%. New rainfall amounts between a quarter and half of an inch possible.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 95
+    },
+    {
+      "name": "Friday Night",
+      "temperature": 48,
+      "temperatureUnit": "F",
+      "windSpeed": "3 to 8 mph",
+      "windDirection": "N",
+      "shortForecast": "Mostly Cloudy",
+      "detailedForecast": "Mostly cloudy, with a low around 48. North wind 3 to 8 mph.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 5
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-01T05:00:00-04:00",
-      "temperature": 64,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "S",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 4
-    },
     {
       "startTime": "2026-10-01T06:00:00-04:00",
       "temperature": 64,
@@ -279,6 +269,16 @@
     {
       "startTime": "2026-10-02T04:00:00-04:00",
       "temperature": 70,
+      "temperatureUnit": "F",
+      "windSpeed": "8 mph",
+      "windDirection": "SW",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 2
+    },
+    {
+      "startTime": "2026-10-02T05:00:00-04:00",
+      "temperature": 68,
       "temperatureUnit": "F",
       "windSpeed": "8 mph",
       "windDirection": "SW",
