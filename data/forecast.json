@@ -9,7 +9,7 @@
       "shortForecast": "Mostly Sunny",
       "detailedForecast": "Mostly sunny, with a high near 82. South wind 5 to 9 mph.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 3
+      "probabilityOfPrecipitation": 4
     },
     {
       "name": "Tonight",
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-10-01T06:00:00-04:00",
+      "temperature": 64,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "S",
+      "shortForecast": "Partly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 4
+    },
     {
       "startTime": "2026-10-01T07:00:00-04:00",
       "temperature": 64,
@@ -275,16 +285,6 @@
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 2
-    },
-    {
-      "startTime": "2026-10-02T06:00:00-04:00",
-      "temperature": 68,
-      "temperatureUnit": "F",
-      "windSpeed": "8 mph",
-      "windDirection": "SW",
-      "shortForecast": "Partly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 4
     }
   ]
 }
