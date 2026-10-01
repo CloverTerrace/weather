@@ -1,13 +1,13 @@
 {
   "periods": [
     {
-      "name": "Today",
+      "name": "This Afternoon",
       "temperature": 82,
       "temperatureUnit": "F",
-      "windSpeed": "6 to 9 mph",
+      "windSpeed": "9 mph",
       "windDirection": "SW",
       "shortForecast": "Mostly Sunny",
-      "detailedForecast": "Mostly sunny, with a high near 82. Southwest wind 6 to 9 mph.",
+      "detailedForecast": "Mostly sunny, with a high near 82. Southwest wind around 9 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 1
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-01T11:00:00-04:00",
-      "temperature": 73,
-      "temperatureUnit": "F",
-      "windSpeed": "8 mph",
-      "windDirection": "SW",
-      "shortForecast": "Partly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 1
-    },
     {
       "startTime": "2026-10-01T12:00:00-04:00",
       "temperature": 76,
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 27
+    },
+    {
+      "startTime": "2026-10-02T11:00:00-04:00",
+      "temperature": 69,
+      "temperatureUnit": "F",
+      "windSpeed": "9 mph",
+      "windDirection": "W",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 28
     }
   ]
 }
