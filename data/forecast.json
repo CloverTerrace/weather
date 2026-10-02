@@ -1,7 +1,18 @@
 {
   "periods": [
     {
-      "name": "Today",
+      "name": "Overnight",
+      "temperature": 64,
+      "temperatureUnit": "F",
+      "windSpeed": "10 mph",
+      "windDirection": "SW",
+      "shortForecast": "Mostly Cloudy",
+      "detailedForecast": "Mostly cloudy. Low around 64, with temperatures rising to around 71 overnight. Southwest wind around 10 mph, with gusts as high as 24 mph.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 1
+    },
+    {
+      "name": "Friday",
       "temperature": 71,
       "temperatureUnit": "F",
       "windSpeed": "10 mph",
@@ -12,7 +23,7 @@
       "probabilityOfPrecipitation": 94
     },
     {
-      "name": "Tonight",
+      "name": "Friday Night",
       "temperature": 49,
       "temperatureUnit": "F",
       "windSpeed": "3 to 8 mph",
@@ -32,20 +43,19 @@
       "detailedForecast": "Sunny, with a high near 67. Northeast wind 3 to 7 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
-    },
-    {
-      "name": "Saturday Night",
-      "temperature": 52,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "E",
-      "shortForecast": "Partly Cloudy",
-      "detailedForecast": "Partly cloudy, with a low around 52. East wind around 3 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-10-02T05:00:00-04:00",
+      "temperature": 71,
+      "temperatureUnit": "F",
+      "windSpeed": "10 mph",
+      "windDirection": "SW",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 1
+    },
     {
       "startTime": "2026-10-02T06:00:00-04:00",
       "temperature": 69,
@@ -268,16 +278,6 @@
     },
     {
       "startTime": "2026-10-03T04:00:00-04:00",
-      "temperature": 50,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "N",
-      "shortForecast": "Mostly Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-10-03T05:00:00-04:00",
       "temperature": 50,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
