@@ -2,12 +2,12 @@
   "periods": [
     {
       "name": "Tonight",
-      "temperature": 66,
+      "temperature": 64,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 9 mph",
+      "windSpeed": "9 mph",
       "windDirection": "SW",
       "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 66. Southwest wind 3 to 9 mph, with gusts as high as 23 mph.",
+      "detailedForecast": "Mostly cloudy, with a low around 64. Southwest wind around 9 mph, with gusts as high as 23 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 2
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-10-01T19:00:00-04:00",
+      "temperature": 77,
+      "temperatureUnit": "F",
+      "windSpeed": "8 mph",
+      "windDirection": "S",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 1
+    },
     {
       "startTime": "2026-10-01T20:00:00-04:00",
       "temperature": 73,
@@ -271,16 +281,6 @@
       "temperature": 60,
       "temperatureUnit": "F",
       "windSpeed": "8 mph",
-      "windDirection": "N",
-      "shortForecast": "Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 4
-    },
-    {
-      "startTime": "2026-10-02T19:00:00-04:00",
-      "temperature": 59,
-      "temperatureUnit": "F",
-      "windSpeed": "7 mph",
       "windDirection": "N",
       "shortForecast": "Cloudy",
       "isDaytime": false,
