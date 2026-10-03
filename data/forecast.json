@@ -4,12 +4,12 @@
       "name": "Tonight",
       "temperature": 48,
       "temperatureUnit": "F",
-      "windSpeed": "7 mph",
+      "windSpeed": "5 mph",
       "windDirection": "N",
-      "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 48. North wind around 7 mph.",
+      "shortForecast": "Partly Cloudy",
+      "detailedForecast": "Partly cloudy, with a low around 48. North wind around 5 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 6
+      "probabilityOfPrecipitation": 1
     },
     {
       "name": "Saturday",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-02T22:00:00-04:00",
-      "temperature": 57,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "N",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 1
-    },
     {
       "startTime": "2026-10-02T23:00:00-04:00",
       "temperature": 56,
@@ -283,6 +273,16 @@
       "windSpeed": "3 mph",
       "windDirection": "NE",
       "shortForecast": "Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-03T22:00:00-04:00",
+      "temperature": 56,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "E",
+      "shortForecast": "Mostly Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
