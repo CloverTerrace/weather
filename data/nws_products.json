@@ -1,6 +1,51 @@
 {
-  "generatedAt": "2026-10-03T08:26:18.935079Z",
+  "generatedAt": "2026-10-03T08:31:25.324671Z",
   "watches": [],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "a999450c-afed-4273-8df7-f17672b1d6f6",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-10-03T05:59:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Today and tonight. No hazardous weather is expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Sunday through Friday. No hazardous weather is expected at this time."
+        }
+      ],
+      "url": "https://api.weather.gov/products/a999450c-afed-4273-8df7-f17672b1d6f6"
+    },
+    {
+      "id": "f2592050-dab9-41e3-b4ad-24b7830a9b1b",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-10-03T05:52:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... A small chance of rain on Sunday and the frost next week seem to",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... A small chance of rain on Sunday and the frost next week seem to",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 152 AM EDT Sat Oct 3 2026 .WHAT HAS CHANGED... A small chance of rain on Sunday and the frost next week seem to be more certain. Otherwise, no major changes to the forecast. &&"
+        }
+      ],
+      "url": "https://api.weather.gov/products/f2592050-dab9-41e3-b4ad-24b7830a9b1b"
+    }
+  ]
 }
