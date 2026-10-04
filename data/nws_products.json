@@ -1,6 +1,51 @@
 {
-  "generatedAt": "2026-10-04T17:16:21.430239Z",
+  "generatedAt": "2026-10-04T17:21:18.222928Z",
   "watches": [],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "208d238e-3b5c-4d9d-86f2-3aa33c73c915",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-10-04T17:14:00+00:00",
+      "expires": null,
+      "location": "Forest-Jefferson PA-Eastern Preston-Eastern Tucker",
+      "hazard": "This afternoon and tonight. No hazardous weather is expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "This afternoon and tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "This afternoon and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Monday through Saturday. No hazardous weather is expected at this time."
+        }
+      ],
+      "url": "https://api.weather.gov/products/208d238e-3b5c-4d9d-86f2-3aa33c73c915"
+    },
+    {
+      "id": "f365f08c-9941-4d23-890a-340246188f55",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-10-04T17:11:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Update to Key Messages",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Update to Key Messages",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 111 PM EDT Sun Oct 4 2026 .WHAT HAS CHANGED... Update to Key Messages && .KEY MESSAGES..."
+        }
+      ],
+      "url": "https://api.weather.gov/products/f365f08c-9941-4d23-890a-340246188f55"
+    }
+  ]
 }
