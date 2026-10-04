@@ -2,12 +2,12 @@
   "periods": [
     {
       "name": "Overnight",
-      "temperature": 50,
+      "temperature": 46,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "E",
       "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 50. East wind around 2 mph.",
+      "detailedForecast": "Mostly cloudy. Low around 46, with temperatures rising to around 52 overnight. East wind around 2 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -47,21 +47,11 @@
   ],
   "hourly": [
     {
-      "startTime": "2026-10-04T01:00:00-04:00",
-      "temperature": 52,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "E",
-      "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
       "startTime": "2026-10-04T02:00:00-04:00",
-      "temperature": 52,
+      "temperature": 45,
       "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "E",
+      "windSpeed": "0 mph",
+      "windDirection": "",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
@@ -279,6 +269,16 @@
     {
       "startTime": "2026-10-05T00:00:00-04:00",
       "temperature": 55,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "W",
+      "shortForecast": "Mostly Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-05T01:00:00-04:00",
+      "temperature": 54,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "W",
