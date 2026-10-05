@@ -1,8 +1,28 @@
 {
-  "generatedAt": "2026-10-05T10:06:15.780610Z",
+  "generatedAt": "2026-10-05T10:11:27.435316Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "c706c7e4-91ba-42cb-8c7a-b2c3d570afb1",
+      "code": "NPW",
+      "type": "Non-Precipitation Warnings / Watches / Advisories",
+      "office": "KPBZ",
+      "issued": "2026-10-05T09:57:00+00:00",
+      "expires": null,
+      "location": "Western Tucker",
+      "hazard": "URGENT - WEATHER MESSAGE WVZ513-052100-",
+      "distanceMiles": null,
+      "headline": "Non-Precipitation Warnings / Watches / Advisories",
+      "summary": "URGENT - WEATHER MESSAGE WVZ513-052100-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 NPWPBZ URGENT - WEATHER MESSAGE 557 AM EDT Mon Oct 5 2026 WVZ513-052100- /O.EXA.KPBZ.FR.Y.0011.261006T0400Z-261006T1300Z/ Western Tucker- Including the cities of Saint George, Hendricks, and Parsons"
+        }
+      ],
+      "url": "https://api.weather.gov/products/c706c7e4-91ba-42cb-8c7a-b2c3d570afb1"
+    },
     {
       "id": "f2b2ed75-ef8b-4cfd-9a92-5359f8206dac",
       "code": "HWO",
@@ -26,26 +46,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/f2b2ed75-ef8b-4cfd-9a92-5359f8206dac"
-    },
-    {
-      "id": "c706c7e4-91ba-42cb-8c7a-b2c3d570afb1",
-      "code": "NPW",
-      "type": "Non-Precipitation Warnings / Watches / Advisories",
-      "office": "KPBZ",
-      "issued": "2026-10-05T09:57:00+00:00",
-      "expires": null,
-      "location": "Western Tucker",
-      "hazard": "URGENT - WEATHER MESSAGE WVZ513-052100-",
-      "distanceMiles": null,
-      "headline": "Non-Precipitation Warnings / Watches / Advisories",
-      "summary": "URGENT - WEATHER MESSAGE WVZ513-052100-",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 NPWPBZ URGENT - WEATHER MESSAGE 557 AM EDT Mon Oct 5 2026 WVZ513-052100- /O.EXA.KPBZ.FR.Y.0011.261006T0400Z-261006T1300Z/ Western Tucker- Including the cities of Saint George, Hendricks, and Parsons"
-        }
-      ],
-      "url": "https://api.weather.gov/products/c706c7e4-91ba-42cb-8c7a-b2c3d570afb1"
     }
   ]
 }
