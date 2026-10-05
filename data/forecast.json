@@ -1,24 +1,13 @@
 {
   "periods": [
     {
-      "name": "This Afternoon",
-      "temperature": 66,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "W",
-      "shortForecast": "Mostly Sunny",
-      "detailedForecast": "Mostly sunny, with a high near 66. West wind around 2 mph.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
       "name": "Tonight",
-      "temperature": 40,
+      "temperature": 41,
       "temperatureUnit": "F",
-      "windSpeed": "0 to 6 mph",
+      "windSpeed": "0 to 5 mph",
       "windDirection": "NW",
       "shortForecast": "Mostly Clear then Patchy Fog",
-      "detailedForecast": "Patchy fog after 4am. Mostly clear, with a low around 40. Northwest wind 0 to 6 mph.",
+      "detailedForecast": "Patchy fog after 4am. Mostly clear, with a low around 41. Northwest wind 0 to 5 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -42,6 +31,17 @@
       "shortForecast": "Mostly Clear",
       "detailedForecast": "Mostly clear, with a low around 43. South wind around 2 mph.",
       "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Wednesday",
+      "temperature": 73,
+      "temperatureUnit": "F",
+      "windSpeed": "2 to 10 mph",
+      "windDirection": "SW",
+      "shortForecast": "Sunny",
+      "detailedForecast": "Sunny, with a high near 73. Southwest wind 2 to 10 mph.",
+      "isDaytime": true,
       "probabilityOfPrecipitation": 0
     }
   ],
