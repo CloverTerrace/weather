@@ -1,18 +1,7 @@
 {
   "periods": [
     {
-      "name": "Overnight",
-      "temperature": 49,
-      "temperatureUnit": "F",
-      "windSpeed": "0 to 5 mph",
-      "windDirection": "W",
-      "shortForecast": "Mostly Clear",
-      "detailedForecast": "Mostly clear, with a low around 49. West wind 0 to 5 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "name": "Monday",
+      "name": "Today",
       "temperature": 66,
       "temperatureUnit": "F",
       "windSpeed": "5 to 12 mph",
@@ -23,7 +12,7 @@
       "probabilityOfPrecipitation": 1
     },
     {
-      "name": "Monday Night",
+      "name": "Tonight",
       "temperature": 40,
       "temperatureUnit": "F",
       "windSpeed": "0 to 9 mph",
@@ -42,6 +31,17 @@
       "shortForecast": "Patchy Fog then Sunny",
       "detailedForecast": "Patchy fog between 8am and 9am. Sunny, with a high near 65. Southwest wind around 1 mph.",
       "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Tuesday Night",
+      "temperature": 44,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "S",
+      "shortForecast": "Mostly Clear",
+      "detailedForecast": "Mostly clear, with a low around 44. South wind around 2 mph.",
+      "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
   ],
