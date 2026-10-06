@@ -47,6 +47,16 @@
   ],
   "hourly": [
     {
+      "startTime": "2026-10-06T18:00:00-04:00",
+      "temperature": 61,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "S",
+      "shortForecast": "Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
       "startTime": "2026-10-06T19:00:00-04:00",
       "temperature": 58,
       "temperatureUnit": "F",
@@ -242,7 +252,7 @@
       "temperatureUnit": "F",
       "windSpeed": "10 mph",
       "windDirection": "SW",
-      "shortForecast": "Sunny",
+      "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 2
     },
@@ -275,16 +285,6 @@
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 2
-    },
-    {
-      "startTime": "2026-10-07T18:00:00-04:00",
-      "temperature": 70,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "SW",
-      "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 3
     }
   ]
 }
