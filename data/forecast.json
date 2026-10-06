@@ -1,17 +1,6 @@
 {
   "periods": [
     {
-      "name": "This Afternoon",
-      "temperature": 63,
-      "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "S",
-      "shortForecast": "Sunny",
-      "detailedForecast": "Sunny, with a high near 63. South wind around 1 mph.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
       "name": "Tonight",
       "temperature": 42,
       "temperatureUnit": "F",
@@ -43,6 +32,17 @@
       "detailedForecast": "Partly cloudy, with a low around 52. Southwest wind 5 to 9 mph, with gusts as high as 21 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 3
+    },
+    {
+      "name": "Thursday",
+      "temperature": 72,
+      "temperatureUnit": "F",
+      "windSpeed": "3 to 12 mph",
+      "windDirection": "W",
+      "shortForecast": "Sunny",
+      "detailedForecast": "Sunny, with a high near 72. West wind 3 to 12 mph.",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 1
     }
   ],
   "hourly": [
