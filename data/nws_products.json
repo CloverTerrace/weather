@@ -1,6 +1,51 @@
 {
-  "generatedAt": "2026-10-06T12:46:20.625035Z",
+  "generatedAt": "2026-10-06T12:51:25.322287Z",
   "watches": [],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "0ac63e4e-efd1-4f61-aa50-2c18df917383",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-10-06T12:47:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Today and tonight. No hazardous weather is expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Wednesday through Monday. No hazardous weather is expected at this time."
+        }
+      ],
+      "url": "https://api.weather.gov/products/0ac63e4e-efd1-4f61-aa50-2c18df917383"
+    },
+    {
+      "id": "9eade669-bbcf-48a9-a47b-7cde1b9ccdb4",
+      "code": "NPW",
+      "type": "Non-Precipitation Warnings / Watches / Advisories",
+      "office": "KPBZ",
+      "issued": "2026-10-06T12:46:00+00:00",
+      "expires": null,
+      "location": "Forest-Clarion-Jefferson PA-Higher Elevations of Westmoreland",
+      "hazard": "URGENT - WEATHER MESSAGE PAZ009-015-016-074-076>078-WVZ512>514-061400-",
+      "distanceMiles": null,
+      "headline": "Non-Precipitation Warnings / Watches / Advisories",
+      "summary": "URGENT - WEATHER MESSAGE PAZ009-015-016-074-076>078-WVZ512>514-061400-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 NPWPBZ URGENT - WEATHER MESSAGE 846 AM EDT Tue Oct 6 2026 PAZ009-015-016-074-076>078-WVZ512>514-061400- /O.EXP.KPBZ.FR.Y.0011.000000T0000Z-261006T1300Z/ Forest-Clarion-Jefferson PA-Higher Elevations of Westmoreland- Higher Elevations of Fayette-Indiana-Higher Elevations of Indiana-"
+        }
+      ],
+      "url": "https://api.weather.gov/products/9eade669-bbcf-48a9-a47b-7cde1b9ccdb4"
+    }
+  ]
 }
