@@ -5,9 +5,9 @@
       "temperature": 40,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "W",
+      "windDirection": "N",
       "shortForecast": "Clear then Patchy Fog",
-      "detailedForecast": "Patchy fog after 4am. Clear, with a low around 40. West wind around 2 mph.",
+      "detailedForecast": "Patchy fog after 4am. Clear, with a low around 40. North wind around 2 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-05T22:00:00-04:00",
-      "temperature": 48,
-      "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "W",
-      "shortForecast": "Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-10-05T23:00:00-04:00",
       "temperature": 47,
@@ -279,6 +269,16 @@
     {
       "startTime": "2026-10-06T21:00:00-04:00",
       "temperature": 52,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "S",
+      "shortForecast": "Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-06T22:00:00-04:00",
+      "temperature": 51,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
       "windDirection": "S",
