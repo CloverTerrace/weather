@@ -5,9 +5,9 @@
       "temperature": 73,
       "temperatureUnit": "F",
       "windSpeed": "2 to 10 mph",
-      "windDirection": "SW",
+      "windDirection": "S",
       "shortForecast": "Sunny",
-      "detailedForecast": "Sunny, with a high near 73. Southwest wind 2 to 10 mph, with gusts as high as 21 mph.",
+      "detailedForecast": "Sunny, with a high near 73. South wind 2 to 10 mph, with gusts as high as 21 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 1
     },
@@ -47,11 +47,21 @@
   ],
   "hourly": [
     {
+      "startTime": "2026-10-07T06:00:00-04:00",
+      "temperature": 42,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "S",
+      "shortForecast": "Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
       "startTime": "2026-10-07T07:00:00-04:00",
       "temperature": 42,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "NW",
+      "windDirection": "S",
       "shortForecast": "Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
@@ -61,7 +71,7 @@
       "temperature": 42,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
-      "windDirection": "SW",
+      "windDirection": "S",
       "shortForecast": "Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
@@ -275,16 +285,6 @@
       "shortForecast": "Mostly Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 2
-    },
-    {
-      "startTime": "2026-10-08T06:00:00-04:00",
-      "temperature": 52,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "W",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 1
     }
   ]
 }
