@@ -4,10 +4,10 @@
       "name": "This Afternoon",
       "temperature": 72,
       "temperatureUnit": "F",
-      "windSpeed": "10 mph",
-      "windDirection": "S",
+      "windSpeed": "3 to 10 mph",
+      "windDirection": "SW",
       "shortForecast": "Sunny",
-      "detailedForecast": "Sunny, with a high near 72. South wind around 10 mph, with gusts as high as 21 mph.",
+      "detailedForecast": "Sunny, with a high near 72. Southwest wind 3 to 10 mph, with gusts as high as 21 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-10-07T13:00:00-04:00",
+      "temperature": 67,
+      "temperatureUnit": "F",
+      "windSpeed": "8 mph",
+      "windDirection": "S",
+      "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-10-07T14:00:00-04:00",
       "temperature": 70,
@@ -272,16 +282,6 @@
       "temperatureUnit": "F",
       "windSpeed": "10 mph",
       "windDirection": "NW",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-10-08T13:00:00-04:00",
-      "temperature": 69,
-      "temperatureUnit": "F",
-      "windSpeed": "12 mph",
-      "windDirection": "W",
       "shortForecast": "Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
