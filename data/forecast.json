@@ -4,10 +4,10 @@
       "name": "Tonight",
       "temperature": 42,
       "temperatureUnit": "F",
-      "windSpeed": "2 mph",
+      "windSpeed": "1 mph",
       "windDirection": "SE",
       "shortForecast": "Clear",
-      "detailedForecast": "Clear, with a low around 42. Southeast wind around 2 mph.",
+      "detailedForecast": "Clear, with a low around 42. Southeast wind around 1 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-06T20:00:00-04:00",
-      "temperature": 53,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "SE",
-      "shortForecast": "Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-10-06T21:00:00-04:00",
       "temperature": 50,
@@ -285,6 +275,16 @@
       "shortForecast": "Partly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 3
+    },
+    {
+      "startTime": "2026-10-07T20:00:00-04:00",
+      "temperature": 62,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "SW",
+      "shortForecast": "Mostly Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
     }
   ]
 }
