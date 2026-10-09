@@ -2,12 +2,12 @@
   "periods": [
     {
       "name": "Overnight",
-      "temperature": 45,
+      "temperature": 44,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
       "shortForecast": "Clear",
-      "detailedForecast": "Clear, with a low around 45. Wind around 0 mph.",
+      "detailedForecast": "Clear, with a low around 44. Wind around 0 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-09T02:00:00-04:00",
-      "temperature": 43,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-10-09T03:00:00-04:00",
       "temperature": 46,
@@ -282,6 +272,16 @@
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
       "windDirection": "E",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 2
+    },
+    {
+      "startTime": "2026-10-10T02:00:00-04:00",
+      "temperature": 51,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "SE",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 2
