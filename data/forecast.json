@@ -5,9 +5,9 @@
       "temperature": 70,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Sunny",
-      "detailedForecast": "Mostly sunny, with a high near 70. Northwest wind around 3 mph.",
+      "windDirection": "W",
+      "shortForecast": "Sunny",
+      "detailedForecast": "Sunny, with a high near 70. West wind around 3 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-10-09T17:00:00-04:00",
+      "temperature": 70,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "NW",
+      "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-10-09T18:00:00-04:00",
       "temperature": 68,
@@ -271,16 +281,6 @@
       "temperature": 73,
       "temperatureUnit": "F",
       "windSpeed": "9 mph",
-      "windDirection": "SE",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 1
-    },
-    {
-      "startTime": "2026-10-10T17:00:00-04:00",
-      "temperature": 72,
-      "temperatureUnit": "F",
-      "windSpeed": "8 mph",
       "windDirection": "SE",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": true,
