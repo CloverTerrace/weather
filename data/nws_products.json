@@ -1,27 +1,31 @@
 {
-  "generatedAt": "2026-10-09T06:36:27.611346Z",
+  "generatedAt": "2026-10-09T06:41:36.019987Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
     {
-      "id": "89f3dd19-ab8a-4d68-9a62-53978ff51b51",
-      "code": "AFD",
-      "type": "Area Forecast Discussion",
+      "id": "2ad8431c-1dae-4465-a9f6-fb3f85a720c3",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
       "office": "KPBZ",
-      "issued": "2026-10-09T06:11:00+00:00",
+      "issued": "2026-10-09T06:31:00+00:00",
       "expires": null,
       "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": ".WHAT HAS CHANGED... Update to Aviation Discussion.",
+      "hazard": "Today and tonight. No hazardous weather is expected at this time.",
       "distanceMiles": null,
-      "headline": "Area Forecast Discussion",
-      "summary": ".WHAT HAS CHANGED... Update to Aviation Discussion.",
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. No hazardous weather is expected at this time.",
       "details": [
         {
-          "label": "Product detail",
-          "text": "000 AFDPBZ Area Forecast Discussion 211 AM EDT Fri Oct 9 2026 .WHAT HAS CHANGED... Update to Aviation Discussion. && .KEY MESSAGES..."
+          "label": "Today's Hazards",
+          "text": "Today and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Saturday through Thursday. The remnants of Isaias will track through the region late Saturday into Sunday. The probability of flash flood is considered low. Falling leaves may create clogged drains that prompt ponding."
         }
       ],
-      "url": "https://api.weather.gov/products/89f3dd19-ab8a-4d68-9a62-53978ff51b51"
+      "url": "https://api.weather.gov/products/2ad8431c-1dae-4465-a9f6-fb3f85a720c3"
     }
   ]
 }
