@@ -1,7 +1,18 @@
 {
   "periods": [
     {
-      "name": "Today",
+      "name": "Overnight",
+      "temperature": 48,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "E",
+      "shortForecast": "Mostly Cloudy",
+      "detailedForecast": "Mostly cloudy, with a low around 48. East wind around 2 mph.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Saturday",
       "temperature": 72,
       "temperatureUnit": "F",
       "windSpeed": "2 to 9 mph",
@@ -12,7 +23,7 @@
       "probabilityOfPrecipitation": 0
     },
     {
-      "name": "Tonight",
+      "name": "Saturday Night",
       "temperature": 56,
       "temperatureUnit": "F",
       "windSpeed": "12 mph",
@@ -32,20 +43,19 @@
       "detailedForecast": "Showers and thunderstorms. Cloudy, with a high near 65. East wind 7 to 13 mph, with gusts as high as 26 mph. Chance of precipitation is 100%. New rainfall amounts between three quarters and one inch possible.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 99
-    },
-    {
-      "name": "Sunday Night",
-      "temperature": 59,
-      "temperatureUnit": "F",
-      "windSpeed": "1 to 7 mph",
-      "windDirection": "N",
-      "shortForecast": "Chance Showers And Thunderstorms",
-      "detailedForecast": "A chance of showers and thunderstorms before midnight, then a chance of rain showers and patchy fog between midnight and 4am. Mostly cloudy, with a low around 59. North wind 1 to 7 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 30
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-10-10T05:00:00-04:00",
+      "temperature": 50,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "E",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-10-10T06:00:00-04:00",
       "temperature": 50,
@@ -275,16 +285,6 @@
       "shortForecast": "Rain Showers",
       "isDaytime": false,
       "probabilityOfPrecipitation": 89
-    },
-    {
-      "startTime": "2026-10-11T05:00:00-04:00",
-      "temperature": 57,
-      "temperatureUnit": "F",
-      "windSpeed": "12 mph",
-      "windDirection": "E",
-      "shortForecast": "Showers And Thunderstorms",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 87
     }
   ]
 }
