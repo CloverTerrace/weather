@@ -4,10 +4,10 @@
       "name": "This Afternoon",
       "temperature": 72,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 9 mph",
+      "windSpeed": "9 mph",
       "windDirection": "SE",
       "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a high near 72. Southeast wind 3 to 9 mph.",
+      "detailedForecast": "Mostly cloudy, with a high near 72. Southeast wind around 9 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 1
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-10T14:00:00-04:00",
-      "temperature": 68,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "SE",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-10-10T15:00:00-04:00",
       "temperature": 72,
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Showers And Thunderstorms",
       "isDaytime": true,
       "probabilityOfPrecipitation": 51
+    },
+    {
+      "startTime": "2026-10-11T14:00:00-04:00",
+      "temperature": 65,
+      "temperatureUnit": "F",
+      "windSpeed": "12 mph",
+      "windDirection": "E",
+      "shortForecast": "Showers And Thunderstorms",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 76
     }
   ]
 }
