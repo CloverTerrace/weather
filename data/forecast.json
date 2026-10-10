@@ -35,27 +35,17 @@
     },
     {
       "name": "Sunday",
-      "temperature": 67,
+      "temperature": 65,
       "temperatureUnit": "F",
       "windSpeed": "7 to 13 mph",
       "windDirection": "E",
       "shortForecast": "Showers And Thunderstorms",
-      "detailedForecast": "Showers and thunderstorms. Cloudy, with a high near 67. East wind 7 to 13 mph, with gusts as high as 26 mph. Chance of precipitation is 100%. New rainfall amounts between three quarters and one inch possible.",
+      "detailedForecast": "Showers and thunderstorms. Cloudy, with a high near 65. East wind 7 to 13 mph, with gusts as high as 26 mph. Chance of precipitation is 100%. New rainfall amounts between three quarters and one inch possible.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 99
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-10T00:00:00-04:00",
-      "temperature": 50,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 1
-    },
     {
       "startTime": "2026-10-10T01:00:00-04:00",
       "temperature": 50,
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Rain Showers",
       "isDaytime": false,
       "probabilityOfPrecipitation": 30
+    },
+    {
+      "startTime": "2026-10-11T00:00:00-04:00",
+      "temperature": 58,
+      "temperatureUnit": "F",
+      "windSpeed": "10 mph",
+      "windDirection": "E",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 31
     }
   ]
 }
