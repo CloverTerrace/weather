@@ -4,10 +4,10 @@
       "name": "Today",
       "temperature": 72,
       "temperatureUnit": "F",
-      "windSpeed": "2 to 9 mph",
+      "windSpeed": "3 to 9 mph",
       "windDirection": "E",
       "shortForecast": "Partly Sunny",
-      "detailedForecast": "Partly sunny, with a high near 72. East wind 2 to 9 mph.",
+      "detailedForecast": "Partly sunny, with a high near 72. East wind 3 to 9 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-10T06:00:00-04:00",
-      "temperature": 50,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "E",
-      "shortForecast": "Partly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-10-10T07:00:00-04:00",
       "temperature": 50,
@@ -285,6 +275,16 @@
       "shortForecast": "Showers And Thunderstorms",
       "isDaytime": false,
       "probabilityOfPrecipitation": 87
+    },
+    {
+      "startTime": "2026-10-11T06:00:00-04:00",
+      "temperature": 57,
+      "temperatureUnit": "F",
+      "windSpeed": "12 mph",
+      "windDirection": "E",
+      "shortForecast": "Showers And Thunderstorms",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 95
     }
   ]
 }
