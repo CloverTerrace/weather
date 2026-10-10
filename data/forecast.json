@@ -4,10 +4,10 @@
       "name": "This Afternoon",
       "temperature": 72,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 9 mph",
+      "windSpeed": "9 mph",
       "windDirection": "SE",
       "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a high near 72. Southeast wind 3 to 9 mph.",
+      "detailedForecast": "Mostly cloudy, with a high near 72. Southeast wind around 9 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 1
     },
@@ -17,8 +17,8 @@
       "temperatureUnit": "F",
       "windSpeed": "9 to 14 mph",
       "windDirection": "E",
-      "shortForecast": "Mostly Cloudy then Showers And Thunderstorms",
-      "detailedForecast": "Rain showers between midnight and 5am, then showers and thunderstorms. Mostly cloudy, with a low around 57. East wind 9 to 14 mph, with gusts as high as 25 mph. Chance of precipitation is 90%. New rainfall amounts between a quarter and half of an inch possible.",
+      "shortForecast": "Mostly Cloudy then Rain Showers",
+      "detailedForecast": "Rain showers after midnight. Mostly cloudy, with a low around 57. East wind 9 to 14 mph, with gusts as high as 25 mph. Chance of precipitation is 90%. New rainfall amounts between a tenth and quarter of an inch possible.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 90
     },
@@ -28,8 +28,8 @@
       "temperatureUnit": "F",
       "windSpeed": "9 to 14 mph",
       "windDirection": "E",
-      "shortForecast": "Showers And Thunderstorms",
-      "detailedForecast": "Showers and thunderstorms before 5pm, then a slight chance of showers and thunderstorms. Cloudy, with a high near 67. East wind 9 to 14 mph, with gusts as high as 26 mph. Chance of precipitation is 100%. New rainfall amounts between a half and three quarters of an inch possible.",
+      "shortForecast": "Rain Showers",
+      "detailedForecast": "Rain showers. Cloudy, with a high near 67. East wind 9 to 14 mph, with gusts as high as 26 mph. Chance of precipitation is 100%. New rainfall amounts between a half and three quarters of an inch possible.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 99
     },
@@ -39,23 +39,13 @@
       "temperatureUnit": "F",
       "windSpeed": "2 to 8 mph",
       "windDirection": "N",
-      "shortForecast": "Slight Chance Showers And Thunderstorms then Patchy Fog",
-      "detailedForecast": "A slight chance of showers and thunderstorms before 7pm, then a chance of showers and thunderstorms between 7pm and 9pm, then a slight chance of showers and thunderstorms between 9pm and 10pm, then patchy fog between 11pm and 2am. Mostly cloudy, with a low around 60. North wind 2 to 8 mph. Chance of precipitation is 40%. New rainfall amounts less than a tenth of an inch possible.",
+      "shortForecast": "Chance Rain Showers then Patchy Fog",
+      "detailedForecast": "A chance of rain showers before 10pm, then patchy fog between 11pm and 2am. Mostly cloudy, with a low around 60. North wind 2 to 8 mph. Chance of precipitation is 40%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 43
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-10T15:00:00-04:00",
-      "temperature": 72,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "SE",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-10-10T16:00:00-04:00",
       "temperature": 71,
@@ -98,7 +88,7 @@
     },
     {
       "startTime": "2026-10-10T20:00:00-04:00",
-      "temperature": 64,
+      "temperature": 63,
       "temperatureUnit": "F",
       "windSpeed": "9 mph",
       "windDirection": "E",
@@ -192,7 +182,7 @@
       "temperatureUnit": "F",
       "windSpeed": "14 mph",
       "windDirection": "E",
-      "shortForecast": "Showers And Thunderstorms",
+      "shortForecast": "Rain Showers",
       "isDaytime": false,
       "probabilityOfPrecipitation": 90
     },
@@ -202,7 +192,7 @@
       "temperatureUnit": "F",
       "windSpeed": "14 mph",
       "windDirection": "E",
-      "shortForecast": "Showers And Thunderstorms",
+      "shortForecast": "Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 95
     },
@@ -212,7 +202,7 @@
       "temperatureUnit": "F",
       "windSpeed": "14 mph",
       "windDirection": "E",
-      "shortForecast": "Showers And Thunderstorms",
+      "shortForecast": "Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 96
     },
@@ -222,7 +212,7 @@
       "temperatureUnit": "F",
       "windSpeed": "14 mph",
       "windDirection": "E",
-      "shortForecast": "Showers And Thunderstorms",
+      "shortForecast": "Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 99
     },
@@ -232,7 +222,7 @@
       "temperatureUnit": "F",
       "windSpeed": "14 mph",
       "windDirection": "E",
-      "shortForecast": "Showers And Thunderstorms",
+      "shortForecast": "Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 89
     },
@@ -242,7 +232,7 @@
       "temperatureUnit": "F",
       "windSpeed": "13 mph",
       "windDirection": "E",
-      "shortForecast": "Showers And Thunderstorms",
+      "shortForecast": "Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 89
     },
@@ -252,7 +242,7 @@
       "temperatureUnit": "F",
       "windSpeed": "13 mph",
       "windDirection": "E",
-      "shortForecast": "Showers And Thunderstorms",
+      "shortForecast": "Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 91
     },
@@ -262,7 +252,7 @@
       "temperatureUnit": "F",
       "windSpeed": "12 mph",
       "windDirection": "E",
-      "shortForecast": "Showers And Thunderstorms Likely",
+      "shortForecast": "Rain Showers Likely",
       "isDaytime": true,
       "probabilityOfPrecipitation": 65
     },
@@ -272,7 +262,7 @@
       "temperatureUnit": "F",
       "windSpeed": "12 mph",
       "windDirection": "E",
-      "shortForecast": "Chance Showers And Thunderstorms",
+      "shortForecast": "Chance Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 51
     },
@@ -282,9 +272,19 @@
       "temperatureUnit": "F",
       "windSpeed": "12 mph",
       "windDirection": "E",
-      "shortForecast": "Showers And Thunderstorms",
+      "shortForecast": "Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 76
+    },
+    {
+      "startTime": "2026-10-11T15:00:00-04:00",
+      "temperature": 66,
+      "temperatureUnit": "F",
+      "windSpeed": "10 mph",
+      "windDirection": "E",
+      "shortForecast": "Rain Showers Likely",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 68
     }
   ]
 }
