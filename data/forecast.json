@@ -2,14 +2,14 @@
   "periods": [
     {
       "name": "Overnight",
-      "temperature": 49,
+      "temperature": 48,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "E",
       "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 49. East wind around 2 mph.",
+      "detailedForecast": "Mostly cloudy, with a low around 48. East wind around 2 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 1
+      "probabilityOfPrecipitation": 0
     },
     {
       "name": "Saturday",
@@ -47,21 +47,11 @@
   ],
   "hourly": [
     {
-      "startTime": "2026-10-10T01:00:00-04:00",
-      "temperature": 50,
-      "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "E",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 1
-    },
-    {
       "startTime": "2026-10-10T02:00:00-04:00",
-      "temperature": 50,
+      "temperature": 47,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "E",
+      "windSpeed": "0 mph",
+      "windDirection": "",
       "shortForecast": "Partly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Rain Showers",
       "isDaytime": false,
       "probabilityOfPrecipitation": 31
+    },
+    {
+      "startTime": "2026-10-11T01:00:00-04:00",
+      "temperature": 58,
+      "temperatureUnit": "F",
+      "windSpeed": "10 mph",
+      "windDirection": "E",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 43
     }
   ]
 }
