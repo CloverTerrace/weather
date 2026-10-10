@@ -5,9 +5,9 @@
       "temperature": 49,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "NE",
+      "windDirection": "E",
       "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 49. Northeast wind around 2 mph.",
+      "detailedForecast": "Mostly cloudy, with a low around 49. East wind around 2 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 2
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-09T19:00:00-04:00",
-      "temperature": 64,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-10-09T20:00:00-04:00",
       "temperature": 58,
@@ -283,6 +273,16 @@
       "windSpeed": "9 mph",
       "windDirection": "SE",
       "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-10T19:00:00-04:00",
+      "temperature": 67,
+      "temperatureUnit": "F",
+      "windSpeed": "9 mph",
+      "windDirection": "E",
+      "shortForecast": "Partly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
