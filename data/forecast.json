@@ -4,10 +4,10 @@
       "name": "Overnight",
       "temperature": 57,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 13 mph",
-      "windDirection": "SE",
+      "windSpeed": "13 mph",
+      "windDirection": "E",
       "shortForecast": "Rain Showers",
-      "detailedForecast": "Rain showers. Cloudy, with a low around 57. Southeast wind 3 to 13 mph, with gusts as high as 26 mph. Chance of precipitation is 90%. New rainfall amounts between a tenth and quarter of an inch possible.",
+      "detailedForecast": "Rain showers. Cloudy, with a low around 57. East wind around 13 mph, with gusts as high as 26 mph. Chance of precipitation is 90%. New rainfall amounts between a tenth and quarter of an inch possible.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 91
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-10-11T00:00:00-04:00",
+      "temperature": 58,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "SE",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 54
+    },
     {
       "startTime": "2026-10-11T01:00:00-04:00",
       "temperature": 58,
@@ -275,16 +285,6 @@
       "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": false,
       "probabilityOfPrecipitation": 18
-    },
-    {
-      "startTime": "2026-10-12T00:00:00-04:00",
-      "temperature": 61,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "N",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 13
     }
   ]
 }
