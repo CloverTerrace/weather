@@ -1,26 +1,15 @@
 {
   "periods": [
     {
-      "name": "This Afternoon",
-      "temperature": 63,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "E",
-      "shortForecast": "Showers And Thunderstorms Likely",
-      "detailedForecast": "Showers and thunderstorms likely. Cloudy, with a high near 63. East wind around 9 mph, with gusts as high as 21 mph. Chance of precipitation is 70%. New rainfall amounts less than a tenth of an inch possible.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 66
-    },
-    {
       "name": "Tonight",
       "temperature": 57,
       "temperatureUnit": "F",
       "windSpeed": "2 to 7 mph",
       "windDirection": "N",
-      "shortForecast": "Chance Showers And Thunderstorms then Mostly Cloudy",
-      "detailedForecast": "A chance of showers and thunderstorms before 9pm. Mostly cloudy, with a low around 57. North wind 2 to 7 mph. Chance of precipitation is 40%. New rainfall amounts less than a tenth of an inch possible.",
+      "shortForecast": "Slight Chance Rain Showers then Mostly Cloudy",
+      "detailedForecast": "A slight chance of rain showers before 9pm. Mostly cloudy, with a low around 57. North wind 2 to 7 mph. Chance of precipitation is 20%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 39
+      "probabilityOfPrecipitation": 22
     },
     {
       "name": "Columbus Day",
@@ -43,28 +32,29 @@
       "detailedForecast": "Partly cloudy, with a low around 60. Southwest wind around 6 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Tuesday",
+      "temperature": 80,
+      "temperatureUnit": "F",
+      "windSpeed": "7 to 12 mph",
+      "windDirection": "SW",
+      "shortForecast": "Sunny",
+      "detailedForecast": "Sunny, with a high near 80. Southwest wind 7 to 12 mph, with gusts as high as 23 mph.",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 6
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-11T17:00:00-04:00",
-      "temperature": 62,
-      "temperatureUnit": "F",
-      "windSpeed": "8 mph",
-      "windDirection": "E",
-      "shortForecast": "Chance Showers And Thunderstorms",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 39
-    },
     {
       "startTime": "2026-10-11T18:00:00-04:00",
       "temperature": 62,
       "temperatureUnit": "F",
       "windSpeed": "7 mph",
       "windDirection": "NE",
-      "shortForecast": "Chance Showers And Thunderstorms",
+      "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 39
+      "probabilityOfPrecipitation": 21
     },
     {
       "startTime": "2026-10-11T19:00:00-04:00",
@@ -72,9 +62,9 @@
       "temperatureUnit": "F",
       "windSpeed": "7 mph",
       "windDirection": "NE",
-      "shortForecast": "Chance Showers And Thunderstorms",
+      "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 34
+      "probabilityOfPrecipitation": 22
     },
     {
       "startTime": "2026-10-11T20:00:00-04:00",
@@ -84,7 +74,7 @@
       "windDirection": "N",
       "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 18
+      "probabilityOfPrecipitation": 17
     },
     {
       "startTime": "2026-10-11T21:00:00-04:00",
@@ -94,7 +84,7 @@
       "windDirection": "NE",
       "shortForecast": "Cloudy",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 10
+      "probabilityOfPrecipitation": 7
     },
     {
       "startTime": "2026-10-11T22:00:00-04:00",
@@ -279,6 +269,16 @@
     {
       "startTime": "2026-10-12T16:00:00-04:00",
       "temperature": 71,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "SW",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-12T17:00:00-04:00",
+      "temperature": 72,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "SW",
