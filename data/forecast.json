@@ -4,10 +4,10 @@
       "name": "Columbus Day",
       "temperature": 72,
       "temperatureUnit": "F",
-      "windSpeed": "7 mph",
+      "windSpeed": "3 to 7 mph",
       "windDirection": "SW",
       "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a high near 72. Southwest wind around 7 mph.",
+      "detailedForecast": "Mostly cloudy, with a high near 72. Southwest wind 3 to 7 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-10-12T15:00:00-04:00",
+      "temperature": 71,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "SW",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-10-12T16:00:00-04:00",
       "temperature": 72,
@@ -275,16 +285,6 @@
       "shortForecast": "Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 2
-    },
-    {
-      "startTime": "2026-10-13T15:00:00-04:00",
-      "temperature": 80,
-      "temperatureUnit": "F",
-      "windSpeed": "13 mph",
-      "windDirection": "SW",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 3
     }
   ]
 }
