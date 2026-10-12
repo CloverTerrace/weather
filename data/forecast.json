@@ -6,10 +6,10 @@
       "temperatureUnit": "F",
       "windSpeed": "2 to 6 mph",
       "windDirection": "N",
-      "shortForecast": "Slight Chance Rain Showers then Patchy Fog",
-      "detailedForecast": "A slight chance of rain showers before 8pm, then patchy fog between 11pm and 2am. Cloudy, with a low around 57. North wind 2 to 6 mph. Chance of precipitation is 20%. New rainfall amounts less than a tenth of an inch possible.",
+      "shortForecast": "Chance Rain Showers then Patchy Fog",
+      "detailedForecast": "A chance of rain showers before 8pm, then patchy fog between 11pm and 2am. Cloudy, with a low around 57. North wind 2 to 6 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 18
+      "probabilityOfPrecipitation": 27
     },
     {
       "name": "Columbus Day",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-11T20:00:00-04:00",
-      "temperature": 60,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "N",
-      "shortForecast": "Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 6
-    },
     {
       "startTime": "2026-10-11T21:00:00-04:00",
       "temperature": 60,
@@ -279,6 +269,16 @@
     {
       "startTime": "2026-10-12T19:00:00-04:00",
       "temperature": 67,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "S",
+      "shortForecast": "Partly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-12T20:00:00-04:00",
+      "temperature": 65,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "S",
