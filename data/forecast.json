@@ -4,12 +4,12 @@
       "name": "Overnight",
       "temperature": 57,
       "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "NW",
-      "shortForecast": "Patchy Fog",
-      "detailedForecast": "Patchy fog before 2am. Mostly cloudy, with a low around 57. Northwest wind around 3 mph.",
+      "windSpeed": "0 to 3 mph",
+      "windDirection": "W",
+      "shortForecast": "Mostly Cloudy",
+      "detailedForecast": "Mostly cloudy, with a low around 57. West wind 0 to 3 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 6
+      "probabilityOfPrecipitation": 1
     },
     {
       "name": "Columbus Day",
@@ -47,21 +47,11 @@
   ],
   "hourly": [
     {
-      "startTime": "2026-10-12T01:00:00-04:00",
-      "temperature": 58,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "NW",
-      "shortForecast": "Patchy Fog",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 6
-    },
-    {
       "startTime": "2026-10-12T02:00:00-04:00",
       "temperature": 58,
       "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "NW",
+      "windSpeed": "0 mph",
+      "windDirection": "",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 1
@@ -278,6 +268,16 @@
     },
     {
       "startTime": "2026-10-13T00:00:00-04:00",
+      "temperature": 60,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "S",
+      "shortForecast": "Partly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 1
+    },
+    {
+      "startTime": "2026-10-13T01:00:00-04:00",
       "temperature": 60,
       "temperatureUnit": "F",
       "windSpeed": "6 mph",
