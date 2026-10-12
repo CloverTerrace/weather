@@ -4,10 +4,10 @@
       "name": "Overnight",
       "temperature": 57,
       "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "NW",
+      "windSpeed": "0 to 3 mph",
+      "windDirection": "W",
       "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 57. Northwest wind around 3 mph.",
+      "detailedForecast": "Mostly cloudy, with a low around 57. West wind 0 to 3 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 1
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-12T04:00:00-04:00",
-      "temperature": 58,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 1
-    },
     {
       "startTime": "2026-10-12T05:00:00-04:00",
       "temperature": 58,
@@ -285,6 +275,16 @@
       "shortForecast": "Partly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 2
+    },
+    {
+      "startTime": "2026-10-13T04:00:00-04:00",
+      "temperature": 60,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "S",
+      "shortForecast": "Partly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 3
     }
   ]
 }
