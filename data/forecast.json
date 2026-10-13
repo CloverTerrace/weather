@@ -2,12 +2,12 @@
   "periods": [
     {
       "name": "Overnight",
-      "temperature": 56,
+      "temperature": 54,
       "temperatureUnit": "F",
       "windSpeed": "6 mph",
       "windDirection": "S",
       "shortForecast": "Partly Cloudy",
-      "detailedForecast": "Partly cloudy, with a low around 56. South wind around 6 mph.",
+      "detailedForecast": "Partly cloudy. Low around 54, with temperatures rising to around 60 overnight. South wind around 6 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 4
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-13T02:00:00-04:00",
-      "temperature": 54,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 1
-    },
     {
       "startTime": "2026-10-13T03:00:00-04:00",
       "temperature": 60,
@@ -283,6 +273,16 @@
       "windSpeed": "6 mph",
       "windDirection": "SW",
       "shortForecast": "Mostly Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 1
+    },
+    {
+      "startTime": "2026-10-14T02:00:00-04:00",
+      "temperature": 68,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "W",
+      "shortForecast": "Partly Cloudy",
       "isDaytime": false,
       "probabilityOfPrecipitation": 1
     }
