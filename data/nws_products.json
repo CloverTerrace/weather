@@ -1,8 +1,28 @@
 {
-  "generatedAt": "2026-10-13T17:46:21.021958Z",
+  "generatedAt": "2026-10-13T17:51:21.900219Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "ffec0c01-9993-4d7d-aea4-28f435d4084e",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-10-13T17:45:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Updated aviation section for 18z TAF package. Probability for",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Updated aviation section for 18z TAF package. Probability for",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 145 PM EDT Tue Oct 13 2026 .WHAT HAS CHANGED... Updated aviation section for 18z TAF package. Probability for Wind Advisory criteria on Friday and sub-freezing temperatures Friday night and especially Saturday night has increased a bit."
+        }
+      ],
+      "url": "https://api.weather.gov/products/ffec0c01-9993-4d7d-aea4-28f435d4084e"
+    },
     {
       "id": "9d7b1d17-bbe7-4484-b233-f4b52c61c664",
       "code": "AFD",
@@ -22,30 +42,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/9d7b1d17-bbe7-4484-b233-f4b52c61c664"
-    },
-    {
-      "id": "c30df10e-f04f-411c-9ac6-5490d819baae",
-      "code": "HWO",
-      "type": "Hazardous Weather Outlook",
-      "office": "KPBZ",
-      "issued": "2026-10-13T17:16:00+00:00",
-      "expires": null,
-      "location": "Higher Elevations of Westmoreland-Higher Elevations of Fayette-Higher Elevations of Indiana-Ridges of Eastern Monongalia and Northwestern Preston-Preston",
-      "hazard": "This afternoon and tonight. Hazardous weather is not expected at this time.",
-      "distanceMiles": null,
-      "headline": "Hazardous Weather Outlook",
-      "summary": "This afternoon and tonight. Hazardous weather is not expected at this time.",
-      "details": [
-        {
-          "label": "Today's Hazards",
-          "text": "This afternoon and tonight. Hazardous weather is not expected at this time."
-        },
-        {
-          "label": "Extended Outlook",
-          "text": "Wednesday through Monday. There is a Marginal Risk, or level 1 out of 5, for thunderstorms with damaging wind gusts Wednesday afternoon south of Interstate 70 as a cold front crosses the region. Another cold front is expected to bring showers and strong wind gusts to 35-45 mph across the region on Friday. A much colder airmass in its wake will arise frost and freeze concerns both Friday and Saturday night."
-        }
-      ],
-      "url": "https://api.weather.gov/products/c30df10e-f04f-411c-9ac6-5490d819baae"
     }
   ]
 }
