@@ -4,10 +4,10 @@
       "name": "Tonight",
       "temperature": 65,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 12 mph",
+      "windSpeed": "3 to 10 mph",
       "windDirection": "SW",
       "shortForecast": "Mostly Clear",
-      "detailedForecast": "Mostly clear, with a low around 65. Southwest wind 3 to 12 mph, with gusts as high as 24 mph.",
+      "detailedForecast": "Mostly clear, with a low around 65. Southwest wind 3 to 10 mph, with gusts as high as 23 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 4
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-13T18:00:00-04:00",
-      "temperature": 80,
-      "temperatureUnit": "F",
-      "windSpeed": "12 mph",
-      "windDirection": "SW",
-      "shortForecast": "Mostly Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 1
-    },
     {
       "startTime": "2026-10-13T19:00:00-04:00",
       "temperature": 78,
@@ -285,6 +275,16 @@
       "shortForecast": "Rain Showers Likely",
       "isDaytime": true,
       "probabilityOfPrecipitation": 62
+    },
+    {
+      "startTime": "2026-10-14T18:00:00-04:00",
+      "temperature": 72,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "N",
+      "shortForecast": "Slight Chance Rain Showers",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 20
     }
   ]
 }
