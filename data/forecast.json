@@ -7,9 +7,9 @@
       "windSpeed": "3 to 8 mph",
       "windDirection": "N",
       "shortForecast": "Chance Showers And Thunderstorms then Mostly Cloudy",
-      "detailedForecast": "A chance of showers and thunderstorms before 9pm. Mostly cloudy, with a low around 53. North wind 3 to 8 mph. Chance of precipitation is 30%.",
+      "detailedForecast": "A chance of showers and thunderstorms before 9pm. Mostly cloudy, with a low around 53. North wind 3 to 8 mph. Chance of precipitation is 40%.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 29
+      "probabilityOfPrecipitation": 36
     },
     {
       "name": "Thursday",
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-10-14T18:00:00-04:00",
+      "temperature": 70,
+      "temperatureUnit": "F",
+      "windSpeed": "7 mph",
+      "windDirection": "N",
+      "shortForecast": "Chance Showers And Thunderstorms",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 36
+    },
     {
       "startTime": "2026-10-14T19:00:00-04:00",
       "temperature": 68,
@@ -274,16 +284,6 @@
       "windDirection": "E",
       "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 18
-    },
-    {
-      "startTime": "2026-10-15T18:00:00-04:00",
-      "temperature": 67,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "E",
-      "shortForecast": "Slight Chance Rain Showers",
-      "isDaytime": false,
       "probabilityOfPrecipitation": 18
     }
   ]
