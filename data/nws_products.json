@@ -1,6 +1,51 @@
 {
-  "generatedAt": "2026-10-14T05:56:29.428504Z",
+  "generatedAt": "2026-10-14T06:01:43.549880Z",
   "watches": [],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "9cddf307-f3bf-4a37-92b9-369010fc9a5d",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-10-14T06:00:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Increased the chances for thunderstorms slightly for today with",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Increased the chances for thunderstorms slightly for today with",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 200 AM EDT Wed Oct 14 2026 .WHAT HAS CHANGED... Increased the chances for thunderstorms slightly for today with a crossing cold front. The timing of passage of a strong cold front has slowed slightly for Friday. Windy conditions still"
+        }
+      ],
+      "url": "https://api.weather.gov/products/9cddf307-f3bf-4a37-92b9-369010fc9a5d"
+    },
+    {
+      "id": "a10244b8-faf6-4f93-bcda-a14f61b4d992",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-10-14T06:00:00+00:00",
+      "expires": null,
+      "location": "Higher Elevations of Westmoreland-Higher Elevations of Fayette-Higher Elevations of Indiana-Ridges of Eastern Monongalia and Northwestern Preston-Preston",
+      "hazard": "Today and tonight. A cold front will move slowly south across the region today, with showers and a few thunderstorms. There is a Marginal Risk, or level 1 out",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. A cold front will move slowly south across the region today, with showers and a few thunderstorms. There is a Marginal Risk, or level 1 out of 5, for the potential of damaging wind with a few of these storms this afternoon along and south of the Interstate 70 corridor.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. A cold front will move slowly south across the region today, with showers and a few thunderstorms. There is a Marginal Risk, or level 1 out of 5, for the potential of damaging wind with a few of these storms this afternoon along and south of the Interstate 70 corridor."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Thursday through Tuesday. A strong cold front will cross the region Friday, with showers and strong wind gusts from 35 to 45 mph. There is a potential for frost and freeze conditions, especially Saturday night, as winds diminish and skies clear."
+        }
+      ],
+      "url": "https://api.weather.gov/products/a10244b8-faf6-4f93-bcda-a14f61b4d992"
+    }
+  ]
 }
