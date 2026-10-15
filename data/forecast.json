@@ -6,8 +6,8 @@
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "E",
-      "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a high near 70. East wind around 5 mph.",
+      "shortForecast": "Mostly Sunny",
+      "detailedForecast": "Mostly sunny, with a high near 70. East wind around 5 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 7
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-10-15T06:00:00-04:00",
+      "temperature": 53,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "NE",
+      "shortForecast": "Partly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 1
+    },
     {
       "startTime": "2026-10-15T07:00:00-04:00",
       "temperature": 52,
@@ -275,16 +285,6 @@
       "shortForecast": "Scattered Rain Showers",
       "isDaytime": false,
       "probabilityOfPrecipitation": 28
-    },
-    {
-      "startTime": "2026-10-16T06:00:00-04:00",
-      "temperature": 70,
-      "temperatureUnit": "F",
-      "windSpeed": "14 mph",
-      "windDirection": "SW",
-      "shortForecast": "Chance Rain Showers",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 36
     }
   ]
 }
