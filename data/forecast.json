@@ -1,15 +1,15 @@
 {
   "periods": [
     {
-      "name": "Tonight",
+      "name": "Overnight",
       "temperature": 53,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "N",
-      "shortForecast": "Slight Chance Rain Showers then Mostly Cloudy",
-      "detailedForecast": "A slight chance of rain showers before midnight. Mostly cloudy, with a low around 53. North wind around 5 mph. Chance of precipitation is 20%.",
+      "shortForecast": "Mostly Cloudy",
+      "detailedForecast": "Mostly cloudy, with a low around 53. North wind around 5 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 19
+      "probabilityOfPrecipitation": 13
     },
     {
       "name": "Thursday",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-14T23:00:00-04:00",
-      "temperature": 60,
-      "temperatureUnit": "F",
-      "windSpeed": "5 mph",
-      "windDirection": "N",
-      "shortForecast": "Slight Chance Rain Showers",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 19
-    },
     {
       "startTime": "2026-10-15T00:00:00-04:00",
       "temperature": 59,
@@ -285,6 +275,16 @@
       "shortForecast": "Slight Chance Showers And Thunderstorms",
       "isDaytime": false,
       "probabilityOfPrecipitation": 16
+    },
+    {
+      "startTime": "2026-10-15T23:00:00-04:00",
+      "temperature": 65,
+      "temperatureUnit": "F",
+      "windSpeed": "8 mph",
+      "windDirection": "S",
+      "shortForecast": "Slight Chance Showers And Thunderstorms",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 23
     }
   ]
 }
