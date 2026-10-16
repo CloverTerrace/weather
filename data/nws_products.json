@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T17:56:23.446497Z",
+  "generatedAt": "2026-10-16T18:01:39.399306Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.26a4b80d2049092774a2297a197e8c61b6347911.001.1",
@@ -80,24 +80,24 @@
   ],
   "statements": [
     {
-      "id": "303e76bc-b991-47df-a14d-79a67c2fd6ae",
-      "code": "SVS",
-      "type": "Severe Weather Statement",
+      "id": "309da123-f278-4ac0-af96-461e3c2e06e8",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
       "office": "KPBZ",
-      "issued": "2026-10-16T17:23:00+00:00",
+      "issued": "2026-10-16T17:54:00+00:00",
       "expires": null,
-      "location": "Indiana PA-Westmoreland PA",
-      "hazard": "PAC063-129-161733- /O.EXP.KPBZ.SV.W.0377.000000T0000Z-261016T1730Z/",
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Some strong storms moving across the area associated with the",
       "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC063-129-161733- /O.EXP.KPBZ.SV.W.0377.000000T0000Z-261016T1730Z/",
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Some strong storms moving across the area associated with the",
       "details": [
         {
           "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 123 PM EDT Fri Oct 16 2026 PAC063-129-161733- /O.EXP.KPBZ.SV.W.0377.000000T0000Z-261016T1730Z/ Indiana PA-Westmoreland PA- 123 PM EDT Fri Oct 16 2026"
+          "text": "000 AFDPBZ Area Forecast Discussion 154 PM EDT Fri Oct 16 2026 .WHAT HAS CHANGED... Some strong storms moving across the area associated with the cold front. A Freeze Watch was issued for Saturday night due to the high probability for temperatures to drop at/below 32F. No"
         }
       ],
-      "url": "https://api.weather.gov/products/303e76bc-b991-47df-a14d-79a67c2fd6ae"
+      "url": "https://api.weather.gov/products/309da123-f278-4ac0-af96-461e3c2e06e8"
     }
   ]
 }
