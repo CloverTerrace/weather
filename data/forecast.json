@@ -1,17 +1,6 @@
 {
   "periods": [
     {
-      "name": "This Afternoon",
-      "temperature": 74,
-      "temperatureUnit": "F",
-      "windSpeed": "10 mph",
-      "windDirection": "W",
-      "shortForecast": "Slight Chance Rain Showers",
-      "detailedForecast": "A slight chance of rain showers. Cloudy. High near 74, with temperatures falling to around 58 in the afternoon. West wind around 10 mph, with gusts as high as 21 mph. Chance of precipitation is 20%.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 19
-    },
-    {
       "name": "Tonight",
       "temperature": 40,
       "temperatureUnit": "F",
@@ -42,6 +31,17 @@
       "shortForecast": "Clear then Areas Of Frost",
       "detailedForecast": "Areas of frost after 1am. Clear, with a low around 33. North wind 0 to 7 mph.",
       "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Sunday",
+      "temperature": 59,
+      "temperatureUnit": "F",
+      "windSpeed": "0 to 3 mph",
+      "windDirection": "E",
+      "shortForecast": "Widespread Frost then Sunny",
+      "detailedForecast": "Widespread frost before 10am. Sunny, with a high near 59. East wind 0 to 3 mph.",
+      "isDaytime": true,
       "probabilityOfPrecipitation": 0
     }
   ],
