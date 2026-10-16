@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T17:06:27.307894Z",
+  "generatedAt": "2026-10-16T17:11:21.792204Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.26a4b80d2049092774a2297a197e8c61b6347911.001.1",
@@ -79,6 +79,46 @@
     }
   ],
   "statements": [
+    {
+      "id": "a36e0fca-06f2-48f5-b8f8-3a85e09fe0c7",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-10-16T17:06:00+00:00",
+      "expires": null,
+      "location": "Indiana PA",
+      "hazard": "PAC063-161716- /O.CAN.KPBZ.SV.W.0378.000000T0000Z-261016T1715Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC063-161716- /O.CAN.KPBZ.SV.W.0378.000000T0000Z-261016T1715Z/",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 106 PM EDT Fri Oct 16 2026 PAC063-161716- /O.CAN.KPBZ.SV.W.0378.000000T0000Z-261016T1715Z/ Indiana PA- 106 PM EDT Fri Oct 16 2026"
+        }
+      ],
+      "url": "https://api.weather.gov/products/a36e0fca-06f2-48f5-b8f8-3a85e09fe0c7"
+    },
+    {
+      "id": "31c0bd1f-81a8-467c-ba47-520e50ea0149",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-10-16T17:02:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Washington PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Latrobe, Murrysville, Monessen, Donora, Mount Pleasant,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Latrobe, Murrysville, Monessen, Donora, Mount Pleasant, Scottdale, Charleroi, Irwin, Manor, Trafford, Youngwood, Delmont and West Newton.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Latrobe, Murrysville, Monessen, Donora, Mount Pleasant, Scottdale, Charleroi, Irwin, Manor, Trafford, Youngwood, Delmont and West Newton."
+        }
+      ],
+      "url": "https://api.weather.gov/products/31c0bd1f-81a8-467c-ba47-520e50ea0149"
+    },
     {
       "id": "83743e23-10ca-430d-9812-9efb928d735b",
       "code": "SVS",
@@ -162,26 +202,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/3793ad05-c937-4a8c-b2c7-030fa30de830"
-    },
-    {
-      "id": "f96b3aa5-6f0a-477a-a9b7-e682b5fa90de",
-      "code": "SVS",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-10-16T16:44:00+00:00",
-      "expires": null,
-      "location": "Armstrong PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Clymer, Chevy Chase Heights, Ernest, Marion Center, Creekside, Plumville,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Clymer, Chevy Chase Heights, Ernest, Marion Center, Creekside, Plumville, Dixonville, Commodore and Jacksonville.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Clymer, Chevy Chase Heights, Ernest, Marion Center, Creekside, Plumville, Dixonville, Commodore and Jacksonville."
-        }
-      ],
-      "url": "https://api.weather.gov/products/f96b3aa5-6f0a-477a-a9b7-e682b5fa90de"
     }
   ]
 }
