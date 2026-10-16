@@ -4,12 +4,12 @@
       "name": "Overnight",
       "temperature": 60,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 14 mph",
+      "windSpeed": "14 mph",
       "windDirection": "SW",
-      "shortForecast": "Chance Showers And Thunderstorms",
-      "detailedForecast": "A chance of showers and thunderstorms before 4am, then isolated showers and thunderstorms between 4am and 5am, then scattered showers and thunderstorms. Mostly cloudy. Low around 60, with temperatures rising to around 70 overnight. Southwest wind 3 to 14 mph, with gusts as high as 28 mph. Chance of precipitation is 60%.",
+      "shortForecast": "Isolated Showers And Thunderstorms",
+      "detailedForecast": "Isolated showers and thunderstorms before 5am, then scattered showers and thunderstorms. Mostly cloudy. Low around 60, with temperatures rising to around 70 overnight. Southwest wind around 14 mph, with gusts as high as 28 mph. Chance of precipitation is 30%.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 56
+      "probabilityOfPrecipitation": 27
     },
     {
       "name": "Friday",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-16T03:00:00-04:00",
-      "temperature": 67,
-      "temperatureUnit": "F",
-      "windSpeed": "12 mph",
-      "windDirection": "S",
-      "shortForecast": "Chance Showers And Thunderstorms",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 56
-    },
     {
       "startTime": "2026-10-16T04:00:00-04:00",
       "temperature": 69,
@@ -285,6 +275,16 @@
       "shortForecast": "Isolated Rain Showers",
       "isDaytime": false,
       "probabilityOfPrecipitation": 20
+    },
+    {
+      "startTime": "2026-10-17T03:00:00-04:00",
+      "temperature": 44,
+      "temperatureUnit": "F",
+      "windSpeed": "12 mph",
+      "windDirection": "N",
+      "shortForecast": "Mostly Cloudy",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 13
     }
   ]
 }
