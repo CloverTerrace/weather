@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T16:41:26.150265Z",
+  "generatedAt": "2026-10-16T16:46:32.519551Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.26a4b80d2049092774a2297a197e8c61b6347911.001.1",
@@ -26,6 +26,26 @@
   ],
   "mesoscaleDiscussions": [],
   "statements": [
+    {
+      "id": "f96b3aa5-6f0a-477a-a9b7-e682b5fa90de",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-10-16T16:44:00+00:00",
+      "expires": null,
+      "location": "Armstrong PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Clymer, Chevy Chase Heights, Ernest, Marion Center, Creekside, Plumville,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Clymer, Chevy Chase Heights, Ernest, Marion Center, Creekside, Plumville, Dixonville, Commodore and Jacksonville.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Clymer, Chevy Chase Heights, Ernest, Marion Center, Creekside, Plumville, Dixonville, Commodore and Jacksonville."
+        }
+      ],
+      "url": "https://api.weather.gov/products/f96b3aa5-6f0a-477a-a9b7-e682b5fa90de"
+    },
     {
       "id": "1bb9db38-a2a2-4add-8b2b-0b5264f00a77",
       "code": "SVS",
@@ -85,26 +105,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/3ae653d1-d8d8-45a9-a027-aa34d6ca2ae9"
-    },
-    {
-      "id": "bbcb3cce-71de-4bb6-9fab-0f2884ae6210",
-      "code": "NPW",
-      "type": "Non-Precipitation Warnings / Watches / Advisories",
-      "office": "KPBZ",
-      "issued": "2026-10-16T16:17:00+00:00",
-      "expires": null,
-      "location": "Tuscarawas-Carroll-Columbiana-Coshocton-Harrison-Jefferson OH",
-      "hazard": "URGENT - WEATHER MESSAGE OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-",
-      "distanceMiles": null,
-      "headline": "Non-Precipitation Warnings / Watches / Advisories",
-      "summary": "URGENT - WEATHER MESSAGE OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 NPWPBZ URGENT - WEATHER MESSAGE 1217 PM EDT Fri Oct 16 2026 OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029- 031-073>078-WVZ001>004-012-021-509>514-170030- /O.NEW.KPBZ.FZ.A.0006.261018T0500Z-261018T1300Z/ Tuscarawas-Carroll-Columbiana-Coshocton-Harrison-Jefferson OH-"
-        }
-      ],
-      "url": "https://api.weather.gov/products/bbcb3cce-71de-4bb6-9fab-0f2884ae6210"
     }
   ]
 }
