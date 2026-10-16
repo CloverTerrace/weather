@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T16:56:28.141720Z",
+  "generatedAt": "2026-10-16T17:01:32.130178Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.26a4b80d2049092774a2297a197e8c61b6347911.001.1",
@@ -24,8 +24,81 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [],
+  "mesoscaleDiscussions": [
+    {
+      "id": "MD2381",
+      "number": 2381,
+      "issued": "2026-10-16T16:56:00Z",
+      "expires": "2026-10-16T18:30:00Z",
+      "concerning": "Severe potential...Watch likely",
+      "hazard": "Severe potential...Watch likely",
+      "areas": "portions of PA into southern NY...NJ...DE...MD and northern WV/VA",
+      "location": "portions of PA into southern NY...NJ...DE...MD and northern WV/VA",
+      "distanceMiles": 19.7,
+      "summary": "Isolated gusty winds may accompany showers and thunderstorms over the next couple of hours across portions of central PA southwestward into northern WV and western MD. Severe potential may increase later this afternoon into early evening toward southern NY and the DelMarVa vicinity",
+      "watchProbability": "80 percent",
+      "forecaster": "Leitman/Guyer",
+      "attnWfos": [
+        "OKX",
+        "ALY",
+        "PHI",
+        "BGM",
+        "CTP",
+        "LWX",
+        "PBZ",
+        "RLX"
+      ],
+      "details": [
+        {
+          "label": "Summary",
+          "text": "Isolated gusty winds may accompany showers and thunderstorms over the next couple of hours across portions of central PA southwestward into northern WV and western MD. Severe potential may increase later this afternoon into early evening toward southern NY and the DelMarVa vicinity"
+        },
+        {
+          "label": "Discussion",
+          "text": "Convection is gradually increasing in intensity across western PA early this afternoon along/just ahead of a surface cold front. Downstream, stronger heating is occurring within a corridor of scattered to broken cloudiness across central PA into adjacent portions of WV/western MD. Temperatures have warmed into the 70s where this stronger heating has occurred, and weak destabilization is underway. While instability and lapse rates are expected to remain rather mild, strong deep-layer flow will support transient organized bowing structures, and strong gusts at the surface will be possible where more substantial heating occurs. Uncertainty exists with north and east extent across the Mid-Atlantic/Southern New England given persistent stratus and more muted heating. Convective trends are being monitored for possible watch issuance"
+        },
+        {
+          "label": "Watch probability",
+          "text": "80 percent"
+        },
+        {
+          "label": "Most probable threats",
+          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...55-70 MPH"
+        },
+        {
+          "label": "Forecaster",
+          "text": "Leitman/Guyer"
+        },
+        {
+          "label": "WFOs",
+          "text": "WFO...OKX...ALY...PHI...BGM...CTP...LWX...PBZ...RLX"
+        }
+      ],
+      "url": "https://www.spc.noaa.gov/products/md/md2381.html",
+      "office": "SPC"
+    }
+  ],
   "statements": [
+    {
+      "id": "83743e23-10ca-430d-9812-9efb928d735b",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-10-16T16:57:00+00:00",
+      "expires": null,
+      "location": "Indiana PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Clymer, Cherry Tree, Glen Campbell, Commodore, Rochester Mills and Yellow Creek State",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Clymer, Cherry Tree, Glen Campbell, Commodore, Rochester Mills and Yellow Creek State Park.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Clymer, Cherry Tree, Glen Campbell, Commodore, Rochester Mills and Yellow Creek State Park."
+        }
+      ],
+      "url": "https://api.weather.gov/products/83743e23-10ca-430d-9812-9efb928d735b"
+    },
     {
       "id": "a4fb117f-b0e2-427f-8369-c4ede8fa91e5",
       "code": "SVS",
@@ -109,26 +182,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/f96b3aa5-6f0a-477a-a9b7-e682b5fa90de"
-    },
-    {
-      "id": "1bb9db38-a2a2-4add-8b2b-0b5264f00a77",
-      "code": "SVS",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-10-16T16:35:00+00:00",
-      "expires": null,
-      "location": "Armstrong PA-Indiana PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Clymer, Rural Valley, West Lebanon, Dayton, Chevy Chase Heights, Ernest,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Clymer, Rural Valley, West Lebanon, Dayton, Chevy Chase Heights, Ernest, Marion Center, Elderton, Creekside, Plumville, Shelocta, Atwood, Dixonville, Jacksonville, Commodore and Smicksburg.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Clymer, Rural Valley, West Lebanon, Dayton, Chevy Chase Heights, Ernest, Marion Center, Elderton, Creekside, Plumville, Shelocta, Atwood, Dixonville, Jacksonville, Commodore and Smicksburg."
-        }
-      ],
-      "url": "https://api.weather.gov/products/1bb9db38-a2a2-4add-8b2b-0b5264f00a77"
     }
   ]
 }
