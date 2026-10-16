@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T16:21:28.469811Z",
+  "generatedAt": "2026-10-16T16:26:25.046885Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.26a4b80d2049092774a2297a197e8c61b6347911.001.1",
@@ -25,5 +25,46 @@
     }
   ],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "3ae653d1-d8d8-45a9-a027-aa34d6ca2ae9",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-10-16T16:24:00+00:00",
+      "expires": null,
+      "location": "Allegheny PA-Butler PA-Westmoreland PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Kittanning, Apollo, Ford City, Leechburg, West Kittanning, Clymer, North",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Kittanning, Apollo, Ford City, Leechburg, West Kittanning, Clymer, North Apollo, Orchard Hills, Rural Valley, West Lebanon, Dayton, Chevy Chase Heights, West Hills, North Vandergrift and Ernest.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Indiana, Kittanning, Apollo, Ford City, Leechburg, West Kittanning, Clymer, North Apollo, Orchard Hills, Rural Valley, West Lebanon, Dayton, Chevy Chase Heights, West Hills, North Vandergrift and Ernest."
+        }
+      ],
+      "url": "https://api.weather.gov/products/3ae653d1-d8d8-45a9-a027-aa34d6ca2ae9"
+    },
+    {
+      "id": "bbcb3cce-71de-4bb6-9fab-0f2884ae6210",
+      "code": "NPW",
+      "type": "Non-Precipitation Warnings / Watches / Advisories",
+      "office": "KPBZ",
+      "issued": "2026-10-16T16:17:00+00:00",
+      "expires": null,
+      "location": "Tuscarawas-Carroll-Columbiana-Coshocton-Harrison-Jefferson OH",
+      "hazard": "URGENT - WEATHER MESSAGE OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-",
+      "distanceMiles": null,
+      "headline": "Non-Precipitation Warnings / Watches / Advisories",
+      "summary": "URGENT - WEATHER MESSAGE OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 NPWPBZ URGENT - WEATHER MESSAGE 1217 PM EDT Fri Oct 16 2026 OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029- 031-073>078-WVZ001>004-012-021-509>514-170030- /O.NEW.KPBZ.FZ.A.0006.261018T0500Z-261018T1300Z/ Tuscarawas-Carroll-Columbiana-Coshocton-Harrison-Jefferson OH-"
+        }
+      ],
+      "url": "https://api.weather.gov/products/bbcb3cce-71de-4bb6-9fab-0f2884ae6210"
+    }
+  ]
 }
