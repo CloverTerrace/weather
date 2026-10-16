@@ -4,10 +4,10 @@
       "name": "Tonight",
       "temperature": 64,
       "temperatureUnit": "F",
-      "windSpeed": "0 to 14 mph",
+      "windSpeed": "6 to 14 mph",
       "windDirection": "S",
       "shortForecast": "Mostly Cloudy then Chance Showers And Thunderstorms",
-      "detailedForecast": "A chance of showers and thunderstorms after midnight. Mostly cloudy. Low around 64, with temperatures rising to around 70 overnight. South wind 0 to 14 mph, with gusts as high as 28 mph. Chance of precipitation is 60%. New rainfall amounts less than a tenth of an inch possible.",
+      "detailedForecast": "A chance of showers and thunderstorms after midnight. Mostly cloudy. Low around 64, with temperatures rising to around 70 overnight. South wind 6 to 14 mph, with gusts as high as 28 mph. Chance of precipitation is 60%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 59
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-16T00:00:00-04:00",
-      "temperature": 65,
-      "temperatureUnit": "F",
-      "windSpeed": "8 mph",
-      "windDirection": "S",
-      "shortForecast": "Scattered Showers And Thunderstorms",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 25
-    },
     {
       "startTime": "2026-10-16T01:00:00-04:00",
       "temperature": 66,
@@ -285,6 +275,16 @@
       "shortForecast": "Chance Rain Showers",
       "isDaytime": false,
       "probabilityOfPrecipitation": 34
+    },
+    {
+      "startTime": "2026-10-17T00:00:00-04:00",
+      "temperature": 48,
+      "temperatureUnit": "F",
+      "windSpeed": "14 mph",
+      "windDirection": "N",
+      "shortForecast": "Slight Chance Rain Showers",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 17
     }
   ]
 }
