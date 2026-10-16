@@ -4,12 +4,12 @@
       "name": "This Afternoon",
       "temperature": 74,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 10 mph",
+      "windSpeed": "10 mph",
       "windDirection": "NW",
       "shortForecast": "Chance Rain Showers",
-      "detailedForecast": "A chance of rain showers before 4pm. Cloudy. High near 74, with temperatures falling to around 58 in the afternoon. Northwest wind 3 to 10 mph, with gusts as high as 23 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
+      "detailedForecast": "A chance of rain showers before 4pm. Cloudy. High near 74, with temperatures falling to around 58 in the afternoon. Northwest wind around 10 mph, with gusts as high as 23 mph. Chance of precipitation is 30%.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 50
+      "probabilityOfPrecipitation": 30
     },
     {
       "name": "Tonight",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-16T14:00:00-04:00",
-      "temperature": 60,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "N",
-      "shortForecast": "Chance Rain Showers",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 50
-    },
     {
       "startTime": "2026-10-16T15:00:00-04:00",
       "temperature": 61,
@@ -279,6 +269,16 @@
     {
       "startTime": "2026-10-17T13:00:00-04:00",
       "temperature": 49,
+      "temperatureUnit": "F",
+      "windSpeed": "10 mph",
+      "windDirection": "N",
+      "shortForecast": "Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-17T14:00:00-04:00",
+      "temperature": 50,
       "temperatureUnit": "F",
       "windSpeed": "10 mph",
       "windDirection": "N",
