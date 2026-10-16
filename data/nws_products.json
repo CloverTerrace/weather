@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T17:26:19.070606Z",
+  "generatedAt": "2026-10-16T17:31:27.123594Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.26a4b80d2049092774a2297a197e8c61b6347911.001.1",
@@ -24,61 +24,28 @@
       "office": "NWS Pittsburgh PA"
     }
   ],
-  "mesoscaleDiscussions": [
+  "mesoscaleDiscussions": [],
+  "statements": [
     {
-      "id": "MD2381",
-      "number": 2381,
-      "issued": "2026-10-16T16:56:00Z",
-      "expires": "2026-10-16T18:30:00Z",
-      "concerning": "Severe potential...Watch likely",
-      "hazard": "Severe potential...Watch likely",
-      "areas": "portions of PA into southern NY...NJ...DE...MD and northern WV/VA",
-      "location": "portions of PA into southern NY...NJ...DE...MD and northern WV/VA",
-      "distanceMiles": 19.7,
-      "summary": "Isolated gusty winds may accompany showers and thunderstorms over the next couple of hours across portions of central PA southwestward into northern WV and western MD. Severe potential may increase later this afternoon into early evening toward southern NY and the DelMarVa vicinity",
-      "watchProbability": "80 percent",
-      "forecaster": "Leitman/Guyer",
-      "attnWfos": [
-        "OKX",
-        "ALY",
-        "PHI",
-        "BGM",
-        "CTP",
-        "LWX",
-        "PBZ",
-        "RLX"
-      ],
+      "id": "303e76bc-b991-47df-a14d-79a67c2fd6ae",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-10-16T17:23:00+00:00",
+      "expires": null,
+      "location": "Indiana PA-Westmoreland PA",
+      "hazard": "PAC063-129-161733- /O.EXP.KPBZ.SV.W.0377.000000T0000Z-261016T1730Z/",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "PAC063-129-161733- /O.EXP.KPBZ.SV.W.0377.000000T0000Z-261016T1730Z/",
       "details": [
         {
-          "label": "Summary",
-          "text": "Isolated gusty winds may accompany showers and thunderstorms over the next couple of hours across portions of central PA southwestward into northern WV and western MD. Severe potential may increase later this afternoon into early evening toward southern NY and the DelMarVa vicinity"
-        },
-        {
-          "label": "Discussion",
-          "text": "Convection is gradually increasing in intensity across western PA early this afternoon along/just ahead of a surface cold front. Downstream, stronger heating is occurring within a corridor of scattered to broken cloudiness across central PA into adjacent portions of WV/western MD. Temperatures have warmed into the 70s where this stronger heating has occurred, and weak destabilization is underway. While instability and lapse rates are expected to remain rather mild, strong deep-layer flow will support transient organized bowing structures, and strong gusts at the surface will be possible where more substantial heating occurs. Uncertainty exists with north and east extent across the Mid-Atlantic/Southern New England given persistent stratus and more muted heating. Convective trends are being monitored for possible watch issuance"
-        },
-        {
-          "label": "Watch probability",
-          "text": "80 percent"
-        },
-        {
-          "label": "Most probable threats",
-          "text": "MOST PROBABLE PEAK TORNADO INTENSITY...UP TO 90 MPH · MOST PROBABLE PEAK WIND GUST...55-70 MPH"
-        },
-        {
-          "label": "Forecaster",
-          "text": "Leitman/Guyer"
-        },
-        {
-          "label": "WFOs",
-          "text": "WFO...OKX...ALY...PHI...BGM...CTP...LWX...PBZ...RLX"
+          "label": "Product detail",
+          "text": "000 SVSPBZ Severe Weather Statement 123 PM EDT Fri Oct 16 2026 PAC063-129-161733- /O.EXP.KPBZ.SV.W.0377.000000T0000Z-261016T1730Z/ Indiana PA-Westmoreland PA- 123 PM EDT Fri Oct 16 2026"
         }
       ],
-      "url": "https://www.spc.noaa.gov/products/md/md2381.html",
-      "office": "SPC"
-    }
-  ],
-  "statements": [
+      "url": "https://api.weather.gov/products/303e76bc-b991-47df-a14d-79a67c2fd6ae"
+    },
     {
       "id": "5810334a-f7a2-4d0c-9c24-8be762d42183",
       "code": "SVS",
@@ -98,66 +65,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/5810334a-f7a2-4d0c-9c24-8be762d42183"
-    },
-    {
-      "id": "a36e0fca-06f2-48f5-b8f8-3a85e09fe0c7",
-      "code": "SVS",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-10-16T17:06:00+00:00",
-      "expires": null,
-      "location": "Indiana PA",
-      "hazard": "PAC063-161716- /O.CAN.KPBZ.SV.W.0378.000000T0000Z-261016T1715Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC063-161716- /O.CAN.KPBZ.SV.W.0378.000000T0000Z-261016T1715Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 106 PM EDT Fri Oct 16 2026 PAC063-161716- /O.CAN.KPBZ.SV.W.0378.000000T0000Z-261016T1715Z/ Indiana PA- 106 PM EDT Fri Oct 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/a36e0fca-06f2-48f5-b8f8-3a85e09fe0c7"
-    },
-    {
-      "id": "31c0bd1f-81a8-467c-ba47-520e50ea0149",
-      "code": "SVS",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-10-16T17:02:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA-Washington PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Latrobe, Murrysville, Monessen, Donora, Mount Pleasant,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Latrobe, Murrysville, Monessen, Donora, Mount Pleasant, Scottdale, Charleroi, Irwin, Manor, Trafford, Youngwood, Delmont and West Newton.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Jeannette, Latrobe, Murrysville, Monessen, Donora, Mount Pleasant, Scottdale, Charleroi, Irwin, Manor, Trafford, Youngwood, Delmont and West Newton."
-        }
-      ],
-      "url": "https://api.weather.gov/products/31c0bd1f-81a8-467c-ba47-520e50ea0149"
-    },
-    {
-      "id": "83743e23-10ca-430d-9812-9efb928d735b",
-      "code": "SVS",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-10-16T16:57:00+00:00",
-      "expires": null,
-      "location": "Indiana PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Clymer, Cherry Tree, Glen Campbell, Commodore, Rochester Mills and Yellow Creek State",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Clymer, Cherry Tree, Glen Campbell, Commodore, Rochester Mills and Yellow Creek State Park.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Clymer, Cherry Tree, Glen Campbell, Commodore, Rochester Mills and Yellow Creek State Park."
-        }
-      ],
-      "url": "https://api.weather.gov/products/83743e23-10ca-430d-9812-9efb928d735b"
     }
   ]
 }
