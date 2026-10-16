@@ -6,8 +6,8 @@
       "temperatureUnit": "F",
       "windSpeed": "10 to 15 mph",
       "windDirection": "W",
-      "shortForecast": "Showers And Thunderstorms",
-      "detailedForecast": "Scattered showers and thunderstorms before 8am, then isolated showers and thunderstorms between 8am and 9am, then showers and thunderstorms between 9am and 5pm. Mostly cloudy. High near 72, with temperatures falling to around 58 in the afternoon. West wind 10 to 15 mph, with gusts as high as 28 mph. Chance of precipitation is 90%. New rainfall amounts between a tenth and quarter of an inch possible.",
+      "shortForecast": "Isolated Showers And Thunderstorms then Showers And Thunderstorms",
+      "detailedForecast": "Isolated showers and thunderstorms before 9am, then showers and thunderstorms between 9am and 5pm. Mostly cloudy. High near 72, with temperatures falling to around 58 in the afternoon. West wind 10 to 15 mph, with gusts as high as 28 mph. Chance of precipitation is 90%. New rainfall amounts between a tenth and quarter of an inch possible.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 94
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-16T08:00:00-04:00",
-      "temperature": 70,
-      "temperatureUnit": "F",
-      "windSpeed": "14 mph",
-      "windDirection": "SW",
-      "shortForecast": "Isolated Showers And Thunderstorms",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 18
-    },
     {
       "startTime": "2026-10-16T09:00:00-04:00",
       "temperature": 71,
@@ -285,6 +275,16 @@
       "shortForecast": "Mostly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 12
+    },
+    {
+      "startTime": "2026-10-17T08:00:00-04:00",
+      "temperature": 40,
+      "temperatureUnit": "F",
+      "windSpeed": "12 mph",
+      "windDirection": "N",
+      "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
     }
   ]
 }
