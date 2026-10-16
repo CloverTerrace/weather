@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-10-16T22:05:43.318052Z",
+  "generatedAt": "2026-10-16T22:10:40.971333Z",
   "watches": [
     {
-      "id": "urn:oid:2.49.0.1.840.0.26a4b80d2049092774a2297a197e8c61b6347911.001.1",
+      "id": "urn:oid:2.49.0.1.840.0.415e0f4e5a04711c09d0a29da6101facd1544b57.001.1",
       "type": "Freeze Watch",
       "number": null,
-      "issued": "2026-10-16T12:17:00-04:00",
-      "expires": "2026-10-16T20:30:00-04:00",
+      "issued": "2026-10-16T18:07:00-04:00",
+      "expires": "2026-10-17T06:15:00-04:00",
       "location": "Tuscarawas; Carroll; Columbiana; Coshocton; Harrison; Jefferson; Muskingum; Guernsey; Belmont; Noble; Monroe; Mercer; Venango; Forest; Lawrence; Butler; Clarion; Jefferson; Beaver; Allegheny; Armstrong; Washington; Greene; Westmoreland; Westmoreland Ridges; Fayette; Fayette Ridges; Indiana; Higher Elevations of Indiana; Hancock; Brooke; Ohio; Marshall; Wetzel; Marion; Monongalia; Ridges of Eastern Monongalia and Northwestern Preston; Preston; Eastern Preston; Western Tucker; Eastern Tucker",
       "distanceMiles": null,
-      "summary": "Freeze Watch issued October 16 at 12:17PM EDT until October 18 at 9:00AM EDT by NWS Pittsburgh PA",
+      "summary": "Freeze Watch issued October 16 at 6:07PM EDT until October 18 at 9:00AM EDT by NWS Pittsburgh PA",
       "details": [
         {
           "label": "Areas",
@@ -20,10 +20,31 @@
           "text": "Take steps now to protect tender plants from the cold."
         }
       ],
-      "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.26a4b80d2049092774a2297a197e8c61b6347911.001.1",
+      "url": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.415e0f4e5a04711c09d0a29da6101facd1544b57.001.1",
       "office": "NWS Pittsburgh PA"
     }
   ],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "48f95a4a-5231-49dc-8aa7-45b3bc8dc2c1",
+      "code": "NPW",
+      "type": "Non-Precipitation Warnings / Watches / Advisories",
+      "office": "KPBZ",
+      "issued": "2026-10-16T22:07:00+00:00",
+      "expires": null,
+      "location": "Tuscarawas-Carroll-Columbiana-Coshocton-Harrison-Jefferson OH",
+      "hazard": "URGENT - WEATHER MESSAGE OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-",
+      "distanceMiles": null,
+      "headline": "Non-Precipitation Warnings / Watches / Advisories",
+      "summary": "URGENT - WEATHER MESSAGE OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 NPWPBZ URGENT - WEATHER MESSAGE 607 PM EDT Fri Oct 16 2026 OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029- 031-073>078-WVZ001>004-012-021-509>514-171015- /O.CON.KPBZ.FZ.A.0006.261018T0500Z-261018T1300Z/ Tuscarawas-Carroll-Columbiana-Coshocton-Harrison-Jefferson OH-"
+        }
+      ],
+      "url": "https://api.weather.gov/products/48f95a4a-5231-49dc-8aa7-45b3bc8dc2c1"
+    }
+  ]
 }
