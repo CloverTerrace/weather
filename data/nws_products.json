@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T17:16:19.208497Z",
+  "generatedAt": "2026-10-16T17:21:25.504608Z",
   "watches": [
     {
       "id": "urn:oid:2.49.0.1.840.0.26a4b80d2049092774a2297a197e8c61b6347911.001.1",
@@ -80,6 +80,26 @@
   ],
   "statements": [
     {
+      "id": "5810334a-f7a2-4d0c-9c24-8be762d42183",
+      "code": "SVS",
+      "type": "Severe Weather Statement",
+      "office": "KPBZ",
+      "issued": "2026-10-16T17:17:00+00:00",
+      "expires": null,
+      "location": "Fayette PA",
+      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Latrobe, Mount Pleasant, Scottdale, Youngwood, New Stanton,",
+      "distanceMiles": null,
+      "headline": "Severe Weather Statement",
+      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Latrobe, Mount Pleasant, Scottdale, Youngwood, New Stanton, Calumet-Norvelt, Saltsburg, New Alexandria, Smithton, Hunker and Crabtree.",
+      "details": [
+        {
+          "label": "Hazards",
+          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Greensburg, Latrobe, Mount Pleasant, Scottdale, Youngwood, New Stanton, Calumet-Norvelt, Saltsburg, New Alexandria, Smithton, Hunker and Crabtree."
+        }
+      ],
+      "url": "https://api.weather.gov/products/5810334a-f7a2-4d0c-9c24-8be762d42183"
+    },
+    {
       "id": "a36e0fca-06f2-48f5-b8f8-3a85e09fe0c7",
       "code": "SVS",
       "type": "Severe Weather Statement",
@@ -138,70 +158,6 @@
         }
       ],
       "url": "https://api.weather.gov/products/83743e23-10ca-430d-9812-9efb928d735b"
-    },
-    {
-      "id": "a4fb117f-b0e2-427f-8369-c4ede8fa91e5",
-      "code": "SVS",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-10-16T16:52:00+00:00",
-      "expires": null,
-      "location": "Indiana PA",
-      "hazard": "PAC063-161702- /O.EXP.KPBZ.SV.W.0376.000000T0000Z-261016T1700Z/",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "PAC063-161702- /O.EXP.KPBZ.SV.W.0376.000000T0000Z-261016T1700Z/",
-      "details": [
-        {
-          "label": "Product detail",
-          "text": "000 SVSPBZ Severe Weather Statement 1252 PM EDT Fri Oct 16 2026 PAC063-161702- /O.EXP.KPBZ.SV.W.0376.000000T0000Z-261016T1700Z/ Indiana PA- 1252 PM EDT Fri Oct 16 2026"
-        }
-      ],
-      "url": "https://api.weather.gov/products/a4fb117f-b0e2-427f-8369-c4ede8fa91e5"
-    },
-    {
-      "id": "1838cf66-cf74-4927-965c-0207d1db5478",
-      "code": "HWO",
-      "type": "Hazardous Weather Outlook",
-      "office": "KPBZ",
-      "issued": "2026-10-16T16:51:00+00:00",
-      "expires": null,
-      "location": "NWS Pittsburgh PA (PBZ) coverage area",
-      "hazard": "This afternoon and tonight. A strong cold front is moving through the area today that has produced a line of embedded thunderstorms along the front. Wind",
-      "distanceMiles": null,
-      "headline": "Hazardous Weather Outlook",
-      "summary": "This afternoon and tonight. A strong cold front is moving through the area today that has produced a line of embedded thunderstorms along the front. Wind damage has been reported with these storms. They should be out of the area within the next 2 hours. In addition, outside of any showers or storms, wind could gust near 40-45 mph at times across eastern Tucker county West Virginia this afternoon into this evening.",
-      "details": [
-        {
-          "label": "Today's Hazards",
-          "text": "This afternoon and tonight. A strong cold front is moving through the area today that has produced a line of embedded thunderstorms along the front. Wind damage has been reported with these storms. They should be out of the area within the next 2 hours. In addition, outside of any showers or storms, wind could gust near 40-45 mph at times across eastern Tucker county West Virginia this afternoon into this evening."
-        },
-        {
-          "label": "Extended Outlook",
-          "text": "Saturday through Thursday. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Freeze Watch."
-        }
-      ],
-      "url": "https://api.weather.gov/products/1838cf66-cf74-4927-965c-0207d1db5478"
-    },
-    {
-      "id": "3793ad05-c937-4a8c-b2c7-030fa30de830",
-      "code": "SVS",
-      "type": "Severe Weather Statement",
-      "office": "KPBZ",
-      "issued": "2026-10-16T16:48:00+00:00",
-      "expires": null,
-      "location": "Allegheny PA-Fayette PA-Indiana PA-Washington PA-Westmoreland PA",
-      "hazard": "Expect damage to roofs, siding, and trees. Locations impacted include... Penn Hills, Monroeville, Greensburg, McKeesport, Jeannette, Latrobe, Gastonville,",
-      "distanceMiles": null,
-      "headline": "Severe Weather Statement",
-      "summary": "Expect damage to roofs, siding, and trees. Locations impacted include... Penn Hills, Monroeville, Greensburg, McKeesport, Jeannette, Latrobe, Gastonville, Plum, West Mifflin, Murrysville, Wilkinsburg, South Park Township, Munhall, Jefferson Hills, North Versailles, Swissvale, Pleasant Hills, White Oak and Monessen.",
-      "details": [
-        {
-          "label": "Hazards",
-          "text": "Expect damage to roofs, siding, and trees. Locations impacted include... Penn Hills, Monroeville, Greensburg, McKeesport, Jeannette, Latrobe, Gastonville, Plum, West Mifflin, Murrysville, Wilkinsburg, South Park Township, Munhall, Jefferson Hills, North Versailles, Swissvale, Pleasant Hills, White Oak and Monessen."
-        }
-      ],
-      "url": "https://api.weather.gov/products/3793ad05-c937-4a8c-b2c7-030fa30de830"
     }
   ]
 }
