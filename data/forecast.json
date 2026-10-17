@@ -1,15 +1,15 @@
 {
   "periods": [
     {
-      "name": "Today",
-      "temperature": 52,
+      "name": "This Afternoon",
+      "temperature": 51,
       "temperatureUnit": "F",
-      "windSpeed": "3 to 12 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Sunny",
-      "detailedForecast": "Mostly sunny, with a high near 52. Northwest wind 3 to 12 mph, with gusts as high as 23 mph.",
+      "windSpeed": "5 to 8 mph",
+      "windDirection": "N",
+      "shortForecast": "Sunny",
+      "detailedForecast": "Sunny, with a high near 51. North wind 5 to 8 mph.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 8
+      "probabilityOfPrecipitation": 2
     },
     {
       "name": "Tonight",
@@ -17,8 +17,8 @@
       "temperatureUnit": "F",
       "windSpeed": "0 to 6 mph",
       "windDirection": "N",
-      "shortForecast": "Clear then Widespread Frost",
-      "detailedForecast": "Widespread frost after 1am. Clear, with a low around 30. North wind 0 to 6 mph.",
+      "shortForecast": "Widespread Frost",
+      "detailedForecast": "Areas of frost between 11pm and 3am, then widespread frost and areas of fog. Clear, with a low around 30. North wind 0 to 6 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -27,9 +27,9 @@
       "temperature": 60,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "SE",
+      "windDirection": "S",
       "shortForecast": "Widespread Frost then Sunny",
-      "detailedForecast": "Widespread frost before 10am. Sunny, with a high near 60. Southeast wind around 2 mph.",
+      "detailedForecast": "Widespread frost and areas of fog before 10am. Sunny, with a high near 60. South wind around 2 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -37,25 +37,15 @@
       "name": "Sunday Night",
       "temperature": 36,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "E",
-      "shortForecast": "Clear then Patchy Frost",
-      "detailedForecast": "Patchy frost after 5am. Clear, with a low around 36. East wind around 1 mph.",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Clear then Areas Of Frost",
+      "detailedForecast": "Areas of frost after 4am. Clear, with a low around 36. Wind around 0 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-17T11:00:00-04:00",
-      "temperature": 46,
-      "temperatureUnit": "F",
-      "windSpeed": "12 mph",
-      "windDirection": "N",
-      "shortForecast": "Partly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 4
-    },
     {
       "startTime": "2026-10-17T12:00:00-04:00",
       "temperature": 47,
@@ -282,6 +272,16 @@
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
       "windDirection": "S",
+      "shortForecast": "Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-18T11:00:00-04:00",
+      "temperature": 48,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "SE",
       "shortForecast": "Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
