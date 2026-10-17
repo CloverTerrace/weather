@@ -1,18 +1,7 @@
 {
   "periods": [
     {
-      "name": "Overnight",
-      "temperature": 40,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "N",
-      "shortForecast": "Isolated Rain Showers",
-      "detailedForecast": "Isolated rain showers. Mostly cloudy, with a low around 40. North wind around 9 mph. Chance of precipitation is 20%.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 23
-    },
-    {
-      "name": "Saturday",
+      "name": "Today",
       "temperature": 52,
       "temperatureUnit": "F",
       "windSpeed": "7 to 13 mph",
@@ -23,7 +12,7 @@
       "probabilityOfPrecipitation": 24
     },
     {
-      "name": "Saturday Night",
+      "name": "Tonight",
       "temperature": 30,
       "temperatureUnit": "F",
       "windSpeed": "0 to 6 mph",
@@ -43,19 +32,20 @@
       "detailedForecast": "Widespread frost before 10am. Sunny, with a high near 60. Southeast wind around 2 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Sunday Night",
+      "temperature": 36,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "E",
+      "shortForecast": "Clear then Patchy Frost",
+      "detailedForecast": "Patchy frost after 5am. Clear, with a low around 36. East wind around 1 mph.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-17T05:00:00-04:00",
-      "temperature": 43,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "N",
-      "shortForecast": "Isolated Rain Showers",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 23
-    },
     {
       "startTime": "2026-10-17T06:00:00-04:00",
       "temperature": 41,
@@ -278,6 +268,16 @@
     },
     {
       "startTime": "2026-10-18T04:00:00-04:00",
+      "temperature": 32,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Widespread Frost",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-18T05:00:00-04:00",
       "temperature": 32,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
