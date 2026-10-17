@@ -1,27 +1,31 @@
 {
-  "generatedAt": "2026-10-17T05:11:03.928343Z",
+  "generatedAt": "2026-10-17T05:16:08.010581Z",
   "watches": [],
   "mesoscaleDiscussions": [],
   "statements": [
     {
-      "id": "121f8f17-4618-4a03-9443-ce95fa12a207",
-      "code": "NPW",
-      "type": "Non-Precipitation Warnings / Watches / Advisories",
+      "id": "72b9830b-b483-4098-9051-c3e9df7dfa70",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
       "office": "KPBZ",
-      "issued": "2026-10-17T04:44:00+00:00",
+      "issued": "2026-10-17T05:12:00+00:00",
       "expires": null,
-      "location": "/O.NEW.KPBZ.FZ.W.0010.261018T0500Z-261018T1300Z/",
-      "hazard": "URGENT - WEATHER MESSAGE OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-",
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Today and tonight. Freeze Warning.",
       "distanceMiles": null,
-      "headline": "Non-Precipitation Warnings / Watches / Advisories",
-      "summary": "URGENT - WEATHER MESSAGE OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029-",
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. Freeze Warning.",
       "details": [
         {
-          "label": "Product detail",
-          "text": "000 NPWPBZ URGENT - WEATHER MESSAGE 1244 AM EDT Sat Oct 17 2026 OHZ039>041-048>050-057>059-068-069-PAZ007>009-013>016-020>022-029- 031-073>078-WVZ001>004-012-021-509>514-171800- /O.UPG.KPBZ.FZ.A.0006.261018T0500Z-261018T1300Z/ /O.NEW.KPBZ.FZ.W.0010.261018T0500Z-261018T1300Z/"
+          "label": "Today's Hazards",
+          "text": "Today and tonight. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Freeze Warning."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Sunday through Friday. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Freeze Warning."
         }
       ],
-      "url": "https://api.weather.gov/products/121f8f17-4618-4a03-9443-ce95fa12a207"
+      "url": "https://api.weather.gov/products/72b9830b-b483-4098-9051-c3e9df7dfa70"
     }
   ]
 }
