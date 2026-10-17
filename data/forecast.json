@@ -5,11 +5,11 @@
       "temperature": 40,
       "temperatureUnit": "F",
       "windSpeed": "12 mph",
-      "windDirection": "N",
-      "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 40. North wind around 12 mph, with gusts as high as 24 mph. Chance of precipitation is 30%.",
+      "windDirection": "NW",
+      "shortForecast": "Rain Showers Likely then Mostly Cloudy",
+      "detailedForecast": "Rain showers likely before 11pm. Mostly cloudy, with a low around 40. Northwest wind around 12 mph, with gusts as high as 24 mph. Chance of precipitation is 60%.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 25
+      "probabilityOfPrecipitation": 63
     },
     {
       "name": "Saturday",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-16T23:00:00-04:00",
-      "temperature": 49,
-      "temperatureUnit": "F",
-      "windSpeed": "12 mph",
-      "windDirection": "N",
-      "shortForecast": "Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 25
-    },
     {
       "startTime": "2026-10-17T00:00:00-04:00",
       "temperature": 47,
@@ -282,6 +272,16 @@
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "N",
+      "shortForecast": "Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-17T23:00:00-04:00",
+      "temperature": 39,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
       "shortForecast": "Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
