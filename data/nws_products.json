@@ -1,6 +1,51 @@
 {
-  "generatedAt": "2026-10-18T05:05:45.098715Z",
+  "generatedAt": "2026-10-18T05:10:45.930376Z",
   "watches": [],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "9e95c2d5-0898-4ec3-84a0-2cd1daf0eaac",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-10-18T05:01:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Today and tonight. Freeze Warning.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. Freeze Warning.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. Please listen to NOAA Weather Radio or go to weather.gov on the Internet for more information about the following hazards. Freeze Warning."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Monday through Saturday. No hazardous weather is expected at this time."
+        }
+      ],
+      "url": "https://api.weather.gov/products/9e95c2d5-0898-4ec3-84a0-2cd1daf0eaac"
+    },
+    {
+      "id": "43bf3261-efb1-47ac-86f2-d1992cd363c3",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-10-18T05:00:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... No significant changes to the latest forecast.",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... No significant changes to the latest forecast.",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 100 AM EDT Sun Oct 18 2026 .WHAT HAS CHANGED... No significant changes to the latest forecast. && .KEY MESSAGES..."
+        }
+      ],
+      "url": "https://api.weather.gov/products/43bf3261-efb1-47ac-86f2-d1992cd363c3"
+    }
+  ]
 }
