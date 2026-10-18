@@ -1,7 +1,18 @@
 {
   "periods": [
     {
-      "name": "Today",
+      "name": "Overnight",
+      "temperature": 30,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Widespread Frost",
+      "detailedForecast": "Widespread frost before 5am, then widespread frost and patchy fog. Clear, with a low around 30. Wind around 0 mph.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Sunday",
       "temperature": 61,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
@@ -12,7 +23,7 @@
       "probabilityOfPrecipitation": 0
     },
     {
-      "name": "Tonight",
+      "name": "Sunday Night",
       "temperature": 36,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
@@ -32,20 +43,19 @@
       "detailedForecast": "Areas of frost before 9am. Sunny, with a high near 66. North wind around 2 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
-    },
-    {
-      "name": "Monday Night",
-      "temperature": 37,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "N",
-      "shortForecast": "Clear",
-      "detailedForecast": "Clear, with a low around 37. North wind around 2 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-10-18T05:00:00-04:00",
+      "temperature": 32,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Widespread Frost",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-10-18T06:00:00-04:00",
       "temperature": 31,
@@ -58,7 +68,7 @@
     },
     {
       "startTime": "2026-10-18T07:00:00-04:00",
-      "temperature": 31,
+      "temperature": 30,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
@@ -273,16 +283,6 @@
       "windSpeed": "0 mph",
       "windDirection": "",
       "shortForecast": "Patchy Frost",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-10-19T05:00:00-04:00",
-      "temperature": 36,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Areas Of Frost",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
