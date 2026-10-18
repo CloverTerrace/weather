@@ -1,7 +1,7 @@
 {
   "periods": [
     {
-      "name": "Tonight",
+      "name": "Overnight",
       "temperature": 30,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-17T23:00:00-04:00",
-      "temperature": 36,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Areas Of Frost",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-10-18T00:00:00-04:00",
       "temperature": 36,
@@ -279,6 +269,16 @@
     {
       "startTime": "2026-10-18T22:00:00-04:00",
       "temperature": 44,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-18T23:00:00-04:00",
+      "temperature": 43,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
