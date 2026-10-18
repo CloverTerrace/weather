@@ -1,13 +1,13 @@
 {
   "periods": [
     {
-      "name": "Today",
+      "name": "This Afternoon",
       "temperature": 61,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "SE",
-      "shortForecast": "Widespread Frost then Sunny",
-      "detailedForecast": "Widespread frost and patchy fog before 10am. Sunny, with a high near 61. Southeast wind around 2 mph.",
+      "windDirection": "S",
+      "shortForecast": "Sunny",
+      "detailedForecast": "Sunny, with a high near 61. South wind around 2 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-18T11:00:00-04:00",
-      "temperature": 48,
-      "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "SE",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-10-18T12:00:00-04:00",
       "temperature": 52,
@@ -279,6 +269,16 @@
     {
       "startTime": "2026-10-19T10:00:00-04:00",
       "temperature": 47,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-19T11:00:00-04:00",
+      "temperature": 53,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
