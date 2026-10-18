@@ -1,13 +1,13 @@
 {
   "periods": [
     {
-      "name": "Overnight",
+      "name": "Tonight",
       "temperature": 30,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
       "shortForecast": "Widespread Frost",
-      "detailedForecast": "Areas of frost before 3am, then widespread frost and areas of fog. Clear, with a low around 30. Wind around 0 mph.",
+      "detailedForecast": "Areas of frost between 11pm and 3am, then widespread frost and areas of fog. Clear, with a low around 30. Wind around 0 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-10-17T23:00:00-04:00",
+      "temperature": 36,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Areas Of Frost",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-10-18T00:00:00-04:00",
       "temperature": 36,
@@ -269,16 +279,6 @@
     {
       "startTime": "2026-10-18T22:00:00-04:00",
       "temperature": 44,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-10-18T23:00:00-04:00",
-      "temperature": 43,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
