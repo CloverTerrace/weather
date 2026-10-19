@@ -6,8 +6,8 @@
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "NE",
-      "shortForecast": "Areas Of Frost then Sunny",
-      "detailedForecast": "Areas of frost and patchy fog before 9am. Sunny, with a high near 65. Northeast wind around 2 mph.",
+      "shortForecast": "Sunny",
+      "detailedForecast": "Sunny, with a high near 65. Northeast wind around 2 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -46,16 +46,6 @@
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-19T09:00:00-04:00",
-      "temperature": 42,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-10-19T10:00:00-04:00",
       "temperature": 49,
@@ -283,6 +273,16 @@
       "windSpeed": "0 mph",
       "windDirection": "",
       "shortForecast": "Areas Of Fog",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-20T09:00:00-04:00",
+      "temperature": 43,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "N",
+      "shortForecast": "Patchy Fog",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     }
