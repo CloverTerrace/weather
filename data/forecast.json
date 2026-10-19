@@ -1,17 +1,6 @@
 {
   "periods": [
     {
-      "name": "This Afternoon",
-      "temperature": 65,
-      "temperatureUnit": "F",
-      "windSpeed": "3 mph",
-      "windDirection": "N",
-      "shortForecast": "Sunny",
-      "detailedForecast": "Sunny, with a high near 65. North wind around 3 mph.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
       "name": "Tonight",
       "temperature": 40,
       "temperatureUnit": "F",
@@ -42,6 +31,17 @@
       "shortForecast": "Mostly Clear then Patchy Fog",
       "detailedForecast": "Patchy fog after 3am. Mostly clear, with a low around 38. Northeast wind around 5 mph.",
       "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Wednesday",
+      "temperature": 66,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "NE",
+      "shortForecast": "Patchy Fog then Sunny",
+      "detailedForecast": "Patchy fog before 9am. Sunny, with a high near 66. Northeast wind around 2 mph.",
+      "isDaytime": true,
       "probabilityOfPrecipitation": 0
     }
   ],
