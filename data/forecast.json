@@ -1,18 +1,7 @@
 {
   "periods": [
     {
-      "name": "Overnight",
-      "temperature": 32,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Patchy Fog",
-      "detailedForecast": "Patchy fog. Clear, with a low around 32. Wind around 0 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "name": "Monday",
+      "name": "Today",
       "temperature": 65,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
@@ -23,7 +12,7 @@
       "probabilityOfPrecipitation": 0
     },
     {
-      "name": "Monday Night",
+      "name": "Tonight",
       "temperature": 38,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
@@ -43,19 +32,20 @@
       "detailedForecast": "Areas of fog before 10am. Mostly sunny, with a high near 65. North wind 0 to 6 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Tuesday Night",
+      "temperature": 38,
+      "temperatureUnit": "F",
+      "windSpeed": "5 mph",
+      "windDirection": "NE",
+      "shortForecast": "Mostly Clear",
+      "detailedForecast": "Mostly clear, with a low around 38. Northeast wind around 5 mph.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-19T05:00:00-04:00",
-      "temperature": 32,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Patchy Fog",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-10-19T06:00:00-04:00",
       "temperature": 31,
@@ -279,6 +269,16 @@
     {
       "startTime": "2026-10-20T04:00:00-04:00",
       "temperature": 40,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Patchy Fog",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-20T05:00:00-04:00",
+      "temperature": 39,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
