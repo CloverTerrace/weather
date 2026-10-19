@@ -1,6 +1,51 @@
 {
-  "generatedAt": "2026-10-19T04:56:43.053962Z",
+  "generatedAt": "2026-10-19T05:02:01.995902Z",
   "watches": [],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "cd6b0db9-fa41-40a6-8b2e-bf4154217af8",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-10-19T05:00:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... No significant changes were made to the forecast.",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... No significant changes were made to the forecast.",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 100 AM EDT Mon Oct 19 2026 .WHAT HAS CHANGED... No significant changes were made to the forecast. && .KEY MESSAGES..."
+        }
+      ],
+      "url": "https://api.weather.gov/products/cd6b0db9-fa41-40a6-8b2e-bf4154217af8"
+    },
+    {
+      "id": "6bd2506b-7723-49ab-8007-2a3d47d1c3f8",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-10-19T05:00:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Today and tonight. No hazardous weather is expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Tuesday through Sunday. No hazardous weather is expected at this time."
+        }
+      ],
+      "url": "https://api.weather.gov/products/6bd2506b-7723-49ab-8007-2a3d47d1c3f8"
+    }
+  ]
 }
