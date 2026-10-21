@@ -1,7 +1,7 @@
 {
   "periods": [
     {
-      "name": "Today",
+      "name": "This Afternoon",
       "temperature": 64,
       "temperatureUnit": "F",
       "windSpeed": "0 to 3 mph",
@@ -13,52 +13,42 @@
     },
     {
       "name": "Tonight",
-      "temperature": 34,
+      "temperature": 35,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Clear then Patchy Fog",
-      "detailedForecast": "Patchy fog after 3am. Mostly clear, with a low around 34. Northwest wind around 2 mph.",
+      "windDirection": "N",
+      "shortForecast": "Mostly Clear then Patchy Frost",
+      "detailedForecast": "Patchy frost after 5am. Mostly clear, with a low around 35. North wind around 2 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
     {
       "name": "Thursday",
-      "temperature": 64,
+      "temperature": 65,
       "temperatureUnit": "F",
       "windSpeed": "0 to 7 mph",
       "windDirection": "N",
-      "shortForecast": "Areas Of Fog then Sunny",
-      "detailedForecast": "Areas of fog before 9am. Sunny, with a high near 64. North wind 0 to 7 mph.",
+      "shortForecast": "Patchy Frost then Sunny",
+      "detailedForecast": "Patchy frost before 9am. Sunny, with a high near 65. North wind 0 to 7 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
     {
       "name": "Thursday Night",
-      "temperature": 40,
+      "temperature": 43,
       "temperatureUnit": "F",
-      "windSpeed": "1 to 7 mph",
+      "windSpeed": "0 to 6 mph",
       "windDirection": "N",
-      "shortForecast": "Mostly Clear then Patchy Fog",
-      "detailedForecast": "Patchy fog after 3am. Mostly clear, with a low around 40. North wind 1 to 7 mph.",
+      "shortForecast": "Mostly Clear",
+      "detailedForecast": "Mostly clear, with a low around 43. North wind 0 to 6 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
   ],
   "hourly": [
     {
-      "startTime": "2026-10-21T11:00:00-04:00",
-      "temperature": 53,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
       "startTime": "2026-10-21T12:00:00-04:00",
-      "temperature": 57,
+      "temperature": 59,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
@@ -110,7 +100,7 @@
       "startTime": "2026-10-21T17:00:00-04:00",
       "temperature": 63,
       "temperatureUnit": "F",
-      "windSpeed": "3 mph",
+      "windSpeed": "2 mph",
       "windDirection": "N",
       "shortForecast": "Sunny",
       "isDaytime": true,
@@ -148,10 +138,10 @@
     },
     {
       "startTime": "2026-10-21T21:00:00-04:00",
-      "temperature": 47,
+      "temperature": 48,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
-      "windDirection": "NW",
+      "windDirection": "N",
       "shortForecast": "Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
@@ -198,7 +188,7 @@
     },
     {
       "startTime": "2026-10-22T02:00:00-04:00",
-      "temperature": 38,
+      "temperature": 39,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
@@ -208,41 +198,41 @@
     },
     {
       "startTime": "2026-10-22T03:00:00-04:00",
-      "temperature": 37,
+      "temperature": 38,
       "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Patchy Fog",
+      "windSpeed": "1 mph",
+      "windDirection": "NW",
+      "shortForecast": "Mostly Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
     {
       "startTime": "2026-10-22T04:00:00-04:00",
-      "temperature": 36,
+      "temperature": 37,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
       "windDirection": "NW",
-      "shortForecast": "Patchy Fog",
+      "shortForecast": "Mostly Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
     {
       "startTime": "2026-10-22T05:00:00-04:00",
-      "temperature": 35,
+      "temperature": 36,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
       "windDirection": "NW",
-      "shortForecast": "Patchy Fog",
+      "shortForecast": "Patchy Frost",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
     {
       "startTime": "2026-10-22T06:00:00-04:00",
-      "temperature": 35,
+      "temperature": 36,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
-      "shortForecast": "Areas Of Fog",
+      "shortForecast": "Patchy Frost",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -252,7 +242,7 @@
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
-      "shortForecast": "Patchy Fog",
+      "shortForecast": "Patchy Frost",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -262,7 +252,7 @@
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
-      "shortForecast": "Patchy Fog",
+      "shortForecast": "Patchy Frost",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -281,6 +271,16 @@
       "temperature": 45,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
+      "windDirection": "N",
+      "shortForecast": "Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-22T11:00:00-04:00",
+      "temperature": 52,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
       "windDirection": "N",
       "shortForecast": "Sunny",
       "isDaytime": true,
