@@ -1,12 +1,12 @@
 {
   "periods": [
     {
-      "name": "Overnight",
+      "name": "Tonight",
       "temperature": 35,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
       "windDirection": "NW",
-      "shortForecast": "Patchy Frost",
+      "shortForecast": "Mostly Clear then Patchy Frost",
       "detailedForecast": "Patchy frost after 5am. Mostly clear, with a low around 35. Northwest wind around 1 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-10-21T23:00:00-04:00",
+      "temperature": 43,
+      "temperatureUnit": "F",
+      "windSpeed": "1 mph",
+      "windDirection": "NW",
+      "shortForecast": "Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-10-22T00:00:00-04:00",
       "temperature": 41,
@@ -271,16 +281,6 @@
       "temperature": 48,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
-      "windDirection": "N",
-      "shortForecast": "Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-10-22T23:00:00-04:00",
-      "temperature": 47,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
       "windDirection": "N",
       "shortForecast": "Clear",
       "isDaytime": false,
