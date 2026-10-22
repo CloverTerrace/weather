@@ -1,6 +1,51 @@
 {
-  "generatedAt": "2026-10-22T12:51:30.672432Z",
+  "generatedAt": "2026-10-22T12:56:32.741600Z",
   "watches": [],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "4a7015ef-ebc8-4fff-8da1-00e02b553d3f",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-10-22T12:47:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Today and tonight. No hazardous weather is expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Friday through Wednesday. No hazardous weather is expected at this time."
+        }
+      ],
+      "url": "https://api.weather.gov/products/4a7015ef-ebc8-4fff-8da1-00e02b553d3f"
+    },
+    {
+      "id": "d80a9fd4-234b-499c-97fa-75424baf7e1f",
+      "code": "NPW",
+      "type": "Non-Precipitation Warnings / Watches / Advisories",
+      "office": "KPBZ",
+      "issued": "2026-10-22T12:46:00+00:00",
+      "expires": null,
+      "location": "Tuscarawas-Carroll-Columbiana-Coshocton-Harrison-Jefferson OH",
+      "hazard": "URGENT - WEATHER MESSAGE OHZ039>041-048>050-057>059-068-069-PAZ020-021-029-031-073-075-",
+      "distanceMiles": null,
+      "headline": "Non-Precipitation Warnings / Watches / Advisories",
+      "summary": "URGENT - WEATHER MESSAGE OHZ039>041-048>050-057>059-068-069-PAZ020-021-029-031-073-075-",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 NPWPBZ URGENT - WEATHER MESSAGE 846 AM EDT Thu Oct 22 2026 OHZ039>041-048>050-057>059-068-069-PAZ020-021-029-031-073-075- WVZ001>004-012-021-509-510-221400- /O.EXP.KPBZ.FR.Y.0014.000000T0000Z-261022T1300Z/ Tuscarawas-Carroll-Columbiana-Coshocton-Harrison-Jefferson OH-"
+        }
+      ],
+      "url": "https://api.weather.gov/products/d80a9fd4-234b-499c-97fa-75424baf7e1f"
+    }
+  ]
 }
