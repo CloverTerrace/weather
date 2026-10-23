@@ -1,13 +1,13 @@
 {
   "periods": [
     {
-      "name": "Tonight",
+      "name": "Overnight",
       "temperature": 42,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "N",
-      "shortForecast": "Mostly Clear then Patchy Fog",
-      "detailedForecast": "Patchy fog after 1am. Mostly clear, with a low around 42. North wind around 2 mph.",
+      "shortForecast": "Mostly Clear",
+      "detailedForecast": "Mostly clear, with a low around 42. North wind around 2 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -15,21 +15,21 @@
       "name": "Friday",
       "temperature": 64,
       "temperatureUnit": "F",
-      "windSpeed": "0 to 3 mph",
+      "windSpeed": "0 to 5 mph",
       "windDirection": "NE",
-      "shortForecast": "Patchy Fog then Sunny",
-      "detailedForecast": "Patchy fog before 10am. Sunny, with a high near 64. Northeast wind 0 to 3 mph.",
+      "shortForecast": "Sunny",
+      "detailedForecast": "Sunny, with a high near 64. Northeast wind 0 to 5 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
     {
       "name": "Friday Night",
-      "temperature": 38,
+      "temperature": 37,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "E",
-      "shortForecast": "Clear then Patchy Fog",
-      "detailedForecast": "Patchy fog after 2am. Clear, with a low around 38. East wind around 2 mph.",
+      "shortForecast": "Clear",
+      "detailedForecast": "Clear, with a low around 37. East wind around 2 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -39,23 +39,13 @@
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "SE",
-      "shortForecast": "Patchy Fog then Sunny",
-      "detailedForecast": "Patchy fog before 10am. Sunny, with a high near 65. Southeast wind around 2 mph.",
+      "shortForecast": "Sunny",
+      "detailedForecast": "Sunny, with a high near 65. Southeast wind around 2 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-22T23:00:00-04:00",
-      "temperature": 49,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "N",
-      "shortForecast": "Mostly Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-10-23T00:00:00-04:00",
       "temperature": 47,
@@ -283,6 +273,16 @@
       "windSpeed": "2 mph",
       "windDirection": "E",
       "shortForecast": "Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-23T23:00:00-04:00",
+      "temperature": 46,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "E",
+      "shortForecast": "Mostly Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
