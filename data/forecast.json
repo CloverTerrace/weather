@@ -1,18 +1,7 @@
 {
   "periods": [
     {
-      "name": "Overnight",
-      "temperature": 41,
-      "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "NE",
-      "shortForecast": "Mostly Clear",
-      "detailedForecast": "Mostly clear, with a low around 41. Northeast wind around 1 mph.",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "name": "Friday",
+      "name": "Today",
       "temperature": 64,
       "temperatureUnit": "F",
       "windSpeed": "0 to 5 mph",
@@ -23,7 +12,7 @@
       "probabilityOfPrecipitation": 0
     },
     {
-      "name": "Friday Night",
+      "name": "Tonight",
       "temperature": 37,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
@@ -43,19 +32,20 @@
       "detailedForecast": "Sunny, with a high near 65. Southeast wind around 2 mph.",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Saturday Night",
+      "temperature": 35,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "E",
+      "shortForecast": "Mostly Clear",
+      "detailedForecast": "Mostly clear, with a low around 35. East wind around 2 mph.",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-10-23T05:00:00-04:00",
-      "temperature": 43,
-      "temperatureUnit": "F",
-      "windSpeed": "0 mph",
-      "windDirection": "",
-      "shortForecast": "Mostly Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-10-23T06:00:00-04:00",
       "temperature": 42,
@@ -279,6 +269,16 @@
     {
       "startTime": "2026-10-24T04:00:00-04:00",
       "temperature": 40,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "E",
+      "shortForecast": "Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-24T05:00:00-04:00",
+      "temperature": 38,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "E",
