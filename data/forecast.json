@@ -4,10 +4,10 @@
       "name": "Overnight",
       "temperature": 42,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
+      "windSpeed": "2 mph",
       "windDirection": "N",
       "shortForecast": "Mostly Clear",
-      "detailedForecast": "Mostly clear, with a low around 42. North wind around 1 mph.",
+      "detailedForecast": "Mostly clear, with a low around 42. North wind around 2 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -46,6 +46,16 @@
     }
   ],
   "hourly": [
+    {
+      "startTime": "2026-10-23T00:00:00-04:00",
+      "temperature": 47,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "N",
+      "shortForecast": "Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
     {
       "startTime": "2026-10-23T01:00:00-04:00",
       "temperature": 46,
@@ -269,16 +279,6 @@
     {
       "startTime": "2026-10-23T23:00:00-04:00",
       "temperature": 44,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "E",
-      "shortForecast": "Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-10-24T00:00:00-04:00",
-      "temperature": 43,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "E",
