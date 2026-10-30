@@ -1,26 +1,26 @@
 {
   "periods": [
     {
-      "name": "Today",
+      "name": "This Afternoon",
       "temperature": 65,
       "temperatureUnit": "F",
-      "windSpeed": "8 mph",
-      "windDirection": "NW",
+      "windSpeed": "3 to 8 mph",
+      "windDirection": "W",
       "shortForecast": "Sunny",
-      "detailedForecast": "Sunny, with a high near 65. Northwest wind around 8 mph.",
+      "detailedForecast": "Sunny, with a high near 65. West wind 3 to 8 mph.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 3
+      "probabilityOfPrecipitation": 0
     },
     {
       "name": "Tonight",
-      "temperature": 39,
+      "temperature": 40,
       "temperatureUnit": "F",
-      "windSpeed": "0 to 6 mph",
+      "windSpeed": "0 to 8 mph",
       "windDirection": "N",
-      "shortForecast": "Partly Cloudy then Patchy Fog",
-      "detailedForecast": "Patchy fog after 2am. Partly cloudy, with a low around 39. North wind 0 to 6 mph.",
+      "shortForecast": "Partly Cloudy then Areas Of Fog",
+      "detailedForecast": "Areas of fog after 2am. Partly cloudy, with a low around 40. North wind 0 to 8 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 0
+      "probabilityOfPrecipitation": 1
     },
     {
       "name": "Saturday",
@@ -28,80 +28,30 @@
       "temperatureUnit": "F",
       "windSpeed": "0 to 3 mph",
       "windDirection": "E",
-      "shortForecast": "Patchy Fog then Partly Sunny",
-      "detailedForecast": "Patchy fog before 10am. Partly sunny, with a high near 62. East wind 0 to 3 mph.",
+      "shortForecast": "Areas Of Fog then Partly Sunny",
+      "detailedForecast": "Areas of fog before 10am. Partly sunny, with a high near 62. East wind 0 to 3 mph.",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 0
+      "probabilityOfPrecipitation": 9
     },
     {
       "name": "Saturday Night",
-      "temperature": 47,
+      "temperature": 48,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "E",
-      "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a low around 47. East wind around 2 mph.",
+      "shortForecast": "Cloudy",
+      "detailedForecast": "Cloudy, with a low around 48. East wind around 2 mph.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 2
+      "probabilityOfPrecipitation": 7
     }
   ],
   "hourly": [
     {
-      "startTime": "2026-10-30T11:00:00-04:00",
-      "temperature": 58,
-      "temperatureUnit": "F",
-      "windSpeed": "10 mph",
-      "windDirection": "NW",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-10-30T12:00:00-04:00",
-      "temperature": 61,
-      "temperatureUnit": "F",
-      "windSpeed": "10 mph",
-      "windDirection": "NW",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-10-30T13:00:00-04:00",
-      "temperature": 63,
-      "temperatureUnit": "F",
-      "windSpeed": "10 mph",
-      "windDirection": "NW",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-10-30T14:00:00-04:00",
-      "temperature": 64,
-      "temperatureUnit": "F",
-      "windSpeed": "10 mph",
-      "windDirection": "NW",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-10-30T15:00:00-04:00",
-      "temperature": 64,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "NW",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
       "startTime": "2026-10-30T16:00:00-04:00",
       "temperature": 63,
       "temperatureUnit": "F",
-      "windSpeed": "7 mph",
-      "windDirection": "NW",
+      "windSpeed": "3 mph",
+      "windDirection": "SW",
       "shortForecast": "Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
@@ -110,7 +60,7 @@
       "startTime": "2026-10-30T17:00:00-04:00",
       "temperature": 62,
       "temperatureUnit": "F",
-      "windSpeed": "7 mph",
+      "windSpeed": "8 mph",
       "windDirection": "NW",
       "shortForecast": "Sunny",
       "isDaytime": true,
@@ -120,9 +70,9 @@
       "startTime": "2026-10-30T18:00:00-04:00",
       "temperature": 60,
       "temperatureUnit": "F",
-      "windSpeed": "6 mph",
+      "windSpeed": "8 mph",
       "windDirection": "N",
-      "shortForecast": "Mostly Clear",
+      "shortForecast": "Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
@@ -130,15 +80,25 @@
       "startTime": "2026-10-30T19:00:00-04:00",
       "temperature": 55,
       "temperatureUnit": "F",
-      "windSpeed": "6 mph",
+      "windSpeed": "7 mph",
       "windDirection": "N",
-      "shortForecast": "Partly Cloudy",
+      "shortForecast": "Mostly Clear",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
     },
     {
       "startTime": "2026-10-30T20:00:00-04:00",
       "temperature": 52,
+      "temperatureUnit": "F",
+      "windSpeed": "6 mph",
+      "windDirection": "N",
+      "shortForecast": "Mostly Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-30T21:00:00-04:00",
+      "temperature": 50,
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "N",
@@ -147,20 +107,10 @@
       "probabilityOfPrecipitation": 0
     },
     {
-      "startTime": "2026-10-30T21:00:00-04:00",
-      "temperature": 49,
+      "startTime": "2026-10-30T22:00:00-04:00",
+      "temperature": 48,
       "temperatureUnit": "F",
       "windSpeed": "3 mph",
-      "windDirection": "N",
-      "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-10-30T22:00:00-04:00",
-      "temperature": 47,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
       "windDirection": "N",
       "shortForecast": "Mostly Clear",
       "isDaytime": false,
@@ -170,7 +120,7 @@
       "startTime": "2026-10-30T23:00:00-04:00",
       "temperature": 46,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
+      "windSpeed": "2 mph",
       "windDirection": "N",
       "shortForecast": "Partly Cloudy",
       "isDaytime": false,
@@ -178,7 +128,7 @@
     },
     {
       "startTime": "2026-10-31T00:00:00-04:00",
-      "temperature": 44,
+      "temperature": 45,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
       "windDirection": "N",
@@ -188,7 +138,7 @@
     },
     {
       "startTime": "2026-10-31T01:00:00-04:00",
-      "temperature": 43,
+      "temperature": 44,
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
@@ -212,9 +162,9 @@
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
-      "shortForecast": "Patchy Fog",
+      "shortForecast": "Areas Of Fog",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 0
+      "probabilityOfPrecipitation": 1
     },
     {
       "startTime": "2026-10-31T04:00:00-04:00",
@@ -222,9 +172,9 @@
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
-      "shortForecast": "Patchy Fog",
+      "shortForecast": "Areas Of Fog",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 0
+      "probabilityOfPrecipitation": 1
     },
     {
       "startTime": "2026-10-31T05:00:00-04:00",
@@ -232,9 +182,9 @@
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
-      "shortForecast": "Patchy Fog",
+      "shortForecast": "Areas Of Fog",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 0
+      "probabilityOfPrecipitation": 1
     },
     {
       "startTime": "2026-10-31T06:00:00-04:00",
@@ -242,9 +192,9 @@
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
-      "shortForecast": "Patchy Fog",
+      "shortForecast": "Areas Of Fog",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 0
+      "probabilityOfPrecipitation": 1
     },
     {
       "startTime": "2026-10-31T07:00:00-04:00",
@@ -252,17 +202,17 @@
       "temperatureUnit": "F",
       "windSpeed": "0 mph",
       "windDirection": "",
-      "shortForecast": "Patchy Fog",
+      "shortForecast": "Areas Of Fog",
       "isDaytime": true,
-      "probabilityOfPrecipitation": 0
+      "probabilityOfPrecipitation": 1
     },
     {
       "startTime": "2026-10-31T08:00:00-04:00",
-      "temperature": 39,
+      "temperature": 40,
       "temperatureUnit": "F",
-      "windSpeed": "1 mph",
-      "windDirection": "NE",
-      "shortForecast": "Patchy Fog",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Areas Of Fog",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
@@ -271,20 +221,70 @@
       "temperature": 41,
       "temperatureUnit": "F",
       "windSpeed": "1 mph",
-      "windDirection": "NE",
-      "shortForecast": "Patchy Fog",
+      "windDirection": "E",
+      "shortForecast": "Areas Of Fog",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
     },
     {
       "startTime": "2026-10-31T10:00:00-04:00",
-      "temperature": 45,
+      "temperature": 46,
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "E",
       "shortForecast": "Partly Sunny",
       "isDaytime": true,
       "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-31T11:00:00-04:00",
+      "temperature": 51,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "E",
+      "shortForecast": "Partly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-31T12:00:00-04:00",
+      "temperature": 55,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "E",
+      "shortForecast": "Partly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-31T13:00:00-04:00",
+      "temperature": 58,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "E",
+      "shortForecast": "Mostly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-10-31T14:00:00-04:00",
+      "temperature": 60,
+      "temperatureUnit": "F",
+      "windSpeed": "2 mph",
+      "windDirection": "E",
+      "shortForecast": "Partly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 8
+    },
+    {
+      "startTime": "2026-10-31T15:00:00-04:00",
+      "temperature": 61,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "E",
+      "shortForecast": "Partly Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 9
     }
   ]
 }
