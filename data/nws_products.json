@@ -1,6 +1,51 @@
 {
-  "generatedAt": "2026-10-31T00:02:37.322355Z",
+  "generatedAt": "2026-10-31T05:31:28.461704Z",
   "watches": [],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "33c9e637-4351-49d6-b55d-a30b6f38158d",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-10-31T05:05:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": "Today and tonight. No hazardous weather is expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "Today and tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "Today and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Sunday through Friday. No hazardous weather is expected at this time."
+        }
+      ],
+      "url": "https://api.weather.gov/products/33c9e637-4351-49d6-b55d-a30b6f38158d"
+    },
+    {
+      "id": "d91c895a-b44e-4d90-8bbf-8e5f2dc150dd",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-10-31T05:05:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Already minimal rain chances have decreased further early next",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Already minimal rain chances have decreased further early next",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 105 AM EDT Sat Oct 31 2026 .WHAT HAS CHANGED... Already minimal rain chances have decreased further early next week. No other major changes were made to the latest forecast. &&"
+        }
+      ],
+      "url": "https://api.weather.gov/products/d91c895a-b44e-4d90-8bbf-8e5f2dc150dd"
+    }
+  ]
 }
