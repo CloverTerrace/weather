@@ -1,26 +1,15 @@
 {
   "periods": [
     {
-      "name": "This Afternoon",
-      "temperature": 44,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy",
-      "detailedForecast": "Mostly cloudy, with a high near 44. Northwest wind around 9 mph.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 14
-    },
-    {
       "name": "Tonight",
       "temperature": 32,
       "temperatureUnit": "F",
       "windSpeed": "2 to 7 mph",
       "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy then Slight Chance Snow Showers",
-      "detailedForecast": "A slight chance of snow showers after 5am. Mostly cloudy, with a low around 32. Northwest wind 2 to 7 mph. Chance of precipitation is 20%. Little or no snow accumulation expected.",
+      "shortForecast": "Chance Snow Showers",
+      "detailedForecast": "A slight chance of rain showers between 7pm and 8pm, then a chance of snow showers. Mostly cloudy, with a low around 32. Northwest wind 2 to 7 mph. Chance of precipitation is 30%. Little or no snow accumulation expected.",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 18
+      "probabilityOfPrecipitation": 28
     },
     {
       "name": "Saturday",
@@ -43,68 +32,29 @@
       "detailedForecast": "A chance of rain showers. Mostly cloudy, with a low around 36. West wind 6 to 13 mph, with gusts as high as 25 mph. Chance of precipitation is 40%. New rainfall amounts less than a tenth of an inch possible.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 36
+    },
+    {
+      "name": "Sunday",
+      "temperature": 48,
+      "temperatureUnit": "F",
+      "windSpeed": "8 mph",
+      "windDirection": "NW",
+      "shortForecast": "Chance Rain Showers",
+      "detailedForecast": "A chance of rain showers before 1pm. Mostly cloudy, with a high near 48. Northwest wind around 8 mph. Chance of precipitation is 50%. New rainfall amounts less than a tenth of an inch possible.",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 51
     }
   ],
   "hourly": [
     {
-      "startTime": "2026-11-13T13:00:00-05:00",
-      "temperature": 44,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 14
-    },
-    {
-      "startTime": "2026-11-13T14:00:00-05:00",
-      "temperature": 44,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 2
-    },
-    {
-      "startTime": "2026-11-13T15:00:00-05:00",
-      "temperature": 44,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 5
-    },
-    {
-      "startTime": "2026-11-13T16:00:00-05:00",
-      "temperature": 44,
-      "temperatureUnit": "F",
-      "windSpeed": "9 mph",
-      "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 4
-    },
-    {
-      "startTime": "2026-11-13T17:00:00-05:00",
-      "temperature": 43,
-      "temperatureUnit": "F",
-      "windSpeed": "8 mph",
-      "windDirection": "NW",
-      "shortForecast": "Partly Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 5
-    },
-    {
       "startTime": "2026-11-13T18:00:00-05:00",
-      "temperature": 42,
+      "temperature": 39,
       "temperatureUnit": "F",
       "windSpeed": "7 mph",
       "windDirection": "NW",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 6
+      "probabilityOfPrecipitation": 15
     },
     {
       "startTime": "2026-11-13T19:00:00-05:00",
@@ -112,9 +62,9 @@
       "temperatureUnit": "F",
       "windSpeed": "5 mph",
       "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy",
+      "shortForecast": "Slight Chance Rain Showers",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 3
+      "probabilityOfPrecipitation": 18
     },
     {
       "startTime": "2026-11-13T20:00:00-05:00",
@@ -124,7 +74,7 @@
       "windDirection": "NW",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 4
+      "probabilityOfPrecipitation": 15
     },
     {
       "startTime": "2026-11-13T21:00:00-05:00",
@@ -132,9 +82,9 @@
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy",
+      "shortForecast": "Cloudy",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 6
+      "probabilityOfPrecipitation": 8
     },
     {
       "startTime": "2026-11-13T22:00:00-05:00",
@@ -142,9 +92,9 @@
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "NW",
-      "shortForecast": "Mostly Cloudy",
+      "shortForecast": "Cloudy",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 7
+      "probabilityOfPrecipitation": 11
     },
     {
       "startTime": "2026-11-13T23:00:00-05:00",
@@ -152,9 +102,9 @@
       "temperatureUnit": "F",
       "windSpeed": "2 mph",
       "windDirection": "W",
-      "shortForecast": "Mostly Cloudy",
+      "shortForecast": "Chance Snow Showers",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 9
+      "probabilityOfPrecipitation": 28
     },
     {
       "startTime": "2026-11-14T00:00:00-05:00",
@@ -164,7 +114,7 @@
       "windDirection": "NW",
       "shortForecast": "Mostly Cloudy",
       "isDaytime": false,
-      "probabilityOfPrecipitation": 11
+      "probabilityOfPrecipitation": 10
     },
     {
       "startTime": "2026-11-14T01:00:00-05:00",
@@ -285,6 +235,56 @@
       "shortForecast": "Chance Rain Showers",
       "isDaytime": true,
       "probabilityOfPrecipitation": 49
+    },
+    {
+      "startTime": "2026-11-14T13:00:00-05:00",
+      "temperature": 43,
+      "temperatureUnit": "F",
+      "windSpeed": "13 mph",
+      "windDirection": "W",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 45
+    },
+    {
+      "startTime": "2026-11-14T14:00:00-05:00",
+      "temperature": 44,
+      "temperatureUnit": "F",
+      "windSpeed": "13 mph",
+      "windDirection": "W",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 42
+    },
+    {
+      "startTime": "2026-11-14T15:00:00-05:00",
+      "temperature": 45,
+      "temperatureUnit": "F",
+      "windSpeed": "13 mph",
+      "windDirection": "W",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 40
+    },
+    {
+      "startTime": "2026-11-14T16:00:00-05:00",
+      "temperature": 44,
+      "temperatureUnit": "F",
+      "windSpeed": "13 mph",
+      "windDirection": "W",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 38
+    },
+    {
+      "startTime": "2026-11-14T17:00:00-05:00",
+      "temperature": 44,
+      "temperatureUnit": "F",
+      "windSpeed": "13 mph",
+      "windDirection": "W",
+      "shortForecast": "Chance Rain Showers",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 36
     }
   ]
 }
