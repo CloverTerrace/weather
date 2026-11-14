@@ -1,6 +1,51 @@
 {
-  "generatedAt": "2026-11-14T10:54:56.482601Z",
+  "generatedAt": "2026-11-14T16:53:27.655676Z",
   "watches": [],
   "mesoscaleDiscussions": [],
-  "statements": []
+  "statements": [
+    {
+      "id": "c96f14b5-6af8-49a1-bda7-ab3af98cad7a",
+      "code": "HWO",
+      "type": "Hazardous Weather Outlook",
+      "office": "KPBZ",
+      "issued": "2026-11-14T16:34:00+00:00",
+      "expires": null,
+      "location": "Higher Elevations of Westmoreland-Higher Elevations of Fayette-Eastern Preston-Eastern Tucker",
+      "hazard": "This afternoon and tonight. No hazardous weather is expected at this time.",
+      "distanceMiles": null,
+      "headline": "Hazardous Weather Outlook",
+      "summary": "This afternoon and tonight. No hazardous weather is expected at this time.",
+      "details": [
+        {
+          "label": "Today's Hazards",
+          "text": "This afternoon and tonight. No hazardous weather is expected at this time."
+        },
+        {
+          "label": "Extended Outlook",
+          "text": "Sunday through Friday. No hazardous weather is expected at this time."
+        }
+      ],
+      "url": "https://api.weather.gov/products/c96f14b5-6af8-49a1-bda7-ab3af98cad7a"
+    },
+    {
+      "id": "1f8462a8-465c-498b-a327-81b369d698d0",
+      "code": "AFD",
+      "type": "Area Forecast Discussion",
+      "office": "KPBZ",
+      "issued": "2026-11-14T16:27:00+00:00",
+      "expires": null,
+      "location": "NWS Pittsburgh PA (PBZ) coverage area",
+      "hazard": ".WHAT HAS CHANGED... Higher confidence in lake-ehanced rain being the predominant",
+      "distanceMiles": null,
+      "headline": "Area Forecast Discussion",
+      "summary": ".WHAT HAS CHANGED... Higher confidence in lake-ehanced rain being the predominant",
+      "details": [
+        {
+          "label": "Product detail",
+          "text": "000 AFDPBZ Area Forecast Discussion 1127 AM EST Sat Nov 14 2026 .WHAT HAS CHANGED... Higher confidence in lake-ehanced rain being the predominant precipitation type for elevations below 2500 feet. &&"
+        }
+      ],
+      "url": "https://api.weather.gov/products/1f8462a8-465c-498b-a327-81b369d698d0"
+    }
+  ]
 }
