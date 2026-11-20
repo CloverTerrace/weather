@@ -1,17 +1,6 @@
 {
   "periods": [
     {
-      "name": "This Afternoon",
-      "temperature": 62,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "SW",
-      "shortForecast": "Sunny",
-      "detailedForecast": "Sunny, with a high near 62. Southwest wind around 2 mph.",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
       "name": "Tonight",
       "temperature": 36,
       "temperatureUnit": "F",
@@ -43,59 +32,20 @@
       "detailedForecast": "Areas of fog after 11pm. Mostly clear, with a low around 36. Northeast wind around 1 mph.",
       "isDaytime": false,
       "probabilityOfPrecipitation": 0
+    },
+    {
+      "name": "Saturday",
+      "temperature": 65,
+      "temperatureUnit": "F",
+      "windSpeed": "3 mph",
+      "windDirection": "SE",
+      "shortForecast": "Patchy Fog then Sunny",
+      "detailedForecast": "Patchy fog before 9am. Sunny, with a high near 65. Southeast wind around 3 mph.",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
     }
   ],
   "hourly": [
-    {
-      "startTime": "2026-11-19T16:00:00-05:00",
-      "temperature": 62,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "SW",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-11-19T17:00:00-05:00",
-      "temperature": 57,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "SW",
-      "shortForecast": "Sunny",
-      "isDaytime": true,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-11-19T18:00:00-05:00",
-      "temperature": 52,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "SW",
-      "shortForecast": "Mostly Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-11-19T19:00:00-05:00",
-      "temperature": 47,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "SW",
-      "shortForecast": "Mostly Clear",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
-    {
-      "startTime": "2026-11-19T20:00:00-05:00",
-      "temperature": 45,
-      "temperatureUnit": "F",
-      "windSpeed": "2 mph",
-      "windDirection": "SW",
-      "shortForecast": "Partly Cloudy",
-      "isDaytime": false,
-      "probabilityOfPrecipitation": 0
-    },
     {
       "startTime": "2026-11-19T21:00:00-05:00",
       "temperature": 43,
@@ -284,6 +234,56 @@
       "windDirection": "W",
       "shortForecast": "Sunny",
       "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-11-20T16:00:00-05:00",
+      "temperature": 61,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-11-20T17:00:00-05:00",
+      "temperature": 58,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Sunny",
+      "isDaytime": true,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-11-20T18:00:00-05:00",
+      "temperature": 54,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-11-20T19:00:00-05:00",
+      "temperature": 49,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Clear",
+      "isDaytime": false,
+      "probabilityOfPrecipitation": 0
+    },
+    {
+      "startTime": "2026-11-20T20:00:00-05:00",
+      "temperature": 47,
+      "temperatureUnit": "F",
+      "windSpeed": "0 mph",
+      "windDirection": "",
+      "shortForecast": "Clear",
+      "isDaytime": false,
       "probabilityOfPrecipitation": 0
     }
   ]
